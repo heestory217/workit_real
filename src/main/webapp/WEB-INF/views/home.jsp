@@ -10,6 +10,7 @@
 <body>
 <h1>
 	Hello world!  
+	내이름은 남은별
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
