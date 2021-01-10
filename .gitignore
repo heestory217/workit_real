@@ -3,6 +3,11 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse,windows
 
 ### Eclipse ###
+target/*
+MANIFEST.MF
+*.properties
+.classpath
+
 .metadata
 bin/
 tmp/
