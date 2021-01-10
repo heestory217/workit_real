@@ -13,6 +13,7 @@
 		하나둘셋넷 다섯
     나는 희정이야
     eunbi
+    내이름은 남은별
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
