@@ -8,7 +8,7 @@
                 <div class="col-lg-3">
                     <div class="footer-left">
                         <div class="footer-logo">
-                            <a href="#"><img src="<c:url value="/resources/img/footer-logo.png"/>" alt=""></a>
+                            <a href="#"><img src="<c:url value="/resources/img/footer_workit_logo.PNG"/>" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 28 Road 588 Seoul</li>

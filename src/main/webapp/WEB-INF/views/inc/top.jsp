@@ -77,7 +77,7 @@
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
                             <a href="<c:url value="/index.do"/>">
-                                <img src="<c:url value='/resources/img/logo.png'/>" alt="메인페이지">
+                                <img src="<c:url value='/resources/img/logo_workit.PNG'/>" alt="메인페이지">
                             </a>
                         </div>
                     </div>
