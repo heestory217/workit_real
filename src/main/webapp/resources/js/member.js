@@ -2,16 +2,15 @@
  * member.js
  */
  
-var contextPath="/herb";
+var contextPath="/users";
  
 $(function(){
-	$('#email2').change(function(){
+	$('#email3').change(function(){
 		if($(this).val()=='etc'){
-			$('#email3').val('');
-			$('#email3').css('visibility','visible');
-			$('#email3').focus();				
+			$('#email2').val('');
+			$('#email2').focus();				
 		}else{
-			$('#email3').css('visibility','hidden');				
+			$('#email2').val($(this).val());
 		}	
 	});
 	
