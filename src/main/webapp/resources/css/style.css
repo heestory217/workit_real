@@ -189,6 +189,11 @@ ol {
 	text-transform: uppercase;
 }
 
+button.site-btn.register-btn {
+    width: -webkit-fill-available;
+    margin-bottom: 40px;
+}
+
 .site-btn {
 	color: #ffffff;
 	background: #4C50BB;
