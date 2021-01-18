@@ -10,28 +10,11 @@
         new daum.Postcode({
             oncomplete: function(data) {
                 var addr = '';
-                var extraAddr = '';
 
                 if (data.userSelectedType === 'R') { // 도로명 주소
                     addr = data.roadAddress;
                 } else { // 지번주소
                     addr = data.jibunAddress;
-                }
-
-                if(data.userSelectedType === 'R'){
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    document.getElementById("extraAddress").value = extraAddr;
-                
-                } else {
-                    document.getElementById("extraAddress").value = '';
                 }
 
                 document.getElementById('zipcode').value = data.zonecode;
@@ -40,6 +23,40 @@
             }
         }).open();
     }
+</script>
+<script type="text/javascript">
+	$(function(){
+		$('#submit').click(function(){
+			if($('#username').val().length<1){
+				alert('이름을 입력하세요');
+				$('#username').focus();
+				event.preventDefault();
+			}else if(!validate_userid($('#userid').val())){
+				alert('아이디는 영문, 숫자, _만 가능합니다.');
+				$('#userid').focus();
+				event.preventDefault();				
+			}else if($('#pwd').val().length<1){
+				alert('비밀번호를 입력하세요');
+				$('#pwd').focus();
+				event.preventDefault();
+			}else if($('#pwd').val()!=$('#con-pwd').val()){
+				alert('비밀번호가 일치하지 않습니다.');
+				$('#con-pwd').focus();
+				event.preventDefault();
+			}else if(!validate_phone($('#hp2').val()) ||
+					!validate_phone($('#hp3').val())){
+				alert('전화번호는 숫자만 가능합니다.');
+				$('#hp2').focus();
+				event.preventDefault();				
+			}else if($('#chkId').val() !='Y'){
+				alert('아이디 중복확인하세요');
+				$('#btnChkId').focus();
+				event.preventDefault();
+			}
+		});
+		
+	});
+	
 </script>
     
 	<!-- Breadcrumb Section Begin -->
@@ -72,8 +89,7 @@
                             <div class="group-input">
                                 <label for="userid">아이디 *</label>
                                 <input type="text" id="userid" class="col-lg-8">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <input type="button" id="btnChkId" class="col-lg-3 site-btn" value="중복 확인">
+                                <input type="button" id="btnChkId" class="col-lg-3 site-btn margin_left" value="중복 확인">
                             </div>
                             <div class="group-input">
                                 <label for="pwd">비밀번호 *</label>
@@ -97,13 +113,26 @@
 					        	</select>
                             </div>
                             <div class="group-input">
+                                <label for="username">전화번호</label>
+                                <select name="hp1" id="hp1" class="col-lg-3 mystyle">
+						            <option value="010">010</option>
+						            <option value="011">011</option>
+						            <option value="016">016</option>
+						            <option value="017">017</option>
+						            <option value="018">018</option>
+						            <option value="019">019</option>
+					        	</select>
+					        	-&nbsp;
+                                <input type="text" id="hp2" class="col-lg-4">
+					        	&nbsp;-&nbsp;
+                                <input type="text" id="hp3" class="col-lg-4">
+                            </div>
+                            <div class="group-input">
                                 <label for="zipcode">주소</label>
                                 <input type="text" id="zipcode" placeholder="우편번호" class="col-lg-7">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<input type="button" onclick="execZipcode()" value="우편번호 찾기" class="col-lg-4 site-btn"><br><br>
+								<input type="button" onclick="execZipcode()" value="우편번호 찾기" class="col-lg-4 site-btn margin_left"><br><br>
 								<input type="text" id="address" placeholder="주소"><br><br>
 								<input type="text" id="detailAddress" placeholder="상세주소"><br><br>
-								<input type="text" id="extraAddress" placeholder="참고항목">
                             </div>
                             <div class="group-input">
                                 <label for="workkind">희망직무 / 경력 *</label>
@@ -139,7 +168,7 @@
 					        	</select>
                             </div>
                             
-                            <button type="submit" class="site-btn register-btn">REGISTER</button>
+                            <button type="submit" class="site-btn register-btn" id="submit">REGISTER</button>
                         </form>
                         <div class="switch-login">
                             <a href="./login.html" class="or-login">Or Login</a>

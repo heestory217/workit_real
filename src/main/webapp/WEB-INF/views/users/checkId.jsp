@@ -21,12 +21,9 @@
 </head>
 <body>
 	<h2>아이디 중복 검사</h2><br>
-	<form name="frmId" method="post" 
-		action="<c:url value='/users/checkId.do'/>">
+	<form name="frmId" method="post" action="<c:url value='/users/checkId.do'/>">
 		 
-		<input type="text" name="userid" id="userid" 
-		 title="아이디입력" value="${param.userid}">
-		 
+		<input type="text" name="userid" id="userid" title="아이디입력" value="${param.userid}">
 		<input type="submit"  id="submit" value="아이디 확인">
 		
 <%-- 		<c:if test="${result==EXIST_ID }">

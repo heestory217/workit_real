@@ -3,5 +3,7 @@
 .mystyle{
 	border: 1px solid #ebebeb;
     height: 50px;
-    width: 100%;
+}
+.margin_left{
+    margin-left: 41px;
 }
