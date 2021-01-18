@@ -4,4 +4,6 @@ public interface CorpDAO {
 
 	int insertCorp(CorpVO vo);
 
+	CorpVO selectCorp(int corpNo);
+
 }

@@ -13,4 +13,9 @@ public class CorpServiceImpl implements CorpService {
 		return corpDao.insertCorp(vo);
 	}
 
+	@Override
+	public CorpVO selectCorp(int corpNo) {
+		return corpDao.selectCorp(corpNo);
+	}
+
 }

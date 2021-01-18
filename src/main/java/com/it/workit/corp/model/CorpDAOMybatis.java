@@ -14,4 +14,9 @@ public class CorpDAOMybatis implements CorpDAO {
 	public int insertCorp(CorpVO vo) {
 		return sqlSession.insert(namespace+"insertCorp", vo);
 	}
+
+	@Override
+	public CorpVO selectCorp(int corpNo) {
+		return sqlSession.selectOne(namespace+"selectcorp", corpNo);
+	}
 }

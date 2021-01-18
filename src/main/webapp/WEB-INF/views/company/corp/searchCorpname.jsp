@@ -54,6 +54,7 @@
 			self.close();
 		}
     </script>
+    
 </head>
     <!-- Shopping Cart Section Begin -->
     <section class="shopping-cart spad">

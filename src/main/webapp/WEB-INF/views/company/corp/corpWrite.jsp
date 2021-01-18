@@ -74,10 +74,14 @@
 					$("#corpIntro").focus();
 					event.preventDefault();
 				}
-				
 			});
 		});
 </script>
+<style type="text/css">
+h2 {
+    margin-top: 40px;
+}
+</style>
 <div class="container">
     <form class="checkout-form" method="POST" enctype="multipart/form-data" name="corpfrm"
     		action="<c:url value='/company/corp/corpWrite.do'/>">

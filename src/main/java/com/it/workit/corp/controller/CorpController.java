@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.common.FileUploadUtil;
 import com.it.workit.corp.model.CorpService;
@@ -71,5 +72,16 @@ public class CorpController {
 	public String searchCorp() {
 		logger.info("기업명 검색 화면 보여주기");
 		return "company/corp/searchCorpname";
+	}
+	
+	
+	@RequestMapping("/corpDetail.do")
+	public String corpDetail(@RequestParam(defaultValue = "0") int corpNo, Model model) {
+		logger.info("기업 상세 정보 보기 corpNo={}",corpNo);
+		
+		CorpVO vo = corpService.selectCorp(corpNo);
+
+		model.addAttribute("coVo", vo);
+		return "company/corp/corpDetail";
 	}
 }
