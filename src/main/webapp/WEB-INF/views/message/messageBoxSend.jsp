@@ -3,12 +3,18 @@
 
 <%@ include file="messageTop.jsp"%>
 
-<!-- 받은쪽지함 부분 시작-->
+<!-- 제목 -->
+<div class="section-title">
+	<h2>보낸쪽지함</h2>
+</div>
+<!-- 제목 끝 -->
+
+<!-- 보낸쪽지함 부분 시작-->
 <div class="cart-table">
 	<table>
 		<thead>
 			<tr>
-				<th><input type="checkbox"></th>
+				<th><input type="checkbox" id="chkAll"></th>
 				<th>받는사람</th>
 				<th class="p-name">제목</th>
 				<th class="p-name">내용</th>
@@ -39,6 +45,19 @@
 		</tbody>
 	</table>
 </div>
-<!-- 받은쪽지함 부분 끝-->
+
+<!-- 버튼 시작 -->
+<div class="row">
+	<div class="col-lg-6"></div>
+	<div class="col-lg-6" align="right">
+		<div class="cart-buttons">
+			<a href="#"class="site-btn">보관</a>
+			<a href="#" class="site-btn">삭제</a>
+		</div>
+	</div>
+</div>
+<!-- 버튼 끝 -->
+
+<!-- 보낸쪽지함 부분 끝-->
 
 <%@ include file="messageBottom.jsp"%>

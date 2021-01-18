@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 
+<script src="<c:url value="/resources/js/check.js"/>" type="text/javascript"></script>
+ 
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
 	<div class="container">
@@ -16,22 +18,6 @@
 </div>
 <!-- Breadcrumb Section End -->
 
-<script type="text/javascript">
-$(function() {
-	$('.blog-catagory ul li a').click(function(){
-		$('.section-title h2').text(($(this).text()));
-	});
-});
-</script>
-
-<!-- 제목 -->
-<div class="product-tab">
-	<div class="section-title">
-		<h2>쪽지함</h2>
-	</div>
-</div>
-<!-- 제목 끝 -->
-
 <!-- Blog Section Begin -->
 <section class="blog-section spad">
 	<div class="container">
@@ -43,8 +29,8 @@ $(function() {
 						<ul>
 							<li><a href="<c:url value='/message/messageBox.do'/>">받은쪽지함</a></li>
 							<li><a href="<c:url value='/message/messageBoxSend.do'/>">보낸쪽지함</a></li>
-							<li><a href="#">나에게 쓴 쪽지함</a></li>
-							<li><a href="#">쪽지보관함</a></li>
+							<li><a href="<c:url value='/message/messageBox.do?type=toMe'/>">나에게 쓴 쪽지함</a></li>
+							<li><a href="<c:url value='/message/messageBox.do?type=important'/>">쪽지보관함</a></li>
 						</ul>
 						<hr>
 						<!-- 버튼 시작 -->
