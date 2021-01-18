@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 
-<script src="<c:url value="/resources/js/check.js"/>" type="text/javascript"></script>
- 
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
 	<div class="container">
