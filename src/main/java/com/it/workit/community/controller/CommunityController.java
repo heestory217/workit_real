@@ -32,5 +32,13 @@ public class CommunityController {
 		
 		return "indiv/community/qstnWrite";
 	}
+
+	//전체 질문 페이지 
+	@RequestMapping("/qstnList.do")
+	public String qstnList() {
+		logger.info("전체 질문 목록");
+		
+		return "indiv/community/qstnList";
+	}
 	
 }
