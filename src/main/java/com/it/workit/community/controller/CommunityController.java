@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/indiv/community")
@@ -23,6 +24,13 @@ public class CommunityController {
 		logger.info("나의 질문 페이지 화면");
 		
 		return "indiv/community/myQstn";
+	}
+	
+	@RequestMapping(value="/qstnWrite.do", method = RequestMethod.GET)
+	public String qstnWrite_get() {
+		logger.info("질문 등록 화면");
+		
+		return "indiv/community/qstnWrite";
 	}
 	
 }

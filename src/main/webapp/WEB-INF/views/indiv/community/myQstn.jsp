@@ -7,13 +7,24 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
-
+	.divCmty{
+		width: 1140px;
+		margin:0 auto;
+		margin-bottom:30px;
+	}
+	
+	section{
+		float:left; 
+		margin-left:30px;
+		margin-top:15px;
+	}
+	
 	.title{
 		font-size: 22px;
 	}
 	
 	.nullBoxWrap{
-		border:solid 1px black;
+		border:solid 1px silver;
 		padding :20px;
 		width:100%;
 		height:300px;
@@ -28,8 +39,8 @@
 	.btnBx{
 		margin: 0 auto;
 	    text-align: center;
-	    background-color: skyblue;
-	    border: solid 1px skyblue;
+	    background-color: #4c50bb;
+	    border: solid 1px #4c50bb;
 	    width: 140px;
 	    height:53px;
 	    padding-top: 15px;
@@ -41,8 +52,8 @@
 	}
 	
 	#leftNav{
-		border:1px solid gray;
-		width:200px;
+		border:1px solid silver;
+		width:213px;
 		height: 560px;
 	}
 	
@@ -55,7 +66,7 @@
 	} 
 	
 	li a:hover{
-		color:skyblue;
+		color:#4c50bb;
 	}
 	
 	#searchBoxNav > input[type=text] {
@@ -82,11 +93,11 @@
 	}
 	
 	em{
-		color:skyblue;
+		color:#4c50bb;
 	}
 	
 	#moreQuestBtn{
-		width:160px;
+		width:148px;
 		height:25px;
 		padding:3px;
 		margin:5px 0 5px 0;
@@ -94,6 +105,8 @@
 		border:1px solid white;
 		background-color:white;
 		border-radius: 80px / 80px;
+		text-align: center;
+    	padding-bottom: 25px;
 	}
 	
 	#moreQuestBtn a{
@@ -102,20 +115,20 @@
 	}
 	
 	.first-card{
-		background-color: skyblue;
+		background-color: #4c50bb;
 		color:white;
 	}
-	
-	a:hover{
-		color:white;
+	 
+	a{
+		color:#4c50bb;
 	}
-	
+
 	
 	#questionBtn{
 		width:90%;
 		height:50px;
 		margin:10px;
-		background-color: skyblue;
+		background-color: #4c50bb;
 		text-align: center;
 		padding-top: 15px;
 	}
@@ -128,7 +141,7 @@
 	}
 	
 	.myInfoSec{
-		border: 1px solid gray;
+		border: 1px solid silver;
 	    height: 150px;
 	    margin: 10px;
 	}
@@ -141,7 +154,7 @@
 	.popQstnCard{
 		padding-left:0px;
 		width:150px;
-		height:200px;
+		height:215px;
 		float:left;
 	}
 	
@@ -162,14 +175,14 @@
 <title>커뮤니티게시판</title>
 </head>
 <body>
-<div class="myQstn">
+<div class="divCmty">
 	<!-- asdie : 사이드 메뉴바 -->
 	<%@ include file="cmtyNavbar.jsp" %>	 	
 	
-	<section style="float:left; margin-left:30px;">
+	<section>
 		<div id="container">
 			<!-- 메인 : qnaMainWrap,  나의질문 : myQuestion 추가 -->
-			<div id="content" class="qnaMainWrap myQuestion devQnaMainLayer">
+			<div id="content" class="qnaMainWrap myQuestion">
 				<div class="top-title-wrap">
 					<p class="title">나의질문</p>
 				</div>
@@ -180,9 +193,9 @@
 							질문해보세요.
 						</p>
 						<div class="btnBx">
-							<a class="btnWrite qnaSpA devQuestionWrite"
+							<a class="btnWrite"
 								href
-				="<c:url value='/community/questRegister.do'/>">
+				="<c:url value='/indiv/community/qstnWrite.do'/>">
 							질문하기</a>
 						</div>
 					</div>
@@ -194,9 +207,9 @@
 				  <div class="col-sm-3 popQstnCard">
 				    <div class="card first-card">
 				      <div class="card-body">
-				        <h5 class="card-title">인기질문</h5>
-				        <p class="card-text">지금 가장 관심받는 커리어 질문은?</p>
-				        <span class="card-text">yyyy-mm-dd일 기준</span>
+				        <h5 class="card-title" style="color:white">인기질문</h5>
+				        <p class="card-text" style="color:white">지금 가장 관심받는 커리어 질문은?</p>
+				        <span class="card-text" style="color:white">yyyy-mm-dd일 기준</span>
 				        <div id="moreQuestBtn"><a href="#">인기질문 더보기</a></div>
 				      </div>
 				    </div>

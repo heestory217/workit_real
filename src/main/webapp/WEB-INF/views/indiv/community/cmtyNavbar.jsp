@@ -10,10 +10,10 @@
 				<a href="#">질문하기</a>
 			</div>
 			<div class="myInfoSec">
-				<a href="/User/Qstn/MainProfile" class="myInfo">
-					<dl id="userInfo">
-						<dt class="qnaSpA"><span class="nickname">닉네임</span></dt>
-					</dl>
+				<a href="#" class="myInfo">
+					<div id="userInfo">
+						<span class="nickname">닉네임</span>
+					</div>
 				</a>
 			</div>
 				<ul class="nav flex-column">
