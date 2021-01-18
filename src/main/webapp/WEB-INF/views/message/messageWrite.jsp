@@ -15,6 +15,11 @@ $(document).ready(function() {
 			$('#notice').css('display','none');
 		}
 	});
+	
+	$("#opt01").click(function(){
+        window.open("http://www.nias.go.kr/", 'child', 'width=390, height=390');
+	});
+
 });
 </script>
 
@@ -33,8 +38,7 @@ $(document).ready(function() {
 					</script>
 				</c:if>
 				<input type="checkbox" id="selfMsg"> 
-				<label for="selfMsg">나에게 쪽지 쓰기 <span class="checkmark"></span>
-				</label>
+				<label for="selfMsg">나에게 쪽지 쓰기 <span class="checkmark"></span></label>
 			</div>
 			<div class="col-lg-12"style="margin: 10px 0">
 				<p id="notice" style="font-size:16px;color:#4C50BB;">내게 쓴 쪽지는 내게쓴쪽지함에만 저장되며, 삭제하는 경우 외에 자동으로 영구 보관됩니다.</p>
@@ -60,4 +64,5 @@ $(document).ready(function() {
 		</form>
 	</div>
 </div>
+
 <%@ include file="messageBottom.jsp"%>
