@@ -41,6 +41,7 @@
     <script src="<c:url value="/resources/js/main.js"/>"></script>
     <script src="<c:url value="/resources/js/jquery-3.5.1.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/check.js"/>" type="text/javascript"></script>
+    <script src="https://kit.fontawesome.com/a86f09c0f4.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
