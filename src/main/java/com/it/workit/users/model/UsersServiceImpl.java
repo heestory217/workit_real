@@ -22,4 +22,10 @@ public class UsersServiceImpl implements UsersService{
 		return result;
 	}
 
+	@Override
+	public int insertUsers(UsersVO vo) {
+		int cnt=usersDao.insertUsers(vo);
+		return cnt;
+	}
+
 }
