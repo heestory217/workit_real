@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+.mystyle{
+	border: 1px solid #ebebeb;
+    height: 50px;
+}
+.margin_left{
+    margin-left: 41px;
+}
