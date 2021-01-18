@@ -19,7 +19,7 @@
 				<th class="p-name">제목</th>
 				<th class="p-name">내용</th>
 				<th>보낸날짜</th>
-				<th>받은날짜</th>
+				<th>열람여부</th>
 				<th>취소</th>
 			</tr>
 		</thead>
@@ -30,7 +30,7 @@
 				<td class="cart-title first-row">안녕하세요 제목1</td>
 				<td class="cart-title first-row">내용내용1</td>
 				<td class="qua-col first-row">2021-01-17</td>
-				<td class="qua-col first-row">2021-01-17</td>
+				<td class="qua-col first-row">열람</td>
 				<td class="close-td first-row"><i class="ti-close"></i></td>
 			</tr>
 			<tr>
@@ -39,7 +39,7 @@
 				<td class="cart-title">안녕하세요 제목1</td>
 				<td class="cart-title">내용내용2</td>
 				<td class="qua-col">2021-01-17</td>
-				<td class="qua-col">2021-01-21</td>
+				<td class="qua-col">미열람</td>
 				<td class="close-td"><i class="ti-close"></i></td>
 			</tr>
 		</tbody>
@@ -51,8 +51,8 @@
 	<div class="col-lg-6"></div>
 	<div class="col-lg-6" align="right">
 		<div class="cart-buttons">
-			<a href="#"class="site-btn">보관</a>
-			<a href="#" class="site-btn">삭제</a>
+			<a href="#" class="btn btn-primary" style="background:#4C50BB;">보관</a>
+			<a href="#" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 		</div>
 	</div>
 </div>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ include file="messageTop.jsp"%>
+
 
 <!-- 제목 -->
 <div class="section-title">
@@ -40,14 +40,14 @@
 			<tr>
 				<td class="close-td first-row"><input type="checkbox"></td>
 				<td class="qua-col first-row">회원1</td>
-				<td class="cart-title first-row">안녕하세요 제목1</td>
+				<td class="cart-title first-row"><a href="#">안녕하세요 제목1</a></td>
 				<td class="cart-title first-row">내용내용1</td>
 				<td class="qua-col first-row">2021-01-17</td>
 			</tr>
 			<tr>
 				<td><input type="checkbox"></td>
 				<td class="qua-col">회원2</td>
-				<td class="cart-title">안녕하세요 제목1</td>
+				<td class="cart-title"><a href="#">안녕하세요 제목2</a></td>
 				<td class="cart-title">내용내용2</td>
 				<td class="qua-col">2021-01-17</td>
 			</tr>
@@ -61,10 +61,10 @@
 	<div class="col-lg-6" align="right">
 		<div class="cart-buttons">
 			<c:if test="${empty param.type}">
-				<a href="#"class="site-btn">보관</a>
-				<a href="#" class="site-btn" id="reply">답장</a>
+				<a href="#" class="btn btn-primary" style="background:#4C50BB;">보관</a>
+				<a href="#" class="btn btn-primary" style="background:#4C50BB;" id="reply">답장</a>
 			</c:if>
-			<a href="#" class="site-btn">삭제</a>
+			<a href="#" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 		</div>
 	</div>
 </div>

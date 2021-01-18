@@ -108,6 +108,20 @@ ol {
 	margin: 0;
 }
 
+/*------희정 추가 시작-------*/
+body a{
+	color:black;
+}
+
+body a:hover,
+body a:focus {
+	text-decoration: none;
+	outline: none;
+	color: #4C50BB;
+}
+
+/*------희정 추가 끝-------*/
+
 /*---------------------
   Helper CSS
 -----------------------*/
