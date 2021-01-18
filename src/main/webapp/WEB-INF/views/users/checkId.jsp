@@ -26,13 +26,13 @@
 		<input type="text" name="userid" id="userid" title="아이디입력" value="${param.userid}">
 		<input type="submit"  id="submit" value="아이디 확인">
 		
-<%-- 		<c:if test="${result==EXIST_ID }">
+ 		<c:if test="${result==EXIST_ID }">
 			<p>이미 등록된 아이디입니다. 다른 아이디를 입력하세요.</p>
 		</c:if>
 		<c:if test="${result==NON_EXIST_ID }">
 			<input type="button" value="사용하기" id="btUse">
 			<p>사용가능한 아이디입니다.[사용하기]버튼을 클릭하세요</p>
-		</c:if> --%>
+		</c:if>
 	</form>
 </body>
 </html>
