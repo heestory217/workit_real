@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mybatis.mapper.users">
+<mapper namespace="config.mybatis.mapper.oracle.users">
 	<select id="dupCheck" parameterType="string" resultType="int">
-		select count(*) from users where userId=#{userId}
+		select count(*) from users where user_id=#{userId}
 	</select>
 </mapper>
 

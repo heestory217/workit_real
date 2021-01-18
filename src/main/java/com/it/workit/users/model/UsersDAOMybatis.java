@@ -2,7 +2,9 @@ package com.it.workit.users.model;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class UsersDAOMybatis implements UsersDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
