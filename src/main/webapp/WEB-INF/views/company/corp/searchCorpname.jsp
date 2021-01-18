@@ -41,7 +41,7 @@
 	    $(function(){
 			$('#submit').click(function(){
 				if($('#searchName').val().length<1){
-					alert('법인명을 입력하세요');
+					alert('검색하실 기업의 법인명을 입력하세요');
 					$('#searchName').focus();
 					event.preventDefault();
 				}
@@ -65,7 +65,7 @@
                             <div class="discount-coupon">
                                 <h6>기업명 검색</h6>
                                 <form action="#" class="coupon-form">
-                                    <input type="text" placeholder="검색하실 기업 법인명을 입력하세요" value=${param.corpName } id='searchName'>
+                                    <input type="text" placeholder="검색하실 기업 법인명을 입력하세요" value="${param.corpName }" id='searchName'>
                                     <button type="submit" class="site-btn coupon-btn" id="submit">검색</button>
                                 </form>
                             </div>
