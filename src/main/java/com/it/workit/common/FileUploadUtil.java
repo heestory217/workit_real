@@ -22,9 +22,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Component
 public class FileUploadUtil {
-	//자료실에서 사용하는지, 상품 등록에서 사용하는지 구분하는 상수
-	public static final int PDS_TYPE=1;  //자료실에서 사용
-	public static final int IMAGE_TYPE=2; //상품등록에서 사용
+	//이력서 업로드에 사용하는지, 이미지 등록에 사용하는지 구분하는 상수
+	public static final int PDS_TYPE=1;  //이력서(파일) 업로드 시 사용
+	public static final int IMAGE_TYPE=2; //이미지 등록에 사용
 	
 	
 	@Resource(name="fileUploadProperties")

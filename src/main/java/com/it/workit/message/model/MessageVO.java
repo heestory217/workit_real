@@ -1,6 +1,6 @@
 package com.it.workit.message.model;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class MessageVO {
 	private int messageNo;

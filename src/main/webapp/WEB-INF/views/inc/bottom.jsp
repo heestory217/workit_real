@@ -13,7 +13,7 @@
                         <ul>
                             <li>Address: 28 Road 588 Seoul</li>
                             <li>Phone: +82 02.1422.4527</li>
-                            <li>Email: WorkIt@work.it</li>
+                            <li>Email: workit2022@gmail.com</li>
                         </ul>
                     </div>
                 </div>
@@ -34,18 +34,18 @@
                             <li><a href="#">회원 정보 수정</a></li>
                             <li><a href="#">장바구니</a></li>
                             <li><a href="#">구매 내역 조회</a></li>
-                            <li><a href="#">쪽지함</a></li>
+                            <li><a href="<c:url value='/message/messageBox.do'/>">쪽지함</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-2">
                     <div class="footer-widget">
-                        <h5>회사 소개</h5>
+                        <h5>사이트 소개</h5>
                         <ul>
                             <li><a href="#">회사 소개</a></li>
-                            <li><a href="#">개인정보이용방침</a></li>
-                            <li><a href="#">구매 내역 조회</a></li>
-                            <li><a href="#">뭐하지</a></li>
+                            <li><a href="#">이용약관</a></li>
+                            <li><a href="#">개인정보처리방침</a></li>
+                            <li><a href="#">서비스 소개</a></li>
                         </ul>
                     </div>
                 </div>
