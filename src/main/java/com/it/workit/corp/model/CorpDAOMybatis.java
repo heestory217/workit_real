@@ -18,13 +18,6 @@ public class CorpDAOMybatis implements CorpDAO {
 	public int insertImg(CorpimgVO vo) {
 		return sqlSession.update(namespace+"insertImg", vo);
 	}
-
-	
-	
-	
-	
-	
-	
 	
 	public CorpVO selectCorp(int corpNo) {
 		return sqlSession.selectOne(namespace+"selectcorp", corpNo);

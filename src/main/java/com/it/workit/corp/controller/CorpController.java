@@ -44,7 +44,7 @@ public class CorpController {
 		String logoURL="";
 		List<String> corpURLlist = new ArrayList<String>();
 		try {
-			List<Map<String, Object>> fileList = FileUtil.fileUplaod(request, FileUploadUtil.PDS_TYPE);
+			List<Map<String, Object>> fileList = FileUtil.fileUplaod(request, FileUploadUtil.IMAGE_TYPE);
 			Map<String, Object> firstMap = fileList.get(0);
 			logoURL = (String)firstMap.get("fileName");
 			logger.info("로고 logoURL={}",logoURL);
@@ -99,9 +99,9 @@ public class CorpController {
 	public String corpDetail(@RequestParam(defaultValue = "0") int corpNo, Model model) {
 		logger.info("기업 상세 정보 보기 corpNo={}",corpNo);
 		
-		CorpVO vo = corpService.selectCorp(corpNo);
+		//CorpVO vo = corpService.selectCorp(corpNo);
 
-		model.addAttribute("coVo", vo);
+		//model.addAttribute("coVo", vo);
 		return "company/corp/corpDetail";
 	}
 }

@@ -9,11 +9,12 @@
             <div class="col-lg-12">
                 <div class="blog-details-inner">
                     <div class="blog-detail-title">
-                        <h2>The Personality Trait That Makes People Happier</h2>
-                        <p>travel <span>- May 19, 2019</span></p>
+                    	<img src="<c:url value='/pds_upload/fastcampuslogo_20210118163212484.jpg'/>">
+                        <h2>패스트 캠퍼스</h2>
+                        <p>교육<span> - 2019-05-19</span></p>
                     </div>
                     <div class="blog-large-pic">
-                        <img src="img/blog/blog-detail.jpg" alt="">
+                        <img src="<c:url value='/resources/img/blog/blog-detail.jpg'/>">
                     </div>
                     <div class="blog-more">
                         <div class="row">

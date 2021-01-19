@@ -98,7 +98,7 @@ h2 {
 					<h2>기업 	등록</h2>
 				</div>
                 <div class="row">
-                        <input type="hidden" name="userNo" value="${sessionScope.userNo}">
+                        <input type="text" name="userNo" value="${sessionScope.userNo}">
              	   <div class="col-lg-12">
                         <label for="corpName">법인명<span>*</span></label>
                         <input type="text" id="corpName" name="corpName">
