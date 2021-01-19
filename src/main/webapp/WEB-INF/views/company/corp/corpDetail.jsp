@@ -3,6 +3,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../../inc/top.jsp"%>
 <!-- 기업 상세 Section Begin -->
+<style type="text/css">
+.blog-details-inner .blog-quote p:before {
+	display: none
+}
+.blog-details-inner .blog-quote p span{
+	font-size: 20px;
+}
+
+.card-text {
+ margin-bottom: 35px;
+}
+   
+</style>
 <section class="blog-details spad">
     <div class="container">
         <div class="row">
@@ -16,64 +29,90 @@
                     <div class="blog-large-pic">
                         <img src="<c:url value='/resources/img/blog/blog-detail.jpg'/>">
                     </div>
+                    <div class="blog-detail-desc">
+                        <p>
+                        </p>
+                    </div>
+	                    <div class="blog-quote">
+	                        <p style="font-size: 2.2em;text-align: center;">
+	                        '패스트 캠퍼스'<span>의  1인당 평균연봉은 </span> 2955 만원, 
+	                        <span>기업 근로자 수는</span> 총 167명
+	                        <span>입니다.</span>
+	                        <c:if test="">
+	                        	<span>의 </span>중소기업<span>입니다.</span>
+	                        </c:if>
+	                        </p>
+	                    </div>
                     <div class="blog-more">
                         <div class="row">
                             <div class="col-sm-4">
-                                <img src="img/blog/blog-detail-1.jpg" alt="">
+                                <img src="<c:url value='/resources/img/blog/blog-detail-1.jpg'/>" alt="">
                             </div>
                             <div class="col-sm-4">
-                                <img src="img/blog/blog-detail-2.jpg" alt="">
+                                <img src="<c:url value='/resources/img/blog/blog-detail-2.jpg'/>" alt="">
                             </div>
                             <div class="col-sm-4">
-                                <img src="img/blog/blog-detail-3.jpg" alt="">
+                                <img src="<c:url value='/resources/img/blog/blog-detail-3.jpg'/>" alt="">
                             </div>
                         </div>
                     </div>
                     <div class="blog-detail-desc">
-                        <p>psum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor sit
-                            amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.
+                        <p>패스트캠퍼스는 교육을 통해 여러분의 인생을 바꿉니다. 누구나 노력하면 원하는 일, 더 나은 커리어를 추구할 수 있도록 돕습니다.
                         </p>
                     </div>
-                    <div class="blog-quote">
-                        <p>“ Technology is nothing. What's important is that you have a faith in people, that
-                            they're basically good and smart, and if you give them tools, they'll do wonderful
-                            things with them.” <span>- Steven Jobs</span></p>
-                    </div>
-                    <p>Sum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-                        et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                        nisi ut aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor sit amet,
-                        consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.</p>
                     <div class="tag-share">
                         <div class="details-tag">
                             <ul>
                                 <li><i class="fa fa-tags"></i></li>
-                                <li>Travel</li>
-                                <li>Beauty</li>
-                                <li>Fashion</li>
+                                <li>www.fastcampus.co.kr</li>
+                                <li>서울시 강남구 강남대로 364</li>
+                                <li>02-501-9396</li>
                             </ul>
                         </div>
                     </div>
-					<!-- 채용중인 포지션 -->
+					<!-- 채용중인 포지션 인클루드할거임 -->
                     <div class="posted-by">
-                        <div class="pb-pic">
-                            <img src="img/blog/post-by.png" alt="">
-                        </div>
+	                    <div class="pb-pic">
+	                    	<img src="<c:url value='/pds_upload/fastcampuslogo_20210118163212484.jpg'/>" style="width: 60px;">
+	                   	</div>
                         <div class="pb-text">
                             <a href="#">
-                                <h5>Shane Lynch</h5>
+                                <h5>프론트엔드 개발자 채용중</h5>
                             </a>
-                            <p>Aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                                velit esse cillum bore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                amodo</p>
+                            <p>
+                           		연봉 : 4500만원 &nbsp;&nbsp;&nbsp;
+                            	언어 : JavaScript, React &nbsp;&nbsp;&nbsp;
+                            	근무지 : 서울시 강남구
+                            </p>
                         </div>
                     </div>
-					<!-- 채용중인 포지션 -->
+                    <hr>
+					<!-- 채용중인 포지션 끝 -->
+					<!-- 기업 리뷰 리스트시작 -->
+			                  <div class="col-md-12 mb-3 mb-md-0" style="padding-left: 0px; padding-right: 0px;">
+			                    <div class="card h-100">
+			                      <div class="card-body" style="padding: 3.3rem;">
+			                        <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 30px;">
+			                          <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/gallery/user-3.png" alt="" />
+			                            <div class="flex-1 ms-3">
+			                              <h4 class="mb-0 fs--1 text-1000 fw-medium">커리어에 큰 욕심이 없다면 행복하게 다닐 수 있을 것 같았던 곳</h6>
+			                              <p class="fs--2 fw-normal mb-0">2020-02-04</p>
+			                            </div>
+			                          </div>
+			                          <div class="d-flex align-items-center"><span class="text-900 me-3">4.8</span><svg class="bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FEA250" viewBox="0 0 16 16">
+			                              <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"> </path>
+			                            </svg></div>
+			                        </div>
+			                        <h6>장점</h6>
+			                        <p class="card-text pt-3">코로나바이러스 관련하여 위생 및 직원 건강관리에 신경을 많이 씀. 영업부서는 업무성과에 따라 급여의 인상폭이 높음.</p>
+			                        <h6>단점</h6>
+			                        <p class="card-text pt-3" >영업부서외의 타부서 지원이 다소 부족함, 영업부서는 영업에 대한 스트레스가 있음.</p>
+			                        <h6>경영진에게 바라는 점</h6>
+			                        <p class="card-text pt-3">코로나19관련 시대에 다양한 광고상품 개발에 더 투자 부탁드리고, 지금과 마찬가지로 앞으로도 직원 건강과 위생관리에 신경써주시길 바랍니다.</p>
+			                      </div>
+			                    </div>
+			                  </div>
+					<!-- 기업 리뷰 끝 -->
                 </div>
             </div>
         </div>
@@ -81,6 +120,4 @@
 </section>
 <!-- 기업 상세 Section End -->
 
-<!-- 기업 리뷰 시작 -->
-<!-- 기업 리뷰 끝 -->
 <%@ include file="../../inc/bottom.jsp"%>
