@@ -2,10 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mybatis.mapper.faq">
-	<select id="">
-	
+<mapper namespace="config.mybatis.mapper.oracle.faq">
+	<select id="faqselectAll" resultType="FaqVo">
+		select * from faq order by faq_no desc
 	</select>
+	
+	<insert id="faqinsert" parameterType="FaqVo">
+		<selectKey keyProperty="faqNo" resultType="int" order="BEFORE">
+			select FAQ_SEQ.nextval from dual
+		</selectKey>
+		insert into faq(FAQ_NO,MANAGER_NO,FAQ_TITLE,FAQ_ABOUT)
+		values(#{faqNo},#{managerNo},#{faqTitle},#{faqAbout})
+	</insert>
 </mapper>
 
 
