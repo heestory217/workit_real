@@ -6,4 +6,6 @@ public interface CorpDAO {
 
 	CorpVO selectCorp(int corpNo);
 
+	int insertImg(CorpimgVO vo);
+
 }

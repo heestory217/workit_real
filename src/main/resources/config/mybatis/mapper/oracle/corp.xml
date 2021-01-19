@@ -4,9 +4,9 @@
 
 <mapper namespace="com.mybatis.mapper.corp">
 	<insert id="insertCorp" parameterType="corpVo">
-	<selectKey keyProperty="corpNo" resultType="int" order="BEFORE">
-		select corp_seq.nextval from dual
-	</selectKey>
+		<selectKey keyProperty="corpNo" resultType="int" order="BEFORE">
+			select corp_seq.nextval from dual
+		</selectKey>
 		insert into CORP(CORP_NO, USER_NO, CORP_NAME, CORP_INTRO, CORP_IMGURL, 
                     CORP_AVRPAY, CORP_KIND, CORP_PNUMBER, CORP_HEADNAME, CORP_ZIPCODE, 
                     CORP_ADDRESS1, COL_ADDRESS2, CORP_CORPADDNUMBER, CORP_INDUSTRY, CORP_STARTDATE, 
@@ -14,13 +14,12 @@
 		values(#{corpNo}, #{userNo}, #{corpName}, #{corpIntro},#{corpImgurl},#{corpAvrpay},
         #{corpKind},#{corpPnumber},#{corpHeadname},#{corpZipcode},#{corpAddress1},#{corpAddress2},#{corpCorpaddnumber},#{corpIndustry},#{corpStardate},#{corpWebaddress},#{corpTel},0)
 	</insert>
+	
+	<update id="insertImg" parameterType="corpimgVO">
+			insert into corpImg(CORPIMG_NO,CORP_NO,CORPIMG_URL)
+			values(corpimg_seq.nextval, #{corpNo}, #{corpimgUrl})
+	</update>
 </mapper>
-
-
-
-
-
-
 
 
 
