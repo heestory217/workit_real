@@ -93,8 +93,11 @@
                     </div>
 					<!-- 채용중인 포지션 끝 -->
                     <hr>
-					<!-- 기업 리뷰 리스트시작 -->
-			                  <div class="col-md-12 mb-3 mb-md-0" style="padding-left: 0px; padding-right: 0px;">
+					<!-- 기업 리뷰 리스트 인클루드 할거임 -->
+					<c:import url="">
+						
+					</c:import>
+			                 <!--  <div class="col-md-12 mb-3 mb-md-0" style="padding-left: 0px; padding-right: 0px;">
 			                    <div class="card h-100">
 			                      <div class="card-body" style="padding: 3.3rem;">
 			                        <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 30px;">
@@ -117,6 +120,7 @@
 			                      </div>
 			                    </div>
 			                  </div>
+			                   -->
 					<!-- 기업 리뷰 끝 -->
                 </div>
             </div>
