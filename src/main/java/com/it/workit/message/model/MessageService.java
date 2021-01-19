@@ -1,5 +1,8 @@
 package com.it.workit.message.model;
 
-public interface MessageService {
+import java.util.List;
 
+public interface MessageService {
+	int insertMessage(MessageVO vo);
+	List<MessageVO> selectSentMessage(int userNo);
 }

@@ -16,7 +16,7 @@
 							function() {
 								if ($('#selfMsg').is(':checked')) {
 									$('.col-lg-6').find('input[name=userId]')
-											.attr('placeholder', '내아이디!');
+											.attr('placeholder', '1');
 									$('#notice').css('display', 'block');
 								} else {
 									$('.col-lg-6').find('input[name=userId]')

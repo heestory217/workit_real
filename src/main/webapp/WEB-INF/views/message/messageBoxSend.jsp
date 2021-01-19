@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="messageTop.jsp"%>
+<style>
+	.cart-table table tr td{
+		padding: 14px;
+	}
+</style>
 
 <!-- 제목 -->
 <div class="section-title">
@@ -17,31 +22,31 @@
 				<th><input type="checkbox" id="chkAll"></th>
 				<th>받는사람</th>
 				<th class="p-name">제목</th>
-				<th class="p-name">내용</th>
+				<!-- <th class="p-name">내용</th> -->
 				<th>보낸날짜</th>
 				<th>열람여부</th>
 				<th>취소</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td class="close-td first-row"><input type="checkbox"></td>
-				<td class="qua-col first-row">회원1</td>
-				<td class="cart-title first-row">안녕하세요 제목1</td>
-				<td class="cart-title first-row">내용내용1</td>
-				<td class="qua-col first-row">2021-01-17</td>
-				<td class="qua-col first-row">열람</td>
-				<td class="close-td first-row"><i class="ti-close"></i></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"></td>
-				<td class="qua-col">회원2</td>
-				<td class="cart-title">안녕하세요 제목1</td>
-				<td class="cart-title">내용내용2</td>
-				<td class="qua-col">2021-01-17</td>
-				<td class="qua-col">미열람</td>
-				<td class="close-td"><i class="ti-close"></i></td>
-			</tr>
+			<c:if test="${empty list}">
+				<tr>
+					<td colspan="7" class="cart-title first-row">쪽지가 없습니다.</td>
+				</tr>
+			</c:if>
+			<c:if test="${!empty list}">
+				<c:forEach var="vo" items="${list}">
+					<tr>
+						<td><input type="checkbox"></td>
+						<td>받는사람id</td>
+						<td align="left">${vo.messageTitle}</td>
+						<%-- <td>${vo.messageContent}</td> --%>
+						<td><fmt:formatDate value="${vo.messageRegdate}" pattern="yyyy-MM-dd" /></td>
+						<td>열람</td>
+						<td><i class="ti-close"></i></td>
+					</tr>
+				</c:forEach>
+			</c:if>
 		</tbody>
 	</table>
 </div>
