@@ -17,20 +17,13 @@
 	section{
 		float:left; 
 		margin-left:30px;
-		margin-top:15px;
+		margin-top:40px;
 	}
 	
 	.title{
 		font-size: 22px;
 	}
 	
-	.nullBoxWrap{
-		border:solid 1px silver;
-		padding :20px;
-		height:300px;
-		width:100%;
-		
-	}	
 	
 	.msgBx{
 		margin: 80px 0 30px 0;
@@ -52,45 +45,9 @@
 		text-decoration: none;
 	}
 	
-	#leftNav{
-		border:1px solid silver;
-		width:213px;
-		height: 560px;
-	}
-	
-	
-	li a{
-		vertical-align:center;
-		text-decoration: none;
-		color:black;
-		margin: 0 10px;
-	} 
-	
-	li a:hover{
-		color:#4c50bb;
-	}
-	
-	#searchBoxNav > input[type=text] {
-	    width: 90%;
-	    margin: 10px;
-	}
 	
 	#content{
 		width:800px;
-	}
-	
-	#top{
-		height:200px;
-	}
-	
-	li #searchQuest{
-		width: 95%;
-	    height: 45px;
-	    margin: 5px 5px 5px 5px;
-	}
-	
-	#searchBoxNav hr{
-		margin-top:0px;
 	}
 	
 	em{
@@ -125,38 +82,6 @@
 	.first-card{
 		background-color: #4c50bb;
 		color:white;
-	}
-	
-	a:hover{
-		color:#4c50bb;
-	}
-	
-	
-	#questionBtn{
-		width:90%;
-		height:50px;
-		margin:10px;
-		background-color: #4c50bb;
-		text-align: center;
-		padding-top: 15px;
-	}
-	
-	#questionBtn a{
-		color:white;
-		text-decoration: none;
-		display: block;
-		
-	}
-	
-	.myInfoSec{
-		border: 1px solid silver;
-	    height: 150px;
-	    margin: 10px;
-	}
-	
-	#userInfo{
-		text-align: center;
-	    padding-top: 55px;
 	}
 	
 	.writeBoxWrap{
@@ -327,34 +252,34 @@
 	<!-- asdie : 사이드 메뉴바 -->		
 	<%@ include file="cmtyNavbar.jsp" %>		
 	
+	<!-- 질문 등록 -->
 	<section style="float:left; margin-left:30px;">
 		<div id="container">
-			<!-- 메인 : qnaMainWrap,  나의질문 : myQuestion 추가 -->
-			<div id="content" class="qnaMainWrap myQuestion">
+			<div id="content" class="QuestRegister">
 				<div class="top-title-wrap">
 					<p class="title">어떤 질문을 하시겠어요?</p>
 				</div>
 				
-<!-- 직무, 기업선택 -->
-<article>
-	<div class="checkListArea">
-	    <div class="checkboxCommWrap row" >
-	        <div class="col-sm-4" id="chk">
-	            <input type="checkbox">
-	            <label for="job" >직무명</label><br>
-	            <input type="button" id="open">
-	        </div>
-	        <div class="col-sm-4" id="chk">
-	            <input type="checkbox">
-	            <label for="company">기업명</label>
-	            <input type="button" id="open" >
-	        </div>
-	    </div>
-	    <div id="c">
-	    
-	    </div>
-	</div>
-</article>
+				<!-- 직무, 기업선택 -->
+				<article>
+					<div class="checkListArea">
+					    <div class="checkboxCommWrap row" >
+					        <div class="col-sm-4" id="chk">
+					            <input type="checkbox">
+					            <label for="job" >직무명</label><br>
+					            <input type="button" id="open">
+					        </div>
+					        <div class="col-sm-4" id="chk">
+					            <input type="checkbox">
+					            <label for="company">기업명</label>
+					            <input type="button" id="open" >
+					        </div>
+					    </div>
+					    <div id="c">
+					    
+					    </div>
+					</div>
+				</article>
 				
 				
 				<!-- 질문글 쓰기 -->

@@ -16,7 +16,7 @@
 	section{
 		float:left; 
 		margin-left:30px;
-		margin-top:15px;
+		margin-top:40px;
 	}
 	
 	.title{
@@ -51,45 +51,12 @@
 		text-decoration: none;
 	}
 	
-	#leftNav{
-		border:1px solid silver;
-		width:213px;
-		height: 560px;
-	}
-	
-	
-	li a{
-		vertical-align:center;
-		text-decoration: none;
-		color:black;
-		margin: 0 10px;
-	} 
-	
-	li a:hover{
-		color:#4c50bb;
-	}
-	
-	#searchBoxNav > input[type=text] {
-	    width: 90%;
-	    margin: 10px;
+	.btnWrite:hover{
+		color:white;
 	}
 	
 	#content{
 		width:800px;
-	}
-	
-	#top{
-		height:200px;
-	}
-	
-	li #searchQuest{
-		width: 95%;
-	    height: 45px;
-	    margin: 5px 5px 5px 5px;
-	}
-	
-	#searchBoxNav hr{
-		margin-top:0px;
 	}
 	
 	em{
@@ -122,34 +89,6 @@
 	a{
 		color:#4c50bb;
 	}
-
-	
-	#questionBtn{
-		width:90%;
-		height:50px;
-		margin:10px;
-		background-color: #4c50bb;
-		text-align: center;
-		padding-top: 15px;
-	}
-	
-	#questionBtn a{
-		color:white;
-		text-decoration: none;
-		display: block;
-		
-	}
-	
-	.myInfoSec{
-		border: 1px solid silver;
-	    height: 150px;
-	    margin: 10px;
-	}
-	
-	#userInfo{
-		text-align: center;
-	    padding-top: 55px;
-	}
 	
 	.popQstnCard{
 		padding-left:0px;
@@ -169,6 +108,11 @@
 		width:100%;
 		height:100%;
 	}
+	
+	.userQstn{
+		color:#4c50bb;
+		font-weight:bold;
+	}
 </style>
 
 
@@ -181,8 +125,8 @@
 	
 	<section>
 		<div id="container">
-			<!-- 메인 : qnaMainWrap,  나의질문 : myQuestion 추가 -->
-			<div id="content" class="qnaMainWrap myQuestion">
+			<!-- 나의질문, 등록한 질문이 없는 경우-->
+			<div id="content" class="myQuestion">
 				<div class="top-title-wrap">
 					<p class="title">나의질문</p>
 				</div>
