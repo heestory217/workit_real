@@ -28,4 +28,14 @@ public class UsersServiceImpl implements UsersService{
 		return cnt;
 	}
 
+	@Override
+	public UsersVO selectByUserNo(int userNo) {
+		return usersDao.selectByUserNo(userNo);
+	}
+
+	@Override
+	public UsersVO selectByUserId(String userId) {
+		return usersDao.selectByUserId(userId);
+	}
+
 }

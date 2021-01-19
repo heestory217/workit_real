@@ -23,4 +23,16 @@ public class UsersDAOMybatis implements UsersDAO {
 		int cnt=sqlSession.insert(namespace+"insertUsers", vo);
 		return cnt;
 	}
+	
+	//회원번호로 조회
+	@Override
+	public UsersVO selectByUserNo(int userNo) {
+		return sqlSession.selectOne(namespace+"selectByUserNo", userNo);
+	}
+	
+	//회원아이디로 조회
+	@Override
+	public UsersVO selectByUserId(String userId) {
+		return sqlSession.selectOne(namespace+"selectByUserId", userId);
+	}
 }
