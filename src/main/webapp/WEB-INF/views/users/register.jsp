@@ -81,28 +81,28 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="register-form">
                         <h2>회원가입</h2>
-                        <form action="#">
+                        <form method="post" action="<c:url value='/users/usersWrite.do'/>">
                             <div class="group-input">
                                 <label for="username">이름 *</label>
-                                <input type="text" id="username" class="col-lg-12">
+                                <input type="text" id="username" class="col-lg-12" name="userName">
                             </div>
                             <div class="group-input">
                                 <label for="userid">아이디 *</label>
-                                <input type="text" id="userid" class="col-lg-8">
+                                <input type="text" id="userid" class="col-lg-8" name="userId">
                                 <input type="button" id="btnChkId" class="col-lg-3 site-btn margin_left" value="중복 확인">
                             </div>
                             <div class="group-input">
                                 <label for="pwd">비밀번호 *</label>
-                                <input type="password" id="pwd" class="col-lg-12">
+                                <input type="password" id="pwd" class="col-lg-12" name="userPassword">
                             </div>
                             <div class="group-input">
                                 <label for="con-pwd">비밀번호 확인 *</label>
                                 <input type="password" id="con-pwd" class="col-lg-12">
                             </div>
                             <div class="group-input">
-                                <label for="email2">이메일 *</label>
-                                <input type="text" id="email1" class="col-lg-4">&nbsp;&nbsp;@&nbsp;
-					        	<input type="text" id="email2" class="col-lg-4">&nbsp;&nbsp;
+                                <label for="email1">이메일 *</label>
+                                <input type="text" id="email1" class="col-lg-4" name="userEmail1">&nbsp;&nbsp;@&nbsp;
+					        	<input type="text" id="email2" class="col-lg-4" name="userEmail2">&nbsp;&nbsp;
                                 <select name="email3" id="email3" class="col-lg-3 mystyle">
                                 	<option disabled selected>이메일 목록</option>
 						            <option value="naver.com">naver.com</option>
@@ -113,8 +113,8 @@
 					        	</select>
                             </div>
                             <div class="group-input">
-                                <label for="username">전화번호</label>
-                                <select name="hp1" id="hp1" class="col-lg-3 mystyle">
+                                <label for="hp1">전화번호</label>
+                                <select name="userHp1" id="hp1" class="col-lg-3 mystyle">
 						            <option value="010">010</option>
 						            <option value="011">011</option>
 						            <option value="016">016</option>
@@ -123,20 +123,20 @@
 						            <option value="019">019</option>
 					        	</select>
 					        	-&nbsp;
-                                <input type="text" id="hp2" class="col-lg-4">
+                                <input type="text" id="hp2" class="col-lg-4" maxlength="4" name="userHp2">
 					        	&nbsp;-&nbsp;
-                                <input type="text" id="hp3" class="col-lg-4">
+                                <input type="text" id="hp3" class="col-lg-4" maxlength="4" name="userHp3">
                             </div>
                             <div class="group-input">
                                 <label for="zipcode">주소</label>
-                                <input type="text" id="zipcode" placeholder="우편번호" class="col-lg-7">
-								<input type="button" onclick="execZipcode()" value="우편번호 찾기" class="col-lg-4 site-btn margin_left"><br><br>
-								<input type="text" id="address" placeholder="주소"><br><br>
-								<input type="text" id="detailAddress" placeholder="상세주소"><br><br>
+                                <input type="text" id="zipcode" placeholder="우편번호" class="col-lg-7" name="userZipcode" ReadOnly>
+								<input type="button" onclick="execZipcode()" value="우편번호 찾기" class="col-lg-4 site-btn margin_left" ><br><br>
+								<input type="text" id="address" placeholder="주소" name="userAddress" ReadOnly><br><br>
+								<input type="text" id="detailAddress" placeholder="상세주소" name="userAddressdetail"><br><br>
                             </div>
                             <div class="group-input">
                                 <label for="workkind">희망직무 / 경력 *</label>
-                                <select name="workkind" id="workkind" class="col-lg-7 mystyle">
+                                <select name="workkindNo" id="workkind" class="col-lg-7 mystyle">
 						            <option value="1">서버 개발자</option>
 						            <option value="2">웹 개발자</option>
 						            <option value="3">프론트엔드 개발자</option>
@@ -152,8 +152,7 @@
 						            <option value="13">C,C++ 개발자</option>
 						            <option value="14">VR 엔지니어</option>
 					        	</select>
-					        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					        	<select name="userexp" id="userexp" class="col-lg-4 mystyle">
+					        	<select name="userExperience" id="userexp" class="col-lg-4 mystyle margin_left">
 						            <option value="0">신입</option>
 						            <option value="1">1년</option>
 						            <option value="2">2년</option>
@@ -166,7 +165,7 @@
 						            <option value="9">9년</option>
 						            <option value="10">10년이상</option>
 					        	</select>
-                            </div>
+                            </div><br>
                             
                             <button type="submit" class="site-btn register-btn" id="submit">REGISTER</button>
                         </form>
@@ -178,7 +177,8 @@
             </div>
         </div>
     </div>
-    <input type ="text" name="chkId" id="chkId">
+    <input type ="text" name="chkId" id="chkId" style="visibility: hidden;">
     <!-- Register Form Section End -->
-    
+    <a href="<c:url value='/email/send.do'/>">
+	이메일 발송</a>
 <%@ include file="../inc/bottom.jsp" %>

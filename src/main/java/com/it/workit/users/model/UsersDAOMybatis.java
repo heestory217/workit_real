@@ -16,4 +16,11 @@ public class UsersDAOMybatis implements UsersDAO {
 		int count = sqlSession.selectOne(namespace+"dupCheck", userid);
 		return count;
 	}
+
+	//개인 회원가입
+	@Override
+	public int insertUsers(UsersVO vo) {
+		int cnt=sqlSession.insert(namespace+"insertUsers", vo);
+		return cnt;
+	}
 }

@@ -6,4 +6,5 @@ public interface UsersService {
 	public static final int NON_EXIST_ID=2; //존재하지 않는 경우
 	
 	public int checkDup(String userid);
+	public int insertUsers(UsersVO vo);
 }

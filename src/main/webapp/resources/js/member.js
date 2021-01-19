@@ -17,7 +17,7 @@ $(function(){
    $('#btnChkId').click(function(){
       
       open(contextPath+"/users/checkId.do?userid="+$('#userid').val(), "chk",
-"width=500,height=300,left=0,top=0,location=yes,resizable=yes");
+"width=500,height=250,left=0,top=0,location=yes,resizable=yes");
    });
    
    
