@@ -76,7 +76,7 @@
 	}
 	
 	.questBoxWrap:hover{
-		background-color: #ececff;;
+		background-color: #f5f7ff;;
 	}
 	
 	.paging{
@@ -91,6 +91,11 @@
 		float:right;
 		font-size:30px;
 		padding-bottom: 20px;
+	}
+	
+	.allQstn{
+		color:#4c50bb;
+		font-weight:bold;
 	}
 	
 	
@@ -125,6 +130,7 @@
 									<span class="reply">답변<span class="replyNum">0</span>&nbsp;&nbsp;|&nbsp;</span>
 									<span class="readCnt">조회 3&nbsp;&nbsp;|&nbsp;</span>
 									<span class="regTime">14분 전  작성</span>
+									<div class="bookmark"><i class="fa fa-bookmark-o" aria-hidden="true"></i></div>
 								</dd>
 							</dl>
 						</a>

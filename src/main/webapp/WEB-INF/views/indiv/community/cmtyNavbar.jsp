@@ -57,7 +57,6 @@
 		margin-top:0px;
 	}
 	
-	
 </style>
 
 <!-- 커뮤니티 게시판, 사이드 메뉴 바 -->
@@ -81,11 +80,10 @@
 							placeholder="질문을 검색하세요" >
 						<hr>
 					</li>
-					<li class="sideNav"><a class="nav-link" href
+					<li class="sideNav"><a class="nav-link userQstn" href
 			="<c:url value='/indiv/community/myQstn.do'/>">
-					
 					나의 질문</a><hr></li>
-					<li class="sideNav"><a class="nav-link" href
+					<li class="sideNav"><a class="nav-link allQstn" href
 			="<c:url value='/indiv/community/qstnList.do'/>">
 					전체 질문</a><hr></li>
 					<li class="sideNav"><a class="nav-link" href="#">답변하기</a><hr></li>

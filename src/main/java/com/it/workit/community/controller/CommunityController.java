@@ -41,4 +41,10 @@ public class CommunityController {
 		return "indiv/community/qstnList";
 	}
 	
+	//질문상세보기
+	@RequestMapping("/qstnDetail.do")
+	public void qstnDetail() {
+		logger.info("질문 상세 페이지 ");
+	}
+	
 }
