@@ -27,8 +27,13 @@ public class CorpServiceImpl implements CorpService {
 	}
 
 	@Override
-	public CorpVO selectCorp(int corpNo) {
+	public CorpAllVO selectCorp(int corpNo) {
 		return corpDao.selectCorp(corpNo);
+	}
+
+	@Override
+	public List<CorpimgVO> corpImgList(int corpNo) {
+		return corpDao.corpImgList(corpNo);
 	}
 
 }

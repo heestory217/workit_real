@@ -22,54 +22,59 @@
             <div class="col-lg-12">
                 <div class="blog-details-inner">
                     <div class="blog-detail-title">
-                    	<img src="<c:url value='/pds_upload/fastcampuslogo_20210118163212484.jpg'/>">
-                        <h2>패스트 캠퍼스</h2>
-                        <p>교육<span> - 2019-05-19</span></p>
+                    	
+                       	<img src="<c:url value='/pd_images/${cAllVo.corpVo.corpImgurl }'/>" style="width: 50px;margin-bottom: 20px;"><br>
+                        <h2>${cAllVo.corpVo.corpName}</h2>
+                        <p>${cAllVo.corpVo.corpIndustry}<span> - ${cAllVo.corpVo.corpStardate}</span></p>
                     </div>
-                    <div class="blog-large-pic">
-                        <img src="<c:url value='/resources/img/blog/blog-detail.jpg'/>">
-                    </div>
+	                    <c:if test="${!empty imgList}">
+                        	<c:forEach var="imgList" items="${imgList }" begin="0" end="0">
+			                    <div class="blog-large-pic">
+			                        <img src="<c:url value='/pd_images/${imgList.corpimgUrl}'/>">
+			                    </div>
+                        	</c:forEach>
+                        </c:if>
                     <div class="blog-detail-desc">
                         <p>
                         </p>
                     </div>
 	                    <div class="blog-quote">
 	                        <p style="font-size: 2.2em;text-align: center;">
-	                        '패스트 캠퍼스'<span>의  1인당 평균연봉은 </span> 2955 만원, 
-	                        <span>기업 근로자 수는</span> 총 167명
-	                        <span>입니다.</span>
-	                        <c:if test="">
+	                        '${cAllVo.corpVo.corpName}'<span>의  1인당 평균연봉은 </span> ${cAllVo.corpVo.corpAvrpay} 만원, <br><br>
+	                        <span>기업 근로자 수는</span> 총  ${cAllVo.corpVo.corpPnumber}명
+	                        <c:if test="${!empty cAllVo.corpVo.corpKind}">
 	                        	<span>의 </span>중소기업<span>입니다.</span>
+	                        </c:if>
+	                        <c:if test="${empty cAllVo.corpVo.corpKind}">
+	                        <span>입니다.</span>
 	                        </c:if>
 	                        </p>
 	                    </div>
                     <div class="blog-more">
                         <div class="row">
-                            <div class="col-sm-4">
-                                <img src="<c:url value='/resources/img/blog/blog-detail-1.jpg'/>" alt="">
-                            </div>
-                            <div class="col-sm-4">
-                                <img src="<c:url value='/resources/img/blog/blog-detail-2.jpg'/>" alt="">
-                            </div>
-                            <div class="col-sm-4">
-                                <img src="<c:url value='/resources/img/blog/blog-detail-3.jpg'/>" alt="">
-                            </div>
+                        <c:if test="${!empty imgList}">
+                        	<c:forEach var="imgList" items="${imgList }" begin="1" end="3">
+	                        	<div class="col-sm-4">
+	                                <img src="<c:url value='/pd_images/${imgList.corpimgUrl}'/>">
+	                            </div>
+                        	</c:forEach>
+                        </c:if>
                         </div>
                     </div>
                     <div class="blog-detail-desc">
-                        <p>패스트캠퍼스는 교육을 통해 여러분의 인생을 바꿉니다. 누구나 노력하면 원하는 일, 더 나은 커리어를 추구할 수 있도록 돕습니다.
-                        </p>
+                     	${cAllVo.corpVo.corpIntro}
                     </div>
                     <div class="tag-share">
                         <div class="details-tag">
                             <ul>
                                 <li><i class="fa fa-tags"></i></li>
-                                <li>www.fastcampus.co.kr</li>
-                                <li>서울시 강남구 강남대로 364</li>
-                                <li>02-501-9396</li>
+                                <li><a href="${cAllVo.corpVo.corpWebaddress}">${cAllVo.corpVo.corpWebaddress}</a></li>
+                                <li>${cAllVo.corpVo.corpAddress1}</li>
+                                <li>${cAllVo.corpVo.corpTel}</li>
                             </ul>
                         </div>
                     </div>
+                    <hr>
 					<!-- 채용중인 포지션 인클루드할거임 -->
                     <div class="posted-by">
 	                    <div class="pb-pic">
@@ -86,8 +91,8 @@
                             </p>
                         </div>
                     </div>
-                    <hr>
 					<!-- 채용중인 포지션 끝 -->
+                    <hr>
 					<!-- 기업 리뷰 리스트시작 -->
 			                  <div class="col-md-12 mb-3 mb-md-0" style="padding-left: 0px; padding-right: 0px;">
 			                    <div class="card h-100">

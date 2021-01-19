@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.common.FileUploadUtil;
+import com.it.workit.corp.model.CorpAllVO;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.CorpVO;
 import com.it.workit.corp.model.CorpimgVO;
@@ -98,10 +99,22 @@ public class CorpController {
 	@RequestMapping("/corpDetail.do")
 	public String corpDetail(@RequestParam(defaultValue = "0") int corpNo, Model model) {
 		logger.info("기업 상세 정보 보기 corpNo={}",corpNo);
+		if(corpNo==0) {
+			String msg = "잘못된 URL입니다.";
+			String url = "/index.do";
+			model.addAttribute("msg",msg);
+			model.addAttribute("url",url);
+			return "common/message";
+		}
 		
 		//CorpVO vo = corpService.selectCorp(corpNo);
-
-		//model.addAttribute("coVo", vo);
+		CorpAllVO vo = corpService.selectCorp(corpNo);
+		logger.info("corpAllVO={}",vo);
+		List<CorpimgVO> list = corpService.corpImgList(corpNo);
+		logger.info("List<CorpimgVO> = {} ",list.size());
+		
+		model.addAttribute("imgList",list);
+		model.addAttribute("cAllVo", vo);
 		return "company/corp/corpDetail";
 	}
 }

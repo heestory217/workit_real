@@ -19,6 +19,39 @@
 			insert into corpImg(CORPIMG_NO,CORP_NO,CORPIMG_URL)
 			values(corpimg_seq.nextval, #{corpNo}, #{corpimgUrl})
 	</update>
+	
+	<select id="corpImgList" parameterType="int" resultType="corpimgVO">
+		select * from corpImg where corp_no=#{corpNo}
+	</select>
+	
+	<resultMap type="corpAllVO" id="corpResultMap">
+		<association property="corpVo" column="corp_No" javaType="CorpVO">
+			<id property="corpNo" column="CORP_NO" jdbcType="BIGINT"/>
+			<result property="userNo" column="USER_NO" jdbcType="BIGINT"/>
+			<result property="corpName" column="CORP_NAME" jdbcType="VARCHAR"/>
+			<result property="corpIntro" column="CORP_INTRO" jdbcType="CLOB"/>
+			<result property="corpImgurl" column="CORP_IMGURL" jdbcType="VARCHAR"/>
+			<result property="corpAvrpay" column="CORP_AVRPAY" jdbcType="BIGINT"/>
+			<result property="corpKind" column="CORP_KIND" jdbcType="VARCHAR"/>
+			<result property="corpPnumber" column="CORP_PNUMBER" jdbcType="BIGINT"/>
+			<result property="corpHeadname" column="CORP_headname" jdbcType="VARCHAR"/>
+			<result property="corpZipcode" column="CORP_ZIPCODE" jdbcType="VARCHAR"/>
+			<result property="corpAddress1" column="CORP_ADDRESS1" jdbcType="VARCHAR"/>
+			<result property="corpAddress2" column="CORP_ADDRESS2" jdbcType="VARCHAR"/>
+			<result property="corpCorpaddnumber" column="CORP_corpaddnumber" jdbcType="VARCHAR"/>
+			<result property="corpIndustry" column="CORP_Industry" jdbcType="VARCHAR"/>
+			<result property="corpStartdate" column="CORP_Startdate" jdbcType="VARCHAR"/>
+			<result property="corpWebaddress" column="CORP_Webaddress" jdbcType="VARCHAR"/>
+			<result property="corpTel" column="CORP_TEL" jdbcType="VARCHAR"/>
+			<result property="corpOkcheck" column="CORP_Okcheck" jdbcType="BIGINT"/>
+			<result property="corpRegdate" column="CORP_REGDATE" jdbcType="TIMESTAMP"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectCorp" parameterType="int" resultMap="corpResultMap">
+		select * from corp where corp_no=#{corpNo}
+	</select>
+	
 </mapper>
 
 
