@@ -47,30 +47,34 @@ $(function(){
                 <div class="col-lg-9 order-1 order-lg-2">
                     <div class="faq-accordin">
                         <div class="accordion" id="accordionExample">
-                        
+                        	<c:if test="${!empty faqList}">
+                        	<c:forEach var="vo" items="${faqList }">
                             <div class="card">
                                 <div class="card-heading active">
                                     <a class="active" data-toggle="collapse" data-target="#collapseOne">
-                                       
+                                       <!-- 제목 -->
+                                       ${vo.faqTitle }
                                     </a>
                                 </div>
                                 <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <a class="faqDetail" href="#">
 	                                        <p>
-	                                        	
+		                                       <!-- 내용 -->
+		                                       ${vo.faqAbout }
 	                                        </p>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                            
+                            </c:forEach>
+                            </c:if>
                         </div>
                     </div>
                     
                     <!-- 버튼 -->
                     <div>
-                    	<input type="button" value="글쓰기" class="faqBt btn btn-primary"
+                    	<input type="button" value="글쓰기" class="faqBt btn btn-primary site-btn"
                     		onclick="" />
                     </div>
                 </div>
