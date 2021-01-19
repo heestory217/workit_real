@@ -47,6 +47,17 @@ public class UsersController {
 		vo.setUserHp2(hp2);
 		vo.setUserHp3(hp3);
 		
+		String email1=vo.getUserEmail1();
+		String email2=vo.getUserEmail2();
+		
+		if(email1==null || email1.isEmpty() || email2==null || email2.isEmpty()) {
+			email1="";
+			email2="";
+		}
+		
+		vo.setUserEmail1(email1);
+		vo.setUserEmail2(email2);
+		
 		int cnt=usersService.insertUsers(vo);
 		
 		logger.info("회원가입 결과, cnt={}", cnt);

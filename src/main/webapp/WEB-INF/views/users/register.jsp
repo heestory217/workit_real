@@ -152,8 +152,7 @@
 						            <option value="13">C,C++ 개발자</option>
 						            <option value="14">VR 엔지니어</option>
 					        	</select>
-					        	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					        	<select name="userExperience" id="userexp" class="col-lg-4 mystyle">
+					        	<select name="userExperience" id="userexp" class="col-lg-4 mystyle margin_left">
 						            <option value="0">신입</option>
 						            <option value="1">1년</option>
 						            <option value="2">2년</option>
@@ -166,7 +165,7 @@
 						            <option value="9">9년</option>
 						            <option value="10">10년이상</option>
 					        	</select>
-                            </div>
+                            </div><br>
                             
                             <button type="submit" class="site-btn register-btn" id="submit">REGISTER</button>
                         </form>
@@ -178,7 +177,8 @@
             </div>
         </div>
     </div>
-    <input type ="text" name="chkId" id="chkId">
+    <input type ="text" name="chkId" id="chkId" style="visibility: hidden;">
     <!-- Register Form Section End -->
-    
+    <a href="<c:url value='/email/send.do'/>">
+	이메일 발송</a>
 <%@ include file="../inc/bottom.jsp" %>
