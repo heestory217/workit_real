@@ -1,6 +1,7 @@
 package com.it.workit.corp.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.it.workit.common.FileUploadUtil;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.CorpVO;
+import com.it.workit.corp.model.CorpimgVO;
 
 @Controller
 @RequestMapping("/company/corp")
@@ -37,13 +39,21 @@ public class CorpController {
 	
 	@RequestMapping(value="/corpWrite.do", method=RequestMethod.POST)
 	public String corpRegisterPost(@ModelAttribute CorpVO vo, HttpServletRequest request, Model model) {
-		logger.info("corpVO={}",vo);
+		logger.info("CorpVO={}",vo);
 		
-		String imgURL="";
+		String logoURL="";
+		List<String> corpURLlist = new ArrayList<String>();
 		try {
 			List<Map<String, Object>> fileList = FileUtil.fileUplaod(request, FileUploadUtil.PDS_TYPE);
-			for(Map<String, Object> fileMap : fileList) {
-				imgURL = (String)fileMap.get("fileName");
+			Map<String, Object> firstMap = fileList.get(0);
+			logoURL = (String)firstMap.get("fileName");
+			logger.info("로고 logoURL={}",logoURL);
+			logger.info("로고 fileList.size()={}",fileList.size());
+			
+			for(int i=0;i<fileList.size();i++) {
+				Map<String,Object> corpMap=fileList.get(i);
+				corpURLlist.add((String)corpMap.get("fileName"));
+				logger.info("추가이미지 corpURLlist={}",corpURLlist.get(i));
 			}
 		} catch (IllegalStateException e) {
 			logger.info("파일 업로드 실패");
@@ -52,10 +62,20 @@ public class CorpController {
 			logger.info("파일 업로드 실패");
 			e.printStackTrace();
 		}
+		vo.setCorpImgurl(logoURL);
 		
-		vo.setCorpImgurl(imgURL);
+		logger.info("추가이미지 corpURLlist.size={}",corpURLlist.size());
 		
-		int cnt = corpService.insertCorp(vo);
+		List<CorpimgVO> imgList = new ArrayList<CorpimgVO>();
+		for(int i=1; i<corpURLlist.size();i++) {
+			logger.info("corpURLlist={}",corpURLlist.get(i));
+			CorpimgVO imgVo = new CorpimgVO();
+			imgVo.setCorpimgUrl(corpURLlist.get(i));
+			imgList.add(imgVo);
+			logger.info("imgvo={}",imgVo);
+		}
+		
+		int cnt = corpService.insertCorp(vo, imgList);
 		logger.info("기업정보 등록 성공 여부 cnt={}",cnt);
 		
 		String msg="기업 등록 실패", url="/index.do";
@@ -70,7 +90,7 @@ public class CorpController {
 	
 	@RequestMapping("/searchCorpname.do")
 	public String searchCorp() {
-		logger.info("기업명 검색 화면 보여주기");
+		logger.info("기업명 검색 팝업 보여주기");
 		return "company/corp/searchCorpname";
 	}
 	
