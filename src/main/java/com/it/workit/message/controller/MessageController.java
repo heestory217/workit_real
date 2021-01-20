@@ -2,6 +2,7 @@ package com.it.workit.message.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -41,22 +42,28 @@ public class MessageController {
 		//세션에서 받아오기 userNo
 		//int userNo = (Integer) session.getAttribute("userNo");
 		//logger.info("내가 보낸 쪽지함 조회, userNo={}", userNo);
+		int userNo = 1;
 		
-		//일반 편지를 받은경우
-		//db로직 처리하기
+		List<Map<String, Object>> getList = null;
 		
 		if(type!=null && !type.isEmpty()) {
 			if(type.equals("toMe")) {
 				//나에게 쓴 편지일경우
-				int userNo=1;		//임시로 값 지정해준 것 (세션에서 받아온 거 넣어야함)
-				//db로직처리 후 보여주기
-				
-			}else if(type.equals("important")) {
+				getList = messageService.selectSentMyself(userNo);
+			}
+			/*else if(type.equals("important")) {
 				//중요편지인경우 (편지보관함)
 				//db로직처리 후 보여주기
 				
-			}
+			}*/
+		}else {
+			//(내가)받은 편지함 조회
+			getList = messageService.selectGetMessage(userNo);
+			
 		}
+		logger.info("쪽지 조회 결과, getList.size={}", getList.size());
+		
+		model.addAttribute("getList", getList);
 		
 		return "message/messageBox";
 	};
@@ -80,6 +87,7 @@ public class MessageController {
 		if(cnt>0) {
 			if(userId==null || userId.isEmpty()) {
 				//유저아이디가 없는 경우 => 나에게 보내는 쪽지
+				userId="kim";
 				//직접입력한 아이디가 내 아이디와 같은 경우 처리 
 				//userId = 세션아이디
 				msg = "쪽지를 성공적으로 보냈습니다.\\n\\n나에게 쓴 쪽지는 [나에게 쓴 쪽지함]에서 확인할 수 있습니다.";
@@ -117,7 +125,7 @@ public class MessageController {
 		int userNo=1;
 		
 		//db
-		List<MessageVO> list = messageService.selectSentMessage(userNo);
+		List<Map<String, Object>> list = messageService.selectSentMessage(userNo);
 		logger.info("쪽지함 조회 결과 list.size={}", list.size());
 		
 		model.addAttribute("list", list);
@@ -137,15 +145,9 @@ public class MessageController {
 			return "common/message";
 		}
 		
-		MessageVO vo = messageService.selectByMessageNo(messageNo);
+		Map<String, Object> map = messageService.selectByMessageNo(messageNo);
 		
-		//보낸 회원 아이디 전달하기
-		UsersVO userVo = userService.selectByUserNo(vo.getUserNo());
-		String sentUserId = userVo.getUserId();
-		logger.info("보낸 회원 ID sentUserId={}",sentUserId);
-		
-		model.addAttribute("vo", vo);
-		model.addAttribute("userid", sentUserId);
+		model.addAttribute("map", map);
 		
 		return "message/messageDetail";
 	};
