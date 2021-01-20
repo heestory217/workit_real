@@ -44,17 +44,18 @@
 	
     
 	.qtTitle{
-		font-size: 25px;
+		font-size: 20px;
 		color:black;
 		font-weight:lighter;
 	}
 
 	.qtContent{
-		font-size:19px;
+		font-size:16px;
 		color:#5f5f5f;
 	}
 	
 	.fa-quora{
+		font-size:22px;
 		color:#4c50bb;	
 	}
 	
@@ -98,7 +99,9 @@
 		font-weight:bold;
 	}
 	
-	
+	.cellBx > span{
+		font-size:13px;	
+	}
 </style>
 </head>
 <body>
@@ -127,7 +130,7 @@
 								
 								<!-- 답변, 조회수, 작성시간 -->
 								<dd class="cellBx">
-									<span class="reply">답변<span class="replyNum">0</span>&nbsp;&nbsp;|&nbsp;</span>
+									<span class="reply">답변<span class="replyNum"> 0</span>&nbsp;&nbsp;|&nbsp;</span>
 									<span class="readCnt">조회 3&nbsp;&nbsp;|&nbsp;</span>
 									<span class="regTime">14분 전  작성</span>
 									<div class="bookmark"><i class="fa fa-bookmark-o" aria-hidden="true"></i></div>

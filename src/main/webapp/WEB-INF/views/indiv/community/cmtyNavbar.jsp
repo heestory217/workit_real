@@ -68,7 +68,8 @@
 				<a href="#">질문하기</a>
 			</div>
 			<div class="myInfoSec">
-				<a href="#" class="myInfo">
+				<a class="myInfo" href
+		="<c:url value='/indiv/community/myProfile.do'/>">
 					<div id="userInfo">
 						<span class="nickname">닉네임</span>
 					</div>

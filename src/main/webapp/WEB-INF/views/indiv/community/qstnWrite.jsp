@@ -184,6 +184,7 @@
 	.checkboxCommWrap{
 		margin: 10px;
 		list-style-type: none;
+		height:80px;
 	}
 	
 	.checkboxCommWrap #chk{
@@ -191,7 +192,7 @@
 		padding:10px;
 	}
 	
-	#open{
+	#jobBtn, #corpBtn{
 		width:210px;
    	    height:35px;
    	    background-color: white;
@@ -199,13 +200,9 @@
     	border: 1px solid #bcbcbc;
 	}
 	
-	#open:focus{
+	#jobBtn:focus, #corpBtn:focus{
     	border: 1px solid #4c50bb;
     	outline:0;
-	}
-	
-	#c{
-		clear:both;
 	}
 	
 	input[type=checkbox]{
@@ -229,7 +226,49 @@
 	  border-radius: 5px;
 	  background-color: silver;
 	}
-		
+
+	/* 버튼 클릭 시 레이어 팝업 창 띄우기 */
+	.jobBtn {
+		background: white;
+	    width: 200px;
+	    border: 1px solid gray;
+	    position: relative;
+		text-align: left;
+	    height: 40px;
+	}
+	
+	.pop-up{
+	    width: 300px;
+	    height: 300px;
+	    position: absolute;
+	    background: white;
+	    border: 1px solid gray;
+	    margin: -30px 0;
+	}
+	
+	.popUpHead { 
+	  width: 100%;
+	  height: 50px;
+	  padding: 12px 30px;
+	  overflow:hidden;
+	  background:white;
+	}
+	
+	.closeBtn{
+	  font-size:28px;
+	  display:block;
+	  float:right;
+	}
+	
+	.closeBtn > i{
+	  color: silver;
+	}
+	.selectJob > p{
+		font-size:14px;
+		color:gray;
+		margin:10px;
+	}
+
 </style>
 <script type="text/javascript" 
 	src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
@@ -239,6 +278,7 @@
 			if(confirm("[취소]를 누르면 글이 저장되지 않습니다.\n글을 저장하지 않고 나가시겠습니까?")){
 				location.href="<c:url value='/indiv/community/myQstn.do'/>"
 			}
+			
 		});
 		
 		//textarea 글자수 체크
@@ -252,7 +292,15 @@
 		        $('#count').html("1000");
 		    }
 		});
-
+		
+	    $('.pop-up').hide();
+		$('.jobBtn').click(function(){
+		    $('.pop-up').show();
+		});
+	
+		$('.closeBtn').click(function(){
+		    $('.pop-up').hide();
+		});
 	});
 	
 </script>
@@ -272,25 +320,25 @@
 				
 				<!-- 직무, 기업선택 -->
 				<article>
-					<div class="checkListArea">
-					    <div class="checkboxCommWrap row" >
-					        <div class="col-sm-4" id="chk">
-					            <input type="checkbox">
-					            <label for="job" >직무명</label><br>
-					            <input type="button" id="open">
-					        </div>
-					        <div class="col-sm-4" id="chk">
-					            <input type="checkbox">
-					            <label for="company">기업명</label>
-					            <input type="button" id="open" >
-					        </div>
-					    </div>
-					    <div id="c">
-					    
-					    </div>
-					</div>
-				</article>
-				
+						<div class="checkListArea">
+							<div class="checkboxCommWrap row">
+								<!-- 버튼 -->
+								<div class="selectJob">
+									<input type="button" class="jobBtn" value="직무 선택">
+									<p>· 원하는 직무를 검색해 질문할 수 있습니다.</p>
+									<!-- 레이어 팝업창 -->
+									<div class="popUp-wrapper">
+										<div class="pop-up">
+											<div class="popUpHead">
+												<a class="closeBtn"><i class="fa fa-times"></i>
+												</a>
+											</div>
+										</div>
+									</div><!-- 레이어 팝업창 끝 -->
+								</div>
+							</div>
+						</div>
+					</article>
 				
 				<!-- 질문글 쓰기 -->
 				
