@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.users.model.UsersService;
 import com.it.workit.users.model.UsersVO;
@@ -27,6 +28,13 @@ public class UsersController {
 		logger.info("개인회원 회원가입 화면 보여주기");
 		
 		return "users/register";
+	}
+	
+	@RequestMapping("/checkEmail.do")
+	public String email() {
+		logger.info("이메일 인증화면 보여주기");
+		
+		return "users/checkEmail";
 	}
 	
 	@RequestMapping("/usersWrite.do")
@@ -90,5 +98,23 @@ public class UsersController {
 		model.addAttribute("NON_EXIST_ID", UsersService.NON_EXIST_ID);
 
 		return "users/checkId";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/ajaxCheckId.do")
+	public boolean ajaxCheckId(@RequestParam String userid) {
+		logger.info("ajax 이용한 아이디 중복확인, userid = {}", userid);
+		
+		boolean bool=false;
+		int result=usersService.checkDup(userid);
+		logger.info("아이디 중복확인 결과, result={}", result);
+		
+		if(result==UsersService.EXIST_ID) {
+			bool=true;  //사용 불가(이미 존재)
+		}else if(result==UsersService.NON_EXIST_ID) {
+			bool=false;	//사용 가능		
+		}
+		
+		return bool;
 	}
 }

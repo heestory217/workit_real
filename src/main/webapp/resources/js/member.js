@@ -20,6 +20,13 @@ $(function(){
 "width=500,height=250,left=0,top=0,location=yes,resizable=yes");
    });
    
+   $('#emailCheck').click(function(){
+      
+      open(contextPath+"/users/checkEmail.do", "chk",
+"width=500,height=250,left=0,top=0,location=yes,resizable=yes");
+   });
+   
+   
    
    $('#btnZipcode').click(function(){
       open(contextPath+"/zipcode/zipcode.do", "chk",
