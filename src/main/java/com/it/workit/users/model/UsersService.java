@@ -11,5 +11,12 @@ public interface UsersService {
 
 	public int checkDup(String userid);
 	public int insertUsers(UsersVO vo);
+
+	//동현 로그인 체크
 	public int loginCheck(String userid, String password);
+
+	//희정 유저번호, 아이디별 조회
+	public UsersVO selectByUserNo(int userNo);
+	public UsersVO selectByUserId(String userId);
+
 }

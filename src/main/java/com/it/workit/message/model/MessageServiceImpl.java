@@ -20,4 +20,9 @@ public class MessageServiceImpl implements MessageService{
 		return messageDao.selectSentMessage(userNo);
 	}
 
+	@Override
+	public MessageVO selectByMessageNo(int messageNo) {
+		return messageDao.selectByMessageNo(messageNo);
+	}
+
 }

@@ -22,5 +22,10 @@ public class MessageDAOMybatis implements MessageDAO{
 	public List<MessageVO> selectSentMessage(int userNo) {
 		return sqlSession.selectList(namespace+"selectSentMessage", userNo);
 	}
+
+	@Override
+	public MessageVO selectByMessageNo(int messageNo) {
+		return sqlSession.selectOne(namespace+"selectByMessageNo", messageNo);
+	}
 	
 }

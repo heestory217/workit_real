@@ -13,6 +13,8 @@ $(document).ready(function() {
 			$('.col-lg-6').find('input[name=userId]').val('kim');
 			$('#notice').css('display','block');
 		}else{
+			$('.col-lg-6').find('input[name=userId]').attr('disabled',false);
+			$('.col-lg-6').find('input[name=userId]').val('');
 			$('.col-lg-6').find('input[name=userId]').attr('placeholder','받는 회원 아이디를 입력하세요');
 			$('#notice').css('display','none');
 		}

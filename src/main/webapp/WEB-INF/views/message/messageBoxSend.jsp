@@ -4,7 +4,8 @@
 <%@ include file="messageTop.jsp"%>
 <style>
 	.cart-table table tr td{
-		padding: 14px;
+		padding: 14px 0;
+		border-bottom: 1px solid #ebebeb;
 	}
 </style>
 
@@ -38,12 +39,15 @@
 				<c:forEach var="vo" items="${list}">
 					<tr>
 						<td><input type="checkbox"></td>
-						<td>받는사람id</td>
-						<td align="left">${vo.messageTitle}</td>
-						<%-- <td>${vo.messageContent}</td> --%>
+						<td>${userId}</td>
+						<td style="text-align:left;">
+							<a href="<c:url value='/message/messageDetail.do?messageNo=${vo.messageNo}'/>">
+								${vo.messageTitle}
+							</a>
+						</td>
 						<td><fmt:formatDate value="${vo.messageRegdate}" pattern="yyyy-MM-dd" /></td>
 						<td>열람</td>
-						<td><i class="ti-close"></i></td>
+						<td><i class="ti-close" style="cursor: pointer;"></i></td>
 					</tr>
 				</c:forEach>
 			</c:if>

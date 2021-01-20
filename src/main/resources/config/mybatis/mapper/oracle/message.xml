@@ -11,9 +11,21 @@
 		values(#{messageNo}, #{messageTitle}, #{messageContent}, #{userNo})
 	</insert>
 	
+	<insert id="insertGetMessage" parameterType="getMessageVo">
+		<selectKey keyProperty="getMessageNo" resultType="int" order="BEFORE">
+			select getmessage_seq.nextval from dual
+		</selectKey>
+		insert into getMessage(GETMESSAGE_NO, USER_NO, MESSAGE_NO)
+		values(#{getMessageNo}, #{userNo}, #{messageNo})
+	</insert>
+	
 	<select id="selectSentMessage" parameterType="int" resultType="messageVo">
 		select * from message where USER_NO=#{userNo} order by MESSAGE_NO desc
 	</select>
+	
+	<select id="selectByMessageNo" parameterType="int" resultType="messageVo">
+		select * from message where MESSAGE_NO=#{messageNo}
+	</select>	
 </mapper>
 
 

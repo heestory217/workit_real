@@ -5,4 +5,5 @@ import java.util.List;
 public interface MessageDAO {
 	int insertMessage(MessageVO vo);
 	List<MessageVO> selectSentMessage(int userNo);
+	MessageVO selectByMessageNo(int messageNo);
 }
