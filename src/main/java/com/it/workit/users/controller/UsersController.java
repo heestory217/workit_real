@@ -24,7 +24,7 @@ import com.it.workit.users.model.UsersVO;
 @RequestMapping("/users")
 public class UsersController {
 	private static final Logger logger
-		=LoggerFactory.getLogger(UsersController.class);
+	=LoggerFactory.getLogger(UsersController.class);
 
 	@Autowired private UsersService usersService;
 
@@ -113,7 +113,7 @@ public class UsersController {
 		boolean bool=false;
 		int result=usersService.checkDup(userid);
 		logger.info("아이디 중복확인 결과, result={}", result);
-		
+
 		if(result==UsersService.EXIST_ID) {
 			bool=true;  //사용 불가(이미 존재)
 		}else if(result==UsersService.NON_EXIST_ID) {
@@ -129,6 +129,7 @@ public class UsersController {
 		return "users/login";
 	}
 
+	/*
 	@RequestMapping("/login.do")
 	public String logincheck(@ModelAttribute UsersVO vo, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
@@ -146,7 +147,7 @@ public class UsersController {
 			//[1] session
 			HttpSession session=request.getSession();
 			session.setAttribute("userid", vo.getUserId());
-			session.setAttribute("userName", /*user*/vo.getUserName());
+			session.setAttribute("userName", vo.getUserName()); //user
 
 			//[2] cookie
 			Cookie ck = new Cookie("ck_userid", vo.getUserId());
@@ -156,7 +157,7 @@ public class UsersController {
 
 			response.addCookie(ck);
 
-			msg=/*user*/vo.getUserName()+"님, 로그인되었습니다.";
+			msg=vo.getUserName()+"님, 로그인되었습니다.";	//user
 			url="/index.do";
 		}else if(result==UsersService.LOGIN_FAIL) {
 			msg="로그인에 실패했습니다";
@@ -169,5 +170,6 @@ public class UsersController {
 		//4
 		return "common/message";
 	}
+	*/
 
 }

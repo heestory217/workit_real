@@ -27,7 +27,8 @@ public class UsersServiceImpl implements UsersService{
 		int cnt=usersDao.insertUsers(vo);
 		return cnt;
 	}
-
+	
+	/*
 	@Override
 	public int loginCheck(String userid, String password) {
 		String pass=usersDao.loginCheck(userid, password);
@@ -39,7 +40,8 @@ public class UsersServiceImpl implements UsersService{
 		}
 		return result;
 	}
-
+	 */
+	
 	@Override
 	public UsersVO selectByUserNo(int userNo) {
 		return usersDao.selectByUserNo(userNo);

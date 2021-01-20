@@ -25,12 +25,14 @@ public class UsersDAOMybatis implements UsersDAO {
 	}
 
 	//동현 로그인 체크
+	/*
 	@Override
 	public String loginCheck(String userid, String password) {
 			String pass = sqlSession.selectOne(namespace+"loginCheck", userid);
 
 			return pass;
 	}
+	*/
 
 	//회원번호로 조회
 	@Override
