@@ -95,7 +95,7 @@
 	    padding: 5px;
 	}
 	
-	.devQnaWriteTitle{
+	.QnaWriteTitle{
 		width:100%;
 		padding:10px;
 		height:50px;
@@ -111,16 +111,16 @@
 
 	}
 	
-	.devQnaWriteTitle:focus, .devQnaWriteCntnt:focus{
+	.QnaWriteTitle:focus, .qstnWriteArea:focus{
 		outline: none;
 	}
 	
-	.uiPlaceholder{
+	.qstnContDiv{
 		color:gray;
 		font-size: 14px;
 	}
 	
-	.devQnaWriteCntnt{
+	.qstnWriteArea{
 		width:100%;
 		padding:0;
 		border:none;
@@ -220,6 +220,16 @@
 		background-color: #4c50bb;
 	}
 	
+	/* 스크롤바 굵기 */
+	.qstnWriteArea::-webkit-scrollbar {
+	  width:8px;
+	}
+	
+	.qstnWriteArea::-webkit-scrollbar-thumb {
+	  border-radius: 5px;
+	  background-color: silver;
+	}
+		
 </style>
 <script type="text/javascript" 
 	src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
@@ -232,7 +242,7 @@
 		});
 		
 		//textarea 글자수 체크
-		$('.devQnaWriteCntnt').keyup(function (e){
+		$('.qstnWriteArea').keyup(function (e){
 		    var content = $(this).val();
 		    $('#count').html(content.length);    //글자수 실시간 카운팅
 
@@ -288,17 +298,17 @@
 				 <div class="writeBoxWrap">
                         <form name="qstnWriteFrm">
                             <fieldset>
-                                <div class="jkTxInput">
-                                    <p class="inpWrap">
-                                        <input type="text" class="jkSchInp devQnaWriteTitle" placeholder="질문 제목을 입력해주세요.">
+                                <div class="qstnTitleDiv">
+                                    <p class="qstnTitle">
+                                        <input type="text" class="QnaWriteTitle" placeholder="질문 제목을 입력해주세요.">
                                     </p>
                                     <hr style="margin-top:0">
                                 </div>
                                 
                                 <!-- &#13;&#10; - placeholder 내에서 줄바꿈 시 이용 -->
                                 
-                                <div class="uiPlaceholder">
-                                    <textarea class="devQnaWriteCntnt" title="내용 입력"
+                                <div class="qstnContDiv">
+                                    <textarea class="qstnWriteArea" title="내용 입력"
                                     placeholder="구체적인 내용을 입력해주세요.&#13;&#10;*휴대폰 번호, 메일 주소, 카카오톡 ID 등 개인정보가 포함된 내용은 비노출 처리될 수 있습니다"
                                     ></textarea>
                                     <span class="byte">

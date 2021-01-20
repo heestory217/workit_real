@@ -64,6 +64,11 @@ private static final Logger logger=LoggerFactory.getLogger(FaqController.class);
 		//4
 		return "common/message";
 	}
+	
+	@RequestMapping(value = "/faqDetail.do", method = RequestMethod.GET)
+	public void faqDetail_get() {
+		logger.info("faq 디테일 화면");
+	}
 }
 
 
