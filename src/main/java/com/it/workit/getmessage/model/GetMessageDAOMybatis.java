@@ -8,6 +8,12 @@ import org.springframework.stereotype.Repository;
 public class GetMessageDAOMybatis implements GetMessageDAO{
 	
 	@Autowired private SqlSessionTemplate sqlSession;
+	
 	private String namespace ="com.mybatis.mapper.message.";
+	
+	@Override
+	public int insertGetMessage(GetMessageVO gVo) {
+		return sqlSession.insert(namespace+"insertGetMessage", gVo);
+	}
 	
 }

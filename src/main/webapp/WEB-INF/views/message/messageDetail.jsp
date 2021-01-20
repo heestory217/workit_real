@@ -7,29 +7,37 @@
 	<div class="blog-detail-title">
 		<h4>
 			<i class="fa fa-envelope" style="margin-right: 15px;"></i>
-			쪽지제목출력하기:messageTitle
+			${vo.messageTitle}
 		</h4>
 	</div>
 	<br>
 	<div class="blog-quote" style="margin-left: 10%;width: 80%;">
 		<p style="font-size: 15px;">
-			<i class="fas fa-user" style="margin-right: 15px;"></i>보낸회원ID userId 
+			
+			<i class="fas fa-user" style="margin-right: 15px;"></i>
+			<span style="color:#4C50BB;">받은회원 ID : </span>${userid}
 			<br>
-			<i class="far fa-calendar-alt" style="margin-right: 15px;"></i>받은날짜 messageRegdate
+			<i class="far fa-calendar-alt" style="margin-right: 15px;"></i>
+			<span style="color:#4C50BB;">보낸날짜 : </span>
+			<fmt:formatDate value="${vo.messageRegdate}" pattern="yyyy-MM-dd HH:mm:ss" />
 		</p>
 	</div>
 	<div class="posted-by" style="margin-left: 10%;width: 80%;">
 		<div class="pb-text">
-			<p style="font-size: 16px;color:black;">쪽지내용 messageContent</p>
+			<p style="font-size: 16px;color:black;">${vo.messageContent}</p>
 		</div>
 	</div>
 	<br>
 	<div class="blog-detail-title">
 		<div style="font-size: 15px;">
-			<a href="#" class="prev-blog"> <i class="ti-arrow-left"></i> <span
-				style="margin-left: 10px;margin-right: 25px">이전</span>
-			</a> <span><a href="#">목록</a></span> <a href="#" class="next-blog"> <span
-				style="margin-right: 10px; margin-left: 25px;">다음</span> <i class="ti-arrow-right"></i>
+			<a href="#" class="prev-blog"> 
+				<i class="ti-arrow-left"></i> 
+				<span style="margin-left: 10px;margin-right: 25px">이전</span>
+			</a> 
+			<span><a href="<c:url value='/message/messageBoxSend.do'/>">목록</a></span> 
+			<a href="#" class="next-blog"> 
+				<span style="margin-right: 10px; margin-left: 25px;">다음</span> 
+				<i class="ti-arrow-right"></i>
 			</a>
 		</div>
 	</div>

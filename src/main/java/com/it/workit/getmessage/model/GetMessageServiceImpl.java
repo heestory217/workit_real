@@ -7,4 +7,9 @@ import org.springframework.stereotype.Service;
 public class GetMessageServiceImpl implements GetMessageService{
 
 	@Autowired private GetMessageDAO getMessageDao;
+
+	@Override
+	public int insertGetMessage(GetMessageVO gVo) {
+		return getMessageDao.insertGetMessage(gVo);
+	}
 }
