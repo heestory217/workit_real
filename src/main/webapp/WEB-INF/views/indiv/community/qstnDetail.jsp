@@ -177,6 +177,7 @@ textarea::placeholder {
 		        $('#cnt').html("1000");
 		    }
 		});
+		
 	});
 
 </script>

@@ -20,7 +20,7 @@
 }
 
 
-.cmtCont{
+.cmtCont, .replyCont{
 	padding:15px;
 }
 
@@ -43,10 +43,9 @@
 	float: left;
 	text-align: center;
 	margin: 10px 16px 20px;
+	cursor: pointer;
 }
 
-.replyBtnDiv a,
-.replyBtnDiv a:hover,
 .recommendCntDiv a,
 .recommendCntDiv a:hover{
     color:gray;
@@ -76,9 +75,81 @@
     padding-left:5px;
     font-size:21px;
 }
-	 
 
+.replyBoxWrap{
+	border-top:1px solid silver;
+	padding:0 30px;
+	height:auto;
+	background-color: #F6F6F6;
+}
+
+.replyOne{
+	border-bottom:1px solid silver;
+	padding:10px 0;
+}
+
+.replyWrite:placeholder{
+	color:silver;
+}
+
+.replyWrite{
+	float: left;
+    width: 80%;
+    resize: none;
+    height: 60px;
+	border:1px solid silver;
+    border-right: 0;
+    padding:15px;
+}
+
+#replyBtn{
+	float:left;
+	width:100px;
+	height:60px;
+	background-color:#4c50bb;
+	color:white;
+	border:1px solid silver;
+}
+
+.replyFold{
+	clear:both;
+	border-top:1px solid silver;
+	text-align:center;
+}
+
+.replyWrap {
+    height: 100px;
+}
+
+.replyWriteArea{
+	padding:20px;
+	width:710px;
+}
+
+.fa-angle-up, 
+.replyFold a, 
+.replyFold a:hover, 
+.replyFold a:focus{
+	font-size:14px;
+	color:gray;
+}
+
+.replyBoxWrap{
+	display:none;
+}
 </style>    
+
+<script type="text/javascript">
+$(function(){
+	
+	$('.replyBtnDiv').click(function(){
+		$('.replyBoxWrap').toggle();
+	});
+	
+});
+</script>
+
+
 <div class="cmtBoxWrap">
 <p class="cmtCnt">답변<b>1</b></p>
 <div class="cmtOne">
@@ -97,19 +168,57 @@
 		<span>2020-12-20 작성</span>
 	</div>
 	<div class="replyBtnDiv">
-		<a href="#">댓글 <b class="replyCnt">1</b></a>
+		<span>댓글 <b class="replyCnt">1</b></span>
 	</div>
 	<div class="recommendCntDiv">
 		<a href="#"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
 		<b class="recmdCnt">1</b></a>
 	</div>
-	
 </div>
+
+
+<!-- 댓글 -->
+
+<div class="replyBoxWrap active">
+	<div class="replyOne">
+		<div class="nickDiv">
+			<span>┗  &nbsp; silver</span>
+		</div>
+		<div class="replyCont">
+			<p>헐ㅠ</p>
+		</div>
+		<div class="regdateDiv">
+			<span>2020-12-20 작성</span>
+		</div>
+	</div><!-- replyOne -->
+	<div class="replyOne">
+		<div class="nickDiv">
+			<span>silver</span>
+		</div>
+		<div class="replyCont">
+			<p>헐ㅠ</p>
+		</div>
+		<div class="regdateDiv">
+			<span>2020-12-20 작성</span>
+		</div>
+	</div><!-- replyOne -->
+		<div class="replyWrap">
+			<form name="replyFrm" id="replyFrm">
+				<div class="replyWriteArea">
+					<textarea class="replyWrite" placeholder="댓글을 입력해주세요."
+					></textarea>
+					<input type="submit" value="등록" id="replyBtn">
+				</div>
+			</form>
+		</div>
+		<div class="replyFold">
+			<a href="#">댓글 접기&nbsp;<i class="fa fa-angle-up"></i></a>
+		</div>
+</div>
+
 <div class="pageDiv">
 
 </div>
-
-
 
 
 </div>
