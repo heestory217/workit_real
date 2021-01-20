@@ -1,5 +1,7 @@
 package com.it.workit.corp.model;
 
+import java.util.Date;
+
 public class CorpVO {
     private int corpNo; //NUMBER PRIMARY KEY, 기업 정보 번호
     private int userNo; //NUMBER NOT NULL REFERENCES USERS(USER_NO)
@@ -16,12 +18,21 @@ public class CorpVO {
     private String corpAddress2;//기업상세주소*COL_ADDRESS2 VARCHAR2(150) NULL,  대표 주소2
     private String corpCorpaddnumber;//사업자등록번호* CORP_CORPADDNUMBER  VARCHAR2(200) NOT NULL,  사업자 등록번호
     private String corpIndustry;//기업주요사업명* CORP_INDUSTRY VARCHAR2(120) NOT NULL, 산업군
-    private String corpStardate;//기업설립일자CORP_STARTDATE DATE NOT NULL, 설립 연도
+    private String corpStartdate;//기업설립일자CORP_STARTDATE DATE NOT NULL, 설립 연도
     private String corpWebaddress;//기업홈페이지URL*CORP_WEBADDRESS VARCHAR2(200) NULL, 웹사이트 주소
     private String corpTel;//기업전화번호* CORP_TEL  VARCHAR2(60)  NOT NULL,   대표번호
     private String corpOkcheck;//CORP_OKCHECK  NUMBER DEFAULT 0  승인여부
-	
-    public int getCorpNo() {
+    private Date corpRegdate;
+    
+    
+    
+    public Date getCorpRegdate() {
+		return corpRegdate;
+	}
+	public void setCorpRegdate(Date corpRegdate) {
+		this.corpRegdate = corpRegdate;
+	}
+	public int getCorpNo() {
 		return corpNo;
 	}
 	public void setCorpNo(int corpNo) {
@@ -106,10 +117,10 @@ public class CorpVO {
 		this.corpIndustry = corpIndustry;
 	}
 	public String getCorpStardate() {
-		return corpStardate;
+		return corpStartdate;
 	}
-	public void setCorpStardate(String corpStardate) {
-		this.corpStardate = corpStardate;
+	public void setCorpStardate(String corpStartdate) {
+		this.corpStartdate = corpStartdate;
 	}
 	public String getCorpWebaddress() {
 		return corpWebaddress;
@@ -129,15 +140,16 @@ public class CorpVO {
 	public void setCorpOkcheck(String corpOkcheck) {
 		this.corpOkcheck = corpOkcheck;
 	}
+	
 	@Override
 	public String toString() {
 		return "CorpVO [corpNo=" + corpNo + ", userNo=" + userNo + ", corpName=" + corpName + ", corpIntro=" + corpIntro
 				+ ", corpImgurl=" + corpImgurl + ", corpAvrpay=" + corpAvrpay + ", corpKind=" + corpKind
 				+ ", corpPnumber=" + corpPnumber + ", corpHeadname=" + corpHeadname + ", corpZipcode=" + corpZipcode
 				+ ", corpAddress1=" + corpAddress1 + ", corpAddress2=" + corpAddress2 + ", corpCorpaddnumber="
-				+ corpCorpaddnumber + ", corpIndustry=" + corpIndustry + ", corpStardate=" + corpStardate
-				+ ", corpWebaddress=" + corpWebaddress + ", corpTel=" + corpTel + ", corpOkcheck=" + corpOkcheck + "]";
+				+ corpCorpaddnumber + ", corpIndustry=" + corpIndustry + ", corpStardate=" + corpStartdate
+				+ ", corpWebaddress=" + corpWebaddress + ", corpTel=" + corpTel + ", corpOkcheck=" + corpOkcheck
+				+ ", corpRegdate=" + corpRegdate + "]";
 	}
-    
     
 }
