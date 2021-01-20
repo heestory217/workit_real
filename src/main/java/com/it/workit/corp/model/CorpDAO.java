@@ -8,4 +8,5 @@ public interface CorpDAO {
 	CorpAllVO selectCorp(int corpNo);
 	int insertImg(CorpimgVO vo);
 	List<CorpimgVO> corpImgList (int corpNo);
+	List<CorpRecruitViewVO> selectRecruit(int userNo);
 }

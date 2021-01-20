@@ -40,19 +40,38 @@
     <script type="text/javascript">
     </script>
 </head>
-
-<div class="posted-by">
- <div class="pb-pic">
- 	<img src="<c:url value='/pds_upload/fastcampuslogo_20210118163212484.jpg'/>" style="width: 60px;">
-	</div>
-    <div class="pb-text">
-        <a href="#">
-            <h5>프론트엔드 개발자 채용중</h5>
-        </a>
-        <p>
-       		연봉 : 4500만원 &nbsp;&nbsp;&nbsp;
-        	언어 : JavaScript, React &nbsp;&nbsp;&nbsp;
-        	근무지 : 서울시 강남구
-        </p>
-    </div>
+<section class="blog-details spad" style="padding-bottom: 20px;padding-top: 50px;">
+<div class="container">
+<div class="row">
+<div class="col-lg-12">
+	<!-- 반복 -->	
+	<c:if test="${empty crVoList}">
+	 	현재 채용중인 공고가 없습니다.
+	</c:if>
+	<c:if test="${!empty crVoList}">
+		<c:forEach var="crVo" items="${crVoList }">
+			<div class="blog-details-inner">
+			<div class="posted-by" style="margin-bottom: 30px;">
+			<div class="pb-pic">
+			<img src="<c:url value='/pd_images/${crVo.corpImgurl }'/>" style="width: 60px;">
+			</div>
+			
+			<div class="pb-text">
+			<a href="#">
+			    <h5>${crVo.recruitannounceTitle }</h5>
+			</a>
+			<p>
+			   연봉 : ${crVo.recruitannounceSpay }만원 &nbsp;&nbsp;&nbsp;
+			   언어 : ${crVo.recruitannounceSkill } &nbsp;&nbsp;&nbsp;
+			   지원자격 : ${crVo.recruitannounceWantedcarrer }
+			</p>
+			 </div>
+			</div>
+		</c:forEach>
+	</c:if>
+		
+	<!-- 반복 끝 -->
 </div>
+</div>
+</div>
+</section>

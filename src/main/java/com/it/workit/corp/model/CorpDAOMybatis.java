@@ -29,4 +29,9 @@ public class CorpDAOMybatis implements CorpDAO {
 		return sqlSession.selectList(namespace+"corpImgList", corpNo);
 	}
 
+	@Override
+	public List<CorpRecruitViewVO> selectRecruit(int userNo) {
+		return sqlSession.selectList(namespace+"selectRecruit", userNo);
+	}
+
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.common.FileUploadUtil;
 import com.it.workit.corp.model.CorpAllVO;
+import com.it.workit.corp.model.CorpRecruitViewVO;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.CorpVO;
 import com.it.workit.corp.model.CorpimgVO;
@@ -116,5 +117,30 @@ public class CorpController {
 		model.addAttribute("imgList",list);
 		model.addAttribute("cAllVo", vo);
 		return "company/corp/corpDetail";
+	}
+	
+	@RequestMapping("/corpRecruitList.do")
+	public String corpRecuritList(@RequestParam(defaultValue = "0") int userNo, Model model) {
+		logger.info("기업별 채용공고 보기 해당 기업의 userNo={}",userNo);
+		if(userNo==0) {
+			String msg="잘못된 URL입니다.",url="/index.do";
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			return "common/message";
+		}
+		
+		List<CorpRecruitViewVO> crVoList = corpService.selectRecruit(userNo);
+		logger.info("기업별 채용공고 리스트 사이즈 ={}",crVoList.size());
+		for(CorpRecruitViewVO vo:crVoList) {
+			System.out.println("채용공고 vo : "+vo);
+		}
+		model.addAttribute("crVoList", crVoList);
+		return "company/corp/corpRecruitList";
+	}
+	
+	@RequestMapping("/corpReviewList.do")
+	public String corpReviewList(Model model) {
+		logger.info("기업 리뷰보기");
+		return "company/corp/corpReviewList";
 	}
 }
