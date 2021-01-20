@@ -117,6 +117,7 @@
                     <hr>
 					<!-- 기업 리뷰 리스트 인클루드 할거임 -->
 					<c:import url="/company/corp/corpReviewList.do">
+                    	<c:param name="corpNo" value="${cAllVo.corpVo.corpNo}"></c:param>
                     </c:import>
 					<!-- 기업 리뷰 끝 -->
                 </div>

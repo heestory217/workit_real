@@ -38,30 +38,35 @@
     <script src="<c:url value="/resources/js/main.js"/>"></script>
     <script src="<c:url value="/resources/js/jquery-3.5.1.min.js"/>" type="text/javascript"></script>
     <script type="text/javascript">
+    
     </script>
 </head>
 <!-- 기업 리뷰 리스트 반복 시작 -->
+<c:if test="${!empty reList}">
+<c:forEach var="reVo" items="${reList}" >
   <div class="col-md-12 mb-3 mb-md-0" style="padding-left: 0px; padding-right: 0px;">
     <div class="card h-100">
       <div class="card-body" style="padding: 3.3rem;">
         <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 30px;">
           <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/gallery/user-3.png" alt="" />
             <div class="flex-1 ms-3">
-              <h4 class="mb-0 fs--1 text-1000 fw-medium">커리어에 큰 욕심이 없다면 행복하게 다닐 수 있을 것 같았던 곳</h6>
-              <p class="fs--2 fw-normal mb-0">2020-02-04</p>
+              <h4 class="mb-0 fs--1 text-1000 fw-medium">${reVo.corpreviewOneline }</h6>
+              <p class="fs--2 fw-normal mb-0">${reVo.corpreviewDate}</p>
             </div>
           </div>
-          <div class="d-flex align-items-center"><span class="text-900 me-3">4.8</span><svg class="bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FEA250" viewBox="0 0 16 16">
+          <div class="d-flex align-items-center"><span class="text-900 me-3">${reVo.corpreviewRate}</span><svg class="bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FEA250" viewBox="0 0 16 16">
               <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"> </path>
             </svg></div>
         </div>
         <h6>장점</h6>
-        <p class="card-text pt-3">코로나바이러스 관련하여 위생 및 직원 건강관리에 신경을 많이 씀. 영업부서는 업무성과에 따라 급여의 인상폭이 높음.</p>
+        <p class="card-text pt-3">${reVo.corpreviewGood}</p>
         <h6>단점</h6>
-        <p class="card-text pt-3" >영업부서외의 타부서 지원이 다소 부족함, 영업부서는 영업에 대한 스트레스가 있음.</p>
+        <p class="card-text pt-3" >${reVo.corpreviewBad}</p>
         <h6>경영진에게 바라는 점</h6>
-        <p class="card-text pt-3">코로나19관련 시대에 다양한 광고상품 개발에 더 투자 부탁드리고, 지금과 마찬가지로 앞으로도 직원 건강과 위생관리에 신경써주시길 바랍니다.</p>
+        <p class="card-text pt-3">${reVo.corpreviewWant}</p>
       </div>
     </div>
   </div>
+ </c:forEach>
+ </c:if>
 <!-- 기업 반복 끝 -->

@@ -8,11 +8,12 @@ public class ReviewVO {
 	private int corpNo;//기업 정보 번호	CORP_NO	NUMBER	NOT NULL			FK
 	private Date corpreviewDate;//작성일	CORPREVIEW_DATE	DATE	NULL	DEFAULT=SYSDATE		
 	private String corpreviewOneline;//한 줄 평가	CORPREVIEW_ONELINE	VARCHAR2(100)	NOT NULL			
-	private String corpreviewGook;//장점	CORPREVIEW_GOOD	VARCHAR2(500)	NOT NULL			
+	private String corpreviewGood;//장점	CORPREVIEW_GOOD	VARCHAR2(500)	NOT NULL			
 	private String corpreviewBad;//단점	CORPREVIEW_BAD	VARCHAR2(500)	NOT NULL			
 	private String corpreviewWant;//바라는 점	CORPREVIEW_WANT	VARCHAR2(500)	NOT NULL			
 	private int corpreviewRate;//기업 점수	CORPREVIEW_RATE	NUMBER	NULL			
 	private int corpreviewDeletecheck;//삭제 여부	CORPREVIEW_DELETECHECK	NUMBER	NULL
+	
 	public int getCorpreviewNo() {
 		return corpreviewNo;
 	}
@@ -44,10 +45,10 @@ public class ReviewVO {
 		this.corpreviewOneline = corpreviewOneline;
 	}
 	public String getCorpreviewGook() {
-		return corpreviewGook;
+		return corpreviewGood;
 	}
-	public void setCorpreviewGook(String corpreviewGook) {
-		this.corpreviewGook = corpreviewGook;
+	public void setCorpreviewGook(String corpreviewGood) {
+		this.corpreviewGood = corpreviewGood;
 	}
 	public String getCorpreviewBad() {
 		return corpreviewBad;
@@ -78,7 +79,7 @@ public class ReviewVO {
 	public String toString() {
 		return "ReviewVO [corpreviewNo=" + corpreviewNo + ", userNo=" + userNo + ", corpNo=" + corpNo
 				+ ", corpreviewDate=" + corpreviewDate + ", corpreviewOneline=" + corpreviewOneline
-				+ ", corpreviewGook=" + corpreviewGook + ", corpreviewBad=" + corpreviewBad + ", corpreviewWant="
+				+ ", corpreviewGook=" + corpreviewGood + ", corpreviewBad=" + corpreviewBad + ", corpreviewWant="
 				+ corpreviewWant + ", corpreviewRate=" + corpreviewRate + ", corpreviewDeletecheck="
 				+ corpreviewDeletecheck + "]";
 	}

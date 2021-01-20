@@ -137,10 +137,5 @@ public class CorpController {
 		model.addAttribute("crVoList", crVoList);
 		return "company/corp/corpRecruitList";
 	}
-	
-	@RequestMapping("/corpReviewList.do")
-	public String corpReviewList(Model model) {
-		logger.info("기업 리뷰보기");
-		return "company/corp/corpReviewList";
-	}
+
 }
