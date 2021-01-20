@@ -55,6 +55,39 @@
 			}
 		});
 		
+		$('#userid').keyup(function(){
+			var userid=$(this).val();
+			
+			if(validate_userid(userid)){
+				$.ajax({
+					url:"<c:url value='/users/ajaxCheckId.do'/>",
+					type:"get",
+					data:{
+						userid:userid
+					},
+					success:function(res){
+						var msg="", chkYn="";
+						if(res){  //이미 존재
+							msg="이미 등록된 아이디입니다.";
+							chkYn="N";
+						}else{ //사용 가능							
+							msg="사용가능한 아이디입니다.";
+							chkYn="Y";
+						}
+						
+						$('.error').html(msg);
+						$('#chkId').val(chkYn);
+					},
+					error:function(xhr, status, error){
+						alert('error! : '  +error);
+					}
+				});
+			}else{
+				$('.error').html("아이디는 영문, 숫자, _만 가능합니다.");
+				$('#chkId').val('N');
+			}
+		});
+		
 	});
 	
 </script>
@@ -88,8 +121,9 @@
                             </div>
                             <div class="group-input">
                                 <label for="userid">아이디 *</label>
-                                <input type="text" id="userid" class="col-lg-8" name="userId">
-                                <input type="button" id="btnChkId" class="col-lg-3 site-btn margin_left" value="중복 확인">
+                                <input type="text" id="userid" class="col-lg-12" name="userId">
+                                <!-- <input type="button" id="btnChkId" class="col-lg-3 site-btn margin_left" value="중복 확인"> -->
+                                <span class="error"></span>
                             </div>
                             <div class="group-input">
                                 <label for="pwd">비밀번호 *</label>
@@ -111,6 +145,11 @@
 						            <option value="gmail.com">gmail.com</option>
 						            <option value="etc">직접입력</option>
 					        	</select>
+                            </div>
+                            <div class="group-input">
+                                <input type="button" id="validEmail" class="col-lg-3" value="인증번호발급" onclick="location.href='/workit/email/send.do'">
+                                <input type="text" id="validEmailNum" class="col-lg-5 margin_left">
+                                <input type="button" id="emailCheck" class="col-lg-2 site-btn margin_left" value="확인">
                             </div>
                             <div class="group-input">
                                 <label for="hp1">전화번호</label>
@@ -177,8 +216,8 @@
             </div>
         </div>
     </div>
-    <input type ="text" name="chkId" id="chkId" style="visibility: hidden;">
+    <input type ="text" name="chkId" id="chkId">
+    <input type ="text" name="chkEmail" id="chkEmail">
     <!-- Register Form Section End -->
-    <a href="<c:url value='/email/send.do'/>">
-	이메일 발송</a>
+    
 <%@ include file="../inc/bottom.jsp" %>
