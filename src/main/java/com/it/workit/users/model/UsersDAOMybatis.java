@@ -16,4 +16,10 @@ public class UsersDAOMybatis implements UsersDAO {
 		int count = sqlSession.selectOne(namespace+"dupCheck", userid);
 		return count;
 	}
+
+	public String loginCheck(String userid, String password) {
+		String pass = sqlSession.selectOne(namespace+"loginCheck", userid);
+		
+		return pass;
+	}
 }
