@@ -3,7 +3,6 @@ package com.it.workit.corp.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.common.FileUploadUtil;
 import com.it.workit.corp.model.CorpAllVO;
@@ -81,6 +79,7 @@ public class CorpController {
 			logger.info("corpURLlist={}",corpURLlist.get(i));
 			CorpimgVO imgVo = new CorpimgVO();
 			imgVo.setCorpimgUrl(corpURLlist.get(i));
+			imgVo.setCorpimgSortno(i);
 			imgList.add(imgVo);
 			logger.info("imgvo={}",imgVo);
 		}

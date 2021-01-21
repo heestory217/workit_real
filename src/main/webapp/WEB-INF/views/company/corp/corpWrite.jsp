@@ -104,7 +104,7 @@ input[type=file]{
 					<h2>기업 	등록</h2>
 				</div>
                 <div class="row">
-                        <input type="hidden" name="userNo" value="${sessionScope.userNo}">
+                        <input type="text" name="userNo" value="${sessionScope.userNo}">
              	   <div class="col-lg-12">
                         <label for="corpName">법인명<span>*</span></label>
                         <input type="text" id="corpName" name="corpName">
@@ -167,20 +167,23 @@ input[type=file]{
 							CKEDITOR.replace('corpIntro',	{height : 400});
 						</script>
                     </div>
-                    <div class="col-lg-12">
-                        <label for="corpImgurl">기업 이미지 1</label>
+                    <div class="col-lg-6">
+                        <label for="corpImgurl">기업 메인 이미지</label>
                	      	<input type="file" id="addimg1" name="addimg1">
        	            </div>
-                    <div class="col-lg-12">
-                        <label for="corpImgurl">기업 이미지 2</label>
+       	            <hr>
+                    <div class="col-lg-6">
+                        <label for="corpImgurl">서브 이미지 1</label>
                	      	<input type="file" id="addimg2" name="addimg2">
        	            </div>
-                    <div class="col-lg-12">
-                        <label for="corpImgurl">기업 이미지 3</label>
+       	             <hr>
+                    <div class="col-lg-6">
+                        <label for="corpImgurl">서브 이미지 2</label>
                	      	<input type="file" id="addimg3" name="addimg3">
        	            </div>
-                    <div class="col-lg-12">
-                        <label for="corpImgurl">기업 이미지 4</label>
+       	             <hr>
+                    <div class="col-lg-6">
+                        <label for="corpImgurl">서브 이미지 3</label>
                	      	<input type="file" id="addimg4" name="addimg4">
        	            </div>
 					<button class="site-btn register-btn" type="submit">기업 등록</button>
