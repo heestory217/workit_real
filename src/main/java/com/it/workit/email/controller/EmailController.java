@@ -8,7 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.email.EmailSender;
 
@@ -21,7 +23,7 @@ public class EmailController {
 	@Autowired private EmailSender emailSender;
 	
 	@RequestMapping("/send.do")
-	public String send() {
+	public String send(Model model, @RequestParam String email) {
 		logger.info("이메일 발송 - 회원가입");
 		
 		Random random=new Random(System.currentTimeMillis());
@@ -29,17 +31,20 @@ public class EmailController {
 		
 		String subject="[ WorkIT ] 인증번호 입니다. 확인 부탁드립니다!";
 		String content="<h1>[WorkIT] 인증번호</h1> <h3>[ "+result+" ]</h3> 괄호 안의 숫자를 입력해주세요.";
-		String receiver="workit2022@gmail.com";	//받는 사람의 이메일 주소
+		String receiver=email;	//받는 사람의 이메일 주소
 		String sender="workit2022@gmail.com";	//보내는 사람의 이메일 주소
 		
 		try {
 			emailSender.sendEmail(subject, content, receiver, sender);
 			logger.info("이메일 발송 성공!");
+			model.addAttribute("result", 1);
+			model.addAttribute("number", result);
 		} catch (MessagingException e) {
 			logger.info("이메일 발송 실패!");
+			model.addAttribute("result", 2);
 			e.printStackTrace();
 		}
 		
-		return "redirect:/users/register.do";
+		return "/users/checkEmail";
 	}
 }

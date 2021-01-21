@@ -22,8 +22,8 @@ $(function(){
    
    $('#emailCheck').click(function(){
       
-      open(contextPath+"/users/checkEmail.do", "chk",
-"width=500,height=250,left=0,top=0,location=yes,resizable=yes");
+      open(contextPath+"/users/checkEmail.do?email1="+$('#email1').val()+"&email2="+$('#email2').val(), "chk",
+"width=700,height=300,left=0,top=0,location=yes,resizable=yes");
    });
    
    

@@ -4,6 +4,7 @@
 	border: 1px solid #ebebeb;
     height: 50px;
 }
+
 .margin_left{
     margin-left: 41px;
 }
@@ -18,7 +19,7 @@
 }
 
 .inputbtn{
-	border: 1px solid #ebebeb;
+	border: 1px solid #fafafa;
     height: 45px;
     width: 200px;
     padding-left: 20px;
@@ -33,4 +34,20 @@
 
 .error{
 	color: #4C50BB;
+}
+
+.width_135{
+	width: 135px;
+}
+
+.width_300{
+	width: 300px;
+}
+
+.lightgray{
+	background: #fafafa;
+}
+
+.padding_left10{
+	padding-left: 10px;
 }
