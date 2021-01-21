@@ -13,6 +13,7 @@ public class QuestionVO {
     private int questionImmsave;
     private int questionBookmark; 
     private String questionNicname;
+    
 	public int getQuestionNo() {
 		return questionNo;
 	}

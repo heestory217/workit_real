@@ -22,6 +22,7 @@
 	
 	.title{
 		font-size: 22px;
+		padding:0 7px; 
 	}
 	
 	
@@ -56,11 +57,15 @@
 		padding:10px;
 	}
 	
+	.userNick{
+		color:#4c50bb;
+	}
+	
 	form[name=qstnWriteFrm]{
 	    padding: 5px;
 	}
 	
-	.QnaWriteTitle{
+	.questionTitle{
 		width:100%;
 		padding:10px;
 		height:50px;
@@ -76,7 +81,7 @@
 
 	}
 	
-	.QnaWriteTitle:focus, .qstnWriteArea:focus{
+	.questionTitle:focus, .questionAbout:focus{
 		outline: none;
 	}
 	
@@ -86,7 +91,8 @@
 		padding-left:12px;
 	}
 	
-	.qstnWriteArea{
+	.questionAbout{
+		font-size:17px;
 		width:100%;
 		padding:0;
 		border:none;
@@ -180,11 +186,11 @@
 	}
 	
 	/* 스크롤바 굵기 */
-	.qstnWriteArea::-webkit-scrollbar {
+	.questionAbout::-webkit-scrollbar {
 	  width:8px;
 	}
 	
-	.qstnWriteArea::-webkit-scrollbar-thumb {
+	.questionAbout::-webkit-scrollbar-thumb {
 	  border-radius: 5px;
 	  background-color: silver;
 	}
@@ -280,6 +286,17 @@
 	src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
+		
+		$('form[name=qstnWriteFrm]').submit(function(){
+			if($('.questionTitle').val().length<10){
+				alert('질문 제목을 최소 10자 이상 작성해 주세요.');
+				event.preventDefault();
+			}else if($('.questionAbout').val().length<20){
+				alert('질문 내용을 최소 20자 이상 작성해 주세요.');
+				event.preventDefault();
+			}			
+		});
+		
 		$('.btnCancel').click(function(){
 			if(confirm("[취소]를 누르면 글이 저장되지 않습니다.\n글을 저장하지 않고 나가시겠습니까?")){
 				location.href="<c:url value='/indiv/community/myQstn.do'/>"
@@ -288,7 +305,7 @@
 		});
 		
 		//textarea 글자수 체크
-		$('.qstnWriteArea').keyup(function (e){
+		$('.questionAbout').keyup(function (e){
 		    var content = $(this).val();
 		    $('#count').html(content.length);    //글자수 실시간 카운팅
 
@@ -340,92 +357,91 @@
 		<div id="container">
 			<div id="content" class="QuestRegister">
 				<div class="top-title-wrap">
-					<p class="title">어떤 질문을 하시겠어요?</p>
-				</div>
-				
+					<p class="title"><span class="userNick">silver</span>님 어떤 질문을 하시겠어요?</p>
+			</div>
+
 				<!-- 직무, 기업선택 -->
-				<article>
+				<form name="qstnWriteFrm" method="post" 
+				action="<c:url value='/indiv/community/qstnWrite.do'/>">
+					<article>
 						<div class="checkListArea">
 							<div class="checkboxCommWrap row">
 								<!-- 버튼 -->
 								<div class="selectJob">
 									<div class="jobWrap">
-										<input type="button" class="jobBtn" value="직무 선택">
-										<i class="fa fa-angle-down"></i>
+										<input type="button" name="workkindNo" 
+										class="jobBtn" value="직무 선택"> <i
+											class="fa fa-angle-down"></i>
 									</div>
 									<p>· 원하는 직무를 검색해 질문할 수 있습니다.</p>
 									<!-- 레이어 팝업창 -->
 									<div class="popUp-wrapper">
 										<div class="pop-up">
 											<div class="popUpHead">
-												<span class="popUpTit">직무 선택</span>
-												<a class="closeBtn"><i class="fa fa-times"></i>
-												</a>
+												<span class="popUpTit">직무 선택</span> <a class="closeBtn"><i
+													class="fa fa-times"></i> </a>
 											</div>
-											<select class="selectBox">
+											<select class="selectBox" name="workkindNo">
 												<option>전체</option>
 												<option value="1">서버 개발자</option>
-									            <option value="2">웹 개발자</option>
-									            <option value="3">프론트엔드 개발자</option>
-									            <option value="4">자바 개발자</option>
-									            <option value="5">안드로이드 개발자</option>
-									            <option value="6">IOS 개발자</option>
-									            <option value="7">빅데이터 엔지니어</option>
-									            <option value="8">파이썬 개발자</option>
-									            <option value="9">소프트웨어 엔지니어</option>
-									            <option value="10">유니티 개발자</option>
-									            <option value="11">Node.js 개발자</option>
-									            <option value="12">머신러닝 엔지니어</option>
-									            <option value="13">C,C++ 개발자</option>
-									            <option value="14">VR 엔지니어</option>
-											</select>
-											<span>나의 직무</span><br>
+												<option value="2">웹 개발자</option>
+												<option value="3">프론트엔드 개발자</option>
+												<option value="4">자바 개발자</option>
+												<option value="5">안드로이드 개발자</option>
+												<option value="6">IOS 개발자</option>
+												<option value="7">빅데이터 엔지니어</option>
+												<option value="8">파이썬 개발자</option>
+												<option value="9">소프트웨어 엔지니어</option>
+												<option value="10">유니티 개발자</option>
+												<option value="11">Node.js 개발자</option>
+												<option value="12">머신러닝 엔지니어</option>
+												<option value="13">C,C++ 개발자</option>
+												<option value="14">VR 엔지니어</option>
+											</select> <span>나의 직무</span><br>
 											<div class="userJob">
 												<a href="#"><i class="fa fa-search"></i>&nbsp;서버개발자</a>
 											</div>
-											
-											
 										</div>
-									</div><!-- 레이어 팝업창 끝 -->
+									</div>
+									<!-- 레이어 팝업창 끝 -->
 								</div>
 							</div>
 						</div>
 					</article>
-				
-				<!-- 질문글 쓰기 -->
-				
-				<article id="secArticle">
-				 <div class="writeBoxWrap">
-                        <form name="qstnWriteFrm">
-                            <fieldset>
-                                <div class="qstnTitleDiv">
-                                    <p class="qstnTitle">
-                                        <input type="text" class="QnaWriteTitle" placeholder="질문 제목을 입력해주세요.">
-                                    </p>
-                                    <hr style="margin-top:0">
-                                </div>
-                                
-                                <!-- &#13;&#10; - placeholder 내에서 줄바꿈 시 이용 -->
-                                
-                                <div class="qstnContDiv">
-                                    <textarea class="qstnWriteArea" title="내용 입력"
-                                    placeholder="구체적인 내용을 입력해주세요.&#13;&#10;*휴대폰 번호, 메일 주소, 카카오톡 ID 등 개인정보가 포함된 내용은 비노출 처리될 수 있습니다"
-                                    ></textarea>
-                                    <span class="byte">
-                                        <b id="count">0</b> / 1,000
-                                    </span>
 
-                                </div>
-                               
-                                <div class="btnCommWrap">
-                                    <button type="submit" class="btnQuestion devQnaWriteButton">질문하기</button>
-                                    <button type="button" class="btnCancel bg_white devQnaWriteCancelButton">취소</button>
-                                </div>
-                            </fieldset>
-                        </form>
-                    </div>
-				</article>
-				
+					<!-- 질문글 쓰기 -->
+
+					<article id="secArticle">
+						<div class="writeBoxWrap">
+							<fieldset>
+								<div class="qstnTitleDiv">
+									<p class="qstnTitle">
+										<input type="text" class="questionTitle" name="questionTitle"
+											placeholder="질문 제목을 입력해주세요.">
+									</p>
+									<hr style="margin-top: 0">
+								</div>
+
+								<!-- &#13;&#10; - placeholder 내에서 줄바꿈 시 이용 -->
+
+								<div class="qstnContDiv">
+									<textarea class="questionAbout" title="내용 입력" name="questionAbout"
+										placeholder="구체적인 내용을 입력해주세요.&#13;&#10;*휴대폰 번호, 메일 주소, 카카오톡 ID 등 개인정보가 포함된 내용은 비노출 처리될 수 있습니다"></textarea>
+									<span class="byte"> <b id="count">0</b> / 1,000</span>
+								</div>
+
+								<div class="btnCommWrap">
+									<button type="submit" class="btnQuestion devQnaWriteButton">질문하기</button>
+									<button type="button"
+										class="btnCancel bg_white devQnaWriteCancelButton">취소</button>
+								</div>
+							</fieldset>
+						</div>
+						<input type="text" name="userNo" value="3">
+						<input type="text" name="questionNicname" value="silver">
+					</article>
+				</form>
+
 				<!-- 글 등록 설명 -->
 				<article>
 					<div class="explain">

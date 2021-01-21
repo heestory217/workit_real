@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="config.mybatis.mapper.oracle.question">
+	<insert id="insertQstn" parameterType="questionVo">
+		<selectKey keyProperty="questionNo" resultType="int" order="BEFORE">
+			select QUESTION_SEQ.NEXTVAL from dual
+		</selectKey>
+		insert into question(QUESTION_NO,USER_NO,WORKKIND_NO,QUESTION_TITLE,
+      	  QUESTION_ABOUT,QUESTION_NICNAME)
+		values(#{questionNo},#{userNo},#{workkindNo},#{questionTitle},
+        	#{questionAbout},#{questionNicname})
+	</insert>	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
