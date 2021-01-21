@@ -108,14 +108,21 @@ input[type=file]{
 </style>
 <div class="container">
     <form class="checkout-form" method="POST" enctype="multipart/form-data" name="corpfrm"
-    		action="<c:url value='/company/corp/corpWrite.do'/>">
+    		action="<c:url value='/company/corp/corpEdit.do'/>">
         <div class="row">
             <div class="col-lg-9 offset-lg-2">
    				<div class="section-title">
-					<h2>기업 	등록</h2>
+					<h2>기업 	정보 수정</h2>
 				</div>
                 <div class="row">
-                        <input type="hidden" name="userNo" value="${sessionScope.userNo}">
+                        <input type="hidden" name="userNo" value="${cAllVo.corpVo.userNo}">
+                        <input type="hidden" name="corpNo" value="${cAllVo.corpVo.corpNo}">
+                        
+                        <input type="hidden" name="oldCorpImgurl" value="${cAllVo.corpVo.corpImgurl}">
+                        <input type="hidden" name="oldAddimg1" value="${imgList[0].corpimgUrl}">
+                        <input type="hidden" name="oldAddimg2" value="${imgList[0].corpimgUrl}">
+                        <input type="hidden" name="oldAddimg3" value="${imgList[0].corpimgUrl}">
+                        <input type="hidden" name="oldAddimg4" value="${imgList[0].corpimgUrl}">
              	   <div class="col-lg-12">
                         <label for="corpName">법인명<span>*</span></label>
                         <input type="text" id="corpName" name="corpName" value="${cAllVo.corpVo.corpName}" disabled>
@@ -183,7 +190,6 @@ input[type=file]{
                     <div class="col-lg-6">
                         <label for="corpImgurl">기업 메인 이미지</label>
                	      	<input type="file" id="addimg1" name="addimg1">
-               	      	
        	            </div>
        	            <hr>
                     <div class="col-lg-6">
@@ -206,7 +212,7 @@ input[type=file]{
 	       	            <img class="corpImgs" src="<c:url value="/pd_images/${imgList[2].corpimgUrl}"/>">
 	       	            <img class="corpImgs" src="<c:url value="/pd_images/${imgList[3].corpimgUrl}"/>">
        	            </div>
-					<button class="site-btn register-btn" type="submit">기업 등록</button>
+					<button class="site-btn register-btn" type="submit">기업 정보 수정</button>
                 </div>
             </div>
         </div>
