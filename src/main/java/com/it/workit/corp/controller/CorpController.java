@@ -1,21 +1,29 @@
 package com.it.workit.corp.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.common.FileUploadUtil;
 import com.it.workit.corp.model.CorpAllVO;
@@ -136,6 +144,43 @@ public class CorpController {
 		}
 		model.addAttribute("crVoList", crVoList);
 		return "company/corp/corpRecruitList";
+	}
+	
+	@RequestMapping("/corpSearch.do")
+	public void corpSearch(HttpServletRequest req, ModelMap model, HttpServletResponse response) throws Exception{
+		
+		String currentPage = req.getParameter("currentPage");
+		String countPerPage = "10";
+		String keyword = req.getParameter("searchCorpName");    //검색어 키워드
+		/*
+		String currentPage = req.getParameter("currentPage");    //요청 변수 설정 (현재 페이지. currentPage : n > 0)
+		String countPerPage = req.getParameter("countPerPage");  //요청 변수 설정 (페이지당 출력 개수. countPerPage 범위 : 0 < n <= 100)
+		String keyword = req.getParameter("searchCorpName");    //검색어 키워드
+		*/
+		
+		StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1160100/service/GetCorpBasicInfoService/getCorpOutline");
+		urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=mM0Se4DVXfKI%2BsK9%2Fo1OfzvmqlZqJLLseDsuYnPxAenpxC%2Fpb8bPhPHV43WFTcr4%2FTYe%2FQKs9SM57KcsTsV%2BrQ%3D%3D");
+		urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode(countPerPage,"UTF-8"));
+		urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode(currentPage,"UTF-8"));
+		urlBuilder.append("&" + URLEncoder.encode("resultType","UTF-8") + "=" + URLEncoder.encode("xml","UTF-8"));
+		urlBuilder.append("&" + URLEncoder.encode("corpNm","UTF-8") + "=" + URLEncoder.encode(keyword,"UTF-8"));
+		logger.info("urlBuilder.toString={}",urlBuilder.toString());
+		
+		URL url = new URL(urlBuilder.toString());
+		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
+    	StringBuffer sb = new StringBuffer();
+    	String tempStr = null;
+
+    	while(true){
+    		tempStr = br.readLine();
+    		if(tempStr == null) break;
+    		sb.append(tempStr);		// 응답결과 XML 저장
+    	}
+    	br.close();
+    	response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/xml");
+		response.getWriter().write(sb.toString());	
+		
 	}
 
 }

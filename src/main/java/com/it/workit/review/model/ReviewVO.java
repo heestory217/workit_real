@@ -1,12 +1,12 @@
 package com.it.workit.review.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class ReviewVO {
 	private int corpreviewNo; //리뷰 번호	CORPREVIEW_NO	NUMBER	NOT NULL	PK
 	private int userNo;//회원 번호	USER_NO	NUMBER	NOT NULL			FK
 	private int corpNo;//기업 정보 번호	CORP_NO	NUMBER	NOT NULL			FK
-	private Date corpreviewDate;//작성일	CORPREVIEW_DATE	DATE	NULL	DEFAULT=SYSDATE		
+	private Timestamp corpreviewDate;//작성일	CORPREVIEW_DATE	DATE	NULL	DEFAULT=SYSDATE		
 	private String corpreviewOneline;//한 줄 평가	CORPREVIEW_ONELINE	VARCHAR2(100)	NOT NULL			
 	private String corpreviewGood;//장점	CORPREVIEW_GOOD	VARCHAR2(500)	NOT NULL			
 	private String corpreviewBad;//단점	CORPREVIEW_BAD	VARCHAR2(500)	NOT NULL			
@@ -32,10 +32,10 @@ public class ReviewVO {
 	public void setCorpNo(int corpNo) {
 		this.corpNo = corpNo;
 	}
-	public Date getCorpreviewDate() {
+	public Timestamp getCorpreviewDate() {
 		return corpreviewDate;
 	}
-	public void setCorpreviewDate(Date corpreviewDate) {
+	public void setCorpreviewDate(Timestamp corpreviewDate) {
 		this.corpreviewDate = corpreviewDate;
 	}
 	public String getCorpreviewOneline() {
