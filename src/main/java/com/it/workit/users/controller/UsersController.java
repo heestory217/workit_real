@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -144,7 +143,7 @@ public class UsersController {
 
 				String msg="로그인 체크 실패!", url="/users/login.do";
 				if(result==UsersService.LOGIN_OK) {
-					UsersVO userVo = usersService.selectUser(vo.getUserId());
+					UsersVO userVo = usersService.selectByUserId(vo.getUserId());
 
 					//[1] session
 					HttpSession session=request.getSession();

@@ -28,7 +28,6 @@ public class UsersServiceImpl implements UsersService{
 		return cnt;
 	}
 	
-	/*
 	@Override
 	public int loginCheck(String userid, String password) {
 		String pass=usersDao.loginCheck(userid, password);
@@ -45,7 +44,6 @@ public class UsersServiceImpl implements UsersService{
 		
 		return result;
 	}
-	 */
 	
 	@Override
 	public UsersVO selectByUserNo(int userNo) {
@@ -56,12 +54,5 @@ public class UsersServiceImpl implements UsersService{
 	public UsersVO selectByUserId(String userId) {
 		return usersDao.selectByUserId(userId);
 	}
-
-	@Override
-	public UsersVO selectUser(String userid) {
-		return usersDao.selectUser(userid);
-	}
-	
-	
 
 }

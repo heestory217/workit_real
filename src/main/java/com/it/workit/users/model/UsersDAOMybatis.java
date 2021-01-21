@@ -27,9 +27,9 @@ public class UsersDAOMybatis implements UsersDAO {
 	//동현 로그인 체크
 	@Override
 	public String loginCheck(String userid, String password) {
-			String pass = sqlSession.selectOne(namespace+"loginCheck", userid);
+		String pass = sqlSession.selectOne(namespace+"loginCheck", userid);
 
-			return pass;
+		return pass;
 	}
 
 	//회원번호로 조회
@@ -42,13 +42,6 @@ public class UsersDAOMybatis implements UsersDAO {
 	@Override
 	public UsersVO selectByUserId(String userId) {
 		return sqlSession.selectOne(namespace+"selectByUserId", userId);
-	}
-
-	//아이디로 정보 불러오기 => 겹치는 지 확인
-	@Override
-	public UsersVO selectUser(String userid) {
-		UsersVO vo = sqlSession.selectOne(namespace+"selectUser", userid);
-		return vo;
 	}
 
 }
