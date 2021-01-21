@@ -180,7 +180,29 @@ public class CorpController {
     	response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/xml");
 		response.getWriter().write(sb.toString());	
+	}
+	
+	@RequestMapping(value = "/corpEdit.do", method = RequestMethod.GET)
+	public String corpEdit(@RequestParam(defaultValue = "0") int corpNo, Model model) {
+		logger.info("기업정보 수정 페이지 cropNo={}",corpNo);
+		
+		if(corpNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/reBoard/list.do");
+			return "common/message";
+		}
+		
+		CorpAllVO vo = corpService.selectCorp(corpNo);
+		List<CorpimgVO> imgList = corpService.corpImgList(corpNo);
+		
+		model.addAttribute("cAllVo", vo);
+		model.addAttribute("imgList", imgList);
+		logger.info("corpAllVO={}",vo);
+		logger.info("imgList.size={}",imgList.size());
+		
+		return "company/corp/corpEdit";
 		
 	}
+	
 
 }

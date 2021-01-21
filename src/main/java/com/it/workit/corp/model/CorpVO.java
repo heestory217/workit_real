@@ -17,7 +17,7 @@ public class CorpVO {
     private String corpAddress1;//기업기본주소*CORP_ADDRESS1  VARCHAR2(150) NOT NULL, 대표 주소1
     private String corpAddress2;//기업상세주소*COL_ADDRESS2 VARCHAR2(150) NULL,  대표 주소2
     private String corpCorpaddnumber;//사업자등록번호* CORP_CORPADDNUMBER  VARCHAR2(200) NOT NULL,  사업자 등록번호
-    private String corpIndustry;//기업주요사업명* CORP_INDUSTRY VARCHAR2(120) NOT NULL, 산업군
+    private String corpIndustry;//기업주요사업분야* CORP_INDUSTRY VARCHAR2(120) NOT NULL, 산업군
     private String corpStartdate;//기업설립일자CORP_STARTDATE DATE NOT NULL, 설립 연도
     private String corpWebaddress;//기업홈페이지URL*CORP_WEBADDRESS VARCHAR2(200) NULL, 웹사이트 주소
     private String corpTel;//기업전화번호* CORP_TEL  VARCHAR2(60)  NOT NULL,   대표번호
