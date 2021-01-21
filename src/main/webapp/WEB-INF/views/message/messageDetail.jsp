@@ -5,9 +5,11 @@
 
 <script type="text/javascript">
 	$(function(){
-		$('#delMsg').click(function(){
-			if(!confirm('해당 쪽지를 삭제하시겠습니까?')){
-				event.preventDefault();
+		$('.cart-buttons').find('a').click(function(){
+			if($(this).html()=='삭제'){
+				if(!confirm('해당 쪽지를 삭제하시겠습니까?')){
+					event.preventDefault();
+				}
 			}
 		});
 	});
@@ -60,18 +62,19 @@
 	<div class="col-lg-6"></div>
 	<div class="col-lg-6" align="right">
 		<div class="cart-buttons">
-			<a href="#" class="btn btn-primary" style="background:#4C50BB;">답장</a>
-			<a href="#" class="btn btn-primary" style="background:#4C50BB;">보관</a>
 			<c:if test="${!empty param.getMessageNo}">
-				<c:if test="${!empty param.type}">
-					<a href="<c:url value='/message/deleteMsg.do?type=toMe&getMessageNo=${param.getMessageNo}'/>" id="delMsg" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+				<c:if test="${empty param.type}"> <!-- 받은편지함 -->
+					<a href="<c:url value='/message/updateImp.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">보관</a>
+					<a href="#" class="btn btn-primary" style="background:#4C50BB;">답장</a>
+					<a href="<c:url value='/message/deleteMsg.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 				</c:if>
-				<c:if test="${empty param.type}">
-					<a href="<c:url value='/message/deleteMsg.do?getMessageNo=${param.getMessageNo}'/>" id="delMsg" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+				<c:if test="${!empty param.type}"> <!-- 나에게 쓴 편지함 -->
+					<a href="<c:url value='/message/deleteMsg.do?type=toMe&getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 				</c:if>
 			</c:if>
-			<c:if test="${!empty param.messageNo}">
-				<a href="<c:url value='/message/deleteMsg.do?messageNo=${param.messageNo}'/>" id="delMsg" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+			<c:if test="${!empty param.messageNo}">	<!-- 보낸편지함 -->
+				<a href="<c:url value='/message/updateImp.do?messageNo=${param.messageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">보관</a>
+				<a href="<c:url value='/message/deleteMsg.do?messageNo=${param.messageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 			</c:if>
 		</div>
 	</div>

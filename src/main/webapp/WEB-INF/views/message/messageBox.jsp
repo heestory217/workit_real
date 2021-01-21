@@ -3,10 +3,10 @@
 <%@ include file="messageTop.jsp"%>
 
 <style>
-	.cart-table table tr td{
-		padding: 14px 0;
-		border-bottom: 1px solid #ebebeb;
-	}
+.cart-table table tr td {
+	padding: 14px 0;
+	border-bottom: 1px solid #ebebeb;
+}
 </style>
 
 <!-- 제목 -->
@@ -54,20 +54,30 @@
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>${map['USER_ID']}</td>
-						<td style="text-align:left;">
-							<c:if test="${param.type != 'toMe'}">
-								<a href="<c:url value="/message/messageDetail.do?getMessageNo=${map['MESSAGE_NO']}"/>">
-									${map['MESSAGE_TITLE']}
-								</a>
-							</c:if>
-							<c:if test="${param.type == 'toMe'}">
-								<a href="<c:url value="/message/messageDetail.do?type=toMe&getMessageNo=${map['MESSAGE_NO']}"/>">
-									${map['MESSAGE_TITLE']}
-								</a>
+						<td style="text-align: left;">
+							<!-- 받은 쪽지함 --> <c:if test="${empty param.type}">
+								<a
+									href="<c:url value="/message/messageDetail.do?getMessageNo=${map['MESSAGE_NO']}"/>">
+									${map['MESSAGE_TITLE']} </a>
+							</c:if> <c:if test="${!empty param.type}">
+								<!-- 보관함에 저장된 경우 -->
+								<c:if test="${param.type == 'important'}">
+									<!-- 보낸쪽지함 -->
+									<a
+										href="<c:url value="/message/messageDetail.do?messageNo=${map['MESSAGE_NO']}"/>">
+										${map['MESSAGE_TITLE']} </a>
+								</c:if>
+								<!-- 나에게 보낸 편지함 -->
+								<c:if test="${param.type == 'toMe'}">
+									<a
+										href="<c:url value="/message/messageDetail.do?type=toMe&getMessageNo=${map['MESSAGE_NO']}"/>">
+										${map['MESSAGE_TITLE']} </a>
+								</c:if>
 							</c:if>
 						</td>
-						<td style="text-align:left;">${map['MESSAGE_CONTENT']}</td>
-						<td><fmt:formatDate value="${map['MESSAGE_REGDATE']}" pattern="yyyy-MM-dd" /></td>
+						<td style="text-align: left;">${map['MESSAGE_CONTENT']}</td>
+						<td><fmt:formatDate value="${map['MESSAGE_REGDATE']}"
+								pattern="yyyy-MM-dd" /></td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -82,10 +92,11 @@
 	<div class="col-lg-6" align="right">
 		<div class="cart-buttons">
 			<c:if test="${empty param.type}">
-				<a href="#" class="btn btn-primary" style="background:#4C50BB;">보관</a>
-				<a href="#" class="btn btn-primary" style="background:#4C50BB;" id="reply">답장</a>
+				<a href="#" class="btn btn-primary" style="background: #4C50BB;">보관</a>
+				<a href="#" class="btn btn-primary" style="background: #4C50BB;"
+					id="reply">답장</a>
 			</c:if>
-			<a href="#" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+			<a href="#" class="btn btn-primary" style="background: #4C50BB;">삭제</a>
 		</div>
 	</div>
 </div>

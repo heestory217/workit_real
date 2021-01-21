@@ -23,8 +23,6 @@ import com.it.workit.message.model.MessageVO;
 import com.it.workit.users.model.UsersService;
 import com.it.workit.users.model.UsersVO;
 
-import oracle.net.aso.m;
-
 @Controller
 @RequestMapping("/message")
 public class MessageController {
@@ -51,12 +49,10 @@ public class MessageController {
 			if(type.equals("toMe")) {
 				//나에게 쓴 편지일경우
 				getList = messageService.selectSentMyself(userNo);
-			}
-			/*else if(type.equals("important")) {
+			}else if(type.equals("important")) {
 				//중요편지인경우 (편지보관함)
-				//db로직처리 후 보여주기
-				
-			}*/
+				getList = messageService.selectImpMessage(userNo);
+			}
 		}else {
 			//(내가)받은 편지함 조회
 			getList = messageService.selectGetMessage(userNo);
@@ -191,6 +187,46 @@ public class MessageController {
 		
 		if(cnt>0) {
 			msg="쪽지가 삭제되었습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	//보관함에 저장 (받은 쪽지만)
+	@RequestMapping("/updateImp.do")
+	public String updateImp(@RequestParam (defaultValue = "0") int messageNo,
+			@RequestParam (defaultValue = "0") int getMessageNo,
+			Model model) {
+		logger.info("보관함에 쪽지 저장 파라미터 messageNo={} getMessageNo={}", messageNo, getMessageNo);
+		
+		String msg="", url="";
+		if(messageNo==0 && getMessageNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/message/messageBox.do");
+			return "common/message";
+		}
+		
+		int cnt=0;
+	
+		if(messageNo!=0 || getMessageNo!=0) {
+			if(messageNo!=0) {
+				//보낸 쪽지 보관함으로 
+				cnt = messageService.updategetMsgImpflag(messageNo);
+				url="/message/messageDetail.do?messageNo="+messageNo;
+			}else if(getMessageNo!=0) {
+				//받은 쪽지 보관함으로 
+				cnt = messageService.updategetMsgImpflag(getMessageNo);
+				url="/message/messageDetail.do?getMessageNo="+getMessageNo;
+			}
+		}else {	//파라미터가 없는 경우
+			msg="잘못된 url입니다.";
+		}
+		
+		if(cnt>0) {
+			msg="보관함에 저장되었습니다";
 		}
 		
 		model.addAttribute("msg", msg);
