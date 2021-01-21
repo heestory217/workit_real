@@ -36,7 +36,7 @@
 	
 	.oneQuestBox{
 	    padding: 40px 10px;
-	    height: 225px;
+	    height: auto;
 	    width: 92%;
 	    border-bottom: 1px solid silver;
 	    margin: 0px 30px 0 30px;
@@ -44,17 +44,18 @@
 	
     
 	.qtTitle{
-		font-size: 25px;
+		font-size: 20px;
 		color:black;
 		font-weight:lighter;
 	}
 
 	.qtContent{
-		font-size:19px;
+		font-size:16px;
 		color:#5f5f5f;
 	}
 	
 	.fa-quora{
+		font-size:22px;
 		color:#4c50bb;	
 	}
 	
@@ -89,7 +90,7 @@
 	
 	.cellBx > .bookmark{
 		float:right;
-		font-size:30px;
+		font-size:25px;
 		padding-bottom: 20px;
 	}
 	
@@ -98,7 +99,9 @@
 		font-weight:bold;
 	}
 	
-	
+	.cellBx > span{
+		font-size:13px;	
+	}
 </style>
 </head>
 <body>
@@ -120,14 +123,16 @@
 						<a href="#" class="contentArea">
 							<dl>
 								<!-- 제목 -->
-								<dt class="qtTitle"><i class="fa fa-quora" aria-hidden="true"></i><span> 근무지가 어디인가요?</span></dt>
+								<dt class="qtTitle">
+								<i class="fa fa-quora"></i>
+								<span>개발자 진로 고민입니다</span></dt>
 								
 								<!-- 내용 -->
-								<dd class="qtContent">근무지가 상대원동인가요?<br />아니면 강남구인가요?</dd>
+								<dd class="qtContent">질문 내용<br />....</dd>
 								
 								<!-- 답변, 조회수, 작성시간 -->
 								<dd class="cellBx">
-									<span class="reply">답변<span class="replyNum">0</span>&nbsp;&nbsp;|&nbsp;</span>
+									<span class="reply">답변<span class="replyNum"> 0</span>&nbsp;&nbsp;|&nbsp;</span>
 									<span class="readCnt">조회 3&nbsp;&nbsp;|&nbsp;</span>
 									<span class="regTime">14분 전  작성</span>
 									<div class="bookmark"><i class="fa fa-bookmark-o" aria-hidden="true"></i></div>
@@ -145,15 +150,14 @@
 						<a href="#" class="contentArea">
 							<dl>
 								<!-- 제목 -->
-								<dt class="qtTitle"><i class="fa fa-quora" aria-hidden="true"></i><span> 근무지가 어디인가요?</span></dt>
+								<dt class="qtTitle"><i class="fa fa-quora"></i><span> 근무지가 어디인가요?</span></dt>
 								
 								<!-- 내용 -->
-								<dd class="qtContent">근무지가 상대원동인가요?<br />아니면 강남구인가요?</dd>
-								
+								<dd class="qtContent">질문 내용<br />....<br />....</dd>
 								<!-- 답변, 조회수, 작성시간 -->
 								<dd class="cellBx">
-									<span class="reply">답변<span class="replyNum">0</span>&nbsp;&nbsp;|&nbsp;</span>
-									<span class="readCnt">조회 3&nbsp;&nbsp;|&nbsp;</span>
+									<span class="reply">답변<span class="replyNum">0</span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+									<span class="readCnt">조회 3&nbsp;&nbsp;|&nbsp;&nbsp;</span>
 									<span class="regTime">14분 전  작성</span>
 									<div class="bookmark"><i class="fa fa-bookmark-o" aria-hidden="true"></i></div>
 								</dd>
@@ -162,7 +166,9 @@
 					</div>					
 				</div>
 				</div>
-				<div class="paging"></div>
+				<div class="paging">
+				
+				</div>
 			</article>
 		</div>
 		
