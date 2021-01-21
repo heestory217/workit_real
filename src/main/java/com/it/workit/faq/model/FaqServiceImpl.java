@@ -21,4 +21,14 @@ public class FaqServiceImpl implements FaqService{
 	public int faqinsert(FaqVO faqVo) {
 		return faqDao.faqinsert(faqVo);
 	}
+
+	@Override
+	public FaqVO faqselectByNo(int no) {
+		return faqDao.faqselectByNo(no);
+	}
+
+	@Override
+	public int faqupdate(FaqVO faqVo) {
+		return faqDao.faqupdate(faqVo);
+	}
 }

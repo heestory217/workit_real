@@ -5,4 +5,6 @@ import java.util.List;
 public interface FaqService {
 	public List<FaqVO> faqselectAll();
 	public int faqinsert(FaqVO faqVo);
+	public FaqVO faqselectByNo(int no);
+	public int faqupdate(FaqVO faqVo);
 }

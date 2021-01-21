@@ -14,6 +14,21 @@
 		insert into faq(FAQ_NO,MANAGER_NO,FAQ_TITLE,FAQ_ABOUT)
 		values(#{faqNo},#{managerNo},#{faqTitle},#{faqAbout})
 	</insert>
+	
+	<select id="faqselectByNo" parameterType="int" resultType="faqVo">
+		select * from faq where faq_no=#{faqNo}
+	</select>
+	
+	<update id="faqupdate" parameterType="int">
+		update faq
+		set faq_title=#{faqTitle},faq_about=#{faqAbout}
+		where faq_no=#{faqNo}
+	</update>
+	
+	<delete id="faqdelete" parameterType="int">
+		delete faq where faq_no=#{faqNo}
+	</delete>
+	
 </mapper>
 
 
