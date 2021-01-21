@@ -154,7 +154,7 @@ $(function(){
 <p class="cmtCnt">답변<b>1</b></p>
 <div class="cmtOne">
 	<div class="nickDiv">
-		<span>silver</span>
+		<span>@hong</span>
 	</div>
 	<div class="cmtCont">
 		<p>규모가 어느 정도인지 모르겠는데.. 보통 대졸 신입은 초임이 정해져 있는 경우가 많습니다. 제 생각에
@@ -182,21 +182,10 @@ $(function(){
 <div class="replyBoxWrap active">
 	<div class="replyOne">
 		<div class="nickDiv">
-			<span>┗  &nbsp; silver</span>
+			<span>┗  &nbsp; @silver</span>
 		</div>
 		<div class="replyCont">
-			<p>헐ㅠ</p>
-		</div>
-		<div class="regdateDiv">
-			<span>2020-12-20 작성</span>
-		</div>
-	</div><!-- replyOne -->
-	<div class="replyOne">
-		<div class="nickDiv">
-			<span>silver</span>
-		</div>
-		<div class="replyCont">
-			<p>헐ㅠ</p>
+			<p>댓글 내용<br>........<br>......</p>
 		</div>
 		<div class="regdateDiv">
 			<span>2020-12-20 작성</span>

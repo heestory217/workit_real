@@ -45,43 +45,8 @@
 		text-decoration: none;
 	}
 	
-	
 	#content{
 		width:800px;
-	}
-	
-	em{
-		color:#4c50bb;
-	}
-	
-	#popularQuest{
-		margin-top:30px;
-	}
-	
-	.card{
-		height: 200px;
-		width:200px;
-	}
-	
-	#moreQuestBtn{
-		width:160px;
-		height:25px;
-		padding:3px;
-		margin:5px 0 5px 0;
-		padding-left:5px;
-		border:1px solid white;
-		background-color:white;
-		border-radius: 80px / 80px;
-	}
-	
-	#moreQuestBtn a{
-		font-size: 12px;
-		color:blue;
-	}
-	
-	.first-card{
-		background-color: #4c50bb;
-		color:white;
 	}
 	
 	.writeBoxWrap{
@@ -118,6 +83,7 @@
 	.qstnContDiv{
 		color:gray;
 		font-size: 14px;
+		padding-left:12px;
 	}
 	
 	.qstnWriteArea{
@@ -184,11 +150,7 @@
 	.checkboxCommWrap{
 		margin: 10px;
 		list-style-type: none;
-		height:80px;
-	}
-	
-	.checkboxCommWrap #chk{
-		float:left;
+		height:90px;
 		padding:10px;
 	}
 	
@@ -229,29 +191,51 @@
 
 	/* 버튼 클릭 시 레이어 팝업 창 띄우기 */
 	.jobBtn {
+	    float:left;
 		background: white;
+		outline: 0;
+		border: 0;
+	}
+	
+	.jobWrap{
+		padding:8px;
 	    width: 200px;
-	    border: 1px solid gray;
-	    position: relative;
-		text-align: left;
 	    height: 40px;
+		background: white;
+	    border: 1px solid silver;
+	    position: relative;
+	    overflow: hidden;
+	    color:gray;
+	}
+	
+	.fa-angle-down{
+		padding-top:3px;
+		float:right;
 	}
 	
 	.pop-up{
 	    width: 300px;
-	    height: 300px;
+	    height: 230px;
 	    position: absolute;
 	    background: white;
 	    border: 1px solid gray;
 	    margin: -30px 0;
+	    padding: 0 20px;
 	}
 	
 	.popUpHead { 
 	  width: 100%;
-	  height: 50px;
-	  padding: 12px 30px;
+	  height: 60px;
+	  padding: 12px 0;
 	  overflow:hidden;
 	  background:white;
+	}
+	
+	.popUpTit{
+		padding: 11px 3px;
+	    float: left;
+	    font-size: 20px;
+	    font-weight: 500;
 	}
 	
 	.closeBtn{
@@ -263,12 +247,34 @@
 	.closeBtn > i{
 	  color: silver;
 	}
+	
 	.selectJob > p{
 		font-size:14px;
 		color:gray;
 		margin:10px;
+		clear:both;
+	}
+	
+	.selectBox{
+	    width: 250px;
+	    height: 40px;
+	    margin: 24px 0;
+	    border: 1px solid gray;
+	    color: gray;
+	    padding:0 15px;
 	}
 
+	.userJob{
+		margin-top:10px;
+	}
+	
+	.userJob>a{
+		color:gray;
+	}
+	
+	select{
+		cursor: pointer;
+	}
 </style>
 <script type="text/javascript" 
 	src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
@@ -294,12 +300,31 @@
 		});
 		
 	    $('.pop-up').hide();
-		$('.jobBtn').click(function(){
+		$('.jobWrap').click(function(){
 		    $('.pop-up').show();
 		});
 	
 		$('.closeBtn').click(function(){
 		    $('.pop-up').hide();
+		});
+		
+		//
+		$('.selectBox').change(function(){
+			var selectJob = $(this).find('option:selected').html();
+			$('.jobBtn').val(selectJob);
+			$('.jobWrap').css('border','1px solid #4c50bb');
+			$('.jobBtn').css('color','#4c50bb');
+			$('.fa-angle-down').css('color','#4c50bb');
+			$('.pop-up').hide();
+		});
+		
+		$('.userJob a').click(function(){
+			var userJob=$(this).text();
+			$('.jobBtn').val(userJob);
+			$('.jobWrap').css('border','1px solid #4c50bb');
+			$('.jobBtn').css('color','#4c50bb');
+			$('.fa-angle-down').css('color','#4c50bb');
+			$('.pop-up').hide();
 		});
 	});
 	
@@ -324,15 +349,42 @@
 							<div class="checkboxCommWrap row">
 								<!-- 버튼 -->
 								<div class="selectJob">
-									<input type="button" class="jobBtn" value="직무 선택">
+									<div class="jobWrap">
+										<input type="button" class="jobBtn" value="직무 선택">
+										<i class="fa fa-angle-down"></i>
+									</div>
 									<p>· 원하는 직무를 검색해 질문할 수 있습니다.</p>
 									<!-- 레이어 팝업창 -->
 									<div class="popUp-wrapper">
 										<div class="pop-up">
 											<div class="popUpHead">
+												<span class="popUpTit">직무 선택</span>
 												<a class="closeBtn"><i class="fa fa-times"></i>
 												</a>
 											</div>
+											<select class="selectBox">
+												<option>전체</option>
+												<option value="1">서버 개발자</option>
+									            <option value="2">웹 개발자</option>
+									            <option value="3">프론트엔드 개발자</option>
+									            <option value="4">자바 개발자</option>
+									            <option value="5">안드로이드 개발자</option>
+									            <option value="6">IOS 개발자</option>
+									            <option value="7">빅데이터 엔지니어</option>
+									            <option value="8">파이썬 개발자</option>
+									            <option value="9">소프트웨어 엔지니어</option>
+									            <option value="10">유니티 개발자</option>
+									            <option value="11">Node.js 개발자</option>
+									            <option value="12">머신러닝 엔지니어</option>
+									            <option value="13">C,C++ 개발자</option>
+									            <option value="14">VR 엔지니어</option>
+											</select>
+											<span>나의 직무</span><br>
+											<div class="userJob">
+												<a href="#"><i class="fa fa-search"></i>&nbsp;서버개발자</a>
+											</div>
+											
+											
 										</div>
 									</div><!-- 레이어 팝업창 끝 -->
 								</div>

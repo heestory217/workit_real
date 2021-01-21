@@ -7,6 +7,14 @@
 		height: 514px;
 	}
 	
+	.questionBtn{
+		display: inline-block;
+	}
+	
+	.fa-pencil{
+		font-size:17px;
+	}
+	
 	#questionBtn{
 		width:90%;
 		height:50px;
@@ -64,8 +72,8 @@
     <div id="container">
 		<!-- side nav  -->
 			<div id="leftNav">
-				<div id="questionBtn">
-				<a href="#">질문하기</a>
+			<div id="questionBtn">
+				<a href="#"><i class="fa fa-pencil"></i>&nbsp;질문하기</a>
 			</div>
 			<div class="myInfoSec">
 				<a class="myInfo" href

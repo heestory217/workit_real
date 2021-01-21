@@ -200,12 +200,13 @@ textarea::placeholder {
 						<div class="BoxWrap">
 							<div class="tit">
 								<p>
-									<i class="icoQ_on qnaSpB">Q</i>고등학교 졸업 예정자 입니다. 질문드립니다.
+									<i class="icoQ_on qnaSpB">Q</i>신입 개발자 연봉 어느정도가 적당할까요?
 								</p>
 							</div>
 							<div class="cont">
 								<p>
-									제가 고등학교 졸업예정자인데 여기 회사가 군면제되는거죠? 그리고 혹시 기숙사 있는지 알 수 있을까요?<br />
+									
+									3년제 나왔고 리서치회사에 합격했는데 연봉을 어느정도 불러야하나요? 신입이고 php html css jquery 가능하고 회사는 업계에서 나름 괜찮은거같애요<br/>
 								</p>
 							</div>
 							<div class="cellBx">
@@ -231,14 +232,14 @@ textarea::placeholder {
 									</form>
 								</div>
 							</div>
-							<div class="explain">
+							<!-- <div class="explain">
 								<ul class="txInfoWrap">
 								</ul>
-							</div>
+							</div> -->
 						</div>
 					</article>
 					
-					<!-- 답변 -->
+					<!-- 답변 include -->
 					<article>
 						<%@ include file="comments.jsp" %>
 					</article>
