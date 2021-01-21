@@ -1,6 +1,5 @@
 package com.it.workit.message.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +22,8 @@ import com.it.workit.message.model.MessageService;
 import com.it.workit.message.model.MessageVO;
 import com.it.workit.users.model.UsersService;
 import com.it.workit.users.model.UsersVO;
+
+import oracle.net.aso.m;
 
 @Controller
 @RequestMapping("/message")
@@ -136,20 +137,66 @@ public class MessageController {
 	//쪽지 상세보기
 	@RequestMapping("/messageDetail.do")
 	public String messageDetail_post(@RequestParam (defaultValue = "0") int messageNo,
+			@RequestParam (defaultValue = "0") int getMessageNo,
 			Model model) {
-		logger.info("쪽지 상세보기 파라미터 messageNo={}",messageNo);
+		logger.info("쪽지 상세보기 파라미터 messageNo={} getMessageNo={}", messageNo, getMessageNo);
 		
-		if(messageNo==0) {
+		if(messageNo==0 && getMessageNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
 			model.addAttribute("url", "/message/messageBox.do");
 			return "common/message";
 		}
 		
-		Map<String, Object> map = messageService.selectByMessageNo(messageNo);
+		Map<String, Object> map = null;
+		if(messageNo!=0) {
+			map = messageService.selectByMessageNo(messageNo);
+		}else if(getMessageNo!=0) {
+			map = messageService.selectByMessageNo(getMessageNo);
+		}
 		
 		model.addAttribute("map", map);
 		
 		return "message/messageDetail";
 	};
+	
+	//개별쪽지 삭제하기
+	@RequestMapping("/deleteMsg.do")
+	public String delMsg(@RequestParam (defaultValue = "0") int messageNo,
+			@RequestParam (defaultValue = "0") int getMessageNo,
+			@RequestParam (required = false) String type,
+			Model model) {
+		logger.info("개별 쪽지 삭제하기 파라미터 messageNo={} getMessageNo={}", messageNo, getMessageNo);
+		
+		String msg="", url="/message/messageBox.do";
+
+		int cnt=0;
+		if(messageNo!=0 || getMessageNo!=0) {
+			if(messageNo!=0) {
+				//보낸 쪽지 삭제
+				cnt = messageService.updateMsgDelflag(messageNo);
+				//보낸 쪽지함으로 보내주기
+				url="/message/messageBoxSend.do";
+			}else if(getMessageNo!=0) {
+				//받은 쪽지 삭제
+				cnt = messageService.updategetMsgDelflag(getMessageNo);
+				
+				//나에게 쓴 쪽지함이라면
+				if(type.equals("toMe")) {
+					url="/message/messageBox.do?type=toMe";
+				}
+			}
+		}else {	//파라미터가 없는 경우
+			msg="잘못된 url입니다.";
+		}
+		
+		if(cnt>0) {
+			msg="쪽지가 삭제되었습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
 	
 }

@@ -3,6 +3,16 @@
 
 <%@ include file="messageTop.jsp"%>
 
+<script type="text/javascript">
+	$(function(){
+		$('#delMsg').click(function(){
+			if(!confirm('해당 쪽지를 삭제하시겠습니까?')){
+				event.preventDefault();
+			}
+		});
+	});
+</script>
+
 <div class="blog-details-inner">
 	<div class="blog-detail-title">
 		<h4>
@@ -52,7 +62,17 @@
 		<div class="cart-buttons">
 			<a href="#" class="btn btn-primary" style="background:#4C50BB;">답장</a>
 			<a href="#" class="btn btn-primary" style="background:#4C50BB;">보관</a>
-			<a href="#" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+			<c:if test="${!empty param.getMessageNo}">
+				<c:if test="${!empty param.type}">
+					<a href="<c:url value='/message/deleteMsg.do?type=toMe&getMessageNo=${param.getMessageNo}'/>" id="delMsg" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+				</c:if>
+				<c:if test="${empty param.type}">
+					<a href="<c:url value='/message/deleteMsg.do?getMessageNo=${param.getMessageNo}'/>" id="delMsg" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+				</c:if>
+			</c:if>
+			<c:if test="${!empty param.messageNo}">
+				<a href="<c:url value='/message/deleteMsg.do?messageNo=${param.messageNo}'/>" id="delMsg" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+			</c:if>
 		</div>
 	</div>
 </div>

@@ -55,9 +55,16 @@
 						<td><input type="checkbox"></td>
 						<td>${map['USER_ID']}</td>
 						<td style="text-align:left;">
-							<a href="<c:url value="/message/messageDetail.do?messageNo=${map['MESSAGE_NO']}"/>">
-								${map['MESSAGE_TITLE']}
-							</a>
+							<c:if test="${param.type != 'toMe'}">
+								<a href="<c:url value="/message/messageDetail.do?getMessageNo=${map['MESSAGE_NO']}"/>">
+									${map['MESSAGE_TITLE']}
+								</a>
+							</c:if>
+							<c:if test="${param.type == 'toMe'}">
+								<a href="<c:url value="/message/messageDetail.do?type=toMe&getMessageNo=${map['MESSAGE_NO']}"/>">
+									${map['MESSAGE_TITLE']}
+								</a>
+							</c:if>
 						</td>
 						<td style="text-align:left;">${map['MESSAGE_CONTENT']}</td>
 						<td><fmt:formatDate value="${map['MESSAGE_REGDATE']}" pattern="yyyy-MM-dd" /></td>
