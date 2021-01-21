@@ -48,9 +48,13 @@
 				alert('전화번호는 숫자만 가능합니다.');
 				$('#hp2').focus();
 				event.preventDefault();				
-			}else if($('#chkId').val() !='Y'){
-				alert('아이디 중복확인하세요');
-				$('#btnChkId').focus();
+			}else if($('#chkEmail').val() !='Y'){
+				alert('인증번호를 확인하세요.');
+				$('#validEmailNum').focus();
+				event.preventDefault();
+			}else if($('#validEmailNum').val().length<1){
+				alert('인증번호를 입력하세요.');
+				$('#validEmailNum').focus();
 				event.preventDefault();
 			}
 		});
@@ -86,6 +90,26 @@
 				$('.error').html("아이디는 영문, 숫자, _만 가능합니다.");
 				$('#chkId').val('N');
 			}
+		});
+		
+		$('#emailNumCheck').click(function(){
+			if($('#validEmailNum').val().length<1){
+				alert('인증번호를 입력하세요');
+				$('#validEmailNum').focus();
+				event.preventDefault();
+			}else{
+				if($('#validEmailNum').val()==$('#validNum').val()){
+					$('#chkEmail').val('Y');
+					alert("이메일 인증이 완료되었습니다.");
+					$("#email1").prop("readOnly",true);
+					$("#email2").prop("readOnly",true);
+					$("#validEmailNum").prop("readOnly",true);
+				}else{
+					alert("이메일 인증에 실패하였습니다. 다시 시도하세요.");
+				}
+			}
+			
+			
 		});
 		
 	});
@@ -137,19 +161,22 @@
                                 <label for="email1">이메일 *</label>
                                 <input type="text" id="email1" class="col-lg-4" name="userEmail1">&nbsp;&nbsp;@&nbsp;
 					        	<input type="text" id="email2" class="col-lg-4" name="userEmail2">&nbsp;&nbsp;
-                                <select name="email3" id="email3" class="col-lg-3 mystyle">
+                               <!--  <select name="email3" id="email3" class="col-lg-3 mystyle">
                                 	<option disabled selected>이메일 목록</option>
 						            <option value="naver.com">naver.com</option>
 						            <option value="hanmail.net">hanmail.net</option>
 						            <option value="nate.com">nate.com</option>
 						            <option value="gmail.com">gmail.com</option>
 						            <option value="etc">직접입력</option>
-					        	</select>
+					        	</select> -->
+                                <input type="button" id="emailCheck" class="col-lg-3 site-btn" value="인증번호발급">
                             </div>
                             <div class="group-input">
-                                <input type="button" id="validEmail" class="col-lg-3" value="인증번호발급" onclick="location.href='/workit/email/send.do'">
-                                <input type="text" id="validEmailNum" class="col-lg-5 margin_left">
-                                <input type="button" id="emailCheck" class="col-lg-2 site-btn margin_left" value="확인">
+                                <!-- <input type="button" id="validEmail" class="col-lg-3" value="인증번호발급"
+                                	onclick=location.href='/workit/email/send.do'> -->
+                                <input type="text" id="validEmailNum" class="col-lg-9" placeholder="인증번호를 입력하세요">
+                                <input type="button" id="emailNumCheck" class="col-lg-2 site-btn margin_left" value="확인">
+                                <!-- <input type="button" id="emailCheck" class="col-lg-2 site-btn margin_left" value="확인"> -->
                             </div>
                             <div class="group-input">
                                 <label for="hp1">전화번호</label>
@@ -216,8 +243,12 @@
             </div>
         </div>
     </div>
-    <input type ="text" name="chkId" id="chkId">
-    <input type ="text" name="chkEmail" id="chkEmail">
+    <!-- 아이디 중복 확인용 -->
+    <input type ="text" name="chkId" id="chkId" style="visibility: hidden;">
+    <!-- 이메일 인증완료용 -->
+    <input type ="text" name="chkEmail" id="chkEmail" style="visibility: hidden;">
+    <!-- 이메일 인증 번호 -->
+    <input type ="text" name="validNum" id="validNum" style="visibility: hidden;">
     <!-- Register Form Section End -->
     
 <%@ include file="../inc/bottom.jsp" %>

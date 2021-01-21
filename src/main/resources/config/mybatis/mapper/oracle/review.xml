@@ -3,8 +3,25 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mybatis.mapper.review">
-	<select id="selectReviewList" parameterType="int" resultType="reviewVo">
-		select * from CORPREVIEW where corp_no=#{corpNo}
+	<select id="selectReviewList" parameterType="ReviewPageVO" resultType="ReviewVO">
+		select *
+			from
+			(
+			    select A.*, rownum as RNUM
+			    from
+			    (
+			        select * from CORPREVIEW
+			        where corp_no=#{corpNo}
+			    )A
+			)
+			<![CDATA[
+			where RNUM > #{firstRecordIndex} and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+			]]>
 	</select>
+	
+	<select id="selectTotalRecord" parameterType="ReviewPageVO" resultType="int">
+		select count(*) from CORPREVIEW where corp_no=#{corpNo}
+	</select>
+	
 </mapper>
 

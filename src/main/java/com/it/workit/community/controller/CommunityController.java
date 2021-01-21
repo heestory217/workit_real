@@ -47,4 +47,11 @@ public class CommunityController {
 		logger.info("질문 상세 페이지 ");
 	}
 	
+	
+	//회원 활동 내역
+	@RequestMapping("/myProfile.do")
+	public void profile() {
+		logger.info("활동 내역 페이지 ");
+	}
+	
 }

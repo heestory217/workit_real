@@ -133,7 +133,7 @@
 				<article id="questBox">
 					<div class="nullBoxWrap">
 						<p class="msgBx">
-							아직 등록한 질문이 없습니다!<br> 원하는 <em>직무, 기업</em> 선배들에게 커리어 고민을
+							아직 등록한 질문이 없습니다!<br> 원하는 <em>직무, 기업</em> 을 선택하여 고민을
 							질문해보세요.
 						</p>
 						<div class="btnBx">
@@ -162,8 +162,8 @@
 				  <div class="col-sm-3 popQstnCard">
 				    <div class="card">
 				      <div class="card-body">
-				        <p class="card-title">@eunbi</p>
-				        <p class="card-text">면접 연락 못받은 경우</p>
+				        <p class="card-title">@silver</p>
+				        <p class="card-text">이력서 자기소개서 작성 팁이 궁금합니다. </p>
 				      </div>
 				    </div>
 				  </div>
@@ -171,8 +171,8 @@
 				  <div class="col-sm-3 popQstnCard">
 				    <div class="card">
 				      <div class="card-body">
-				        <p class="card-title">@eunbi</p>
-				        <p class="card-text">중소기업 원래 이런가요?</p>
+				        <p class="card-title">@hong</p>
+				        <p class="card-text">현재 직무에 대해서 필요한 스펙이 있을까요?</p>
 				      </div>
 				    </div>
 				  </div>
@@ -180,8 +180,8 @@
 				  <div class="col-sm-3 popQstnCard">
 				    <div class="card">
 				      <div class="card-body">
-				        <p class="card-title">@eunbi</p>
-				        <p class="card-text">중소기업 원래 이런가요?</p>
+				        <p class="card-title">@gildong</p>
+				        <p class="card-text">이력서 열람 후 보통 언제 연락이 오나요 ?</p>
 				      </div>
 				    </div>
 				  </div>

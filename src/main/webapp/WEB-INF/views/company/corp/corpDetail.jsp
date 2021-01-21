@@ -57,7 +57,7 @@
                     <div class="blog-detail-title">
                        	<img src="<c:url value='/pd_images/${cAllVo.corpVo.corpImgurl }'/>" style="width: 50px;margin-bottom: 20px;"><br>
                         <h2>${cAllVo.corpVo.corpName}</h2>
-                        <p>${cAllVo.corpVo.corpIndustry}<span> - ${cAllVo.corpVo.corpStardate}</span></p>
+                        <p>사업 분야 : ${cAllVo.corpVo.corpIndustry}<span> - 설립일 : ${cAllVo.corpVo.corpStardate} </span></p>
                     </div>
 	                    <c:if test="${!empty imgList}">
                         	<c:forEach var="imgList" items="${imgList }" begin="0" end="0">
@@ -72,7 +72,7 @@
                     </div>
 	                    <div class="blog-quote">
 	                        <p style="font-size: 2.2em;text-align: center;">
-	                        '${cAllVo.corpVo.corpName}'<span>의  1인당 평균연봉은 </span> ${cAllVo.corpVo.corpAvrpay} 만원, <br><br>
+	                        '${cAllVo.corpVo.corpName}'<span>의  1인당 평균연봉은 </span><fmt:formatNumber value="${cAllVo.corpVo.corpAvrpay}" pattern="#,###,###"/> 만원, <br><br>
 	                        <span>기업 근로자 수는</span> 총  ${cAllVo.corpVo.corpPnumber}명
 	                        <c:if test="${!empty cAllVo.corpVo.corpKind}">
 	                        	<span>의 </span>중소기업<span>입니다.</span>
@@ -97,14 +97,18 @@
                      	${cAllVo.corpVo.corpIntro}
                     </div>
                     <div class="tag-share">
-                        <div class="details-tag">
-                            <ul>
-                                <li><i class="fa fa-tags"></i></li>
-                                <li><a href="${cAllVo.corpVo.corpWebaddress}">${cAllVo.corpVo.corpWebaddress}</a></li>
-                                <li>${cAllVo.corpVo.corpAddress1}</li>
-                                <li>${cAllVo.corpVo.corpTel}</li>
-                            </ul>
-                        </div>
+	                    <div class="col-lg-9">
+	                        <div class="details-tag">
+	                            <ul>
+	                                <li><i class="fa fa-tags"></i></li>
+	                                <li><a href="http://${cAllVo.corpVo.corpWebaddress}">${cAllVo.corpVo.corpWebaddress}</a></li>
+	                                <li>${cAllVo.corpVo.corpAddress1}</li>
+	                                <li>${cAllVo.corpVo.corpTel}</li>
+	                            </ul>
+	                        </div>
+	                    </div>
+	                    <!-- 해당 기업이 로그인한 유저와 일치할때만 보여주기! c:if 추가-->
+                    	<a href="#"><button style="float: right;" class="site-btn">기업 정보 수정</button></a>
                     </div>
                     <input type="hidden" id="corpNo" value="${cAllVo.corpVo.corpNo}">
                     <input type="hidden" id="corpUserNo" value="${cAllVo.corpVo.userNo}">
