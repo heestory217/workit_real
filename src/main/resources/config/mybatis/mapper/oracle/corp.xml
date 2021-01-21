@@ -8,11 +8,11 @@
 			select corp_seq.nextval from dual
 		</selectKey>
 		insert into CORP(CORP_NO, USER_NO, CORP_NAME, CORP_INTRO, CORP_IMGURL, 
-                    CORP_AVRPAY, CORP_KIND, CORP_PNUMBER, CORP_HEADNAME, CORP_ZIPCODE, 
+                    CORP_AVRPAY, CORP_KIND, CORP_PNUMBER, CORP_HEADNAME, 
                     CORP_ADDRESS1, COL_ADDRESS2, CORP_CORPADDNUMBER, CORP_INDUSTRY, CORP_STARTDATE, 
                     CORP_WEBADDRESS, CORP_TEL, CORP_OKCHECK)
 		values(#{corpNo}, #{userNo}, #{corpName}, #{corpIntro},#{corpImgurl},#{corpAvrpay},
-        #{corpKind},#{corpPnumber},#{corpHeadname},#{corpZipcode},#{corpAddress1},#{corpAddress2},#{corpCorpaddnumber},#{corpIndustry},#{corpStardate},#{corpWebaddress},#{corpTel},0)
+        #{corpKind},#{corpPnumber},#{corpHeadname},#{corpAddress1},#{corpAddress2},#{corpCorpaddnumber},#{corpIndustry},#{corpStardate},#{corpWebaddress},#{corpTel},0)
 	</insert>
 	
 	<update id="insertImg" parameterType="corpimgVO">
@@ -35,7 +35,6 @@
 			<result property="corpKind" column="CORP_KIND" jdbcType="VARCHAR"/>
 			<result property="corpPnumber" column="CORP_PNUMBER" jdbcType="BIGINT"/>
 			<result property="corpHeadname" column="CORP_headname" jdbcType="VARCHAR"/>
-			<result property="corpZipcode" column="CORP_ZIPCODE" jdbcType="VARCHAR"/>
 			<result property="corpAddress1" column="CORP_ADDRESS1" jdbcType="VARCHAR"/>
 			<result property="corpAddress2" column="CORP_ADDRESS2" jdbcType="VARCHAR"/>
 			<result property="corpCorpaddnumber" column="CORP_corpaddnumber" jdbcType="VARCHAR"/>

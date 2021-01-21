@@ -13,7 +13,6 @@ public class CorpVO {
     private String corpKind;//중소기업여부 VARCHAR2(150) NULL, 기업형태
     private int corpPnumber; //기업종업원수 NUMBER  NOT NULL CHECK(CORP_PNUMBER>=1),직원수
     private String corpHeadname;// 기업대표자성명* VARCHAR2(100) NOT NULL,대표자명
-    private String corpZipcode;//기업구우편번호VARCHAR2(20)  NOT NULL 우편번호
     private String corpAddress1;//기업기본주소*CORP_ADDRESS1  VARCHAR2(150) NOT NULL, 대표 주소1
     private String corpAddress2;//기업상세주소*COL_ADDRESS2 VARCHAR2(150) NULL,  대표 주소2
     private String corpCorpaddnumber;//사업자등록번호* CORP_CORPADDNUMBER  VARCHAR2(200) NOT NULL,  사업자 등록번호
@@ -86,12 +85,6 @@ public class CorpVO {
 	public void setCorpHeadname(String corpHeadname) {
 		this.corpHeadname = corpHeadname;
 	}
-	public String getCorpZipcode() {
-		return corpZipcode;
-	}
-	public void setCorpZipcode(String corpZipcode) {
-		this.corpZipcode = corpZipcode;
-	}
 	public String getCorpAddress1() {
 		return corpAddress1;
 	}
@@ -145,7 +138,7 @@ public class CorpVO {
 	public String toString() {
 		return "CorpVO [corpNo=" + corpNo + ", userNo=" + userNo + ", corpName=" + corpName + ", corpIntro=" + corpIntro
 				+ ", corpImgurl=" + corpImgurl + ", corpAvrpay=" + corpAvrpay + ", corpKind=" + corpKind
-				+ ", corpPnumber=" + corpPnumber + ", corpHeadname=" + corpHeadname + ", corpZipcode=" + corpZipcode
+				+ ", corpPnumber=" + corpPnumber + ", corpHeadname=" + corpHeadname
 				+ ", corpAddress1=" + corpAddress1 + ", corpAddress2=" + corpAddress2 + ", corpCorpaddnumber="
 				+ corpCorpaddnumber + ", corpIndustry=" + corpIndustry + ", corpStardate=" + corpStartdate
 				+ ", corpWebaddress=" + corpWebaddress + ", corpTel=" + corpTel + ", corpOkcheck=" + corpOkcheck

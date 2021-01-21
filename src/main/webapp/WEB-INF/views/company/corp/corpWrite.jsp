@@ -56,10 +56,6 @@
 					alert('기업 상세 주소를 입력하세요');
 					$("corpAddress2").focus();
 					event.preventDefault();
-				}else if(!$("#corpZipcode").val()){
-					alert('기업 우편번호를 입력하세요');
-					$("#corpZipcode").focus();
-					event.preventDefault();
 				}else if(!$("#corpIndustry").val()){
 					alert('기업의 주요 사업분야를 입력하세요');
 					$("#corpIndustry").focus();
@@ -135,10 +131,6 @@ input[type=file]{
                         <label for="corpAddress1">기업 주소<span>*</span></label>
                         <input type="text" id="corpAddress1" class="street-first" name="corpAddress1">
                         <input type="text" id="corpAddress2" name="corpAddress2">
-                    </div>
-                    <div class="col-lg-12">
-                        <label for="corpZipcode">우편번호<span>*</span></label>
-                        <input type="text" id="corpZipcode" name="corpZipcode">
                     </div>
                     <div class="col-lg-12">
                         <label for="corpWebaddress">기업 홈페이지 URL</label>
