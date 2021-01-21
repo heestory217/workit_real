@@ -16,10 +16,17 @@ public class UsersDAOMybatis implements UsersDAO {
 		int count = sqlSession.selectOne(namespace+"dupCheck", userid);
 		return count;
 	}
-
+	
+	//로그인확인
 	public String loginCheck(String userid, String password) {
 		String pass = sqlSession.selectOne(namespace+"loginCheck", userid);
 		
 		return pass;
+	}
+	
+	//아이디로 정보 불러오기
+	public UsersVO selectUser(String userid) {
+		UsersVO vo = sqlSession.selectOne(namespace+"selectUser", userid);
+		return null;
 	}
 }

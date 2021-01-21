@@ -13,6 +13,7 @@
 					event.preventDefault();
 					return false;
 				}
+				
 			});
 		});
 	});
@@ -24,7 +25,7 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="login-form">
                         <h2>로그인</h2>
-                        <form action="#" name="frmLogin">
+                        <form action="<c:url value='/users/logincheck.do'/>" name="frmLogin">
                             <div class="group-input">
                                 <label for="username">아이디</label>
                                 <input type="text" id="userid" class="infobox">
@@ -35,12 +36,16 @@
                             </div>
                             <div class="group-input gi-check">
                                 <div class="gi-more">
-                                    <label for="save-pass">
+                                <input type="checkbox" id="save-id" name="chkSave"
+                           	            	<c:if test="${!empty cookie.ck_userid }">
+												checked="checked"
+											</c:if>
+                                >
+                                    <label for="save-pass" for="chkSave">
                                        아이디 저장하기
-                                        <input type="checkbox" id="save-id">
                                         <span class="checkmark"></span>
                                     </label>
-                                    <a href="#" class="forget-pass">비밀번호를 잊으셨나요?</a>
+                                    <a href="#" class="forget-pass">아이디나 비밀번호를 잊으셨나요?</a>
                                 </div>
                             </div>
                             <button type="submit" class="site-btn login-btn">로그인</button>

@@ -26,12 +26,24 @@ public class UsersServiceImpl implements UsersService{
 	public int loginCheck(String userid, String password) {
 		String pass=usersDao.loginCheck(userid, password);
 		int result=0;
-		if(pass==password) {
-			result=LOGIN_OK;  //로그인 성공
+		if(pass==null || pass.isEmpty()) {
+			result=LOGIN_OK;
 		}else {
-			result=LOGIN_FAIL; //로그인 성공
+			if(pass.equals(password)) {
+				result=PWD_DISAGREE;
+			}else {
+				result=ID_NONE;
+			}
 		}
+		
 		return result;
 	}
+
+	@Override
+	public UsersVO selectUser(String userid) {
+		return usersDao.selectUser(userid);
+	}
+	
+	
 
 }

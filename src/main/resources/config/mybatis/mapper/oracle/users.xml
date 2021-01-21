@@ -9,7 +9,9 @@
 	<select id="loginCheck" parameterType="string" resultType="String">
 		select USER_PASSWORD from users where user_id=#{userId}
 	</select>
-
+	<select id="selectUser" parameterType="string" resultType="UsersVO">
+		select * from users where user_id=#{userId}
+	</select>
 </mapper>
 
 
