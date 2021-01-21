@@ -7,7 +7,7 @@
 	<div class="blog-detail-title">
 		<h4>
 			<i class="fa fa-envelope" style="margin-right: 15px;"></i>
-			${vo.messageTitle}
+			${map['MESSAGE_TITLE']}
 		</h4>
 	</div>
 	<br>
@@ -15,16 +15,16 @@
 		<p style="font-size: 15px;">
 			
 			<i class="fas fa-user" style="margin-right: 15px;"></i>
-			<span style="color:#4C50BB;">받은회원 ID : </span>${userid}
+			<span style="color:#4C50BB;">받은회원 ID : </span>${map['USER_ID']}
 			<br>
 			<i class="far fa-calendar-alt" style="margin-right: 15px;"></i>
 			<span style="color:#4C50BB;">보낸날짜 : </span>
-			<fmt:formatDate value="${vo.messageRegdate}" pattern="yyyy-MM-dd HH:mm:ss" />
+			<fmt:formatDate value="${map['MESSAGE_REGDATE']}" pattern="yyyy-MM-dd HH:mm:ss" />
 		</p>
 	</div>
 	<div class="posted-by" style="margin-left: 10%;width: 80%;">
 		<div class="pb-text">
-			<p style="font-size: 16px;color:black;">${vo.messageContent}</p>
+			<p style="font-size: 16px;color:black;">${map['MESSAGE_CONTENT']}</p>
 		</div>
 	</div>
 	<br>

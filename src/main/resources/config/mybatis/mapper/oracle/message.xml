@@ -19,12 +19,39 @@
 		values(#{getMessageNo}, #{userNo}, #{messageNo})
 	</insert>
 	
-	<select id="selectSentMessage" parameterType="int" resultType="messageVo">
-		select * from message where USER_NO=#{userNo} order by MESSAGE_NO desc
+	<select id="selectSentMessage" parameterType="int" resultType="map">
+		select A.*
+		from
+		(
+		    select m.*, (select user_id from users where USER_NO=m.GETUSER_NO) AS "USER_ID"
+		    from MsgGetMsgView m
+		)A
+		where USER_NO=#{userNo} and GETUSER_NO!=USER_NO
+		order by MESSAGE_REGDATE desc
 	</select>
 	
-	<select id="selectByMessageNo" parameterType="int" resultType="messageVo">
-		select * from message where MESSAGE_NO=#{messageNo}
+	<select id="selectSentMyself" parameterType="int" resultType="map">
+		select A.*
+		from
+		(
+		    select m.*, (select user_id from users where USER_NO=m.GETUSER_NO) AS "USER_ID"
+		    from MsgGetMsgView m
+		)A
+		where USER_NO=#{userNo} and GETUSER_NO=USER_NO
+		order by MESSAGE_REGDATE desc
+	</select>
+	
+	<select id="selectGetMessage" parameterType="int" resultType="map">
+		select m.*, (select user_id from users where USER_NO=m.USER_NO) AS "USER_ID"
+		from MsgGetMsgView m
+		where GETUSER_NO=#{userNo} and GETUSER_NO!=USER_NO
+		order by m.MESSAGE_REGDATE desc
+	</select>
+	
+	<select id="selectByMessageNo" parameterType="int" resultType="map">
+		select m.*, (select user_id from users where USER_NO=m.GETUSER_NO) AS "USER_ID"
+		from MsgGetMsgView m
+		WHERE MESSAGE_NO=#{messageNo}
 	</select>	
 </mapper>
 

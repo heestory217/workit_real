@@ -2,10 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="messageTop.jsp"%>
 
+<style>
+	.cart-table table tr td{
+		padding: 14px 0;
+		border-bottom: 1px solid #ebebeb;
+	}
+</style>
 
 <!-- 제목 -->
 <div class="section-title">
-	<c:if test="${empty param.type }">
+	<c:if test="${empty param.type}">
 		<h2>받은쪽지함</h2>
 	</c:if>
 	<c:if test="${!empty param.type }">
@@ -24,7 +30,7 @@
 	<table>
 		<thead>
 			<tr>
-				<th><input type="checkbox" id="chkAll"></th>
+				<th style="margin-left: 5px"><input type="checkbox" id="chkAll"></th>
 				<c:if test="${param.type == 'important'}">
 					<th>보낸/받는사람</th>
 				</c:if>
@@ -37,20 +43,28 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td class="close-td first-row"><input type="checkbox"></td>
-				<td class="qua-col first-row">회원1</td>
-				<td class="cart-title first-row"><a href="#">안녕하세요 제목1</a></td>
-				<td class="cart-title first-row">내용내용1</td>
-				<td class="qua-col first-row">2021-01-17</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"></td>
-				<td class="qua-col">회원2</td>
-				<td class="cart-title"><a href="#">안녕하세요 제목2</a></td>
-				<td class="cart-title">내용내용2</td>
-				<td class="qua-col">2021-01-17</td>
-			</tr>
+			<!-- 받은쪽지함 & 나에게 보낸 쪽지함 -->
+			<c:if test="${empty getList}">
+				<tr>
+					<td colspan="6">쪽지가 없습니다.</td>
+				</tr>
+			</c:if>
+			<c:if test="${!empty getList}">
+				<c:forEach var="map" items="${getList}">
+					<tr>
+						<td><input type="checkbox"></td>
+						<td>${map['USER_ID']}</td>
+						<td style="text-align:left;">
+							<a href="<c:url value="/message/messageDetail.do?messageNo=${map['MESSAGE_NO']}"/>">
+								${map['MESSAGE_TITLE']}
+							</a>
+						</td>
+						<td style="text-align:left;">${map['MESSAGE_CONTENT']}</td>
+						<td><fmt:formatDate value="${map['MESSAGE_REGDATE']}" pattern="yyyy-MM-dd" /></td>
+					</tr>
+				</c:forEach>
+			</c:if>
+			<!-- 받은쪽지함 -->
 		</tbody>
 	</table>
 </div>

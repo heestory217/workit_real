@@ -32,21 +32,26 @@
 		<tbody>
 			<c:if test="${empty list}">
 				<tr>
-					<td colspan="7" class="cart-title first-row">쪽지가 없습니다.</td>
+					<td colspan="7">쪽지가 없습니다.</td>
 				</tr>
 			</c:if>
 			<c:if test="${!empty list}">
-				<c:forEach var="vo" items="${list}">
+				<c:forEach var="map" items="${list}">
 					<tr>
 						<td><input type="checkbox"></td>
-						<td>${userId}</td>
+						<td>${map['USER_ID']}</td>
 						<td style="text-align:left;">
-							<a href="<c:url value='/message/messageDetail.do?messageNo=${vo.messageNo}'/>">
-								${vo.messageTitle}
+							<a href="<c:url value="/message/messageDetail.do?messageNo=${map['MESSAGE_NO']}"/>">
+								${map['MESSAGE_TITLE']}
 							</a>
 						</td>
-						<td><fmt:formatDate value="${vo.messageRegdate}" pattern="yyyy-MM-dd" /></td>
-						<td>열람</td>
+						<td><fmt:formatDate value="${map['MESSAGE_REGDATE']}" pattern="yyyy-MM-dd" /></td>
+						<c:if test="${map['GETMESSAGE_READFLAG']==2}">
+							<td>미열람</td>
+						</c:if>
+						<c:if test="${map['GETMESSAGE_READFLAG']==1}">
+							<td>열람</td>
+						</c:if>
 						<td><i class="ti-close" style="cursor: pointer;"></i></td>
 					</tr>
 				</c:forEach>

@@ -1,6 +1,7 @@
 package com.it.workit.message.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,23 @@ public class MessageDAOMybatis implements MessageDAO{
 	}
 
 	@Override
-	public List<MessageVO> selectSentMessage(int userNo) {
+	public List<Map<String, Object>> selectSentMessage(int userNo) {
 		return sqlSession.selectList(namespace+"selectSentMessage", userNo);
+	}
+	
+	@Override 
+	public List<Map<String, Object>> selectSentMyself(int userNo) {
+		return sqlSession.selectList(namespace+"selectSentMyself", userNo);
 	}
 
 	@Override
-	public MessageVO selectByMessageNo(int messageNo) {
-		return sqlSession.selectOne(namespace+"selectByMessageNo", messageNo);
+	public List<Map<String, Object>> selectGetMessage(int userNo) {
+		return sqlSession.selectList(namespace+"selectGetMessage", userNo);
 	}
 	
+	@Override
+	public Map<String, Object> selectByMessageNo(int messageNo) {
+		return sqlSession.selectOne(namespace+"selectByMessageNo", messageNo);
+	}
+
 }
