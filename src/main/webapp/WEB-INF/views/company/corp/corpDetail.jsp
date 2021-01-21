@@ -108,7 +108,7 @@
 	                        </div>
 	                    </div>
 	                    <!-- 해당 기업이 로그인한 유저와 일치할때만 보여주기! c:if 추가-->
-                    	<a href="#"><button style="float: right;" class="site-btn">기업 정보 수정</button></a>
+                    	<a href="<c:url value="/company/corp/corpEdit.do?corpNo=${cAllVo.corpVo.corpNo }"/>"><button style="float: right;" class="site-btn">기업 정보 수정</button></a>
                     </div>
                     <input type="hidden" id="corpNo" value="${cAllVo.corpVo.corpNo}">
                     <input type="hidden" id="corpUserNo" value="${cAllVo.corpVo.userNo}">
