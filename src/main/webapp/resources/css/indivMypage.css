@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.center{
+	text-align: center;
+}
+
+.shopping-cart{
+	padding-top: 30px;
+	padding-right: 30px;
+	padding-bottom: 50px;
+}
+
+.mybtn{
+	border: 1px solid #ebebeb;
+    height: 50px;
+}

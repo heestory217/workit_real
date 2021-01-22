@@ -44,4 +44,10 @@ public class UsersDAOMybatis implements UsersDAO {
 		return sqlSession.selectOne(namespace+"selectByUserId", userId);
 	}
 
+	//회원 수정
+	@Override
+	public int updateUsers(UsersVO vo) {
+		return sqlSession.update(namespace+"updateUsers", vo);
+	}
+
 }

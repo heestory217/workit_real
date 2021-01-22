@@ -6,4 +6,5 @@ public interface UsersDAO {
 	public UsersVO selectByUserNo(int userNo);
 	public UsersVO selectByUserId(String userId);
 	public String loginCheck(String userid, String password);
+	public int updateUsers(UsersVO vo);
 }

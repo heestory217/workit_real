@@ -19,5 +19,7 @@ public interface UsersService {
 	//희정 유저번호, 아이디별 조회
 	public UsersVO selectByUserNo(int userNo);
 	public UsersVO selectByUserId(String userId);
+	
+	public int updateUsers(UsersVO vo);
 
 }
