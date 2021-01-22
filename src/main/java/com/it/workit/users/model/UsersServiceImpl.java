@@ -58,4 +58,9 @@ public class UsersServiceImpl implements UsersService{
 		return usersDao.updateUsers(vo);
 	}
 
+	@Override
+	public int userkindcheck(String userid) {
+		return usersDao.userkindcheck(userid);
+	}
+
 }

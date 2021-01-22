@@ -143,10 +143,14 @@ public class UsersController {
 					UsersVO userVo = usersService.selectByUserId(vo.getUserId());
 					logger.info("userVo={}", vo);
 					
+					int kind=usersService.userkindcheck(vo.getUserId());
+					
 					//[1] session
 					HttpSession session=request.getSession();
 					session.setAttribute("userId", vo.getUserId());
 					session.setAttribute("userName", userVo.getUserName());
+					logger.info("회원종류={}", kind);
+					session.setAttribute("user_corpcheck", kind);
 					
 					/*
 					//[2] cookie
