@@ -61,6 +61,15 @@
 		.shopping-cart spad {
 			padding-top:30px;
 		}
+		
+		#loading { 
+			width: 100%; height: 100%; top: 0px; left: 0px; position: fixed; display: block; opacity: 0.7; background-color: #fff; z-index: 99; text-align: center;
+		}
+		
+		#loading-image {
+			position: absolute; top: 50%; left: 50%; z-index: 100;
+		}
+
     </style>
     <!-- Js Plugins -->
     <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
@@ -77,7 +86,7 @@
     <script src="<c:url value="/resources/js/paging.js"/>" type="text/javascript"></script>
     <script type="text/javascript">
     var totalCount=0;
-    
+
 	    $(function(){
 			$('#searchBtn').click(function(){
 				if($('#searchName').val().length<1){
@@ -87,7 +96,7 @@
 				}
 				
 				$.send(1);
-				
+				$('#loading').css("display","")
 				event.preventDefault();
 			});
 		});
@@ -231,7 +240,11 @@
                         </div>
                     </div>
                     <div id="total"></div>
-                    <div id="divList"></div>
+                    <div id="divList">
+	                    <div id="loading" style="display:none;">
+	                    	<img id="loading-image" src="<c:url value='/resources/img/5.gif'/>" alt="Loading..." />
+	                   	</div>
+                   	</div>
                     <div id="divPage"></div>
                 </div>
             </div>
