@@ -148,6 +148,7 @@ public class UsersController {
 					//[1] session
 					HttpSession session=request.getSession();
 					session.setAttribute("userId", vo.getUserId());
+					session.setAttribute("userNo", userVo.getUserNo());
 					session.setAttribute("userName", userVo.getUserName());
 					logger.info("회원종류={}", kind);
 					session.setAttribute("user_corpcheck", kind);
@@ -186,7 +187,9 @@ public class UsersController {
 		logger.info("로그아웃 처리, 파라미터 userid={}", userid);
 
 		session.removeAttribute("userId");
+		session.removeAttribute("userNo");
 		session.removeAttribute("userName");
+		session.removeAttribute("user_corpcheck");
 
 		return "redirect:/index.do";
 	}

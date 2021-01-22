@@ -12,4 +12,9 @@ public class GetMessageServiceImpl implements GetMessageService{
 	public int insertGetMessage(GetMessageVO gVo) {
 		return getMessageDao.insertGetMessage(gVo);
 	}
+
+	@Override
+	public int updateReadCount(int messageNo) {
+		return getMessageDao.updateReadCount(messageNo);
+	}
 }
