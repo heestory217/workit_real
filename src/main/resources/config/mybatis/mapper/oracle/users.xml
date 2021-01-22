@@ -30,5 +30,14 @@
 	<select id="selectByUserId" parameterType="String" resultType="usersVo">
 		select * from users where USER_ID=#{userId}
 	</select>
+	
+	<update id="updateUsers" parameterType="usersVo">
+		update users
+		set user_name=#{userName}, user_password=#{userPassword}, workkind_no=#{workkindNo}, 
+		    user_experience=#{userExperience}, user_hp1=#{userHp1}, user_hp2=#{userHp2}, 
+		    user_hp3=#{userHp3}, user_zipcode=#{userZipcode}, 
+		    user_address=#{userAddress}, user_addressdetail=#{userAddressdetail}
+		where user_id=#{userId}
+	</update>
 
 </mapper>
