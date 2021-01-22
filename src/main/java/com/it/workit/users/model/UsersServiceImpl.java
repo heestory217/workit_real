@@ -8,11 +8,11 @@ public class UsersServiceImpl implements UsersService{
 
 	@Autowired
 	private UsersDAO usersDao;
-	
+
 	@Override
 	public int checkDup(String userid) {
 		int count=usersDao.checkDup(userid);
-		
+
 		int result=0;
 		if(count>0) {
 			result=EXIST_ID;  //해당 아이디 존재
@@ -23,27 +23,44 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	@Override
+	public int insertUsers(UsersVO vo) {
+		int cnt=usersDao.insertUsers(vo);
+		return cnt;
+	}
+	
+	@Override
 	public int loginCheck(String userid, String password) {
 		String pass=usersDao.loginCheck(userid, password);
 		int result=0;
-		if(pass==null || pass.isEmpty()) {
+		if(pass.equals(password)) {
 			result=LOGIN_OK;
+		}else if(!(pass==null || pass.isEmpty())){
+			result=PWD_DISAGREE;
 		}else {
-			if(pass.equals(password)) {
-				result=PWD_DISAGREE;
-			}else {
-				result=ID_NONE;
-			}
+			result=ID_NONE;
 		}
 		
 		return result;
 	}
+	
+	@Override
+	public UsersVO selectByUserNo(int userNo) {
+		return usersDao.selectByUserNo(userNo);
+	}
 
 	@Override
-	public UsersVO selectUser(String userid) {
-		return usersDao.selectUser(userid);
+	public UsersVO selectByUserId(String userId) {
+		return usersDao.selectByUserId(userId);
 	}
-	
-	
+
+	@Override
+	public int updateUsers(UsersVO vo) {
+		return usersDao.updateUsers(vo);
+	}
+
+	@Override
+	public int userkindcheck(String userid) {
+		return usersDao.userkindcheck(userid);
+	}
 
 }

@@ -1,24 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="config.mybatis.mapper.oracle.users">
 	<select id="dupCheck" parameterType="string" resultType="int">
 		select count(*) from users where user_id=#{userId}
 	</select>
+
+	<insert id="insertUsers" parameterType="usersVo">
+		<selectKey keyProperty="userNo" resultType="int" order="BEFORE">
+			select users_seq.nextval from dual
+		</selectKey>
+		insert into users(user_no, user_name, user_id, user_password, user_zipcode,
+			user_address, workkind_no, user_experience, user_hp1, user_hp2, user_hp3,
+			user_email1, user_email2, user_addressdetail)
+		values(#{userNo},#{userName},#{userId},#{userPassword},#{userZipcode},#{userAddress},
+			#{workkindNo},#{userExperience},#{userHp1},#{userHp2},#{userHp3},
+			#{userEmail1},#{userEmail2},#{userAddressdetail})
+	</insert>
+
 	<select id="loginCheck" parameterType="string" resultType="String">
 		select USER_PASSWORD from users where user_id=#{userId}
 	</select>
-	<select id="selectUser" parameterType="string" resultType="UsersVO">
-		select * from users where user_id=#{userId}
+
+	<select id="selectByUserNo" parameterType="int" resultType="usersVo">
+		select * from users where USER_NO=#{userNo}
 	</select>
+
+	<select id="selectByUserId" parameterType="String" resultType="usersVo">
+		select * from users where USER_ID=#{userId}
+	</select>
+	
+		<select id="userkindcheck" parameterType="String" resultType="int">
+		select user_corpcheck from users where USER_ID=#{userId}
+	</select>
+	
+	<update id="updateUsers" parameterType="usersVo">
+		update users
+		set user_name=#{userName}, user_password=#{userPassword}, workkind_no=#{workkindNo}, 
+		    user_experience=#{userExperience}, user_hp1=#{userHp1}, user_hp2=#{userHp2}, 
+		    user_hp3=#{userHp3}, user_zipcode=#{userZipcode}, 
+		    user_address=#{userAddress}, user_addressdetail=#{userAddressdetail}
+		where user_id=#{userId}
+	</update>
+
 </mapper>
-
-
-
-
-
-
-
-
-
