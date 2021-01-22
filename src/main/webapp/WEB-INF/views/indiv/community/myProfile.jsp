@@ -186,14 +186,13 @@
  	
 <section>
 	<div id="container">
-	
-	
-	
 		<div id="content" class="AllQuestList">
 			<article id="profile">
 				<div class="imgBox" style="background: #BDBDBD;">
+					<a>
 				    <img class="profilePic" src
 				="<c:url value='/resources/img/banner-1.jpg'/>">
+					</a>
 				</div>
 			</article>
 
@@ -206,7 +205,7 @@
 				</div>
 			</article>
 			
-			<!--탭 목록-->
+			<!--글 목록 : 아직 등록한 질문이 없는 경우-->
 			<p style="font-size:18px;">질문 <b id="myContCnt">0건</b></p>
 			<article id="noneQuestBox">
 				<div class="noneBox">		
