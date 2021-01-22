@@ -68,8 +68,10 @@
 											${map['MESSAGE_TITLE']} </a>
 									</c:if>
 									<!-- 보낸쪽지함 -->
-									<a href="<c:url value="/message/messageDetail.do?messageNo=${map['MESSAGE_NO']}"/>">
-										${map['MESSAGE_TITLE']} </a>
+									<c:if test="${map['USER_ID']=='kim'}">
+										<a href="<c:url value="/message/messageDetail.do?messageNo=${map['MESSAGE_NO']}"/>">
+											${map['MESSAGE_TITLE']} </a>
+									</c:if>
 								</c:if>
 								<!-- 나에게 보낸 편지함 -->
 								<c:if test="${param.type == 'toMe'}">
