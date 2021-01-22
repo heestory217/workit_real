@@ -311,4 +311,24 @@ public class MessageController {
 		return "redirect:"+url;
 	}
 	
+	//답장
+	@RequestMapping("/reply.do")
+	public String reply(@RequestParam (defaultValue = "0") int getMessageNo, Model model) {
+		logger.info("답장하기 파라미터 getMessageNo={}", getMessageNo);
+		
+		String msg="잘못된 url입니다.", url="/message/messageBox.do";
+		if(getMessageNo==0) {
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			return "common/message";
+		}
+		
+		//
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
 }
