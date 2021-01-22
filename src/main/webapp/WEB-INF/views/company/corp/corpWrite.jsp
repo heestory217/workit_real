@@ -52,14 +52,6 @@
 					alert('기업 주소를 입력하세요');
 					$("#corpAddress1").focus();
 					event.preventDefault();
-				}else if(!$("#corpAddress2").val()){
-					alert('기업 상세 주소를 입력하세요');
-					$("corpAddress2").focus();
-					event.preventDefault();
-				}else if(!$("#corpZipcode").val()){
-					alert('기업 우편번호를 입력하세요');
-					$("#corpZipcode").focus();
-					event.preventDefault();
 				}else if(!$("#corpIndustry").val()){
 					alert('기업의 주요 사업분야를 입력하세요');
 					$("#corpIndustry").focus();
@@ -104,7 +96,7 @@ input[type=file]{
 					<h2>기업 	등록</h2>
 				</div>
                 <div class="row">
-                        <input type="hidden" name="userNo" value="${sessionScope.userNo}">
+                        <input type="text" name="userNo" value="${sessionScope.userNo}">
              	   <div class="col-lg-12">
                         <label for="corpName">법인명<span>*</span></label>
                         <input type="text" id="corpName" name="corpName">
@@ -137,10 +129,6 @@ input[type=file]{
                         <input type="text" id="corpAddress2" name="corpAddress2">
                     </div>
                     <div class="col-lg-12">
-                        <label for="corpZipcode">우편번호<span>*</span></label>
-                        <input type="text" id="corpZipcode" name="corpZipcode">
-                    </div>
-                    <div class="col-lg-12">
                         <label for="corpWebaddress">기업 홈페이지 URL</label>
                         <input type="text" id="corpWebaddress" name="corpWebaddress">
                     </div>
@@ -167,20 +155,23 @@ input[type=file]{
 							CKEDITOR.replace('corpIntro',	{height : 400});
 						</script>
                     </div>
-                    <div class="col-lg-12">
-                        <label for="corpImgurl">기업 이미지 1</label>
+                    <div class="col-lg-6">
+                        <label for="corpImgurl">기업 메인 이미지</label>
                	      	<input type="file" id="addimg1" name="addimg1">
        	            </div>
-                    <div class="col-lg-12">
-                        <label for="corpImgurl">기업 이미지 2</label>
+       	            <hr>
+                    <div class="col-lg-6">
+                        <label for="corpImgurl">서브 이미지 1</label>
                	      	<input type="file" id="addimg2" name="addimg2">
        	            </div>
-                    <div class="col-lg-12">
-                        <label for="corpImgurl">기업 이미지 3</label>
+       	             <hr>
+                    <div class="col-lg-6">
+                        <label for="corpImgurl">서브 이미지 2</label>
                	      	<input type="file" id="addimg3" name="addimg3">
        	            </div>
-                    <div class="col-lg-12">
-                        <label for="corpImgurl">기업 이미지 4</label>
+       	             <hr>
+                    <div class="col-lg-6">
+                        <label for="corpImgurl">서브 이미지 3</label>
                	      	<input type="file" id="addimg4" name="addimg4">
        	            </div>
 					<button class="site-btn register-btn" type="submit">기업 등록</button>

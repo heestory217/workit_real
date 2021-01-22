@@ -21,7 +21,7 @@ public class CorpDAOMybatis implements CorpDAO {
 		return sqlSession.update(namespace+"insertImg", vo);
 	}
 	
-	public CorpAllVO selectCorp(int corpNo) {
+	public CorpVO selectCorp(int corpNo) {
 		return sqlSession.selectOne(namespace+"selectCorp", corpNo);
 	}
 	
@@ -32,6 +32,16 @@ public class CorpDAOMybatis implements CorpDAO {
 	@Override
 	public List<CorpRecruitViewVO> selectRecruit(int userNo) {
 		return sqlSession.selectList(namespace+"selectRecruit", userNo);
+	}
+
+	@Override
+	public int editCorp(CorpVO vo) {
+		return sqlSession.update(namespace+"editCorp",vo);
+	}
+
+	@Override
+	public int editCorpImg(CorpimgVO vo) {
+		return sqlSession.update(namespace+"editCorpImg",vo);
 	}
 
 }

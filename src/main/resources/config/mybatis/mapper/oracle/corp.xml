@@ -8,20 +8,20 @@
 			select corp_seq.nextval from dual
 		</selectKey>
 		insert into CORP(CORP_NO, USER_NO, CORP_NAME, CORP_INTRO, CORP_IMGURL, 
-                    CORP_AVRPAY, CORP_KIND, CORP_PNUMBER, CORP_HEADNAME, CORP_ZIPCODE, 
+                    CORP_AVRPAY, CORP_KIND, CORP_PNUMBER, CORP_HEADNAME, 
                     CORP_ADDRESS1, COL_ADDRESS2, CORP_CORPADDNUMBER, CORP_INDUSTRY, CORP_STARTDATE, 
                     CORP_WEBADDRESS, CORP_TEL, CORP_OKCHECK)
 		values(#{corpNo}, #{userNo}, #{corpName}, #{corpIntro},#{corpImgurl},#{corpAvrpay},
-        #{corpKind},#{corpPnumber},#{corpHeadname},#{corpZipcode},#{corpAddress1},#{corpAddress2},#{corpCorpaddnumber},#{corpIndustry},#{corpStardate},#{corpWebaddress},#{corpTel},0)
+        #{corpKind},#{corpPnumber},#{corpHeadname},#{corpAddress1},#{corpAddress2},#{corpCorpaddnumber},#{corpIndustry},#{corpStardate},#{corpWebaddress},#{corpTel},0)
 	</insert>
 	
 	<update id="insertImg" parameterType="corpimgVO">
-			insert into corpImg(CORPIMG_NO,CORP_NO,CORPIMG_URL)
-			values(corpimg_seq.nextval, #{corpNo}, #{corpimgUrl})
+			insert into corpImg(CORPIMG_NO,CORP_NO,CORPIMG_URL,CORPIMG_SORTNO)
+			values(corpimg_seq.nextval, #{corpNo}, #{corpimgUrl},#{corpimgSortno})
 	</update>
 	
 	<select id="corpImgList" parameterType="int" resultType="corpimgVO">
-		select * from corpImg where corp_no=#{corpNo}
+		select * from corpImg where corp_no=#{corpNo} order by corpimg_sortno
 	</select>
 	
 	<resultMap type="corpAllVO" id="corpResultMap">
@@ -35,7 +35,6 @@
 			<result property="corpKind" column="CORP_KIND" jdbcType="VARCHAR"/>
 			<result property="corpPnumber" column="CORP_PNUMBER" jdbcType="BIGINT"/>
 			<result property="corpHeadname" column="CORP_headname" jdbcType="VARCHAR"/>
-			<result property="corpZipcode" column="CORP_ZIPCODE" jdbcType="VARCHAR"/>
 			<result property="corpAddress1" column="CORP_ADDRESS1" jdbcType="VARCHAR"/>
 			<result property="corpAddress2" column="CORP_ADDRESS2" jdbcType="VARCHAR"/>
 			<result property="corpCorpaddnumber" column="CORP_corpaddnumber" jdbcType="VARCHAR"/>
@@ -48,7 +47,7 @@
 		</association>
 	</resultMap>
 	
-	<select id="selectCorp" parameterType="int" resultMap="corpResultMap">
+	<select id="selectCorp" parameterType="int" resultType="corpVo">
 		select * from corp where corp_no=#{corpNo}
 	</select>
 	
@@ -56,6 +55,29 @@
 		select * from CorpRecruitview
 		where RECRUITANNOUNCE_UPCHECK=1 and user_no=#{userNo}
 	</select>
+	
+	<update id="editCorp" parameterType="corpVo">
+		update corp
+		set corp_intro=#{corpIntro}, corp_avrpay=#{corpAvrpay},
+			corp_kind=#{corpKind}, corp_pnumber=#{corpPnumber},
+		    corp_headname=#{corpHeadname},corp_address1=#{corpAddress1},
+		    COL_ADDRESS2=#{corpAddress2},
+		    corp_industry=#{corpIndustry}, corp_startdate=#{corpStartdate},
+		    corp_webaddress=#{corpWebaddress},
+		    corp_tel=#{corpTel},corp_okcheck=0
+		<if test="corpImgurl!=null and corpImgurl!=''">
+			,corp_imgurl=#{corpImgurl}
+		</if>
+		where corp_no=#{corpNo}
+	</update>
+	
+	<update id="editCorpImg" parameterType="corpimgVO">
+		<if test="corpimgUrl!=null and corpimgUrl!=''">
+			update corpImg
+			set corpimg_url=#{corpimgUrl}
+			where corp_no=#{corpNo} and corpimg_sortno=#{corpimgSortno}
+		</if>
+	</update>
 	
 </mapper>
 

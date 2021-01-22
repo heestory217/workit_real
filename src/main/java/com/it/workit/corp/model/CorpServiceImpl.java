@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 @Service
 public class CorpServiceImpl implements CorpService {
@@ -27,7 +28,7 @@ public class CorpServiceImpl implements CorpService {
 	}
 
 	@Override
-	public CorpAllVO selectCorp(int corpNo) {
+	public CorpVO selectCorp(int corpNo) {
 		return corpDao.selectCorp(corpNo);
 	}
 
@@ -39,6 +40,30 @@ public class CorpServiceImpl implements CorpService {
 	@Override
 	public List<CorpRecruitViewVO> selectRecruit(int userNo) {
 		return corpDao.selectRecruit(userNo);
+	}
+
+	@Override
+	public int editCorp(CorpVO vo) {
+		return corpDao.editCorp(vo);
+	}
+
+	@Override
+	public int editCorpImg(List<CorpimgVO> imgList) {
+		int cnt=0;
+		System.out.println("서비스에 들어온 imgList사이즈"+imgList.size());
+		try {
+			if(imgList.size()!=0 || !imgList.isEmpty()) {
+				for(CorpimgVO vo : imgList) {
+					System.out.println("서비스에 들어온 vo : "+vo);
+					cnt = corpDao.editCorpImg(vo);
+				}
+			}
+		}catch(RuntimeException e) {
+			e.printStackTrace();
+			cnt=-1;
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		return cnt;
 	}
 
 }
