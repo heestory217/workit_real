@@ -189,7 +189,9 @@ input[type=file]{
 							CKEDITOR.replace('corpIntro',	{height : 400});
 						</script>
                     </div>
-
+                    <div class="col-lg-12">
+						<p>※ 이미지 수정시 4개의 이미지를 모두 입력해주세요.</p>
+					</div>
                     <div class="col-lg-6">
                         <label for="corpImgurl">기업 메인 이미지</label>
                	      	<input type="file" id="addimg1" name="addimg1" multiple>

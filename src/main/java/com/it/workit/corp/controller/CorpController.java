@@ -259,21 +259,48 @@ public class CorpController {
 			if(!corpURLlist.isEmpty() || corpURLlist.size()!=0 ) {
 				for(int i=1; i<corpURLlist.size();i++) {
 					logger.info("corpURLlist={}",corpURLlist.size());
-					//if(!strimg1.equals("")) {
 						CorpimgVO imgVo = setVoImg(i, corpURLlist, vo);
 						imgList.add(imgVo);
 						bool = delFile(request, oldAddimg1);
 						logger.info("수정 회사 이미지 imgvo={}",imgVo);
 						logger.info("회사 이미지 기존파일 삭제여부 : {}", bool);
-					//}
 				}//for
 			}
 		}else{
 			logger.info("esle처리");
+			List<String> corpURLlist = new ArrayList<String>();
+			try {
+				List<Map<String, Object>> fileList = FileUtil.fileUplaod(request, FileUploadUtil.IMAGE_TYPE);
+				if(fileList.size()!=0) {
+					for(int i=0;i<fileList.size();i++) {
+						Map<String,Object> corpMap=fileList.get(i);
+						corpURLlist.add((String)corpMap.get("fileName"));
+						logger.info("서브이미지 corpURLlist={}",corpURLlist.get(i));
+					}
+				}
+			} catch (IllegalStateException e) {
+				logger.info("파일 업로드 실패");
+				e.printStackTrace();
+			} catch (IOException e) {
+				logger.info("파일 업로드 실패");
+				e.printStackTrace();
+			}
 			
-			//1. 로고 이미지는 업데이트가 없음
-			//2. 나머지중 하나라도 업데이트가 됨
-			//나머지 넷 중에 하나라도 이미지가 있으면 처리해야함
+			logger.info("corpURLlist의 사이즈={}", corpURLlist.size());
+			if(!corpURLlist.isEmpty() || corpURLlist.size()!=0 ) {
+				for(int i=0; i<corpURLlist.size();i++) {
+					logger.info("corpURLlist={}",corpURLlist.size());
+					CorpimgVO imgVo = new CorpimgVO();
+					imgVo.setCorpimgUrl(corpURLlist.get(i));
+					imgVo.setCorpimgSortno((i+1));
+					imgVo.setCorpNo(vo.getCorpNo());
+
+					imgList.add(imgVo);
+					boolean bool = delFile(request, oldAddimg1);
+					logger.info("수정 회사 이미지 imgvo={}",imgVo);
+					logger.info("회사 이미지 기존파일 삭제여부 : {}", bool);
+				}//for
+			}
 		}
 		
 		//서비스 두개를 만듬 하나는 그냥 corp업데이트 다른하나는 이미지리스트 업데이트
