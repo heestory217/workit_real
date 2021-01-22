@@ -73,7 +73,8 @@
 		<!-- side nav  -->
 			<div id="leftNav">
 			<div id="questionBtn">
-				<a href="#"><i class="fa fa-pencil"></i>&nbsp;질문하기</a>
+				<a href="<c:url value='/indiv/community/qstnWrite.do'/>">
+				<i class="fa fa-pencil"></i>&nbsp;질문하기</a>
 			</div>
 			<div class="myInfoSec">
 				<a class="myInfo" href
@@ -81,6 +82,7 @@
 					<div id="userInfo">
 						<span class="nickname">닉네임</span>
 					</div>
+					
 				</a>
 			</div>
 				<ul class="nav flex-column">
