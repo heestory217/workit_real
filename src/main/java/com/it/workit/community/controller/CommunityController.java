@@ -96,7 +96,7 @@ public class CommunityController {
 		return "indiv/community/qstnDetail";
 	}
 	
-	//질문 수정
+	//질문 수정 화면
 	@RequestMapping(value="/qstnEdit.do", method = RequestMethod.GET)
 	public String qstnEdit_get(@RequestParam(defaultValue = "0") int qstnNo,
 			Model model) {
@@ -109,10 +109,32 @@ public class CommunityController {
 		}
 		
 		QuestionVO qstnVo = qstnService.selectQstn(qstnNo);
+		logger.info("질문 조회 결과, qstnVo={}",qstnVo);
 		
 		model.addAttribute("qstnVo", qstnVo);
 		
 		return "indiv/community/qstnEdit";
 	}
 	
+	//질문 수정 처리
+	@RequestMapping(value="/qstnEdit.do", method = RequestMethod.POST)
+	public String qstnEdit_post(@ModelAttribute QuestionVO vo,
+			Model model) {
+		logger.info("질문 수정 화면, 파라미터 vo={}, no={}", vo, vo.getQuestionNo());
+		
+		int cnt=qstnService.updateQstn(vo);
+		logger.info("질문 수정 결과, cnt={}", cnt);
+		String msg="질문 수정에 실패하였습니다. 다시 입력해주세요",
+				url ="/indiv/community/qstnEdit.do?qstnNo="+vo.getQuestionNo();
+		if(cnt>0) {
+			msg="질문이 수정되었습니다.";
+			url="/indiv/community/qstnDetail.do?qstnNo="+vo.getQuestionNo();
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+		
+	}
 }

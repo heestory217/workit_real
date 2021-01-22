@@ -16,6 +16,11 @@ public class QuestionServiceImpl implements QuestionService{
 	public QuestionVO selectQstn(int qstnNo) {
 		return questionDao.selectQstn(qstnNo);
 	}
+
+	@Override
+	public int updateQstn(QuestionVO vo) {
+		return questionDao.updateQstn(vo);
+	}
 	
 	
 }

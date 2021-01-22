@@ -18,6 +18,14 @@
 	<select id="selectQstn" parameterType="int" resultType="questionVo">
 		select * from QUESTION where QUESTION_NO=#{questionNo}
 	</select>
+	
+	<!-- 질문 선택 -->
+	<update id="updateQstn" parameterType="questionVo">
+		update QUESTION
+		set WORKKIND_NO=#{workkindNo}, QUESTION_TITLE=#{questionTitle},
+  					QUESTION_ABOUT=#{questionAbout}, QUESTION_DATE=SYSDATE
+		where QUESTION_NO=#{questionNo}
+	</update>
 </mapper>
 
 

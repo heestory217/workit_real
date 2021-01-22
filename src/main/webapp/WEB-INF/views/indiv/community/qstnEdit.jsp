@@ -266,6 +266,11 @@
 	src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
+		var job = $('.selectBox').find('option:selected').html();
+		$('.jobBtn').val(job);
+		$('.jobWrap').css('border','1px solid #4c50bb');
+		$('.jobWrap').find('input, i').css('color','#4c50bb');
+		$('.selectBox').find('option').eq(0).attr('selected',true);
 		
 		$('form[name=qstnEditFrm]').submit(function(){
 			if($('.questionTitle').val().length<10){
@@ -278,17 +283,18 @@
 		});
 		
 		$('.btnCancel').click(function(){
-			if(confirm("[취소]를 누르면 글이 저장되지 않습니다.\n글을 저장하지 않고 나가시겠습니까?")){
+			if(confirm("[취소]를 누르면 글이 수정되지 않습니다.\n글을 수정하지 않고 나가시겠습니까?")){
 				location.href="<c:url value='/indiv/community/myQstn.do'/>"
 			}
 			
 		});
 		
 		//textarea 글자수 체크
+	    $('#count').html($('.questionAbout').val().length);
+		
 		$('.questionAbout').keyup(function (e){
-		    var content = $(this).val();
-		    $('#count').html(content.length);    //글자수 실시간 카운팅
-
+	    var content = $(this).val();
+	    $('#count').html(content.length);    //글자수 실시간 카운팅
 		    if (content.length > 1000){
 		        alert("최대 1000자까지 입력 가능합니다.");
 		        $(this).val(content.substring(0, 1000));
@@ -306,6 +312,8 @@
 		});
 		
 		//
+		
+		
 		$('.selectBox').change(function(){
 			var selectJob = $(this).find('option:selected').html();
 			$('.jobBtn').val(selectJob);
@@ -342,7 +350,7 @@
 
 				<!-- 직무, 기업선택 -->
 				<form name="qstnEditFrm" method="post" 
-				action="<c:url value='/indiv/community/qstnEdit.do'/>">
+					action="<c:url value='/indiv/community/qstnEdit.do'/>">
 					<article>
 						<div class="checkListArea">
 							<div class="checkboxCommWrap row">
@@ -363,20 +371,76 @@
 											</div>
 											<select class="selectBox" name="workkindNo">
 												<option>전체</option>
-												<option value="1">서버 개발자</option>
-												<option value="2">웹 개발자</option>
-												<option value="3">프론트엔드 개발자</option>
-												<option value="4">자바 개발자</option>
-												<option value="5">안드로이드 개발자</option>
-												<option value="6">IOS 개발자</option>
-												<option value="7">빅데이터 엔지니어</option>
-												<option value="8">파이썬 개발자</option>
-												<option value="9">소프트웨어 엔지니어</option>
-												<option value="10">유니티 개발자</option>
-												<option value="11">Node.js 개발자</option>
-												<option value="12">머신러닝 엔지니어</option>
-												<option value="13">C,C++ 개발자</option>
-												<option value="14">VR 엔지니어</option>
+												<option value="1" 
+													<c:if test="${qstnVo.workkindNo=='1' }">
+														selected="selected"
+													</c:if>
+												>서버 개발자</option>
+												<option value="2"
+													<c:if test="${qstnVo.workkindNo=='2' }">
+														selected="selected"
+													</c:if>
+												>웹 개발자</option>
+												<option value="3"
+													<c:if test="${qstnVo.workkindNo=='3' }">
+														selected="selected"
+													</c:if>
+												>프론트엔드 개발자</option>
+												<option value="4"
+													<c:if test="${qstnVo.workkindNo=='4' }">
+														selected="selected"
+													</c:if>
+												>자바 개발자</option>
+												<option value="5"
+													<c:if test="${qstnVo.workkindNo=='5' }">
+														selected="selected"
+													</c:if>
+												>안드로이드 개발자</option>
+												<option value="6"
+													<c:if test="${qstnVo.workkindNo=='6' }">
+														selected="selected"
+													</c:if>
+												>IOS 개발자</option>
+												<option value="7"
+													<c:if test="${qstnVo.workkindNo=='7' }">
+														selected="selected"
+													</c:if>
+												>빅데이터 엔지니어</option>
+												<option value="8"
+													<c:if test="${qstnVo.workkindNo=='8' }">
+														selected="selected"
+													</c:if>
+												>파이썬 개발자</option>
+												<option value="9"
+													<c:if test="${qstnVo.workkindNo=='9' }">
+														selected="selected"
+													</c:if>
+												>소프트웨어 엔지니어</option>
+												<option value="10"
+													<c:if test="${qstnVo.workkindNo=='10' }">
+														selected="selected"
+													</c:if>
+												>유니티 개발자</option>
+												<option value="11"
+													<c:if test="${qstnVo.workkindNo=='11' }">
+														selected="selected"
+													</c:if>
+												>Node.js 개발자</option>
+												<option value="12"
+													<c:if test="${qstnVo.workkindNo=='12' }">
+														selected="selected"
+													</c:if>
+												>머신러닝 엔지니어</option>
+												<option value="13"
+													<c:if test="${qstnVo.workkindNo=='13' }">
+														selected="selected"
+													</c:if>
+												>C,C++ 개발자</option>
+												<option value="14"
+													<c:if test="${qstnVo.workkindNo=='14' }">
+														selected="selected"
+													</c:if>
+												>VR 엔지니어</option>
 											</select> <span>나의 직무</span><br>
 											<div class="userJob">
 												<a href="#"><i class="fa fa-search"></i>&nbsp;서버개발자</a>
@@ -397,7 +461,8 @@
 								<div class="qstnTitleDiv">
 									<p class="qstnTitle">
 										<input type="text" class="questionTitle" name="questionTitle"
-											placeholder="질문 제목을 입력해주세요.">
+											placeholder="질문 제목을 입력해주세요."
+											value="${qstnVo.questionTitle }">
 									</p>
 									<hr style="margin-top: 0">
 								</div>
@@ -405,20 +470,21 @@
 								<!-- &#13;&#10; - placeholder 내에서 줄바꿈 시 이용 -->
 
 								<div class="qstnContDiv">
-									<textarea class="questionAbout" title="내용 입력" name="questionAbout"
-										placeholder="구체적인 내용을 입력해주세요.&#13;&#10;*휴대폰 번호, 메일 주소, 카카오톡 ID 등 개인정보가 포함된 내용은 비노출 처리될 수 있습니다"></textarea>
+									<textarea placeholder="구체적인 내용을 입력해주세요.&#13;&#10;*휴대폰 번호, 메일 주소, 카카오톡 ID 등 개인정보가 포함된 내용은 비노출 처리될 수 있습니다" 
+									class="questionAbout" title="내용 입력" name="questionAbout">${qstnVo.questionAbout }</textarea>
 									<span class="byte"> <b id="count">0</b> / 1,000</span>
 								</div>
 
 								<div class="btnCommWrap">
-									<button type="submit" class="btnQuestion devQnaEditButton">질문하기</button>
+									<button type="submit" class="btnQuestion devQnaEditButton">수정하기</button>
 									<button type="button"
 										class="btnCancel bg_white devQnaEditCancelButton">취소</button>
 								</div>
 							</fieldset>
 						</div>
-						<input type="text" name="userNo" value="${qstnVo.questionNo }">
-						<input type="text" name="questionNicname" value="silver">
+						<input type="text" name="questionNo" value="${qstnVo.questionNo }">
+						<input type="text" name="userNo" value="${qstnVo.userNo }">
+						<input type="text" name="questionNicname" value="${qstnVo.questionNicname}">
 					</article>
 				</form>
 

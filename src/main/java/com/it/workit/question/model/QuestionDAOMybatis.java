@@ -21,4 +21,10 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	public QuestionVO selectQstn(int qstnNo) {
 		return sqlSession.selectOne(namespace+"selectQstn", qstnNo);
 	}
+	
+	//질문 수정
+	@Override
+	public int updateQstn(QuestionVO vo) {
+		return sqlSession.update(namespace+"updateQstn", vo);
+	}
 }
