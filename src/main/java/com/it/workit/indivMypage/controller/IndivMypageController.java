@@ -1,5 +1,7 @@
 package com.it.workit.indivMypage.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class IndivMypageController {
 	@RequestMapping(value = "/indivMypageEdit.do", method = RequestMethod.GET)
 	public String usersEdit_get() {
 		//세션 userid 가져오기
-		//String userid=(String) session.getAttribute("userid");
+		//String userid=(String) session.getAttribute("userId");
 		//String userid="kang";	//임시
 		//logger.info("개인 마이페이지 - 수정 화면 보여주기 / 파라미터 userid = {}",userid);
 		
@@ -81,13 +83,14 @@ public class IndivMypageController {
 	}
 	
 	@RequestMapping(value = "/indivCheckPwd.do", method = RequestMethod.POST)
-	public String checkPwd_post(@RequestParam(defaultValue = "0") String pwd, Model model) {
+	public String checkPwd_post(@RequestParam(defaultValue = "0") String pwd, Model model,
+			HttpSession session) {
 		
 		logger.info("개인 마이페이지 - 비밀번호 파라미터 확인 pwd={}", pwd);
 		
 		//세션 userid 가져오기
-		//String userid=(String) session.getAttribute("userid");
-		String userid="kang";
+		String userid=(String) session.getAttribute("userId");
+		//String userid="kang";
 		
 		UsersVO vo=userService.selectByUserId(userid);
 		logger.info("개인 마이페이지 - 비밀번호 체크 / DB pwd 조회 결과 pwd={}", vo.getUserPassword());
@@ -105,6 +108,11 @@ public class IndivMypageController {
 			
 			return "common/message";
 		}
+	}
+	
+	@RequestMapping("/indivMypageSituation.do")
+	public String situation() {
+		logger.info("개인 마이페이지 - 지원현황 조회");
 	}
 	
 }
