@@ -170,14 +170,23 @@ public class MessageController {
 			if(messageNo!=0) {
 				//보낸 쪽지 삭제
 				cnt = messageService.updateMsgDelflag(messageNo);
-				//보낸 쪽지함으로 보내주기
-				url="/message/messageBoxSend.do";
+				
+				Map<String, Object>  map = messageService.selectByMessageNo(messageNo);
+				int important = Integer.parseInt(String.valueOf(map.get("GETMESSAGE_IMPFLAG")));
+				logger.info("쪽지보관 여부 important={}", important);
+				
+				if(important==1) {
+					//중요쪽지함 에서 삭제한 경우 중요 쪽지함으로 보내주기
+					url="/message/messageBox.do?type=important";
+				}else {
+					url="/message/messageBoxSend.do";
+				}
 			}else if(getMessageNo!=0) {
 				//받은 쪽지 삭제
 				cnt = messageService.updategetMsgDelflag(getMessageNo);
 				
 				//나에게 쓴 쪽지함이라면
-				if(type.equals("toMe")) {
+				if(type!=null && !type.isEmpty() && type.equals("toMe")) {
 					url="/message/messageBox.do?type=toMe";
 				}
 			}

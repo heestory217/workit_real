@@ -26,7 +26,8 @@
 		    select m.*, (select user_id from users where USER_NO=m.GETUSER_NO) AS "USER_ID"
 		    from MsgGetMsgView m
 		)A
-		where USER_NO=#{userNo} and GETUSER_NO!=USER_NO and SEND_DELFLAG=2
+		where USER_NO=#{userNo} and GETUSER_NO!=USER_NO 
+		and SEND_DELFLAG=2 and GETMESSAGE_IMPFLAG=2 
 		order by MESSAGE_REGDATE desc
 	</select>
 	
@@ -44,7 +45,8 @@
 	<select id="selectGetMessage" parameterType="int" resultType="map">
 		select m.*, (select user_id from users where USER_NO=m.USER_NO) AS "USER_ID"
 		from MsgGetMsgView m
-		where GETUSER_NO=#{userNo} and GETUSER_NO!=USER_NO and GETMESSAGE_DELFLAG=2
+		where GETUSER_NO=#{userNo} and GETUSER_NO!=USER_NO 
+		and GETMESSAGE_DELFLAG=2 and GETMESSAGE_IMPFLAG=2 
 		order by m.MESSAGE_REGDATE desc
 	</select>
 	
