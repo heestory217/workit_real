@@ -113,6 +113,8 @@ public class IndivMypageController {
 	@RequestMapping("/indivMypageSituation.do")
 	public String situation() {
 		logger.info("개인 마이페이지 - 지원현황 조회");
+		
+		return "indivMypage/indivMypageSituation";
 	}
 	
 }
