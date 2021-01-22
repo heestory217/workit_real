@@ -88,6 +88,8 @@
     var totalCount=0;
 
 	    $(function(){
+	    	$('#loading').hide();
+	    	
 			$('#searchBtn').click(function(){
 				if($('#searchName').val().length<1){
 					alert('검색하실 기업의 법인명을 입력하세요');
@@ -96,7 +98,7 @@
 				}
 				
 				$.send(1);
-				$('#loading').css("display","")
+				
 				event.preventDefault();
 			});
 		});
@@ -104,6 +106,7 @@
 	    //[1] 아작스 요청
 	    $.send=function(curPage){
 	    	$('#currentPage').val(curPage);
+	    	$('#loading').show();
 	    	$.ajax({
 	    		url:"<c:url value='/company/corp/corpSearch.do'/>",
 	    		type:"GET",
@@ -125,6 +128,7 @@
 	    				if(xmlStr!=null){
 	    					$.makeList(xmlStr);
 	    					$.pageMake();
+	    					$('#loading').hide();
 	    				}
 	    			}
 	    		},
@@ -240,10 +244,10 @@
                         </div>
                     </div>
                     <div id="total"></div>
+                    <div id="loading" style="display:none;">
+                    	<img id="loading-image" src="<c:url value='/resources/img/5.gif'/>" alt="Loading..." />
+                   	</div>
                     <div id="divList">
-	                    <div id="loading" style="display:none;">
-	                    	<img id="loading-image" src="<c:url value='/resources/img/5.gif'/>" alt="Loading..." />
-	                   	</div>
                    	</div>
                     <div id="divPage"></div>
                 </div>
