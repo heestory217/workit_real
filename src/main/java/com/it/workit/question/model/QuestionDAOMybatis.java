@@ -1,5 +1,7 @@
 package com.it.workit.question.model;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,5 +28,10 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	@Override
 	public int updateQstn(QuestionVO vo) {
 		return sqlSession.update(namespace+"updateQstn", vo);
+	}
+
+	@Override
+	public List<QuestionVO> selectAllQstn() {
+		return sqlSession.selectList(namespace+"selectAllQstn");
 	}
 }

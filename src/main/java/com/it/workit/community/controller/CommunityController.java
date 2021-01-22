@@ -1,5 +1,7 @@
 package com.it.workit.community.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +35,6 @@ public class CommunityController {
 		logger.info("나의 질문 페이지 화면");
 		
 		return "indiv/community/myQstn";
-	}
-	
-
-	//전체 질문 페이지 
-	@RequestMapping("/qstnList.do")
-	public String qstnList() {
-		logger.info("전체 질문 목록");
-		
-		return "indiv/community/qstnList";
 	}
 	
 	//회원 활동 내역
@@ -136,5 +129,17 @@ public class CommunityController {
 		
 		return "common/message";
 		
+	}
+	
+	@RequestMapping("/qstnList.do")
+	public String qstnList(Model model) {
+		logger.info("질문 전체 조회");
+		
+		List<QuestionVO> qstnList=qstnService.selectAllQstn();
+		logger.info("질문 전체 조회 결과, qstnList.size={}", qstnList.size());
+		
+		model.addAttribute("qstnList", qstnList);
+		
+		return "indiv/community/qstnList";
 	}
 }

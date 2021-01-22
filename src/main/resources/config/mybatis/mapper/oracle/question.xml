@@ -19,13 +19,18 @@
 		select * from QUESTION where QUESTION_NO=#{questionNo}
 	</select>
 	
-	<!-- 질문 선택 -->
+	<!-- 질문 수정 -->
 	<update id="updateQstn" parameterType="questionVo">
 		update QUESTION
 		set WORKKIND_NO=#{workkindNo}, QUESTION_TITLE=#{questionTitle},
   					QUESTION_ABOUT=#{questionAbout}, QUESTION_DATE=SYSDATE
 		where QUESTION_NO=#{questionNo}
 	</update>
+	
+	<!-- 질문 조회 -->
+	<select id="selectAllQstn" resultType="questionVo">
+		select * from QUESTION order by QUESTION_NO desc
+	</select>
 </mapper>
 
 

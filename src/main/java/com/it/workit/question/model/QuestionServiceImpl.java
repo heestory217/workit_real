@@ -1,5 +1,7 @@
 package com.it.workit.question.model;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,11 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public int updateQstn(QuestionVO vo) {
 		return questionDao.updateQstn(vo);
+	}
+
+	@Override
+	public List<QuestionVO> selectAllQstn() {
+		return questionDao.selectAllQstn();
 	}
 	
 	
