@@ -99,10 +99,10 @@ public class CorpControllerbak {
 			return "common/message";
 		}
 		
-		CorpAllVO vo = corpService.selectCorp(corpNo);
+		CorpVO vo = corpService.selectCorp(corpNo);
 		List<CorpimgVO> imgList = corpService.corpImgList(corpNo);
 		
-		model.addAttribute("cAllVo", vo);
+		model.addAttribute("cVo", vo);
 		model.addAttribute("imgList", imgList);
 		logger.info("corpAllVO={}",vo);
 		logger.info("imgList.size={}",imgList.size());

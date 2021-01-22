@@ -121,9 +121,9 @@ input[type=file]{
                         
                         <input type="text" name="oldCorpImgurl" value="${cVo.corpImgurl}">
                         <input type="text" name="oldAddimg1" value="${imgList[0].corpimgUrl}">
-                        <input type="text" name="oldAddimg2" value="${imgList[0].corpimgUrl}">
-                        <input type="text" name="oldAddimg3" value="${imgList[0].corpimgUrl}">
-                        <input type="text" name="oldAddimg4" value="${imgList[0].corpimgUrl}">
+                        <input type="text" name="oldAddimg2" value="${imgList[1].corpimgUrl}">
+                        <input type="text" name="oldAddimg3" value="${imgList[2].corpimgUrl}">
+                        <input type="text" name="oldAddimg4" value="${imgList[3].corpimgUrl}">
 
                         <input type="text" name="corpImgurl" id="corpImgurl">
                         <input type="text" name="img1" id="img1">
@@ -132,7 +132,7 @@ input[type=file]{
                         <input type="text" name="img4" id="img4">
              	   <div class="col-lg-12">
                         <label for="corpName">법인명<span>*</span></label>
-                        <input type="text" id="corpName" name="corpName" value="${cVo.corpName}" disabled>
+                        <input type="text" id="corpName" name="corpName" value="${cVo.corpName}" readonly>
                    </div>
                     <div class="col-lg-12">
                         <label for="corpImgurl">로고이미지<span>*</span></label>
@@ -192,7 +192,7 @@ input[type=file]{
 
                     <div class="col-lg-6">
                         <label for="corpImgurl">기업 메인 이미지</label>
-               	      	<input type="file" id="addimg1" name="addimg1">
+               	      	<input type="file" id="addimg1" name="addimg1" multiple>
        	            </div>
        	            <hr>
                     <div class="col-lg-6">

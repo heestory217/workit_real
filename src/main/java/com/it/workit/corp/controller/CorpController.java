@@ -207,23 +207,17 @@ public class CorpController {
 	public String corpEdit(@ModelAttribute CorpVO vo,
 			@RequestParam String oldCorpImgurl, @RequestParam String oldAddimg1,
 			@RequestParam String oldAddimg2, @RequestParam String oldAddimg3,
-			@RequestParam String oldAddimg4,
-			@RequestParam String corpImgurl, @RequestParam String img1,
-			@RequestParam String img2,@RequestParam String img3,
-			@RequestParam String img4,
+			@RequestParam String oldAddimg4, @RequestParam String corpImgurl, 
 			HttpServletRequest request,
 			Model model) {
 		logger.info("기업정보 수정 파라미터 corpVo={}, 로고CorpImgurl={} ",vo,oldCorpImgurl);
 		logger.info("기업정보 수정 파라미터 oldAddimg1={}, oldAddimg2={} ",oldAddimg1,oldAddimg2);
 		logger.info("기업정보 수정 파라미터 oldAddimg3={}, oldAddimg4={} ",oldAddimg3,oldAddimg4);
 		logger.info("로고 이미지 변경 정보 파라미터 corpImgurl={}",corpImgurl);
-		logger.info("메인 이미지 변경 정보 파라미터 {}",img1);
-		logger.info("서브이미지1 변경 정보 파라미터 {}",img2);
-		logger.info("서브이미지2 변경 정보 파라미터 {}",img3);
-		logger.info("서브이미지3 변경 정보 파라미터 {}",img4);
 		
 		List<CorpimgVO> imgList = new ArrayList<CorpimgVO>();
 		String logoImg = corpImgurl;
+		
 		//로고이미지를 업로드 했을때
 		if(!logoImg.equals("")) {
 			//무조건 첫번째 파일은 로고임
@@ -265,41 +259,35 @@ public class CorpController {
 			if(!corpURLlist.isEmpty() || corpURLlist.size()!=0 ) {
 				for(int i=1; i<corpURLlist.size();i++) {
 					logger.info("corpURLlist={}",corpURLlist.size());
-					if(img1!=null) {
+					//if(!strimg1.equals("")) {
 						CorpimgVO imgVo = setVoImg(i, corpURLlist, vo);
 						imgList.add(imgVo);
 						bool = delFile(request, oldAddimg1);
-						logger.info("1번 이미지 imgvo={}",imgVo);
-						logger.info("1번 이미지 기존파일 삭제여부 : {}", bool);
-					}else if(img2!=null) {
-						CorpimgVO imgVo = setVoImg(i, corpURLlist, vo);
-						imgList.add(imgVo);
-						bool = delFile(request, oldAddimg2);
-						logger.info("2번 이미지 imgvo={}",imgVo);
-						logger.info("2번 이미지 기존파일 삭제여부 : {}", bool);
-					}else if(img3!=null) {
-						CorpimgVO imgVo = setVoImg(i, corpURLlist, vo);
-						imgList.add(imgVo);
-						bool = delFile(request, oldAddimg3);
-						logger.info("3번 이미지 imgvo={}",imgVo);
-						logger.info("3번 이미지 기존파일 삭제여부 : {}", bool);
-					}else if(img4!=null) {
-						CorpimgVO imgVo = setVoImg(i, corpURLlist, vo);
-						imgList.add(imgVo);
-						bool = delFile(request, oldAddimg4);
-						logger.info("4번 이미지 imgvo={}",imgVo);
-						logger.info("4번 이미지 기존파일 삭제여부 : {}", bool);
-					}
+						logger.info("수정 회사 이미지 imgvo={}",imgVo);
+						logger.info("회사 이미지 기존파일 삭제여부 : {}", bool);
+					//}
 				}//for
 			}
-		}else {
+		}else{
 			logger.info("esle처리");
+			
+			//1. 로고 이미지는 업데이트가 없음
+			//2. 나머지중 하나라도 업데이트가 됨
+			//나머지 넷 중에 하나라도 이미지가 있으면 처리해야함
 		}
 		
 		//서비스 두개를 만듬 하나는 그냥 corp업데이트 다른하나는 이미지리스트 업데이트
 		//이미지 리스트 업데이트할때는 기업번호와 sortno를 where조건으로 사용함
-		//int cnt = corpService.editCorp(vo);
-		//logger.info("수정 성공 여부 결과 cnt={}",cnt);
+		int cnt = corpService.editCorp(vo);
+		
+		for(int i=0; i<imgList.size(); i++) {
+			logger.info("imgList vo {}",imgList.get(i));
+			}
+		
+		int imgCnt = corpService.editCorpImg(imgList);
+		
+		logger.info("수정 성공 여부 결과 cnt={}",cnt);
+		logger.info("이미지파일 수정 성공 여부 결과 cnt={}",imgCnt);
 		String msg="수정 성공", url="/index.do";
 		model.addAttribute("msg",msg);
 		model.addAttribute("url",url);

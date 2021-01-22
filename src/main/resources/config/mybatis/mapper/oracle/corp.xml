@@ -59,7 +59,7 @@
 	<update id="editCorp" parameterType="corpVo">
 		update corp
 		set corp_intro=#{corpIntro}, corp_avrpay=#{corpAvrpay},
-			corp_kind=#{corpIndustry}, corp_pnumber=#{corpPnumber},
+			corp_kind=#{corpKind}, corp_pnumber=#{corpPnumber},
 		    corp_headname=#{corpHeadname},corp_address1=#{corpAddress1},
 		    COL_ADDRESS2=#{corpAddress2},
 		    corp_industry=#{corpIndustry}, corp_startdate=#{corpStartdate},
@@ -69,6 +69,14 @@
 			,corp_imgurl=#{corpImgurl}
 		</if>
 		where corp_no=#{corpNo}
+	</update>
+	
+	<update id="editCorpImg" parameterType="corpimgVO">
+		<if test="corpimgUrl!=null and corpimgUrl!=''">
+			update corpImg
+			set corpimg_url=#{corpimgUrl}
+			where corp_no=#{corpNo} and corpimg_sortno=#{corpimgSortno}
+		</if>
 	</update>
 	
 </mapper>
