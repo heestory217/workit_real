@@ -5,8 +5,9 @@ import java.util.List;
 public interface CorpDAO {
 
 	int insertCorp(CorpVO vo);
-	CorpAllVO selectCorp(int corpNo);
+	CorpVO selectCorp(int corpNo);
 	int insertImg(CorpimgVO vo);
 	List<CorpimgVO> corpImgList (int corpNo);
 	List<CorpRecruitViewVO> selectRecruit(int userNo);
+	int editCorp(CorpVO vo);
 }

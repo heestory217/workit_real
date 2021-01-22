@@ -52,10 +52,6 @@
 					alert('기업 주소를 입력하세요');
 					$("#corpAddress1").focus();
 					event.preventDefault();
-				}else if(!$("#corpAddress2").val()){
-					alert('기업 상세 주소를 입력하세요');
-					$("corpAddress2").focus();
-					event.preventDefault();
 				}else if(!$("#corpIndustry").val()){
 					alert('기업의 주요 사업분야를 입력하세요');
 					$("#corpIndustry").focus();

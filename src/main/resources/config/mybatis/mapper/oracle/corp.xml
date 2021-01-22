@@ -47,7 +47,7 @@
 		</association>
 	</resultMap>
 	
-	<select id="selectCorp" parameterType="int" resultMap="corpResultMap">
+	<select id="selectCorp" parameterType="int" resultType="corpVo">
 		select * from corp where corp_no=#{corpNo}
 	</select>
 	
@@ -55,6 +55,21 @@
 		select * from CorpRecruitview
 		where RECRUITANNOUNCE_UPCHECK=1 and user_no=#{userNo}
 	</select>
+	
+	<update id="editCorp" parameterType="corpVo">
+		update corp
+		set corp_intro=#{corpIntro}, corp_avrpay=#{corpAvrpay},
+			corp_kind=#{corpIndustry}, corp_pnumber=#{corpPnumber},
+		    corp_headname=#{corpHeadname},corp_address1=#{corpAddress1},
+		    COL_ADDRESS2=#{corpAddress2},
+		    corp_industry=#{corpIndustry}, corp_startdate=#{corpStartdate},
+		    corp_webaddress=#{corpWebaddress},
+		    corp_tel=#{corpTel},corp_okcheck=0
+		<if test="corpImgurl!=null and corpImgurl!=''">
+			,corp_imgurl=#{corpImgurl}
+		</if>
+		where corp_no=#{corpNo}
+	</update>
 	
 </mapper>
 

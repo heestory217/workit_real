@@ -27,7 +27,7 @@ public class CorpServiceImpl implements CorpService {
 	}
 
 	@Override
-	public CorpAllVO selectCorp(int corpNo) {
+	public CorpVO selectCorp(int corpNo) {
 		return corpDao.selectCorp(corpNo);
 	}
 
@@ -39,6 +39,11 @@ public class CorpServiceImpl implements CorpService {
 	@Override
 	public List<CorpRecruitViewVO> selectRecruit(int userNo) {
 		return corpDao.selectRecruit(userNo);
+	}
+
+	@Override
+	public int editCorp(CorpVO vo) {
+		return corpDao.editCorp(vo);
 	}
 
 }

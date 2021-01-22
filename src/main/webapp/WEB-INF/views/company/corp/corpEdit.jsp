@@ -6,6 +6,7 @@
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
 <script type="text/javascript">
 	$(function() {
+		
 		$('#corpSearchBtn')
 				.click(
 						function() {
@@ -32,10 +33,6 @@
 					alert('법인명을 입력하세요.');
 					$("#corpName").focus();
 					event.preventDefault();
-				}else if(!$("#fileimg").val()){
-					alert('로고 파일을 등록하세요');
-					$("#fileimg").focus();
-					event.preventDefault();
 				}else if(!$("#corpHeadname").val()){
 					alert('대표자 성명을 입력하세요');
 					$("#corpHeadname").focus();
@@ -52,14 +49,6 @@
 					alert('기업 주소를 입력하세요');
 					$("#corpAddress1").focus();
 					event.preventDefault();
-				}else if(!$("#corpAddress2").val()){
-					alert('기업 상세 주소를 입력하세요');
-					$("corpAddress2").focus();
-					event.preventDefault();
-				}else if(!$("#corpZipcode").val()){
-					alert('기업 우편번호를 입력하세요');
-					$("#corpZipcode").focus();
-					event.preventDefault();
 				}else if(!$("#corpIndustry").val()){
 					alert('기업의 주요 사업분야를 입력하세요');
 					$("#corpIndustry").focus();
@@ -68,18 +57,30 @@
 					alert('기업 전화번호를 입력하세요.');
 					$("#corpTel").focus();
 					event.preventDefault();
-				}else if(!$("#corpStardate").val()){
+				}else if(!$("#corpStartdate").val()){
 					alert('기업 설립일자를 입력하세요');
-					$("#corpStardate").focus();
+					$("#corpStartdate").focus();
 					event.preventDefault();
 				}else if(!$("#corpIntro").val()){
 					alert('기업 소개를 입력하세요.');
 					$("#corpIntro").focus();
 					event.preventDefault();
-				}else if(!$("#addimg1").val()){
-					alert('기업 이미지를 입력하세요.');
-					$("#addimg1").focus();
-					event.preventDefault();
+				}
+				
+				if($('#fileimg').val()){
+					$('#corpImgurl').val("yes");
+				}
+				if($('#addimg1').val()){
+					$('#img1').val("yes");
+				}
+				if($('#addimg2').val()){
+					$('#img2').val("yes");
+				}
+				if($('#addimg3').val()){
+					$('#img3').val("yes");
+				}
+				if($('#addimg4').val()){
+					$('#img4').val("yes");
 				}
 			});
 		});
@@ -115,73 +116,75 @@ input[type=file]{
 					<h2>기업 	정보 수정</h2>
 				</div>
                 <div class="row">
-                        <input type="hidden" name="userNo" value="${cAllVo.corpVo.userNo}">
-                        <input type="hidden" name="corpNo" value="${cAllVo.corpVo.corpNo}">
+                        <input type="text" name="userNo" value="${cVo.userNo}">
+                        <input type="text" name="corpNo" value="${cVo.corpNo}">
                         
-                        <input type="hidden" name="oldCorpImgurl" value="${cAllVo.corpVo.corpImgurl}">
-                        <input type="hidden" name="oldAddimg1" value="${imgList[0].corpimgUrl}">
-                        <input type="hidden" name="oldAddimg2" value="${imgList[0].corpimgUrl}">
-                        <input type="hidden" name="oldAddimg3" value="${imgList[0].corpimgUrl}">
-                        <input type="hidden" name="oldAddimg4" value="${imgList[0].corpimgUrl}">
+                        <input type="text" name="oldCorpImgurl" value="${cVo.corpImgurl}">
+                        <input type="text" name="oldAddimg1" value="${imgList[0].corpimgUrl}">
+                        <input type="text" name="oldAddimg2" value="${imgList[0].corpimgUrl}">
+                        <input type="text" name="oldAddimg3" value="${imgList[0].corpimgUrl}">
+                        <input type="text" name="oldAddimg4" value="${imgList[0].corpimgUrl}">
+
+                        <input type="text" name="corpImgurl" id="corpImgurl">
+                        <input type="text" name="img1" id="img1">
+                        <input type="text" name="img2" id="img2">
+                        <input type="text" name="img3" id="img3">
+                        <input type="text" name="img4" id="img4">
              	   <div class="col-lg-12">
                         <label for="corpName">법인명<span>*</span></label>
-                        <input type="text" id="corpName" name="corpName" value="${cAllVo.corpVo.corpName}" disabled>
+                        <input type="text" id="corpName" name="corpName" value="${cVo.corpName}" disabled>
                    </div>
                     <div class="col-lg-12">
                         <label for="corpImgurl">로고이미지<span>*</span></label>
                        	<div>
                	      	<input type="file" id="fileimg" name="fileimg" style="width: 82%;">
-               	      	현재 이미지 <img src="<c:url value="/pd_images/${cAllVo.corpVo.corpImgurl}"/>" style="width: 50px;">
+               	      	현재 이미지 <img src="<c:url value="/pd_images/${cVo.corpImgurl}"/>" style="width: 50px;">
                	      	</div>
        	            </div>
 					<div class="col-lg-6">
                         <label for="corpHeadname">기업 대표자 성명<span>*</span></label>
-                        <input type="text" id="corpHeadname" name="corpHeadname" value="${cAllVo.corpVo.corpHeadname}">
+                        <input type="text" id="corpHeadname" name="corpHeadname" value="${cVo.corpHeadname}">
                     </div>
                     <div class="col-lg-6">
                         <label for="corpCorpaddnumber">사업자 등록 번호<span>*</span></label>
-                        <input type="text" id="corpCorpaddnumber" name="corpCorpaddnumber" value="${cAllVo.corpVo.corpCorpaddnumber}" disabled>
+                        <input type="text" id="corpCorpaddnumber" name="corpCorpaddnumber" value="${cVo.corpCorpaddnumber}" readonly>
                     </div>
                     <div class="col-lg-6">
                         <label for="corpPnumber">사원수<span>*</span></label>
-                        <input type="text" id="corpPnumber" name="corpPnumber" value="${cAllVo.corpVo.corpPnumber}">
+                        <input type="text" id="corpPnumber" name="corpPnumber" value="${cVo.corpPnumber}">
                     </div>
                     <div class="col-lg-6">
                         <label for="corpAvrpay">기업 평균연봉</label>
-                        <input type="text" id="corpAvrpay" name="corpAvrpay"  placeholder="만원 단위로 입력가능" value="${cAllVo.corpVo.corpAvrpay }">
+                        <input type="text" id="corpAvrpay" name="corpAvrpay"  placeholder="만원 단위로 입력가능" value="${cVo.corpAvrpay }">
                     </div>
                     <div class="col-lg-12">
                         <label for="corpAddress1">기업 주소<span>*</span></label>
-                        <input type="text" id="corpAddress1" class="street-first" name="corpAddress1" value="${cAllVo.corpVo.corpAddress1 }">
-                        <input type="text" id="corpAddress2" name="corpAddress2" value="${cAllVo.corpVo.corpAddress2 }">
-                    </div>
-                    <div class="col-lg-12">
-                        <label for="corpZipcode">우편번호<span>*</span></label>
-                        <input type="text" id="corpZipcode" name="corpZipcode" value="${cAllVo.corpVo.corpZipcode }">
+                        <input type="text" id="corpAddress1" class="street-first" name="corpAddress1" value="${cVo.corpAddress1 }">
+                        <input type="text" id="corpAddress2" name="corpAddress2" value="${cVo.corpAddress2 }">
                     </div>
                     <div class="col-lg-12">
                         <label for="corpWebaddress">기업 홈페이지 URL</label>
-                        <input type="text" id="corpWebaddress" name="corpWebaddress" value="${cAllVo.corpVo.corpWebaddress }">
+                        <input type="text" id="corpWebaddress" name="corpWebaddress" value="${cVo.corpWebaddress }">
                     </div>
                     <div class="col-lg-12">
                  	<label for="corpIndustry">기업 주요 사업분야<span>*</span></label>
-                        <input type="text" id="corpIndustry" name="corpIndustry" value="${cAllVo.corpVo.corpIndustry}">
+                        <input type="text" id="corpIndustry" name="corpIndustry" value="${cVo.corpIndustry}">
                     </div>
                     <div class="col-lg-12">
                         <label for="corpKind">중소기업 여부</label>
-                        <input type="text" id="corpKind" name="corpKind" value="${cAllVo.corpVo.corpKind}">
+                        <input type="text" id="corpKind" name="corpKind" value="${cVo.corpKind}">
                     </div>
                     <div class="col-lg-6">
                         <label for="corpTel">기업 전화 번호<span>*</span></label>
-                        <input type="text" id="corpTel" name="corpTel" value="${cAllVo.corpVo.corpTel }">
+                        <input type="text" id="corpTel" name="corpTel" value="${cVo.corpTel }">
                     </div>
                     <div class="col-lg-6">
                         <label for="corpStardate">기업 설립 일자<span>*</span></label>
-                        <input type="text" id="corpStardate" name="corpStardate" value="${cAllVo.corpVo.corpStardate }" disabled>
+                        <input type="text" id="corpStartdate" name="corpStartdate" value="${cVo.corpStartdate }" readonly>
                     </div>
 					<div class="col-lg-12">
                     	<label for="corpIntro">기업 소개<span>*</span></label>
-                    	<textarea class="content" id="corpIntro" name="corpIntro">${cAllVo.corpVo.corpIntro}</textarea><br><br>
+                    	<textarea class="content" id="corpIntro" name="corpIntro">${cVo.corpIntro}</textarea><br><br>
 						<script type="text/javascript">
 							CKEDITOR.replace('corpIntro',	{height : 400});
 						</script>

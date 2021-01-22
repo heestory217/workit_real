@@ -25,7 +25,14 @@ public class CorpVO {
     
     
     
-    public Date getCorpRegdate() {
+    
+    public String getCorpStartdate() {
+		return corpStartdate;
+	}
+	public void setCorpStartdate(String corpStartdate) {
+		this.corpStartdate = corpStartdate;
+	}
+	public Date getCorpRegdate() {
 		return corpRegdate;
 	}
 	public void setCorpRegdate(Date corpRegdate) {
@@ -109,12 +116,7 @@ public class CorpVO {
 	public void setCorpIndustry(String corpIndustry) {
 		this.corpIndustry = corpIndustry;
 	}
-	public String getCorpStardate() {
-		return corpStartdate;
-	}
-	public void setCorpStardate(String corpStartdate) {
-		this.corpStartdate = corpStartdate;
-	}
+
 	public String getCorpWebaddress() {
 		return corpWebaddress;
 	}
@@ -140,7 +142,7 @@ public class CorpVO {
 				+ ", corpImgurl=" + corpImgurl + ", corpAvrpay=" + corpAvrpay + ", corpKind=" + corpKind
 				+ ", corpPnumber=" + corpPnumber + ", corpHeadname=" + corpHeadname
 				+ ", corpAddress1=" + corpAddress1 + ", corpAddress2=" + corpAddress2 + ", corpCorpaddnumber="
-				+ corpCorpaddnumber + ", corpIndustry=" + corpIndustry + ", corpStardate=" + corpStartdate
+				+ corpCorpaddnumber + ", corpIndustry=" + corpIndustry + ", corpStartdate=" + corpStartdate
 				+ ", corpWebaddress=" + corpWebaddress + ", corpTel=" + corpTel + ", corpOkcheck=" + corpOkcheck
 				+ ", corpRegdate=" + corpRegdate + "]";
 	}
