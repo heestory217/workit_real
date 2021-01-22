@@ -110,7 +110,7 @@
 	.byte{
 		display:block;
 		text-align: right;
-	    margin-right: 15px;	
+		margin-right: 15px;
 	}
 	
 	.explain{
