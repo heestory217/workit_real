@@ -8,9 +8,8 @@ $(document).ready(function() {
 	$('#notice').css('display','none');
 	$("#selfMsg").bind("click",function(){
 		if($('#selfMsg').is(':checked')){
-			//kim 부분 바꿔줘야함 회원한 유저의 userid로
 			$('.col-lg-6').find('input[name=userId]').attr('disabled',true);
-			$('.col-lg-6').find('input[name=userId]').val('kim');
+			$('.col-lg-6').find('input[name=userId]').val($('#loginId').val());
 			$('#notice').css('display','block');
 		}else{
 			$('.col-lg-6').find('input[name=userId]').attr('disabled',false);
@@ -23,7 +22,6 @@ $(document).ready(function() {
 	$("#opt01").click(function(){
         window.open("http://www.nias.go.kr/", 'child', 'width=390, height=390');
 	});
-
 });
 </script>
 
@@ -42,6 +40,7 @@ $(document).ready(function() {
 					</script>
 				</c:if>
 				<input type="checkbox" id="selfMsg"> 
+				<input type="hidden" id="loginId" value="${userId}"> 
 				<label for="selfMsg">나에게 쪽지 쓰기 <span class="checkmark"></span></label>
 			</div>
 			<div class="col-lg-12"style="margin: 10px 0">
@@ -53,9 +52,8 @@ $(document).ready(function() {
 			class="comment-form">
 			<div class="row">
 				<div class="col-lg-6">
-					<!-- 보내는 회원 userNo value 값을 현재 로그인한 회원의 userno로 바꿔주어야함 !!-->
-					<input type=hidden name="userNo" value="1"> 
 					<input type="text" name="userId" placeholder="받는 회원 아이디를 입력하세요">
+					<input type=hidden name="userNo" value="${userNo}"> 
 				</div>
 				<div class="col-lg-6">
 					<input type="text" name="messageTitle" placeholder="제목을 입력하세요">
