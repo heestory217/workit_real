@@ -63,37 +63,6 @@ a {
 	color: #4c50bb;
 }
 
-.fa-ellipsis-h{
-	font-size:22px;
-	color:silver;
-	position: relative;
-}
-
-.editBox{
-	float:right;
-	margin:-6px 5px 0 0;
-}
-
-.editBtn{
-	border:1px solid gray;
-	position: absolute;
-	width: 70px;
-    height: 80px;
-    background: white;
-    padding:8px;
-}
-
-.editBtn>hr{
-	margin:8px 0;
-}
-.editBtn>a{
-	padding:9px;
-}
-
-.tit{
-	overflow: hidden;
-}
-
 .tit>p {
 	font-size: 25px;
 	color: black;
@@ -190,11 +159,9 @@ textarea::placeholder {
 
 .fa-quora{
 	font-size: 30px;
-  	margin-right: 10px;
-	color:#4c50bb;
-		
-}
-
+  		margin-right: 10px;
+	color:#4c50bb;	
+	}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -208,12 +175,6 @@ textarea::placeholder {
 		        $(this).val(content.substring(0, 1000));
 		        $('#cnt').html("1000");
 		    }
-		});
-		
-		/* 수정&삭제 아이콘 클릭시 수정, 삭제 버튼 보이도록 클릭 이벤트 */
-		$('.editBtn').hide();
-		$('.fa-ellipsis-h').click(function(){
-			$('.editBtn').toggle();
 		});
 		
 	});
@@ -236,19 +197,6 @@ textarea::placeholder {
 					<article>
 						<div class="BoxWrap">
 							<div class="tit">
-								<!-- if 조건으로 로그인한 경우에만 보이도록 설정 -->
-								<div class="editBox">
-								<a>
-									<i class="fa fa-ellipsis-h"></i>
-								</a>
-								<!-- 수정, 삭제  -->
-									<div class="editBtn">
-									<a href="#">수정</a>
-									<hr>
-									<a href="#">삭제</a>
-									</div>	
-								</div>
-								<!-- editBox 끝 -->
 								<p>
 									<i class="fa fa-quora"></i>신입 개발자 연봉 어느정도가 적당할까요?
 								</p>
