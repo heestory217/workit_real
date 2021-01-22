@@ -30,16 +30,18 @@ public class UsersServiceImpl implements UsersService{
 	
 	@Override
 	public int loginCheck(String userid, String password) {
-		String pass=usersDao.loginCheck(userid, password);
 		int result=0;
+		if(usersDao.loginCheck(userid, password)==null || usersDao.loginCheck(userid, password).isEmpty()) {
+			result=ID_NONE;
+			return result;
+		}
+		
+		String pass=usersDao.loginCheck(userid, password);
 		if(pass.equals(password)) {
 			result=LOGIN_OK;
 		}else if(!(pass==null || pass.isEmpty())){
 			result=PWD_DISAGREE;
-		}else {
-			result=ID_NONE;
 		}
-		
 		return result;
 	}
 	
