@@ -41,7 +41,7 @@
 						<td><input type="checkbox"></td>
 						<td>${map['USER_ID']}</td>
 						<td style="text-align:left;">
-							<a href="<c:url value="/message/messageDetail.do?messageNo=${map['MESSAGE_NO']}"/>">
+							<a href="<c:url value="/message/countUpdate.do?messageNo=${map['MESSAGE_NO']}"/>">
 								${map['MESSAGE_TITLE']}
 							</a>
 						</td>

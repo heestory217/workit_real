@@ -82,6 +82,12 @@
 		order by m.MESSAGE_REGDATE desc
 	</select>
 	
+	<update id="updateReadCount" parameterType="int">
+		update getMessage
+		set getmessage_readflag=1
+		where message_no=#{messageNo}
+	</update>
+	
 </mapper>
 
 
