@@ -29,7 +29,7 @@
 		width:800px;
 	}
 	
-	.writeBoxWrap{
+	.EditBoxWrap{
 		border:1px solid silver;
 		width:100%;
 		height:500px;
@@ -40,7 +40,7 @@
 		color:#4c50bb;
 	}
 	
-	form[name=qstnWriteFrm]{
+	form[name=qstnEditFrm]{
 	    padding: 5px;
 	}
 	
@@ -110,7 +110,7 @@
 	.byte{
 		display:block;
 		text-align: right;
-	    margin-right: 15px;	
+		margin-right: 15px;
 	}
 	
 	.explain{
@@ -267,7 +267,7 @@
 <script type="text/javascript">
 	$(function(){
 		
-		$('form[name=qstnWriteFrm]').submit(function(){
+		$('form[name=qstnEditFrm]').submit(function(){
 			if($('.questionTitle').val().length<10){
 				alert('질문 제목을 최소 10자 이상 작성해 주세요.');
 				event.preventDefault();
@@ -335,14 +335,14 @@
 	<!-- 질문 등록 -->
 	<section style="float:left; margin-left:30px;">
 		<div id="container">
-			<div id="content" class="QuestRegister">
+			<div id="content" class="QuestEdit">
 				<div class="top-title-wrap">
 					<p class="title"><span class="userNick">silver</span>님 어떤 질문을 하시겠어요?</p>
 			</div>
 
 				<!-- 직무, 기업선택 -->
-				<form name="qstnWriteFrm" method="post" 
-				action="<c:url value='/indiv/community/qstnWrite.do'/>">
+				<form name="qstnEditFrm" method="post" 
+				action="<c:url value='/indiv/community/qstnEdit.do'/>">
 					<article>
 						<div class="checkListArea">
 							<div class="checkboxCommWrap row">
@@ -392,7 +392,7 @@
 					<!-- 질문글 쓰기 -->
 
 					<article id="secArticle">
-						<div class="writeBoxWrap">
+						<div class="EditBoxWrap">
 							<fieldset>
 								<div class="qstnTitleDiv">
 									<p class="qstnTitle">
@@ -411,13 +411,13 @@
 								</div>
 
 								<div class="btnCommWrap">
-									<button type="submit" class="btnQuestion devQnaWriteButton">질문하기</button>
+									<button type="submit" class="btnQuestion devQnaEditButton">질문하기</button>
 									<button type="button"
-										class="btnCancel bg_white devQnaWriteCancelButton">취소</button>
+										class="btnCancel bg_white devQnaEditCancelButton">취소</button>
 								</div>
 							</fieldset>
 						</div>
-						<input type="text" name="userNo" value="3">
+						<input type="text" name="userNo" value="${qstnVo.questionNo }">
 						<input type="text" name="questionNicname" value="silver">
 					</article>
 				</form>
