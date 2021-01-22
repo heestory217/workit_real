@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../../inc/top.jsp"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -229,9 +229,12 @@ textarea::placeholder {
 		
 
 		<section>
+			<!-- 번호 hidden//////////////// -->
+			<input type="text" name="questionNo" value="13">
+			
 			<div id="container">
 				<div class="qstnDetailBox">
-				
+					
 					<!-- 질문 -->
 					<article>
 						<div class="BoxWrap">
@@ -243,34 +246,39 @@ textarea::placeholder {
 								</a>
 								<!-- 수정, 삭제  -->
 									<div class="editBtn">
-									<a href="#">수정</a>
+									<a href
+					="<c:url value='/indiv/community/qstnEdit.do?qstnNo=${qstnVo.questionNo }'/>">수정</a>
 									<hr>
 									<a href="#">삭제</a>
 									</div>	
 								</div>
 								<!-- editBox 끝 -->
+								
+								<!-- 질문 제목 -->
 								<p>
-									<i class="fa fa-quora"></i>신입 개발자 연봉 어느정도가 적당할까요?
+									<i class="fa fa-quora"></i>${qstnVo.questionTitle}
 								</p>
 							</div>
+							
+							<!-- 질문 내용 -->
 							<div class="cont">
 								<p>
-									
-									3년제 나왔고 리서치회사에 합격했는데 연봉을 어느정도 불러야하나요? 신입이고 php html css jquery 가능하고 회사는 업계에서 나름 괜찮은거같애요<br/>
+									${qstnVo.questionAbout }<br/>
 								</p>
 							</div>
 							<div class="cellBx">
-								<span class="cell">조회 13&nbsp;&nbsp;|</span><span class="cell">&nbsp;&nbsp;23분
-									전 작성</span>
+								<span class="cell">조회 ${qstnVo.questionView }&nbsp;&nbsp;|</span>
+								<span class="cell">&nbsp;&nbsp;
+									<fmt:formatDate value="${qstnVo.questionDate }"
+										pattern="yyyy-MM-dd"/>	
+								</span>
 								<div class="bookmark">
 									<i class="fa fa-bookmark-o" aria-hidden="true"></i>
 								</div>
 							</div>
 							<div class="cmtBox">
 								<div class="writeBoxWrap cmtWrite">
-									<form action="/User/Qstn/AnswerWriteIns" method="post"
-										oncopy="return false" oncut="return false"
-										onpaste="return false">
+									<form action="/indiv/community/cmtWrite.do" method="post">
 										<div class="cmtWriteBox">
 											<textarea class="cmtWriteArea" placeholder="솔직하고 따뜻한 답변을 남겨주세요."></textarea>
 										</div>

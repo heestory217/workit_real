@@ -9,9 +9,16 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	@Autowired private SqlSessionTemplate sqlSession;
 	
 	private String namespace="config.mybatis.mapper.oracle.question.";
-
+	
+	//질문 등록
 	@Override
 	public int insertQstn(QuestionVO vo) {
 		return sqlSession.insert(namespace+"insertQstn", vo);
+	}
+
+	//질문 조회
+	@Override
+	public QuestionVO selectQstn(int qstnNo) {
+		return sqlSession.selectOne(namespace+"selectQstn", qstnNo);
 	}
 }

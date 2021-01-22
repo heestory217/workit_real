@@ -121,7 +121,8 @@
 				<div class="questBoxWrap">
 				<div class="oneQuestBox">
 					<div>							
-						<a href="#" class="contentArea">
+						<a href="<c:url value='/indiv/community/qstnDetail.do?qstnNo='/>"
+							class="contentArea">
 							<dl>
 								<!-- 제목 -->
 								<dt class="qtTitle">

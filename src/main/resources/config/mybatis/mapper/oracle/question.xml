@@ -3,6 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="config.mybatis.mapper.oracle.question">
+	<!-- 질문 등록 -->
 	<insert id="insertQstn" parameterType="questionVo">
 		<selectKey keyProperty="questionNo" resultType="int" order="BEFORE">
 			select QUESTION_SEQ.NEXTVAL from dual
@@ -13,6 +14,10 @@
         	#{questionAbout},#{questionNicname})
 	</insert>	
 	
+	<!-- 질문 조회 -->
+	<select id="selectQstn" parameterType="int" resultType="questionVo">
+		select * from QUESTION where QUESTION_NO=#{questionNo}
+	</select>
 </mapper>
 
 

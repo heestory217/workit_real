@@ -1,6 +1,6 @@
 package com.it.workit.question.model;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class QuestionVO {
 	private int questionNo;
@@ -9,7 +9,7 @@ public class QuestionVO {
     private String questionTitle;
     private String questionAbout;    
     private int questionView;     
-    private Timestamp questionDate;     
+    private Timestamp questionDate;  
     private int questionImmsave;
     private int questionBookmark; 
     private String questionNicname;
