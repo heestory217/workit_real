@@ -31,4 +31,9 @@ public class FaqServiceImpl implements FaqService{
 	public int faqupdate(FaqVO faqVo) {
 		return faqDao.faqupdate(faqVo);
 	}
+
+	@Override
+	public int faqdelete(FaqVO faqVo) {
+		return faqDao.faqdelete(faqVo);
+	}
 }

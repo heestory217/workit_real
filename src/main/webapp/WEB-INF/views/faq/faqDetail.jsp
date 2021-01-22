@@ -11,7 +11,7 @@
    	float: right;
 }
 
-.faqBt,.faqdelBt {
+.faqBt, .faqDelBt {
     margin: 30px 3px;
    	float: left;
 }
@@ -20,8 +20,16 @@
 <script type="text/javascript">
 
 $(function(){
-	$('.faqdelBt').click(function(){
-		window.location="/faq/faqDelete.do?faqNo=${faqVo.faqNo }";
+	$('.faqDelBt').click(function(){
+		var result = confirm('삭제하시겠습니까?');
+		
+		if (result) {
+			alert('선택한 글을 삭제하였습니다');
+			location.href='<c:url value="/faq/faqDelete.do?faqNo=${faqVo.faqNo }"/>';
+		} else {
+			alert('삭제 취소하였습니다');
+			return false;
+		}
 	});
 });
 
@@ -52,7 +60,8 @@ $(function(){
 					</div>
 				</div>
 				
-			<form class="checkout-form" action="<c:url value='/faq/faqUpdate.do?faqNo=${faqVo.faqNo }'/>" >
+			<form class="checkout-form" action="<c:url value='/faq/faqUpdate.do'/>" >
+					<input type="hidden" id="faqNo" name="faqNo" value="${faqVo.faqNo}">
 					<div class="place-order">
 						<div class="order-total">
 							<ul class="order-table">
@@ -67,7 +76,7 @@ $(function(){
 					</div>
 					<div class="order-btn faqBtWarp">
 						<button type="submit" class="site-btn place-btn faqBt">수정</button>
-						<button type="button" class="site-btn place-btn faqdelBt">삭제</button>
+						<button type="button" class="site-btn place-btn faqDelBt">삭제</button>
 					</div>
 			</form>
 				

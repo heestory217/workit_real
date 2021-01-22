@@ -7,4 +7,5 @@ public interface FaqDAO {
 	public int faqinsert(FaqVO faqVo);
 	public FaqVO faqselectByNo(int no);
 	public int faqupdate(FaqVO faqVo);
+	public int faqdelete(FaqVO faqVo);
 }

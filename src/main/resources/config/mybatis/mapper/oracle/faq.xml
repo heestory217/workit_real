@@ -19,13 +19,13 @@
 		select * from faq where faq_no=#{faqNo}
 	</select>
 	
-	<update id="faqupdate" parameterType="int">
+	<update id="faqupdate" parameterType="faqVo">
 		update faq
 		set faq_title=#{faqTitle},faq_about=#{faqAbout}
 		where faq_no=#{faqNo}
 	</update>
 	
-	<delete id="faqdelete" parameterType="int">
+	<delete id="faqdelete" parameterType="faqVo">
 		delete faq where faq_no=#{faqNo}
 	</delete>
 	
