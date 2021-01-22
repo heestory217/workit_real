@@ -86,6 +86,8 @@
 	outline: none;
 	font-size: 15px;
 	transition: all 0.5s;
+	border: none;
+    border-bottom: 2px solid #4C4747;
 }
 
 .active, .accordion:hover {
@@ -113,7 +115,13 @@
 	overflow: hidden;
 	transition: all 0.5s;
 	display: none;
+	border-bottom: 2px solid #4C4747;
 }
+
+.register-login-section.spad.fqst {
+    border-bottom: 2px solid #4C4747;
+}
+
 </style>
 <script type="text/javascript"> 
         $(function() {      

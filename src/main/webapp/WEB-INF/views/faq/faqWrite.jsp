@@ -14,23 +14,31 @@ input.faqBt.btn.btn-primary.site-btn {
 </style>
 
 <script type="text/javascript">
-	$(function(){
-		$('#faqTitle').focus();
-		
-		$('form[name=faqWrite]').submit(function() {
-			if ($('#faqTitle').val().length<1) {
-				alert('제목을 입력하세요');
-				$('#faqTitle').focus();
-// 				return false;	
-				event.preventDefault();			
-			}else if ($('#faqAbout').val().length<1) {
-				alert('내용을 입력하세요');
-				$('#faqAbout').focus();
-				event.preventDefault();			
-// 				return false;	
-			}
-		});
-	});
+   $(function() {
+      $('#faqTitle').focus();
+
+      $('form[name=faqWrite]').submit(function() {
+         if ($('#faqTitle').val().length < 1) {
+            alert('제목을 입력하세요');
+            $('#faqTitle').focus();
+            event.preventDefault();
+         } else if($('#faqAbout').val().length < 1) {
+            write_go();
+            event.preventDefault();
+         }
+      });
+   });
+
+   function write_go() {
+      var ckeditor = CKEDITOR.instances['faqAbout'];
+      if (ckeditor.getData() == "") {
+         alert('내용을 입력 하세요');
+         ckeditor.focus();
+         return;
+      } else {
+         document.in_form.submit();
+      }
+   }
 </script>
 
 <!-- Breadcrumb Section Begin -->

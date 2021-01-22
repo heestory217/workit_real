@@ -87,6 +87,11 @@ private static final Logger logger=LoggerFactory.getLogger(FaqController.class);
 		
 		//2
 		FaqVO faqVo = faqService.faqselectByNo(faqNo);
+		if (faqNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/faq/faqList.do");
+			return "common/message";
+		}
 		logger.info("화면처리 faqVo={}",faqVo);
 		
 		//3
@@ -120,6 +125,27 @@ private static final Logger logger=LoggerFactory.getLogger(FaqController.class);
 	@RequestMapping(value = "/faqNav.do")
 	public void faqNav() {
 		logger.info("nav화면");
+	}
+	
+	
+	@RequestMapping(value = "/faqDelete.do")
+	public String faqDelete(@ModelAttribute FaqVO faqVo
+			,Model model) {
+		logger.info("삭제처리 파라미터 faqVo={}", faqVo);
+		
+		//2
+		int cnt = faqService.faqdelete(faqVo);
+		
+		String msg="삭제 실패하였습니다", url="/faq/faqDetail.do?faqNo"+faqVo.getFaqNo();
+		if (cnt>0) {
+			msg="삭제 성공하였습니다";
+			url="/faq/faqList.do";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
 	}
 }
 
