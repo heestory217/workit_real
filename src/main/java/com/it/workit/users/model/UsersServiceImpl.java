@@ -55,4 +55,9 @@ public class UsersServiceImpl implements UsersService{
 		return usersDao.selectByUserId(userId);
 	}
 
+	@Override
+	public int updateUsers(UsersVO vo) {
+		return usersDao.updateUsers(vo);
+	}
+
 }
