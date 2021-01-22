@@ -26,7 +26,8 @@
 		    select m.*, (select user_id from users where USER_NO=m.GETUSER_NO) AS "USER_ID"
 		    from MsgGetMsgView m
 		)A
-		where USER_NO=#{userNo} and GETUSER_NO!=USER_NO
+		where USER_NO=#{userNo} and GETUSER_NO!=USER_NO 
+		and SEND_DELFLAG=2 and GETMESSAGE_IMPFLAG=2 
 		order by MESSAGE_REGDATE desc
 	</select>
 	
@@ -37,14 +38,15 @@
 		    select m.*, (select user_id from users where USER_NO=m.GETUSER_NO) AS "USER_ID"
 		    from MsgGetMsgView m
 		)A
-		where USER_NO=#{userNo} and GETUSER_NO=USER_NO
+		where USER_NO=#{userNo} and GETUSER_NO=USER_NO and GETMESSAGE_DELFLAG=2
 		order by MESSAGE_REGDATE desc
 	</select>
 	
 	<select id="selectGetMessage" parameterType="int" resultType="map">
 		select m.*, (select user_id from users where USER_NO=m.USER_NO) AS "USER_ID"
 		from MsgGetMsgView m
-		where GETUSER_NO=#{userNo} and GETUSER_NO!=USER_NO
+		where GETUSER_NO=#{userNo} and GETUSER_NO!=USER_NO 
+		and GETMESSAGE_DELFLAG=2 and GETMESSAGE_IMPFLAG=2 
 		order by m.MESSAGE_REGDATE desc
 	</select>
 	
@@ -53,6 +55,33 @@
 		from MsgGetMsgView m
 		WHERE MESSAGE_NO=#{messageNo}
 	</select>	
+	
+	<update id="updateMsgDelflag" parameterType="int">
+		update message
+		set SEND_DELFLAG=1
+		where MESSAGE_NO=#{messageNo}
+	</update>
+	
+	<update id="updategetMsgDelflag" parameterType="int">
+		update getMessage
+		set GETMESSAGE_DELFLAG=1
+		where MESSAGE_NO=#{messageNo}
+	</update>
+	
+	<update id="updategetMsgImpflag" parameterType="int">
+		update getMessage
+		set GETMESSAGE_IMPFLAG=1
+		where MESSAGE_NO=#{messageNo}
+	</update>
+	
+	<select id="selectImpMessage" parameterType="int" resultType="map">
+		select m.*, (select user_id from users where USER_NO=m.USER_NO) AS "USER_ID"
+		from MsgGetMsgView m
+		where (USER_NO=#{USER_NO} or GETUSER_NO=#{USER_NO}) and GETMESSAGE_IMPFLAG=1 
+		and SEND_DELFLAG=2 and GETMESSAGE_DELFLAG=2
+		order by m.MESSAGE_REGDATE desc
+	</select>
+	
 </mapper>
 
 

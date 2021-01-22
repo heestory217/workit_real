@@ -36,4 +36,28 @@ public class MessageServiceImpl implements MessageService{
 		return messageDao.selectByMessageNo(messageNo);
 	}
 
+	//보낸 메세지 삭제 (플래그 업데이트)
+	@Override
+	public int updateMsgDelflag(int messageNo) {
+		return messageDao.updateMsgDelflag(messageNo);
+	}
+	
+	//받은 메세지 삭제 (플래그 업데이트)
+	@Override
+	public int updategetMsgDelflag(int messageNo) {
+		return messageDao.updategetMsgDelflag(messageNo);
+	}
+
+	//중요플래그 업데이트 => 받은메세지 중 보관하고 싶은 쪽지
+	@Override
+	public int updategetMsgImpflag(int messageNo) {
+		return messageDao.updategetMsgImpflag(messageNo);
+	}
+	
+	//보관함 조회
+	@Override
+	public List<Map<String, Object>> selectImpMessage(int userNo) {
+		return messageDao.selectImpMessage(userNo);
+	}
+
 }

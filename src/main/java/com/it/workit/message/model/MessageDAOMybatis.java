@@ -38,5 +38,27 @@ public class MessageDAOMybatis implements MessageDAO{
 	public Map<String, Object> selectByMessageNo(int messageNo) {
 		return sqlSession.selectOne(namespace+"selectByMessageNo", messageNo);
 	}
+	
+	//보낸 메세지 삭제 (플래그 업데이트)
+	@Override
+	public int updateMsgDelflag(int messageNo) {
+		return sqlSession.update(namespace+"updateMsgDelflag", messageNo);
+	}
+	
+	//받은 메세지 삭제 (플래그 업데이트)
+	@Override
+	public int updategetMsgDelflag(int messageNo) {
+		return sqlSession.update(namespace+"updategetMsgDelflag", messageNo);
+	}
+
+	@Override
+	public int updategetMsgImpflag(int messageNo) {
+		return sqlSession.update(namespace+"updategetMsgImpflag", messageNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectImpMessage(int userNo) {
+		return sqlSession.selectList(namespace+"selectImpMessage", userNo);
+	}
 
 }
