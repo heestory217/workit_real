@@ -31,6 +31,11 @@ public class UsersDAOMybatis implements UsersDAO {
 
 		return pass;
 	}
+	
+	@Override
+	public int userkindcheck(String userid) {
+		return sqlSession.selectOne(namespace+"userkindcheck", userid);
+	}
 
 	//회원번호로 조회
 	@Override
@@ -49,5 +54,6 @@ public class UsersDAOMybatis implements UsersDAO {
 	public int updateUsers(UsersVO vo) {
 		return sqlSession.update(namespace+"updateUsers", vo);
 	}
+
 
 }

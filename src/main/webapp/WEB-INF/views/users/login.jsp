@@ -28,12 +28,13 @@
                         <form action="<c:url value='/users/logincheck.do'/>" name="frmLogin">
                             <div class="group-input">
                                 <label for="username">아이디</label>
-                                <input type="text" id="userid" class="infobox">
+                                <input type="text" id="userid" class="infobox" name="userId">
                             </div>
                             <div class="group-input">
                                 <label for="pass">비밀번호</label>
-                                <input type="password" id="password" class="infobox">
+                                <input type="password" id="password" class="infobox" name="userPassword">
                             </div>
+                            <!-- 
                             <div class="group-input gi-check">
                                 <div class="gi-more">
                                 <input type="checkbox" id="save-id" name="chkSave"
@@ -48,6 +49,7 @@
                                     <a href="#" class="forget-pass">아이디나 비밀번호를 잊으셨나요?</a>
                                 </div>
                             </div>
+                           -->
                             <button type="submit" class="site-btn login-btn">로그인</button>
                         </form>
                         <div class="switch-login">
