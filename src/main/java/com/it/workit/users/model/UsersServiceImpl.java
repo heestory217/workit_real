@@ -32,14 +32,12 @@ public class UsersServiceImpl implements UsersService{
 	public int loginCheck(String userid, String password) {
 		String pass=usersDao.loginCheck(userid, password);
 		int result=0;
-		if(pass==null || pass.isEmpty()) {
+		if(pass.equals(password)) {
 			result=LOGIN_OK;
+		}else if(!(pass==null || pass.isEmpty())){
+			result=PWD_DISAGREE;
 		}else {
-			if(pass.equals(password)) {
-				result=PWD_DISAGREE;
-			}else {
-				result=ID_NONE;
-			}
+			result=ID_NONE;
 		}
 		
 		return result;
