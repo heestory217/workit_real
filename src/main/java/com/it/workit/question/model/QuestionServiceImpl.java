@@ -1,6 +1,7 @@
 package com.it.workit.question.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,11 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public List<QuestionVO> selectAllQstn() {
 		return questionDao.selectAllQstn();
+	}
+
+	@Override
+	public List<Map<String, Object>> selectUserQstnAll(int userNo) {
+		return questionDao.selectUserQstnAll(userNo);
 	}
 	
 	

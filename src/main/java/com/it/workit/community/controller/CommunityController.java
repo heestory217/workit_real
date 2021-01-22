@@ -1,6 +1,9 @@
 package com.it.workit.community.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,13 +31,6 @@ public class CommunityController {
 		logger.info("커뮤니티 사이드 메뉴바");
 		
 		return "indiv/community/cmtyNavbar";
-	}
-	
-	@RequestMapping("/myQstn.do")
-	public String myQstn() {
-		logger.info("나의 질문 페이지 화면");
-		
-		return "indiv/community/myQstn";
 	}
 	
 	//회원 활동 내역
@@ -142,4 +138,19 @@ public class CommunityController {
 		
 		return "indiv/community/qstnList";
 	}
+	
+	//회원 질문 조회
+	@RequestMapping("/myQstn.do")
+	public String userQstnList(HttpSession session, Model model) {
+		String userid=(String) session.getAttribute("userId");
+		logger.info("회원 질문 목록 조회");
+		
+		List<Map<String, Object>> qstnList=qstnService.selectUserQstnAll(12);
+		logger.info("회원 질문 목록 조회 결과, qstnLis.size={}",qstnList.size());
+		
+		model.addAttribute("qstnList", qstnList);
+		
+		return "indiv/community/myQstn";
+	}
+	
 }

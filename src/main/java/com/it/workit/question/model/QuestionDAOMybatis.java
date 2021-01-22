@@ -1,6 +1,7 @@
 package com.it.workit.question.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,10 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	@Override
 	public List<QuestionVO> selectAllQstn() {
 		return sqlSession.selectList(namespace+"selectAllQstn");
+	}
+
+	@Override
+	public List<Map<String, Object>> selectUserQstnAll(int userNo) {
+		return sqlSession.selectList(namespace+"selectUserQstnAll", userNo);
 	}
 }
