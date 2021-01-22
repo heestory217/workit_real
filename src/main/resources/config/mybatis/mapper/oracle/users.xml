@@ -31,6 +31,10 @@
 		select * from users where USER_ID=#{userId}
 	</select>
 	
+		<select id="userkindcheck" parameterType="String" resultType="int">
+		select user_corpcheck from users where USER_ID=#{userId}
+	</select>
+	
 	<update id="updateUsers" parameterType="usersVo">
 		update users
 		set user_name=#{userName}, user_password=#{userPassword}, workkind_no=#{workkindNo}, 
