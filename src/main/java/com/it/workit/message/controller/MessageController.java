@@ -150,7 +150,16 @@ public class MessageController {
 			map = messageService.selectByMessageNo(getMessageNo);
 		}
 		
+		//보낸사람 ID 넘겨주기
+		int sentUserNo = 0;
+		if(map!=null && !map.isEmpty()) {
+			sentUserNo = Integer.parseInt(String.valueOf(map.get("USER_NO")));
+		}
+		UsersVO userVo = userService.selectByUserNo(sentUserNo);
+		String sentUserId = userVo.getUserId();
+		
 		model.addAttribute("map", map);
+		model.addAttribute("sentUserId", sentUserId);
 		
 		return "message/messageDetail";
 	};

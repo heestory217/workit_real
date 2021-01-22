@@ -25,12 +25,22 @@
 	<br>
 	<div class="blog-quote" style="margin-left: 10%;width: 80%;">
 		<p style="font-size: 15px;">
-			
 			<i class="fas fa-user" style="margin-right: 15px;"></i>
-			<span style="color:#4C50BB;">받은회원 ID : </span>${map['USER_ID']}
-			<br>
-			<i class="far fa-calendar-alt" style="margin-right: 15px;"></i>
-			<span style="color:#4C50BB;">보낸날짜 : </span>
+			
+			<c:if test="${!empty param.getMessageNo}">
+				<span style="color:#4C50BB;">보낸회원 ID : </span>${sentUserId}
+				<br>
+				<i class="far fa-calendar-alt" style="margin-right: 15px;"></i>
+				<span style="color:#4C50BB;">받은날짜 : </span>
+			</c:if>
+			
+			<c:if test="${!empty param.messageNo}">	
+				<span style="color:#4C50BB;">받은회원 ID : </span>${map['USER_ID']}
+				<br>
+				<i class="far fa-calendar-alt" style="margin-right: 15px;"></i>
+				<span style="color:#4C50BB;">보낸날짜 : </span>
+			</c:if>
+			
 			<fmt:formatDate value="${map['MESSAGE_REGDATE']}" pattern="yyyy-MM-dd HH:mm:ss" />
 		</p>
 	</div>
@@ -81,7 +91,15 @@
 			</c:if>
 			<!-- 보관중일 때 -->
 			<c:if test="${map['GETMESSAGE_IMPFLAG']==1}">
+				<c:if test="${!empty param.getMessageNo}">
+					<c:if test="${empty param.type}"> <!-- 받은편지함 -->
+						<a href="#" class="btn btn-primary" style="background:#4C50BB;">답장</a>
+						<a href="<c:url value='/message/deleteMsg.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+					</c:if>
+				</c:if>
+				<c:if test="${!empty param.messageNo}">	<!-- 보낸편지함 -->
 					<a href="<c:url value='/message/deleteMsg.do?messageNo=${param.messageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+				</c:if>
 			</c:if>
 		</div>
 	</div>
