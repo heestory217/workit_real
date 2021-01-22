@@ -32,7 +32,6 @@
                         <h5>My Account</h5>
                         <ul>
                             <li><a href="#">회원 정보 수정</a></li>
-                            <li><a href="#">장바구니</a></li>
                             <li><a href="#">구매 내역 조회</a></li>
                             <li><a href="<c:url value='/message/messageBox.do'/>">쪽지함</a></li>
                         </ul>
