@@ -253,4 +253,62 @@ public class MessageController {
 		return "common/message";
 	}
 	
+	@RequestMapping("/countUpdate.do")
+	public String countUpdate(@RequestParam (defaultValue = "0") int messageNo,
+			@RequestParam (defaultValue = "0") int getMessageNo,
+			@RequestParam (required = false) String type,
+			Model model) {
+		
+		logger.info("쪽지읽음 처리, messageNo={} getMessageNo={}", messageNo, getMessageNo);
+		
+		if(messageNo==0 && getMessageNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/message/messageBox.do");
+			return "common/message";
+		}
+		
+		String url="";
+		int cnt=0;
+		int userNo=1;	//세션값 넣기
+		
+		if(messageNo!=0 || getMessageNo!=0) {
+			if(messageNo!=0) {
+				cnt = getMessageService.updateReadCount(messageNo);
+			}else if(getMessageNo!=0) {
+				cnt = getMessageService.updateReadCount(getMessageNo);
+			}
+		}
+		logger.info("읽음처리 결과, cnt={}", cnt);
+		
+		if(cnt>0) {	
+			if(type!=null && !type.isEmpty()) {
+				if(type.equals("important")) {	//보관함에 저장된 경우			
+					UsersVO vo= userService.selectByUserNo(userNo);
+					String userId = vo.getUserId();
+					logger.info("userId={}",userId);
+					
+					if(userId.equals("kim")) {	//보낸편지 보관 
+						url="/message/messageDetail.do?messageNo="+messageNo;
+					}
+					/*
+						else {	//받은편지 보관
+							url="/message/messageDetail.do?getMessageNo="+getMessageNo;
+						}
+					*/
+				}else if(type.equals("toMe")) {	//나에게 보낸 편지함
+					url = "/message/messageDetail.do?type=toMe&getMessageNo="+getMessageNo;
+				}
+			}else{
+				if(messageNo!=0) {
+					//보낸 쪽지함 
+					url="/message/messageDetail.do?messageNo="+messageNo;
+				}else {	//받은 쪽지함
+					url="/message/messageDetail.do?getMessageNo="+getMessageNo;
+				}
+			}
+		}
+		
+		return "redirect:"+url;
+	}
+	
 }

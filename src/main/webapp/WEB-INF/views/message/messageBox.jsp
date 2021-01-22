@@ -57,25 +57,26 @@
 						<td style="text-align: left;">
 							<!-- 받은 쪽지함 --> 
 							<c:if test="${empty param.type}">
-								<a href="<c:url value="/message/messageDetail.do?getMessageNo=${map['MESSAGE_NO']}"/>">
+								<a href="<c:url value="/message/countUpdate.do?getMessageNo=${map['MESSAGE_NO']}"/>">
 									${map['MESSAGE_TITLE']} </a>
 							</c:if> 
 							<c:if test="${!empty param.type}">
 								<!-- 보관함에 저장된 경우 -->
 								<c:if test="${param.type == 'important'}">
+									<!-- 받은 쪽지함 --> 
 									<c:if test="${map['USER_ID']!='kim'}">
-										<a href="<c:url value="/message/messageDetail.do?getMessageNo=${map['MESSAGE_NO']}"/>">
+										<a href="<c:url value="/message/countUpdate.do?getMessageNo=${map['MESSAGE_NO']}"/>">
 											${map['MESSAGE_TITLE']} </a>
 									</c:if>
 									<!-- 보낸쪽지함 -->
 									<c:if test="${map['USER_ID']=='kim'}">
-										<a href="<c:url value="/message/messageDetail.do?messageNo=${map['MESSAGE_NO']}"/>">
+										<a href="<c:url value="/message/countUpdate.do?type=important&messageNo=${map['MESSAGE_NO']}"/>">
 											${map['MESSAGE_TITLE']} </a>
 									</c:if>
 								</c:if>
 								<!-- 나에게 보낸 편지함 -->
 								<c:if test="${param.type == 'toMe'}">
-									<a href="<c:url value="/message/messageDetail.do?type=toMe&getMessageNo=${map['MESSAGE_NO']}"/>">
+									<a href="<c:url value="/message/countUpdate.do?type=toMe&getMessageNo=${map['MESSAGE_NO']}"/>">
 										${map['MESSAGE_TITLE']} </a>
 								</c:if>
 							</c:if>
