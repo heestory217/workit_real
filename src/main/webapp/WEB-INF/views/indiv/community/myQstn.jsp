@@ -113,6 +113,87 @@
 		color:#4c50bb;
 		font-weight:bold;
 	}
+	
+	/*  */
+	
+		#questBox{
+		border-top:1px solid silver;
+		border-left:1px solid silver;
+		border-right:1px solid silver;
+		border-bottom:1px solid silver;
+	}
+	
+	.oneQuestBox{
+	    padding: 40px 10px;
+	    height: auto;
+	    width: 92%;
+	    border-bottom: 1px solid silver;
+	    margin: 0px 30px 0 30px;
+	}
+	
+    
+	.qtTitle{
+		font-size: 20px;
+		color:black;
+		font-weight:lighter;
+	}
+
+	.qtContent{
+		font-size:16px;
+		color:#5f5f5f;
+	}
+	
+	.fa-quora{
+		font-size:22px;
+		color:#4c50bb;	
+		margin-right: 5px;
+	}
+	
+	dd{
+		margin-top:20px;
+	}
+	
+	.cellBx{
+		color:gray;
+	}
+	
+	.replyNum{
+		color:black;
+		font-weight:bold;
+	}
+	
+	.paging{
+		height:100px;
+	}
+	
+	.questBoxWrap:hover{
+		background-color: #f5f7ff;;
+	}
+	
+	.paging{
+		clear:both;
+	}
+	
+	.cellBx > span{
+		float:left;
+	}
+	
+	.cellBx > .bookmark{
+		float:right;
+		font-size:25px;
+		padding-bottom: 20px;
+	}
+	
+	.allQstn{
+		color:#4c50bb;
+		font-weight:bold;
+	}
+	
+	.cellBx > span{
+		font-size:13px;	
+	}
+	
+	
 </style>
 
 
@@ -148,20 +229,20 @@
 		
 		<!-- 회원이 등록한 질문지 존재하는 경우  -->
 		<c:if test="${!empty qstnList }">
-			<c:forEach var="qstnVo" items="${qstnList }">
+			<c:forEach var="map" items="${qstnList }">
 				<div class="questBoxWrap">
 					<div class="oneQuestBox">
 						<div>
-							<a href="<c:url value='/indiv/community/qstnDetail.do?qstnNo=${qstnVo.questionNo }'/>"
+							<a href="<c:url value='/indiv/community/qstnDetail.do?qstnNo=${map["QUESTION_NO"]}'/>"
 								class="contentArea">
 								<dl>
 								<!-- 제목 -->
 								<dt class="qtTitle">
-									<i class="fa fa-quora"></i><span>${qstnVo.questionTitle }</span>
+									<i class="fa fa-quora"></i><span>${map['QUESTION_TITLE']}</span>
 								</dt>
 
 								<!-- 내용 -->
-								<dd class="qtContent">${qstnVo.questionAbout }</dd>
+								<dd class="qtContent">${map['questionAbout']}</dd>
 
 								<!-- 답변, 조회수, 작성시간 -->
 								<dd class="cellBx">
@@ -169,7 +250,7 @@
 											0</span>&nbsp;&nbsp;|&nbsp;
 									</span> <span class="readCnt">조회 3&nbsp;&nbsp;|&nbsp;</span> <span
 										class="regTime"> <fmt:formatDate
-											value="${qstnVo.questionDate }" pattern="yyyy-MM-dd" />
+											value="${map['QUESTION_DATE']}" pattern="yyyy-MM-dd" />
 									</span>
 									<div class="bookmark">
 										<i class="fa fa-bookmark-o" aria-hidden="true"></i>
@@ -182,6 +263,9 @@
 				</div>
 				</c:forEach>
 			<!-- 질문 반복 끝 -->
+			<div class="paging">
+				
+			</div>
 			</c:if>
 		</article>
 

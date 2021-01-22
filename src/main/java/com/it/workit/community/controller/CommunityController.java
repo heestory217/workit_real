@@ -142,11 +142,11 @@ public class CommunityController {
 	//회원 질문 조회
 	@RequestMapping("/myQstn.do")
 	public String userQstnList(HttpSession session, Model model) {
-		String userid=(String) session.getAttribute("userId");
-		logger.info("회원 질문 목록 조회");
+		int userNo=(Integer)session.getAttribute("userNo");
+		logger.info("회원 질문 목록 조회, userNo={}", userNo);
 		
-		List<Map<String, Object>> qstnList=qstnService.selectUserQstnAll(12);
-		logger.info("회원 질문 목록 조회 결과, qstnLis.size={}",qstnList.size());
+		List<Map<String, Object>> qstnList=qstnService.selectUserQstnAll(userNo);
+		logger.info("회원 질문 목록 조회 결과, qstnLis.size={}", qstnList.size());
 		
 		model.addAttribute("qstnList", qstnList);
 		

@@ -57,6 +57,7 @@
 	.fa-quora{
 		font-size:22px;
 		color:#4c50bb;	
+		margin-right: 5px;
 	}
 	
 	dd{
@@ -118,7 +119,7 @@
 				<p class="title">전체질문</p>
 			</div>
 			
-			
+			<!-- 질문 없는 경우 아이콘, 문구 정하기!!! -->
 			<article id="questBox">
 				<c:if test="${empty qstnList }">
 					<div class="questBoxWrap">
@@ -140,8 +141,7 @@
 							<dl>
 								<!-- 제목 -->
 								<dt class="qtTitle">
-								<i class="fa fa-quora"></i>
-								<span>${qstnVo.questionTitle }</span></dt>
+								<i class="fa fa-quora"></i><span>${qstnVo.questionTitle }</span></dt>
 								
 								<!-- 내용 -->
 								<dd class="qtContent">${qstnVo.questionAbout }</dd>

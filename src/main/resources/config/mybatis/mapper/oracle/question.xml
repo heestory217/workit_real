@@ -33,11 +33,14 @@
 	</select>
 	
 	<!-- 회원 질문 목록 조회 -->
-	<select id="selectUserQstnAll" parameterType="int" resultType="map">
-		select * from userQstnView
-		where USER_ID =(select USER_ID FROM USERS
-		WHERE USER_NO=#{userNo})
+	<resultMap type="HashMap" id="selectQstnAbout">
+		<result property="questionAbout" column="QUESTION_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	<select id="selectUserQstnAll" parameterType="int" resultType="HashMap"
+		resultMap="selectQstnAbout">
+		select * from userQstnView where USER_NO=#{userNo} order by QUESTION_NO desc
 	</select>
+	
 </mapper>
 
 
