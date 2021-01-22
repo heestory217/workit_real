@@ -66,8 +66,14 @@ public class MessageController {
 	};
 	
 	@RequestMapping(value="/messageWrite.do", method = RequestMethod.GET)
-	public String messageWrite(@RequestParam (required = false) String type) {
+	public String messageWrite(HttpSession session, 
+			@RequestParam (required = false) String type,
+			Model model) {
 		logger.info("쪽지 쓰기 페이지 보여주기, 파라미터 type={}", type);
+		String userId = (String) session.getAttribute("userId");
+		
+		model.addAttribute("userId", userId);
+		
 		return "message/messageWrite";
 	};
 	
