@@ -63,8 +63,6 @@ public class MessageServiceImpl implements MessageService{
 		return cnt;
 	}
 
-	
-	
 	//받은 메세지 삭제 (플래그 업데이트)
 	@Override
 	public int updategetMsgDelflag(int messageNo) {

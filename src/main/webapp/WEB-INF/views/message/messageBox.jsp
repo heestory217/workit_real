@@ -18,7 +18,7 @@
 			   alert('먼저 삭제할 쪽지를 선택하세요.');
 			   return false;
 			}
-			            
+			
 			$('form[name=frmGetList]').prop('action', '<c:url value="/message/deleteMultiGetMsg.do"/>');
 			$('form[name=frmGetList]').submit();
 			
