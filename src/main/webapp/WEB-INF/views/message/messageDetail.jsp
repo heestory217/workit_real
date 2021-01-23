@@ -3,6 +3,16 @@
 
 <%@ include file="messageTop.jsp"%>
 
+<style>
+.posted-by textarea {
+	font-size: 16px;
+	color: black;
+	border: none;
+	width: 100%;
+	height: -webkit-fill-available;
+}
+</style>
+
 <script type="text/javascript">
 	$(function(){
 		$('.cart-buttons').find('a').click(function(){
@@ -44,10 +54,8 @@
 			<fmt:formatDate value="${map['MESSAGE_REGDATE']}" pattern="yyyy-MM-dd HH:mm:ss" />
 		</p>
 	</div>
-	<div class="posted-by" style="margin-left: 10%;width: 80%;">
-		<div class="pb-text">
-			<p style="font-size: 16px;color:black;">${map['MESSAGE_CONTENT']}</p>
-		</div>
+	<div class="posted-by" style="margin-left: 10%;width: 80%;height: 230px">
+			<textarea readonly="readonly">${map['MESSAGE_CONTENT']}</textarea>
 	</div>
 	<br>
 	<div class="blog-detail-title">
@@ -77,7 +85,7 @@
 				<c:if test="${!empty param.getMessageNo}">
 					<c:if test="${empty param.type}"> <!-- 받은편지함 -->
 						<a href="<c:url value='/message/updateImp.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">보관</a>
-						<a href="<c:url value='/message/reply.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">답장</a>
+						<a href="<c:url value='/message/messageWrite.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">답장</a>
 						<a href="<c:url value='/message/deleteMsg.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 					</c:if>
 					<c:if test="${!empty param.type}"> <!-- 나에게 쓴 편지함 -->
@@ -85,20 +93,14 @@
 					</c:if>
 				</c:if>
 				<c:if test="${!empty param.messageNo}">	<!-- 보낸편지함 -->
-					<a href="<c:url value='/message/updateImp.do?messageNo=${param.messageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">보관</a>
 					<a href="<c:url value='/message/deleteMsg.do?messageNo=${param.messageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 				</c:if>
 			</c:if>
 			<!-- 보관중일 때 -->
 			<c:if test="${map['GETMESSAGE_IMPFLAG']==1}">
 				<c:if test="${!empty param.getMessageNo}">
-					<c:if test="${empty param.type}"> <!-- 받은편지함 -->
-						<a href="<c:url value='/message/reply.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">답장</a>
-						<a href="<c:url value='/message/deleteMsg.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
-					</c:if>
-				</c:if>
-				<c:if test="${!empty param.messageNo}">	<!-- 보낸편지함 -->
-					<a href="<c:url value='/message/deleteMsg.do?messageNo=${param.messageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+					<a href="<c:url value='/message/messageWrite.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">답장</a>
+					<a href="<c:url value='/message/deleteMsg.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 				</c:if>
 			</c:if>
 		</div>

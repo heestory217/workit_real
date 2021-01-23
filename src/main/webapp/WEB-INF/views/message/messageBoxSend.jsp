@@ -2,12 +2,28 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="messageTop.jsp"%>
+
 <style>
 	.cart-table table tr td{
 		padding: 14px 0;
 		border-bottom: 1px solid #ebebeb;
 	}
 </style>
+
+<script type="text/javascript">
+	$(function(){
+		$('.cart-table table tbody tr td .ti-close').click(function(){
+			if($('#openFlag').html()=='미열람'){
+				if(!confirm('해당 쪽지 전송을 취소하시겠습니까?\n쪽지 전송을 취소할 경우, 해당 쪽지는 자동삭제됩니다.')){
+					event.preventDefault();
+				}
+			}else if($('#openFlag').html()=='열람'){
+				alert('상대방이 열람한 쪽지는 전송을 취소할 수 없습니다.');
+				event.preventDefault();
+			}
+		});
+	});
+</script>
 
 <!-- 제목 -->
 <div class="section-title">
@@ -41,18 +57,27 @@
 						<td><input type="checkbox"></td>
 						<td>${map['USER_ID']}</td>
 						<td style="text-align:left;">
-							<a href="<c:url value="/message/countUpdate.do?messageNo=${map['MESSAGE_NO']}"/>">
-								${map['MESSAGE_TITLE']}
+							<a href="<c:url value="/message/messageDetail.do?messageNo=${map['MESSAGE_NO']}"/>">
+								<!-- 제목이 긴 경우 일부만 보여주기 -->
+								<c:if test="${fn:length(map['MESSAGE_TITLE'])>=30}">
+									${fn:substring(map['MESSAGE_TITLE'], 0,30) } ...
+								</c:if>
+								<c:if test="${fn:length(map['MESSAGE_TITLE'])<30}">						
+									${map['MESSAGE_TITLE']}
+								</c:if>
 							</a>
 						</td>
 						<td><fmt:formatDate value="${map['MESSAGE_REGDATE']}" pattern="yyyy-MM-dd" /></td>
 						<c:if test="${map['GETMESSAGE_READFLAG']==2}">
-							<td>미열람</td>
+							<td id="openFlag">미열람</td>
 						</c:if>
 						<c:if test="${map['GETMESSAGE_READFLAG']==1}">
-							<td>열람</td>
+							<td id="openFlag">열람</td>
 						</c:if>
-						<td><i class="ti-close" style="cursor: pointer;"></i></td>
+						<td><a href="<c:url value='/message/deleteMsg.do?messageNo=${map["MESSAGE_NO"]}'/>">
+								<i class="ti-close" style="cursor: pointer;"></i>
+							</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</c:if>
@@ -65,7 +90,6 @@
 	<div class="col-lg-6"></div>
 	<div class="col-lg-6" align="right">
 		<div class="cart-buttons">
-			<a href="#" class="btn btn-primary" style="background:#4C50BB;">보관</a>
 			<a href="#" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 		</div>
 	</div>
