@@ -7,10 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.it.workit.users.model.UsersDAO;
+
 @Service
 public class CorpServiceImpl implements CorpService {
 
 	@Autowired private CorpDAO corpDao;
+	@Autowired private UsersDAO userDao;
 	
 	@Override
 	@Transactional
@@ -24,6 +27,8 @@ public class CorpServiceImpl implements CorpService {
 			System.out.println("coprimgVO = "+imgList.get(i));
 			cnt = corpDao.insertImg(imgList.get(i));
 		}
+		int userNo = vo.getUserNo();
+		cnt = userDao.updateUserCorpCheck(userNo);
 		return cnt;
 	}
 

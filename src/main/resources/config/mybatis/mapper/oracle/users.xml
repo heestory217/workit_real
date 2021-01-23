@@ -43,5 +43,11 @@
 		    user_address=#{userAddress}, user_addressdetail=#{userAddressdetail}
 		where user_id=#{userId}
 	</update>
+	
+	<update id="updateUserCorpCheck" parameterType="int">
+		update users
+		set user_corpcheck=2
+		where user_no=#{userNo}
+	</update>
 
 </mapper>

@@ -221,7 +221,7 @@
 			$(opener.document).find('#corpWebaddress').val(enpHmpgUrl);
 			$(opener.document).find('#corpKind').val(smenpYn);
 			$(opener.document).find('#corpTel').val(enpTlno);
-			$(opener.document).find('#corpStardate').val(enpEstbDt);
+			$(opener.document).find('#corpStartdate').val(enpEstbDt);
 			self.close();
 		}
 	    
@@ -243,7 +243,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="total"></div>
+                    <div id="total">검색 버튼을 눌러 기업정보를 조회해 주세요.</div>
                     <div id="loading" style="display:none;">
                     	<img id="loading-image" src="<c:url value='/resources/img/5.gif'/>" alt="Loading..." />
                    	</div>

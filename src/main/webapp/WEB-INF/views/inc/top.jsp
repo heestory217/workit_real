@@ -70,6 +70,12 @@
 	                <div class="ht-right">
 	                    <a href="<c:url value='/users/logout.do'/>" class="login-panel"><i class="fa fa-user"></i>LogOut</a>
 	                </div>
+	                <!-- 기업회원 등록 하기 : 일반 회원(1)에게만 보여줌 -->
+	                <c:if test="${sessionScope.user_corpcheck eq 1 }">
+	   	                <div class="ht-right" style="padding-right: 10px;">
+		                    <a href="<c:url value='/company/corp/corpWrite.do'/>" class="login-panel"><i class="fa fa-building-o" aria-hidden="true"></i>기업 회원으로 등록하기</a>
+		                </div>
+	                </c:if>
                 </c:if>
             </div>
         </div>
