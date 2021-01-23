@@ -1,45 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
+<head>
+<script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
+</head>
 <script type="text/javascript">
 	$(function(){
 		$('#userid').focus();
 		
+		
 		$('#login').click(function(){
-		<!--$('form[name=frmLogin]').submit(function(){-->
-			
-		$('.infobox').each(function(idx, item){
-				if($(this).val().length<1){
-					$("#call").text($(this).prev().text() +"를 입력하세요");
-					$(this).focus();
-					event.preventDefault();
-					return false;
+			var htp1=true;
+			var htp2=true;
+			$('.infobox').each(function(idx, item){
+				if($("#userId").val().length<1){
+					$("#call").text("아이디를 입력하세요");
+					$("#userId").focus();
+					htp1=false;
+				}else if($("#password").val().length<1){
+					$("#call").text("비밀번호를 입력하세요");
+					$("#call").focus();
+					htp2=false;
 				}
 			});
-		});
 			
 			var userId=$('#userId').val();
 			var password=$('#password').val();
-		
-			$.ajax({
-				type:"post",
-				url:"<c:url value='/users/loginajax.do'/>",
-				data:{userId:userId, password:password},
-				success: function(res){
-					if(res==2){
-						$("#call").text("잘못된 비밀번호 입니다");
-						event.preventDefault();
-						return false;
-					}else if(res==3){
-						$("#call").text("존재하지 않는 아이디 입니다");
-						event.preventDefault();
-						return false;
-					}else if(res==1){
-						location.href='./index.do';
-					}
-				}
-			});
+			var savepass;
+			$("input[name='savepass']:checked").each(function(i) {
+				savepass=$(this).val();
+		    })
+			
+			if(htp1 && htp2){
+				$.ajax({
+		            type : "get",
+		            url:"<c:url value='/users/loginajax.do'/>",
+		            data: {userId:userId, password:password, savepass:savepass},
+		            success: function(data) {
+		                if(data == 1){
+		                	location.href="/workit/index.do";
+		                }else if(data == 2){
+		                	$("#call").text($(this).prev().text() +"잘못된 비밀번호입니다");
+		                }else{
+		                	$("#call").text($(this).prev().text() +"존재하지 않는 아이디입니다");
+		                }
+		            }
+				});
+			}	
 		});
+		
 	});
 </script>
     <!-- Register Section Begin -->
@@ -49,10 +58,10 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="login-form">
                         <h2>로그인</h2>
-                        <form action="<c:url value='/users/logincheck.do'/>" name="frmLogin">
+                        <form name="frmLogin">
                             <div class="group-input">
                                 <label for="username">아이디</label>
-                                <input type="text" id="userid" class="infobox" name="userId" value="${cookie.ck_userid.value }">
+                                <input type="text" id="userId" class="infobox" name="userId" value="${cookie.ck_userid.value }">
                             </div>
                             <div class="group-input">
                                 <label for="pass">비밀번호</label>
@@ -68,13 +77,14 @@
 												checked="checked"
 											</c:if>
                                         >
-                                        <span class="checkmark"></span>
+                                        <span class="checkmark" id="save-pass" name="savepass"></span>
                                     </label>
                                     <a href="#" class="forget-pass">아이디나 비밀번호를 잊으셨나요?</a>
                                 </div>
                             </div>
-                            <button type="submit" class="site-btn login-btn" id='login' name='login'>로그인</button>
                         </form>
+                        <button style="width:420pt;"
+                         type="button" class="site-btn login-btn" id='login' name='login'>로그인</button>
                         <div class="switch-login">
                             <a href="./register.do" class="or-login">회원가입</a>
                         </div>
