@@ -127,8 +127,6 @@
 		<div class="cart-buttons">
 			<c:if test="${empty param.type}">
 				<a href="#" class="btn btn-primary" style="background: #4C50BB;">보관</a>
-				<a href="#" class="btn btn-primary" style="background: #4C50BB;"
-					id="reply">답장</a>
 			</c:if>
 			<a href="#" class="btn btn-primary" style="background: #4C50BB;">삭제</a>
 		</div>
