@@ -11,7 +11,7 @@
  </div>
  <div class="col-lg-2 text-right col-md-2">
      <ul class="nav-right">
-         <!-- 쪽지함 : 아이콘 쪽지로 바꿔야하는데 아이콘 리스트 어딨는지 모르겠음 찾는중 -->
+         <!-- 쪽지함 -->
          <li class="heart-icon">
              <a href="#">
              	<i class="fa fa-envelope-o" aria-hidden="true"></i>
