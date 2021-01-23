@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 @Service
 public class MessageServiceImpl implements MessageService{
@@ -35,12 +37,33 @@ public class MessageServiceImpl implements MessageService{
 	public Map<String, Object> selectByMessageNo(int messageNo) {
 		return messageDao.selectByMessageNo(messageNo);
 	}
-
-	//보낸 메세지 삭제 (플래그 업데이트)
+	
 	@Override
 	public int updateMsgDelflag(int messageNo) {
 		return messageDao.updateMsgDelflag(messageNo);
 	}
+	
+	//보낸 메세지 삭제 (플래그 업데이트)
+	@Override
+	@Transactional
+	public int updateMsgDelflagMulti(List<MessageVO> msgList) {
+		int cnt=0;
+		try {
+			for(MessageVO vo : msgList) {
+				int messageNo = vo.getMessageNo();
+				if(messageNo!=0) {	//체크된것만 
+					cnt=messageDao.updateMsgDelflag(messageNo);	//삭제
+				}
+			}//commit
+		} catch (RuntimeException e) {	
+			e.printStackTrace();
+			cnt=-1;	
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		return cnt;
+	}
+
+	
 	
 	//받은 메세지 삭제 (플래그 업데이트)
 	@Override

@@ -22,6 +22,19 @@
 				event.preventDefault();
 			}
 		});
+		
+		$('#btDel').click(function(){
+			var len=$('.cart-table tbody tr td').find('input[type=checkbox]:checked').length;
+			            //여러개 이므로 배열 length사용 가능
+			if(len==0){
+			   alert('먼저 삭제할 쪽지를 선택하세요.');
+			   return false;
+			}
+			            
+			$('form[name=frmList]').prop('action', '<c:url value="/message/deleteMultiMsg.do"/>');
+			$('form[name=frmList]').submit();
+			
+		});
 	});
 </script>
 
@@ -32,6 +45,9 @@
 <!-- 제목 끝 -->
 
 <!-- 보낸쪽지함 부분 시작-->
+<form name="frmList" method="post" 
+	action="<c:url value='/message/messageBoxSend.do'/>">
+	
 <div class="cart-table">
 	<table>
 		<colgroup>
@@ -67,9 +83,13 @@
 				</tr>
 			</c:if>
 			<c:if test="${!empty list}">
+				<!-- 반복시작 -->
+				<c:set var="k" value="0"/> 
 				<c:forEach var="map" items="${list}">
 					<tr>
-						<td><input type="checkbox"></td>
+						<td>
+							<input type="checkbox" name="msgItems[${k}].messageNo" value="${map['MESSAGE_NO']}">
+						</td>
 						<td>${map['USER_ID']}</td>
 						<td style="text-align:left;">
 							<a href="<c:url value="/message/messageDetail.do?messageNo=${map['MESSAGE_NO']}"/>">
@@ -97,6 +117,7 @@
 						</td>
 						 --%>
 					</tr>
+					<c:set var="k" value="${k+1}"/>
 				</c:forEach>
 			</c:if>
 		</tbody>
@@ -108,12 +129,13 @@
 	<div class="col-lg-6"></div>
 	<div class="col-lg-6" align="right">
 		<div class="cart-buttons">
-			<a href="#" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+			<a href="#" id="btDel" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 		</div>
 	</div>
 </div>
 <!-- 버튼 끝 -->
 
+</form>
 <!-- 보낸쪽지함 부분 끝-->
 
 <%@ include file="messageBottom.jsp"%>

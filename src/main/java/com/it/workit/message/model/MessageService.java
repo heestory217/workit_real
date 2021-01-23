@@ -17,8 +17,9 @@ public interface MessageService {
 	//쪽지함 조회
 	Map<String, Object> selectByMessageNo(int messageNo);
 	
-	//삭제플래그 업데이트 => 보낸 메세지 삭제
+	//삭제플래그 업데이트 => 보낸 메세지 삭제 (개별/다중)
 	int updateMsgDelflag(int messageNo);
+	int updateMsgDelflagMulti(List<MessageVO> msgList);
 	
 	//삭제플래그 업데이트 => 받은 메세지 삭제
 	int updategetMsgDelflag(int messageNo);

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.getmessage.model.GetMessageService;
 import com.it.workit.getmessage.model.GetMessageVO;
+import com.it.workit.message.model.MessageListVO;
 import com.it.workit.message.model.MessageService;
 import com.it.workit.message.model.MessageVO;
 import com.it.workit.users.model.UsersService;
@@ -266,6 +267,62 @@ public class MessageController {
 		logger.info("받은쪽지 읽음처리 결과, cnt={}", cnt);
 
 		return "redirect:/message/messageDetail.do?getMessageNo="+getMessageNo;
+	}
+	
+	@RequestMapping("/deleteMultiMsg.do")
+	public String deleteMultiMsg(@ModelAttribute MessageListVO msgListVo,
+			Model model) {
+		logger.info("선택한 쪽지 삭제(플래그 갱신) 처리, 파라미터 msgListVo={}", msgListVo);
+		
+		List<MessageVO> msgList = msgListVo.getMsgItems(); 
+		int cnt = messageService.updateMsgDelflagMulti(msgList);
+		logger.info("선택한 상품 삭제 결과, cnt={}", cnt);
+
+		String msg="선택한 상품 삭제 실패!", url="/message/messageBoxSend.do";
+		
+		if(cnt>0) {
+			msg="선택한 상품을 삭제하였습니다.";
+			for(int i=0;i<msgList.size();i++) {
+				MessageVO msgVo = msgList.get(i);
+				logger.info("[{}] : messageNo={}", i, msgVo.getMessageNo());
+			}//for
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "common/message";
+		
+	}
+	
+	@RequestMapping("/deleteMultiGetMsg.do")
+	public String deleteMultiMsg2(@ModelAttribute MessageListVO msgListVo,
+			@RequestParam (required = false) String type,
+			Model model) {
+		logger.info("선택한 쪽지 삭제(플래그 갱신) 처리, 파라미터 msgListVo={}", msgListVo);
+		
+		List<MessageVO> msgList = msgListVo.getMsgItems(); 
+		int cnt = messageService.updateMsgDelflagMulti(msgList);
+		logger.info("선택한 상품 삭제 결과, cnt={}", cnt);
+		
+		String msg="선택한 상품 삭제 실패!", url="/message/messageBox.do";
+		if(type!=null && !type.isEmpty()) {
+			url="/message/messageBox.do?type="+type;
+		}
+		
+		if(cnt>0) {
+			msg="선택한 상품을 삭제하였습니다.";
+			for(int i=0;i<msgList.size();i++) {
+				MessageVO msgVo = msgList.get(i);
+				logger.info("[{}] : messageNo={}", i, msgVo.getMessageNo());
+			}//for
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+		
 	}
 
 }

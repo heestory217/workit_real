@@ -9,6 +9,23 @@
 }
 </style>
 
+<script type="text/javascript">
+	$(function(){
+		$('#btDel').click(function(){
+			var len=$('.cart-table tbody tr td').find('input[type=checkbox]:checked').length;
+			            //여러개 이므로 배열 length사용 가능
+			if(len==0){
+			   alert('먼저 삭제할 쪽지를 선택하세요.');
+			   return false;
+			}
+			            
+			$('form[name=frmGetList]').prop('action', '<c:url value="/message/deleteMultiGetMsg.do"/>');
+			$('form[name=frmGetList]').submit();
+			
+		});
+	});
+</script>
+
 <!-- 제목 -->
 <div class="section-title">
 	<c:if test="${empty param.type}">
@@ -26,6 +43,8 @@
 <!-- 제목 끝 -->
 
 <!-- 받은쪽지함 부분 시작-->
+<form name="frmGetList" method="post" action="<c:url value='/message/messageBox.do'/>">
+	
 <div class="cart-table">
 	<table>
 		<colgroup>
@@ -52,9 +71,13 @@
 				</tr>
 			</c:if>
 			<c:if test="${!empty getList}">
+				<!-- 반복시작 -->
+				<c:set var="k" value="0"/> 
 				<c:forEach var="map" items="${getList}">
 					<tr>
-						<td><input type="checkbox"></td>
+						<td>
+							<input type="checkbox" name="msgItems[${k}].messageNo" value="${map['MESSAGE_NO']}">
+						</td>
 						<td>${map['USER_ID']}</td>
 						<td style="text-align: left;">
 							<!-- 받은 쪽지함 --> 
@@ -108,6 +131,7 @@
 						<td><fmt:formatDate value="${map['MESSAGE_REGDATE']}"
 								pattern="yyyy-MM-dd" /></td>
 					</tr>
+					<c:set var="k" value="${k+1}"/>
 				</c:forEach>
 			</c:if>
 			<!-- 받은쪽지함 -->
@@ -123,12 +147,13 @@
 			<c:if test="${empty param.type}">
 				<a href="#" class="btn btn-primary" style="background: #4C50BB;">보관</a>
 			</c:if>
-			<a href="#" class="btn btn-primary" style="background: #4C50BB;">삭제</a>
+			<a href="#" id="btDel" class="btn btn-primary" style="background: #4C50BB;">삭제</a>
 		</div>
 	</div>
 </div>
 <!-- 버튼 끝 -->
 
+</form>
 <!-- 받은쪽지함 부분 끝-->
 
 <%@ include file="messageBottom.jsp"%>
