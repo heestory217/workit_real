@@ -38,12 +38,7 @@
 		<thead>
 			<tr>
 				<th style="margin-left: 5px"><input type="checkbox" id="chkAll"></th>
-				<c:if test="${param.type == 'important'}">
-					<th>보낸/받는사람</th>
-				</c:if>
-				<c:if test="${param.type != 'important'}">
-					<th>보낸사람</th>
-				</c:if>
+				<th>보낸사람</th>
 				<th class="p-name">제목</th>
 				<th class="p-name">내용</th>
 				<th>날짜</th>

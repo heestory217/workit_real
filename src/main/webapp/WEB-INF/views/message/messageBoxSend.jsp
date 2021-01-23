@@ -36,11 +36,18 @@
 	<table>
 		<colgroup>
 			<col style="width:5%;" />
+			<col style="width:20%;" />
+			<col style="width:35%;" />
+			<col style="width:25%;" />
+			<col style="width:14%;" />		
+<!-- 			
+			<col style="width:5%;" />
 			<col style="width:15%;" />
 			<col style="width:40%;" />
 			<col style="width:15%;" />
 			<col style="width:15%;" />		
-			<col style="width:10%;" />		
+			<col style="width:10%;" />	
+				 -->
 		</colgroup>
 		<thead>
 			<tr>
@@ -50,7 +57,7 @@
 				<!-- <th class="p-name">내용</th> -->
 				<th>보낸날짜</th>
 				<th>열람여부</th>
-				<th>취소</th>
+				<!-- <th>취소</th> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -82,10 +89,13 @@
 						<c:if test="${map['GETMESSAGE_READFLAG']==1}">
 							<td id="openFlag">열람</td>
 						</c:if>
-						<td><a href="<c:url value='/message/deleteMsg.do?messageNo=${map["MESSAGE_NO"]}'/>">
+<%-- 						
+						<td>
+							<a href="<c:url value='/message/deleteMsg.do?messageNo=${map["MESSAGE_NO"]}'/>">
 								<i class="ti-close" style="cursor: pointer;"></i>
 							</a>
 						</td>
+						 --%>
 					</tr>
 				</c:forEach>
 			</c:if>
