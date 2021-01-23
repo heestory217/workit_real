@@ -72,10 +72,15 @@
                     </div>
 	                    <div class="blog-quote">
 	                        <p style="font-size: 2.2em;text-align: center;">
-	                        '${cVo.corpName}'<span>의  1인당 평균연봉은 </span><fmt:formatNumber value="${cVo.corpAvrpay}" pattern="#,###,###"/> 만원, <br><br>
-	                        <span>기업 근로자 수는</span> 총  ${cVo.corpPnumber}명
+	                        '${cVo.corpName}'<span>
+	                        <c:if test="${cVo.corpAvrpay!=0}">
+	                        	의 1인당 평균연봉은 </span><fmt:formatNumber value="${cVo.corpAvrpay}" pattern="#,###,###"/> 만원, <br><br>
+	                        </c:if>
+	                        <c:if test="${cVo.corpPnumber!=1}">
+	                        	<span>기업 근로자 수는</span> 총  ${cVo.corpPnumber}명
+	                        </c:if>
 	                        <c:if test="${!empty cVo.corpKind}">
-	                        	<span>의 </span>중소기업<span>입니다.</span>
+	                        	<span>인 중소기업 입니다.</span>
 	                        </c:if>
 	                        <c:if test="${empty cVo.corpKind}">
 	                        <span>입니다.</span>
