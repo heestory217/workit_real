@@ -6,7 +6,22 @@
 </head>
 <script type="text/javascript">
 	$(function(){
-		$('#userid').focus();
+		$('.infobox').keyup(function(){
+			$('.infobox').each(function(idx, item){
+				if($("#userId").val().length<1){
+					$("#call1").text("      아이디를 입력하세요");
+				}else{
+					$("#call1").text("");
+				}
+				
+				if($("#password").val().length<1){
+					$("#call2").text("      비밀번호를 입력하세요");
+				}else{
+					$("#call2").text("");
+				}
+			});
+			
+		});
 		
 		
 		$('#login').click(function(){
@@ -17,14 +32,10 @@
 			$("#call2").text("");
 			$('.infobox').each(function(idx, item){
 				if($("#userId").val().length<1){
-					$("#call1").text("      아이디를 입력하세요");
-					$("#userId").focus();
 					htp1=false;
 				}
 				
 				if($("#password").val().length<1){
-					$("#call2").text("      비밀번호를 입력하세요");
-					$("#password").focus();
 					htp2=false;
 				}
 			});
