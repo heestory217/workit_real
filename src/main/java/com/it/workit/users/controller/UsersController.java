@@ -185,14 +185,12 @@ public class UsersController {
 	
 	@ResponseBody
 	@RequestMapping("/loginajax.do")
-	public int loginajax(@RequestParam String userId, @RequestParam String password, HttpServletRequest request, Model model,
+	public int loginajax(@RequestParam("userId") String userId, @RequestParam("password") String password, HttpServletRequest request,
 			@RequestParam(required = false) String savepass, HttpServletResponse response) {
 		logger.info("로그인 채크 userId = {}, password= {}", userId, password);
 		
 		int result=usersService.loginCheck(userId, password);
 		logger.info("로그인 처리 결과, result={}", result);
-
-		String msg="로그인 체크 실패!", url="/users/login.do";
 		
 		if(result==UsersService.LOGIN_OK) {
 			UsersVO vo = usersService.selectByUserId(userId);
@@ -206,7 +204,6 @@ public class UsersController {
 			session.setAttribute("userName", vo.getUserName());
 			logger.info("회원종류={}", kind);
 			session.setAttribute("user_corpcheck", kind);
-			
 		}
 		
 		//[2] cookie
@@ -218,10 +215,7 @@ public class UsersController {
 			ck.setMaxAge(0);
 		}
 		response.addCookie(ck);
-
-		//3
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
+		logger.info("쿠키={}", savepass);
 
 		//4
 		return result;
