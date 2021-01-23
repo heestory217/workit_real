@@ -40,4 +40,9 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	public List<Map<String, Object>> selectUserQstnAll(int userNo) {
 		return sqlSession.selectList(namespace+"selectUserQstnAll", userNo);
 	}
+
+	@Override
+	public int selectUserQstnCnt(int userNo) {
+		return sqlSession.selectOne(namespace+"selectUserQstnCnt", userNo);
+	}
 }

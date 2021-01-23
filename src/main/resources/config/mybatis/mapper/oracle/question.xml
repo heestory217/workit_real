@@ -41,6 +41,11 @@
 		select * from userQstnView where USER_NO=#{userNo} order by QUESTION_NO desc
 	</select>
 	
+	<!-- 회원 질문 개수 -->
+	<select id="selectUserQstnCnt" parameterType="int" resultType="int">
+		select count(*) from QUESTION where USER_NO=#{userNo} order by QUESTION_NO desc
+	</select>
+	
 </mapper>
 
 

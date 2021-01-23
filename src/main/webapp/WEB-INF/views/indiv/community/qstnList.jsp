@@ -121,14 +121,13 @@
 			
 			<!-- 질문 없는 경우 아이콘, 문구 정하기!!! -->
 			<article id="questBox">
-				<c:if test="${empty qstnList }">
+				<c:if test="${empty qstnList}">
 					<div class="questBoxWrap">
 						<div class="oneQuestBox">
 							<span>질문 없음x</span>
 						</div>
 					</div>
 				</c:if>
-			
 				<!-- 질문 반복 시작 -->
 				<c:if test="${!empty qstnList }">
 					<c:forEach var="qstnVo" items="${qstnList }">

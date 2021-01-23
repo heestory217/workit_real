@@ -40,7 +40,12 @@
 	
 	#userInfo{
 		text-align: center;
-	    padding-top: 55px;
+	    padding-top: 30px;
+	}
+	
+	#NoneUserInfo{
+		text-align: center;
+	    padding-top: 40px;
 	}
 	
 	#searchBoxNav > input[type=text] {
@@ -64,9 +69,30 @@
 	#searchBoxNav hr{
 		margin-top:0px;
 	}
+	.fa-user-circle{
+		font-size: 40px;
+	    color: silver;
+	    margin-bottom: 5px;
+	}
 	
-</style>
+	.nickName{
+		font-size:15px;
+	}
 
+	.qstnReplyCnt{
+		font-size:15px;
+		color:gray;
+	}
+</style>
+<script type="text/javascript">
+	$(function(){
+		$('.userQstn').click(function(){
+			if(){
+				location.href="/users/login.do";
+			}
+		});
+	});
+</script>
 <!-- 커뮤니티 게시판, 사이드 메뉴 바 -->
 <aside style="float:left">
     <div id="container">
@@ -77,13 +103,27 @@
 				<i class="fa fa-pencil"></i>&nbsp;질문하기</a>
 			</div>
 			<div class="myInfoSec">
+				<c:if test="${empty sessionScope.userNo }">
 				<a class="myInfo" href
-		="<c:url value='/indiv/community/myProfile.do'/>">
-					<div id="userInfo">
-						<span class="nickname">닉네임</span>
+		="<c:url value='/users/login.do'/>">
+					<div id="NoneUserInfo">
+						<i class="fa fa-user-circle"></i><br>
+						<span class="noneNickname" style="font-size:13px;">
+							<b style="text-decoration: underline;color:#4c50bb;" >로그인</b> 후 질문답변 해보세요!
+						</span>
 					</div>
-					
 				</a>
+				</c:if>	
+				<c:if test="${!empty sessionScope.userNo }">
+				<a class="myInfo" href
+		="<c:url value='/indiv/community/myProfile.do?userNo=${qstnVo.userNo}'/>">
+					<div id="userInfo">
+						<i class="fa fa-user-circle userProfImg"></i><br>
+						<span class="nickname">${qstnVo.questionNicname }</span><br>
+						<span class="qstnReplyCnt">질문 0 답변 0 </span>
+					</div>
+				</a>
+				</c:if>	
 			</div>
 				<ul class="nav flex-column">
 					<li class="sideNav" id="searchBoxNav">
@@ -91,9 +131,16 @@
 							placeholder="질문을 검색하세요" >
 						<hr>
 					</li>
-					<li class="sideNav"><a class="nav-link userQstn" href
-			="<c:url value='/indiv/community/myQstn.do'/>">
-					나의 질문</a><hr></li>
+					<li class="sideNav">
+					<c:if test="${empty sessionScope.userNo }">
+						<a class="nav-link userQstn" href
+				="<c:url value='/users/login.do'/>">
+						나의 질문</a><hr>
+					</c:if>
+					<c:if test="${!empty sessionScope.userNo }">
+					<a class="nav-link userQstn" href
+			="<c:url value='/indiv/community/myQstn.do?userNo=${sessionScope.userNo }'/>">
+					나의 질문</a><hr></c:if></li>
 					<li class="sideNav"><a class="nav-link allQstn" href
 			="<c:url value='/indiv/community/qstnList.do'/>">
 					전체 질문</a><hr></li>

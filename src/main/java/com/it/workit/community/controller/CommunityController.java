@@ -26,17 +26,25 @@ public class CommunityController {
 	
 	@Autowired QuestionService qstnService;
 	
-	@RequestMapping("/cmtyNavbar.do")
-	public String sideNav() {
-		logger.info("커뮤니티 사이드 메뉴바");
-		
-		return "indiv/community/cmtyNavbar";
-	}
-	
-	//회원 활동 내역
+
+	//회원 활동 내역 
 	@RequestMapping("/myProfile.do")
-	public void profile() {
-		logger.info("활동 내역 페이지 ");
+	public String profile(HttpSession session, Model model) {
+		int userNo=(Integer) session.getAttribute("userNo");
+		logger.info("활동 내역 페이지, userNo={}", userNo);
+		
+		List<Map<String, Object>> qstnList=qstnService.selectUserQstnAll(userNo);
+		
+		model.addAttribute("qstnList", qstnList);
+		
+		return "indiv/community/myProfile";
+		
+	}
+
+	//사이드 메뉴 바
+	@RequestMapping("/cmtyNavbar.do")
+	public void sideMenu() {
+		logger.info("커뮤니티 메뉴");
 	}
 	
 	//질문 등록 화면
@@ -47,7 +55,9 @@ public class CommunityController {
 
 	//질문 등록 처리
 	@RequestMapping(value="/qstnWrite.do", method = RequestMethod.POST)
-	public String qstnWrite_post(@ModelAttribute QuestionVO vo, Model model) {
+	public String qstnWrite_post(@ModelAttribute QuestionVO vo, HttpSession session, 
+			Model model) {
+		int userNo=(Integer) session.getAttribute("userNo");
 		logger.info("질문 등록, 파라미터 vo={}", vo);
 		
 		int cnt=qstnService.insertQstn(vo);
@@ -56,7 +66,7 @@ public class CommunityController {
 				url="/indiv/community/qstnWrite.do";
 		if(cnt>0) {
 			msg="질문이 등록되었습니다.";
-			url="/indiv/community/myQstn.do";
+			url="/indiv/community/myQstn.do?userNo="+userNo;
 		}
 		
 		model.addAttribute("msg", msg);

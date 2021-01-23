@@ -24,7 +24,6 @@
 	}
 	
 	.nullBoxWrap{
-		border:solid 1px silver;
 		padding :20px;
 		width:100%;
 		height:300px;
@@ -212,7 +211,7 @@
 			
 		<article id="questBox">
 		<!-- 등록한 질문이 없는 경우  -->
-		<c:if test="${empty qstnList }">
+		<c:if test="${empty qstnList || empty sessionScope.userNo}">
 		<div class="nullBoxWrap">
 			<p class="msgBx">
 				아직 등록한 질문이 없습니다!<br> 원하는 <em>직무, 기업</em> 을 선택하여 고민을

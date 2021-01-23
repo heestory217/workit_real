@@ -34,6 +34,11 @@ public class QuestionServiceImpl implements QuestionService{
 	public List<Map<String, Object>> selectUserQstnAll(int userNo) {
 		return questionDao.selectUserQstnAll(userNo);
 	}
+
+	@Override
+	public int selectUserQstnCnt(int userNo) {
+		return questionDao.selectUserQstnCnt(userNo);
+	}
 	
 	
 }

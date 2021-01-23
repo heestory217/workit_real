@@ -9,4 +9,5 @@ public interface QuestionService {
 	int updateQstn(QuestionVO vo);
 	List<QuestionVO> selectAllQstn();
 	List<Map<String, Object>> selectUserQstnAll(int userNo);
+	int selectUserQstnCnt(int userNo);
 }
