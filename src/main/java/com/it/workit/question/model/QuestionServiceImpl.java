@@ -10,6 +10,12 @@ import org.springframework.stereotype.Service;
 public class QuestionServiceImpl implements QuestionService{
 	@Autowired private QuestionDAO questionDao;
 
+	//회원 질문 목록 조회
+	@Override
+	public List<Map<String, Object>> selectUserQstnAll(int userNo) {
+		return questionDao.selectUserQstnAll(userNo);
+	}
+	
 	@Override
 	public int insertQstn(QuestionVO vo) {
 		return questionDao.insertQstn(vo);
@@ -30,20 +36,12 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionDao.selectAllQstn();
 	}
 
-	@Override
-	public List<Map<String, Object>> selectUserQstnAll(String qstnNick) {
-		return questionDao.selectUserQstnAll(qstnNick);
-	}
 
 	@Override
 	public int selectUserQstnCnt(int userNo) {
 		return questionDao.selectUserQstnCnt(userNo);
 	}
 
-	@Override
-	public CmtyuserinfoVO selectUserInfo(int userNo) {
-		return questionDao.selectUserInfo(userNo);
-	}
-	
+
 	
 }
