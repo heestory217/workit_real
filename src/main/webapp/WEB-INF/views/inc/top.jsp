@@ -68,7 +68,7 @@
                 </c:if>
                 <c:if test="${!empty sessionScope.userId }">
 	                <div class="ht-right">
-	                    <a href="#" class="login-panel"><i class="fa fa-user"></i>LogOut</a>
+	                    <a href="<c:url value='/users/logout.do'/>" class="login-panel"><i class="fa fa-user"></i>LogOut</a>
 	                </div>
                 </c:if>
             </div>

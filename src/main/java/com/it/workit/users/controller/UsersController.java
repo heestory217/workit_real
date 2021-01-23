@@ -130,12 +130,9 @@ public class UsersController {
 	}
 
 	@RequestMapping("/logincheck.do")
-	public String loginck(@ModelAttribute UsersVO vo,
-			@RequestParam(required = false) String chkSave,
-			HttpServletRequest request,
-			HttpServletResponse response, Model model) {
+	public String loginck(@ModelAttribute UsersVO vo, HttpServletRequest request, Model model) {
 		//1
-				logger.info("로그인 처리, 파라미터 vo={}, chkSave={}", vo, chkSave);
+				logger.info("로그인 처리, 파라미터 vo={}", vo);
 
 				//2
 				int result=usersService.loginCheck(vo.getUserId(), vo.getUserPassword());
@@ -144,13 +141,19 @@ public class UsersController {
 				String msg="로그인 체크 실패!", url="/users/login.do";
 				if(result==UsersService.LOGIN_OK) {
 					UsersVO userVo = usersService.selectByUserId(vo.getUserId());
-
+					logger.info("userVo={}", vo);
+					
+					int kind=usersService.userkindcheck(vo.getUserId());
+					
 					//[1] session
 					HttpSession session=request.getSession();
 					session.setAttribute("userId", vo.getUserId());
+					session.setAttribute("userNo", userVo.getUserNo());
 					session.setAttribute("userName", userVo.getUserName());
-					session.setAttribute("userVO", userVo);
-
+					logger.info("회원종류={}", kind);
+					session.setAttribute("user_corpcheck", kind);
+					
+					/*
 					//[2] cookie
 					Cookie ck = new Cookie("ck_userid", vo.getUserId());
 					ck.setPath("/");
@@ -160,7 +163,8 @@ public class UsersController {
 						ck.setMaxAge(0);
 					}
 					response.addCookie(ck);
-
+					*/
+					
 					msg=userVo.getUserName()+"님, 로그인되었습니다.";
 					url="/index.do";
 				}else if(result==UsersService.PWD_DISAGREE) {
@@ -183,7 +187,9 @@ public class UsersController {
 		logger.info("로그아웃 처리, 파라미터 userid={}", userid);
 
 		session.removeAttribute("userId");
+		session.removeAttribute("userNo");
 		session.removeAttribute("userName");
+		session.removeAttribute("user_corpcheck");
 
 		return "redirect:/index.do";
 	}

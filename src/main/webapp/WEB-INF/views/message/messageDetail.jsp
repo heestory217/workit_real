@@ -77,7 +77,7 @@
 				<c:if test="${!empty param.getMessageNo}">
 					<c:if test="${empty param.type}"> <!-- 받은편지함 -->
 						<a href="<c:url value='/message/updateImp.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">보관</a>
-						<a href="#" class="btn btn-primary" style="background:#4C50BB;">답장</a>
+						<a href="<c:url value='/message/reply.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">답장</a>
 						<a href="<c:url value='/message/deleteMsg.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 					</c:if>
 					<c:if test="${!empty param.type}"> <!-- 나에게 쓴 편지함 -->
@@ -93,7 +93,7 @@
 			<c:if test="${map['GETMESSAGE_IMPFLAG']==1}">
 				<c:if test="${!empty param.getMessageNo}">
 					<c:if test="${empty param.type}"> <!-- 받은편지함 -->
-						<a href="#" class="btn btn-primary" style="background:#4C50BB;">답장</a>
+						<a href="<c:url value='/message/reply.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">답장</a>
 						<a href="<c:url value='/message/deleteMsg.do?getMessageNo=${param.getMessageNo}'/>" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 					</c:if>
 				</c:if>

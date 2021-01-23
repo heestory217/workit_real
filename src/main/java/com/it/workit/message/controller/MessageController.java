@@ -66,8 +66,14 @@ public class MessageController {
 	};
 	
 	@RequestMapping(value="/messageWrite.do", method = RequestMethod.GET)
-	public String messageWrite(@RequestParam (required = false) String type) {
+	public String messageWrite(HttpSession session, 
+			@RequestParam (required = false) String type,
+			Model model) {
 		logger.info("쪽지 쓰기 페이지 보여주기, 파라미터 type={}", type);
+		String userId = (String) session.getAttribute("userId");
+		
+		model.addAttribute("userId", userId);
+		
 		return "message/messageWrite";
 	};
 	
@@ -246,6 +252,84 @@ public class MessageController {
 		if(cnt>0) {
 			msg="보관함에 저장되었습니다";
 		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	@RequestMapping("/countUpdate.do")
+	public String countUpdate(@RequestParam (defaultValue = "0") int messageNo,
+			@RequestParam (defaultValue = "0") int getMessageNo,
+			@RequestParam (required = false) String type,
+			Model model) {
+		
+		logger.info("쪽지읽음 처리, messageNo={} getMessageNo={}", messageNo, getMessageNo);
+		
+		if(messageNo==0 && getMessageNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/message/messageBox.do");
+			return "common/message";
+		}
+		
+		String url="";
+		int cnt=0;
+		int userNo=1;	//세션값 넣기
+		
+		if(messageNo!=0 || getMessageNo!=0) {
+			if(messageNo!=0) {
+				cnt = getMessageService.updateReadCount(messageNo);
+			}else if(getMessageNo!=0) {
+				cnt = getMessageService.updateReadCount(getMessageNo);
+			}
+		}
+		logger.info("읽음처리 결과, cnt={}", cnt);
+		
+		if(cnt>0) {	
+			if(type!=null && !type.isEmpty()) {
+				if(type.equals("important")) {	//보관함에 저장된 경우			
+					UsersVO vo= userService.selectByUserNo(userNo);
+					String userId = vo.getUserId();
+					logger.info("userId={}",userId);
+					
+					if(userId.equals("kim")) {	//보낸편지 보관 
+						url="/message/messageDetail.do?messageNo="+messageNo;
+					}
+					/*
+						else {	//받은편지 보관
+							url="/message/messageDetail.do?getMessageNo="+getMessageNo;
+						}
+					*/
+				}else if(type.equals("toMe")) {	//나에게 보낸 편지함
+					url = "/message/messageDetail.do?type=toMe&getMessageNo="+getMessageNo;
+				}
+			}else{
+				if(messageNo!=0) {
+					//보낸 쪽지함 
+					url="/message/messageDetail.do?messageNo="+messageNo;
+				}else {	//받은 쪽지함
+					url="/message/messageDetail.do?getMessageNo="+getMessageNo;
+				}
+			}
+		}
+		
+		return "redirect:"+url;
+	}
+	
+	//답장
+	@RequestMapping("/reply.do")
+	public String reply(@RequestParam (defaultValue = "0") int getMessageNo, Model model) {
+		logger.info("답장하기 파라미터 getMessageNo={}", getMessageNo);
+		
+		String msg="잘못된 url입니다.", url="/message/messageBox.do";
+		if(getMessageNo==0) {
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			return "common/message";
+		}
+		
+		//
 		
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);

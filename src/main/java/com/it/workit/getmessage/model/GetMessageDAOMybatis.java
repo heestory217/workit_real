@@ -15,5 +15,10 @@ public class GetMessageDAOMybatis implements GetMessageDAO{
 	public int insertGetMessage(GetMessageVO gVo) {
 		return sqlSession.insert(namespace+"insertGetMessage", gVo);
 	}
+
+	@Override
+	public int updateReadCount(int messageNo) {
+		return sqlSession.update(namespace+"updateReadCount", messageNo);
+	}
 	
 }
