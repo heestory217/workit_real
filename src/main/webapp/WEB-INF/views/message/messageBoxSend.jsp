@@ -9,6 +9,21 @@
 	}
 </style>
 
+<script type="text/javascript">
+	$(function(){
+		$('.cart-table table tbody tr td .ti-close').click(function(){
+			if($('#openFlag').html()=='미열람'){
+				if(!confirm('해당 쪽지 전송을 취소하시겠습니까?\n쪽지 전송을 취소할 경우, 해당 쪽지는 자동삭제됩니다.')){
+					event.preventDefault();
+				}
+			}else if($('#openFlag').html()=='열람'){
+				alert('상대방이 열람한 쪽지는 전송을 취소할 수 없습니다.');
+				event.preventDefault();
+			}
+		});
+	});
+</script>
+
 <!-- 제목 -->
 <div class="section-title">
 	<h2>보낸쪽지함</h2>
@@ -47,12 +62,15 @@
 						</td>
 						<td><fmt:formatDate value="${map['MESSAGE_REGDATE']}" pattern="yyyy-MM-dd" /></td>
 						<c:if test="${map['GETMESSAGE_READFLAG']==2}">
-							<td>미열람</td>
+							<td id="openFlag">미열람</td>
 						</c:if>
 						<c:if test="${map['GETMESSAGE_READFLAG']==1}">
-							<td>열람</td>
+							<td id="openFlag">열람</td>
 						</c:if>
-						<td><i class="ti-close" style="cursor: pointer;"></i></td>
+						<td><a href="<c:url value='/message/deleteMsg.do?messageNo=${map["MESSAGE_NO"]}'/>">
+								<i class="ti-close" style="cursor: pointer;"></i>
+							</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</c:if>
