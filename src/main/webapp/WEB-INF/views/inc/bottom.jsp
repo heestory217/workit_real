@@ -21,9 +21,9 @@
                     <div class="footer-widget">
                         <h5>고객센터</h5>
                         <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Q&A</a></li>
+                            <li><a href="#">공지사항</a></li>
+                            <li><a href="<c:url value='/faq/faqList.do'/>">FAQ</a></li>
+                            <li><a href="<c:url value='/qna/qnaList.do'/>">Q&A</a></li>
                         </ul>
                     </div>
                 </div>

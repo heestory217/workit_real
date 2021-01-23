@@ -65,13 +65,13 @@
                         <li><a href="#">이력서</a></li>
                         <li><a href="#">마이페이지</a>
                             <ul class="dropdown">
-                                <li><a href="#">회원 정보 수정</a></li>
+                                <li><a href="<c:url value='/indivMypage/indivMypageEdit.do'/>">회원 정보 수정</a></li>
                                 <li><a href="#">채용 지원 현황</a></li>
                                 <li><a href="#">포지션 제안 내역</a></li>
                                 <li><a href="#">결제 내역</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">커뮤니티</a></li>
+                        <li><a href="<c:url value='/community/qstnList.do'/>">커뮤니티</a></li>
                         <li><a href="#">서비스 안내</a></li>
                     </ul>
                 </nav>
