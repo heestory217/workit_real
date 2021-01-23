@@ -52,9 +52,12 @@
 		            type : "get",
 		            url:"<c:url value='/users/loginajax.do'/>",
 		            data: {userId:userId, password:password, savepass:savepass},
-		            success: function(data) {
+		            success: function(core) {
+		            	var data=core[0]*1;
+		            	
 		                if(data == 1){
 		                	location.href="/workit/index.do";
+		                	alert(core[1]+"님, 로그인되었습니다.");
 		                }else if(data == 2){
 		                	$("#call2").text("      "+$(this).prev().text() +"잘못된 비밀번호입니다");
 		                }else{
