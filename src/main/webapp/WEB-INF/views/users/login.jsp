@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp" %>
+
+<style>
+.group-input span {
+	font-size: 14px;
+}
+</style>
+
 <head>
 <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
 </head>
@@ -20,9 +27,7 @@
 					$("#call2").text("");
 				}
 			});
-			
 		});
-		
 		
 		$('#login').click(function(){
 			var htp1=true;
@@ -34,7 +39,6 @@
 				if($("#userId").val().length<1){
 					htp1=false;
 				}
-				
 				if($("#password").val().length<1){
 					htp2=false;
 				}
@@ -68,7 +72,7 @@
 			}
 			
 			if(!(htp1 || htp2)){
-				alert("아이디, 비밀번호를 입력해 주세요!");
+				alert("아이디, 비밀번호를 입력하세요.");
 			}
 		});
 		
