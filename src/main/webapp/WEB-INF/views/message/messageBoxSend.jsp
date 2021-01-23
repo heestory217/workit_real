@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="messageTop.jsp"%>
+
 <style>
 	.cart-table table tr td{
 		padding: 14px 0;
@@ -57,7 +58,13 @@
 						<td>${map['USER_ID']}</td>
 						<td style="text-align:left;">
 							<a href="<c:url value="/message/messageDetail.do?messageNo=${map['MESSAGE_NO']}"/>">
-								${map['MESSAGE_TITLE']}
+								<!-- 제목이 긴 경우 일부만 보여주기 -->
+								<c:if test="${fn:length(map['MESSAGE_TITLE'])>=30}">
+									${fn:substring(map['MESSAGE_TITLE'], 0,30) } ...
+								</c:if>
+								<c:if test="${fn:length(map['MESSAGE_TITLE'])<30}">						
+									${map['MESSAGE_TITLE']}
+								</c:if>
 							</a>
 						</td>
 						<td><fmt:formatDate value="${map['MESSAGE_REGDATE']}" pattern="yyyy-MM-dd" /></td>

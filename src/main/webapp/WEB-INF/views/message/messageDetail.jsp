@@ -3,6 +3,16 @@
 
 <%@ include file="messageTop.jsp"%>
 
+<style>
+.posted-by textarea {
+	font-size: 16px;
+	color: black;
+	border: none;
+	width: 100%;
+	height: -webkit-fill-available;
+}
+</style>
+
 <script type="text/javascript">
 	$(function(){
 		$('.cart-buttons').find('a').click(function(){
@@ -44,10 +54,8 @@
 			<fmt:formatDate value="${map['MESSAGE_REGDATE']}" pattern="yyyy-MM-dd HH:mm:ss" />
 		</p>
 	</div>
-	<div class="posted-by" style="margin-left: 10%;width: 80%;">
-		<div class="pb-text">
-			<p style="font-size: 16px;color:black;">${map['MESSAGE_CONTENT']}</p>
-		</div>
+	<div class="posted-by" style="margin-left: 10%;width: 80%;height: 230px">
+			<textarea readonly="readonly">${map['MESSAGE_CONTENT']}</textarea>
 	</div>
 	<br>
 	<div class="blog-detail-title">

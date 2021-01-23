@@ -58,22 +58,51 @@
 							<!-- 받은 쪽지함 --> 
 							<c:if test="${empty param.type}">
 								<a href="<c:url value="/message/countUpdate.do?getMessageNo=${map['MESSAGE_NO']}"/>">
-									${map['MESSAGE_TITLE']} </a>
+									<!-- 제목이 긴 경우 일부만 보여주기 -->							
+									<c:if test="${fn:length(map['MESSAGE_TITLE'])>=30}">
+										${fn:substring(map['MESSAGE_TITLE'], 0,30) } ...
+									</c:if>
+									<c:if test="${fn:length(map['MESSAGE_TITLE'])<30}">						
+										${map['MESSAGE_TITLE']}
+									</c:if>
+								</a>
 							</c:if> 
 							<c:if test="${!empty param.type}">
 								<!-- 보관함에 저장된 경우 -->
 								<c:if test="${param.type == 'important'}">
 									<a href="<c:url value="/message/countUpdate.do?getMessageNo=${map['MESSAGE_NO']}"/>">
-										${map['MESSAGE_TITLE']} </a>
+										<!-- 제목이 긴 경우 일부만 보여주기 -->							
+										<c:if test="${fn:length(map['MESSAGE_TITLE'])>=30}">
+											${fn:substring(map['MESSAGE_TITLE'], 0,30) } ...
+										</c:if>
+										<c:if test="${fn:length(map['MESSAGE_TITLE'])<30}">						
+											${map['MESSAGE_TITLE']}
+										</c:if>
+									</a>
 								</c:if>
 								<!-- 나에게 보낸 편지함 -->
 								<c:if test="${param.type == 'toMe'}">
 									<a href="<c:url value="/message/messageDetail.do?type=toMe&getMessageNo=${map['MESSAGE_NO']}"/>">
-										${map['MESSAGE_TITLE']} </a>
+										<!-- 제목이 긴 경우 일부만 보여주기 -->							
+										<c:if test="${fn:length(map['MESSAGE_TITLE'])>=30}">
+											${fn:substring(map['MESSAGE_TITLE'], 0,30) } ...
+										</c:if>
+										<c:if test="${fn:length(map['MESSAGE_TITLE'])<30}">						
+											${map['MESSAGE_TITLE']}
+										</c:if>
+									</a>
 								</c:if>
 							</c:if>
 						</td>
-						<td style="text-align: left;">${map['MESSAGE_CONTENT']}</td>
+						<td style="text-align: left;">
+							<!-- 내용이 긴 경우 일부만 보여주기 -->							
+							<c:if test="${fn:length(map['MESSAGE_CONTENT'])>=15}">
+								${fn:substring(map['MESSAGE_CONTENT'], 0,15) } ...
+							</c:if>
+							<c:if test="${fn:length(map['MESSAGE_CONTENT'])<15}">						
+								${map['MESSAGE_CONTENT']}
+							</c:if>
+						</td>
 						<td><fmt:formatDate value="${map['MESSAGE_REGDATE']}"
 								pattern="yyyy-MM-dd" /></td>
 					</tr>
