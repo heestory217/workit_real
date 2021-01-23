@@ -6,20 +6,36 @@
 </head>
 <script type="text/javascript">
 	$(function(){
-		$('#userid').focus();
+		$('.infobox').keyup(function(){
+			$('.infobox').each(function(idx, item){
+				if($("#userId").val().length<1){
+					$("#call1").text("      아이디를 입력하세요");
+				}else{
+					$("#call1").text("");
+				}
+				
+				if($("#password").val().length<1){
+					$("#call2").text("      비밀번호를 입력하세요");
+				}else{
+					$("#call2").text("");
+				}
+			});
+			
+		});
 		
 		
 		$('#login').click(function(){
 			var htp1=true;
 			var htp2=true;
+			
+			$("#call1").text("");
+			$("#call2").text("");
 			$('.infobox').each(function(idx, item){
 				if($("#userId").val().length<1){
-					$("#call").text("아이디를 입력하세요");
-					$("#userId").focus();
 					htp1=false;
-				}else if($("#password").val().length<1){
-					$("#call").text("비밀번호를 입력하세요");
-					$("#call").focus();
+				}
+				
+				if($("#password").val().length<1){
 					htp2=false;
 				}
 			});
@@ -40,9 +56,9 @@
 		                if(data == 1){
 		                	location.href="/workit/index.do";
 		                }else if(data == 2){
-		                	$("#call").text($(this).prev().text() +"잘못된 비밀번호입니다");
+		                	$("#call2").text("      "+$(this).prev().text() +"잘못된 비밀번호입니다");
 		                }else{
-		                	$("#call").text($(this).prev().text() +"존재하지 않는 아이디입니다");
+		                	$("#call1").text("      "+$(this).prev().text() +"존재하지 않는 아이디입니다");
 		                }
 		            }
 				});
@@ -60,14 +76,13 @@
                         <h2>로그인</h2>
                         <form name="frmLogin">
                             <div class="group-input">
-                                <label for="username">아이디</label>
+                                <label for="username">아이디<span class="call" id="call1" style="cursor:hand;color:red"></span></label>
                                 <input type="text" id="userId" class="infobox" name="userId" value="${cookie.ck_userid.value }">
                             </div>
                             <div class="group-input">
-                                <label for="pass">비밀번호</label>
+                                <label for="pass">비밀번호<span class="call" id="call2" style="cursor:hand;color:red"></span></label>
                                 <input type="password" id="password" class="infobox" name="userPassword">
                             </div>
-                            <span class="call" id="call" style="cursor:hand;color:red"></span>
                             <div class="group-input gi-check">
                                 <div class="gi-more">
                                     <label for="save-pass">
@@ -82,10 +97,10 @@
                                     <a href="#" class="forget-pass">아이디나 비밀번호를 잊으셨나요?</a>
                                 </div>
                             </div>
-                        </form>
-                        <button style="width:420pt;"
+                                                    <button
                          type="button" class="site-btn login-btn" id='login' name='login'>로그인</button>
                         <div class="switch-login">
+                        </form>
                             <a href="./register.do" class="or-login">회원가입</a>
                         </div>
                     </div>
