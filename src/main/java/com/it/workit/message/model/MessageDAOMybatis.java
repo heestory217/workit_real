@@ -51,14 +51,4 @@ public class MessageDAOMybatis implements MessageDAO{
 		return sqlSession.update(namespace+"updategetMsgDelflag", messageNo);
 	}
 
-	@Override
-	public int updategetMsgImpflag(int messageNo) {
-		return sqlSession.update(namespace+"updategetMsgImpflag", messageNo);
-	}
-
-	@Override
-	public List<Map<String, Object>> selectImpMessage(int userNo) {
-		return sqlSession.selectList(namespace+"selectImpMessage", userNo);
-	}
-
 }

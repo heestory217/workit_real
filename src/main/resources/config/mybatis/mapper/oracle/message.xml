@@ -77,8 +77,7 @@
 	<select id="selectImpMessage" parameterType="int" resultType="map">
 		select m.*, (select user_id from users where USER_NO=m.USER_NO) AS "USER_ID"
 		from MsgGetMsgView m
-		where (USER_NO=#{USER_NO} or GETUSER_NO=#{USER_NO}) and GETMESSAGE_IMPFLAG=1 
-		and SEND_DELFLAG=2 and GETMESSAGE_DELFLAG=2
+		where GETUSER_NO=#{userNo} and GETMESSAGE_IMPFLAG=1 and GETMESSAGE_DELFLAG=2
 		order by m.MESSAGE_REGDATE desc
 	</select>
 	

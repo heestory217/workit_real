@@ -41,7 +41,7 @@
 						<td><input type="checkbox"></td>
 						<td>${map['USER_ID']}</td>
 						<td style="text-align:left;">
-							<a href="<c:url value="/message/countUpdate.do?messageNo=${map['MESSAGE_NO']}"/>">
+							<a href="<c:url value="/message/messageDetail.do?messageNo=${map['MESSAGE_NO']}"/>">
 								${map['MESSAGE_TITLE']}
 							</a>
 						</td>
@@ -65,7 +65,6 @@
 	<div class="col-lg-6"></div>
 	<div class="col-lg-6" align="right">
 		<div class="cart-buttons">
-			<a href="#" class="btn btn-primary" style="background:#4C50BB;">보관</a>
 			<a href="#" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 		</div>
 	</div>
