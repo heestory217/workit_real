@@ -130,7 +130,8 @@ public class UsersController {
 	}
 
 	@RequestMapping("/logincheck.do")
-	public String loginck(@ModelAttribute UsersVO vo, HttpServletRequest request, Model model) {
+	public String loginck(@ModelAttribute UsersVO vo, HttpServletRequest request, Model model,
+			@RequestParam(required = false) String savepass, HttpServletResponse response) {
 		//1
 				logger.info("로그인 처리, 파라미터 vo={}", vo);
 
@@ -139,6 +140,7 @@ public class UsersController {
 				logger.info("로그인 처리 결과, result={}", result);
 
 				String msg="로그인 체크 실패!", url="/users/login.do";
+				
 				if(result==UsersService.LOGIN_OK) {
 					UsersVO userVo = usersService.selectByUserId(vo.getUserId());
 					logger.info("userVo={}", vo);
@@ -153,17 +155,6 @@ public class UsersController {
 					logger.info("회원종류={}", kind);
 					session.setAttribute("user_corpcheck", kind);
 					
-					/*
-					//[2] cookie
-					Cookie ck = new Cookie("ck_userid", vo.getUserId());
-					ck.setPath("/");
-					if(chkSave!=null) {
-						ck.setMaxAge(1000*24*60*60);
-					}else {
-						ck.setMaxAge(0);
-					}
-					response.addCookie(ck);
-					*/
 					
 					msg=userVo.getUserName()+"님, 로그인되었습니다.";
 					url="/index.do";
@@ -172,6 +163,16 @@ public class UsersController {
 				}else if(result==UsersService.ID_NONE) {
 					msg="해당 아이디가 존재하지 않습니다.";
 				}
+				
+				//[2] cookie
+				Cookie ck = new Cookie("ck_userid", vo.getUserId());
+				ck.setPath("/");
+				if(savepass!=null) {
+					ck.setMaxAge(1000*24*60*60);
+				}else {
+					ck.setMaxAge(0);
+				}
+				response.addCookie(ck);
 
 				//3
 				model.addAttribute("msg", msg);
@@ -180,6 +181,53 @@ public class UsersController {
 				//4
 				return "common/message";
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/loginajax.do")
+	public int loginajax(@RequestParam String userId, @RequestParam String password, HttpServletRequest request, Model model,
+			@RequestParam(required = false) String savepass, HttpServletResponse response) {
+		logger.info("로그인 채크 userId = {}, password= {}", userId, password);
+		
+		int result=usersService.loginCheck(userId, password);
+		logger.info("로그인 처리 결과, result={}", result);
+
+		String msg="로그인 체크 실패!", url="/users/login.do";
+		
+		if(result==UsersService.LOGIN_OK) {
+			UsersVO vo = usersService.selectByUserId(userId);
+			
+			int kind=usersService.userkindcheck(userId);
+			
+			//[1] session
+			HttpSession session=request.getSession();
+			session.setAttribute("userId", vo.getUserId());
+			session.setAttribute("userNo", vo.getUserNo());
+			session.setAttribute("userName", vo.getUserName());
+			logger.info("회원종류={}", kind);
+			session.setAttribute("user_corpcheck", kind);
+			
+		}
+		
+		//[2] cookie
+		Cookie ck = new Cookie("ck_userid", userId);
+		ck.setPath("/");
+		if(savepass!=null) {
+			ck.setMaxAge(1000*24*60*60);
+		}else {
+			ck.setMaxAge(0);
+		}
+		response.addCookie(ck);
+
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		//4
+		return result;
+	}
+	
+	
 
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
