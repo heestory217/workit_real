@@ -9,4 +9,5 @@ public interface CorpService {
 	List<CorpRecruitViewVO> selectRecruit(int userNo);
 	int editCorp(CorpVO vo);
 	int editCorpImg(List<CorpimgVO> imgList);
+	int selectCorpNo(int userNo);
 }

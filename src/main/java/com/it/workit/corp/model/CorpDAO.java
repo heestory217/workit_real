@@ -11,4 +11,5 @@ public interface CorpDAO {
 	List<CorpRecruitViewVO> selectRecruit(int userNo);
 	int editCorp(CorpVO vo);
 	int editCorpImg(CorpimgVO vo);
+	int selectCorpNo(int userNo);
 }

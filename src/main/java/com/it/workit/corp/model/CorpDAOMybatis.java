@@ -44,4 +44,9 @@ public class CorpDAOMybatis implements CorpDAO {
 		return sqlSession.update(namespace+"editCorpImg",vo);
 	}
 
+	@Override
+	public int selectCorpNo(int userNo) {
+		return sqlSession.selectOne(namespace+"selectCorpNo", userNo);
+	}
+
 }
