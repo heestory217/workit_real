@@ -57,6 +57,7 @@
 	.fa-quora{
 		font-size:22px;
 		color:#4c50bb;	
+		margin-right: 5px;
 	}
 	
 	dd{
@@ -108,7 +109,9 @@
 <body>
 <div class="divCmty">
 <!-- asdie : 사이드 메뉴바 -->
-<%@ include file="cmtyNavbar.jsp" %>	
+<c:import url="/indiv/community/cmtyNavbar.do">
+	<c:param name="questionNicname" value="${userNicknum }"></c:param>
+</c:import>
  	
 <section>
 	<div id="container">
@@ -117,26 +120,41 @@
 			<div class="top-title-wrap">
 				<p class="title">전체질문</p>
 			</div>
+			
+			<!-- 질문 없는 경우 아이콘, 문구 정하기!!! -->
 			<article id="questBox">
+				<c:if test="${empty qstnList}">
+					<div class="questBoxWrap">
+						<div class="oneQuestBox">
+							<span>질문 없음x</span>
+						</div>
+					</div>
+				</c:if>
+				<!-- 질문 반복 시작 -->
+				<c:if test="${!empty qstnList }">
+					<c:forEach var="qstnVo" items="${qstnList }">
+									
 				<div class="questBoxWrap">
 				<div class="oneQuestBox">
 					<div>							
-						<a href="<c:url value='/indiv/community/qstnDetail.do?qstnNo='/>"
+						<a href="<c:url value='/indiv/community/qstnDetail.do?qstnNo=${qstnVo.questionNo }'/>"
 							class="contentArea">
 							<dl>
 								<!-- 제목 -->
 								<dt class="qtTitle">
-								<i class="fa fa-quora"></i>
-								<span>개발자 진로 고민입니다</span></dt>
+								<i class="fa fa-quora"></i><span>${qstnVo.questionTitle }</span></dt>
 								
 								<!-- 내용 -->
-								<dd class="qtContent">질문 내용<br />....</dd>
+								<dd class="qtContent">${qstnVo.questionAbout }</dd>
 								
 								<!-- 답변, 조회수, 작성시간 -->
 								<dd class="cellBx">
 									<span class="reply">답변<span class="replyNum"> 0</span>&nbsp;&nbsp;|&nbsp;</span>
 									<span class="readCnt">조회 3&nbsp;&nbsp;|&nbsp;</span>
-									<span class="regTime">14분 전  작성</span>
+									<span class="regTime">
+										<fmt:formatDate value="${qstnVo.questionDate }"
+											pattern="yyyy-MM-dd"/>
+									</span>
 									<div class="bookmark"><i class="fa fa-bookmark-o" aria-hidden="true"></i></div>
 								</dd>
 							</dl>
@@ -144,30 +162,9 @@
 					</div>					
 				</div>
 				</div>
-				
-				<!-- 두번째  질문-->
-				<div class="questBoxWrap">
-				<div class="oneQuestBox">
-					<div>							
-						<a href="#" class="contentArea">
-							<dl>
-								<!-- 제목 -->
-								<dt class="qtTitle"><i class="fa fa-quora"></i><span> 근무지가 어디인가요?</span></dt>
-								
-								<!-- 내용 -->
-								<dd class="qtContent">질문 내용<br />....<br />....</dd>
-								<!-- 답변, 조회수, 작성시간 -->
-								<dd class="cellBx">
-									<span class="reply">답변<span class="replyNum">0</span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-									<span class="readCnt">조회 3&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-									<span class="regTime">14분 전  작성</span>
-									<div class="bookmark"><i class="fa fa-bookmark-o" aria-hidden="true"></i></div>
-								</dd>
-							</dl>
-						</a>
-					</div>					
-				</div>
-				</div>
+					</c:forEach>
+				<!-- 질문 반복 끝 -->
+				</c:if>
 				<div class="paging">
 				
 				</div>

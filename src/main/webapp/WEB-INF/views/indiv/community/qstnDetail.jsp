@@ -240,18 +240,18 @@ textarea::placeholder {
 						<div class="BoxWrap">
 							<div class="tit">
 								<!-- if 조건으로 로그인한 경우에만 보이도록 설정 -->
-								<div class="editBox">
-								<a>
-									<i class="fa fa-ellipsis-h"></i>
-								</a>
-								<!-- 수정, 삭제  -->
-									<div class="editBtn">
-									<a href
-					="<c:url value='/indiv/community/qstnEdit.do?qstnNo=${qstnVo.questionNo }'/>">수정</a>
-									<hr>
-									<a href="#">삭제</a>
-									</div>	
-								</div>
+									<div class="editBox">
+									<a>
+										<i class="fa fa-ellipsis-h"></i>
+									</a>
+									<!-- 수정, 삭제  -->
+										<div class="editBtn">
+										<a href
+						="<c:url value='/indiv/community/qstnEdit.do?qstnNo=${qstnVo.questionNo }'/>">수정</a>
+										<hr>
+										<a href="#">삭제</a>
+										</div>	
+									</div>
 								<!-- editBox 끝 -->
 								
 								<!-- 질문 제목 -->

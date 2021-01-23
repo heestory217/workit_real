@@ -18,6 +18,39 @@
 	<select id="selectQstn" parameterType="int" resultType="questionVo">
 		select * from QUESTION where QUESTION_NO=#{questionNo}
 	</select>
+	
+	<!-- 질문 수정 -->
+	<update id="updateQstn" parameterType="questionVo">
+		update QUESTION
+		set WORKKIND_NO=#{workkindNo}, QUESTION_TITLE=#{questionTitle},
+  					QUESTION_ABOUT=#{questionAbout}, QUESTION_DATE=SYSDATE
+		where QUESTION_NO=#{questionNo}
+	</update>
+	
+	<!-- 질문 조회 -->
+	<select id="selectAllQstn" resultType="questionVo">
+		select * from QUESTION order by QUESTION_NO desc
+	</select>
+	
+	<!-- 회원 질문 목록 조회 -->
+	<resultMap type="HashMap" id="selectQstnAbout">
+		<result property="questionAbout" column="QUESTION_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	<select id="selectUserQstnAll" parameterType="String" resultType="HashMap"
+		resultMap="selectQstnAbout">
+		select * from userQstnView where QUESTION_NICNAME=#{questionNicname} order by QUESTION_NO desc
+	</select>
+	
+	<!-- 회원 질문 개수 -->
+	<select id="selectUserQstnCnt" parameterType="int" resultType="int">
+		select count(*) from QUESTION where USER_NO=#{userNo} order by QUESTION_NO desc
+	</select>
+	
+	<!--  -->
+	<select id="selectUserInfo" parameterType="int" resultType="cmtyuserinfoVo">
+		select * from CMTYUSERINFO where USER_NO=#{userNo}
+	</select>
+	
 </mapper>
 
 
