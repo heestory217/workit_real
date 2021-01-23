@@ -276,12 +276,12 @@ public class MessageController {
 		
 		List<MessageVO> msgList = msgListVo.getMsgItems(); 
 		int cnt = messageService.updateMsgDelflagMulti(msgList);
-		logger.info("선택한 상품 삭제 결과, cnt={}", cnt);
+		logger.info("선택한 쪽지 삭제 결과, cnt={}", cnt);
 
-		String msg="선택한 상품 삭제 실패!", url="/message/messageBoxSend.do";
+		String msg="선택한 쪽지 삭제 실패!", url="/message/messageBoxSend.do";
 		
 		if(cnt>0) {
-			msg="선택한 상품을 삭제하였습니다.";
+			msg="선택한 쪽지를 삭제하였습니다.";
 			for(int i=0;i<msgList.size();i++) {
 				MessageVO msgVo = msgList.get(i);
 				logger.info("[{}] : messageNo={}", i, msgVo.getMessageNo());
@@ -303,15 +303,15 @@ public class MessageController {
 		
 		List<MessageVO> msgList = msgListVo.getMsgItems(); 
 		int cnt = messageService.updateMsgDelflagMulti(msgList);
-		logger.info("선택한 상품 삭제 결과, cnt={}", cnt);
+		logger.info("선택한 쪽지 삭제 결과, cnt={}", cnt);
 		
-		String msg="선택한 상품 삭제 실패!", url="/message/messageBox.do";
+		String msg="선택한 쪽지 삭제 실패!", url="/message/messageBox.do";
 		if(type!=null && !type.isEmpty()) {
 			url="/message/messageBox.do?type="+type;
 		}
 		
 		if(cnt>0) {
-			msg="선택한 상품을 삭제하였습니다.";
+			msg="선택한 쪽지를 삭제하였습니다.";
 			for(int i=0;i<msgList.size();i++) {
 				MessageVO msgVo = msgList.get(i);
 				logger.info("[{}] : messageNo={}", i, msgVo.getMessageNo());
