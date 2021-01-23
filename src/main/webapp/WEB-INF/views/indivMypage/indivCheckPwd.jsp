@@ -17,8 +17,8 @@
 						<tr>
 							<td class="cart-title">
 								<div class="group-input center"><br>
-									<form action="#"></form>
-                                		<input type="password" id="pwd" class="col-lg-6 mybtn" name="userPassword">
+									<form method="post" action="<c:url value='/indivMypage/indivCheckPwd.do '/>">
+                                		<input type="password" id="pwd" class="col-lg-6 mybtn" name="pwd">
                                 		&nbsp;&nbsp;&nbsp;
                                 		<button type="submit" class="site-btn" id="submit">확인</button>
                             		</form>
