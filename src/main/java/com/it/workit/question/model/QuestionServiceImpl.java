@@ -31,13 +31,18 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 
 	@Override
-	public List<Map<String, Object>> selectUserQstnAll(int userNo) {
-		return questionDao.selectUserQstnAll(userNo);
+	public List<Map<String, Object>> selectUserQstnAll(String qstnNick) {
+		return questionDao.selectUserQstnAll(qstnNick);
 	}
 
 	@Override
 	public int selectUserQstnCnt(int userNo) {
 		return questionDao.selectUserQstnCnt(userNo);
+	}
+
+	@Override
+	public CmtyuserinfoVO selectUserInfo(int userNo) {
+		return questionDao.selectUserInfo(userNo);
 	}
 	
 	

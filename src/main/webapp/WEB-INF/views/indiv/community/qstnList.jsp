@@ -109,7 +109,9 @@
 <body>
 <div class="divCmty">
 <!-- asdie : 사이드 메뉴바 -->
-<%@ include file="cmtyNavbar.jsp" %>	
+<c:import url="/indiv/community/cmtyNavbar.do">
+	<c:param name="questionNicname" value="${userNicknum }"></c:param>
+</c:import>
  	
 <section>
 	<div id="container">

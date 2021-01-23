@@ -37,12 +37,17 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> selectUserQstnAll(int userNo) {
-		return sqlSession.selectList(namespace+"selectUserQstnAll", userNo);
+	public List<Map<String, Object>> selectUserQstnAll(String qstnNick) {
+		return sqlSession.selectList(namespace+"selectUserQstnAll", qstnNick);
 	}
 
 	@Override
 	public int selectUserQstnCnt(int userNo) {
 		return sqlSession.selectOne(namespace+"selectUserQstnCnt", userNo);
+	}
+
+	@Override
+	public CmtyuserinfoVO selectUserInfo(int userNo) {
+		return sqlSession.selectOne(namespace+"selectUserInfo", userNo);
 	}
 }

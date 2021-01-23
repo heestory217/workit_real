@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <style type="text/css">
 	#leftNav{
 		border:1px solid silver;
@@ -86,11 +87,6 @@
 </style>
 <script type="text/javascript">
 	$(function(){
-		$('.userQstn').click(function(){
-			if(){
-				location.href="/users/login.do";
-			}
-		});
 	});
 </script>
 <!-- 커뮤니티 게시판, 사이드 메뉴 바 -->
@@ -103,7 +99,7 @@
 				<i class="fa fa-pencil"></i>&nbsp;질문하기</a>
 			</div>
 			<div class="myInfoSec">
-				<c:if test="${empty sessionScope.userNo }">
+				<c:if test="${empty sessionScope.userNo}">
 				<a class="myInfo" href
 		="<c:url value='/users/login.do'/>">
 					<div id="NoneUserInfo">
@@ -114,13 +110,14 @@
 					</div>
 				</a>
 				</c:if>	
-				<c:if test="${!empty sessionScope.userNo }">
+				<c:if test="${!empty sessionScope.userNo}">
 				<a class="myInfo" href
-		="<c:url value='/indiv/community/myProfile.do?userNo=${qstnVo.userNo}'/>">
+		="<c:url value='/indiv/community/myProfile.do?userNick=${cmtyVo.userNicknum}'/>">
 					<div id="userInfo">
 						<i class="fa fa-user-circle userProfImg"></i><br>
-						<span class="nickname">${qstnVo.questionNicname }</span><br>
+						<span class="nickname">${cmtyVo.userNicknum }</span><br>
 						<span class="qstnReplyCnt">질문 0 답변 0 </span>
+						<input type="hidden" name="userNicknum" value="${cmtyVo.userNicknum}">
 					</div>
 				</a>
 				</c:if>	

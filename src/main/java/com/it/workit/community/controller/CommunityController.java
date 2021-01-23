@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.it.workit.question.model.CmtyuserinfoVO;
 import com.it.workit.question.model.QuestionService;
 import com.it.workit.question.model.QuestionVO;
 
@@ -26,25 +27,33 @@ public class CommunityController {
 	
 	@Autowired QuestionService qstnService;
 	
-
-	//회원 활동 내역 
-	@RequestMapping("/myProfile.do")
-	public String profile(HttpSession session, Model model) {
-		int userNo=(Integer) session.getAttribute("userNo");
-		logger.info("활동 내역 페이지, userNo={}", userNo);
+	@RequestMapping(value="/myProfile.do", method = RequestMethod.GET)	
+	public String profile(@RequestParam(required = false) String nickname, HttpSession session, Model model) {
+		logger.info("회원 활동 내역 조회, nickname={}", nickname);
 		
-		List<Map<String, Object>> qstnList=qstnService.selectUserQstnAll(userNo);
+		List<Map<String, Object>> qstnList=qstnService.selectUserQstnAll(nickname);
+		logger.info("활동 내역 조회 결과, qstnList.size={}", qstnList.size());
 		
 		model.addAttribute("qstnList", qstnList);
 		
 		return "indiv/community/myProfile";
 		
 	}
+	
 
 	//사이드 메뉴 바
 	@RequestMapping("/cmtyNavbar.do")
-	public void sideMenu() {
-		logger.info("커뮤니티 메뉴");
+	public String sideMenu(HttpSession session, Model model) {
+		int userNo=(Integer) session.getAttribute("userNo");
+		logger.info("커뮤니티 메뉴바 조회, userNo={}",userNo);
+		
+		CmtyuserinfoVO cmtyVo=qstnService.selectUserInfo(userNo);
+		logger.info("커뮤니티 메뉴바 조회 결과, cmtyVo={}",cmtyVo);
+		
+		model.addAttribute("cmtyVo", cmtyVo);
+		
+		return "indiv/community/cmtyNavbar";
+		
 	}
 	
 	//질문 등록 화면
@@ -151,11 +160,11 @@ public class CommunityController {
 	
 	//회원 질문 조회
 	@RequestMapping("/myQstn.do")
-	public String userQstnList(HttpSession session, Model model) {
+	public String userQstnList(@RequestParam(required = false) String qstnNick,HttpSession session, Model model) {
 		int userNo=(Integer)session.getAttribute("userNo");
 		logger.info("회원 질문 목록 조회, userNo={}", userNo);
 		
-		List<Map<String, Object>> qstnList=qstnService.selectUserQstnAll(userNo);
+		List<Map<String, Object>> qstnList=qstnService.selectUserQstnAll(qstnNick);
 		logger.info("회원 질문 목록 조회 결과, qstnLis.size={}", qstnList.size());
 		
 		model.addAttribute("qstnList", qstnList);

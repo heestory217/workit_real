@@ -36,14 +36,19 @@
 	<resultMap type="HashMap" id="selectQstnAbout">
 		<result property="questionAbout" column="QUESTION_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
 	</resultMap>
-	<select id="selectUserQstnAll" parameterType="int" resultType="HashMap"
+	<select id="selectUserQstnAll" parameterType="String" resultType="HashMap"
 		resultMap="selectQstnAbout">
-		select * from userQstnView where USER_NO=#{userNo} order by QUESTION_NO desc
+		select * from userQstnView where QUESTION_NICNAME=#{questionNicname} order by QUESTION_NO desc
 	</select>
 	
 	<!-- 회원 질문 개수 -->
 	<select id="selectUserQstnCnt" parameterType="int" resultType="int">
 		select count(*) from QUESTION where USER_NO=#{userNo} order by QUESTION_NO desc
+	</select>
+	
+	<!--  -->
+	<select id="selectUserInfo" parameterType="int" resultType="cmtyuserinfoVo">
+		select * from CMTYUSERINFO where USER_NO=#{userNo}
 	</select>
 	
 </mapper>
