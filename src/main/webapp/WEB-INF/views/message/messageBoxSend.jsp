@@ -34,6 +34,14 @@
 <!-- 보낸쪽지함 부분 시작-->
 <div class="cart-table">
 	<table>
+		<colgroup>
+			<col style="width:5%;" />
+			<col style="width:15%;" />
+			<col style="width:40%;" />
+			<col style="width:15%;" />
+			<col style="width:15%;" />		
+			<col style="width:5%;" />		
+		</colgroup>
 		<thead>
 			<tr>
 				<th><input type="checkbox" id="chkAll"></th>

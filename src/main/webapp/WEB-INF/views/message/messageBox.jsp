@@ -28,6 +28,13 @@
 <!-- 받은쪽지함 부분 시작-->
 <div class="cart-table">
 	<table>
+		<colgroup>
+			<col style="width:5%;" />
+			<col style="width:20%;" />
+			<col style="width:35%;" />
+			<col style="width:25%;" />
+			<col style="width:14%;" />		
+		</colgroup>
 		<thead>
 			<tr>
 				<th style="margin-left: 5px"><input type="checkbox" id="chkAll"></th>
@@ -59,10 +66,10 @@
 							<c:if test="${empty param.type}">
 								<a href="<c:url value="/message/countUpdate.do?getMessageNo=${map['MESSAGE_NO']}"/>">
 									<!-- 제목이 긴 경우 일부만 보여주기 -->							
-									<c:if test="${fn:length(map['MESSAGE_TITLE'])>=30}">
-										${fn:substring(map['MESSAGE_TITLE'], 0,30) } ...
+									<c:if test="${fn:length(map['MESSAGE_TITLE'])>=20}">
+										${fn:substring(map['MESSAGE_TITLE'], 0,20) } ...
 									</c:if>
-									<c:if test="${fn:length(map['MESSAGE_TITLE'])<30}">						
+									<c:if test="${fn:length(map['MESSAGE_TITLE'])<20}">						
 										${map['MESSAGE_TITLE']}
 									</c:if>
 								</a>
