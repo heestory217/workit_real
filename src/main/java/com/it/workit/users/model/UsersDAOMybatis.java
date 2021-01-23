@@ -55,5 +55,9 @@ public class UsersDAOMybatis implements UsersDAO {
 		return sqlSession.update(namespace+"updateUsers", vo);
 	}
 
-
+	//[수하] 기업 등록시 기업 회원으로 변경
+	@Override
+	public int updateUserCorpCheck(int userNo) {
+		return sqlSession.update(namespace+"updateUserCorpCheck", userNo);
+	}
 }

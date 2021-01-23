@@ -11,18 +11,18 @@
  </div>
  <div class="col-lg-2 text-right col-md-2">
      <ul class="nav-right">
+         <!-- 쪽지함 -->
+         <li class="heart-icon">
+             <a href="#">
+             	<i class="fa fa-envelope-o" aria-hidden="true"></i>
+                 <!-- 안읽은 메시지 갯수 표현: <span>1</span>  : 최대값 표현 : +99 -->
+                 
+             </a>
+         </li>
          <!-- 북마크 -->
          <li class="heart-icon">
              <a href="#">
-                 <i class="icon_heart_alt"></i>
-                 <span>1</span>
-             </a>
-         </li>
-         <!-- 쪽지함 : 아이콘 쪽지로 바꿔야하는데 아이콘 리스트 어딨는지 모르겠음 찾는중 -->
-         <li class="heart-icon">
-             <a href="#">
-                 <i class="icon_heart_alt"></i>
-                 <span>1</span>
+                 <i class="fa fa-bookmark-o" aria-hidden="true"></i>
              </a>
          </li>
      </ul>

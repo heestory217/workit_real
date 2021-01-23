@@ -8,4 +8,5 @@ public interface UsersDAO {
 	public String loginCheck(String userid, String password);
 	public int updateUsers(UsersVO vo);
 	public int userkindcheck(String userid);
+	public int updateUserCorpCheck(int userNo);
 }

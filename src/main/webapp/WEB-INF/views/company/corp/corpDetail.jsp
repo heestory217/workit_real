@@ -101,7 +101,7 @@
 	                        <div class="details-tag">
 	                            <ul>
 	                                <li><i class="fa fa-tags"></i></li>
-	                                <li><a href="http://${cVo.corpWebaddress}">${cVo.corpWebaddress}</a></li>
+	                                <li><a href="http:&#x2F&#x2F${cVo.corpWebaddress}">${cVo.corpWebaddress}</a></li>
 	                                <li>${cVo.corpAddress1}</li>
 	                                <li>${cVo.corpTel}</li>
 	                            </ul>

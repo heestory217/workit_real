@@ -28,6 +28,9 @@
 				if($.trim($('#corpAvrpay').val())==''){
 					$('#corpAvrpay').val(0);
 				}
+				if($.trim($('#corpPnumber').val())=='0'){
+					$('#corpPnumber').val(1);
+				}
 				if(!$("#corpName").val()){
 					alert('법인명을 입력하세요.');
 					$("#corpName").focus();
@@ -60,9 +63,9 @@
 					alert('기업 전화번호를 입력하세요.');
 					$("#corpTel").focus();
 					event.preventDefault();
-				}else if(!$("#corpStardate").val()){
+				}else if(!$("#corpStartdate").val()){
 					alert('기업 설립일자를 입력하세요');
-					$("#corpStardate").focus();
+					$("#corpStartdate").focus();
 					event.preventDefault();
 				}else if(!$("#corpIntro").val()){
 					alert('기업 소개를 입력하세요.');
@@ -145,8 +148,8 @@ input[type=file]{
                         <input type="text" id="corpTel" name="corpTel">
                     </div>
                     <div class="col-lg-6">
-                        <label for="corpStardate">기업 설립 일자<span>*</span></label>
-                        <input type="text" id="corpStardate" name="corpStardate" >
+                        <label for="corpStartdate">기업 설립 일자<span>*</span></label>
+                        <input type="text" id="corpStartdate" name="corpStartdate" >
                     </div>
 					<div class="col-lg-12">
                     	<label for="corpIntro">기업 소개<span>*</span></label>

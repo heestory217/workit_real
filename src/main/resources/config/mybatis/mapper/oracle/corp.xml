@@ -12,7 +12,7 @@
                     CORP_ADDRESS1, COL_ADDRESS2, CORP_CORPADDNUMBER, CORP_INDUSTRY, CORP_STARTDATE, 
                     CORP_WEBADDRESS, CORP_TEL, CORP_OKCHECK)
 		values(#{corpNo}, #{userNo}, #{corpName}, #{corpIntro},#{corpImgurl},#{corpAvrpay},
-        #{corpKind},#{corpPnumber},#{corpHeadname},#{corpAddress1},#{corpAddress2},#{corpCorpaddnumber},#{corpIndustry},#{corpStardate},#{corpWebaddress},#{corpTel},0)
+        #{corpKind},#{corpPnumber},#{corpHeadname},#{corpAddress1},#{corpAddress2},#{corpCorpaddnumber},#{corpIndustry},#{corpStartdate},#{corpWebaddress},#{corpTel},0)
 	</insert>
 	
 	<update id="insertImg" parameterType="corpimgVO">

@@ -14,8 +14,8 @@
      	<!-- 쪽지함 : 아이콘 바꿔야함 -->
          <li class="heart-icon">
              <a href="#">
-                 <i class="icon_heart_alt"></i>
-                 <span>1</span>
+                 <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                 <!-- 안읽은 메시지 갯수 표현: <span>1</span>  : 최대값 표현 : +99 -->
              </a>
          </li>
      	<!-- 장바구니 -->
@@ -28,7 +28,7 @@
                  <div class="select-items">
                      <table>
                          <tbody>
-                         <!-- 장바구니에 담은 이력서 반복 -->
+                         <!-- 장바구니에 담은 이력서 최대 3개 반복 -->
                              <tr>
                                  <td class="si-pic"><img src="img/select-product-1.jpg" alt=""></td>
                                  <td class="si-text">
@@ -90,7 +90,7 @@
                         <li><a href="#">포지션 제안</a></li>
                         <li><a href="#">기업 관리</a>
                             <ul class="dropdown">
-                                <li><a href="#">기업 정보</a></li>
+                                <li><a href="<c:url value='company/corp/corpDetail.do?corpNo=44'/>">기업 정보</a></li>
                                 <li><a href="#">채용 공고</a></li>
                             </ul>
                         </li>

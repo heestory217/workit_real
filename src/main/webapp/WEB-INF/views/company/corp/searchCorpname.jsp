@@ -61,6 +61,15 @@
 		.shopping-cart spad {
 			padding-top:30px;
 		}
+		
+		#loading { 
+			width: 100%; height: 100%; top: 0px; left: 0px; position: fixed; display: block; opacity: 0.7; background-color: #fff; z-index: 99; text-align: center;
+		}
+		
+		#loading-image {
+			position: absolute; top: 50%; left: 50%; z-index: 100;
+		}
+
     </style>
     <!-- Js Plugins -->
     <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
@@ -77,8 +86,10 @@
     <script src="<c:url value="/resources/js/paging.js"/>" type="text/javascript"></script>
     <script type="text/javascript">
     var totalCount=0;
-    
+
 	    $(function(){
+	    	$('#loading').hide();
+	    	
 			$('#searchBtn').click(function(){
 				if($('#searchName').val().length<1){
 					alert('검색하실 기업의 법인명을 입력하세요');
@@ -95,6 +106,7 @@
 	    //[1] 아작스 요청
 	    $.send=function(curPage){
 	    	$('#currentPage').val(curPage);
+	    	$('#loading').show();
 	    	$.ajax({
 	    		url:"<c:url value='/company/corp/corpSearch.do'/>",
 	    		type:"GET",
@@ -116,6 +128,7 @@
 	    				if(xmlStr!=null){
 	    					$.makeList(xmlStr);
 	    					$.pageMake();
+	    					$('#loading').hide();
 	    				}
 	    			}
 	    		},
@@ -208,7 +221,7 @@
 			$(opener.document).find('#corpWebaddress').val(enpHmpgUrl);
 			$(opener.document).find('#corpKind').val(smenpYn);
 			$(opener.document).find('#corpTel').val(enpTlno);
-			$(opener.document).find('#corpStardate').val(enpEstbDt);
+			$(opener.document).find('#corpStartdate').val(enpEstbDt);
 			self.close();
 		}
 	    
@@ -230,8 +243,12 @@
                             </div>
                         </div>
                     </div>
-                    <div id="total"></div>
-                    <div id="divList"></div>
+                    <div id="total">검색 버튼을 눌러 기업정보를 조회해 주세요.</div>
+                    <div id="loading" style="display:none;">
+                    	<img id="loading-image" src="<c:url value='/resources/img/5.gif'/>" alt="Loading..." />
+                   	</div>
+                    <div id="divList">
+                   	</div>
                     <div id="divPage"></div>
                 </div>
             </div>

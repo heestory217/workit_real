@@ -532,7 +532,7 @@ button.site-btn.register-btn {
 	font-size: 16px;
 	color: #ffffff;
 	position: absolute;
-	right: -7px;
+	right: -227px;
 	top: -1px;
 	border: 1px solid #4C50BB;
 	background: #4C50BB;
@@ -1553,6 +1553,7 @@ button.site-btn.register-btn {
 .footer-section {
 	background: #191919;
 	padding-top: 75px;
+	padding-bottom: 55px;
 }
 
 .footer-left {
@@ -3948,7 +3949,7 @@ button.site-btn.register-btn {
 		padding: 16px 12px 12px 11px;
 	}
 	.nav-item .nav-menu li a {
-		padding: 16px 45px 15px;
+		padding: 16px 41px 15px;
 	}
 }
 
@@ -3968,7 +3969,7 @@ button.site-btn.register-btn {
 		max-width: 64%;
 	}
 	.nav-item .nav-menu li a {
-		padding: 16px 26px 15px;
+		padding: 16px 24px 15px;
 	}
 	.hero-items .owl-nav button[type=button] {
 		left: 5px;
@@ -3986,7 +3987,7 @@ button.site-btn.register-btn {
 		padding: 18px 39px;
 	}
 	.inner-header .advanced-search .input-group button {
-		right: -218px;
+		right: -220px;
 	}
 	.product-shop .product-item .pi-pic ul li a {
 		padding: 16px 12px 12px 11px;
@@ -4083,7 +4084,7 @@ button.site-btn.register-btn {
 		padding: 14px 40px 14px 18px;
 	}
 	.nav-item .nav-menu li a {
-		padding: 16px 10px 15px;
+		padding: 16px 7px 15px;
 	}
 	.instagram-photo .insta-item .inside-text h5 {
 		font-size: 14px;
