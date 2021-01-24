@@ -1089,7 +1089,7 @@ button.site-btn.register-btn {
 }
 
 .product-large {
-	height: 620px;
+	height: 580px;
 	margin-left: -15px;
 	margin-right: -15px;
 	text-align: center;
@@ -1294,6 +1294,7 @@ button.site-btn.register-btn {
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	margin-bottom: 10px;
+	text-align: left;
 }
 
 .product-item .pi-text a {
@@ -1302,12 +1303,14 @@ button.site-btn.register-btn {
 
 .product-item .pi-text a h5 {
 	color: #252525;
+	text-align: left;
 }
 
 .product-item .pi-text .product-price {
 	color: #4C50BB;
 	font-size: 20px;
 	font-weight: 700;
+	text-align: left;
 }
 
 .product-item .pi-text .product-price span {
