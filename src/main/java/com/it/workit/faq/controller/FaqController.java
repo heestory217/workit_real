@@ -122,12 +122,6 @@ private static final Logger logger=LoggerFactory.getLogger(FaqController.class);
 		return "common/message";
 	}
 	
-	@RequestMapping(value = "/faqNav.do")
-	public void faqNav() {
-		logger.info("nav화면");
-	}
-	
-	
 	@RequestMapping(value = "/faqDelete.do")
 	public String faqDelete(@ModelAttribute FaqVO faqVo
 			,Model model) {

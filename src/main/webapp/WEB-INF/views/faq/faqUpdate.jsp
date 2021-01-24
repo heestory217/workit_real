@@ -69,7 +69,7 @@ input.faqBt.btn.btn-primary.site-btn {
 			<div
 				class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
 				<div class="filter-widget">
-					<c:import url="/faq/faqNav.do"></c:import>
+					<c:import url="/common/cusServiceNav.do"></c:import>
 				</div>
 			</div>
 
