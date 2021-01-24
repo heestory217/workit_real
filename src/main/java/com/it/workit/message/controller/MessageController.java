@@ -62,9 +62,8 @@ public class MessageController {
 
 	@RequestMapping(value="/messageWrite.do", method = RequestMethod.GET)
 	public String messageWrite(HttpSession session, 
-			@RequestParam (defaultValue = "0") int getMessageNo,
-			@RequestParam (required = false) String type, Model model) {
-		logger.info("쪽지 쓰기 페이지 보여주기, 파라미터 type={}", type);
+			@RequestParam (defaultValue = "0") int getMessageNo, Model model) {
+		logger.info("쪽지 쓰기 페이지 보여주기");
 		String userId = (String) session.getAttribute("userId");
 		
 		//답장
