@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 @Service
 public class GetMessageServiceImpl implements GetMessageService{
@@ -21,10 +23,30 @@ public class GetMessageServiceImpl implements GetMessageService{
 		return getMessageDao.updateReadCount(messageNo);
 	}
 
-	//중요플래그 업데이트 => 받은메세지 중 보관하고 싶은 쪽지
+	//중요플래그 업데이트 => 받은메세지 중 보관하고 싶은 쪽지 (개별)
 	@Override
 	public int updategetMsgImpflag(int messageNo) {
 		return getMessageDao.updategetMsgImpflag(messageNo);
+	}
+	
+	//중요플래그 업데이트 => 받은메세지 중 보관하고 싶은 쪽지 (다중)
+	@Override
+	@Transactional
+	public int updategetMsgImpflagMulti(List<GetMessageVO> getMsgList) {
+		int cnt=0;
+		try {
+			for(GetMessageVO vo : getMsgList) {
+				int messageNo = vo.getMessageNo();
+				if(messageNo!=0) {	//체크된것만 
+					cnt=getMessageDao.updategetMsgImpflag(messageNo);	//보관
+				}
+			}//commit
+		} catch (RuntimeException e) {	
+			e.printStackTrace();
+			cnt=-1;	
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		return cnt;
 	}
 	
 	//보관함 조회

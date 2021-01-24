@@ -75,6 +75,8 @@ $(document).ready(function() {
 		if($(this).val().length<1){
 			$('.error:eq(1)').html('제목을 입력하세요');
 			$(this).focus();
+		}else if($(this).val().length>=30){
+			$('.error:eq(1)').html('제목은 최대 30자까지 입력가능합니다. (현재 30자)');
 		}else{
 			$('.error:eq(1)').html('');
 		}
@@ -117,7 +119,8 @@ $(document).ready(function() {
 			</c:if>
 		</div>
 		
-		<form name="msgFrm" method="post" class="comment-form">
+		<form name="msgFrm" method="post" class="comment-form" action="<c:url value='/message/messageWrite.do'/>">
+			<input type=hidden name="getMessageNo" value="${param.getMessageNo}"> 
 			<div class="row">
 				<div class="col-lg-6">
 						<span class="error"></span>
@@ -133,11 +136,11 @@ $(document).ready(function() {
 				</div>
 				<div class="col-lg-6">
 					<span class="error"></span>
-					<input type="text" name="messageTitle" id="messageTitle" placeholder="제목을 입력하세요">
+					<input type="text" name="messageTitle" id="messageTitle" placeholder="제목을 입력하세요" maxlength="30">
 				</div>
 				<div class="col-lg-12">
 					<span class="error"></span>
-					<textarea name="messageContent" id="messageContent" placeholder="쪽지 내용을 입력하세요"></textarea>
+					<textarea name="messageContent" id="messageContent" placeholder="쪽지 내용을 입력하세요" maxlength="1000"></textarea>
 					<button type="submit" class="site-btn">보내기</button>
 				</div>
 			</div>

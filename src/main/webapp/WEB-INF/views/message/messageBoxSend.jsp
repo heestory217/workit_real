@@ -22,6 +22,19 @@
 				event.preventDefault();
 			}
 		});
+		
+		$('#btDel').click(function(){
+			var len=$('.cart-table tbody tr td').find('input[type=checkbox]:checked').length;
+			            //여러개 이므로 배열 length사용 가능
+			if(len==0){
+			   alert('먼저 삭제할 쪽지를 선택하세요.');
+			   return false;
+			}
+			            
+			$('form[name=frmList]').prop('action', '<c:url value="/message/deleteMultiMsg.do"/>');
+			$('form[name=frmList]').submit();
+			
+		});
 	});
 </script>
 
@@ -32,8 +45,26 @@
 <!-- 제목 끝 -->
 
 <!-- 보낸쪽지함 부분 시작-->
+<form name="frmList" method="post" 
+	action="<c:url value='/message/messageBoxSend.do'/>">
+	
 <div class="cart-table">
 	<table>
+		<colgroup>
+			<col style="width:5%;" />
+			<col style="width:20%;" />
+			<col style="width:35%;" />
+			<col style="width:25%;" />
+			<col style="width:14%;" />		
+<!-- 			
+			<col style="width:5%;" />
+			<col style="width:15%;" />
+			<col style="width:40%;" />
+			<col style="width:15%;" />
+			<col style="width:15%;" />		
+			<col style="width:10%;" />	
+				 -->
+		</colgroup>
 		<thead>
 			<tr>
 				<th><input type="checkbox" id="chkAll"></th>
@@ -42,7 +73,7 @@
 				<!-- <th class="p-name">내용</th> -->
 				<th>보낸날짜</th>
 				<th>열람여부</th>
-				<th>취소</th>
+				<!-- <th>취소</th> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -52,9 +83,13 @@
 				</tr>
 			</c:if>
 			<c:if test="${!empty list}">
+				<!-- 반복시작 -->
+				<c:set var="k" value="0"/> 
 				<c:forEach var="map" items="${list}">
 					<tr>
-						<td><input type="checkbox"></td>
+						<td>
+							<input type="checkbox" name="msgItems[${k}].messageNo" value="${map['MESSAGE_NO']}">
+						</td>
 						<td>${map['USER_ID']}</td>
 						<td style="text-align:left;">
 							<a href="<c:url value="/message/messageDetail.do?messageNo=${map['MESSAGE_NO']}"/>">
@@ -74,11 +109,15 @@
 						<c:if test="${map['GETMESSAGE_READFLAG']==1}">
 							<td id="openFlag">열람</td>
 						</c:if>
-						<td><a href="<c:url value='/message/deleteMsg.do?messageNo=${map["MESSAGE_NO"]}'/>">
+<%-- 						
+						<td>
+							<a href="<c:url value='/message/deleteMsg.do?messageNo=${map["MESSAGE_NO"]}'/>">
 								<i class="ti-close" style="cursor: pointer;"></i>
 							</a>
 						</td>
+						 --%>
 					</tr>
+					<c:set var="k" value="${k+1}"/>
 				</c:forEach>
 			</c:if>
 		</tbody>
@@ -90,12 +129,13 @@
 	<div class="col-lg-6"></div>
 	<div class="col-lg-6" align="right">
 		<div class="cart-buttons">
-			<a href="#" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+			<a href="#" id="btDel" class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 		</div>
 	</div>
 </div>
 <!-- 버튼 끝 -->
 
+</form>
 <!-- 보낸쪽지함 부분 끝-->
 
 <%@ include file="messageBottom.jsp"%>

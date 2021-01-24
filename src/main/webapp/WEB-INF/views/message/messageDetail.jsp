@@ -57,6 +57,7 @@
 	<div class="posted-by" style="margin-left: 10%;width: 80%;height: 230px">
 			<textarea readonly="readonly">${map['MESSAGE_CONTENT']}</textarea>
 	</div>
+<%-- 	
 	<br>
 	<div class="blog-detail-title">
 		<div style="font-size: 15px;">
@@ -71,6 +72,7 @@
 			</a>
 		</div>
 	</div>
+	 --%>
 </div>
 
 <hr>
