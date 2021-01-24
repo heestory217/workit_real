@@ -42,7 +42,23 @@
 	    margin: 0px 30px 0 30px;
 	}
 	
-    
+	.NoneQuestBox{
+	    padding: 150px 10px;
+	    height: 430px;
+	    width: 92%;
+	    margin: 0px 30px 0 30px;
+	    text-align: center;
+	    color:silver;
+	}
+	
+	.NoneQuestBox>p{
+		font-size:16px
+	}
+	
+    .fa-commenting-o {
+		font-size: 57px;
+		color: silver;
+	}
 	.qtTitle{
 		font-size: 20px;
 		color:black;
@@ -104,13 +120,14 @@
 		font-size:13px;	
 	}
 	
+	
 </style>
 </head>
 <body>
 <div class="divCmty">
 <!-- asdie : 사이드 메뉴바 -->
 <c:import url="/indiv/community/cmtyNavbar.do">
-	<c:param name="questionNicname" value="${userNicknum }"></c:param>
+	<c:param name="userNo" value="${userNo }"></c:param>
 </c:import>
  	
 <section>
@@ -122,22 +139,26 @@
 			</div>
 			
 			<!-- 질문 없는 경우 아이콘, 문구 정하기!!! -->
-			<article id="questBox">
 				<c:if test="${empty qstnList}">
-					<div class="questBoxWrap">
-						<div class="oneQuestBox">
-							<span>질문 없음x</span>
+				<article id="questBox">
+					<div class="NoneQquestBoxWrap">
+						<div class="NoneQuestBox">
+							<i class="fa fa-commenting-o"></i><br>
+							<p>등록된 질문이 없습니다.</p>
 						</div>
 					</div>
+				</article>
 				</c:if>
-				<!-- 질문 반복 시작 -->
+			<!-- 질문 반복 시작 -->
 				<c:if test="${!empty qstnList }">
+				<article id="questBox">
 					<c:forEach var="qstnVo" items="${qstnList }">
 									
 				<div class="questBoxWrap">
 				<div class="oneQuestBox">
 					<div>							
-						<a href="<c:url value='/indiv/community/qstnDetail.do?qstnNo=${qstnVo.questionNo }'/>"
+						<a href
+		="<c:url value='/indiv/community/qstnDetail.do?qstnNo=${qstnVo.questionNo }'/>"
 							class="contentArea">
 							<dl>
 								<!-- 제목 -->
@@ -164,11 +185,11 @@
 				</div>
 					</c:forEach>
 				<!-- 질문 반복 끝 -->
-				</c:if>
 				<div class="paging">
 				
 				</div>
 			</article>
+			</c:if>
 		</div>
 		
 	</div>
