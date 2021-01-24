@@ -49,23 +49,23 @@
                     <div class="single-banner">
                         <img src="<c:url value="/resources/img/banner-1.jpg"/>">
                         <div class="inner-text">
-                            <h4>Men’s</h4>
+                            <h4>JAVA 개발자</h4>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="single-banner">
-                        <img src="img/banner-2.jpg" alt="">
+                        <img src="<c:url value="/resources/img/banner-2.jpg"/>">
                         <div class="inner-text">
-                            <h4>Women’s</h4>
+                            <h4>Python 개발자</h4>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="single-banner">
-                        <img src="img/banner-3.jpg" alt="">
+                        <img src="<c:url value="/resources/img/banner-3.jpg"/>">
                         <div class="inner-text">
-                            <h4>Kid’s</h4>
+                            <h4>C/C++ 개발자</h4>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="product-large set-bg" data-setbg="img/products/women-large.jpg">
+                    <div class="product-large set-bg" data-setbg="<c:url value="/resources/img/products/women-large.jpg" />">
                         <h2>Women’s</h2>
                         <a href="#">Discover More</a>
                     </div>
@@ -96,7 +96,7 @@
                     <div class="product-slider owl-carousel">
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="img/products/women-1.jpg" alt="">
+                                <img src="<c:url value="/resources/img/products/women-1.jpg"/>" alt="">
                                 <div class="sale">Sale</div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
