@@ -12,4 +12,6 @@ public interface QuestionDAO {
 	List<QuestionVO> selectAllQstn();
 	int selectUserQstnCnt(int userNo);
 	int deleteQstn(int qstnNo);
+	int getTotalRecord(QstnPagingVO vo);
+	List<Map<String, Object>> selectAllQuestion(QstnPagingVO vo);
 }

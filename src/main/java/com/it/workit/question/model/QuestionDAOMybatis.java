@@ -54,6 +54,16 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	public int deleteQstn(int qstnNo) {
 		return sqlSession.delete(namespace+"deleteQstn", qstnNo);
 	}
+
+	@Override
+	public int getTotalRecord(QstnPagingVO vo) {
+		return sqlSession.selectOne(namespace+"getTotalRecord", vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllQuestion(QstnPagingVO vo) {
+		return sqlSession.selectList(namespace+"selectAllQuestion", vo);
+	}
 	
 	
 }

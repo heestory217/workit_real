@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.it.workit.common.PaginationInfo;
+import com.it.workit.common.SearchVO;
+import com.it.workit.common.Utility;
+import com.it.workit.question.model.QstnPagingVO;
 import com.it.workit.question.model.QuestionService;
 import com.it.workit.question.model.QuestionVO;
 
@@ -64,13 +68,29 @@ public class CommunityController {
 	
 	//전체 질문 조회
 	@RequestMapping("/qstnList.do")
-	public String qstnList(Model model) {
-		logger.info("질문 전체 조회");
+	public String qstnList(@ModelAttribute QstnPagingVO vo, Model model) {
+		logger.info("질문 전체 조회, 파라미터 vo={}", vo);
 		
-		List<QuestionVO> qstnList=qstnService.selectAllQstn();
+		//[1]pagingInfo
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(vo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		//[2]searchVo
+		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		int totalRecord=qstnService.getTotalRecord(vo);
+		logger.info("총 레코드 수, totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		//List<QuestionVO> qstnList=qstnService.selectAllQstn();
+		List<Map<String, Object>> qstnList=qstnService.selectAllQuestion(vo);
 		logger.info("질문 전체 조회 결과, qstnList.size={}", qstnList.size());
 		
 		model.addAttribute("qstnList", qstnList);
+		model.addAttribute("pagingInfo", pagingInfo);
 		
 		return "indiv/community/qstnList";
 	}

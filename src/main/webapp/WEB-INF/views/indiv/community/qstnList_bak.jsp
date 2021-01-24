@@ -91,14 +91,15 @@
 	
 	.paging{
 		height:100px;
-		text-align:center;
-		clear:both;
 	}
 	
 	.questBoxWrap:hover{
 		background-color: #f5f7ff;;
 	}
 	
+	.paging{
+		clear:both;
+	}
 	
 	.cellBx > span{
 		float:left;
@@ -133,26 +134,26 @@
 		font-weight: 700;
 		line-height: 28px;
 		text-align: center;
+		margin-right: 16px;
 		-webkit-transition: all, 0.3s;
 		-moz-transition: all, 0.3s;
 		-ms-transition: all, 0.3s;
 		-o-transition: all, 0.3s;
 		transition: all, 0.3s;
-		margin-right: 0;
-	}
+		}
 		
-	.product__pagination a:hover,
-	.blog__pagination a:hover,
-	#currentPage {
-		background: #4C50BB;
-		border-color: #4C50BB;
-		color: #ffffff;
-	}
+		.product__pagination a:hover,
+		.blog__pagination a:hover,
+		#currentPage {
+			background: #4C50BB;
+			border-color: #4C50BB;
+			color: #ffffff;
+		}
 		
-	.product__pagination a:last-child,
-	.blog__pagination a:last-child {
-		margin-right: 0;
-	}
+		.product__pagination a:last-child,
+		.blog__pagination a:last-child {
+			margin-right: 0;
+		}
 		
 </style>
 <script type="text/javascript">
@@ -178,10 +179,6 @@
 				<p class="title">전체질문</p>
 			</div>
 			
-<form action="<c:url value='/indiv/community/qstnList.do'/>" name="frmPage" method="post">
-	<input type="hidden" name="currentPage">
-</form>
-			
 			<!-- 질문 없는 경우 아이콘, 문구 정하기!!! -->
 				<c:if test="${empty qstnList}">
 				<article id="questBox">
@@ -196,28 +193,28 @@
 			<!-- 질문 반복 시작 -->
 				<c:if test="${!empty qstnList }">
 				<article id="questBox">
-					<c:forEach var="map" items="${qstnList }">
+					<c:forEach var="qstnVo" items="${qstnList }">
 									
 				<div class="questBoxWrap">
 				<div class="oneQuestBox">
 					<div>							
 						<a href
-		="<c:url value='/indiv/community/qstnDetail.do?qstnNo=${map["QUESTION_NO"] }'/>"
+		="<c:url value='/indiv/community/qstnDetail.do?qstnNo=${qstnVo.questionNo }'/>"
 							class="contentArea">
 							<dl>
 								<!-- 제목 -->
 								<dt class="qtTitle">
-								<i class="fa fa-quora"></i><span>${map['QUESTION_TITLE'] }</span></dt>
+								<i class="fa fa-quora"></i><span>${qstnVo.questionTitle }</span></dt>
 								
 								<!-- 내용 -->
-								<dd class="qtContent">${map['QUESTION_ABOUT'] }</dd>
+								<dd class="qtContent">${qstnVo.questionAbout }</dd>
 								
 								<!-- 답변, 조회수, 작성시간 -->
 								<dd class="cellBx">
 									<span class="reply">답변<span class="replyNum"> 0</span>&nbsp;&nbsp;|&nbsp;</span>
 									<span class="readCnt">조회 3&nbsp;&nbsp;|&nbsp;</span>
 									<span class="regTime">
-										<fmt:formatDate value="${map['QUESTION_DATE']}"
+										<fmt:formatDate value="${qstnVo.questionDate }"
 											pattern="yyyy-MM-dd"/>
 									</span>
 									<div class="bookmark"><i class="fa fa-bookmark-o" aria-hidden="true"></i></div>
@@ -229,39 +226,49 @@
 				</div>
 					</c:forEach>
 				<!-- 질문 반복 끝 -->
-				<!-- 페이징 처리 -->
-				<div class="paging col-lg-12">
-				<!-- 이전블럭 -->	
-				 <div class="product__pagination blog__pagination">
-				 	<c:if test="${pagingInfo.firstPage>1 }">	
-						<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
-							<i class="fa fa-long-arrow-left"></i>
-						</a>
-					</c:if>
-					
-				<!-- [1][2][3][4][5][6][7][8][9][10] -->		
-					<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
-						<c:if test="${i==pagingInfo.currentPage }">
-							<span id="currentPage" >
-								${i}</span>			
-						</c:if>
-						<c:if test="${i!=pagingInfo.currentPage }">
-							<a href="#" onclick="pageFunc(${i})">
-								${i}</a>			
-						</c:if>
-					</c:forEach>
-					
-					<!-- 다음블럭 -->	
-					<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">	
-						<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
-							<i class="fa fa-long-arrow-right"></i>
-						</a>
-					</c:if>
-				    </div>
+				<div class="paging">
+
+<!-- 페이징 처리 -->
+<div class="col-lg-12">
+ <div class="product__pagination blog__pagination">
+ 	<c:if test="${pagingInfo.firstPage>1 }">	
+		<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
+			<i class="fa fa-long-arrow-left"></i>
+		</a>
+	</c:if>
+		
+
+	<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
+		<c:if test="${i==pagingInfo.currentPage }">
+			<span id="currentPage" >
+				${i}</span>			
+		</c:if>
+		<c:if test="${i!=pagingInfo.currentPage }">
+			<a href="#" onclick="pageFunc(${i})">
+				${i}</a>			
+		</c:if>
+	</c:forEach>
+	
+	
+	<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">	
+		<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
+			<i class="fa fa-long-arrow-right"></i>
+		</a>
+	</c:if>
+    </div>
+</div>
+				
+				
+				
+				
+				
+				
+				
 				</div>
 			</article>
 			</c:if>
 		</div>
+		
 	</div>
 </section>
 <div style="clear:both;"></div>

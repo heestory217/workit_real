@@ -52,6 +52,16 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionDao.deleteQstn(qstnNo);
 	}
 
+	@Override
+	public int getTotalRecord(QstnPagingVO vo) {
+		return questionDao.getTotalRecord(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllQuestion(QstnPagingVO vo) {
+		return questionDao.selectAllQuestion(vo);
+	}
+
 
 	
 }
