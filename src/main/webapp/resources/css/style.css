@@ -812,7 +812,7 @@ button.site-btn.register-btn {
 	color: #ffffff;
 	border-right: 2px solid #3b3b3b;
 	text-transform: uppercase;
-	padding: 16px 42px 15px;
+	padding: 16px 41px 15px;
 	-webkit-transition: all 0.3s;
 	-o-transition: all 0.3s;
 	transition: all 0.3s;
@@ -3952,7 +3952,7 @@ button.site-btn.register-btn {
 		padding: 16px 12px 12px 11px;
 	}
 	.nav-item .nav-menu li a {
-		padding: 16px 41px 15px;
+		padding: 16px 40px 15px;
 	}
 }
 

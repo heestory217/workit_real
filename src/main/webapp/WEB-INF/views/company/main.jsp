@@ -10,7 +10,7 @@
     <div class="banner-section spad">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="single-banner">
                         <img src="<c:url value='/resources/img/banner-1.jpg'/>">
                         <div class="inner-text">
@@ -18,7 +18,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="single-banner">
                         <img src="<c:url value="/resources/img/banner-2.jpg"/>">
                         <div class="inner-text">
@@ -26,7 +26,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
+                    <div class="single-banner">
+                        <img src="<c:url value="/resources/img/banner-3.jpg"/>">
+                        <div class="inner-text">
+                            <h4>JavaScript 개발자</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
                     <div class="single-banner">
                         <img src="<c:url value="/resources/img/banner-3.jpg"/>">
                         <div class="inner-text">
@@ -39,19 +47,9 @@
     </div>
     <!-- 가장 많이 쓰는 언어 검색 끝 -->
 	
-	
-	<!-- 채용 공고별(최신 3개) 지원 현황 -->
+	<!-- 채용 공고별(최신 4개)/ 맞춤 이력서 추천 : 회사의 최근 채용 공고중 언어/경력과 일치하는 이력서 -->
 	<c:import url="/comapny/CorpRecruitResume.do"/>
-
-	
-	<!-- 채용 공고별 지원 현황 끝 -->
-	
-	
-	
-	<!-- 맞춤 이력서 추천 : 회사의 최근 채용 공고중 언어/경력과 일치하는 이력서 -->
-	
-	
-	<!-- 맞춤이력서 추천 끝 -->
+	<!-- 채용 공고별 이력서 리스트 끝 -->
 	
  	<!-- 서비스 소개, 가격정책 -->
  	<section class="pricing-card-area fix">
