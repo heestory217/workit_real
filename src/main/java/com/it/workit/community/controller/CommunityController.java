@@ -131,7 +131,7 @@ public class CommunityController {
 		logger.info("질문 수정 화면, 파라미터 qstnNo={}", qstnNo);
 		if(qstnNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
-			model.addAttribute("url", "/indiv/community/qstnDetail.do");
+			model.addAttribute("url", "/indiv/community/qstnDetail.do?qstnNo="+qstnNo);
 			
 			return "common/message";
 		}
@@ -169,6 +169,28 @@ public class CommunityController {
 	}
 	
 	//질문 삭제
+	@RequestMapping("/qstnDelete.do")
+	public String qstnDel(@RequestParam(defaultValue = "0")int qstnNo, Model model) {
+		logger.info("질문 삭제, 파라미터 qstnNo={}", qstnNo);
+		if(qstnNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/indiv/community/qstnDetail.do?qstnNo="+qstnNo);
+		}
+		
+		int cnt=qstnService.deleteQstn(qstnNo);
+		String msg="질문 삭제에 실패하였습니다.",
+				url ="/indiv/community/qstnEdit.do?qstnNo="+qstnNo;
+		if(cnt>0) {
+			msg="질문이 삭제되었습니다.";
+			url ="/indiv/community/qstnList.do";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+		
+	}
 		
 	/*
 

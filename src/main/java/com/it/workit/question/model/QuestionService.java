@@ -11,4 +11,5 @@ public interface QuestionService {
 	int updateQstn(QuestionVO vo);
 	List<QuestionVO> selectAllQstn();
 	int selectUserQstnCnt(int userNo);
+	int deleteQstn(int qstnNo);
 }

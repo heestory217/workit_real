@@ -16,21 +16,25 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionDao.selectUserQstnAll(userNo);
 	}
 	
+	//질문 등록
 	@Override
 	public int insertQstn(QuestionVO vo) {
 		return questionDao.insertQstn(vo);
 	}
-
+	
+	//질문 조회
 	@Override
 	public QuestionVO selectQstn(int qstnNo) {
 		return questionDao.selectQstn(qstnNo);
 	}
-
+	
+	//질문 수정
 	@Override
 	public int updateQstn(QuestionVO vo) {
 		return questionDao.updateQstn(vo);
 	}
-
+	
+	//전체 질문 조회
 	@Override
 	public List<QuestionVO> selectAllQstn() {
 		return questionDao.selectAllQstn();
@@ -40,6 +44,12 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public int selectUserQstnCnt(int userNo) {
 		return questionDao.selectUserQstnCnt(userNo);
+	}
+
+	//질문 삭제
+	@Override
+	public int deleteQstn(int qstnNo) {
+		return questionDao.deleteQstn(qstnNo);
 	}
 
 

@@ -216,6 +216,11 @@ textarea::placeholder {
 			$('.editBtn').toggle();
 		});
 		
+		$('#delBtn').click(function(){
+			if(!confirm('삭제된 질문은 복구가 불가능합니다.\n글을 삭제하시겠습니까?')){
+				event.preventDefault();
+			}
+		});
 	});
 
 </script>
@@ -250,7 +255,8 @@ textarea::placeholder {
 										<a href
 						="<c:url value='/indiv/community/qstnEdit.do?qstnNo=${qstnVo.questionNo }'/>">수정</a>
 										<hr>
-										<a href="#">삭제</a>
+										<a id="delBtn" href
+						="<c:url value='/indiv/community/qstnDelete.do?qstnNo=${qstnVo.questionNo }'/>">삭제</a>
 										</div>	
 									</div>
 								<!-- editBox 끝 -->

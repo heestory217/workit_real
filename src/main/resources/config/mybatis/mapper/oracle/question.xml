@@ -49,7 +49,10 @@
 		select count(*) from QUESTION where USER_NO=#{userNo} order by QUESTION_NO desc
 	</select>
 	
-	
+	<!-- 질문 삭제 -->
+	<delete id="deleteQstn" parameterType="int">
+		DELETE FROM QUESTION WHERE QUESTION_NO=#{questionNo}
+	</delete>
 </mapper>
 
 

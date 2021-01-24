@@ -36,7 +36,8 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	public int updateQstn(QuestionVO vo) {
 		return sqlSession.update(namespace+"updateQstn", vo);
 	}
-
+	
+	//전체 질문 조회
 	@Override
 	public List<QuestionVO> selectAllQstn() {
 		return sqlSession.selectList(namespace+"selectAllQstn");
@@ -47,4 +48,12 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	public int selectUserQstnCnt(int userNo) {
 		return sqlSession.selectOne(namespace+"selectUserQstnCnt", userNo);
 	}
+
+	//질문 삭제
+	@Override
+	public int deleteQstn(int qstnNo) {
+		return sqlSession.delete(namespace+"deleteQstn", qstnNo);
+	}
+	
+	
 }
