@@ -40,16 +40,20 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionDao.selectAllQstn();
 	}
 
-
-	@Override
-	public int selectUserQstnCnt(int userNo) {
-		return questionDao.selectUserQstnCnt(userNo);
-	}
-
 	//질문 삭제
 	@Override
 	public int deleteQstn(int qstnNo) {
 		return questionDao.deleteQstn(qstnNo);
+	}
+
+	@Override
+	public int getTotalRecord(QstnPagingVO vo) {
+		return questionDao.getTotalRecord(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllQuestion(QstnPagingVO vo) {
+		return questionDao.selectAllQuestion(vo);
 	}
 
 
