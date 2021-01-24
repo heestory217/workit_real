@@ -8,4 +8,9 @@ import org.springframework.stereotype.Repository;
 public class ShoppingCartDAOMybatis implements ShoppingCartDAO {
 	@Autowired private SqlSessionTemplate sqlSession;
 	private String namespace = "config.mybatis.mapper.oracle.cart.";
+	
+	@Override
+	public int insertCart(ShoppingCartVO vo) {
+		return sqlSession.insert(namespace+"insertCart", vo);
+	}
 }

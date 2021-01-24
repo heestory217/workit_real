@@ -81,7 +81,7 @@
                     <div class="col-lg-4">
                         <div class="cart-buttons">
                             <a href="#" class="primary-btn continue-shop">계속 쇼핑하기</a>
-                            <a href="#" class="primary-btn up-cart">장바구니 비우기</a>
+                            <a href="<c:url value='/shop/clearCart.do'/>" class="primary-btn up-cart">장바구니 비우기</a>
                         </div>
                         <div class="discount-coupon">
                             <h6>Coupon Codes</h6>
