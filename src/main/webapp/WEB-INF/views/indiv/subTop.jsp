@@ -71,7 +71,7 @@
                                 <li><a href="#">결제 내역</a></li>
                             </ul>
                         </li>
-                        <li><a href="<c:url value='/community/qstnList.do'/>">커뮤니티</a></li>
+                        <li><a href="<c:url value='/indiv/community/qstnList.do'/>">커뮤니티</a></li>
                         <li><a href="#">서비스 안내</a></li>
                     </ul>
                 </nav>
