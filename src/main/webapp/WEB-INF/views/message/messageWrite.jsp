@@ -120,6 +120,7 @@ $(document).ready(function() {
 		</div>
 		
 		<form name="msgFrm" method="post" class="comment-form" action="<c:url value='/message/messageWrite.do'/>">
+			<input type=hidden name="getMessageNo" value="${param.getMessageNo}"> 
 			<div class="row">
 				<div class="col-lg-6">
 						<span class="error"></span>
