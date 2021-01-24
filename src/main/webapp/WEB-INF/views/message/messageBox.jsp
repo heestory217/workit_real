@@ -11,15 +11,15 @@
 
 <script type="text/javascript">
 	$(function(){
-		$('#btDel').click(function(){
+		$('#btImp').click(function(){
 			var len=$('.cart-table tbody tr td').find('input[type=checkbox]:checked').length;
 			            //여러개 이므로 배열 length사용 가능
 			if(len==0){
-			   alert('먼저 삭제할 쪽지를 선택하세요.');
+			   alert('먼저 보관할 쪽지를 선택하세요.');
 			   return false;
 			}
 			
-			$('form[name=frmGetList]').prop('action', '<c:url value="/message/deleteMultiGetMsg.do"/>');
+			$('form[name=frmGetList]').prop('action', '<c:url value="/message/impMultiGetMsg.do"/>');
 			$('form[name=frmGetList]').submit();
 			
 		});
@@ -76,7 +76,7 @@
 				<c:forEach var="map" items="${getList}">
 					<tr>
 						<td>
-							<input type="checkbox" name="msgItems[${k}].messageNo" value="${map['MESSAGE_NO']}">
+							<input type="checkbox" name="getMsgItems[${k}].messageNo" value="${map['MESSAGE_NO']}">
 						</td>
 						<td>${map['USER_ID']}</td>
 						<td style="text-align: left;">
@@ -145,7 +145,7 @@
 	<div class="col-lg-6" align="right">
 		<div class="cart-buttons">
 			<c:if test="${empty param.type}">
-				<a href="#" class="btn btn-primary" style="background: #4C50BB;">보관</a>
+				<a href="#" id="btImp" class="btn btn-primary" style="background: #4C50BB;">보관</a>
 			</c:if>
 			<a href="#" id="btDel" class="btn btn-primary" style="background: #4C50BB;">삭제</a>
 		</div>

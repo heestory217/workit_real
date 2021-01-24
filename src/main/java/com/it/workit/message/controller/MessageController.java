@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.it.workit.getmessage.model.GetMessageListVO;
 import com.it.workit.getmessage.model.GetMessageService;
 import com.it.workit.getmessage.model.GetMessageVO;
 import com.it.workit.message.model.MessageListVO;
@@ -295,26 +296,22 @@ public class MessageController {
 		
 	}
 	
-	@RequestMapping("/deleteMultiGetMsg.do")
-	public String deleteMultiMsg2(@ModelAttribute MessageListVO msgListVo,
-			@RequestParam (required = false) String type,
+	@RequestMapping("/impMultiGetMsg.do")
+	public String impMultiGetMsg(@ModelAttribute GetMessageListVO getMsgListVo,
 			Model model) {
-		logger.info("선택한 쪽지 삭제(플래그 갱신) 처리, 파라미터 msgListVo={}", msgListVo);
+		logger.info("선택한 쪽지 보관(플래그 갱신) 처리, 파라미터 getMsgListVo={}", getMsgListVo);
 		
-		List<MessageVO> msgList = msgListVo.getMsgItems(); 
-		int cnt = messageService.updateMsgDelflagMulti(msgList);
-		logger.info("선택한 쪽지 삭제 결과, cnt={}", cnt);
+		List<GetMessageVO> getMsgList = getMsgListVo.getGetMsgItems(); 
+		int cnt = getMessageService.updategetMsgImpflagMulti(getMsgList);
+		logger.info("선택한 쪽지 보관 결과, cnt={}", cnt);
 		
-		String msg="선택한 쪽지 삭제 실패!", url="/message/messageBox.do";
-		if(type!=null && !type.isEmpty()) {
-			url="/message/messageBox.do?type="+type;
-		}
+		String msg="선택한 쪽지 보관 실패!", url="/message/messageBox.do";
 		
 		if(cnt>0) {
-			msg="선택한 쪽지를 삭제하였습니다.";
-			for(int i=0;i<msgList.size();i++) {
-				MessageVO msgVo = msgList.get(i);
-				logger.info("[{}] : messageNo={}", i, msgVo.getMessageNo());
+			msg="선택한 쪽지를 보관하였습니다.";
+			for(int i=0;i<getMsgList.size();i++) {
+				GetMessageVO getMsgVo = getMsgList.get(i);
+				logger.info("[{}] : messageNo={}", i, getMsgVo.getMessageNo());
 			}//for
 		}
 		
