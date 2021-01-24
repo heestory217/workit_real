@@ -25,7 +25,7 @@
 		values(#{questionNo},#{userNo},#{workkindNo},#{questionTitle},#{questionAbout})
 	</insert>	
 	
-	<!-- 질문 목록 조회 -->
+	<!-- 질문 상세 조회 -->
 	<select id="selectQstn" parameterType="int" resultType="questionVo">
 		select * from QUESTION where QUESTION_NO=#{questionNo}
 	</select>
@@ -85,6 +85,13 @@
 	<delete id="deleteQstn" parameterType="int">
 		DELETE FROM QUESTION WHERE QUESTION_NO=#{questionNo}
 	</delete>
+	
+	<!-- 조회수 증가 처리 -->
+	<update id="updateReadCnt" parameterType="int">
+		update QUESTION
+		set QUESTION_VIEW=QUESTION_VIEW+1
+		where QUESTION_NO=#{questionNo}
+	</update>
 </mapper>
 
 

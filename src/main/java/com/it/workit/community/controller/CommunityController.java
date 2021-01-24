@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.common.PaginationInfo;
-import com.it.workit.common.SearchVO;
 import com.it.workit.common.Utility;
 import com.it.workit.question.model.QstnPagingVO;
 import com.it.workit.question.model.QuestionService;
@@ -33,8 +32,16 @@ public class CommunityController {
 
 	//커뮤니티 메뉴
 	@RequestMapping("/cmtyNavbar.do")
-	public void sideMenu() {
+	public void sideMenu(HttpSession session,Model model) {
+		int userNo=(Integer) session.getAttribute("userNo");
 		logger.info("커뮤니티 메뉴 화면");
+		
+		QstnPagingVO vo=new QstnPagingVO();
+		vo.setUserNo(userNo);
+		int totalRecord=qstnService.getTotalRecord(vo);
+		logger.info("회원 질문 개수, totalRecord={}",totalRecord);
+		model.addAttribute("totalRecord", totalRecord);
+		
 	}
 
 	//회원 활동 내역 조회
@@ -229,9 +236,11 @@ public class CommunityController {
 		if(qstnNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
 			model.addAttribute("url", "/indiv/community/qstnDetail.do?qstnNo="+qstnNo);
+			return "common/message";
 		}
 		
 		int cnt=qstnService.deleteQstn(qstnNo);
+		logger.info("질문 삭제 결과, cnt={}", cnt);
 		String msg="질문 삭제에 실패하였습니다.",
 				url ="/indiv/community/qstnEdit.do?qstnNo="+qstnNo;
 		if(cnt>0) {
@@ -245,7 +254,23 @@ public class CommunityController {
 		return "common/message";
 		
 	}
+
+	//조회수 증가
+	@RequestMapping("/cntUpdate.do")
+	public String updateReadCount(@RequestParam(defaultValue = "0") int qstnNo, Model model) {
+		logger.info("조회수 증가, 파라미터 qstnNo={}", qstnNo);
+		if(qstnNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다");
+			model.addAttribute("url", "/indiv/community/qstnList.do");
+			
+			return "common/message";
+		}
 		
+		int cnt=qstnService.updateReadCnt(qstnNo);
+		logger.info("조회수 증가 결과, cnt={}", cnt);
+		
+		return "redirect:/indiv/community/qstnDetail.do?qstnNo="+qstnNo;
+	}
 	/*
 
 

@@ -56,6 +56,11 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionDao.selectAllQuestion(vo);
 	}
 
+	@Override
+	public int updateReadCnt(int qstnNo) {
+		return questionDao.updateReadCnt(qstnNo);
+	}
+
 
 	
 }

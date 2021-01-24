@@ -368,7 +368,7 @@ function pageFunc(curPage){
 												<div>
 													<a
 														href="<c:url value
-									='/indiv/community/qstnDetail.do?qstnNo=${map["QUESTION_NO"]}&userNo=${map["USER_NO"] }'/>"
+									='/indiv/community/cntUpdate.do?qstnNo=${map["QUESTION_NO"]}&userNo=${map["USER_NO"] }'/>"
 														class="contentArea">
 														<dl>
 															<!-- 제목 -->
@@ -383,7 +383,7 @@ function pageFunc(curPage){
 															<dd class="cellBx">
 																<span class="reply">답변<span class="replyNum">
 																		0</span>&nbsp;&nbsp;|&nbsp;
-																</span> <span class="readCnt">조회 3&nbsp;&nbsp;|&nbsp;</span> <span
+																</span> <span class="readCnt">조회 ${map['QUESTION_VIEW']}&nbsp;&nbsp;|&nbsp;</span> <span
 																	class="regTime"> <fmt:formatDate
 																		value="${map['QUESTION_DATE']}" pattern="yyyy-MM-dd" />
 																</span>

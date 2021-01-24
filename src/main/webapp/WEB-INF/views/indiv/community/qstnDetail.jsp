@@ -221,8 +221,17 @@ textarea::placeholder {
 				event.preventDefault();
 			}
 		});
+		
+		$('.cmtWrite').click(function(){
+			if($('input[name=userNo]').val()==""){
+				alert('답변을 등록하려면 로그인이 필요합니다.');
+				event.preventDefault();
+				location.href="<c:url value='/users/login.do'/>"
+			}
+		});
 	});
-
+	
+	
 </script>
 
 <title>커뮤니티게시판</title>
@@ -286,7 +295,8 @@ textarea::placeholder {
 							</div>
 							<div class="cmtBox">
 								<div class="writeBoxWrap cmtWrite">
-									<form action="/indiv/community/cmtWrite.do" method="post">
+									<input type="hidden" name="userNo" value="${sessionScope.userNo }">
+									<form name="comntFrm" action="/indiv/community/cmtWrite.do" method="post">
 										<div class="cmtWriteBox">
 											<textarea class="cmtWriteArea" placeholder="솔직하고 따뜻한 답변을 남겨주세요."></textarea>
 										</div>
