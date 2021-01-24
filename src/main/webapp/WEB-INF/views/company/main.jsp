@@ -52,16 +52,16 @@
 	<!-- 채용 공고별 이력서 리스트 끝 -->
 	
  	<!-- 서비스 소개, 가격정책 -->
- 	<section class="pricing-card-area fix">
+ 	<section class="pricing-card-area fix" style="margin-bottom: 60px;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-8">
                     <div class="section-tittle text-center mb-90">
-                        <h2 style="margin-top: 60px;">Work it이 제공하는 서비스</h2>
+                        <h2 style="margin-top: 70px;">Work it이 제공하는 서비스</h2>
                         <p>work it은 다음과 같은 서비스를 제공합니다. 좋은 인재를 찾을 수 있도록 돕겠습니다.</p>
                     </div>
                 </div>
-            </div>
+       	    </div>
             <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10">
                     <div class="single-card text-center mb-30">
