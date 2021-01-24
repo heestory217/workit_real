@@ -3,39 +3,40 @@ package com.it.workit.shoppingCart.model;
 import java.sql.Timestamp;
 
 public class ShoppingCartVO {
-	private int SHOPPINGCART_NO;
-	private int USER_NO;
-	private int RESUME_NO;
-	private Timestamp SHOPPINGCART_DATE;
+	private int shoppingcartNo;
+	private int userNo;
+	private int resumeNo;
+	private Timestamp shoppingcartDate;
 	
-	public int getSHOPPINGCART_NO() {
-		return SHOPPINGCART_NO;
+	public int getShoppingcartNo() {
+		return shoppingcartNo;
 	}
-	public void setSHOPPINGCART_NO(int sHOPPINGCART_NO) {
-		SHOPPINGCART_NO = sHOPPINGCART_NO;
+	public void setShoppingcartNo(int shoppingcartNo) {
+		this.shoppingcartNo = shoppingcartNo;
 	}
-	public int getUSER_NO() {
-		return USER_NO;
+	public int getUserNo() {
+		return userNo;
 	}
-	public void setUSER_NO(int uSER_NO) {
-		USER_NO = uSER_NO;
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
 	}
-	public int getRESUME_NO() {
-		return RESUME_NO;
+	public int getResumeNo() {
+		return resumeNo;
 	}
-	public void setRESUME_NO(int rESUME_NO) {
-		RESUME_NO = rESUME_NO;
+	public void setResumeNo(int resumeNo) {
+		this.resumeNo = resumeNo;
 	}
-	public Timestamp getSHOPPINGCART_DATE() {
-		return SHOPPINGCART_DATE;
+	public Timestamp getShoppingcartDate() {
+		return shoppingcartDate;
 	}
-	public void setSHOPPINGCART_DATE(Timestamp sHOPPINGCART_DATE) {
-		SHOPPINGCART_DATE = sHOPPINGCART_DATE;
+	public void setShoppingcartDate(Timestamp shoppingcartDate) {
+		this.shoppingcartDate = shoppingcartDate;
 	}
 	
 	@Override
 	public String toString() {
-		return "ShoppingCartVO [SHOPPINGCART_NO=" + SHOPPINGCART_NO + ", USER_NO=" + USER_NO + ", RESUME_NO="
-				+ RESUME_NO + ", SHOPPINGCART_DATE=" + SHOPPINGCART_DATE + "]";
+		return "ShoppingCartVO [shoppingcartNo=" + shoppingcartNo + ", userNo=" + userNo + ", resumeNo=" + resumeNo
+				+ ", shoppingcartDate=" + shoppingcartDate + "]";
 	}
+	
 }
