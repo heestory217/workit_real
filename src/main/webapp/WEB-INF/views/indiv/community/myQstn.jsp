@@ -229,7 +229,6 @@
 	}
 </script>
 
-
 <title>커뮤니티게시판</title>
 </head>
 <body>
@@ -248,6 +247,7 @@
 			</p>
 		</div>
 		
+		<!-- 페이징 처리를 위한 form  -->
 		<form action="<c:url value='/indiv/community/myQstn.do'/>" 
 				name="frmPage" method="post">
 			<input type="hidden" name="currentPage">
@@ -304,6 +304,8 @@
 				</div>
 				</c:forEach>
 			<!-- 질문 반복 끝 -->
+			
+			<!-- 페이징 처리 -->
 			<div class="paging col-lg-12">
 				<!-- 이전블럭 -->	
 				 <div class="product__pagination blog__pagination">

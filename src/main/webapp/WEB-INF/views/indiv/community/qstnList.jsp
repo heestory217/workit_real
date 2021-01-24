@@ -212,7 +212,7 @@
 								<i class="fa fa-quora"></i><span>${map['QUESTION_TITLE'] }</span></dt>
 								
 								<!-- 내용 -->
-								<dd class="qtContent">${map['QUESTION_ABOUT'] }</dd>
+								<dd class="qtContent">${map['questionAbout'] }</dd>
 								
 								<!-- 답변, 조회수, 작성시간 -->
 								<dd class="cellBx">

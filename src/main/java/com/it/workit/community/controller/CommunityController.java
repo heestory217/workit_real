@@ -39,14 +39,30 @@ public class CommunityController {
 
 	//회원 활동 내역 조회
 	@RequestMapping(value="/myProfile.do", method = RequestMethod.GET)	
-	public String profile(HttpSession session, Model model) {
+	public String profile(@ModelAttribute QstnPagingVO vo,HttpSession session, Model model) {
 		int userNo=(Integer) session.getAttribute("userNo");
 		logger.info("회원 활동 내역 조회, userNo={}", userNo);
 		
-		List<Map<String, Object>> qstnList=qstnService.selectUserQstnAll(userNo);
+		//[1]pagingInfo
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(vo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		//[2]searchVo
+		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		int totalRecord=qstnService.getTotalRecord(vo);
+		logger.info("총 레코드 수, totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		
+		List<Map<String, Object>> qstnList=qstnService.selectAllQuestion(vo);
 		logger.info("활동 내역 조회 결과, qstnList.size={}", qstnList.size());
 		
 		model.addAttribute("qstnList", qstnList);
+		model.addAttribute("pagingInfo", pagingInfo);
 		
 		return "indiv/community/myProfile";
 		
