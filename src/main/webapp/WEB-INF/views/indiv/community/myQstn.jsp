@@ -176,13 +176,6 @@
 	.cellBx > span{
 		float:left;
 	}
-	
-	.cellBx > .bookmark{
-		float:right;
-		font-size:25px;
-		padding-bottom: 20px;
-	}
-	
 	.allQstn{
 		color:#4c50bb;
 		font-weight:bold;
@@ -256,9 +249,6 @@
 										class="regTime"> <fmt:formatDate
 											value="${map['QUESTION_DATE']}" pattern="yyyy-MM-dd" />
 									</span>
-									<div class="bookmark">
-										<i class="fa fa-bookmark-o" aria-hidden="true"></i>
-									</div>
 								</dd>
 								</dl>
 							</a>

@@ -180,8 +180,7 @@ article {
 
 
 /*  */
-	
-		#questBox{
+	#questBox{
 		border-top:1px solid silver;
 		border-left:1px solid silver;
 		border-right:1px solid silver;
@@ -258,15 +257,7 @@ article {
 </style>
 <script type="text/javascript">
 	$(function(){
-		$('.tabMenuWrap div a').click(function(){
-			var tab_id=$(this).attr('data-tab');
-			
-			$(this).removeClass("current");
-			$('.tab-content').removeClass("current");
-			
-			$(this).addClass("current");
-			$("#"+tab_id).addClass('current');
-		});
+	
 	});
 </script>
 </head>
@@ -296,16 +287,16 @@ article {
 					<!-- 탭 메뉴 -->
 					<article id="tabMenu">
 						<div class="tabMenuWrap">
-							<div id="qstnTab" data-tab="qstn">
+							<div id="qstnTab">
 								<a href="#">질문</a>
 							</div>
-							<div id="comntTab" data-tab="comnt">
+							<div id="comntTab">
 								<a class="current">답변</a>
 							</div>
-							<div id="replyTab" data-tab="reply">
+							<div id="replyTab">
 								<a>댓글</a>
 							</div>
-							<div id="bMarkTab" data-tal="bmark">
+							<div id="bMarkTab">
 								<a>북마크</a>
 							</div>
 						</div>
@@ -316,7 +307,7 @@ article {
 						질문 <b id="myContCnt">0</b>건
 					</p>
 					<c:if test="${empty qstnList }">
-					<article id="noneQuestBox qstn">
+					<article id="noneQuestBox">
 							<div class="noneBox">
 								<i class="fa fa-commenting-o"></i>
 								<p>아직 등록한 질문이 없습니다.</p>
@@ -325,7 +316,7 @@ article {
 					</c:if>
 						<!-- 질문 목록 : 등록한 질문이 존재하는 경우  -->
 						<c:if test="${!empty qstnList }">
-						<article id="questBox" class="tab-content current">
+						<article id="questBox">
 							<div class="qstnExistBox">
 									<c:forEach var="map" items="${qstnList }">
 										<div class="questBoxWrap">
