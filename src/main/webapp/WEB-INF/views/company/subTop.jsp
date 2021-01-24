@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- 기업 subTop -->
  <div class="col-lg-8 col-md-8">
      <div class="advanced-search">
@@ -90,7 +93,7 @@
                         <li><a href="#">포지션 제안</a></li>
                         <li><a href="#">기업 관리</a>
                             <ul class="dropdown">
-                                <li><a href="<c:url value='company/corp/corpDetail.do?corpNo=44'/>">기업 정보</a></li>
+                                <li><a href="<c:url value='company/corp/corpDetail.do?corpNo=${corpNo}'/>">기업 정보</a></li>
                                 <li><a href="#">채용 공고</a></li>
                             </ul>
                         </li>

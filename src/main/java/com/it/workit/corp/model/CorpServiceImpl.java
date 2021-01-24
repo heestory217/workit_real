@@ -71,4 +71,9 @@ public class CorpServiceImpl implements CorpService {
 		return cnt;
 	}
 
+	@Override
+	public int selectCorpNo(int userNo) {
+		return corpDao.selectCorpNo(userNo);
+	}
+
 }

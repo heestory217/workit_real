@@ -93,11 +93,11 @@
                     <!-- 개인/기업따라 다르게 include : subTop -->
                     <!-- 개인 or 로그인 전 -->
                     <c:if test="${empty sessionScope.userId || sessionScope.user_corpcheck==1}">
-                    	<%@ include file="../indiv/subTop.jsp" %>
+                    	<c:import url="/indiv/subTop.do"/>
                     </c:if>
                     <!-- 기업 -->
                     <c:if test="${sessionScope.user_corpcheck==2}">
-                    	<%@ include file="../company/subTop.jsp" %>
+                    	<c:import url="/company/subTop.do"/>
                     </c:if>
                     <!-- 개인/기업따라 다르게 include : subTop 끝 -->
     <!-- Header End -->
