@@ -21,7 +21,7 @@ public interface MessageDAO {
 	//뷰에서 메세지 번호로 조회
 	Map<String, Object> selectByMessageNo(int messageNo);
 	
-	//삭제플래그 업데이트 => 보낸 메세지 삭제
+	//삭제플래그 업데이트 => 보낸 메세지 삭제 (개별)
 	int updateMsgDelflag(int messageNo);
 	
 	//삭제플래그 업데이트 => 받은 메세지 삭제

@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.it.workit.getmessage.model.GetMessageListVO;
 import com.it.workit.getmessage.model.GetMessageService;
 import com.it.workit.getmessage.model.GetMessageVO;
+import com.it.workit.message.model.MessageListVO;
 import com.it.workit.message.model.MessageService;
 import com.it.workit.message.model.MessageVO;
 import com.it.workit.users.model.UsersService;
@@ -60,9 +62,8 @@ public class MessageController {
 
 	@RequestMapping(value="/messageWrite.do", method = RequestMethod.GET)
 	public String messageWrite(HttpSession session, 
-			@RequestParam (defaultValue = "0") int getMessageNo,
-			@RequestParam (required = false) String type, Model model) {
-		logger.info("쪽지 쓰기 페이지 보여주기, 파라미터 type={}", type);
+			@RequestParam (defaultValue = "0") int getMessageNo, Model model) {
+		logger.info("쪽지 쓰기 페이지 보여주기");
 		String userId = (String) session.getAttribute("userId");
 		
 		//답장
@@ -84,11 +85,22 @@ public class MessageController {
 
 	@RequestMapping(value="/messageWrite.do", method = RequestMethod.POST)
 	public String messageWrite_post(HttpSession session, @ModelAttribute MessageVO vo,
+			@RequestParam (defaultValue = "0") int getMessageNo,
 			@RequestParam (required = false) String userId, 
 			Model model) {
 
 		logger.info("쪽지 쓰기 처리, 파라미터 vo={}", vo);
 		logger.info("쪽지 쓰기 처리, 파라미터 userId={}", userId);
+		logger.info("쪽지 답장쓰기 처리, 파라미터 getMessageNo={}", getMessageNo);
+		
+		String sentUserID="";
+		if(getMessageNo!=0) {
+			Map<String, Object> map = messageService.selectByMessageNo(getMessageNo);
+			int sentUserNo = Integer.parseInt(String.valueOf(map.get("USER_NO")));
+			UsersVO uVo = userService.selectByUserNo(sentUserNo);
+			sentUserID = uVo.getUserId();
+			logger.info("보낸회원 sentUserID={}", sentUserID);
+		}
 
 		String myId = (String) session.getAttribute("userId");
 		logger.info("세션 로그인 아이디 조회, myId={}", myId);
@@ -97,8 +109,13 @@ public class MessageController {
 		String msg="쪽지 전송 실패", url="/message/messageWrite.do";
 		if(cnt>0) {
 			if(userId==null || userId.isEmpty()) {
-				userId=myId;	//유저아이디가 없는 경우 => 나에게 보내는 쪽지
-				msg = "쪽지를 성공적으로 보냈습니다.\\n\\n나에게 쓴 쪽지는 [나에게 쓴 쪽지함]에서 확인할 수 있습니다.";
+				if(sentUserID!=null && !sentUserID.isEmpty()) {
+					userId=sentUserID;
+					msg = userId+"님에게 답장을 성공적으로 보냈습니다.";
+				}else {
+					userId=myId;	//유저아이디가 없는 경우 => 나에게 보내는 쪽지
+					msg = "쪽지를 성공적으로 보냈습니다.\\n\\n나에게 쓴 쪽지는 [나에게 쓴 쪽지함]에서 확인할 수 있습니다.";
+				}
 			}else {
 				msg = userId+"님에게 쪽지를 성공적으로 보냈습니다.";
 			}
@@ -266,6 +283,58 @@ public class MessageController {
 		logger.info("받은쪽지 읽음처리 결과, cnt={}", cnt);
 
 		return "redirect:/message/messageDetail.do?getMessageNo="+getMessageNo;
+	}
+	
+	@RequestMapping("/deleteMultiMsg.do")
+	public String deleteMultiMsg(@ModelAttribute MessageListVO msgListVo,
+			Model model) {
+		logger.info("선택한 쪽지 삭제(플래그 갱신) 처리, 파라미터 msgListVo={}", msgListVo);
+		
+		List<MessageVO> msgList = msgListVo.getMsgItems(); 
+		int cnt = messageService.updateMsgDelflagMulti(msgList);
+		logger.info("선택한 쪽지 삭제 결과, cnt={}", cnt);
+
+		String msg="선택한 쪽지 삭제 실패!", url="/message/messageBoxSend.do";
+		
+		if(cnt>0) {
+			msg="선택한 쪽지를 삭제하였습니다.";
+			for(int i=0;i<msgList.size();i++) {
+				MessageVO msgVo = msgList.get(i);
+				logger.info("[{}] : messageNo={}", i, msgVo.getMessageNo());
+			}//for
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "common/message";
+		
+	}
+	
+	@RequestMapping("/impMultiGetMsg.do")
+	public String impMultiGetMsg(@ModelAttribute GetMessageListVO getMsgListVo,
+			Model model) {
+		logger.info("선택한 쪽지 보관(플래그 갱신) 처리, 파라미터 getMsgListVo={}", getMsgListVo);
+		
+		List<GetMessageVO> getMsgList = getMsgListVo.getGetMsgItems(); 
+		int cnt = getMessageService.updategetMsgImpflagMulti(getMsgList);
+		logger.info("선택한 쪽지 보관 결과, cnt={}", cnt);
+		
+		String msg="선택한 쪽지 보관 실패!", url="/message/messageBox.do";
+		
+		if(cnt>0) {
+			msg="선택한 쪽지를 보관하였습니다.";
+			for(int i=0;i<getMsgList.size();i++) {
+				GetMessageVO getMsgVo = getMsgList.get(i);
+				logger.info("[{}] : messageNo={}", i, getMsgVo.getMessageNo());
+			}//for
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+		
 	}
 
 }
