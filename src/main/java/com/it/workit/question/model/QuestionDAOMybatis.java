@@ -43,12 +43,6 @@ public class QuestionDAOMybatis implements QuestionDAO{
 		return sqlSession.selectList(namespace+"selectAllQstn");
 	}
 
-
-	@Override
-	public int selectUserQstnCnt(int userNo) {
-		return sqlSession.selectOne(namespace+"selectUserQstnCnt", userNo);
-	}
-
 	//질문 삭제
 	@Override
 	public int deleteQstn(int qstnNo) {

@@ -93,6 +93,7 @@
 		height:100px;
 		text-align:center;
 		clear:both;
+	    padding: 25px 0;
 	}
 	
 	.questBoxWrap:hover{
@@ -178,9 +179,10 @@
 				<p class="title">전체질문</p>
 			</div>
 			
-<form action="<c:url value='/indiv/community/qstnList.do'/>" name="frmPage" method="post">
-	<input type="hidden" name="currentPage">
-</form>
+			<form action="<c:url value='/indiv/community/qstnList.do'/>" 
+					name="frmPage" method="post">
+				<input type="hidden" name="currentPage">
+			</form>
 			
 			<!-- 질문 없는 경우 아이콘, 문구 정하기!!! -->
 				<c:if test="${empty qstnList}">

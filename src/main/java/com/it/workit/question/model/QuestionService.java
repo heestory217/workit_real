@@ -10,7 +10,6 @@ public interface QuestionService {
 	QuestionVO selectQstn(int qstnNo);
 	int updateQstn(QuestionVO vo);
 	List<QuestionVO> selectAllQstn();
-	int selectUserQstnCnt(int userNo);
 	int deleteQstn(int qstnNo);
 	int getTotalRecord(QstnPagingVO vo);
 	
