@@ -176,13 +176,6 @@
 	.cellBx > span{
 		float:left;
 	}
-	
-	.cellBx > .bookmark{
-		float:right;
-		font-size:25px;
-		padding-bottom: 20px;
-	}
-	
 	.allQstn{
 		color:#4c50bb;
 		font-weight:bold;
@@ -202,13 +195,16 @@
 <div class="divCmty">
 <!-- asdie : 사이드 메뉴바 -->
 <c:import url="/indiv/community/cmtyNavbar.do">
-	<c:param name="questionNicname" value="${userNicknum }"></c:param>
+	<c:param name="userNo" value="${userNo }"></c:param>
+	<c:param name="userNo" value="${userId }"></c:param>
 </c:import>	 	
 <section>
 <div id="container">
 	<div id="content" class="myQuestion">
 		<div class="top-title-wrap">
-			<p class="title">나의질문</p>
+			<p class="title">
+			<span style="color:#4c50bb">${userId }</span>님의 질문
+			</p>
 		</div>
 			
 		<article id="questBox">
@@ -253,9 +249,6 @@
 										class="regTime"> <fmt:formatDate
 											value="${map['QUESTION_DATE']}" pattern="yyyy-MM-dd" />
 									</span>
-									<div class="bookmark">
-										<i class="fa fa-bookmark-o" aria-hidden="true"></i>
-									</div>
 								</dd>
 								</dl>
 							</a>

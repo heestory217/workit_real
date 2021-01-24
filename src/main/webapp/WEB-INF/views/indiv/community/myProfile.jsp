@@ -119,6 +119,7 @@ article {
 .tabMenuWrap>div:hover {
 	background-color: #4c50bb;
 	color: white;
+	cursor: pointer;
 }
 
 #comntTab {
@@ -145,6 +146,7 @@ article {
 	border: 1px solid silver;
 	background-color: #f5f7ff;
 	padding: 35px;
+	overflow:hidden;
 }
 
 .imgBox {
@@ -152,6 +154,18 @@ article {
 	height: 80px;
 	border-radius: 70%;
 	overflow: hidden;
+	float:left;
+}
+
+.imgBox>a{
+	color:black;
+}
+	
+.profileId{
+    float: left;
+    height: 100%;
+   	margin: 25px;
+   	font-size: 20px;
 }
 
 .profilePic {
@@ -166,8 +180,7 @@ article {
 
 
 /*  */
-	
-		#questBox{
+	#questBox{
 		border-top:1px solid silver;
 		border-left:1px solid silver;
 		border-right:1px solid silver;
@@ -215,14 +228,11 @@ article {
 	
 	.paging{
 		height:100px;
+		clear:both;
 	}
 	
 	.questBoxWrap:hover{
 		background-color: #f5f7ff;;
-	}
-	
-	.paging{
-		clear:both;
 	}
 	
 	.cellBx > span{
@@ -244,17 +254,19 @@ article {
 		font-size:13px;	
 	}
 	
-	.imgBox>a{
-		color:black;
-	}
 </style>
+<script type="text/javascript">
+	$(function(){
+	
+	});
+</script>
 </head>
 <body>
 	<div class="divCmty">
 		<!-- asdie : 사이드 메뉴바 -->
 		<c:import url="/indiv/community/cmtyNavbar.do">
-			<c:param name="questionNicname" value="${userNicknum }"></c:param>
-			<c:param name="userNo" value="${userNo }"></c:param>
+			<c:param name="userNo" value="${userNo}"></c:param>
+			<c:param name="userId" value="${userId}"></c:param>
 		</c:import>
 
 		<section>
@@ -264,6 +276,9 @@ article {
 						<div class="imgBox" style="background: #BDBDBD;overflow:hidden;" >
 							<a href="#"><img class="profilePic"
 								src="<c:url value='/resources/img/banner-1.jpg'/>"></a>
+						</div>
+						<div class="profileId">
+							<span>${userId }</span>
 						</div>
 						<div>
 						</div>
@@ -276,7 +291,7 @@ article {
 								<a href="#">질문</a>
 							</div>
 							<div id="comntTab">
-								<a href="#">답변</a>
+								<a class="current">답변</a>
 							</div>
 							<div id="replyTab">
 								<a>댓글</a>
@@ -308,7 +323,8 @@ article {
 											<div class="oneQuestBox">
 												<div>
 													<a
-														href="<c:url value='/indiv/community/qstnDetail.do?qstnNo=${map["QUESTION_NO"]}'/>"
+														href="<c:url value
+									='/indiv/community/qstnDetail.do?qstnNo=${map["QUESTION_NO"]}&userNo=${map["USER_NO"] }'/>"
 														class="contentArea">
 														<dl>
 															<!-- 제목 -->

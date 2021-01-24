@@ -1,5 +1,8 @@
 package com.it.workit.indivMypage.controller;
 
+
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.it.workit.applicant.model.ApplicantService;
+import com.it.workit.applicant.model.ApplicantlistVO;
 import com.it.workit.users.model.UsersService;
 import com.it.workit.users.model.UsersVO;
 
@@ -24,6 +29,7 @@ public class IndivMypageController {
 		=LoggerFactory.getLogger(IndivMypageController.class);
 	
 	@Autowired private UsersService userService;
+	@Autowired private ApplicantService applicantService;
 	
 	//비밀번호 입력 -> 수정화면을 거치기 위해서 단순 get방식은 indivCheckPwd로 리턴된다.
 	@RequestMapping(value = "/indivMypageEdit.do", method = RequestMethod.GET)
@@ -90,7 +96,6 @@ public class IndivMypageController {
 		
 		//세션 userid 가져오기
 		String userid=(String) session.getAttribute("userId");
-		//String userid="kang";
 		
 		UsersVO vo=userService.selectByUserId(userid);
 		logger.info("개인 마이페이지 - 비밀번호 체크 / DB pwd 조회 결과 pwd={}", vo.getUserPassword());
@@ -111,8 +116,38 @@ public class IndivMypageController {
 	}
 	
 	@RequestMapping("/indivMypageSituation.do")
-	public String situation() {
-		logger.info("개인 마이페이지 - 지원현황 조회");
+	public String situation(HttpSession session, Model model,
+			@RequestParam(defaultValue = "0") int type) {
+		
+		//세션 userid 가져오기
+		int userno=(Integer) session.getAttribute("userNo");
+		logger.info("개인 마이페이지 - 지원현황 조회 / userNo={}",userno);
+		
+		int applyCount=applicantService.selectApplyCountByUserNo(userno);
+		int passCount=applicantService.selectPassCountByUserNo(userno);
+		int failCount=applicantService.selectFailCountByUserNo(userno);
+		
+		logger.info("개인 마이페이지 - 지원현황 조회 / applyCount={}",applyCount);
+		logger.info("개인 마이페이지 - 지원현황 조회 / passCount={}",passCount);
+		logger.info("개인 마이페이지 - 지원현황 조회 / failCount={}",failCount);
+		
+		model.addAttribute("applyCount", applyCount);
+		model.addAttribute("passCount", passCount);
+		model.addAttribute("failCount", failCount);
+		
+		List<ApplicantlistVO> list=null;
+		if(type==1) {
+			list=applicantService.selectPassAllByUserNo(userno);
+		}else if(type==2) {
+			list=applicantService.selectFailAllByUserNo(userno);
+		}else if(type==3) {
+			list=applicantService.selectApplyAllByUserNo(userno);
+		}
+		
+		logger.info("type ={}",type);
+		logger.info("list.size={}",list.size());
+		
+		model.addAttribute("list", list);
 		
 		return "indivMypage/indivMypageSituation";
 	}

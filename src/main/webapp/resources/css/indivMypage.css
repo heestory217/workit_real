@@ -5,12 +5,16 @@
 }
 
 .shopping-cart{
-	padding-top: 30px;
+	padding-top: 0px;
 	padding-right: 30px;
-	padding-bottom: 50px;
+	padding-bottom: 0px;
 }
 
 .mybtn{
 	border: 1px solid #ebebeb;
     height: 50px;
+}
+
+.cart-table .padding-bottom0{
+	padding-bottom: 0px;
 }

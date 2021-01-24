@@ -337,20 +337,25 @@
 </head>
 <body>
 <div class="divCmty">		
-	<!-- asdie : 사이드 메뉴바 -->		
-	<%@ include file="cmtyNavbar.jsp" %>		
+	<!-- asdie : 사이드 메뉴바 -->
+	<c:import url="/indiv/community/cmtyNavbar.do">
+		<c:param name="userNo" value="${userNo}"></c:param>
+		<c:param name="userId" value="${userId}"></c:param>
+	</c:import>	
 	
 	<!-- 질문 등록 -->
 	<section style="float:left; margin-left:30px;">
 		<div id="container">
 			<div id="content" class="QuestEdit">
 				<div class="top-title-wrap">
-					<p class="title"><span class="userNick">silver</span>님 어떤 질문을 하시겠어요?</p>
+					<p class="title"><span class="userNick">${userId}</span>님 어떤 질문을 하시겠어요?</p>
 			</div>
 
 				<!-- 직무, 기업선택 -->
 				<form name="qstnEditFrm" method="post" 
 					action="<c:url value='/indiv/community/qstnEdit.do'/>">
+					<input type="text" name="questionNo" value="${qstnVo.questionNo }">
+					<input type="text" name="userNo" value="${qstnVo.userNo }">
 					<article>
 						<div class="checkListArea">
 							<div class="checkboxCommWrap row">
@@ -358,7 +363,7 @@
 								<div class="selectJob">
 									<div class="jobWrap">
 										<input type="button" name="workkindNo" 
-										class="jobBtn" value="직무 선택"> <i
+										class="jobBtn" value="${qstnVo.workkindNo}"> <i
 											class="fa fa-angle-down"></i>
 									</div>
 									<p>· 원하는 직무를 검색해 질문할 수 있습니다.</p>
@@ -453,8 +458,7 @@
 						</div>
 					</article>
 
-					<!-- 질문글 쓰기 -->
-
+					<!-- 질문글 수정 -->	
 					<article id="secArticle">
 						<div class="EditBoxWrap">
 							<fieldset>
@@ -482,9 +486,6 @@
 								</div>
 							</fieldset>
 						</div>
-						<input type="text" name="questionNo" value="${qstnVo.questionNo }">
-						<input type="text" name="userNo" value="${qstnVo.userNo }">
-						<input type="text" name="questionNicname" value="${qstnVo.questionNicname}">
 					</article>
 				</form>
 

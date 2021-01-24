@@ -99,6 +99,8 @@
 				<i class="fa fa-pencil"></i>&nbsp;질문하기</a>
 			</div>
 			<div class="myInfoSec">
+			
+				<!-- 로그인 안한 경우 -->
 				<c:if test="${empty sessionScope.userNo}">
 				<a class="myInfo" href
 		="<c:url value='/users/login.do'/>">
@@ -110,14 +112,16 @@
 					</div>
 				</a>
 				</c:if>	
+				
+				<!-- 로그인한 경우 -->
 				<c:if test="${!empty sessionScope.userNo}">
 				<a class="myInfo" href
-		="<c:url value='/indiv/community/myProfile.do?userNick=${cmtyVo.userNicknum}'/>">
+		="<c:url value='/indiv/community/myProfile.do?userNo=${sessionScope.userNo }'/>">
 					<div id="userInfo">
 						<i class="fa fa-user-circle userProfImg"></i><br>
-						<span class="nickname">${cmtyVo.userNicknum }</span><br>
+						<span class="nickname">${sessionScope.userId }</span><br>
 						<span class="qstnReplyCnt">질문 0 답변 0 </span>
-						<input type="hidden" name="userNicknum" value="${cmtyVo.userNicknum}">
+						<input type="hidden" name="userNicknum" value="">
 					</div>
 				</a>
 				</c:if>	

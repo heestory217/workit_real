@@ -12,6 +12,12 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	@Autowired private SqlSessionTemplate sqlSession;
 	
 	private String namespace="config.mybatis.mapper.oracle.question.";
+
+	//회원 질문 목록 조회
+	@Override
+	public List<Map<String, Object>> selectUserQstnAll(int userNo) {
+		return sqlSession.selectList(namespace+"selectUserQstnAll", userNo);
+	}
 	
 	//질문 등록
 	@Override
@@ -30,24 +36,24 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	public int updateQstn(QuestionVO vo) {
 		return sqlSession.update(namespace+"updateQstn", vo);
 	}
-
+	
+	//전체 질문 조회
 	@Override
 	public List<QuestionVO> selectAllQstn() {
 		return sqlSession.selectList(namespace+"selectAllQstn");
 	}
 
-	@Override
-	public List<Map<String, Object>> selectUserQstnAll(String qstnNick) {
-		return sqlSession.selectList(namespace+"selectUserQstnAll", qstnNick);
-	}
 
 	@Override
 	public int selectUserQstnCnt(int userNo) {
 		return sqlSession.selectOne(namespace+"selectUserQstnCnt", userNo);
 	}
 
+	//질문 삭제
 	@Override
-	public CmtyuserinfoVO selectUserInfo(int userNo) {
-		return sqlSession.selectOne(namespace+"selectUserInfo", userNo);
+	public int deleteQstn(int qstnNo) {
+		return sqlSession.delete(namespace+"deleteQstn", qstnNo);
 	}
+	
+	
 }

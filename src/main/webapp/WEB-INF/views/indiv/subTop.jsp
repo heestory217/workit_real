@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- 개인 subTop -->
  <div class="col-lg-8 col-md-8">
      <div class="advanced-search">
@@ -71,7 +74,7 @@
                                 <li><a href="#">결제 내역</a></li>
                             </ul>
                         </li>
-                        <li><a href="<c:url value='/community/qstnList.do'/>">커뮤니티</a></li>
+                        <li><a href="<c:url value='/indiv/community/qstnList.do'/>">커뮤니티</a></li>
                         <li><a href="#">서비스 안내</a></li>
                     </ul>
                 </nav>

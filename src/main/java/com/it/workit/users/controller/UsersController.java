@@ -78,7 +78,7 @@ public class UsersController {
 		String msg="회원가입 실패!", url="/users/register.do";
 		if(cnt>0) {
 			msg="회원가입되었습니다.";
-			url="/index.do";
+			url="/users/login.do";
 		}
 
 		model.addAttribute("msg", msg);
