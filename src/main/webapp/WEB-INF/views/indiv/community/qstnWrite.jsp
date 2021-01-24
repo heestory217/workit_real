@@ -329,20 +329,24 @@
 </head>
 <body>
 <div class="divCmty">		
-	<!-- asdie : 사이드 메뉴바 -->		
-	<%@ include file="cmtyNavbar.jsp" %>		
+<!-- asdie : 사이드 메뉴바 -->		
+<c:import url="/indiv/community/cmtyNavbar.do">
+	<c:param name="userNo" value="${userNo}"></c:param>
+	<c:param name="userId" value="${userId}"></c:param>
+</c:import>
 	
 	<!-- 질문 등록 -->
 	<section style="float:left; margin-left:30px;">
 		<div id="container">
 			<div id="content" class="QuestRegister">
 				<div class="top-title-wrap">
-					<p class="title"><span class="userNick">silver</span>님 어떤 질문을 하시겠어요?</p>
+					<p class="title"><span class="userNick">${userId}</span>님 어떤 질문을 하시겠어요?</p>
 			</div>
 
 				<!-- 직무, 기업선택 -->
 				<form name="qstnWriteFrm" method="post" 
 				action="<c:url value='/indiv/community/qstnWrite.do'/>">
+				<input type="hidden" name="userNo" value="${sessionScope.userNo }">
 					<article>
 						<div class="checkListArea">
 							<div class="checkboxCommWrap row">
@@ -417,8 +421,6 @@
 								</div>
 							</fieldset>
 						</div>
-						<input type="text" name="userNo" value="3">
-						<input type="text" name="questionNicname" value="silver">
 					</article>
 				</form>
 

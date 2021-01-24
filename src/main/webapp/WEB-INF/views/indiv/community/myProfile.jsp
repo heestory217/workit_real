@@ -332,7 +332,8 @@ article {
 											<div class="oneQuestBox">
 												<div>
 													<a
-														href="<c:url value='/indiv/community/qstnDetail.do?qstnNo=${map["QUESTION_NO"]}'/>"
+														href="<c:url value
+									='/indiv/community/qstnDetail.do?qstnNo=${map["QUESTION_NO"]}&userNo=${map["USER_NO"] }'/>"
 														class="contentArea">
 														<dl>
 															<!-- 제목 -->

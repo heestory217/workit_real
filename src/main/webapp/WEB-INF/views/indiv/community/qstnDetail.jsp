@@ -225,13 +225,13 @@ textarea::placeholder {
 <body>
 	<div class="divCmty">
 		<!-- asdie : 사이드 메뉴바 -->
-		<%@ include file="cmtyNavbar.jsp"%>
+		<c:import url="/indiv/community/cmtyNavbar.do">
+			<c:param name="userNo" value="${userNo}"></c:param>
+			<c:param name="userId" value="${userId}"></c:param>
+		</c:import>
 		
 
 		<section>
-			<!-- 번호 hidden//////////////// -->
-			<input type="text" name="questionNo" value="13">
-			
 			<div id="container">
 				<div class="qstnDetailBox">
 					
@@ -239,7 +239,8 @@ textarea::placeholder {
 					<article>
 						<div class="BoxWrap">
 							<div class="tit">
-								<!-- if 조건으로 로그인한 경우에만 보이도록 설정 -->
+								<c:if test="${userNo eq qstnVo.userNo }">
+								<!-- if 조건으로 로그인한 회원의 번호와 질문글의 회원번호가 같은 경우에만 보이도록 설정 -->
 									<div class="editBox">
 									<a>
 										<i class="fa fa-ellipsis-h"></i>
@@ -253,6 +254,7 @@ textarea::placeholder {
 										</div>	
 									</div>
 								<!-- editBox 끝 -->
+								</c:if>									
 								
 								<!-- 질문 제목 -->
 								<p>

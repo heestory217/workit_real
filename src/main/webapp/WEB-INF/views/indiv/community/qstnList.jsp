@@ -110,7 +110,7 @@
 <div class="divCmty">
 <!-- asdie : 사이드 메뉴바 -->
 <c:import url="/indiv/community/cmtyNavbar.do">
-	<c:param name="questionNicname" value="${userNicknum }"></c:param>
+	<c:param name="userNo" value="${userNo }"></c:param>
 </c:import>
  	
 <section>
@@ -137,7 +137,8 @@
 				<div class="questBoxWrap">
 				<div class="oneQuestBox">
 					<div>							
-						<a href="<c:url value='/indiv/community/qstnDetail.do?qstnNo=${qstnVo.questionNo }'/>"
+						<a href
+		="<c:url value='/indiv/community/qstnDetail.do?qstnNo=${qstnVo.questionNo }'/>"
 							class="contentArea">
 							<dl>
 								<!-- 제목 -->

@@ -202,13 +202,16 @@
 <div class="divCmty">
 <!-- asdie : 사이드 메뉴바 -->
 <c:import url="/indiv/community/cmtyNavbar.do">
-	<c:param name="questionNicname" value="${userNicknum }"></c:param>
+	<c:param name="userNo" value="${userNo }"></c:param>
+	<c:param name="userNo" value="${userId }"></c:param>
 </c:import>	 	
 <section>
 <div id="container">
 	<div id="content" class="myQuestion">
 		<div class="top-title-wrap">
-			<p class="title">나의질문</p>
+			<p class="title">
+			<span style="color:#4c50bb">${userId }</span>님의 질문
+			</p>
 		</div>
 			
 		<article id="questBox">

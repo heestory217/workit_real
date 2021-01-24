@@ -29,11 +29,11 @@ public class CommunityController {
 
 	//커뮤니티 메뉴
 	@RequestMapping("/cmtyNavbar.do")
-	public void sideMenu(HttpSession session, Model model) {
-		int userNo=(Integer) session.getAttribute("userNo");
-		logger.info("커뮤니티 메뉴 화면-회원 정보 조회, userNo={}",userNo);
+	public void sideMenu() {
+		logger.info("커뮤니티 메뉴 화면");
 	}
 
+	//회원 활동 내역 조회
 	@RequestMapping(value="/myProfile.do", method = RequestMethod.GET)	
 	public String profile(HttpSession session, Model model) {
 		int userNo=(Integer) session.getAttribute("userNo");
@@ -48,16 +48,59 @@ public class CommunityController {
 		
 	}
 	
-	/*
-
+	//회원 질문 조회
+	@RequestMapping("/myQstn.do")
+	public String userQstnList(HttpSession session, Model model) {
+		int userNo=(Integer)session.getAttribute("userNo");
+		logger.info("회원 질문 목록 조회, userNo={}", userNo);
+		
+		List<Map<String, Object>> qstnList=qstnService.selectUserQstnAll(userNo);
+		logger.info("회원 질문 목록 조회 결과, qstnLis.size={}", qstnList.size());
+		
+		model.addAttribute("qstnList", qstnList);
+		
+		return "indiv/community/myQstn";
+	}
+	
+	//전체 질문 조회
+	@RequestMapping("/qstnList.do")
+	public String qstnList(Model model) {
+		logger.info("질문 전체 조회");
+		
+		List<QuestionVO> qstnList=qstnService.selectAllQstn();
+		logger.info("질문 전체 조회 결과, qstnList.size={}", qstnList.size());
+		
+		model.addAttribute("qstnList", qstnList);
+		
+		return "indiv/community/qstnList";
+	}
+	
+	//질문 상세페이지
+	@RequestMapping("/qstnDetail.do")
+	public String qstnDetail(@RequestParam(defaultValue = "0") int qstnNo, Model model) {
+		logger.info("질문 상세 페이지, 파라미터 qstnNo={}", qstnNo);
+		if(qstnNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/indiv/community/qstnList.do");
+			
+			return "common/message";
+		}
+		
+		QuestionVO qstnVo = qstnService.selectQstn(qstnNo);
+		logger.info("질문 조회 결과, qstnVo={}",qstnVo);
+		
+		model.addAttribute("qstnVo", qstnVo);
+		
+		return "indiv/community/qstnDetail";
+	}
 	
 
-	
 	//질문 등록 화면
 	@RequestMapping(value="/qstnWrite.do", method = RequestMethod.GET)
 	public void qstnWrite_get() {
 		logger.info("질문 등록 화면");
 	}
+
 
 	//질문 등록 처리
 	@RequestMapping(value="/qstnWrite.do", method = RequestMethod.POST)
@@ -79,26 +122,6 @@ public class CommunityController {
 		model.addAttribute("url", url);
 		
 		return "common/message";
-	}
-	
-	//질문 상세페이지
-	@RequestMapping("/qstnDetail.do")
-	public String qstnDetail(@RequestParam(defaultValue = "0") int qstnNo,
-			Model model) {
-		logger.info("질문 상세 페이지, 파라미터 qstnNo={}", qstnNo);
-		if(qstnNo==0) {
-			model.addAttribute("msg", "잘못된 url입니다.");
-			model.addAttribute("url", "/indiv/community/qstnList.do");
-			
-			return "common/message";
-		}
-		
-		QuestionVO qstnVo = qstnService.selectQstn(qstnNo);
-		logger.info("질문 조회 결과, qstnVo={}",qstnVo);
-		
-		model.addAttribute("qstnVo", qstnVo);
-		
-		return "indiv/community/qstnDetail";
 	}
 	
 	//질문 수정 화면
@@ -123,9 +146,11 @@ public class CommunityController {
 	
 	//질문 수정 처리
 	@RequestMapping(value="/qstnEdit.do", method = RequestMethod.POST)
-	public String qstnEdit_post(@ModelAttribute QuestionVO vo,
+	public String qstnEdit_post(@ModelAttribute QuestionVO vo, HttpSession session,
 			Model model) {
-		logger.info("질문 수정 화면, 파라미터 vo={}, no={}", vo, vo.getQuestionNo());
+		int userNo=(Integer) session.getAttribute("userNo");
+		vo.setUserNo(userNo);
+		logger.info("질문 수정 처리, 파라미터 vo={}", vo);
 		
 		int cnt=qstnService.updateQstn(vo);
 		logger.info("질문 수정 결과, cnt={}", cnt);
@@ -143,31 +168,12 @@ public class CommunityController {
 		
 	}
 	
-	@RequestMapping("/qstnList.do")
-	public String qstnList(Model model) {
-		logger.info("질문 전체 조회");
+	//질문 삭제
 		
-		List<QuestionVO> qstnList=qstnService.selectAllQstn();
-		logger.info("질문 전체 조회 결과, qstnList.size={}", qstnList.size());
-		
-		model.addAttribute("qstnList", qstnList);
-		
-		return "indiv/community/qstnList";
-	}
+	/*
+
+
 	
-	//회원 질문 조회
-	@RequestMapping("/myQstn.do")
-	public String userQstnList(@RequestParam(required = false) String qstnNick,HttpSession session, Model model) {
-		int userNo=(Integer)session.getAttribute("userNo");
-		logger.info("회원 질문 목록 조회, userNo={}", userNo);
-		
-		List<Map<String, Object>> qstnList=qstnService.selectUserQstnAll(qstnNick);
-		logger.info("회원 질문 목록 조회 결과, qstnLis.size={}", qstnList.size());
-		
-		model.addAttribute("qstnList", qstnList);
-		
-		return "indiv/community/myQstn";
-	}
 	*/
 	
 }
