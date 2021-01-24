@@ -79,7 +79,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="product-large set-bg" data-setbg="<c:url value="/resources/img/products/women-large.jpg" />">
+                     <div class="product-large set-bg m-large" data-setbg="img/products/man-large.jpg">
                         <h2>Women’s</h2>
                         <a href="#">Discover More</a>
                     </div>
@@ -96,7 +96,7 @@
                     <div class="product-slider owl-carousel">
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="<c:url value="/resources/img/products/women-1.jpg"/>" alt="">
+                                <img src="img/products/women-1.jpg" alt="">
                                 <div class="sale">Sale</div>
                                 <div class="icon">
                                     <i class="icon_heart_alt"></i>
