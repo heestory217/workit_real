@@ -36,7 +36,7 @@
 <body>
 	<h2 class="center">이메일 인증</h2><br>
 	<form name="frmEmail" method="post" action="<c:url value='/users/checkEmail.do'/>">
-		<div>
+		<div class="center">
 			<input type="text" id="email1" name="email1" class="mystyle padding_left10" 
 				value="${param.email1}">&nbsp;&nbsp;@&nbsp;
 			<input type="text" id="email2" name="email2" class="mystyle padding_left10" 
