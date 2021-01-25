@@ -111,15 +111,14 @@
 		padding-bottom: 20px;
 	}
 	
-	.allQstn{
-		color:#4c50bb;
-		font-weight:bold;
-	}
-	
 	.cellBx > span{
 		font-size:13px;	
 	}
 	
+	.allQstn{
+		font-weight: bold;
+		color:#4c50bb;
+	}
 	
 	/* 페이징처리 */
 	.product__pagination a,

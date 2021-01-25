@@ -108,11 +108,6 @@
 		height:100%;
 	}
 	
-	.userQstn{
-		color:#4c50bb;
-		font-weight:bold;
-	}
-	
 	/*  */
 	
 	#questBox{
@@ -178,15 +173,15 @@
 	.cellBx > span{
 		float:left;
 	}
-	.allQstn{
-		color:#4c50bb;
-		font-weight:bold;
-	}
-	
+
 	.cellBx > span{
 		font-size:13px;	
 	}
 	
+	.userQstn{
+		font-weight: bold;
+		color:#4c50bb;
+	}
 	/* 페이징처리 */
 	.product__pagination a,
 		.blog__pagination a,
