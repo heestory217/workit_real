@@ -77,7 +77,7 @@
                                 <li>구직자 이력서 정보 열람</li>
                                 <li>상세 경력 정보</li>
                                 <li>사용 가능 개발언어</li>
-                                <li>채용 제안 보내기</li>
+                                <li>입사 제안 보내기</li>
                             </ul>
                             <a href="#" class="borders-btn">서비스 이용하기</a>
                         </div>
