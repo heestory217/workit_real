@@ -65,7 +65,6 @@ public class CommunityController {
 		logger.info("총 레코드 수, totalRecord={}", totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
 		
-		
 		List<Map<String, Object>> qstnList=qstnService.selectAllQuestion(vo);
 		logger.info("활동 내역 조회 결과, qstnList.size={}", qstnList.size());
 		
@@ -73,6 +72,37 @@ public class CommunityController {
 		model.addAttribute("pagingInfo", pagingInfo);
 		
 		return "indiv/community/myProfile";
+		
+	}
+
+	//회원 활동 내역 조회 - 답변
+	@RequestMapping(value="/myComment.do", method = RequestMethod.GET)	
+	public String myComment(@ModelAttribute QstnPagingVO vo,HttpSession session, Model model) {
+		int userNo=(Integer) session.getAttribute("userNo");
+		logger.info("회원 활동 내역 조회 - 답변, userNo={}", userNo);
+		
+		//[1]pagingInfo
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(vo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		//[2]searchVo
+		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		vo.setUserNo(userNo);
+		
+		int totalCmt=comntService.getTotalCmt(vo);
+		logger.info("총 답변 개수, totalCmt={}", totalCmt);
+		pagingInfo.setTotalRecord(totalCmt);
+		
+		List<Map<String, Object>> cmtList = comntService.selectAllComnt(vo);
+		logger.info("답변 조회 결과, cmtList.size={}", cmtList.size());
+		
+		model.addAttribute("cmtList", cmtList);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		return "redirect:/indiv/community/myProfile.do?userNo="+userNo;
 		
 	}
 	
