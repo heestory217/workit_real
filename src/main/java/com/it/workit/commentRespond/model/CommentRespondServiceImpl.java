@@ -29,4 +29,9 @@ public class CommentRespondServiceImpl implements CommentRespondService{
 	public int getTotalCmt(QstnPagingVO vo) {
 		return comntRespondDao.getTotalCmt(vo);
 	}
+
+	@Override
+	public int deleteCmt(int cmtNo) {
+		return comntRespondDao.deleteCmt(cmtNo);
+	}
 }

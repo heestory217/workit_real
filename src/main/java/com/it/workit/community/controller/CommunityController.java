@@ -127,17 +127,12 @@ public class CommunityController {
 		logger.info("총 레코드 수, totalRecord={}", totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
 		
-		//답변 개수 조회
-		int totalComment=comntService.getTotalCmt(vo);
-		logger.info("총 답변 수, totalComment={}", totalComment);
-		
 		//List<QuestionVO> qstnList=qstnService.selectAllQstn();
 		List<Map<String, Object>> qstnList=qstnService.selectAllQuestion(vo);
 		logger.info("질문 전체 조회 결과, qstnList.size={}", qstnList.size());
 		
 		model.addAttribute("qstnList", qstnList);
 		model.addAttribute("pagingInfo", pagingInfo);
-		model.addAttribute("totalComment", totalComment);
 		
 		return "indiv/community/qstnList";
 	}
@@ -342,6 +337,30 @@ public class CommunityController {
 		
 	}
 	
+	//답변 삭제
+	@RequestMapping("/cmtDelete.do")
+	public String cmtDelete(@RequestParam(defaultValue = "0") int cmtNo, 
+			@RequestParam(defaultValue = "0") int qstnNo, Model model) {
+		logger.info("답변 삭제, 파라미터 cmtNo={}, qstnNo={}", cmtNo, qstnNo);
+		if(cmtNo==0 || qstnNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/indiv/community/qstnDetail.do?qstnNo="+qstnNo);
+		}
+		
+		int cnt=comntService.deleteCmt(cmtNo);
+		logger.info("답변 삭제 결과, cnt={}", cnt);
+		String msg="답변 삭제에 실패하였습니다.",
+				url ="/indiv/community/qstnDetail.do?qstnNo="+qstnNo;
+		if(cnt>0) {
+			msg="답변이 삭제되었습니다.";
+			url ="/indiv/community/qstnDetail.do?qstnNo="+qstnNo;
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
 	/*
 	//답변 조회
 	@RequestMapping("/comments.do")

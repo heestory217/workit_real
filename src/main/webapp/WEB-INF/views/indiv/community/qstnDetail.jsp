@@ -224,7 +224,7 @@ textarea::placeholder {
 		
 		$('.cmtWrite').click(function(){
 			if($('input[name=userNo]').val()==""){
-				alert('답변을 등록하려면 로그인이 필요합니다.');
+				alert('답변을 등록하려면 로그인이 필요합니다.\n로그인 페이지로 이동합니다.');
 				event.preventDefault();
 				location.href="<c:url value='/users/login.do'/>"
 			}
