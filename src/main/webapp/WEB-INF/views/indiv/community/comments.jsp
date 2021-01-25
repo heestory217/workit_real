@@ -271,7 +271,9 @@ function pageFunc(curPage){
 ="<c:url value='/indiv/community/cmtEdit.do?cmtNo=${map["COMMENTRESPOND_NO"]}'/>">수정</a>
 				<hr>
 				<a id="cmtDelBtn" href
-="<c:url value='/indiv/community/cmtDelete.do?qstnNo=${map["QUESTION_NO"] }&cmtNo=${map["COMMENTRESPOND_NO"]}'/>">삭제</a>
+="<c:url value='/indiv/community/cmtDelete.do?qstnNo=${map["QUESTION_NO"] }&cmtNo=${map["COMMENTRESPOND_NO"]}'/>"
+				onclick="if(!confirm('삭제된 답변은 복구가 불가능합니다.\n답변을 삭제하시겠습니까?')){return false;}"
+				>삭제</a>
 				</div>	
 			</div>
 		<!-- cmtEditBox 끝 -->
