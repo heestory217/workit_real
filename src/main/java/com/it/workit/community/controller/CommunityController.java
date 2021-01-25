@@ -32,16 +32,15 @@ public class CommunityController {
 
 	//커뮤니티 메뉴
 	@RequestMapping("/cmtyNavbar.do")
-	public void sideMenu(HttpSession session,Model model) {
-		int userNo=(Integer) session.getAttribute("userNo");
+	public String sideMenu(@RequestParam(defaultValue = "0")int userNo, Model model) {
 		logger.info("커뮤니티 메뉴 화면");
-		
 		QstnPagingVO vo=new QstnPagingVO();
 		vo.setUserNo(userNo);
 		int totalRecord=qstnService.getTotalRecord(vo);
 		logger.info("회원 질문 개수, totalRecord={}",totalRecord);
 		model.addAttribute("totalRecord", totalRecord);
 		
+		return "indiv/community/cmtyNavbar";
 	}
 
 	//회원 활동 내역 조회

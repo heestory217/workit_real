@@ -131,7 +131,6 @@
 						<i class="fa fa-user-circle userProfImg"></i><br>
 						<span class="nickname">${sessionScope.userId }</span><br>
 						<span class="qstnReplyCnt">질문 <b>${totalRecord }</b> 답변 <b>0</b> </span>
-						<input type="hidden" name="userNicknum" value="">
 					</div>
 				</a>
 				</c:if>	
