@@ -6,7 +6,7 @@
 	
 .cmtBoxWrap {
 	border:solid 1px silver;
-	padding:50px 30px;
+	padding:50px 30px 0;
 	height:auto;
 }
 
@@ -72,7 +72,6 @@
 
 .cmtCnt{
 	font-size: 20px;
-    padding-bottom:15px;
 }
 
 .cmtCnt b{
@@ -178,8 +177,10 @@
 }
 
 .paging {
-	height: 100px;
-	text-align: center;
+	border-top: 1px solid silver;
+    height: 100px;
+    text-align: center;
+    padding: 35px;
 }
 </style>    
 
