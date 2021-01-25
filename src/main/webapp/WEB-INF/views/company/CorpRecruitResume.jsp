@@ -59,12 +59,14 @@
 	</script>
 
 <!-- 채용공고별 이력서 시작 -->
+ <c:if test="${empty rList}">
+ 	<p>등록된 채용 공고가 없습니다. 채용공고를 추가해주세요(링크와 이미지 추가 예정)</p>
+ </c:if>
+
+<c:if test="${!empty rList}">
     <section class="women-banner spad">
         <div class="container-fluid">
             <div class="row">
-            <c:if test="${empty rList}">
-            </c:if>
-			<c:if test="${!empty rList}">
                 <div class="col-lg-3">
                     <div class="product-large set-bg" data-setbg="<c:url value='/resources/img/products/women-large.jpg'/>">
                         <h2>채용 공고별<br>지원자 현황</h2>
@@ -183,7 +185,7 @@
                        	
                     </div>
                 </div>
-                </c:if>
+                
             </div>
         </div>
     </section>
@@ -301,10 +303,9 @@
         </div>
     </section>
     <!-- 맞춤인재추천끝 -->
+   </c:if>
     
-  
-    
-        <!-- Js Plugins -->
+    <!-- Js Plugins -->
     <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
     <script src="<c:url value="/resources/js/jquery-ui.min.js"/>"></script>
