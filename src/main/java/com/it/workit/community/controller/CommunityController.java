@@ -45,7 +45,7 @@ public class CommunityController {
 		return "indiv/community/cmtyNavbar";
 	}
 
-	//회원 활동 내역 조회
+	//회원 활동 내역 조회 - 질문
 	@RequestMapping(value="/myProfile.do", method = RequestMethod.GET)	
 	public String profile(@ModelAttribute QstnPagingVO vo,HttpSession session, Model model) {
 		int userNo=(Integer) session.getAttribute("userNo");
