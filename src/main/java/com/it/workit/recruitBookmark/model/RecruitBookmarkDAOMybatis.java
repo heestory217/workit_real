@@ -14,8 +14,12 @@ public class RecruitBookmarkDAOMybatis implements RecruitBookmarkDAO{
 	private String namespace="config.mybatis.mapper.oracle.recruitBookmark.";
 	
 	@Override
-	public List<RecruitannouncebookmarkVO> selectRecruitBookmark() {
-		return sqlSession.selectList(namespace+"selectRecruitBookmark");
+	public List<RecruitannouncebookmarkVO> selectRecruitBookmark(int userNo) {
+		return sqlSession.selectList(namespace+"selectRecruitBookmark",userNo);
 	}
 
+	@Override
+	public int deleteBookmarkByRecruitNo(int recruitannouncebookmarkNo) {
+		return sqlSession.delete(namespace+"deleteBookmarkByRecruitNo",recruitannouncebookmarkNo);
+	}
 }
