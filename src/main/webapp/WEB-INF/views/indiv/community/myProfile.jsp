@@ -42,7 +42,7 @@ section {
 }
 
 .qtContent {
-	font-size: 16px;
+	font-size: 18px;
 	color: #5f5f5f;
 }
 
@@ -83,15 +83,12 @@ dd {
 
 .cellBx>span {
 	float: left;
+	font-size: 14px;
 }
 
 .allQstn {
 	color: #4c50bb;
 	font-weight: bold;
-}
-
-.cellBx>span {
-	font-size: 13px;
 }
 
 article {

@@ -127,12 +127,17 @@ public class CommunityController {
 		logger.info("총 레코드 수, totalRecord={}", totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
 		
+		//답변 개수 조회
+		int totalComment=comntService.getTotalCmt(vo);
+		logger.info("총 답변 수, totalComment={}", totalComment);
+		
 		//List<QuestionVO> qstnList=qstnService.selectAllQstn();
 		List<Map<String, Object>> qstnList=qstnService.selectAllQuestion(vo);
 		logger.info("질문 전체 조회 결과, qstnList.size={}", qstnList.size());
 		
 		model.addAttribute("qstnList", qstnList);
 		model.addAttribute("pagingInfo", pagingInfo);
+		model.addAttribute("totalComment", totalComment);
 		
 		return "indiv/community/qstnList";
 	}

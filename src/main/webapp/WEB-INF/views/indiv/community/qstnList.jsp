@@ -66,7 +66,7 @@
 	}
 
 	.qtContent{
-		font-size:16px;
+		font-size:18px;
 		color:#5f5f5f;
 	}
 	
@@ -112,7 +112,7 @@
 	}
 	
 	.cellBx > span{
-		font-size:13px;	
+		font-size:14px;	
 	}
 	
 	.allQstn{
@@ -215,7 +215,7 @@
 								
 								<!-- 답변, 조회수, 작성시간 -->
 								<dd class="cellBx">
-									<span class="reply">답변<span class="replyNum"> 0</span>&nbsp;&nbsp;|&nbsp;</span>
+									<span class="reply">답변<span class="replyNum"> ${totalComment }</span>&nbsp;&nbsp;|&nbsp;</span>
 									<span class="readCnt">조회 ${map['QUESTION_VIEW'] }&nbsp;&nbsp;|&nbsp;</span>
 									<span class="regTime">
 										<fmt:formatDate value="${map['QUESTION_DATE']}"
