@@ -320,9 +320,7 @@ textarea::placeholder {
 					</article>
 					
 					<!-- 답변 include -->
-					<article>
-						<%@ include file="comments.jsp" %>
-					</article>
+					<c:import url="/indiv/community/comments.do"/>
 				</div>
 			</div>
 		</section>

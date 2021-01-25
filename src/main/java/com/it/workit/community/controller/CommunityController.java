@@ -282,7 +282,7 @@ public class CommunityController {
 		logger.info("답변 등록, 파라미터 vo={}, qstnNo={}", vo, qstnNo);
 		if(qstnNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
-			model.addAttribute("url", "/indiv/community/qstnDetail?qstnNo="+qstnNo);
+			model.addAttribute("url", "/indiv/community/qstnDetail.do?qstnNo="+qstnNo);
 		}
 		vo.setUserNo(userNo);
 		vo.setQuestionNo(qstnNo);
@@ -290,10 +290,10 @@ public class CommunityController {
 		int cnt=comntService.insertComnt(vo);
 		logger.info("답변 등록 결과, cnt={}", cnt);
 		String msg="답변 등록에 실패하였습니다. \\n다시 입력해주세요",
-				url="/indiv/community/qstnDetail?qstnNo="+qstnNo;
+				url="/indiv/community/qstnDetail.do?qstnNo="+qstnNo;
 		if(cnt>0) {
 			msg="답변이 등록되었습니다.";
-			url="/indiv/community/qstnDetail?qstnNo="+qstnNo;
+			url="/indiv/community/qstnDetail.do?qstnNo="+qstnNo;
 		}
 		
 		model.addAttribute("msg", msg);
@@ -301,6 +301,25 @@ public class CommunityController {
 	
 		return "common/message";
 	}
+	
+	//답변 조회
+	@RequestMapping("/comments.do")
+	public String cmtDetail(@RequestParam(defaultValue = "0") int qstnNo, Model model) {
+		logger.info("답변 조회, 파라미터 qstnNo={}", qstnNo);
+		if(qstnNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/indiv/community/qstnDetail.do?qstnNo="+qstnNo);
+		}
+		
+		List<Map<String, Object>> cmtList = comntService.selectAllComnt(qstnNo);
+		logger.info("답변 조회 결과, cmtList.size={}", cmtList.size());
+		
+		model.addAttribute("cmtList", cmtList);
+		
+		return "indiv/community/comments";
+		
+	}
+	
 	/*
 
 

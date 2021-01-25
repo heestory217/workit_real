@@ -10,6 +10,7 @@ public class CommentRespondVO {
     private String commentrespondNicname;
     private int questionNo;            
     private int userNo;
+    
 	public int getCommentrespondNo() {
 		return commentrespondNo;
 	}

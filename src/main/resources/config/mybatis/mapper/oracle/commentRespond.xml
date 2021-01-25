@@ -11,6 +11,14 @@
 		values(#{commentrespondNo},#{commentrespondAbout},#{questionNo},#{userNo})
 	</insert>
 	
+	<resultMap type="HashMap" id="selectCmtAbout">
+		<result property="commentrespondAbout" column="COMMENTRESPOND_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	<select id="selectAllComnt" parameterType="int" resultType="HashMap"
+		resultMap="selectCmtAbout">
+		SELECT * FROM CMNTVIEW 
+		WHERE QUESTION_NO=#{questionNo} ORDER BY COMMENTRESPOND_NO DESC
+	</select>
 </mapper>
 
 
