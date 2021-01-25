@@ -66,6 +66,8 @@ dd {
 
 .paging {
 	height: 100px;
+	clear: both;
+	text-align: center;
 }
 
 .questBoxWrap:hover {
@@ -77,10 +79,6 @@ dd {
 	height: 400px;
 	text-align: center;
 	border: 1px solid silver;
-}
-
-.paging {
-	clear: both;
 }
 
 .cellBx>span {
@@ -229,6 +227,8 @@ article {
 	.paging{
 		height:100px;
 		clear:both;
+		text-align:center;
+		padding:35px 0;
 	}
 	
 	.questBoxWrap:hover{
@@ -254,11 +254,46 @@ article {
 		font-size:13px;	
 	}
 	
+	/* 페이징처리 */
+	.product__pagination a,
+		.blog__pagination a,
+		#currentPage {
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		border: 1px solid #b2b2b2;
+		font-size: 14px;
+		color: #b2b2b2;
+		font-weight: 700;
+		line-height: 28px;
+		text-align: center;
+		-webkit-transition: all, 0.3s;
+		-moz-transition: all, 0.3s;
+		-ms-transition: all, 0.3s;
+		-o-transition: all, 0.3s;
+		transition: all, 0.3s;
+		margin-right: 0;
+	}
+		
+	.product__pagination a:hover,
+	.blog__pagination a:hover,
+	#currentPage {
+		background: #4C50BB;
+		border-color: #4C50BB;
+		color: #ffffff;
+	}
+		
+	.product__pagination a:last-child,
+	.blog__pagination a:last-child {
+		margin-right: 0;
+	}
+	
 </style>
 <script type="text/javascript">
-	$(function(){
-	
-	});
+function pageFunc(curPage){
+	$('input[name=currentPage]').val(curPage);
+	$('form[name=frmPage]').submit();
+}
 </script>
 </head>
 <body>
@@ -269,6 +304,13 @@ article {
 			<c:param name="userId" value="${userId}"></c:param>
 		</c:import>
 
+		<!-- 페이징 처리를 위한 form  -->
+		<form action="<c:url value='/indiv/community/myProfile.do'/>" 
+				name="frmPage" method="post">
+			<input type="hidden" name="currentPage">
+			<input type="hidden" name="userNo" value="${userNo}">
+		</form>
+	
 		<section>
 			<div id="container">
 				<div id="content" class="AllQuestList">
@@ -304,7 +346,7 @@ article {
 
 					<!--글 목록 : 아직 등록한 질문이 없는 경우-->
 					<p style="font-size: 18px;">
-						질문 <b id="myContCnt">0</b>건
+						질문 <b id="myContCnt">${pagingInfo.totalRecord }</b>건
 					</p>
 					<c:if test="${empty qstnList }">
 					<article id="noneQuestBox">
@@ -324,7 +366,7 @@ article {
 												<div>
 													<a
 														href="<c:url value
-									='/indiv/community/qstnDetail.do?qstnNo=${map["QUESTION_NO"]}&userNo=${map["USER_NO"] }'/>"
+									='/indiv/community/cntUpdate.do?qstnNo=${map["QUESTION_NO"]}&userNo=${map["USER_NO"] }'/>"
 														class="contentArea">
 														<dl>
 															<!-- 제목 -->
@@ -339,7 +381,7 @@ article {
 															<dd class="cellBx">
 																<span class="reply">답변<span class="replyNum">
 																		0</span>&nbsp;&nbsp;|&nbsp;
-																</span> <span class="readCnt">조회 3&nbsp;&nbsp;|&nbsp;</span> <span
+																</span> <span class="readCnt">조회 ${map['QUESTION_VIEW']}&nbsp;&nbsp;|&nbsp;</span> <span
 																	class="regTime"> <fmt:formatDate
 																		value="${map['QUESTION_DATE']}" pattern="yyyy-MM-dd" />
 																</span>
@@ -351,7 +393,36 @@ article {
 										</div>
 									</c:forEach>
 									<!-- 질문 반복 끝 -->
-									<div class="paging"></div>
+			<!-- 페이징 처리 -->
+			<div class="paging col-lg-12">
+				<!-- 이전블럭 -->	
+				 <div class="product__pagination blog__pagination">
+				 	<c:if test="${pagingInfo.firstPage>1 }">	
+						<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
+							<i class="fa fa-long-arrow-left"></i>
+						</a>
+					</c:if>
+					
+				<!-- [1][2][3][4][5][6][7][8][9][10] -->		
+				<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
+					<c:if test="${i==pagingInfo.currentPage }">
+						<span id="currentPage" >
+							${i}</span>			
+					</c:if>
+					<c:if test="${i!=pagingInfo.currentPage }">
+						<a href="#" onclick="pageFunc(${i})">
+							${i}</a>			
+					</c:if>
+				</c:forEach>
+				
+				<!-- 다음블럭 -->	
+				<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">	
+					<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
+						<i class="fa fa-long-arrow-right"></i>
+					</a>
+				</c:if>
+			    </div>
+			</div>
 								</div>
 						</article>
 					</c:if>

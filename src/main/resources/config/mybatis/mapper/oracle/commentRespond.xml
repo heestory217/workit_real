@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="config.mybatis.mapper.oracle.commentRespond">
+	<!-- 답변 등록 -->
+	<insert id="insertComnt" parameterType="commentRespondVo">
+	<selectKey keyProperty="commentrespondNo" resultType="int" order="BEFORE">
+		select COMMENTRESPOND_SEQ.NEXTVAL from dual
+	</selectKey>
+		insert into COMMENTRESPOND(COMMENTRESPOND_NO,COMMENTRESPOND_ABOUT, QUESTION_NO, USER_NO)
+		values(#{commentrespondNo},#{commentrespondAbout},#{questionNo},#{userNo})
+	</insert>
+	
+	<!-- 답변 목록 조회(페이징처리)-->
+	<resultMap type="HashMap" id="selectCmtAbout">
+		<result property="commentrespondAbout" column="COMMENTRESPOND_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	<select id="selectAllComnt" parameterType="qstnPagingVo" resultType="HashMap"
+		resultMap="selectCmtAbout">
+		select *
+			from
+			(
+			    select A.*, rownum as RNUM
+			    from
+			    (
+			    	<if test="questionNo!='' and questionNo!=null">
+				        SELECT * FROM CMNTVIEW 
+						WHERE QUESTION_NO=#{questionNo}
+			    	</if>
+			    	<if test="(questionNo=='' or questionNo==null)
+			    		and (userNo!='' and userNo!=null)">
+			    		SELECT * FROM CMNTVIEW 
+			    	</if>
+					ORDER BY COMMENTRESPOND_NO DESC
+			    )A
+			)
+			<![CDATA[
+			where RNUM > #{firstRecordIndex} 
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+			]]>
+	</select>
+	
+	<!-- 답변 개수 -->
+	<select id="getTotalCmt" parameterType="qstnPagingVo"
+		resultType="int">
+		select count(*) from CMNTVIEW
+		<if test="questionNo!='' and questionNo!=null">
+			WHERE QUESTION_NO=#{questionNo}
+		</if>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+

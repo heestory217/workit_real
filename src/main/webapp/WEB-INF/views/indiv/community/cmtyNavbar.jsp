@@ -84,6 +84,11 @@
 		font-size:15px;
 		color:gray;
 	}
+	
+	.qstnReplyCnt>b{
+		color:#4c50bb;
+		font-weight:600;
+	}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -125,8 +130,7 @@
 					<div id="userInfo">
 						<i class="fa fa-user-circle userProfImg"></i><br>
 						<span class="nickname">${sessionScope.userId }</span><br>
-						<span class="qstnReplyCnt">질문 0 답변 0 </span>
-						<input type="hidden" name="userNicknum" value="">
+						<span class="qstnReplyCnt">질문 <b>${totalRecord }</b> 답변 <b>0</b> </span>
 					</div>
 				</a>
 				</c:if>	
@@ -148,8 +152,8 @@
 				="<c:url value='/indiv/community/myQstn.do?userNo=${sessionScope.userNo }'/>">
 						나의 질문</a><hr></c:if></li>
 					<li class="sideNav"><a class="nav-link allQstn" href
-			="<c:url value='/indiv/community/qstnList.do'/>">
-					전체 질문</a><hr></li>
+				="<c:url value='/indiv/community/qstnList.do'/>">
+						전체 질문</a><hr></li>
 					<li class="sideNav"><a class="nav-link" href="#">답변하기</a><hr></li>
 				</ul>
 			</div>

@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.it.workit.commentRespond.model.CommentRespondService;
+import com.it.workit.commentRespond.model.CommentRespondVO;
 import com.it.workit.common.PaginationInfo;
-import com.it.workit.common.SearchVO;
 import com.it.workit.common.Utility;
 import com.it.workit.question.model.QstnPagingVO;
 import com.it.workit.question.model.QuestionService;
@@ -29,24 +30,47 @@ public class CommunityController {
 		=LoggerFactory.getLogger(CommunityController.class);
 	
 	@Autowired QuestionService qstnService;
-	
+	@Autowired CommentRespondService comntService;
 
 	//커뮤니티 메뉴
 	@RequestMapping("/cmtyNavbar.do")
-	public void sideMenu() {
+	public String sideMenu(@RequestParam(defaultValue = "0")int userNo, Model model) {
 		logger.info("커뮤니티 메뉴 화면");
+		QstnPagingVO vo=new QstnPagingVO();
+		vo.setUserNo(userNo);
+		int totalRecord=qstnService.getTotalRecord(vo);
+		logger.info("회원 질문 개수, totalRecord={}",totalRecord);
+		model.addAttribute("totalRecord", totalRecord);
+		
+		return "indiv/community/cmtyNavbar";
 	}
 
 	//회원 활동 내역 조회
 	@RequestMapping(value="/myProfile.do", method = RequestMethod.GET)	
-	public String profile(HttpSession session, Model model) {
+	public String profile(@ModelAttribute QstnPagingVO vo,HttpSession session, Model model) {
 		int userNo=(Integer) session.getAttribute("userNo");
 		logger.info("회원 활동 내역 조회, userNo={}", userNo);
 		
-		List<Map<String, Object>> qstnList=qstnService.selectUserQstnAll(userNo);
+		//[1]pagingInfo
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(vo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		//[2]searchVo
+		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		int totalRecord=qstnService.getTotalRecord(vo);
+		logger.info("총 레코드 수, totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		
+		List<Map<String, Object>> qstnList=qstnService.selectAllQuestion(vo);
 		logger.info("활동 내역 조회 결과, qstnList.size={}", qstnList.size());
 		
 		model.addAttribute("qstnList", qstnList);
+		model.addAttribute("pagingInfo", pagingInfo);
 		
 		return "indiv/community/myProfile";
 		
@@ -213,9 +237,11 @@ public class CommunityController {
 		if(qstnNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
 			model.addAttribute("url", "/indiv/community/qstnDetail.do?qstnNo="+qstnNo);
+			return "common/message";
 		}
 		
 		int cnt=qstnService.deleteQstn(qstnNo);
+		logger.info("질문 삭제 결과, cnt={}", cnt);
 		String msg="질문 삭제에 실패하였습니다.",
 				url ="/indiv/community/qstnEdit.do?qstnNo="+qstnNo;
 		if(cnt>0) {
@@ -229,9 +255,107 @@ public class CommunityController {
 		return "common/message";
 		
 	}
-		
-	/*
 
+	//조회수 증가
+	@RequestMapping("/cntUpdate.do")
+	public String updateReadCount(@RequestParam(defaultValue = "0") int qstnNo, Model model) {
+		logger.info("조회수 증가, 파라미터 qstnNo={}", qstnNo);
+		if(qstnNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다");
+			model.addAttribute("url", "/indiv/community/qstnList.do");
+			
+			return "common/message";
+		}
+		
+		int cnt=qstnService.updateReadCnt(qstnNo);
+		logger.info("조회수 증가 결과, cnt={}", cnt);
+		
+		return "redirect:/indiv/community/qstnDetail.do?qstnNo="+qstnNo;
+	}
+	
+	//답변 등록
+	@RequestMapping("/cmtWrite.do")
+	public String cmtWrite(@ModelAttribute CommentRespondVO vo, 
+			@RequestParam(defaultValue = "0")int qstnNo, HttpSession session, 
+			Model model) {
+		int userNo=(Integer) session.getAttribute("userNo");
+		logger.info("답변 등록, 파라미터 vo={}, qstnNo={}", vo, qstnNo);
+		if(qstnNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/indiv/community/qstnDetail.do?qstnNo="+qstnNo);
+		}
+		vo.setUserNo(userNo);
+		vo.setQuestionNo(qstnNo);
+		
+		int cnt=comntService.insertComnt(vo);
+		logger.info("답변 등록 결과, cnt={}", cnt);
+		String msg="답변 등록에 실패하였습니다. \\n다시 입력해주세요",
+				url="/indiv/community/qstnDetail.do?qstnNo="+qstnNo;
+		if(cnt>0) {
+			msg="답변이 등록되었습니다.";
+			url="/indiv/community/qstnDetail.do?qstnNo="+qstnNo;
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+	
+		return "common/message";
+	}
+	
+	//답변 조회 - 페이징처리
+	@RequestMapping("/comments.do")
+	public String cmtDetail(@ModelAttribute QstnPagingVO vo, 
+			@RequestParam int qstnNo,Model model) {
+		logger.info("답변 조회, 파라미터 qstnNo={}, vo={}", qstnNo, vo);
+		if(qstnNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/indiv/community/qstnDetail.do?qstnNo="+qstnNo);
+		}
+		
+		//[1]pagingInfo
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(vo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		//[2]searchVo
+		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		vo.setQuestionNo(qstnNo);
+		
+		int totalRecord=comntService.getTotalCmt(vo);
+		logger.info("총 답변 개수, totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		List<Map<String, Object>> cmtList = comntService.selectAllComnt(vo);
+		logger.info("답변 조회 결과, cmtList.size={}", cmtList.size());
+		
+		model.addAttribute("cmtList", cmtList);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		return "indiv/community/comments";
+		
+	}
+	
+	/*
+	//답변 조회
+	@RequestMapping("/comments.do")
+	public String cmtDetail(@RequestParam(defaultValue = "0") int qstnNo, Model model) {
+		logger.info("답변 조회, 파라미터 qstnNo={}", qstnNo);
+		if(qstnNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/indiv/community/qstnDetail.do?qstnNo="+qstnNo);
+		}
+		
+		List<Map<String, Object>> cmtList = comntService.selectAllComnt(qstnNo);
+		logger.info("답변 조회 결과, cmtList.size={}", cmtList.size());
+		
+		model.addAttribute("cmtList", cmtList);
+		
+		return "indiv/community/comments";
+		
+	}
+	
 
 	
 	*/

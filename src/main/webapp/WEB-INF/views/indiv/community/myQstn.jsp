@@ -108,11 +108,6 @@
 		height:100%;
 	}
 	
-	.userQstn{
-		color:#4c50bb;
-		font-weight:bold;
-	}
-	
 	/*  */
 	
 	#questBox{
@@ -178,15 +173,15 @@
 	.cellBx > span{
 		float:left;
 	}
-	.allQstn{
-		color:#4c50bb;
-		font-weight:bold;
-	}
-	
+
 	.cellBx > span{
 		font-size:13px;	
 	}
 	
+	.userQstn{
+		font-weight: bold;
+		color:#4c50bb;
+	}
 	/* 페이징처리 */
 	.product__pagination a,
 		.blog__pagination a,
@@ -229,7 +224,6 @@
 	}
 </script>
 
-
 <title>커뮤니티게시판</title>
 </head>
 <body>
@@ -248,6 +242,7 @@
 			</p>
 		</div>
 		
+		<!-- 페이징 처리를 위한 form  -->
 		<form action="<c:url value='/indiv/community/myQstn.do'/>" 
 				name="frmPage" method="post">
 			<input type="hidden" name="currentPage">
@@ -277,7 +272,7 @@
 				<div class="questBoxWrap">
 					<div class="oneQuestBox">
 						<div>
-							<a href="<c:url value='/indiv/community/qstnDetail.do?qstnNo=${map["QUESTION_NO"]}'/>"
+							<a href="<c:url value='/indiv/community/cntUpdate.do?qstnNo=${map["QUESTION_NO"]}'/>"
 								class="contentArea">
 								<dl>
 								<!-- 제목 -->
@@ -292,7 +287,7 @@
 								<dd class="cellBx">
 									<span class="reply">답변<span class="replyNum">
 											0</span>&nbsp;&nbsp;|&nbsp;
-									</span> <span class="readCnt">조회 3&nbsp;&nbsp;|&nbsp;</span> <span
+									</span> <span class="readCnt">조회 ${map['QUESTION_VIEW']}&nbsp;&nbsp;|&nbsp;</span> <span
 										class="regTime"> <fmt:formatDate
 											value="${map['QUESTION_DATE']}" pattern="yyyy-MM-dd" />
 									</span>
@@ -304,6 +299,8 @@
 				</div>
 				</c:forEach>
 			<!-- 질문 반복 끝 -->
+			
+			<!-- 페이징 처리 -->
 			<div class="paging col-lg-12">
 				<!-- 이전블럭 -->	
 				 <div class="product__pagination blog__pagination">

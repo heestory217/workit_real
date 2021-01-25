@@ -58,6 +58,11 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	public List<Map<String, Object>> selectAllQuestion(QstnPagingVO vo) {
 		return sqlSession.selectList(namespace+"selectAllQuestion", vo);
 	}
+
+	@Override
+	public int updateReadCnt(int qstnNo) {
+		return sqlSession.update(namespace+"updateReadCnt", qstnNo);
+	}
 	
 	
 }

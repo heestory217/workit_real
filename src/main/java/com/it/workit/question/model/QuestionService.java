@@ -14,4 +14,5 @@ public interface QuestionService {
 	int getTotalRecord(QstnPagingVO vo);
 	
 	List<Map<String, Object>> selectAllQuestion(QstnPagingVO vo);
+	int updateReadCnt(int qstnNo);
 }
