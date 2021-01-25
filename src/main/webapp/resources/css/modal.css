@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+/*모달 css 제작 임희정*/
+
+.modal-body span {
+	color: #4C50BB;
+}
+
+.modalservice {
+	text-align: center;
+	margin-top: 24px;
+	margin-bottom: 40px;
+}
+
+.modalservice h1 {
+	line-height: 1.54;
+	font-size: 26px;
+	font-weight: 600;
+	color: #333;
+}
+
+.modalservice h2 {
+	margin-top: 16px;
+	line-height: 1.5;
+	font-size: 22px;
+	font-weight: 600;
+	color: #4C50BB;
+}
+
+.modalservice h3 {
+	margin-top: 16px;
+	line-height: 1.5;
+	font-size: 20px;
+	font-weight: 400;
+	color: #666;
+}
+
+.modalservice img {
+	max-width: 8%;
+	margin-right: 10px;
+}
+
+.modalserviceContent {
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+	margin-bottom: 20px;
+}
+
+.modalserviceContent button {
+	width: 70%;
+	text-align: center;
+	position: relative;
+	font-weight: 500;
+	font-size: 20px;
+	color: white;
+	padding: 10px 10px !important;
+}
+
+.modalservice2 {
+	position: relative;
+	padding-bottom: 22px;
+	color: #4C4747;
+}
+
+.modalservicelb {
+	font-size: 14px;
+	font-weight: 400px;
+}
+
+.modalserviceip {
+	margin-top: 11px;
+}

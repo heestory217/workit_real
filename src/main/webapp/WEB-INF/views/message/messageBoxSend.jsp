@@ -25,7 +25,7 @@
 		
 		$('#btDel').click(function(){
 			var len=$('.cart-table tbody tr td').find('input[type=checkbox]:checked').length;
-			            //여러개 이므로 배열 length사용 가능
+
 			if(len==0){
 			   alert('먼저 삭제할 쪽지를 선택하세요.');
 			   return false;
