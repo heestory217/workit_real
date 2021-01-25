@@ -4,4 +4,14 @@
 
 <mapper namespace="config.mybatis.mapper.oracle.orders">
 
+	<select id="selectIndivPaymentByUserno" parameterType="int" resultType="ordersVo">
+		select a.*, b.PAIDSERVICE_STARTDATE, b.PAIDSERVICE_ENDDATE, c.PAIDSERVICE_NAME
+		from ORDERS a join ORDERDETAILSEERV b
+		on a.order_no=b.order_no
+		join PAIDSERVICE c
+		on b.PAIDSERVICE_NO=c.PAIDSERVICE_NO
+		where a.user_no=#{userNo}
+	</select>
+	
+	
 </mapper>
