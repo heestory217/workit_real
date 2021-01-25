@@ -65,6 +65,13 @@
 		from users u, RECRUITANNOUNCE r
 		where u.USER_NO = r.USER_NO and u.user_no=#{userNo}
 	</select>
+	
+	<select id="selectAppList" parameterType="int" resultType="Map">
+		select a.*, r.resume_no, r.resume_title, u.workkind_no, u.user_Experience
+		from applicantlist a, resumes r, users u
+		where a.resume_no=r.resume_no and a.USER_NO = u.USER_NO
+		and recruitannounce_no=#{recruitannounceNo}
+	</select>
 </mapper>
 
 

@@ -82,4 +82,9 @@ public class CorpServiceImpl implements CorpService {
 		return corpDao.selectRecruitList(userNo);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectAppList(int recruitannounceNo) {
+		return corpDao.selectAppList(recruitannounceNo);
+	}
+
 }

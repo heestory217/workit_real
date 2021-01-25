@@ -55,4 +55,9 @@ public class CorpDAOMybatis implements CorpDAO {
 		return sqlSession.selectList(namespace+"selectRecruitList", userNo);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectAppList(int recruitannounceNo) {
+		return sqlSession.selectList(namespace+"selectAppList", recruitannounceNo);
+	}
+
 }
