@@ -2,11 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<link rel="stylesheet" href="<c:url value="/resources/css/corpbootstrap.min.css"/>" type="text/css">
+<link rel="stylesheet" href="<c:url value="/resources/css/corpstyle.css"/>" type="text/css">
+<link rel="stylesheet" href="<c:url value="/resources/css/modal.css"/>" type="text/css">
+    
+<!-- Modal -->
+<%@ include file="Cmodal/resumeModal.jsp" %>
+<%@ include file="Cmodal/adModal.jsp" %>
+<%@ include file="Cmodal/reviewDelModal.jsp" %>
+<!-- Modal End -->
 
-    <link rel="stylesheet" href="<c:url value="/resources/css/corpbootstrap.min.css"/>" type="text/css">
-    <link rel="stylesheet" href="<c:url value="/resources/css/corpstyle.css"/>" type="text/css">
-
-   <!-- 가장 많이 쓰는 언어 검색 -->
+<!-- 가장 많이 쓰는 언어 검색 -->
     <div class="banner-section spad">
         <div class="container-fluid">
             <div class="row">
@@ -79,7 +85,7 @@
                                 <li>사용 가능 개발언어</li>
                                 <li>입사 제안 보내기</li>
                             </ul>
-                            <a href="#" class="borders-btn">서비스 이용하기</a>
+                            <a data-toggle="modal" href="#seeResume" class="borders-btn">서비스 이용하기</a>
                         </div>
                     </div>
                 </div>
@@ -99,7 +105,7 @@
                                 <li>사이트 메인 하단 (광고2급)</li>
                                 <li>7일/15일/30일</li>
                             </ul>
-                            <a href="#" class="borders-btn">서비스 이용하기</a>
+                            <a data-toggle="modal" href="#siteAD" class="borders-btn">서비스 이용하기</a>
                         </div>
                     </div>
                 </div>
@@ -119,7 +125,7 @@
                                 <li>재직자 후기</li>
                                 <li>퇴사자 후기</li>
                             </ul>
-                            <a href="#" class="borders-btn">서비스 이용하기</a>
+                            <a data-toggle="modal" href="#reviewDel" class="borders-btn">서비스 이용하기</a>
                         </div>
                     </div>
                 </div>
