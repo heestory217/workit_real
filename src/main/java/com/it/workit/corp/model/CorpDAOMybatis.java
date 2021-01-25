@@ -58,6 +58,11 @@ public class CorpDAOMybatis implements CorpDAO {
 	public List<AppResumeUserAllVO> selectResumeView(int recruitannounceNo) {
 		return sqlSession.selectList(namespace+"AppResumeUserList", recruitannounceNo);
 	}
+
+	@Override
+	public List<AreaListView> selectAreaList(int resumeNo) {
+		return sqlSession.selectList(namespace+"areaList", resumeNo);
+	}
 	
 
 

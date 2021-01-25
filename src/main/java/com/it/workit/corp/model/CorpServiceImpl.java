@@ -87,6 +87,11 @@ public class CorpServiceImpl implements CorpService {
 		return corpDao.selectResumeView(recruitannounceNo);
 	}
 
+	@Override
+	public List<AreaListView> selectAreaList(int resumeNo) {
+		return corpDao.selectAreaList(resumeNo);
+	}
+
 
 
 }

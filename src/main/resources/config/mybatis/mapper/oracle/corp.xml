@@ -77,12 +77,23 @@
          <result property="resumeTitle" column="resume_Title" jdbcType="VARCHAR" />
          <result property="userExperience" column="user_Experience" jdbcType="VARCHAR" />
       </association>
+      <collection property="areaList" column="resumeNo" javaType="ArrayList" ofType="AreaListView" select="parameterType">
+     	<id property="resumeNo" column="RESUME_NO" jdbcType="BIGINT"/>
+     	<result property="areaNo" column="area_No" jdbcType="BIGINT" />
+     	<result property="areaAdd1" column="area_Add1" jdbcType="VARCHAR" />
+     	<result property="areaAdd2" column="area_Add2" jdbcType="VARCHAR" />
+      </collection>
    </resultMap>
    
    <select id="AppResumeUserList" parameterType="int" resultMap="appResumeUserList">
       select * from appresumeview where RECRUITANNOUNCE_NO=#{recruitannounceNo}
    </select>
-
+   
+   <select id="areaList" parameterType="int" resultType="AreaListView">
+		select * from arealistview where resume_no=#{resumeNo}
+   </select>
+	
+	
 </mapper>
 
 

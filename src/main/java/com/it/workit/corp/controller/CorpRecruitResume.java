@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.corp.model.AppResumeUserAllVO;
+import com.it.workit.corp.model.AreaListView;
 import com.it.workit.corp.model.CorpService;
 
 @Controller
@@ -43,7 +44,6 @@ public class CorpRecruitResume {
 		return "company/CorpRecruitResume";
 	}
 	
-	
 	@ResponseBody
 	@RequestMapping("/selectResumeView.do")
 	public List<AppResumeUserAllVO> applList(@RequestParam(defaultValue = "0") String recruitannounceNo) {
@@ -53,6 +53,11 @@ public class CorpRecruitResume {
 		 */
 		int no = Integer.parseInt(recruitannounceNo); 
 		List<AppResumeUserAllVO> list = corpService.selectResumeView(no);
+		for(AppResumeUserAllVO allVo : list) {
+			int resumeNo = allVo.getAppReUsView().getResumeNo();
+			List<AreaListView> areaList = corpService.selectAreaList(resumeNo);
+			allVo.setAreaList(areaList);
+		}
 		logger.info("list 사이즈 :  {}",list.size());
 		//리스트를 선택하면 언어와 지역을 가져오는 다중선택
 		return list;
