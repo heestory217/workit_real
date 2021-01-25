@@ -23,8 +23,8 @@
 						<thead>
                                 <tr>
                                     <th>채용 공고</th>
-                                    <th>시작</th>
-                                    <th>마감</th>
+                                    <th>시작일</th>
+                                    <th>마감일</th>
                                     <th>경력</th>
                                     <th>분야</th>
                                     <th>연봉</th>
