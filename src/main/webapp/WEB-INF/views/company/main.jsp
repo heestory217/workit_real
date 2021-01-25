@@ -10,7 +10,7 @@
     <div class="banner-section spad">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="single-banner">
                         <img src="<c:url value='/resources/img/banner-1.jpg'/>">
                         <div class="inner-text">
@@ -18,7 +18,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="single-banner">
                         <img src="<c:url value="/resources/img/banner-2.jpg"/>">
                         <div class="inner-text">
@@ -26,7 +26,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
+                    <div class="single-banner">
+                        <img src="<c:url value="/resources/img/banner-3.jpg"/>">
+                        <div class="inner-text">
+                            <h4>JavaScript 개발자</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
                     <div class="single-banner">
                         <img src="<c:url value="/resources/img/banner-3.jpg"/>">
                         <div class="inner-text">
@@ -39,31 +47,21 @@
     </div>
     <!-- 가장 많이 쓰는 언어 검색 끝 -->
 	
-	
-	<!-- 채용 공고별(최신 3개) 지원 현황 -->
+	<!-- 채용 공고별(최신 4개)/ 맞춤 이력서 추천 : 회사의 최근 채용 공고중 언어/경력과 일치하는 이력서 -->
 	<c:import url="/comapny/CorpRecruitResume.do"/>
-
-	
-	<!-- 채용 공고별 지원 현황 끝 -->
-	
-	
-	
-	<!-- 맞춤 이력서 추천 : 회사의 최근 채용 공고중 언어/경력과 일치하는 이력서 -->
-	
-	
-	<!-- 맞춤이력서 추천 끝 -->
+	<!-- 채용 공고별 이력서 리스트 끝 -->
 	
  	<!-- 서비스 소개, 가격정책 -->
- 	<section class="pricing-card-area fix">
+ 	<section class="pricing-card-area fix" style="margin-bottom: 60px;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xl-8 col-lg-8">
                     <div class="section-tittle text-center mb-90">
-                        <h2 style="margin-top: 60px;">Work it이 제공하는 서비스</h2>
+                        <h2 style="margin-top: 70px;">Work it이 제공하는 서비스</h2>
                         <p>work it은 다음과 같은 서비스를 제공합니다. 좋은 인재를 찾을 수 있도록 돕겠습니다.</p>
                     </div>
                 </div>
-            </div>
+       	    </div>
             <div class="row">
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10">
                     <div class="single-card text-center mb-30">

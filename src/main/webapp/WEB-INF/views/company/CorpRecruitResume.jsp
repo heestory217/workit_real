@@ -43,7 +43,6 @@
                       <!-- 반복처리될 이력서 리스트 포맷 -->
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="<c:url value='/resources/img/paper.jpg'/>">
                                 <ul>
                                 	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
@@ -69,7 +68,6 @@
                         <!-- 구현후 지울것 -->
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img src="<c:url value='/resources/img/paper.jpg'/>">
                                 <ul>
                                 	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
@@ -93,7 +91,6 @@
                         
                        	<div class="product-item">
                             <div class="pi-pic">
-                                <img src="<c:url value='/resources/img/paper.jpg'/>">
                                 <ul>
                                 	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
@@ -118,7 +115,6 @@
                         
                        <div class="product-item">
                             <div class="pi-pic">
-                                <img src="<c:url value='/resources/img/paper.jpg'/>">
                                 <ul>
                                 	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
@@ -148,28 +144,17 @@
     <!--채용 공고별 추천 이력서 끝-->
     
     
-    
-    
-    
-    <!-- 맞춤이력서 시작 -->
-    <section class="women-banner spad">
+	<!-- 맞춤 인재 추천 -->
+    <section class="man-banner spad">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8 offset-lg-1">
+                <div class="col-lg-8">
                     <div class="filter-control">
-                        <ul>
-                        	<!-- 클릭시 해당 공고의 채용 공고만 볼 수 있도록 ajax로 처리 -->
-                            <li class="active">채용공고1</li>
-                            <li>채용공고2</li>
-                            <li>채용공고3</li>
-                            <li>채용공고4</li>
-                        </ul>
                     </div>
                     <div class="product-slider owl-carousel">
-                      <!-- 반복처리될 이력서 리스트 포맷 -->
-                        <div class="product-item">
+                    <!-- 이력서 반복 시작 -->
+						<div class="product-item">
                             <div class="pi-pic">
-                                <img src="<c:url value='/resources/img/paper.jpg'/>">
                                 <ul>
                                 	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
@@ -190,12 +175,9 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- 반복 끝 -->
-                        
-                        <!-- 구현후 지울것 -->
-                        <div class="product-item">
+                        <!-- 이력서 반복 끝-->
+						<div class="product-item">
                             <div class="pi-pic">
-                                <img src="<c:url value='/resources/img/paper.jpg'/>">
                                 <ul>
                                 	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
@@ -205,21 +187,19 @@
                             </div>
                             <div class="pi-text">
                             	<!-- 경력이 들어갈 것임 -->
-                                <div class="catagory-name">2년</div>
+                                <div class="catagory-name">3년</div>
                                 <!-- 지원서 제목이 들어갈 것임 -->
                                 <a href="#">
-                                    <h5>2년차 웹 개발자의 자소서</h5>
+                                    <h5>3년차 웹 개발자입니다.</h5>
                                 </a>
                                 <!-- 사용 언어가 들어갈 것임 최대 4개 -->
                                 <div class="product-price">
-                                    JAVA
+                                    JAVA, SQL, PL/SQL, PYTHON
                                 </div>
                             </div>
                         </div>
-                        
-                       	<div class="product-item">
+						<div class="product-item">
                             <div class="pi-pic">
-                                <img src="<c:url value='/resources/img/paper.jpg'/>">
                                 <ul>
                                 	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
                                     <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
@@ -229,10 +209,32 @@
                             </div>
                             <div class="pi-text">
                             	<!-- 경력이 들어갈 것임 -->
-                                <div class="catagory-name">10년</div>
+                                <div class="catagory-name">3년</div>
                                 <!-- 지원서 제목이 들어갈 것임 -->
                                 <a href="#">
-                                    <h5>10년차 웹 개발자입니다.</h5>
+                                    <h5>3년차 웹 개발자입니다.</h5>
+                                </a>
+                                <!-- 사용 언어가 들어갈 것임 최대 4개 -->
+                                <div class="product-price">
+                                    JAVA, SQL, PL/SQL, PYTHON
+                                </div>
+                            </div>
+                        </div>
+						<div class="product-item">
+                            <div class="pi-pic">
+                                <ul>
+                                	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
+                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                    <!-- 이력서 미리보기 기능 -->
+                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                            	<!-- 경력이 들어갈 것임 -->
+                                <div class="catagory-name">3년</div>
+                                <!-- 지원서 제목이 들어갈 것임 -->
+                                <a href="#">
+                                    <h5>3년차 웹 개발자입니다.</h5>
                                 </a>
                                 <!-- 사용 언어가 들어갈 것임 최대 4개 -->
                                 <div class="product-price">
@@ -241,35 +243,10 @@
                             </div>
                         </div>
                         
-                        
-                       <div class="product-item">
-                            <div class="pi-pic">
-                                <img src="<c:url value='/resources/img/paper.jpg'/>">
-                                <ul>
-                                	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <!-- 이력서 미리보기 기능 -->
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                            	<!-- 경력이 들어갈 것임 -->
-                                <div class="catagory-name">10년</div>
-                                <!-- 지원서 제목이 들어갈 것임 -->
-                                <a href="#">
-                                    <h5>10년차 웹 개발자입니다.</h5>
-                                </a>
-                                <!-- 사용 언어가 들어갈 것임 최대 4개 -->
-                                <div class="product-price">
-                                    JAVA, SQL, PL/SQL, PYTHON
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-                
-               <div class="col-lg-3">
-                    <div class="product-large set-bg" data-setbg="<c:url value='/resources/img/products/women-large.jpg'/>">
+                <div class="col-lg-3 offset-lg-1">
+                    <div class="product-large set-bg m-large" data-setbg="<c:url value='/resources/img/products/man-large.jpg'/>">
                         <h2>맞춤 이력서<br>추천</h2>
                         <a href="#">More</a>
                     </div>
@@ -277,7 +254,9 @@
             </div>
         </div>
     </section>
-    <!-- 맞춤이력서 끝  -->
+    <!-- 맞춤인재추천끝 -->
+    
+  
     
         <!-- Js Plugins -->
     <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
