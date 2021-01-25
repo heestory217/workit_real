@@ -302,6 +302,42 @@ public class CommunityController {
 		return "common/message";
 	}
 	
+	//답변 조회 - 페이징처리
+	@RequestMapping("/comments.do")
+	public String cmtDetail(@ModelAttribute QstnPagingVO vo, 
+			@RequestParam int qstnNo,Model model) {
+		logger.info("답변 조회, 파라미터 qstnNo={}, vo={}", qstnNo, vo);
+		if(qstnNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/indiv/community/qstnDetail.do?qstnNo="+qstnNo);
+		}
+		
+		//[1]pagingInfo
+		PaginationInfo pagingInfo = new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(vo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		//[2]searchVo
+		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		vo.setQuestionNo(qstnNo);
+		
+		int totalRecord=comntService.getTotalCmt(vo);
+		logger.info("총 답변 개수, totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		List<Map<String, Object>> cmtList = comntService.selectAllComnt(vo);
+		logger.info("답변 조회 결과, cmtList.size={}", cmtList.size());
+		
+		model.addAttribute("cmtList", cmtList);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		return "indiv/community/comments";
+		
+	}
+	
+	/*
 	//답변 조회
 	@RequestMapping("/comments.do")
 	public String cmtDetail(@RequestParam(defaultValue = "0") int qstnNo, Model model) {
@@ -320,8 +356,6 @@ public class CommunityController {
 		
 	}
 	
-	/*
-
 
 	
 	*/

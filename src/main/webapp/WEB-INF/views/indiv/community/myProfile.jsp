@@ -66,6 +66,8 @@ dd {
 
 .paging {
 	height: 100px;
+	clear: both;
+	text-align: center;
 }
 
 .questBoxWrap:hover {
@@ -77,10 +79,6 @@ dd {
 	height: 400px;
 	text-align: center;
 	border: 1px solid silver;
-}
-
-.paging {
-	clear: both;
 }
 
 .cellBx>span {
@@ -307,7 +305,7 @@ function pageFunc(curPage){
 		</c:import>
 
 		<!-- 페이징 처리를 위한 form  -->
-		<form action="<c:url value='/indiv/community/myQstn.do'/>" 
+		<form action="<c:url value='/indiv/community/myProfile.do'/>" 
 				name="frmPage" method="post">
 			<input type="hidden" name="currentPage">
 			<input type="hidden" name="userNo" value="${userNo}">
@@ -395,7 +393,7 @@ function pageFunc(curPage){
 										</div>
 									</c:forEach>
 									<!-- 질문 반복 끝 -->
-									<!-- 페이징 처리 -->
+			<!-- 페이징 처리 -->
 			<div class="paging col-lg-12">
 				<!-- 이전블럭 -->	
 				 <div class="product__pagination blog__pagination">

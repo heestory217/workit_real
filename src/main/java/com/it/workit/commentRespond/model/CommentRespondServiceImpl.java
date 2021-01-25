@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.it.workit.question.model.QstnPagingVO;
+
 @Service
 public class CommentRespondServiceImpl implements CommentRespondService{
 	@Autowired private CommentRespondDAO comntRespondDao;
@@ -18,7 +20,13 @@ public class CommentRespondServiceImpl implements CommentRespondService{
 	
 	//답변 조회
 	@Override
-	public List<Map<String, Object>> selectAllComnt(int qstnNo) {
-		return comntRespondDao.selectAllComnt(qstnNo);
+	public List<Map<String, Object>> selectAllComnt(QstnPagingVO vo) {
+		return comntRespondDao.selectAllComnt(vo);
+	}
+	
+	//답변 개수
+	@Override
+	public int getTotalCmt(QstnPagingVO vo) {
+		return comntRespondDao.getTotalCmt(vo);
 	}
 }
