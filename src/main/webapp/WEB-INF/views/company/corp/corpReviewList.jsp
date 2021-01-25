@@ -105,7 +105,7 @@
             </svg></div>
         </div>
         <h6 style="color: #4C50BB; font-weight: 600;">장점</h6>
-        <p class="card-text pt-3">${reVo.corpreviewGook}</p>
+        <p class="card-text pt-3">${reVo.corpreviewGood}</p>
         <h6 style="color: #dc143c; font-weight: 600;">단점</h6>
         <p class="card-text pt-3" >${reVo.corpreviewBad}</p>
         <h6 style="font-weight: 600; color: #333;">경영진에게 바라는 점</h6>

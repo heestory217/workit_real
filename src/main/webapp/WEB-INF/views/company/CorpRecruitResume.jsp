@@ -18,11 +18,53 @@
     	top: 30px;
 	}
 	</style>
+    <script src="<c:url value="/resources/js/jquery-3.5.1.min.js"/>"></script>
+	<script type="text/javascript">
+	$(function(){
+		//클릭이 없을때 첫번째 이력서 보여주기
+		//.rList의 첫번재 클래스 의 input을 값으로 넣어주기  
+		var firstRnum = $('.rList:first').find("input").val();
+		alert(firstRnum);
+		//성공
+		
+		//클릭하면 다른 이력서 보여주기
+		$('.rList').each(function(index,item){
+			$(this).click(function(){
+				$('.rList').removeClass();
+				$(this).attr("class","active");
+				var rNum = $(this).find("input").val();
+				$.send(rNum);
+			});
+		});
+		
+		//ajax요청
+		$.send=function(rNum){
+			$.ajax({
+				url:"<c:url value='/company/CorpRecruitResumeList.do'/>",
+				type:"GET",
+				data:{
+					recruitannounceNo:rNum
+				},
+				dataType:"json",
+				success:function(str){
+					alert('str');
+				},
+	    		error:function(xhs, status, error){
+					alert('error : '+error);
+				}
+			})
+		}
+	});
+
+	</script>
 
 <!-- 채용공고별 이력서 시작 -->
     <section class="women-banner spad">
         <div class="container-fluid">
             <div class="row">
+            <c:if test="${empty rList}">
+            </c:if>
+			<c:if test="${!empty rList}">
                 <div class="col-lg-3">
                     <div class="product-large set-bg" data-setbg="<c:url value='/resources/img/products/women-large.jpg'/>">
                         <h2>채용 공고별<br>지원자 현황</h2>
@@ -32,11 +74,14 @@
                 <div class="col-lg-8 offset-lg-1">
                     <div class="filter-control">
                         <ul>
+                        	<!-- 사용자가 등록한 채용공고 리스트 보기 : 없으면 안보여줌 -->
                         	<!-- 클릭시 해당 공고의 채용 공고만 볼 수 있도록 ajax로 처리 -->
-                            <li class="active">채용공고1</li>
-                            <li>채용공고2</li>
-                            <li>채용공고3</li>
-                            <li>채용공고4</li>
+                            <c:forEach var="rMap" items="${rList }">
+	                            <li class="rList">
+	                            	${rMap['RECRUITANNOUNCE_TITLE']}
+	                            	<input class="rNum" type="hidden" value="${rMap['RECRUITANNOUNCE_NO']}">
+	                            </li>
+                            </c:forEach>                           	
                         </ul>
                     </div>
                     <div class="product-slider owl-carousel">
@@ -138,6 +183,7 @@
                        	
                     </div>
                 </div>
+                </c:if>
             </div>
         </div>
     </section>

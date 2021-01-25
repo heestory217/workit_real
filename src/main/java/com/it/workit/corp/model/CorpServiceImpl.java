@@ -1,6 +1,7 @@
 package com.it.workit.corp.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,6 +75,11 @@ public class CorpServiceImpl implements CorpService {
 	@Override
 	public int selectCorpNo(int userNo) {
 		return corpDao.selectCorpNo(userNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectRecruitList(int userNo) {
+		return corpDao.selectRecruitList(userNo);
 	}
 
 }

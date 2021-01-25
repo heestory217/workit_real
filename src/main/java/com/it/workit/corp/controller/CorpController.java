@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.common.FileUploadUtil;
-import com.it.workit.corp.model.CorpAllVO;
 import com.it.workit.corp.model.CorpRecruitViewVO;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.CorpVO;

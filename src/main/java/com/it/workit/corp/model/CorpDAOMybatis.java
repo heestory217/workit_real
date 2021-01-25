@@ -1,6 +1,7 @@
 package com.it.workit.corp.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -47,6 +48,11 @@ public class CorpDAOMybatis implements CorpDAO {
 	@Override
 	public int selectCorpNo(int userNo) {
 		return sqlSession.selectOne(namespace+"selectCorpNo", userNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectRecruitList(int userNo) {
+		return sqlSession.selectList(namespace+"selectRecruitList", userNo);
 	}
 
 }
