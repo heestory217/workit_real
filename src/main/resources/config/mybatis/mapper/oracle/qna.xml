@@ -2,9 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mybatis.mapper.board">
+<mapper namespace="config.mybatis.mapper.oracle.qna">
+	<sql id="searchWhere">
+		<where>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				${searchCondition} like '%'||#{searchKeyword} ||'%'
+			</if>
+		</where>
+	</sql>
 	
+	<select id="qaseletAll" parameterType="searchVo" resultType="qnaVo">
+		select * 
+		from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        select * from qa 
+		        <include refid="searchWhere"/>
+<!-- 		        order by qaGroupno desc, qaSortno -->
+				order by QA_NO desc
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM<= #{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+	</select>
 	
+	<select id="qaTotalRecord" parameterType="searchVo" resultType="int">
+		select count(*) from qa
+		<include refid="searchWhere"/>
+	</select>
+	
+	<insert id="qaInsert" parameterType="qnaVo">
+		<selectKey keyProperty="qaNo" resultType="int" order="BEFORE">
+			select QA_SEQ.nextval from dual
+		</selectKey>
+		insert into qa(QA_NO,QA_WRITENO,QA_WRITER,QA_TITLE,QA_ABOUT,QA_GROUPNO)
+		values(#{qaNo},#{qaWriteno},#{qaWriter},#{qaTitle},#{qaAbout},#{qaNo})
+	</insert>
+	
+	<update id="qaViewCount" parameterType="int">
+		update qa 
+		set qa_view=qa_view+1
+		where qa_no= #{qaNo}
+	</update>
 	
 </mapper>
 
