@@ -95,7 +95,12 @@
 		<!-- side nav  -->
 			<div id="leftNav">
 			<div id="questionBtn">
+			<c:if test="${empty sessionScope.userNo }">
+				<a href="<c:url value='/users/login.do'/>">
+			</c:if>
+			<c:if test="${!empty sessionScope.userNo }">
 				<a href="<c:url value='/indiv/community/qstnWrite.do'/>">
+			</c:if>
 				<i class="fa fa-pencil"></i>&nbsp;질문하기</a>
 			</div>
 			<div class="myInfoSec">
@@ -139,9 +144,9 @@
 						나의 질문</a><hr>
 					</c:if>
 					<c:if test="${!empty sessionScope.userNo }">
-					<a class="nav-link userQstn" href
-			="<c:url value='/indiv/community/myQstn.do?userNo=${sessionScope.userNo }'/>">
-					나의 질문</a><hr></c:if></li>
+						<a class="nav-link userQstn" href
+				="<c:url value='/indiv/community/myQstn.do?userNo=${sessionScope.userNo }'/>">
+						나의 질문</a><hr></c:if></li>
 					<li class="sideNav"><a class="nav-link allQstn" href
 			="<c:url value='/indiv/community/qstnList.do'/>">
 					전체 질문</a><hr></li>

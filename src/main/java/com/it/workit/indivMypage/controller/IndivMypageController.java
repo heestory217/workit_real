@@ -36,7 +36,6 @@ public class IndivMypageController {
 	public String usersEdit_get() {
 		//세션 userid 가져오기
 		//String userid=(String) session.getAttribute("userId");
-		//String userid="kang";	//임시
 		//logger.info("개인 마이페이지 - 수정 화면 보여주기 / 파라미터 userid = {}",userid);
 		
 		//UsersVO vo=userService.selectByUserId(userid);
@@ -121,7 +120,20 @@ public class IndivMypageController {
 		
 		//세션 userid 가져오기
 		int userno=(Integer) session.getAttribute("userNo");
+		String userid=(String) session.getAttribute("userId");	//null체크용
+		
 		logger.info("개인 마이페이지 - 지원현황 조회 / userNo={}",userno);
+		
+		if(userid==null || userid.isEmpty()) { //이거오류나서 테스트 해야함
+			//비 로그인 상태일때
+			
+			String msg="로그인 상태일 때 접근 가능합니다.", url="/users/login.do";
+			
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+
+			return "common/message";
+		}
 		
 		int applyCount=applicantService.selectApplyCountByUserNo(userno);
 		int passCount=applicantService.selectPassCountByUserNo(userno);
@@ -142,6 +154,15 @@ public class IndivMypageController {
 			list=applicantService.selectFailAllByUserNo(userno);
 		}else if(type==3) {
 			list=applicantService.selectApplyAllByUserNo(userno);
+		}else {
+			//비 로그인 상태일때
+			
+			String msg="로그인 상태일 때 접근 가능합니다.", url="/index.do";
+			
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+
+			return "common/message";
 		}
 		
 		logger.info("type ={}",type);
@@ -152,4 +173,10 @@ public class IndivMypageController {
 		return "indivMypage/indivMypageSituation";
 	}
 	
+	@RequestMapping("indivBookmark.do")
+	public String bookmark() {
+		logger.info("개인 마이페이지 - 채용북마크 화면 보여주기");
+		
+		return "indivMypage/indivBookmark";
+	}
 }

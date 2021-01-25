@@ -27,7 +27,7 @@
 						<ul class="filter-catagories">
 							<li><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=3 '/>">지원현황</a></li>
 							<li><a href="<c:url value='/indivMypage/indivMypageEdit.do '/>">회원정보수정</a></li>
-							<li><a href="#">북마크목록</a></li>
+							<li><a href="<c:url value='/indivMypage/indivBookmark.do '/>">북마크목록</a></li>
 							<li><a href="#">결제내역</a></li>
 						</ul>
 					</div>

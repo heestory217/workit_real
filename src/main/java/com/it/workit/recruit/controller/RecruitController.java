@@ -13,9 +13,16 @@ public class RecruitController {
 	=LoggerFactory.getLogger(RecruitController.class);
 
 	@RequestMapping("/recruitdetail.do")
-	public String register() {
+	public String recruitdetail() {
 		logger.info("채용공고 상세");
 
 		return "recruit/recruitdetail";
+	}
+	
+	@RequestMapping("/recruitwrite.do")
+	public String recruitwrite() {
+		logger.info("채용공고 상세");
+
+		return "recruit/recruitwrite";
 	}
 }

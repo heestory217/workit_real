@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 <%@ include file="indivMypageMenu.jsp"%>
-
+<div class="filter-widget">
+	<h4 class="fw-title center">지원 현황</h4>
+</div>
 <section class="shopping-cart spad">
 	<div class="container">
 		<div class="row">

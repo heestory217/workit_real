@@ -812,7 +812,7 @@ button.site-btn.register-btn {
 	color: #ffffff;
 	border-right: 2px solid #3b3b3b;
 	text-transform: uppercase;
-	padding: 16px 42px 15px;
+	padding: 16px 41px 15px;
 	-webkit-transition: all 0.3s;
 	-o-transition: all 0.3s;
 	transition: all 0.3s;
@@ -1017,7 +1017,7 @@ button.site-btn.register-btn {
 -----------------------*/
 
 .banner-section {
-	padding: 80px 50px;
+	padding: 50px 50px 60px 50px;
 }
 
 .single-banner {
@@ -1085,15 +1085,15 @@ button.site-btn.register-btn {
 	padding-right: 65px;
 	padding-left: 65px;
 	padding-top: 0;
-	padding-bottom: 80px;
+	padding-bottom: 40px;
 }
 
 .product-large {
-	height: 620px;
+	height: 430px;
 	margin-left: -15px;
 	margin-right: -15px;
 	text-align: center;
-	padding-top: 285px;
+	padding-top: 150px;
 }
 
 .product-large h2 {
@@ -1218,6 +1218,11 @@ button.site-btn.register-btn {
 .product-item .pi-pic {
 	overflow: hidden;
 	position: relative;
+	height: 255px;
+	border: 1px solid #4C50BB;
+	border-radius: 12px;
+	background : #fff;
+	-webkit-box-shadow: 0 8px 26px rgba(149, 147, 164, 0.1);
 }
 
 .product-item .pi-pic img {
@@ -1267,6 +1272,7 @@ button.site-btn.register-btn {
 	list-style: none;
 	display: inline-block;
 	background: #ffffff;
+	-webkit-box-shadow: 26px 10px 26px rgba(149, 147, 164, 0.1);
 }
 
 .product-item .pi-pic ul li.w-icon.active a {
@@ -1285,15 +1291,22 @@ button.site-btn.register-btn {
 .product-item .pi-text {
 	text-align: center;
 	padding-top: 26px;
+	width: 250px;
 }
 
 .product-item .pi-text .catagory-name {
 	font-size: 10px;
-	color: #b2b2b2;
-	font-weight: 700;
+	color: #fff;
+	font-weight: 900;
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	margin-bottom: 10px;
+    background: #4750d6;
+    padding: 5px;
+    width: 45px;
+    text-align: center;
+    border-radius: 12px;
+
 }
 
 .product-item .pi-text a {
@@ -1302,12 +1315,14 @@ button.site-btn.register-btn {
 
 .product-item .pi-text a h5 {
 	color: #252525;
+	text-align: left;
 }
 
 .product-item .pi-text .product-price {
 	color: #4C50BB;
 	font-size: 20px;
 	font-weight: 700;
+	text-align: left;
 }
 
 .product-item .pi-text .product-price span {
@@ -1367,8 +1382,9 @@ button.site-btn.register-btn {
 .man-banner {
 	padding-right: 65px;
 	padding-left: 65px;
-	padding-top: 80px;
-	padding-bottom: 80px;
+	padding-top: 60px;
+	padding-bottom: 60px;
+    background: #f9f9f9;
 }
 
 /*---------------------
@@ -3949,7 +3965,7 @@ button.site-btn.register-btn {
 		padding: 16px 12px 12px 11px;
 	}
 	.nav-item .nav-menu li a {
-		padding: 16px 41px 15px;
+		padding: 16px 40px 15px;
 	}
 }
 
