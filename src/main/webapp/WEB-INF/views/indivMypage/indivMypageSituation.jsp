@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../inc/top.jsp"%>
 <%@ include file="indivMypageMenu.jsp"%>
 <div class="filter-widget">
 	<h4 class="fw-title center">지원 현황</h4>
@@ -74,7 +73,7 @@
                                 	<c:forEach var="vo" items="${list }">
 										<tr>
 											<td class="cart-title padding-bottom0"><br>
-												<p class="center">${vo.recruitannounceTitle }</p>
+												<a href="#"><p class="center">${vo.recruitannounceTitle }</p></a>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">${vo.recruitannounceSworkkind }</p>
