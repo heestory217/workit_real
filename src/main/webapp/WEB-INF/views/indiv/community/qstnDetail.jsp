@@ -293,16 +293,20 @@ textarea::placeholder {
 									<i class="fa fa-bookmark-o" aria-hidden="true"></i>
 								</div>
 							</div>
+							
+							<!-- 답변 등록 -->
 							<div class="cmtBox">
 								<div class="writeBoxWrap cmtWrite">
 									<input type="hidden" name="userNo" value="${sessionScope.userNo }">
-									<form name="comntFrm" action="/indiv/community/cmtWrite.do" method="post">
+									<form name="comntFrm" method="post" 
+									action="<c:url value='/indiv/community/cmtWrite.do?qstnNo=${param.qstnNo }'/>">
 										<div class="cmtWriteBox">
-											<textarea class="cmtWriteArea" placeholder="솔직하고 따뜻한 답변을 남겨주세요."></textarea>
+											<textarea	name="commentrespondAbout" 
+											class="cmtWriteArea" placeholder="솔직하고 따뜻한 답변을 남겨주세요."></textarea>
 										</div>
 										<div class="regiBtnWrap">
 											<span class="letterNum"><b id="cnt">0</b> / 1,000</span>
-											<button type="button" id="regiBtn">등록</button>
+											<button type="submit" id="regiBtn">등록</button>
 										</div>
 										<div style="clear: both;"></div>
 									</form>

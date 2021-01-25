@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.it.workit.commentRespond.model.CommentRespondService;
+import com.it.workit.commentRespond.model.CommentRespondVO;
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
 import com.it.workit.question.model.QstnPagingVO;
@@ -28,7 +30,7 @@ public class CommunityController {
 		=LoggerFactory.getLogger(CommunityController.class);
 	
 	@Autowired QuestionService qstnService;
-	
+	@Autowired CommentRespondService comntService;
 
 	//커뮤니티 메뉴
 	@RequestMapping("/cmtyNavbar.do")
@@ -269,6 +271,35 @@ public class CommunityController {
 		logger.info("조회수 증가 결과, cnt={}", cnt);
 		
 		return "redirect:/indiv/community/qstnDetail.do?qstnNo="+qstnNo;
+	}
+	
+	//답변 등록
+	@RequestMapping("/cmtWrite.do")
+	public String cmtWrite(@ModelAttribute CommentRespondVO vo, 
+			@RequestParam(defaultValue = "0")int qstnNo, HttpSession session, 
+			Model model) {
+		int userNo=(Integer) session.getAttribute("userNo");
+		logger.info("답변 등록, 파라미터 vo={}, qstnNo={}", vo, qstnNo);
+		if(qstnNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/indiv/community/qstnDetail?qstnNo="+qstnNo);
+		}
+		vo.setUserNo(userNo);
+		vo.setQuestionNo(qstnNo);
+		
+		int cnt=comntService.insertComnt(vo);
+		logger.info("답변 등록 결과, cnt={}", cnt);
+		String msg="답변 등록에 실패하였습니다. \\n다시 입력해주세요",
+				url="/indiv/community/qstnDetail?qstnNo="+qstnNo;
+		if(cnt>0) {
+			msg="답변이 등록되었습니다.";
+			url="/indiv/community/qstnDetail?qstnNo="+qstnNo;
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+	
+		return "common/message";
 	}
 	/*
 
