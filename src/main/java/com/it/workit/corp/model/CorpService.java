@@ -12,4 +12,5 @@ public interface CorpService {
 	int editCorpImg(List<CorpimgVO> imgList);
 	int selectCorpNo(int userNo);
 	List<Map<String, Object>> selectRecruitList(int userNo);
+	List<Map<String, Object>> selectAppList(int recruitannounceNo);
 }
