@@ -3,92 +3,99 @@ package com.it.workit.qna.model;
 import java.sql.Timestamp;
 
 public class QnaVO {
-	private int QA_NO; // qna번호
-	private int QA_WRITENO;  //작성자번호
-	private int QA_WRITEKIND;//분류번호
-    private String QA_TITLE;  //제목
-	private String QA_ABOUT;  //내용
-    private Timestamp QA_DATE;  //작성일
-    private int QA_VIEW;  //조회수
-    private int QA_GROUPNO; //글묶음번호
-    private int QA_ORDERNO; //단계
-    private int QA_SORTNO; //소트넘버
-    private int QA_DELETECHECK;  //삭제여부
+	private int qaNo; // qna번호
+	private int qaWriteno;  //작성자번호
+	private String qaWriter; //작성자
+    private String qaTitle;  //제목
+	private String qaAbout;  //내용
+    private Timestamp qaDate;  //작성일
+    private int qaView;  //조회수
+    private int qaGroupno; //글묶음번호
+    private int qaOrderno; //단계
+    private int qaSortno; //소트넘버
+    private String qaDeletecheck;  //삭제여부
+    private int ManagerNo;  //관리자번호
     
-    
-	public int getQA_NO() {
-		return QA_NO;
+	public int getQaNo() {
+		return qaNo;
 	}
-	public void setQA_NO(int qA_NO) {
-		QA_NO = qA_NO;
+	public void setQaNo(int qaNo) {
+		this.qaNo = qaNo;
 	}
-	public int getQA_WRITENO() {
-		return QA_WRITENO;
+	public int getQaWriteno() {
+		return qaWriteno;
 	}
-	public void setQA_WRITENO(int qA_WRITENO) {
-		QA_WRITENO = qA_WRITENO;
+	public void setQaWriteno(int qaWriteno) {
+		this.qaWriteno = qaWriteno;
 	}
-	public int getQA_WRITEKIND() {
-		return QA_WRITEKIND;
+	public String getQaWriter() {
+		return qaWriter;
 	}
-	public void setQA_WRITEKIND(int qA_WRITEKIND) {
-		QA_WRITEKIND = qA_WRITEKIND;
+	public void setQaWriter(String qaWriter) {
+		this.qaWriter = qaWriter;
 	}
-	public String getQA_TITLE() {
-		return QA_TITLE;
+	public String getQaTitle() {
+		return qaTitle;
 	}
-	public void setQA_TITLE(String qA_TITLE) {
-		QA_TITLE = qA_TITLE;
+	public void setQaTitle(String qaTitle) {
+		this.qaTitle = qaTitle;
 	}
-	public String getQA_ABOUT() {
-		return QA_ABOUT;
+	public String getQaAbout() {
+		return qaAbout;
 	}
-	public void setQA_ABOUT(String qA_ABOUT) {
-		QA_ABOUT = qA_ABOUT;
+	public void setQaAbout(String qaAbout) {
+		this.qaAbout = qaAbout;
 	}
-	public Timestamp getQA_DATE() {
-		return QA_DATE;
+	public Timestamp getQaDate() {
+		return qaDate;
 	}
-	public void setQA_DATE(Timestamp qA_DATE) {
-		QA_DATE = qA_DATE;
+	public void setQaDate(Timestamp qaDate) {
+		this.qaDate = qaDate;
 	}
-	public int getQA_VIEW() {
-		return QA_VIEW;
+	public int getQaView() {
+		return qaView;
 	}
-	public void setQA_VIEW(int qA_VIEW) {
-		QA_VIEW = qA_VIEW;
+	public void setQaView(int qaView) {
+		this.qaView = qaView;
 	}
-	public int getQA_GROUPNO() {
-		return QA_GROUPNO;
+	public int getQaGroupno() {
+		return qaGroupno;
 	}
-	public void setQA_GROUPNO(int qA_GROUPNO) {
-		QA_GROUPNO = qA_GROUPNO;
+	public void setQaGroupno(int qaGroupno) {
+		this.qaGroupno = qaGroupno;
 	}
-	public int getQA_ORDERNO() {
-		return QA_ORDERNO;
+	public int getQaOrderno() {
+		return qaOrderno;
 	}
-	public void setQA_ORDERNO(int qA_ORDERNO) {
-		QA_ORDERNO = qA_ORDERNO;
+	public void setQaOrderno(int qaOrderno) {
+		this.qaOrderno = qaOrderno;
 	}
-	public int getQA_SORTNO() {
-		return QA_SORTNO;
+	public int getQaSortno() {
+		return qaSortno;
 	}
-	public void setQA_SORTNO(int qA_SORTNO) {
-		QA_SORTNO = qA_SORTNO;
+	public void setQaSortno(int qaSortno) {
+		this.qaSortno = qaSortno;
 	}
-	public int getQA_DELETECHECK() {
-		return QA_DELETECHECK;
+	public String getQaDeletecheck() {
+		return qaDeletecheck;
 	}
-	public void setQA_DELETECHECK(int qA_DELETECHECK) {
-		QA_DELETECHECK = qA_DELETECHECK;
+	public void setQaDeletecheck(String qaDeletecheck) {
+		this.qaDeletecheck = qaDeletecheck;
+	}
+	public int getManagerNo() {
+		return ManagerNo;
+	}
+	public void setManagerNo(int managerNo) {
+		ManagerNo = managerNo;
 	}
 	
 	@Override
 	public String toString() {
-		return "QnaVO [QA_NO=" + QA_NO + ", QA_WRITENO=" + QA_WRITENO + ", QA_WRITEKIND=" + QA_WRITEKIND + ", QA_TITLE="
-				+ QA_TITLE + ", QA_ABOUT=" + QA_ABOUT + ", QA_DATE=" + QA_DATE + ", QA_VIEW=" + QA_VIEW
-				+ ", QA_GROUPNO=" + QA_GROUPNO + ", QA_ORDERNO=" + QA_ORDERNO + ", QA_SORTNO=" + QA_SORTNO
-				+ ", QA_DELETECHECK=" + QA_DELETECHECK + "]";
+		return "QnaVO [qaNo=" + qaNo + ", qaWriteno=" + qaWriteno + ", qaWriter=" + qaWriter + ", qaTitle=" + qaTitle
+				+ ", qaAbout=" + qaAbout + ", qaDate=" + qaDate + ", qaView=" + qaView + ", qaGroupno=" + qaGroupno
+				+ ", qaOrderno=" + qaOrderno + ", qaSortno=" + qaSortno + ", qaDeletecheck=" + qaDeletecheck
+				+ ", ManagerNo=" + ManagerNo + "]";
 	}
+    
     
 }
