@@ -1,5 +1,7 @@
 package com.it.workit.resumes.model;
 
+import com.it.workit.applicant.model.ApplicantlistVO;
+
 public class AppResumeUserView extends ApplicantlistVO {
 	private String resumeTitle;//RESUME_TITLE : 이력서 제목
 	private String userExperience;//USER_EXPERIENCE 경력
