@@ -30,12 +30,7 @@ public class ShoppingCartController {
 		if(shoppingcartNo!=0) {
 			cnt = cartService.deleteOne(shoppingcartNo);
 		}
-		
-		if(cnt>0) {
-			model.addAttribute("msg", "해당 이력서가 장바구니에서 삭제되었습니다.");
-			model.addAttribute("url", "/shop/shoppingCart.do");
-			return "commom/message";
-		}
+		logger.info("장바구니 1개 삭제 결과, cnt={}", cnt);
 		
 		return "shop/shoppingCart";
 	}
