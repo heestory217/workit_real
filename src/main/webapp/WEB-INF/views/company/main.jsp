@@ -74,13 +74,12 @@
                         </div>
                         <div class="card-bottom">
                             <ul>
+                                <li>구직자 이력서 정보 열람</li>
                                 <li>상세 경력 정보</li>
-                                <li>구직자의 사용 가능 언어</li>
-                                <li>full backup systems</li>
-                                <li>free domain</li>
-                                <li>unlimited database</li>
+                                <li>사용 가능 개발언어</li>
+                                <li>채용 제안 보내기</li>
                             </ul>
-                            <a href="#" class="borders-btn">Get Started</a>
+                            <a href="#" class="borders-btn">서비스 이용하기</a>
                         </div>
                     </div>
                 </div>
@@ -91,17 +90,16 @@
                             <p>채용공고 광고 서비스</p>
                         </div>
                         <div class="card-mid">
-                            <h4>$4.67 <span>/ month</span></h4>
+                            <h4>300,000 원 <span>/ 7일</span></h4>
                         </div>
                         <div class="card-bottom">
                             <ul>
-                                <li>2 TB of space</li>
-                                <li>unlimited bandwidth</li>
-                                <li>full backup systems</li>
-                                <li>free domain</li>
-                                <li>unlimited database</li>
+                                <li>사이트 메인 상단 (광고1급)</li>
+                                <li>7일/15일/30일</li>
+                                <li>사이트 메인 하단 (광고2급)</li>
+                                <li>7일/15일/30일</li>
                             </ul>
-                            <a href="#" class="borders-btn">Get Started</a>
+                            <a href="#" class="borders-btn">서비스 이용하기</a>
                         </div>
                     </div>
                 </div>
@@ -112,17 +110,16 @@
                             <p>리뷰 삭제 서비스</p>
                         </div>
                         <div class="card-mid">
-                            <h4>$4.67 <span>/ month</span></h4>
+                            <h4>100,000 원 <span>/ 개 당</span></h4>
                         </div>
                         <div class="card-bottom">
                             <ul>
-                                <li>2 TB of space</li>
-                                <li>unlimited bandwidth</li>
-                                <li>full backup systems</li>
-                                <li>free domain</li>
-                                <li>unlimited database</li>
+                                <li>기업 관련 후기 삭제 서비스</li>
+                                <li>면접자 후기</li>
+                                <li>재직자 후기</li>
+                                <li>퇴사자 후기</li>
                             </ul>
-                            <a href="#" class="borders-btn">Get Started</a>
+                            <a href="#" class="borders-btn">서비스 이용하기</a>
                         </div>
                     </div>
                 </div>
