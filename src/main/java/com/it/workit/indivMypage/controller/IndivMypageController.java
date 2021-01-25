@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.applicant.model.ApplicantService;
 import com.it.workit.applicant.model.ApplicantlistVO;
+import com.it.workit.recruitBookmark.model.RecruitBookmarkService;
+import com.it.workit.recruitBookmark.model.RecruitannouncebookmarkVO;
 import com.it.workit.users.model.UsersService;
 import com.it.workit.users.model.UsersVO;
 
@@ -30,6 +32,7 @@ public class IndivMypageController {
 	
 	@Autowired private UsersService userService;
 	@Autowired private ApplicantService applicantService;
+	@Autowired private RecruitBookmarkService recruitBookmarkService;
 	
 	//비밀번호 입력 -> 수정화면을 거치기 위해서 단순 get방식은 indivCheckPwd로 리턴된다.
 	@RequestMapping(value = "/indivMypageEdit.do", method = RequestMethod.GET)
@@ -118,22 +121,10 @@ public class IndivMypageController {
 	public String situation(HttpSession session, Model model,
 			@RequestParam(defaultValue = "0") int type) {
 		
-		//세션 userid 가져오기
+		//세션 userno 가져오기
 		int userno=(Integer) session.getAttribute("userNo");
-		String userid=(String) session.getAttribute("userId");	//null체크용
 		
 		logger.info("개인 마이페이지 - 지원현황 조회 / userNo={}",userno);
-		
-		if(userid==null || userid.isEmpty()) { //이거오류나서 테스트 해야함
-			//비 로그인 상태일때
-			
-			String msg="로그인 상태일 때 접근 가능합니다.", url="/users/login.do";
-			
-			model.addAttribute("msg", msg);
-			model.addAttribute("url", url);
-
-			return "common/message";
-		}
 		
 		int applyCount=applicantService.selectApplyCountByUserNo(userno);
 		int passCount=applicantService.selectPassCountByUserNo(userno);
@@ -155,9 +146,9 @@ public class IndivMypageController {
 		}else if(type==3) {
 			list=applicantService.selectApplyAllByUserNo(userno);
 		}else {
-			//비 로그인 상태일때
+			//type 값이 세팅이 되지 않았을 때
 			
-			String msg="로그인 상태일 때 접근 가능합니다.", url="/index.do";
+			String msg="잘못된 주소입니다. 다시 시도하세요", url="/index.do";
 			
 			model.addAttribute("msg", msg);
 			model.addAttribute("url", url);
@@ -173,10 +164,51 @@ public class IndivMypageController {
 		return "indivMypage/indivMypageSituation";
 	}
 	
-	@RequestMapping("indivBookmark.do")
-	public String bookmark() {
-		logger.info("개인 마이페이지 - 채용북마크 화면 보여주기");
+	@RequestMapping("/indivBookmark.do")
+	public String bookmark(HttpSession session, Model model) {
+		
+		//세션 userno 가져오기
+		int userno=(Integer) session.getAttribute("userNo");
+		logger.info("개인 마이페이지 - 채용북마크 화면 보여주기 / userno={}",userno);
+		
+		List<RecruitannouncebookmarkVO> list=recruitBookmarkService.selectRecruitBookmark(userno);
+		
+		logger.info("list.size={}",list.size());
+		
+		model.addAttribute("list", list);
 		
 		return "indivMypage/indivBookmark";
+	}
+	
+	@RequestMapping("/indivBookmarkDelete.do")
+	public String deleteBookmark(@RequestParam(defaultValue = "0") int no, Model model) {
+		logger.info("개인 마이페이지 - 북마크 삭제 / 북마크 no ={}",no);
+		
+		if(no==0) {
+			String msg="잘못된 접근입니다. 다시 시도하세요", url="/indivMypage/indivBookmark.do";
+			
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+
+			return "common/message";
+		}
+		
+		String msg="북마크 삭제 실패했습니다.", url="/indivMypage/indivBookmark.do";
+		int cnt=recruitBookmarkService.deleteBookmarkByRecruitNo(no);
+		if(cnt>0) {
+			msg="북마크가 삭제되었습니다.";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "common/message";
+	}
+	
+	@RequestMapping("/indivPayment.do")
+	public String payment() {
+		logger.info("개인 마이페이지 - 결제내역 view 보여주기");
+		
+		return "indivMypage/indivPayment";
 	}
 }

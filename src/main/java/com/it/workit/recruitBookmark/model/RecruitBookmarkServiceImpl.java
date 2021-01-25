@@ -10,7 +10,12 @@ public class RecruitBookmarkServiceImpl implements RecruitBookmarkService{
 	@Autowired RecruitBookmarkDAO recruitBookmarkDao;
 
 	@Override
-	public List<RecruitannouncebookmarkVO> selectRecruitBookmark() {
-		return recruitBookmarkDao.selectRecruitBookmark();
+	public List<RecruitannouncebookmarkVO> selectRecruitBookmark(int userNo) {
+		return recruitBookmarkDao.selectRecruitBookmark(userNo);
+	}
+
+	@Override
+	public int deleteBookmarkByRecruitNo(int recruitannouncebookmarkNo) {
+		return recruitBookmarkDao.deleteBookmarkByRecruitNo(recruitannouncebookmarkNo);
 	}
 }
