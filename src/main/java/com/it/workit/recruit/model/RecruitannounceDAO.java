@@ -1,5 +1,6 @@
 package com.it.workit.recruit.model;
 
-public class RecruitannounceDAO {
 
+public interface RecruitannounceDAO {
+	public RecruitannounceVO recruitannounceselectByNo(int recruitannounceNo);
 }

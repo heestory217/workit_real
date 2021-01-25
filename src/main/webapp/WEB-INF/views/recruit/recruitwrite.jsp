@@ -19,51 +19,37 @@
                     <div class="col-lg-6 offset-lg-3">
                         <h4>채용공고 등록</h4>
                         <div class="row">
-                            <div class="col-lg-6">
-                                <label for="fir">First Name<span>*</span></label>
+                            <div class="col-lg-12 offset-lg-3">
+                                <label for="fir">제목</label>
                                 <input type="text" id="fir">
                             </div>
                             <div class="col-lg-6">
-                                <label for="last">Last Name<span>*</span></label>
+                                <label for="last">요약-채용형태</label>
+                                <input type="text" id="last">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="last">요약-경력</label>
+                                <input type="text" id="last">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="last">요약-급여</label>
                                 <input type="text" id="last">
                             </div>
                             <div class="col-lg-12">
-                                <label for="cun-name">Company Name</label>
+                            <label for="last">채용형태</label>
+                                <textarea placeholder="Messages"></textarea>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="last">요약-기술</label>
+                                <input type="text" id="last">
+                            </div>
+                            <div class="col-lg-12">
+                                <label for="cun-name">채용절차</label>
                                 <input type="text" id="cun-name">
                             </div>
                             <div class="col-lg-12">
-                                <label for="cun">Country<span>*</span></label>
+                                <label for="cun">회사링크</label>
                                 <input type="text" id="cun">
-                            </div>
-                            <div class="col-lg-12">
-                                <label for="street">Street Address<span>*</span></label>
-                                <input type="text" id="street" class="street-first">
-                                <input type="text">
-                            </div>
-                            <div class="col-lg-12">
-                                <label for="zip">Postcode / ZIP (optional)</label>
-                                <input type="text" id="zip">
-                            </div>
-                            <div class="col-lg-12">
-                                <label for="town">Town / City<span>*</span></label>
-                                <input type="text" id="town">
-                            </div>
-                            <div class="col-lg-6">
-                                <label for="email">Email Address<span>*</span></label>
-                                <input type="text" id="email">
-                            </div>
-                            <div class="col-lg-6">
-                                <label for="phone">Phone<span>*</span></label>
-                                <input type="text" id="phone">
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="create-item">
-                                    <label for="acc-create">
-                                        Create an account?
-                                        <input type="checkbox" id="acc-create">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
                             </div>
                         </div>
                     </div>
