@@ -2,6 +2,22 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 
+<script type="text/javascript">
+	$(function(){
+		$('.cart-table table tbody tr').find('i').click(function(){
+			if(!confirm('해당 이력서를 장바구니에서 삭제하시겠습니까?')){
+				event.preventDefault();
+			}
+		});
+
+		$('#clearCart').click(function(){
+			if(!confirm('장바구니를 비우시겠습니까?')){
+				event.preventDefault();
+			}
+		});
+	});
+</script>
+
 <!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
     <div class="container">
@@ -24,64 +40,50 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="cart-table">
+				<form name="frmCart" method="post" action="<c:url value='/shop/shoppingCart.do'/>">
+					<input type="text" name="shoppingcartNo" value="0">
                     <table>
+                   		<colgroup>
+							<col style="width:15%;" />
+							<col style="width:50%;" />
+							<col style="width:25%;" />
+							<col style="width:15%;" />
+						</colgroup>
                         <thead>
                             <tr>
-                                <th>서비스종류</th>
-                                <th class="p-name">유료상품이름</th>
+                                <th>번호</th>
+                                <th class="p-name">구매 이력서 제목</th>
                                 <th>가격</th>
-                                <!-- 
-                                <th>Quantity</th>
-                                <th>합계</th>
-                                -->
                                 <th><i class="ti-close"></i></th>
                             </tr>
                         </thead>
                         <tbody>
+                        	<c:set var="k" value="0"></c:set>
                             <tr>
-                                <td class="cart-pic first-row">서비스종류</td>
+                                <td class="cart-pic first-row">${k+1}</td>
                                 <td class="cart-title first-row">
-                                  	유료상품이름
+                                  	구매 이력서 제목
                                 </td>
                                 <td class="p-price first-row">$60.00</td>
-                                <!-- 
-                                <td class="qua-col first-row">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="total-price first-row">$60.00</td>
-                                 -->
-                                <td class="close-td first-row"><i class="ti-close"></i></td>
+                                <td class="close-td first-row"><a href="<c:url value='/shop/deleteOne.do'/>"><i class="ti-close"></i></a></td>
                             </tr>
                             <tr>
-                                <td class="cart-pic">서비스종류</td>
+                                <td class="cart-pic">${k+2}</td>
                                 <td class="cart-title">
-                                 	유료상품이름
+                                 	구매 이력서 제목
                                 </td>
                                 <td class="p-price">$60.00</td>
-                               <!--  
-                                <td class="qua-col">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="total-price">$60.00</td>
-                                 -->
-                                <td class="close-td"><i class="ti-close"></i></td>
+                                <td class="close-td"><a href="#"><i class="ti-close"></i></a></td>
                             </tr>
                         </tbody>
                     </table>
+                </form>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="cart-buttons">
                             <a href="#" class="primary-btn continue-shop">계속 쇼핑하기</a>
-                            <a href="<c:url value='/shop/clearCart.do'/>" class="primary-btn up-cart">장바구니 비우기</a>
+                            <a href="<c:url value='/shop/clearCart.do'/>" class="primary-btn up-cart" id="clearCart">장바구니 비우기</a>
                         </div>
                         <div class="discount-coupon">
                             <h6>Coupon Codes</h6>

@@ -1,5 +1,8 @@
 package com.it.workit.shoppingCart.model;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,5 +13,20 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Override
 	public int insertCart(ShoppingCartVO vo) {
 		return cartDao.insertCart(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectCartList(int userNo) {
+		return cartDao.selectCartList(userNo);
+	}
+
+	@Override
+	public int deleteOne(int shoppingcartNo) {
+		return cartDao.deleteOne(shoppingcartNo);
+	}
+
+	@Override
+	public int clearCart(int userNo) {
+		return cartDao.clearCart(userNo);
 	}
 }

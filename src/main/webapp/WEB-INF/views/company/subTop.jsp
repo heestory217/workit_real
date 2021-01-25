@@ -53,8 +53,8 @@
                      <h5>합계금액자리:원</h5>
                  </div>
                  <div class="select-button">
-                     <a href="#" class="primary-btn view-card">VIEW CARD</a>
-                     <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+                     <a href="<c:url value='/shop/shoppingCart.do'/>" class="primary-btn view-card">장바구니 보러가기</a>
+                     <a href="#" class="primary-btn checkout-btn">바로 결제하기</a>
                  </div>
              </div>
          </li>

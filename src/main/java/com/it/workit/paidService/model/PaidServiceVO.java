@@ -1,15 +1,15 @@
 package com.it.workit.paidService.model;
 
 public class PaidServiceVO {
-	private String paidServiceNo;
+	private int paidServiceNo;
     private String paidServiceName;
     private String paidServiceExp;	//서비스 설명
     private int paidServicePrice;
     
-	public String getPaidServiceNo() {
+	public int getPaidServiceNo() {
 		return paidServiceNo;
 	}
-	public void setPaidServiceNo(String paidServiceNo) {
+	public void setPaidServiceNo(int paidServiceNo) {
 		this.paidServiceNo = paidServiceNo;
 	}
 	public String getPaidServiceName() {
