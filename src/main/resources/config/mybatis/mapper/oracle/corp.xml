@@ -66,12 +66,23 @@
 		where u.USER_NO = r.USER_NO and u.user_no=#{userNo}
 	</select>
 	
-	<select id="selectAppList" parameterType="int" resultType="Map">
-		select a.*, r.resume_no, r.resume_title, u.workkind_no, u.user_Experience
-		from applicantlist a, resumes r, users u
-		where a.resume_no=r.resume_no and a.USER_NO = u.USER_NO
-		and recruitannounce_no=#{recruitannounceNo}
-	</select>
+   <resultMap type="AppResumeUserAllVO" id="appResumeUserList">
+      <association property="appReUsView" column="applicantlistNo" javaType="AppResumeUserView">
+         <id property="applicantlistNo" column="applicantlist_No" jdbcType="BIGINT"/>
+         <result property="userNo" column="user_No" jdbcType="BIGINT" />
+         <result property="resumeNo" column="resume_No" jdbcType="BIGINT" />
+         <result property="recruitannounceNo" column="recruitannounce_No" jdbcType="BIGINT" />
+         <result property="applicantlistDate" column="applicantlist_Date" jdbcType="TIMESTAMP" />
+         <result property="applicantlistPapercheck" column="applicantlist_Papercheck" jdbcType="BIGINT" />
+         <result property="resumeTitle" column="resume_Title" jdbcType="VARCHAR" />
+         <result property="userExperience" column="user_Experience" jdbcType="VARCHAR" />
+      </association>
+   </resultMap>
+   
+   <select id="AppResumeUserList" parameterType="int" resultMap="appResumeUserList">
+      select * from appresumeview where RECRUITANNOUNCE_NO=#{recruitannounceNo}
+   </select>
+
 </mapper>
 
 

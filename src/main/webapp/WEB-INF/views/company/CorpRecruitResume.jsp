@@ -24,7 +24,6 @@
 		//클릭이 없을때 첫번째 이력서 보여주기
 		//.rList의 첫번재 클래스 의 input을 값으로 넣어주기  
 		var firstRnum = $('.rList:first').find("input").val();
-		alert(firstRnum);
 		//성공
 		
 		//클릭하면 다른 이력서 보여주기
@@ -38,21 +37,21 @@
 		});
 		
 		//ajax요청
-		$.send=function(rNum){
+		$.send=function(no){
+			var data = 'recruitannounceNo='+no;
+			alert(data);
 			$.ajax({
-				url:"<c:url value='/company/CorpRecruitResumeList.do'/>",
-				type:"GET",
-				data:{
-					recruitannounceNo:rNum
-				},
-				dataType:"json",
+				url:"<c:url value='/company/selectResumeView.do'/>",
+				type:"get",
+				data:data,
+				dataType:'json',
 				success:function(str){
-					alert('str');
+					alert(str);
 				},
 	    		error:function(xhs, status, error){
 					alert('error : '+error);
 				}
-			})
+			});
 		}
 	});
 

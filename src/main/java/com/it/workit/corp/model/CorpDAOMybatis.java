@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -56,8 +55,10 @@ public class CorpDAOMybatis implements CorpDAO {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectAppList(int recruitannounceNo) {
-		return sqlSession.selectList(namespace+"selectAppList", recruitannounceNo);
+	public List<AppResumeUserAllVO> selectResumeView(int recruitannounceNo) {
+		return sqlSession.selectList(namespace+"AppResumeUserList", recruitannounceNo);
 	}
+	
+
 
 }

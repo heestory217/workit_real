@@ -1,4 +1,4 @@
-package com.it.workit.resumes.model;
+package com.it.workit.corp.model;
 
 public class LanguageListView {
 	private int resumeNo;

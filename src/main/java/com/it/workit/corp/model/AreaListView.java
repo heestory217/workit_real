@@ -1,4 +1,4 @@
-package com.it.workit.resumes.model;
+package com.it.workit.corp.model;
 
 public class AreaListView {
 	private int resumeNo;//RESUME_NO

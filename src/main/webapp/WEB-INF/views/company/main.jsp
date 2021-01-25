@@ -54,7 +54,7 @@
     <!-- 가장 많이 쓰는 언어 검색 끝 -->
 	
 	<!-- 채용 공고별(최신 4개)/ 맞춤 이력서 추천 : 회사의 최근 채용 공고중 언어/경력과 일치하는 이력서 -->
-	<c:import url="/comapny/CorpRecruitResume.do"/>
+	<c:import url="/company/CorpRecruitResume.do"/>
 	<!-- 채용 공고별 이력서 리스트 끝 -->
 	
  	<!-- 서비스 소개, 가격정책 -->
