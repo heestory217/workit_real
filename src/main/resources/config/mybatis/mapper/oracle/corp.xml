@@ -60,6 +60,11 @@
 		select corp_no from corp where user_no=#{userNo}
 	</select>
 	
+	<select id="selectRecruitList" parameterType="int" resultType="Map">
+		select r.RECRUITANNOUNCE_NO, r.RECRUITANNOUNCE_TITLE
+		from users u, RECRUITANNOUNCE r
+		where u.USER_NO = r.USER_NO and u.user_no=#{userNo}
+	</select>
 </mapper>
 
 

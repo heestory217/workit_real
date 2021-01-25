@@ -44,10 +44,10 @@ public class ReviewVO {
 	public void setCorpreviewOneline(String corpreviewOneline) {
 		this.corpreviewOneline = corpreviewOneline;
 	}
-	public String getCorpreviewGook() {
+	public String getCorpreviewGood() {
 		return corpreviewGood;
 	}
-	public void setCorpreviewGook(String corpreviewGood) {
+	public void setCorpreviewGood(String corpreviewGood) {
 		this.corpreviewGood = corpreviewGood;
 	}
 	public String getCorpreviewBad() {
@@ -79,7 +79,7 @@ public class ReviewVO {
 	public String toString() {
 		return "ReviewVO [corpreviewNo=" + corpreviewNo + ", userNo=" + userNo + ", corpNo=" + corpNo
 				+ ", corpreviewDate=" + corpreviewDate + ", corpreviewOneline=" + corpreviewOneline
-				+ ", corpreviewGook=" + corpreviewGood + ", corpreviewBad=" + corpreviewBad + ", corpreviewWant="
+				+ ", corpreviewGood=" + corpreviewGood + ", corpreviewBad=" + corpreviewBad + ", corpreviewWant="
 				+ corpreviewWant + ", corpreviewRate=" + corpreviewRate + ", corpreviewDeletecheck="
 				+ corpreviewDeletecheck + "]";
 	}

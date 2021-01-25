@@ -1,6 +1,7 @@
 package com.it.workit.corp.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CorpDAO {
 
@@ -12,4 +13,5 @@ public interface CorpDAO {
 	int editCorp(CorpVO vo);
 	int editCorpImg(CorpimgVO vo);
 	int selectCorpNo(int userNo);
+	List<Map<String, Object>> selectRecruitList(int userNo);
 }
