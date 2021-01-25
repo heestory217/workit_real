@@ -19,20 +19,21 @@
                     <div class="blog-details-inner">
                         <div class="blog-detail-title">
                             <h2>공고 제목</h2>
-                            <p>등록일 <span>- May 19, 2019</span></p>
+                            <p>등록일 <span> 날짜</span></p>
                         </div>
-                        <p>사명</p>
-                        <div class="blog-large-pic">
-                            <img src="img/blog/blog-detail.jpg" alt="">
-                        </div>
+                        <h4>사명</h4>
                         <div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
                         <h3 class="col-lg-7"></h3>
                         <div class="blog-quote">
-                            <p>직업설명</p>
+                            <p>경력 <span>경</span></p>
+                            <p>고용형태 <span>고</span></p>
+                            <p>급여 <span>급</span></p>
+                            <p>스킬 <span>스</span></p>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div>
-                        <h3 class="col-lg-7 offset-lg-1">회사 소개</h3>
+                        <h3 class="col-lg-7 offset-lg-1">채용 형태</h3>
                         &nbsp;&nbsp;
                         <p>소개</p>
                         </div>
@@ -45,16 +46,31 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         
                         <div class="posted-by">
+                            <h4 class="col-lg-7">자격요건</h4>
                             <div class="pb-text">
-                            <h4>자격요건</h4>
                                 <p>요건</p>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <h4 class="col-lg-7">우대사항</h4>
+                            <div class="pb-text">
+                                <p>사항</p>
                             </div>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="posted-by">
-                        <h4 class="col-lg-7">우대사항</h4>
+                            <h4 class="col-lg-7">요구 직무</h4>
+                        	<div class="pb-text">
+                                <p>직무</p>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <h4 class="col-lg-7">요구 언어</h4>
                             <div class="pb-text">
-                                <p>사항</p>
+                                <p>언어</p>
+                            </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <h4 class="col-lg-7">요구 근무지</h4>
+                            <div class="pb-text">
+                                <p>근무지</p>
                             </div>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -105,12 +121,9 @@
                                         <div class="row">
                                             <div class="col-lg-7">
                                                 <h5>회사명</h5>
-                                                <p>회사소개 </p>
                                                 <h5>대표  <span>대표</span> </h5>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-                                                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                                    aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
+                                                <p>회사소개 </p>
+                                                <p>소개</p>
                                             </div>
                                             <div class="col-lg-5">
                                                 <img src="img/product-single/tab-desc.jpg" alt="">
@@ -125,7 +138,14 @@
                         </div>
                     </div>
                         <div class="leave-comment">
-                            <button type="submit" class="site-btn">지원하기</button>
+                        <c:if test="${sessionScope.user_corpcheck==1}">
+                    	<button type="submit" class="site-btn">지원하기</button>
+                    </c:if>
+                    <c:if test="${sessionScope.user_corpcheck==2}">
+                    	<button type="submit" class="site-btn">공고삭제 요청</button>
+                    	<button type="submit" class="site-btn">공고수정 요청</button>
+                    </c:if>
+                    <button type="submit" class="site-btn">탕탕</button>
                         </div>
                     </div>
                 </div>
