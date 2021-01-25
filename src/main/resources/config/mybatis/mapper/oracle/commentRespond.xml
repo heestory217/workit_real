@@ -52,7 +52,7 @@
 	
 	<!-- 답변 삭제 -->
 	<delete id="deleteCmt" parameterType="int">
-		delete from COMMENTRESPOND
+		delete from CMNTVIEW
 		where COMMENTRESPOND_NO=#{commentrespondNo}
 	</delete>
 </mapper>
