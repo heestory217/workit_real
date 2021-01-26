@@ -56,9 +56,7 @@ public class CorpRecruitResume {
 		List<AppResumeUserAllVO> list = corpService.selectResumeView(no);
 		for(AppResumeUserAllVO allVo : list) {
 			int resumeNo = allVo.getAppReUsView().getResumeNo();
-			List<AreaListView> areaList = corpService.selectAreaList(resumeNo);
 			List<LanguageListView> langList = corpService.selectLanguageList(resumeNo);
-			allVo.setAreaList(areaList);
 			allVo.setLanguageList(langList);
 		}
 		logger.info("list 사이즈 :  {}",list.size());
@@ -67,7 +65,11 @@ public class CorpRecruitResume {
 	}
 	
 	@RequestMapping("/CorpRecomResume.do")
-	public String CorpRecomResume() {
+	public String CorpRecomResume(HttpSession session, Model model) {
+		logger.info("기업 맞춤 이력서 보여주기");
+		int userNo = (Integer) session.getAttribute("userNo");
+		logger.info("userNo={}",userNo);
+		//List<Map<String, Object>> claList = corpService.selectCLA(userNo);
 		return "company/CorpRecomResume";
 	}
 	
