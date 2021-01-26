@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.applicant.model.ApplicantService;
 import com.it.workit.applicant.model.ApplicantlistVO;
+import com.it.workit.orders.model.OrdersService;
+import com.it.workit.orders.model.OrdersVO;
+import com.it.workit.position.model.PositionService;
+import com.it.workit.position.model.PositionsuggestVO;
 import com.it.workit.recruitBookmark.model.RecruitBookmarkService;
 import com.it.workit.recruitBookmark.model.RecruitannouncebookmarkVO;
 import com.it.workit.users.model.UsersService;
@@ -33,6 +37,8 @@ public class IndivMypageController {
 	@Autowired private UsersService userService;
 	@Autowired private ApplicantService applicantService;
 	@Autowired private RecruitBookmarkService recruitBookmarkService;
+	@Autowired private OrdersService ordersService;
+	@Autowired private PositionService positionService;
 	
 	//비밀번호 입력 -> 수정화면을 거치기 위해서 단순 get방식은 indivCheckPwd로 리턴된다.
 	@RequestMapping(value = "/indivMypageEdit.do", method = RequestMethod.GET)
@@ -206,9 +212,32 @@ public class IndivMypageController {
 	}
 	
 	@RequestMapping("/indivPayment.do")
-	public String payment() {
-		logger.info("개인 마이페이지 - 결제내역 view 보여주기");
+	public String payment(Model model,HttpSession session) {
+		//세션 userno 가져오기
+		int userNo=(Integer) session.getAttribute("userNo");
+		
+		logger.info("개인 마이페이지 - 결제내역 view 보여주기 / userno={}",userNo);
+		
+		List<OrdersVO> list=ordersService.selectIndivPaymentByUserno(userNo);
+		
+		logger.info("list.size={}",list.size());
+		model.addAttribute("list",list);
 		
 		return "indivMypage/indivPayment";
+	}
+	
+	@RequestMapping("/indivPosition.do")
+	public String position(Model model,HttpSession session) {
+		//세션 userno 가져오기
+		int userNo=(Integer) session.getAttribute("userNo");
+		
+		logger.info("개인 마이페이지 - 포지션 제안 view 보여주기 / userNo={}",userNo);
+		
+		List<PositionsuggestVO> list=positionService.selectPositionFlag2ByUserno(userNo);
+		
+		logger.info("list.size={}",list.size());
+		model.addAttribute("list", list);
+		
+		return "indivMypage/indivPosition";
 	}
 }

@@ -3,7 +3,7 @@
 <%@ include file="indivMypageMenu.jsp"%>
 
 <div class="filter-widget">
-	<h4 class="fw-title center">결제 내역</h4>
+	<h4 class="fw-title center">포지션 제안</h4>
 </div>
 <section class="shopping-cart spad">
 	<div class="container">
@@ -12,26 +12,24 @@
 				<div class="cart-table">
 					<table>
 					<colgroup>
-						<col width="25%">
+						<col width="30%">
 						<col width="20%">
 						<col width="20%">
-						<col width="15%">
 						<col width="20%">
 					</colgroup>
 						<thead>
                                 <tr>
-                                    <th>서비스명</th>
-                                    <th>시작일</th>
-                                    <th>마감일</th>
-                                    <th>결제수단</th>
-                                    <th>결제금액</th>
+                                    <th>제목</th>
+                                    <th>제안포지션</th>
+                                    <th>제안연봉</th>
+                                    <th>제안날짜</th>
                                 </tr>
                             </thead>
                             <tbody>
 								<c:if test="${empty list }">
 	                            	<tr>
-	                            		<td colspan="5"><br><br>
-	                            			<p>요청하신 결과가 없습니다.</p>
+	                            		<td colspan="4"><br><br>
+	                            			<p>제안받은 포지션이 없습니다.</p>
 	                            		</td>
 	                            	</tr>
                                 </c:if>
@@ -39,24 +37,19 @@
                                 	<c:forEach var="vo" items="${list }">
 										<tr>
 											<td class="cart-title padding-bottom0"><br>
-												<p class="center">${vo.paidserviceName }</p>
+												<a href="#"><p class="center">${vo.positionsuggestTitle }</p></a>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
-												<p class="center">
-												<fmt:formatDate value="${vo.paidserviceStartdate }"
-													pattern="yyyy-MM-dd"/></p>
+												<p class="center">${vo.positionsuggestPosition }</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
-												<p class="center">
-												<fmt:formatDate value="${vo.paidserviceEnddate }"
-													pattern="yyyy-MM-dd"/></p>
-											</td>
-											<td class="cart-title padding-bottom0"><br>
-												<p class="center">${vo.orderPaykind }</p>
-											</td>
-											<td class="cart-title padding-bottom0"><br>
-												<p class="center"><fmt:formatNumber value="${vo.orderPay }" pattern="#,###">
+												<p class="center"><fmt:formatNumber value="${vo.positionsuggestPrice }" pattern="#,###">
 													</fmt:formatNumber></p>
+											</td>
+											<td class="cart-title padding-bottom0"><br>
+											<p class="center">
+												<fmt:formatDate value="${vo.positionsuggestRegdate }"
+													pattern="yyyy-MM-dd"/></p>
 											</td>
 										</tr>
 									</c:forEach>
@@ -68,7 +61,6 @@
 		</div>
 	</div>
 </section>
-
 
 <!-- Menu include 한것 닫는 태그 -->
 </div></div></div></section>
