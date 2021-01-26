@@ -1,8 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <style>
-.fa-weixin{
-	font-size:20px;
+
+#cmntBox{
+    border-top: 1px solid silver;
+    border-left: 1px solid silver;
+    border-right: 1px solid silver;
+    border-bottom: 1px solid silver;
+}
+
+
+.oneCmntBox{
+    padding: 22px 10px 0px;
+    height: auto;
+    width: 92%;
+    border-bottom: 1px solid silver;
+    margin: 0px 30px 0 30px;
+}
+
+.fa-comment-dots{
+	color:#4C50BB;
+	font-size:22px;
+}
+
+.userName{
+	font-size:18px;
+	color:gray;
+}
+
+.regdate{
+	font-size:16px;
+	font-weight:lighter;
+	color:gray;
+}
+
+.questionTitle{
+	font-size: 15px;
+    color: #5f5f5f
+}
+
+.cmntAbout{
+	font-size: 20px;
+    color: black;
+    font-weight: lighter;
 }
 </style>
 	<p style="font-size: 18px;">
@@ -19,11 +59,11 @@
 
 <!-- 등록한 답변이 존재하는 경우  -->
 <c:if test="${!empty cmtList }">
-	<article id="questBox">
+	<article id="cmntBox">
 		<div class="qstnExistBox">
 			<c:forEach var="map" items="${cmtList}">
 				<div class="questBoxWrap">
-					<div class="oneQuestBox">
+					<div class="oneCmntBox">
 						<div>
 							<a
 								href="<c:url value
@@ -31,18 +71,18 @@
 								class="contentArea">
 								<dl>
 									<dt>
-										<span>@ ${userId }</span>
-										<span><fmt:formatDate
+										<i class="far fa-comment-dots"></i>&nbsp;&nbsp;
+										<span class="userName">@${userId }</span>
+										<span class="regdate">&nbsp;<fmt:formatDate
 												value="${map['COMMENTRESPOND_DATE']}" pattern="yyyy-MM-dd" /></span>
 									</dt>
 									<!-- 답변 내용 -->
-									<dd class="qtTitle">	
-										<!-- 아이콘 -->
+									<dd class="cmntAbout">	
 										${map['commentrespondAbout']}
 									</dd>
 
 									<!-- 내용 -->
-									<dd class="qtContent">
+									<dd class="questionTitle">
 										<span>질문 제목 : ${map['QUESTION_TITLE']}</span>
 									</dd>
 

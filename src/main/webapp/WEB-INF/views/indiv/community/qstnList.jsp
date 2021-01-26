@@ -60,13 +60,13 @@
 		color: silver;
 	}
 	.qtTitle{
-		font-size: 20px;
+		font-size: 19px;
 		color:black;
 		font-weight:lighter;
 	}
 
 	.qtContent{
-		font-size:18px;
+		font-size:17px;
 		color:#5f5f5f;
 	}
 	
