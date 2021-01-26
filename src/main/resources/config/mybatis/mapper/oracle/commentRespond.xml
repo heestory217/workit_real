@@ -55,6 +55,34 @@
 		delete from CMNTVIEW
 		where COMMENTRESPOND_NO=#{commentrespondNo}
 	</delete>
+	
+	<!-- 회원 답변 조회 -->
+	<select id="userCmntSelect" parameterType="qstnPagingVo" resultType="map">
+		select *
+			from
+			(
+			    select A.*, rownum as RNUM
+			    from
+			    (
+			        SELECT * FROM USERCMNTVIEW
+					WHERE USER_NO=#{userNo}
+					ORDER BY COMMENTRESPOND_NO DESC
+			    )A
+			)
+			<![CDATA[
+			where RNUM > #{firstRecordIndex} 
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+			]]>
+	</select>
+	
+	<!-- 회원 답변 개수 -->
+	<select id="getTotalUserCmt" parameterType="qstnPagingVo"
+		resultType="int">
+		select count(*) from USERCMNTVIEW
+		<if test="userNo!='' and userNo!=null">
+			WHERE USER_NO=#{userNo}
+		</if>
+	</select>
 </mapper>
 
 
