@@ -1,7 +1,6 @@
 package com.it.workit.shoppingCart.model;
 
 import java.util.List;
-import java.util.Map;
 
 public interface ShoppingCartDAO {
 	int insertCart(ShoppingCartVO vo);

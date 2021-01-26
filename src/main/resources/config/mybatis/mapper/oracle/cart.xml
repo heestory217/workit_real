@@ -12,7 +12,7 @@
 	</insert>
 	
 	<select id="selectCartList" parameterType="int" resultType="cartViewVo">
-		select * from CartView where user_no=#{userNo}
+		select * from CartView where user_no=#{userNo} order by SHOPPINGCART_NO
 	</select>
 	
 	<delete id="deleteOne" parameterType="int">

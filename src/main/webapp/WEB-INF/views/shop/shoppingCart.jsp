@@ -18,7 +18,7 @@
 	});
 </script>
 
-<!-- Breadcrumb Section Begin -->
+<!-- 장바구니 상단 -->
 <div class="breacrumb-section">
     <div class="container">
         <div class="row">
@@ -32,16 +32,15 @@
         </div>
     </div>
 </div>
-<!-- Breadcrumb Section Begin -->
+<!-- 장바구니 상단 끝 -->
 
-<!-- Shopping Cart Section Begin -->
+<!-- 장바구니 본문 -->
 <section class="shopping-cart spad">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="cart-table">
 				<form name="frmCart" method="post" action="<c:url value='/shop/shoppingCart.do'/>">
-					<input type="text" name="shoppingcartNo" value="0">
                     <table>
                    		<colgroup>
 							<col style="width:10%;" />
@@ -62,14 +61,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="p-price" style="padding: 14px 0;">차길동</td>
-                                <td class="cart-title" style="padding: 14px 0;">준비된 인재 차길동 오류의 해결사</td>
-                                <td class="cart-pic" style="padding: 14px 0;">웹개발자</td>
-                                <td class="cart-pic" style="padding: 14px 0;">신입</td>
-                                <td class="p-price" style="padding: 14px 0;">2,000 원</td>
-                                <td class="close-td" style="padding: 14px;"><a href="<c:url value='/shop/deleteOne.do'/>"><i class="ti-close"></i></a></td>
-                            </tr>
+	                        <c:if test="${empty cartList}">
+								<tr>
+									<td colspan="6" style="padding: 14px 0;">장바구니 내역이 없습니다.</td>
+								</tr>
+							</c:if>
+							<c:if test="${!empty cartList}">
+                        		<c:forEach var="cartVo" items="${cartList}">
+									<input type="text" name="shoppingcartNo" value="${cartVo.shoppingCartNo}">
+		                            <tr>
+		                                <td class="p-price" style="padding: 14px 0;">${cartVo.userName}</td>
+		                                <td class="cart-title" style="padding: 14px 0;">${cartVo.resumeTitle}</td>
+		                                <td class="cart-pic" style="padding: 14px 0;">${cartVo.workkindName}</td>
+		                                <td class="cart-pic" style="padding: 14px 0;">${cartVo.userExperience}년</td>
+		                                <td class="p-price" style="padding: 14px 0;">
+		                                	<fmt:formatNumber value="${cartVo.paidServicePrice}" pattern="#,###"/>원</td>
+		                                <td class="close-td" style="padding: 14px;">
+		                                	<a href="<c:url value='/shop/deleteOne.do?shoppingCartNo=${cartVo.shoppingCartNo}'/>">
+		                                		<i class="ti-close"></i>
+	                                		</a>
+                                		</td>
+		                            </tr>
+                            </c:forEach>
+                            </c:if>
                         </tbody>
                     </table>
                 </form>
@@ -103,6 +117,6 @@
         </div>
     </div>
 </section>
-<!-- Shopping Cart Section End -->
+<!-- 장바구니 본문 끝 -->
    
 <%@ include file="../inc/bottom.jsp"%>
