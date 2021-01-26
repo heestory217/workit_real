@@ -6,7 +6,7 @@
 	
 .cmtBoxWrap {
 	border:solid 1px silver;
-	padding:50px 30px;
+	padding:50px 30px 0;
 	height:auto;
 }
 
@@ -72,7 +72,6 @@
 
 .cmtCnt{
 	font-size: 20px;
-    padding-bottom:15px;
 }
 
 .cmtCnt b{
@@ -178,9 +177,45 @@
 }
 
 .paging {
-	height: 100px;
-	text-align: center;
+	border-top: 1px solid silver;
+    height: 100px;
+    text-align: center;
+    padding: 35px;
 }
+
+/* 답변 수정, 삭제 */
+
+.fa-ellipsis-h{
+	font-size:22px;
+	color:silver;
+	position: relative;
+}
+
+.cmtEditBox{
+	float:right;
+	margin:-6px 5px 0 0;
+}
+
+.cmtEditBtn{
+    border: 1px solid gray;
+    position: absolute;
+    width: 70px;
+    height: 80px;
+    background: white;
+    padding: 3px;
+    text-align: center;
+}
+
+.cmtEditBtn>hr{
+	margin:8px 0;
+}
+.cmtEditBtn>a{
+    padding: 11px;
+    font-size: 14px;
+    font-weight: 100;
+    color: gray;
+}
+
 </style>    
 
 <script type="text/javascript">
@@ -190,7 +225,16 @@ $(function(){
 		$('.replyBoxWrap').toggle();
 	});
 	
+	/* 수정&삭제 아이콘 클릭시 수정, 삭제 버튼 보이도록 클릭 이벤트 */
+	$('.cmtEditBtn').hide();
+	$('.fa-ellipsis-h').each(function(index, item){
+		$(this).click(function(){
+			$(this).parent('a').next('.cmtEditBtn').toggle();
+		});
+
+	});
 });
+
 
 function pageFunc(curPage){
 	$('input[name=currentPage]').val(curPage);
@@ -215,6 +259,25 @@ function pageFunc(curPage){
 <div class="cmtOne">
 	<div class="nickDiv">
 		<span>@ ${map['USER_ID'] }</span>
+		<c:if test="${userId eq map['USER_ID'] }">
+		<!-- if 조건으로 로그인한 회원의 번호와 질문글의 회원번호가 같은 경우에만 보이도록 설정 -->
+			<div class="cmtEditBox">
+			<a>
+				<i class="fa fa-ellipsis-h"></i>
+			</a>
+			<!-- 수정, 삭제  -->
+				<div class="cmtEditBtn">
+				<a href
+="<c:url value='/indiv/community/cmtEdit.do?cmtNo=${map["COMMENTRESPOND_NO"]}'/>">수정</a>
+				<hr>
+				<a id="cmtDelBtn" href
+="<c:url value='/indiv/community/cmtDelete.do?qstnNo=${map["QUESTION_NO"] }&cmtNo=${map["COMMENTRESPOND_NO"]}'/>"
+				onclick="if(!confirm('삭제된 답변은 복구가 불가능합니다.\n답변을 삭제하시겠습니까?')){return false;}"
+				>삭제</a>
+				</div>	
+			</div>
+		<!-- cmtEditBox 끝 -->
+		</c:if>	
 	</div>
 	
 	<div class="cmtCont">

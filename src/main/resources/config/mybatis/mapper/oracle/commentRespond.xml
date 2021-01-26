@@ -49,6 +49,44 @@
 			WHERE QUESTION_NO=#{questionNo}
 		</if>
 	</select>
+	
+	<!-- 답변 삭제 -->
+	<delete id="deleteCmt" parameterType="int">
+		delete from CMNTVIEW
+		where COMMENTRESPOND_NO=#{commentrespondNo}
+	</delete>
+	
+	<!-- 회원 답변 조회 -->
+	<resultMap type="HashMap" id="selectUserCmtAbout">
+		<result property="commentrespondAbout" column="COMMENTRESPOND_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	<select id="userCmntSelect" parameterType="qstnPagingVo" resultType="HashMap"
+		resultMap="selectUserCmtAbout">
+		select *
+			from
+			(
+			    select A.*, rownum as RNUM
+			    from
+			    (
+			        SELECT * FROM USERCMNTVIEW
+					WHERE USER_NO=#{userNo}
+					ORDER BY COMMENTRESPOND_NO DESC
+			    )A
+			)
+			<![CDATA[
+			where RNUM > #{firstRecordIndex} 
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+			]]>
+	</select>
+	
+	<!-- 회원 답변 개수 -->
+	<select id="getTotalUserCmt" parameterType="qstnPagingVo"
+		resultType="int">
+		select count(*) from USERCMNTVIEW
+		<if test="userNo!='' and userNo!=null">
+			WHERE USER_NO=#{userNo}
+		</if>
+	</select>
 </mapper>
 
 
