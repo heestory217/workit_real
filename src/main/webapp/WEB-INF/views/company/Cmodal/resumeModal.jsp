@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
     
 <div class="modal fade" id="seeResume" tabindex="-1" role="dialog" aria-labelledby="seeResumeLabel" aria-hidden="true">
-	<div class="modal-dialog" style="max-width:700px;">
+	<div class="modal-dialog" style="max-width:560px;">
 		<!-- Modal content-->
-		<div class="modal-content" style="width: 700px; overflow-x: auto; overflow-y: auto;">
+		<div class="modal-content" style="width: 560px; overflow-x: auto; overflow-y: auto;">
 			<div class="modal-header">
 			 	<h5 class="modal-title" id="seeResumeLabel">서비스 소개</h5>
  				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -14,7 +14,6 @@
 			<div class="modal-body" style="padding:20px">
 				<div class="modalservice">
 					<h1><img src="<c:url value='/resources/img/icon_resume.png'/>">이력서 열람 서비스</h1>
-					<br>
 					<h3>기업회원이 지원자의 이력서 열람권을 구매하는 유료서비스</h3>
 					<h2>유능한 인재 영입을 원하는 기업회원 여러분!</h2>
 					<h3>맞춤조건에 따라 회사가 원하는 지원자를 탐색하고,<br>
