@@ -41,8 +41,7 @@ public class CorpRecruitViewVO extends RecruitannounceVO{
 				+ getRecruitannounceEnddate() + ", getRecruitannounceScarrer()=" + getRecruitannounceScarrer()
 				+ ", getRecruitannounceSworkkind()=" + getRecruitannounceSworkkind() + ", getRecruitannounceSpay()="
 				+ getRecruitannounceSpay() + ", getRecruitannounceSkill()=" + getRecruitannounceSkill()
-				+ ", getRecruitannounceWorkkind()=" + getRecruitannounceWorkkind() + ", getRecruitannounceCorpintro()="
-				+ getRecruitannounceCorpintro() + ", getRecruitannounceWork()=" + getRecruitannounceWork()
+				+ ", getRecruitannounceWorkkind()=" + getRecruitannounceWorkkind() + ", getRecruitannounceWork()=" + getRecruitannounceWork()
 				+ ", getRecruitannounceWantedcarrer()=" + getRecruitannounceWantedcarrer()
 				+ ", getRecruitannounceUpcheckcarrer()=" + getRecruitannounceUpcheckcarrer()
 				+ ", getRecruitannounceHirestep()=" + getRecruitannounceHirestep() + ", getRecruitannounceElse()="
