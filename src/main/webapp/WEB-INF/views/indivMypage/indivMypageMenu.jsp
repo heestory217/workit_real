@@ -30,6 +30,7 @@
 							<li><a href="<c:url value='/indivMypage/indivMypageEdit.do '/>">회원정보수정</a></li>
 							<li><a href="<c:url value='/indivMypage/indivBookmark.do '/>">북마크목록</a></li>
 							<li><a href="<c:url value='/indivMypage/indivPayment.do '/>">결제내역</a></li>
+							<li><a href="<c:url value='/indivMypage/indivPosition.do '/>">포지션제안</a></li>
 						</ul>
 					</div>
 				</div>
