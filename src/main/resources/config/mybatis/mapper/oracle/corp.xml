@@ -66,12 +66,43 @@
 		where u.USER_NO = r.USER_NO and u.user_no=#{userNo}
 	</select>
 	
-	<select id="selectAppList" parameterType="int" resultType="Map">
-		select a.*, r.resume_no, r.resume_title, u.workkind_no, u.user_Experience
-		from applicantlist a, resumes r, users u
-		where a.resume_no=r.resume_no and a.USER_NO = u.USER_NO
-		and recruitannounce_no=#{recruitannounceNo}
-	</select>
+   <resultMap type="AppResumeUserAllVO" id="appResumeUserList">
+      <association property="appReUsView" column="applicantlistNo" javaType="AppResumeUserView">
+         <id property="applicantlistNo" column="applicantlist_No" jdbcType="BIGINT"/>
+         <result property="userNo" column="user_No" jdbcType="BIGINT" />
+         <result property="resumeNo" column="resume_No" jdbcType="BIGINT" />
+         <result property="recruitannounceNo" column="recruitannounce_No" jdbcType="BIGINT" />
+         <result property="applicantlistDate" column="applicantlist_Date" jdbcType="TIMESTAMP" />
+         <result property="applicantlistPapercheck" column="applicantlist_Papercheck" jdbcType="BIGINT" />
+         <result property="resumeTitle" column="resume_Title" jdbcType="VARCHAR" />
+         <result property="userExperience" column="user_Experience" jdbcType="VARCHAR" />
+      </association>
+      <collection property="areaList" column="resumeNo" javaType="ArrayList" ofType="AreaListView" select="parameterType">
+     	<id property="resumeNo" column="RESUME_NO" jdbcType="BIGINT"/>
+     	<result property="areaNo" column="area_No" jdbcType="BIGINT" />
+     	<result property="areaAdd1" column="area_Add1" jdbcType="VARCHAR" />
+     	<result property="areaAdd2" column="area_Add2" jdbcType="VARCHAR" />
+      </collection>
+      <collection property="languageList" column="resumeNo" javaType="ArrayList" ofType="LanguageListView" select="parameterType">
+      	<id property="resumeNo" column="RESUME_NO" jdbcType="BIGINT"/>
+      	<result property="languageNo" column="LANGUAGE_NO" jdbcType="BIGINT"/>
+      	<result property="languageName" column="LANGUAGE_NAME" jdbcType="VARCHAR"/>
+      </collection>
+   </resultMap>
+   
+   <select id="AppResumeUserList" parameterType="int" resultMap="appResumeUserList">
+      select * from appresumeview where RECRUITANNOUNCE_NO=#{recruitannounceNo}
+   </select>
+   
+   <select id="areaList" parameterType="int" resultType="AreaListView">
+		select * from arealistview where resume_no=#{resumeNo}
+   </select>
+   
+   <select id="langList" parameterType="int" resultType="LanguageListView">
+   		select * from languagelistview where resume_no=#{resumeNo}
+   </select>
+	
+	
 </mapper>
 
 
