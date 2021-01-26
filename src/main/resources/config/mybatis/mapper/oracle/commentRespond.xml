@@ -57,7 +57,11 @@
 	</delete>
 	
 	<!-- 회원 답변 조회 -->
-	<select id="userCmntSelect" parameterType="qstnPagingVo" resultType="map">
+	<resultMap type="HashMap" id="selectUserCmtAbout">
+		<result property="commentrespondAbout" column="COMMENTRESPOND_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	<select id="userCmntSelect" parameterType="qstnPagingVo" resultType="HashMap"
+		resultMap="selectUserCmtAbout">
 		select *
 			from
 			(

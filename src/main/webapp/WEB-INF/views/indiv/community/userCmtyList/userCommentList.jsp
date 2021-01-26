@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<style>
+.fa-weixin{
+	font-size:20px;
+}
+</style>
 	<p style="font-size: 18px;">
 		답변 <b id="myContCnt">${totalCmt}</b>건
 	</p>
@@ -26,18 +31,19 @@
 								class="contentArea">
 								<dl>
 									<dt>
-										<span>${userId }</span>
+										<span>@ ${userId }</span>
 										<span><fmt:formatDate
 												value="${map['COMMENTRESPOND_DATE']}" pattern="yyyy-MM-dd" /></span>
 									</dt>
 									<!-- 답변 내용 -->
 									<dd class="qtTitle">	
-										${map['COMMENTRESPOND_ABOUT']}
+										<!-- 아이콘 -->
+										${map['commentrespondAbout']}
 									</dd>
 
 									<!-- 내용 -->
 									<dd class="qtContent">
-										<i class="fa fa-quora"></i><span>질문 제목 : ${map['QUESTION_TITLE']}</span>
+										<span>질문 제목 : ${map['QUESTION_TITLE']}</span>
 									</dd>
 
 								</dl>
