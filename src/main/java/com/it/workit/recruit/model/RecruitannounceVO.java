@@ -13,9 +13,8 @@ public class RecruitannounceVO {
 	private String recruitannounceSpay;//RECRUITANNOUNCE_SPAY	VARCHAR2(100)	NULL
 	private String recruitannounceSkill;//RECRUITANNOUNCE_SKILL	VARCHAR2(100)	NOT NULL
 	private String recruitannounceWorkkind;//RECRUITANNOUNCE_WORKKIND	CLOB	NOT NULL
-	private String recruitannounceCorpintro;//RECRUITANNOUNCE_CORPINTRO	CLOB	NULL
 	private String recruitannounceWork;//RECRUITANNOUNCE_WORK	CLOB	NULL
-	private String recruitannounceWantedcarrer;//RECRUITANNOUNCE_WANTEDCARRER	CLOB	NOT NULL
+	private int recruitannounceWantedcarrer;//RECRUITANNOUNCE_WANTEDCARRER	CLOB	NOT NULL
 	private String recruitannounceUpcheckcarrer;//RECRUITANNOUNCE_UPCHECKCARRER	CLOB	NULL
 	private String recruitannounceHirestep;//	CLOB	NULL
 	private String recruitannounceElse;//RECRUITANNOUNCE_ELSE	CLOB	NULL
@@ -82,22 +81,16 @@ public class RecruitannounceVO {
 	public void setRecruitannounceWorkkind(String recruitannounceWorkkind) {
 		this.recruitannounceWorkkind = recruitannounceWorkkind;
 	}
-	public String getRecruitannounceCorpintro() {
-		return recruitannounceCorpintro;
-	}
-	public void setRecruitannounceCorpintro(String recruitannounceCorpintro) {
-		this.recruitannounceCorpintro = recruitannounceCorpintro;
-	}
 	public String getRecruitannounceWork() {
 		return recruitannounceWork;
 	}
 	public void setRecruitannounceWork(String recruitannounceWork) {
 		this.recruitannounceWork = recruitannounceWork;
 	}
-	public String getRecruitannounceWantedcarrer() {
+	public int getRecruitannounceWantedcarrer() {
 		return recruitannounceWantedcarrer;
 	}
-	public void setRecruitannounceWantedcarrer(String recruitannounceWantedcarrer) {
+	public void setRecruitannounceWantedcarrer(int recruitannounceWantedcarrer) {
 		this.recruitannounceWantedcarrer = recruitannounceWantedcarrer;
 	}
 	public String getRecruitannounceUpcheckcarrer() {
@@ -144,7 +137,7 @@ public class RecruitannounceVO {
 				+ ", recruitannounceScarrer=" + recruitannounceScarrer + ", recruitannounceSworkkind="
 				+ recruitannounceSworkkind + ", recruitannounceSpay=" + recruitannounceSpay + ", recruitannounceSkill="
 				+ recruitannounceSkill + ", recruitannounceWorkkind=" + recruitannounceWorkkind
-				+ ", recruitannounceCorpintro=" + recruitannounceCorpintro + ", recruitannounceWork="
+				+ ", recruitannounceWork="
 				+ recruitannounceWork + ", recruitannounceWantedcarrer=" + recruitannounceWantedcarrer
 				+ ", recruitannounceUpcheckcarrer=" + recruitannounceUpcheckcarrer + ", recruitannounceHirestep="
 				+ recruitannounceHirestep + ", recruitannounceElse=" + recruitannounceElse + ", recruitannounceUpcheck="

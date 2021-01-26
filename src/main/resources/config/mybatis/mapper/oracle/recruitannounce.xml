@@ -7,5 +7,18 @@
 	<select id="recruitannouncedetail" parameterType="int" resultType="RecruitannounceVO">
 		select * from RECRUITANNOUNCE where RECRUITANNOUNCE_NO=#{recruitannounceNo}
 	</select>
-
+	
+	
+	<select id="recruitcorpwantwork" parameterType="int" resultType="String">
+		select WORKKIND_NAME from WORKKIND where WORKKIND_NO=(select WORKKIND_NO from CORPWANTWORK where RECRUITANNOUNCE_NO=#{recruitannounceNo})
+	</select>
+	
+	<select id="recruitcorpwantedarea1" parameterType="int" resultType="String">
+		select AREA_ADD1 from AREALIST where AREA_NO = (select AREA_NO from CORPWANTEDAREA where RECRUITANNOUNCE_NO=#{recruitannounceNo})
+	</select>
+	
+	<select id="recruitcorpwantedarea2" parameterType="int" resultType="String">
+		select AREA_ADD2 from AREALIST where AREA_NO = (select AREA_NO from CORPWANTEDAREA where RECRUITANNOUNCE_NO=#{recruitannounceNo})
+	</select>
+	
 </mapper>
