@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="cart-table">
-				<form name="frmCart" method="post" action="<c:url value='/shop/shoppingCart.do'/>">
+				<%-- <form name="frmCart" method="post" action="<c:url value='/shop/shoppingCart.do'/>"> --%>
                     <table>
                    		<colgroup>
 							<col style="width:10%;" />
@@ -61,6 +61,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                        	<!-- 가격 계산을 위한 변수 설정 -->
+							<c:set var="subTotalPrice" value="0" />
+							<c:set var="discount" value="0" />
+							<c:set var="totalPrice" value="0" />
+							
 	                        <c:if test="${empty cartList}">
 								<tr>
 									<td colspan="6" style="padding: 14px 0;">장바구니 내역이 없습니다.</td>
@@ -68,7 +73,7 @@
 							</c:if>
 							<c:if test="${!empty cartList}">
                         		<c:forEach var="cartVo" items="${cartList}">
-									<input type="text" name="shoppingcartNo" value="${cartVo.shoppingCartNo}">
+									<%-- <input type="text" name="shoppingcartNo" value="${cartVo.shoppingCartNo}"> --%>
 		                            <tr>
 		                                <td class="p-price" style="padding: 14px 0;">${cartVo.userName}</td>
 		                                <td class="cart-title" style="padding: 14px 0;">${cartVo.resumeTitle}</td>
@@ -76,6 +81,7 @@
 		                                <td class="cart-pic" style="padding: 14px 0;">${cartVo.userExperience}년</td>
 		                                <td class="p-price" style="padding: 14px 0;">
 		                                	<fmt:formatNumber value="${cartVo.paidServicePrice}" pattern="#,###"/>원</td>
+		                                	<c:set var="subTotalPrice" value="${subTotalPrice+cartVo.paidServicePrice}"/>
 		                                <td class="close-td" style="padding: 14px;">
 		                                	<a href="<c:url value='/shop/deleteOne.do?shoppingCartNo=${cartVo.shoppingCartNo}'/>">
 		                                		<i class="ti-close"></i>
@@ -86,7 +92,7 @@
                             </c:if>
                         </tbody>
                     </table>
-                </form>
+               <!--  </form> -->
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
@@ -102,12 +108,15 @@
                             </form>
                         </div>
                     </div>
+                    
+                    <c:set var="totalPrice" value="${subTotalPrice-discount}" />
+                    
                     <div class="col-lg-4 offset-lg-4">
                         <div class="proceed-checkout">
                             <ul>
-                                <li class="subtotal">주문금액 <span>128,000 원</span></li>
-                                <li class="subtotal" style="padding-top: 14px;">할인금액 <span>0 원</span></li>
-                                <li class="cart-total">총 결제금액 <span>128,000 원</span></li>
+                                <li class="subtotal">주문금액 <span><fmt:formatNumber value="${subTotalPrice}" pattern="#,###"/> 원</span></li>
+                                <li class="subtotal" style="padding-top: 14px;">할인금액 <span><fmt:formatNumber value="${discount}" pattern="#,###"/> 원</span></li>
+                                <li class="cart-total">총 결제금액 <span><fmt:formatNumber value="${totalPrice}" pattern="#,###"/> 원</span></li>
                             </ul>
                             <a href="#" class="proceed-btn">결  제</a>
                         </div>
