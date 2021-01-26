@@ -103,7 +103,7 @@
                         <div class="discount-coupon">
                             <h6>Coupon Codes</h6>
                             <form action="#" class="coupon-form">
-                                <input type="text" placeholder="쿠폰코드를 입력하세요">
+                                <input type="text" placeholder="쿠폰코드를 입력하세요" maxlength="20">
                                 <button type="submit" class="site-btn coupon-btn">적용</button>
                             </form>
                         </div>
