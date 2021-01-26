@@ -5,7 +5,7 @@ import java.util.Map;
 
 public interface ShoppingCartDAO {
 	int insertCart(ShoppingCartVO vo);
-	List<Map<String, Object>> selectCartList(int userNo);
+	List<CartViewVO> selectCartList(int userNo);
 	int deleteOne(int shoppingcartNo);
 	int clearCart(int userNo);
 }
