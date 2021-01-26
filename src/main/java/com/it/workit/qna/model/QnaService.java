@@ -9,4 +9,5 @@ public interface QnaService {
 	public int qaTotalRecord(SearchVO searchVo);
 	public int qaInsert(QnaVO qaVo);
 	public int qaViewCount(int qaNo);
+	public QnaVO qaSelectByNo(int qaNo);
 }

@@ -39,8 +39,10 @@
 		<selectKey keyProperty="qaNo" resultType="int" order="BEFORE">
 			select QA_SEQ.nextval from dual
 		</selectKey>
-		insert into qa(QA_NO,QA_WRITENO,QA_WRITER,QA_TITLE,QA_ABOUT,QA_GROUPNO)
-		values(#{qaNo},#{qaWriteno},#{qaWriter},#{qaTitle},#{qaAbout},#{qaNo})
+		insert into qa(QA_NO,QA_WRITENO,QA_WRITER,QA_TITLE,QA_ABOUT
+			,QA_SECRET,QA_PASSWORD,QA_GROUPNO,USER_NO)
+		values(#{qaNo},#{userNo},#{qaWriter},#{qaTitle},#{qaAbout}
+			,#{qaSecret},#{qaPassword},#{qaNo},#{userNo})
 	</insert>
 	
 	<update id="qaViewCount" parameterType="int">
@@ -49,6 +51,14 @@
 		where qa_no= #{qaNo}
 	</update>
 	
+	<select id="qaSelectByNo" parameterType="int" resultType="qnaVo">
+		select * from qa where qa_no=#{qaNo}
+	</select>
+	
+	
+<!-- 	<delete id="qaDetail"> -->
+		
+<!-- 	</delete> -->
 </mapper>
 
 

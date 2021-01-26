@@ -53,6 +53,10 @@
 						</div>
 					</div>
 				</div>
+				
+				<c:if test="${empty faqList}">
+					<span>등록된 FAQ가 없습니다</span>
+				</c:if>
 
 				<c:if test="${!empty faqList}">
 					<c:forEach var="vo" items="${faqList }">
