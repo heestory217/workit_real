@@ -14,7 +14,7 @@
 
 .modalservice h1 {
 	line-height: 1.54;
-	font-size: 26px;
+	font-size: 20px;
 	font-weight: 600;
 	color: #333;
 }
@@ -22,7 +22,7 @@
 .modalservice h2 {
 	margin-top: 16px;
 	line-height: 1.5;
-	font-size: 22px;
+	font-size: 18px;
 	font-weight: 600;
 	color: #4C50BB;
 }
@@ -30,7 +30,7 @@
 .modalservice h3 {
 	margin-top: 16px;
 	line-height: 1.5;
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: 400;
 	color: #666;
 }
@@ -52,7 +52,7 @@
 	text-align: center;
 	position: relative;
 	font-weight: 500;
-	font-size: 20px;
+	font-size: 16px;
 	color: white;
 	padding: 10px 10px !important;
 }
@@ -64,7 +64,7 @@
 }
 
 .modalservicelb {
-	font-size: 14px;
+	font-size: 11px;
 	font-weight: 400px;
 }
 

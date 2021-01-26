@@ -3,7 +3,7 @@
 
 <style>
 .cart-table table tr td {
-	padding: 14px 0;
+	padding: 10px 0;
 	border-right: 1px solid #ebebeb;
 	border-bottom: 1px solid #ebebeb;
 }
@@ -14,9 +14,9 @@
 </style>
 
 <div class="modal fade" id="siteAD" tabindex="-1" role="dialog" aria-labelledby="siteADLabel" aria-hidden="true">
-	<div class="modal-dialog" style="max-width:700px;">
+	<div class="modal-dialog" style="max-width:560px;">
 		<!-- Modal content-->
-		<div class="modal-content" style="width: 700px; overflow-x: auto; overflow-y: auto;">
+		<div class="modal-content" style="width: 560px; overflow-x: auto; overflow-y: auto;">
 			<div class="modal-header">
 			 	<h5 class="modal-title" id="siteADLabel">서비스 소개</h5>
  				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -26,7 +26,6 @@
 			<div class="modal-body" style="padding:20px">
 				<div class="modalservice">
 					<h1><img src="<c:url value='/resources/img/icon_adv.png'/>">채용공고 광고 서비스</h1>
-					<br>
 					<h3>기업회원이 홈페이지 메인에 광고를 등록하는 유료서비스</h3>
 					<h2>채용공고를 효과적으로 홍보하는 방법</h2>
 					<h3>좋은 인재를 얻기 위해서는 적절한 홍보가 필요합니다.<br>
@@ -39,7 +38,7 @@
 					</h3>
 				</div>
 				<div class="modalserviceContent" style="text-align: center;">
-					<div class="cart-table">
+					<div class="cart-table" style="margin-bottom: 30px;">
 						<table>
 							<colgroup>
 								<col style="width: 30%;" />
@@ -49,41 +48,41 @@
 							</colgroup>
 							<thead>
 								<tr>
-									<th>광고구좌</th>
-									<th>등급</th>
-									<th>기간</th>
-									<th>가격</th>
+									<th style="padding: 10px 0 10px;">광고구좌</th>
+									<th style="padding: 10px 0 10px;">등급</th>
+									<th style="padding: 10px 0 10px;">기간</th>
+									<th style="padding: 10px 0 10px;">가격</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 									<!-- css 적용 순위 밀려서 직접 지정해 줌 style="padding-bottom: 14px;" -->
-									<td rowspan="3" style="padding-bottom: 14px;">메인상단</td>
-									<td rowspan="3" style="padding-bottom: 14px;">1급</td>
-									<td style="padding-bottom: 14px;">7일</td>
-									<td style="padding-bottom: 14px;">500,000 원</td>
+									<td rowspan="3" style="padding-bottom: 10px;">메인상단</td>
+									<td rowspan="3" style="padding-bottom: 10px;">1급</td>
+									<td style="padding-bottom: 10px;">7일</td>
+									<td style="padding-bottom: 10px;">500,000 원</td>
 								</tr>
 								<tr>
-									<td style="padding-bottom: 14px;">15일</td>
-									<td style="padding-bottom: 14px;">1,000,000 원</td>
+									<td style="padding-bottom: 10px;">15일</td>
+									<td style="padding-bottom: 10px;">1,000,000 원</td>
 								</tr>
 								<tr>
-									<td style="padding-bottom: 14px;">30일</td>
-									<td style="padding-bottom: 14px;">2,000,000 원</td>
+									<td style="padding-bottom: 10px;">30일</td>
+									<td style="padding-bottom: 10px;">2,000,000 원</td>
 								</tr>
 								<tr>
-									<td rowspan="3" style="padding-bottom: 14px;">메인하단</td>
-									<td rowspan="3" style="padding-bottom: 14px;">2급</td>
-									<td style="padding-bottom: 14px;">7일</td>
-									<td style="padding-bottom: 14px;">300,000 원</td>
+									<td rowspan="3" style="padding-bottom: 10px;">메인하단</td>
+									<td rowspan="3" style="padding-bottom: 10px;">2급</td>
+									<td style="padding-bottom: 10px;">7일</td>
+									<td style="padding-bottom: 10px;">300,000 원</td>
 								</tr>
 								<tr>
-									<td style="padding-bottom: 14px;">15일</td>
-									<td style="padding-bottom: 14px;">600,000 원</td>
+									<td style="padding-bottom: 10px;">15일</td>
+									<td style="padding-bottom: 10px;">600,000 원</td>
 								</tr>
 								<tr>
-									<td style="padding-bottom: 14px;">30일</td>
-									<td style="padding-bottom: 14px;">1,200,000 원</td>
+									<td style="padding-bottom: 10px;">30일</td>
+									<td style="padding-bottom: 10px;">1,200,000 원</td>
 								</tr>
 							</tbody>
 						</table>
