@@ -32,7 +32,7 @@ public class ShoppingCartController {
 		}
 		logger.info("장바구니 1개 삭제 결과, cnt={}", cnt);
 		
-		return "shop/shoppingCart";
+		return "redirect:/shop/shoppingCart.do";
 	}
 	
 	@RequestMapping("/clearCart.do")
@@ -42,6 +42,6 @@ public class ShoppingCartController {
 		
 		int cnt = cartService.clearCart(userNo);
 		
-		return "shop/shoppingCart";
+		return "redirect:/shop/shoppingCart.do";
 	}
 }

@@ -44,36 +44,31 @@
 					<input type="text" name="shoppingcartNo" value="0">
                     <table>
                    		<colgroup>
+							<col style="width:10%;" />
+							<col style="width:30%;" />
 							<col style="width:15%;" />
-							<col style="width:50%;" />
-							<col style="width:25%;" />
 							<col style="width:15%;" />
+							<col style="width:20%;" />
+							<col style="width:10%;" />
 						</colgroup>
                         <thead>
                             <tr>
-                                <th>번호</th>
-                                <th class="p-name">구매 이력서 제목</th>
+                                <th>이름</th>
+                                <th class="p-name">이력서 제목</th>
+                                <th>직무</th>
+                                <th>경력</th>
                                 <th>가격</th>
                                 <th><i class="ti-close"></i></th>
                             </tr>
                         </thead>
                         <tbody>
-                        	<c:set var="k" value="0"></c:set>
                             <tr>
-                                <td class="cart-pic first-row">${k+1}</td>
-                                <td class="cart-title first-row">
-                                  	구매 이력서 제목
-                                </td>
-                                <td class="p-price first-row">$60.00</td>
-                                <td class="close-td first-row"><a href="<c:url value='/shop/deleteOne.do'/>"><i class="ti-close"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td class="cart-pic">${k+2}</td>
-                                <td class="cart-title">
-                                 	구매 이력서 제목
-                                </td>
-                                <td class="p-price">$60.00</td>
-                                <td class="close-td"><a href="#"><i class="ti-close"></i></a></td>
+                                <td class="p-price" style="padding: 14px 0;">차길동</td>
+                                <td class="cart-title" style="padding: 14px 0;">준비된 인재 차길동 오류의 해결사</td>
+                                <td class="cart-pic" style="padding: 14px 0;">웹개발자</td>
+                                <td class="cart-pic" style="padding: 14px 0;">신입</td>
+                                <td class="p-price" style="padding: 14px 0;">2,000 원</td>
+                                <td class="close-td" style="padding: 14px;"><a href="<c:url value='/shop/deleteOne.do'/>"><i class="ti-close"></i></a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -96,8 +91,9 @@
                     <div class="col-lg-4 offset-lg-4">
                         <div class="proceed-checkout">
                             <ul>
-                                <li class="subtotal">소계 <span>128,000 원</span></li>
-                                <li class="cart-total">합계 <span>128,000 원</span></li>
+                                <li class="subtotal">주문금액 <span>128,000 원</span></li>
+                                <li class="subtotal" style="padding-top: 14px;">할인금액 <span>0 원</span></li>
+                                <li class="cart-total">총 결제금액 <span>128,000 원</span></li>
                             </ul>
                             <a href="#" class="proceed-btn">결  제</a>
                         </div>
