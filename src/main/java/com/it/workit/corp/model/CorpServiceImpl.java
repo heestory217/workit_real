@@ -92,6 +92,11 @@ public class CorpServiceImpl implements CorpService {
 		return corpDao.selectAreaList(resumeNo);
 	}
 
+	@Override
+	public List<LanguageListView> selectLanguageList(int resumeNo) {
+		return corpDao.selectLanguageList(resumeNo);
+	}
+
 
 
 }

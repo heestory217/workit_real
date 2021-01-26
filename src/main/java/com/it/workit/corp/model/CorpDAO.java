@@ -16,4 +16,5 @@ public interface CorpDAO {
 	List<Map<String, Object>> selectRecruitList(int userNo);
 	List<AppResumeUserAllVO> selectResumeView(int recruitannounceNo);
 	List<AreaListView> selectAreaList(int resumeNo);
+	List<LanguageListView> selectLanguageList(int resumeNo);
 }

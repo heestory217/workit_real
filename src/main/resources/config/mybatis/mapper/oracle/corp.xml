@@ -83,6 +83,11 @@
      	<result property="areaAdd1" column="area_Add1" jdbcType="VARCHAR" />
      	<result property="areaAdd2" column="area_Add2" jdbcType="VARCHAR" />
       </collection>
+      <collection property="languageList" column="resumeNo" javaType="ArrayList" ofType="LanguageListView" select="parameterType">
+      	<id property="resumeNo" column="RESUME_NO" jdbcType="BIGINT"/>
+      	<result property="languageNo" column="LANGUAGE_NO" jdbcType="BIGINT"/>
+      	<result property="languageName" column="LANGUAGE_NAME" jdbcType="VARCHAR"/>
+      </collection>
    </resultMap>
    
    <select id="AppResumeUserList" parameterType="int" resultMap="appResumeUserList">
@@ -91,6 +96,10 @@
    
    <select id="areaList" parameterType="int" resultType="AreaListView">
 		select * from arealistview where resume_no=#{resumeNo}
+   </select>
+   
+   <select id="langList" parameterType="int" resultType="LanguageListView">
+   		select * from languagelistview where resume_no=#{resumeNo}
    </select>
 	
 	
