@@ -12,10 +12,10 @@
 				<div class="cart-table">
 					<table>
 					<colgroup>
+						<col width="25%">
 						<col width="20%">
 						<col width="20%">
-						<col width="20%">
-						<col width="20%">
+						<col width="15%">
 						<col width="20%">
 					</colgroup>
 						<thead>
@@ -39,7 +39,7 @@
                                 	<c:forEach var="vo" items="${list }">
 										<tr>
 											<td class="cart-title padding-bottom0"><br>
-												<a href="#"><p class="center">${vo.paidserviceName }</p></a>
+												<p class="center">${vo.paidserviceName }</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">
@@ -55,7 +55,8 @@
 												<p class="center">${vo.orderPaykind }</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
-												<p class="center">${vo.orderPay }</p>
+												<p class="center"><fmt:formatNumber value="${vo.orderPay }" pattern="#,###">
+													</fmt:formatNumber></p>
 											</td>
 										</tr>
 									</c:forEach>
