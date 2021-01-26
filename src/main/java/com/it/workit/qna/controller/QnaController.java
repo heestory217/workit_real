@@ -82,7 +82,7 @@ public class QnaController {
 		
 		//2
 		int cnt = qaService.qaInsert(qaVo);
-		logger.info("들옥성공 cnt={}",cnt);
+		logger.info("등록성공 cnt={}",cnt);
 		
 		String msg="등록실패 했습니다", url="/qna/qnaWrite.do";
 		if (cnt>0) {
@@ -118,6 +118,23 @@ public class QnaController {
 		return "redirect:/qna/qnaDetail.do?qaNo="+qaNo;
 	}
 	
+	
+	@RequestMapping("/qnaDetail.do")
+	public String qnaDetail(@RequestParam(defaultValue = "0")int qaNo,
+			Model model) {
+		//1
+		logger.info("디테일 페이지 qaNo={}",qaNo);
+		
+		//2
+		QnaVO qaVo=qaService.qaSelectByNo(qaNo);
+		logger.info("디테일 페이지 화면 처리 qaVo={}",qaVo);
+		
+		//3
+		model.addAttribute("qaVo",qaVo);
+		
+		//4
+		return "qna/qnaDetail";
+	}
 }
 
 
