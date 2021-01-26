@@ -1,5 +1,6 @@
 package com.it.workit.corp.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,14 +19,18 @@ import com.it.workit.corp.model.AppResumeUserAllVO;
 import com.it.workit.corp.model.AreaListView;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.LanguageListView;
+import com.it.workit.corpsearch.model.MatchSearchVO;
+import com.it.workit.recruit.model.RecruitannounceService;
+import com.it.workit.recruit.model.RecruitannounceVO;
 
 @Controller
 @RequestMapping("/company")
-public class CorpRecruitResume {
+public class CorpRecruitResumeController {
 
-	private final static Logger logger = LoggerFactory.getLogger(CorpRecruitResume.class);
+	private final static Logger logger = LoggerFactory.getLogger(CorpRecruitResumeController.class);
 	
 	@Autowired CorpService corpService;
+	@Autowired RecruitannounceService reService;
 	
 	@RequestMapping("/CorpRecruitResume.do")
 	public String CorpRecruitResume(HttpSession session, Model model) {
@@ -60,7 +65,7 @@ public class CorpRecruitResume {
 			allVo.setLanguageList(langList);
 		}
 		logger.info("list 사이즈 :  {}",list.size());
-		//리스트를 선택하면 언어와 지역을 가져오는 다중선택
+		//리스트를 선택하면 사용자 언어를 다중선택
 		return list;
 	}
 	
@@ -69,7 +74,18 @@ public class CorpRecruitResume {
 		logger.info("기업 맞춤 이력서 보여주기");
 		int userNo = (Integer) session.getAttribute("userNo");
 		logger.info("userNo={}",userNo);
-		//List<Map<String, Object>> claList = corpService.selectCLA(userNo);
+		List<RecruitannounceVO> list = reService.selectRecruitList(userNo);
+		List<MatchSearchVO> mList = new ArrayList<MatchSearchVO>();
+		for(RecruitannounceVO vo : list) {
+			MatchSearchVO mVo = new MatchSearchVO();
+			mVo.setAreaNo(vo.getArealistNo());
+			mVo.setLangNo(vo.getLanguageNo());
+			mVo.setYear(vo.getRecruitannounceWantedcarrer());
+			mList.add(mVo);
+		}
+		
+		
+		
 		return "company/CorpRecomResume";
 	}
 	

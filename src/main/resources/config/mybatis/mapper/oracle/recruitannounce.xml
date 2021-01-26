@@ -21,4 +21,12 @@
 		select AREA_ADD2 from AREALIST where AREA_NO = (select AREA_NO from CORPWANTEDAREA where RECRUITANNOUNCE_NO=#{recruitannounceNo})
 	</select>
 	
+	<select id="selectRecruitList" parameterType="int" resultType="RecruitannounceVO">
+		select r.*
+		from (select * from recruitAnnounce where user_no=#{userNo} order by RECRUITANNOUNCE_NO desc)r
+		<![CDATA[
+			where rownum<4
+		]]>
+	</select>
+	
 </mapper>

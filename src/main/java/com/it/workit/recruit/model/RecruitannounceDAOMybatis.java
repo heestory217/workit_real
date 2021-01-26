@@ -1,5 +1,7 @@
 package com.it.workit.recruit.model;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,6 +30,11 @@ public class RecruitannounceDAOMybatis implements RecruitannounceDAO {
 	public String recruitcorpwantedarea(int recruitannounceNo) {
 		String vo= sqlSession.selectOne(namespace+"recruitcorpwantedarea1", recruitannounceNo)+" "+sqlSession.selectOne(namespace+"recruitcorpwantedarea2", recruitannounceNo);
 		return vo;
+	}
+
+	@Override
+	public List<RecruitannounceVO> selectRecruitList(int userNo) {
+		return sqlSession.selectList(namespace+"selectRecruitList", userNo);
 	}
 
 }
