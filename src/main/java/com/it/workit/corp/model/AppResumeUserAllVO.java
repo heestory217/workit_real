@@ -26,6 +26,4 @@ public class AppResumeUserAllVO {
 		this.languageList = languageList;
 	}
 	
-	
-	
 }
