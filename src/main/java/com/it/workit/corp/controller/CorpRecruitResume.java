@@ -66,4 +66,9 @@ public class CorpRecruitResume {
 		return list;
 	}
 	
+	@RequestMapping("/CorpRecomResume.do")
+	public String CorpRecomResume() {
+		return "company/CorpRecomResume";
+	}
+	
 }

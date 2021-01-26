@@ -57,120 +57,13 @@
                     </div>
                      
                     <div id="resume" class="col-lg-12"style="padding-left: 300px;">
+                    
                 	</div>
                 	
             </div>
         </div>
     </section>
     <!--채용 공고별 추천 이력서 끝-->
-    
-    
-	<!-- 맞춤 인재 추천 -->
-    <section class="man-banner spad">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="filter-control">
-                    </div>
-                    <div class="product-slider owl-carousel">
-                    <!-- 이력서 반복 시작 -->
-						<div class="product-item">
-                            <div class="pi-pic">
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">year</div>
-                                <a href="#">
-                                    <h5>title</h5>
-                                </a>
-                                <div class="product-price">
-                                    language
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 이력서 반복 끝-->
-						<div class="product-item">
-                            <div class="pi-pic">
-                                <ul>
-                                	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <!-- 이력서 미리보기 기능 -->
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                            	<!-- 경력이 들어갈 것임 -->
-                                <div class="catagory-name">3년</div>
-                                <!-- 지원서 제목이 들어갈 것임 -->
-                                <a href="#">
-                                    <h5>3년차 웹 개발자입니다.</h5>
-                                </a>
-                                <!-- 사용 언어가 들어갈 것임 최대 4개 -->
-                                <div class="product-price">
-                                    JAVA, SQL, PL/SQL, PYTHON
-                                </div>
-                            </div>
-                        </div>
-						<div class="product-item">
-                            <div class="pi-pic">
-                                <ul>
-                                	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <!-- 이력서 미리보기 기능 -->
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                            	<!-- 경력이 들어갈 것임 -->
-                                <div class="catagory-name">3년</div>
-                                <!-- 지원서 제목이 들어갈 것임 -->
-                                <a href="#">
-                                    <h5>3년차 웹 개발자입니다.</h5>
-                                </a>
-                                <!-- 사용 언어가 들어갈 것임 최대 4개 -->
-                                <div class="product-price">
-                                    JAVA, SQL, PL/SQL, PYTHON
-                                </div>
-                            </div>
-                        </div>
-						<div class="product-item">
-                            <div class="pi-pic">
-                                <ul>
-                                	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <!-- 이력서 미리보기 기능 -->
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                            	<!-- 경력이 들어갈 것임 -->
-                                <div class="catagory-name">3년</div>
-                                <!-- 지원서 제목이 들어갈 것임 -->
-                                <a href="#">
-                                    <h5>3년차 웹 개발자입니다.</h5>
-                                </a>
-                                <!-- 사용 언어가 들어갈 것임 최대 4개 -->
-                                <div class="product-price">
-                                    JAVA, SQL, PL/SQL, PYTHON
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="col-lg-3 offset-lg-1">
-                    <div class="product-large set-bg m-large" data-setbg="<c:url value='/resources/img/products/man-large.jpg'/>">
-                        <h2>맞춤 이력서<br>추천</h2>
-                        <a href="#">More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- 맞춤인재추천끝 -->
    </c:if>
     
     <!-- Js Plugins -->
@@ -194,17 +87,20 @@
 		//클릭이 없을때 첫번째 이력서 보여주기
 		//.rList의 첫번재 클래스 의 input을 값으로 넣어주기  
 		var firstRnum = $('.rList:first').find("input").val();
-		//성공
+		
 		
 		//클릭하면 다른 이력서 보여주기
 		$('.rList').each(function(index,item){
 			$(this).click(function(){
-				$('.rList').removeClass();
+				$(this).siblings('li').removeClass('active');
+				
 				$(this).attr("class","active");
 				var rNum = $(this).find("input").val();
 				$.send(rNum);
 			});
 		});
+		
+		
 		//ajax요청
 		$.send=function(no){
 			var data = 'recruitannounceNo='+no;
