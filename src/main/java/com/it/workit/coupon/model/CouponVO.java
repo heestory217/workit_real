@@ -46,4 +46,5 @@ public class CouponVO {
 				+ ", couponStartdate=" + couponStartdate + ", couponEnddate=" + couponEnddate + "]";
 	}
 	
+	
 }

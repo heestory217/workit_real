@@ -8,4 +8,9 @@ import org.springframework.stereotype.Repository;
 public class CouponDAOMybatis implements CouponDAO{
 	@Autowired private SqlSessionTemplate sqlSession;
 	private String namespace = "com.mybatis.mapper.coupon.";
+	
+	@Override
+	public CouponVO selectCoupon(String couponName) {
+		return sqlSession.selectOne(namespace+"selectCoupon", couponName);
+	}
 }

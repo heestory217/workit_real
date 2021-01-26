@@ -15,6 +15,29 @@
 				event.preventDefault();
 			}
 		});
+		
+		//쿠폰 적용 
+		$('form[name=couponFrm]').submit(function(){
+			$.ajax({
+				url:"<c:url value='/coupon/couponApply.do'/>",
+				type:"GET",
+				data:{
+					couponName : $('#couponName').val()
+				},
+				dataType:"json",
+				success:function(res){
+					//성공하면 할인률 입력
+					if(res!=0){
+						$('#rate').html(res);
+					}
+				},
+				error:function(xhr, status, error){
+					alert('해당 쿠폰이 존재하지 않습니다.\n쿠폰번호를 다시 확인해주세요.');
+				}
+			});	//ajax
+			
+			event.preventDefault();
+		});//click
 	});
 </script>
 
@@ -102,20 +125,25 @@
                         </div>
                         <div class="discount-coupon">
                             <h6>Coupon Codes</h6>
-                            <form action="#" class="coupon-form">
-                                <input type="text" placeholder="쿠폰코드를 입력하세요" maxlength="20">
+                            <form name="couponFrm" action="#" class="coupon-form">
+                                <input type="text" id="couponName" placeholder="쿠폰코드를 입력하세요" maxlength="20">
                                 <button type="submit" class="site-btn coupon-btn">적용</button>
                             </form>
                         </div>
                     </div>
                     
+               		<div id="rate"> <!-- 할인율 자리 --></div>
+                    <c:set var="discount" value="${subTotalPrice*(dcRate/100)}"/>
                     <c:set var="totalPrice" value="${subTotalPrice-discount}" />
                     
+                     
                     <div class="col-lg-4 offset-lg-4">
                         <div class="proceed-checkout">
                             <ul>
                                 <li class="subtotal">주문금액 <span><fmt:formatNumber value="${subTotalPrice}" pattern="#,###"/> 원</span></li>
-                                <li class="subtotal" style="padding-top: 14px;">할인금액 <span><fmt:formatNumber value="${discount}" pattern="#,###"/> 원</span></li>
+                                <li class="subtotal" style="padding-top: 14px;" id="discountAmount">할인금액 
+                                	<span><fmt:formatNumber value="${discount}" pattern="#,###"/> 원</span>
+                               	</li>
                                 <li class="cart-total">총 결제금액 <span><fmt:formatNumber value="${totalPrice}" pattern="#,###"/> 원</span></li>
                             </ul>
                             <a href="#" class="proceed-btn">결  제</a>
