@@ -1,5 +1,7 @@
 package com.it.workit.orders.model;
 
-public interface OrdersService {
+import java.util.List;
 
+public interface OrdersService {
+	public List<OrdersVO> selectIndivPaymentByUserno(int userNo);
 }

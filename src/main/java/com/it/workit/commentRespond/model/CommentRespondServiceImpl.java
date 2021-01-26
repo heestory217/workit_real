@@ -29,4 +29,21 @@ public class CommentRespondServiceImpl implements CommentRespondService{
 	public int getTotalCmt(QstnPagingVO vo) {
 		return comntRespondDao.getTotalCmt(vo);
 	}
+
+	//답변 삭제
+	@Override
+	public int deleteCmt(int cmtNo) {
+		return comntRespondDao.deleteCmt(cmtNo);
+	}
+	
+	//회원 답변 조회
+	@Override
+	public List<Map<String, Object>> userCmntSelect(QstnPagingVO vo) {
+		return comntRespondDao.userCmntSelect(vo);
+	}
+
+	@Override
+	public int getTotalUserCmt(QstnPagingVO vo) {
+		return comntRespondDao.getTotalUserCmt(vo);
+	}
 }

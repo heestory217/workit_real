@@ -11,34 +11,72 @@ input.faqBt.btn.btn-primary.site-btn {
 	width: 30px;
 	float: right;
 }
+
+input#qaPassword {
+    width: 200px;
+    float: left;
+    margin: 9px 25px;
+    height: 33px;
+}
+
+span#qaspan {
+    display: block;
+    float: left;
+    margin: 10px;
+}
+
+input#ckbox {
+    float: left;
+    width: 15px;
+    height: 25px;
+    margin-top: 10px;
+}
 </style>
 
 <script type="text/javascript">
-   $(function() {
-      $('#qaTitle').focus();
+	$(function() {
+		$('#qaTitle').focus();
 
-      $('form[name=qnaWrite]').submit(function() {
-         if ($('#qaTitle').val().length < 1) {
-            alert('제목을 입력하세요');
-            $('#qaTitle').focus();
-            event.preventDefault();
-         } else if($('#qaAbout').val().length < 1) {
-            write_go();
-            event.preventDefault();
-         }
-      });
-   });
+		$('form[name=qnaWrite]').submit(function() {
+			if ($('#qaTitle').val().length < 1) {
+				alert('제목을 입력하세요');
 
-   function write_go() {
-      var ckeditor = CKEDITOR.instances['qaAbout'];
-      if (ckeditor.getData() == "") {
-         alert('내용을 입력 하세요');
-         ckeditor.focus();
-         return;
-      } else {
-         document.in_form.submit();
-      }
-   }
+				$('#qaTitle').focus();
+				event.preventDefault();
+			} else if ($('#qaAbout').val().length < 1) {
+				write_go();
+				event.preventDefault();
+			}
+
+			$(function() {
+				if ($('#ckbox').is(':ckecked')) {
+					$("#qaSecret").val('Y');
+					
+					if ($("#qaPassword").val()<1) {
+						alert('비밀번호를 입력하세요');
+					}
+					event.preventDefault();
+					//return false;
+				} else {
+					$("#qaSecret").val('N');
+					$("#qaPassword").val('');
+				}
+			});
+		});
+
+	});
+
+
+	function write_go() {
+		var ckeditor = CKEDITOR.instances['qaAbout'];
+		if (ckeditor.getData() == "") {
+			alert('내용을 입력 하세요');
+			ckeditor.focus();
+			return;
+		} else {
+			document.in_form.submit();
+		}
+	}
 </script>
 
 <!-- Breadcrumb Section Begin -->
@@ -78,8 +116,9 @@ input.faqBt.btn.btn-primary.site-btn {
 
 				<form class="checkout-form" name="qnaWrite" method="POST"
 					action="<c:url value='/qna/qnaWrite.do'/>">
-					<input type="hidden" name="qaWriteno" value="${sessionScope.userNo }">
+<%-- 					<input type="hidden" name="qaWriteno" value="${sessionScope.userNo }"> --%>
 					<input type="hidden" name="qaWriter" value="${sessionScope.userId }">
+					<input type="hidden" name="userNo" value="${sessionScope.userNo }">
 					<div class="col-lg-12">
 						<label for="qaTitle">제목<span>*</span></label> 
 						<input type="text" id="qaTitle" name="qaTitle">
@@ -89,18 +128,26 @@ input.faqBt.btn.btn-primary.site-btn {
 						<textarea class="content" id="qaAbout" name="qaAbout"></textarea>
 						<br><br>
 						<script type="text/javascript">
-							CKEDITOR.replace('qaAbout',
-								{height : 400});
+							CKEDITOR.replace('qaAbout', {
+								height : 400
+							});
 						</script>
 					</div>
-					<div class="col-lg-12" style="clear: both;">
+					
+					<div class="group-input gi-check col-lg-12 pwWarp" style="clear: both;">
+						<div class="gi-more pwBox">
+							<input type="hidden" id="qaSecret" name="qaSecret"> 
+							<span id="qaspan">비밀글로 설정하시겠습니까? </span>
+							<input type="checkbox" id="ckbox" name="ckbox"> 
+							<input type="password" id="qaPassword" 
+								name="qaPassword" placeholder="숫자만 입력하세요">
+						</div>
 						<input type="button" value="목록"
 							class="faqBt btn btn-primary site-btn"
 							onclick="location.href='<c:url value="/qna/qnaList.do"/>'" /> 
 						<input type="submit" value="등록" id="submit_qna" class="faqBt btn btn-primary site-btn" />
 					</div>
 				</form>
-
 			</div>
 		</div>
 	</div>

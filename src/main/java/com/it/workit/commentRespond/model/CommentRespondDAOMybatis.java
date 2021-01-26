@@ -32,5 +32,22 @@ public class CommentRespondDAOMybatis implements CommentRespondDAO{
 		return sqlSession.selectOne(namespace+"getTotalCmt", vo);
 	}
 	
+	//답변 삭제
+	@Override
+	public int deleteCmt(int cmtNo) {
+		return sqlSession.delete(namespace+"deleteCmt", cmtNo);
+	}
+	
+	//회원 답변 조회
+	@Override
+	public List<Map<String, Object>> userCmntSelect(QstnPagingVO vo) {
+		return sqlSession.selectList(namespace+"userCmntSelect", vo);
+	}
+
+	@Override
+	public int getTotalUserCmt(QstnPagingVO vo) {
+		return sqlSession.selectOne(namespace+"getTotalUserCmt",vo);
+	}
+	
 	
 }

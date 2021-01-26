@@ -1,11 +1,10 @@
-package com.it.workit.resumes.model;
+package com.it.workit.corp.model;
 
 public class AreaListView {
 	private int resumeNo;//RESUME_NO
 	private int areaNo;
-	private int areaAdd1;	
-	private int areaAdd2;
-	
+	private String areaAdd1;	
+	private String areaAdd2;
 	public int getResumeNo() {
 		return resumeNo;
 	}
@@ -18,16 +17,16 @@ public class AreaListView {
 	public void setAreaNo(int areaNo) {
 		this.areaNo = areaNo;
 	}
-	public int getAreaAdd1() {
+	public String getAreaAdd1() {
 		return areaAdd1;
 	}
-	public void setAreaAdd1(int areaAdd1) {
+	public void setAreaAdd1(String areaAdd1) {
 		this.areaAdd1 = areaAdd1;
 	}
-	public int getAreaAdd2() {
+	public String getAreaAdd2() {
 		return areaAdd2;
 	}
-	public void setAreaAdd2(int areaAdd2) {
+	public void setAreaAdd2(String areaAdd2) {
 		this.areaAdd2 = areaAdd2;
 	}
 	@Override

@@ -14,5 +14,7 @@ public interface CorpDAO {
 	int editCorpImg(CorpimgVO vo);
 	int selectCorpNo(int userNo);
 	List<Map<String, Object>> selectRecruitList(int userNo);
-	List<Map<String, Object>> selectAppList(int recruitannounceNo);
+	List<AppResumeUserAllVO> selectResumeView(int recruitannounceNo);
+	List<AreaListView> selectAreaList(int resumeNo);
+	List<LanguageListView> selectLanguageList(int resumeNo);
 }

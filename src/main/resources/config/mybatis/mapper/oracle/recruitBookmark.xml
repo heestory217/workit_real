@@ -10,6 +10,7 @@
 		from RECRUITANNOUNCEBOOKMARK a join RECRUITANNOUNCE b
 		on a.RECRUITANNOUNCE_NO=b.RECRUITANNOUNCE_NO
 		where a.user_no=#{userNo}
+		order by RECRUITANNOUNCEBOOKMARK_NO desc
 	</select>
 	
 	<delete id="deleteBookmarkByRecruitNo" parameterType="int">

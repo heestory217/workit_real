@@ -10,7 +10,7 @@
 		
 	});
 </script>
-
+	
     <!-- Blog Details Section Begin -->
     <section class="blog-details spad">
         <div class="container">
@@ -18,49 +18,58 @@
                 <div class="col-lg-12">
                     <div class="blog-details-inner">
                         <div class="blog-detail-title">
-                            <h2>공고 제목</h2>
-                            <p>등록일 <span> 날짜</span></p>
+                            <h2>${RecruitannounceVO.recruitannounceTitle}</h2>
+                            <p>등록일 : <span><fmt:formatDate value="${RecruitannounceVO.recruitannounceStartdate}" pattern="yyyy년 MM월 dd일  hh:mm:ss"/></span></p>
                         </div>
-                        <h4>사명</h4>
+                        <h4>${CorpVO.corpName}</h4>
+                        <div style="color:blue; float:right;">
+                        <h1>D-17</h1>
+                        </div>
                         <div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <h3 class="col-lg-7"></h3>
                         <div class="blog-quote">
-                            <p>경력 <span>경</span></p>
-                            <p>고용형태 <span>고</span></p>
-                            <p>급여 <span>급</span></p>
-                            <p>스킬 <span>스</span></p>
+                            <p>경력 : <span>${RecruitannounceVO.recruitannounceScarrer}</span></p>
+                            <p>고용형태 : <span>${RecruitannounceVO.recruitannounceSworkkind}</span></p>
+                            <p>급여 : <span>${RecruitannounceVO.recruitannounceSpay}</span></p>
+                            <p>스킬 : <span>${RecruitannounceVO.recruitannounceSkill}</span></p>
+                            <p>마감일 : <span><fmt:formatDate value="${RecruitannounceVO.recruitannounceEnddate}" pattern="yyyy년 MM월 dd일"/></span></p>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div>
-                        <h3 class="col-lg-7 offset-lg-1">채용 형태</h3>
+                        <h3 class="col-lg-7">채용 형태</h3>
                         &nbsp;&nbsp;
-                        <p>소개</p>
+                        <p>${RecruitannounceVO.recruitannounceWorkkind}</p>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div>
-                        <h3 class="col-lg-7 offset-lg-1">주요 업무</h3>
+                        <h3 class="col-lg-7">주요 업무</h3>
                         &nbsp;&nbsp;
-                        <p>업무</p>
+                        <p>${RecruitannounceVO.recruitannounceWork}</p>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         
                         <div class="posted-by">
                             <h4 class="col-lg-7">자격요건</h4>
                             <div class="pb-text">
-                                <p>요건</p>
+                            <c:if test="${RecruitannounceVO.recruitannounceWantedcarrer==0}">
+                            	<p>신입</p>
+                            </c:if>
+                             <c:if test="${RecruitannounceVO.recruitannounceWantedcarrer>0}">
+                            	<p>경력 ${RecruitannounceVO.recruitannounceWantedcarrer}이상</p>
+                            </c:if>
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <h4 class="col-lg-7">우대사항</h4>
                             <div class="pb-text">
-                                <p>사항</p>
+                                <p>${RecruitannounceVO.recruitannounceUpcheckcarrer}</p>
                             </div>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="posted-by">
-                            <h4 class="col-lg-7">요구 직무</h4>
+                            <h4 class="col-lg-7">직무</h4>
                         	<div class="pb-text">
-                                <p>직무</p>
+                                <p>${cwvo}</p>
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <h4 class="col-lg-7">요구 언어</h4>
@@ -68,22 +77,22 @@
                                 <p>언어</p>
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <h4 class="col-lg-7">요구 근무지</h4>
+                            <h4 class="col-lg-7">근무지</h4>
                             <div class="pb-text">
-                                <p>근무지</p>
+                                <p>${cwa}</p>
                             </div>
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <h5 class="col-lg-7 offset-lg-1">채용과정</h5>
-                        <p>과정</p>
+                        <h5 class="col-lg-7">채용 절차</h5>
+                        <p>${RecruitannounceVO.recruitannounceHirestep}</p>
                         
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <h5 class="col-lg-7 offset-lg-1">기타</h5>
-                        <p>기타</p>
+                        <h5 class="col-lg-7">기타</h5>
+                        <p>${RecruitannounceVO.recruitannounceElse}</p>
                         
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <h5 class="col-lg-7 offset-lg-1">회사링크</h5>
-                        <a href="#">링크</a>
+                        <h5 class="col-lg-7">회사 링크</h5>
+                        <a href="${RecruitannounceVO.recruitannounceLink}"></a>
                         
                         <div class="product-tab">
                         <div class="tab-item">
@@ -94,9 +103,9 @@
                                 <li>
                                     <a data-toggle="tab" href="#tab-2" role="tab">기업 소개</a>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <a data-toggle="tab" href="#tab-3" role="tab">리뷰</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                         <div class="tab-item-content">
@@ -105,10 +114,11 @@
                                     <div class="product-content">
                                         <div class="row">
                                             <div class="col-lg-7">
-                                            <p>직무 <br><span>무</span></p>
-                                            <p>요구경력 <br><span>력</span></p>
-                                            <p>연봉 <br><span>봉</span></p>
-                                            <p>기술 <br><span>술</span></p>
+                                            <p>경력 : <span>${RecruitannounceVO.recruitannounceScarrer}</span></p>
+                          					<p>고용형태 : <span>${RecruitannounceVO.recruitannounceSworkkind}</span></p>
+                           					<p>급여 : <span>${RecruitannounceVO.recruitannounceSpay}</span></p>
+                          					<p>스킬 : <span>${RecruitannounceVO.recruitannounceSkill}</span></p>
+                          					<p>마감일 : <span><fmt:formatDate value="${RecruitannounceVO.recruitannounceEnddate}" pattern="yyyy년 MM월 dd일"/></span></p>
                                             </div>
                                             <div class="col-lg-5">
                                                 <img src="img/product-single/tab-desc.jpg" alt="">
@@ -120,10 +130,10 @@
                                 <div class="product-content">
                                         <div class="row">
                                             <div class="col-lg-7">
-                                                <h5>회사명</h5>
-                                                <h5>대표  <span>대표</span> </h5>
+                                                <h5>회사명   <span>${CorpVO.corpName}</span> </h5>
+                                                <h5>대표  <span>${CorpVO.corpHeadname}</span> </h5>
                                                 <p>회사소개 </p>
-                                                <p>소개</p>
+                                                <p>${CorpVO.corpIntro}</p>
                                             </div>
                                             <div class="col-lg-5">
                                                 <img src="img/product-single/tab-desc.jpg" alt="">
@@ -131,9 +141,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                                <!--<div class="tab-pane fade" id="tab-3" role="tabpanel">
                                 
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>

@@ -150,7 +150,7 @@ select.qaSelete {
 	                                <tr>
 			                            <td class="cart-pic first-row">${qaVo.qaNo}</td>
 			                            <td class="cart-title first-row">
-				                            <a href="#">
+				                            <a href="<c:url value='/qna/qnaCount.do?qaNo=${qaVo.qaNo }'/>">
 				                            	${qaVo.qaTitle }
 				                            </a>
 			                            </td>
@@ -164,13 +164,12 @@ select.qaSelete {
 	                            </c:if>
                             </tbody>
                         </table>
-                    </div>
-                    
-					<!-- 버튼 -->
+					</div>
+					<!--버튼 -->
 					<div class="qaWbt">
 						<input type="button" value="글쓰기"
 							class="faqBt btn btn-primary site-btn"
-							onclick="location.href='<c:url value="/qna/qnaWrite.do"/>'" />
+							onclick="location.href='<c:url value="/qna/qnaWrite.do?qaNo=${qaVo.qaNo }"/>'" />
 					</div>
                     
                     <div class="product__pagination blog__pagination">
