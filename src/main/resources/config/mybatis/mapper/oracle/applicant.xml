@@ -35,6 +35,7 @@
 		from APPLICANTLIST a join RECRUITANNOUNCE r
 		on a.RECRUITANNOUNCE_NO=r.RECRUITANNOUNCE_NO
 		where APPLICANTLIST_PAPERCHECK=3 and a.USER_NO=#{userNo}
+		order by APPLICANTLIST_NO desc
 	</select>
 	
 	<!-- 서류합격 목록 -->
@@ -43,6 +44,7 @@
 		from APPLICANTLIST a join RECRUITANNOUNCE r
 		on a.RECRUITANNOUNCE_NO=r.RECRUITANNOUNCE_NO
 		where APPLICANTLIST_PAPERCHECK=1 and a.USER_NO=#{userNo}
+		order by APPLICANTLIST_NO desc
 	</select>
 	
 	<!-- 불합격 목록 -->
@@ -51,5 +53,6 @@
 		from APPLICANTLIST a join RECRUITANNOUNCE r
 		on a.RECRUITANNOUNCE_NO=r.RECRUITANNOUNCE_NO
 		where APPLICANTLIST_PAPERCHECK=2 and a.USER_NO=#{userNo}
+		order by APPLICANTLIST_NO desc
 	</select>
 </mapper>
