@@ -16,7 +16,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectCartList(int userNo) {
+	public List<CartViewVO> selectCartList(int userNo) {
 		return cartDao.selectCartList(userNo);
 	}
 

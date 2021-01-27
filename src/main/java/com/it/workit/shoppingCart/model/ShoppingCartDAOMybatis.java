@@ -18,7 +18,7 @@ public class ShoppingCartDAOMybatis implements ShoppingCartDAO {
 	}
 
 	@Override
-	public List<Map<String, Object>> selectCartList(int userNo) {
+	public List<CartViewVO> selectCartList(int userNo) {
 		return sqlSession.selectList(namespace+"selectCartList", userNo);
 	}
 

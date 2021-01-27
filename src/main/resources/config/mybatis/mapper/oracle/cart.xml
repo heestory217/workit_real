@@ -11,8 +11,8 @@
 		values(shoppingcart_no,#{userNo},#{resumeNo})
 	</insert>
 	
-	<select id="selectCartList" parameterType="int" resultType="map">
-		select * from CartView where user_no=#{userNo}
+	<select id="selectCartList" parameterType="int" resultType="cartViewVo">
+		select * from CartView where user_no=#{userNo} order by SHOPPINGCART_NO
 	</select>
 	
 	<delete id="deleteOne" parameterType="int">
