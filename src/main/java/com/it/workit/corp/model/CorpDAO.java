@@ -3,6 +3,8 @@ package com.it.workit.corp.model;
 import java.util.List;
 import java.util.Map;
 
+import com.it.workit.corpsearch.model.MatchSearchVO;
+
 public interface CorpDAO {
 
 	int insertCorp(CorpVO vo);
@@ -17,4 +19,5 @@ public interface CorpDAO {
 	List<AppResumeUserAllVO> selectResumeView(int recruitannounceNo);
 	List<AreaListView> selectAreaList(int resumeNo);
 	List<LanguageListView> selectLanguageList(int resumeNo);
+	List<Integer> selectResumeNoList(MatchSearchVO matchSearchVO);
 }

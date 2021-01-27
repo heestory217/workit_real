@@ -19,9 +19,11 @@ import com.it.workit.corp.model.AppResumeUserAllVO;
 import com.it.workit.corp.model.AreaListView;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.LanguageListView;
+import com.it.workit.corpsearch.model.CorpSearchService;
 import com.it.workit.corpsearch.model.MatchSearchVO;
 import com.it.workit.recruit.model.RecruitannounceService;
 import com.it.workit.recruit.model.RecruitannounceVO;
+import com.it.workit.resumes.model.ResumesService;
 
 @Controller
 @RequestMapping("/company")
@@ -29,8 +31,10 @@ public class CorpRecruitResumeController {
 
 	private final static Logger logger = LoggerFactory.getLogger(CorpRecruitResumeController.class);
 	
-	@Autowired CorpService corpService;
-	@Autowired RecruitannounceService reService;
+	@Autowired private CorpService corpService;
+	@Autowired private RecruitannounceService reService;
+	@Autowired private CorpSearchService searchService;
+	@Autowired private ResumesService resumeService;
 	
 	@RequestMapping("/CorpRecruitResume.do")
 	public String CorpRecruitResume(HttpSession session, Model model) {
@@ -74,16 +78,31 @@ public class CorpRecruitResumeController {
 		logger.info("기업 맞춤 이력서 보여주기");
 		int userNo = (Integer) session.getAttribute("userNo");
 		logger.info("userNo={}",userNo);
-		List<RecruitannounceVO> list = reService.selectRecruitList(userNo);
+		List<RecruitannounceVO> rlist = reService.selectRecruitList(userNo);
+		
+		logger.info("rlist={}",rlist.size());
+		
 		List<MatchSearchVO> mList = new ArrayList<MatchSearchVO>();
-		for(RecruitannounceVO vo : list) {
+		
+		for(RecruitannounceVO vo : rlist) {
 			MatchSearchVO mVo = new MatchSearchVO();
 			mVo.setAreaNo(vo.getArealistNo());
 			mVo.setLangNo(vo.getLanguageNo());
 			mVo.setYear(vo.getRecruitannounceWantedcarrer());
 			mList.add(mVo);
 		}
+		logger.info("mList={}",mList.size());
+		for(int i=0;i<mList.size();i++) {
+			System.out.println("mList : "+mList.get(i));
+		}
 		
+		//매칭되는 이력서 번호를 찾음
+		List<Integer> matchList = corpService.selectResumeNoList(mList);
+		logger.info("매칭되는 번호 리스트 사이즈 {}",matchList.size());
+		for(int i =0; i<matchList.size(); i++) {
+			System.out.println("매칭된 이력서 번호"+matchList.get(i));
+		}
+		//매칭된 이력서 번호를 넣어서 이력서 정보를 view로 보내줌
 		
 		
 		return "company/CorpRecomResume";

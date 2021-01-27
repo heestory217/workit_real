@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.it.workit.corpsearch.model.MatchSearchVO;
+
 @Repository
 public class CorpDAOMybatis implements CorpDAO {
 	@Autowired SqlSession sqlSession;
@@ -67,6 +69,11 @@ public class CorpDAOMybatis implements CorpDAO {
 	@Override
 	public List<LanguageListView> selectLanguageList(int resumeNo) {
 		return sqlSession.selectList(namespace+"langList",resumeNo);
+	}
+
+	@Override
+	public List<Integer> selectResumeNoList(MatchSearchVO matchSearchVO) {
+		return sqlSession.selectList(namespace+"selectResumeNoList", matchSearchVO);
 	}
 	
 

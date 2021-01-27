@@ -1,5 +1,6 @@
 package com.it.workit.corp.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.it.workit.corpsearch.model.MatchSearchVO;
 import com.it.workit.users.model.UsersDAO;
 
 @Service
@@ -95,6 +97,17 @@ public class CorpServiceImpl implements CorpService {
 	@Override
 	public List<LanguageListView> selectLanguageList(int resumeNo) {
 		return corpDao.selectLanguageList(resumeNo);
+	}
+
+	@Override
+	public List<Integer> selectResumeNoList(List<MatchSearchVO> mList) {
+		List<Integer> resumeNo = new ArrayList<Integer>();
+		if(!mList.isEmpty() || mList.size()>0) {
+			for(int i=0;i<mList.size();i++) {
+				resumeNo = corpDao.selectResumeNoList(mList.get(i));
+			}
+		}
+		return resumeNo;
 	}
 
 
