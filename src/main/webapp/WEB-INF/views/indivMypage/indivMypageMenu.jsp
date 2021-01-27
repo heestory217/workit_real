@@ -3,6 +3,13 @@
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/indivMypage.css'/>" />
 
+<script type="text/javascript">
+	function pageFunc(curPage){
+		$('input[name=currentPage]').val(curPage);
+		$('form[name=frmPage]').submit();
+	}
+</script>
+
 <!-- Breadcrumb Section Begin -->
 	<div class="breacrumb-section">
 		<div class="container">
