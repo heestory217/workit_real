@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/slicknav.min.css"/>" type="text/css">
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>" type="text/css">
 
-	<!-- 맞춤 인재 추천 -->
+	<!-- 맞춤 이력서 추천 -->
+	<p>${matchingList }</p>
     <section class="man-banner spad">
         <div class="container-fluid">
             <div class="row">
@@ -21,23 +22,27 @@
                     </div>
                     <div class="product-slider owl-carousel">
                     <!-- 이력서 반복 시작 -->
-						<div class="product-item">
-                            <div class="pi-pic">
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">year</div>
-                                <a href="#">
-                                    <h5>title</h5>
-                                </a>
-                                <div class="product-price">
-                                    language
-                                </div>
-                            </div>
-                        </div>
+                    <c:if test="${!empty matchingList}">
+                    	<c:forEach var='matchVo' items='${matchingList }'>
+							<div class="product-item">
+	                            <div class="pi-pic">
+	                                <ul>
+	                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+	                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+	                                </ul>
+	                            </div>
+	                            <div class="pi-text">
+	                                <div class="catagory-name">경력 자리</div>
+	                                <a href="#">
+	                                    <h5>${matchVo.resumesVo.resumeTitle }</h5>
+	                                </a>
+	                                <div class="product-price">
+	                                   
+	                                </div>
+	                            </div>
+	                        </div>
+                    	</c:forEach>
+                    </c:if>
                         <!-- 이력서 반복 끝-->
 						<div class="product-item">
                             <div class="pi-pic">
@@ -109,7 +114,8 @@
                     </div>
                 </div>
                 <div class="col-lg-3 offset-lg-1">
-                    <div class="product-large set-bg m-large" data-setbg="<c:url value='/resources/img/products/man-large.jpg'/>">
+                    <div class="product-large set-bg m-large" data-setbg="<c:url value='/resources/img/products/man-large.jpg'/>"
+                    	style="height: 400px;padding-top: 120px;" >
                         <h2>맞춤 이력서<br>추천</h2>
                         <a href="#">More</a>
                     </div>

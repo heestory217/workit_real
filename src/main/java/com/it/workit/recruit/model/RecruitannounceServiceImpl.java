@@ -1,5 +1,7 @@
 package com.it.workit.recruit.model;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,11 @@ public class RecruitannounceServiceImpl implements RecruitannounceService {
 	@Override
 	public String recruitcorpwantedarea(int recruitannounceNo) {
 		return RecruitannounceDao.recruitcorpwantedarea(recruitannounceNo);
+	}
+
+	@Override
+	public List<RecruitannounceVO> selectRecruitList(int userNo) {
+		return RecruitannounceDao.selectRecruitList(userNo);
 	}
 	
 	@Override

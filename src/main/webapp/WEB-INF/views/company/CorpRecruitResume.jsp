@@ -20,7 +20,7 @@
 		left: 30px;
     	top: 30px;
 	}
-	.col-lg-5 {
+	.col-lg-3 {
 		float:left;
 	}
 	
@@ -84,69 +84,65 @@
     <script src="<c:url value="/resources/js/jquery-3.5.1.min.js"/>"></script>
 	<script type="text/javascript">
 	$(function(){
-		//클릭이 없을때 첫번째 이력서 보여주기
-		//.rList의 첫번재 클래스 의 input을 값으로 넣어주기  
 		var firstRnum = $('.rList:first').find("input").val();
-		
+		send2(firstRnum);
 		
 		//클릭하면 다른 이력서 보여주기
 		$('.rList').each(function(index,item){
 			$(this).click(function(){
 				$(this).siblings('li').removeClass('active');
-				
 				$(this).attr("class","active");
 				var rNum = $(this).find("input").val();
-				$.send(rNum);
+				send2(rNum);
 			});
 		});
-		
-		
-		//ajax요청
-		$.send=function(no){
-			var data = 'recruitannounceNo='+no;
-			var str="";
-			$.ajax({
-				url:"<c:url value='/company/selectResumeView.do'/>",
-				type:"get",
-				data:data,
-				dataType:'json',
-				success:function(res){
-					/*
-					{"appReUsView":{"applicantlistNo":1,"userNo":6,"resumeNo":2,"recruitannounceNo":4,"applicantlistDate":1611579683000,"applicantlistPapercheck":3,
-					"recruitannounceTitle":null,"recruitannounceSworkkind":null,
-					"recruitannounceSpay":null,"resumeTitle":"홍길동_1","userExperience":"1"},
-					"areaList":[{"resumeNo":2,"areaNo":105,"areaAdd1":"경기","areaAdd2":"구리시"}],
-					"languageList":[{"resumeNo":2,"languageNo":1,"languageName":"JAVA"}]}
-					*/
-					$('#resume').html("");
-					if(res.length>0){
-						str+="<p style='text-align: center; padding-right: 230px;'>총 "+res.length+"명의 지원자가 이력서를 제출했습니다 <a>전체 보기</a></p>";
-						$(res).each(function(){
-							//str+="이력서 번호 : "+this.appReUsView.resumeNo+"<br>";
-							str+="<div class='col-lg-5'>";
-							str+="<div class='product-item'>";
-							str+="<div class='pi-pic'>";
-							str+="<ul>";
-							str+="<li class='w-icon active'><a href='#'><i class='icon_bag_alt'></i></a></li>";
-                            str+="<li class='quick-view'><a href='#'>+ Quick View</a></li></ul></div>";
-                            str+="<div class='pi-text'>";
-                            str+="<div class='catagory-name'>"+this.appReUsView.userExperience+"년</div>";
-                            str+="<a href='#'><h5>"+this.appReUsView.resumeTitle+"</h5></a><div class='product-price'>";
-                            $(this.languageList).each(function(){
-                            	str+=this.languageName+"  ";
-                            });
-                            str+="</div></div></div></div></div>";
-						})
-						str+="</div>";
-						$('#resume').html(str);
-					}
-				},
-	    		error:function(xhs, status, error){
-					alert('error : '+error);
-				}
-			});
-			return str;
-		}
 	});
-
+	
+	function send2(no){
+		var data = 'recruitannounceNo='+no;
+	      var str="";
+	      $.ajax({
+	         url:"<c:url value='/company/selectResumeView.do'/>",
+	         type:"get",
+	         data:data,
+	         dataType:'json',
+	         success:function(res){
+	            /*
+	            {"appReUsView":{"applicantlistNo":1,"userNo":6,"resumeNo":2,"recruitannounceNo":4,"applicantlistDate":1611579683000,"applicantlistPapercheck":3,
+	            "recruitannounceTitle":null,"recruitannounceSworkkind":null,
+	            "recruitannounceSpay":null,"resumeTitle":"홍길동_1","userExperience":"1"},
+	            "areaList":[{"resumeNo":2,"areaNo":105,"areaAdd1":"경기","areaAdd2":"구리시"}],
+	            "languageList":[{"resumeNo":2,"languageNo":1,"languageName":"JAVA"}]}
+	            */
+	            $('#resume').html("");
+	            if(res.length>0){
+	               str+="<p style='text-align: center; padding-right: 230px;'>총 "+res.length+"명의 지원자가 이력서를 제출했습니다 <a>전체 보기</a></p>";
+	               $(res).each(function(){
+	                  //str+="이력서 번호 : "+this.appReUsView.resumeNo+"<br>";
+	                  str+="<div class='col-lg-3'>";
+	                  str+="<div class='product-item'>";
+	                  str+="<div class='pi-pic'>";
+                      str+="</div>";
+                      str+="<div class='pi-text'>";
+                      str+="<div class='catagory-name'>"+this.appReUsView.userExperience+"년</div>";
+                      str+="<a href='#'><h5>"+this.appReUsView.resumeTitle+"</h5></a><div class='product-price'>";
+                      $(this.languageList).each(function(){
+                         str+=this.languageName+"&nbsp;&nbsp;&nbsp;";
+                      });
+                      str+="</div></div></div></div></div>";
+	               })
+	               str+="</div>";
+	               $('#resume').html(str);
+	            }else{
+	            	str+="<p>아직 지원자가 없습니다.</p>"
+	            	$('#resume').html(str);
+	            }
+	         },
+	          error:function(xhs, status, error){
+	            alert('error : '+error);
+	         }
+	      });
+	      return str;
+		
+	};
 	</script>

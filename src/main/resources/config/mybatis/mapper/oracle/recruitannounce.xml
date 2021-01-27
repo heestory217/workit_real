@@ -25,4 +25,12 @@
 		select LANGUAGE_NAME from LANGUAGE where LANGUAGE_NO = (select LANGUAGE_NO from RECRUITANNOUNCE where RECRUITANNOUNCE_NO=#{recruitannounceNo})
 	</select>
 	
+	<select id="selectRecruitList" parameterType="int" resultType="RecruitannounceVO">
+		select r.*
+		from (select * from recruitAnnounce where user_no=#{userNo} order by RECRUITANNOUNCE_NO desc)r
+		<![CDATA[
+			where rownum<4
+		]]>
+	</select>
+	
 </mapper>

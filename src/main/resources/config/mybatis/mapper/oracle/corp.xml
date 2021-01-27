@@ -101,6 +101,61 @@
    <select id="langList" parameterType="int" resultType="LanguageListView">
    		select * from languagelistview where resume_no=#{resumeNo}
    </select>
+   
+   <select id="selectResumeNoList" parameterType="matchSearchVO" resultType="int">
+   		select * from RecruitListview
+		where area_no=#{areaNo}
+		<if test='areaNo gt 1 and areaNo lte 26'>
+			or area_no=1
+		</if>
+		<if test='areaNo gt 27 and areaNo lte 43'>
+			or area_no=27
+		</if>
+		<if test='areaNo gt 44 and areaNo lte 52'>
+			or area_no=44
+		</if>
+		<if test='areaNo gt 53 and areaNo lte 63'>
+			or area_no=53
+		</if>
+		<if test='areaNo gt 64 and areaNo lte 69'>
+			or area_no=64
+		</if>
+		<if test='areaNo gt 70 and areaNo lte 75'>
+			or area_no=70
+		</if>
+		<if test='areaNo gt 76 and areaNo lte 81'>
+			or area_no=76
+		</if>
+		<if test='areaNo gt 83 and areaNo lte 114'>
+			or area_no=83
+		</if>
+		<if test='areaNo gt 115 and areaNo lte 133'>
+			or area_no=115
+		</if>
+		<if test='areaNo gt 134 and areaNo lte 146'>
+			or area_no=134
+		</if>
+		<if test='areaNo gt 147 and areaNo lte 162'>
+			or area_no=147
+		</if>
+		<if test='areaNo gt 163 and areaNo lte 177'>
+			or area_no=163
+		</if>
+		<if test='areaNo gt 178 and areaNo lte 200'>
+			or area_no=178
+		</if>
+		<if test='areaNo gt 201 and areaNo lte 224'>
+			or area_no=201
+		</if>
+		<if test='areaNo gt 225 and areaNo lte 243'>
+			or area_no=225
+		</if>
+		<if test='areaNo gt 244 and areaNo lte 246'>
+			or area_no=244
+		</if>
+		and language_no=#{langNo}
+	  	and USER_EXPERIENCE>=#{year}
+   </select>
 	
 	
 </mapper>

@@ -60,4 +60,5 @@ public class UsersDAOMybatis implements UsersDAO {
 	public int updateUserCorpCheck(int userNo) {
 		return sqlSession.update(namespace+"updateUserCorpCheck", userNo);
 	}
+
 }
