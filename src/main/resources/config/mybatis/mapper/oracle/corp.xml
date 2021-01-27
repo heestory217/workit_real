@@ -64,7 +64,7 @@
 		select *
 		from	(select r.RECRUITANNOUNCE_NO, r.RECRUITANNOUNCE_TITLE
 		from users u, RECRUITANNOUNCE r
-		where u.USER_NO = r.USER_NO and u.user_no=5 order by RECRUITANNOUNCE_NO desc)
+		where u.USER_NO = r.USER_NO and u.user_no=5 and r.user_no=#{userNo} order by RECRUITANNOUNCE_NO desc)
 		<![CDATA[
 		where rownum<4
 		]]>
@@ -95,7 +95,11 @@
    </resultMap>
    
    <select id="AppResumeUserList" parameterType="int" resultMap="appResumeUserList">
-      select * from appresumeview where RECRUITANNOUNCE_NO=#{recruitannounceNo}
+      select *
+		from(select * from appresumeview where RECRUITANNOUNCE_NO=#{recruitannounceNo} order by applicantlist_no desc)
+		<![CDATA[
+		where rownum<=12
+		]]>
    </select>
    
    <select id="areaList" parameterType="int" resultType="AreaListView">
@@ -107,7 +111,7 @@
    </select>
    
    <select id="selectResumeNoList" parameterType="matchSearchVO" resultType="int">
-   		select * from RecruitListview
+   		select resume_no from RecruitListview
 		where area_no=#{areaNo}
 		<if test='areaNo gt 1 and areaNo lte 26'>
 			or area_no=1

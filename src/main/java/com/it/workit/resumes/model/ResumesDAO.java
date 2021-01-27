@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ResumesDAO {
 
-	List<ResumesAllVO> searchResumeByNo(int resumeNo);
+	ResumesAllVO searchResumeByNo(int resumeNo);
 
 }
