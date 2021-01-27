@@ -179,12 +179,6 @@ article {
 	margin: 0px 30px 0 30px;
 }
 
-.qtTitle {
-	font-size: 20px;
-	color: black;
-	font-weight: lighter;
-}
-
 .qtContent {
 	font-size: 16px;
 	color: #5f5f5f;
@@ -216,28 +210,12 @@ dd {
 	padding: 35px 0;
 }
 
-.questBoxWrap:hover {
-	background-color: #f5f7ff;;
-}
-
-.cellBx>span {
-	float: left;
-}
-
 .cellBx>.bookmark {
 	float: right;
 	font-size: 25px;
 	padding-bottom: 20px;
 }
 
-.allQstn {
-	color: #4c50bb;
-	font-weight: bold;
-}
-
-.cellBx>span {
-	font-size: 13px;
-}
 
 /* 페이징처리 */
 .product__pagination a, .blog__pagination a, #currentPage {

@@ -217,22 +217,60 @@
 }
 
 </style>    
-
 <script type="text/javascript">
 $(function(){
-	
-	$('.replyBtnDiv').click(function(){
-		$('.replyBoxWrap').toggle();
-	});
-	
 	/* 수정&삭제 아이콘 클릭시 수정, 삭제 버튼 보이도록 클릭 이벤트 */
 	$('.cmtEditBtn').hide();
 	$('.fa-ellipsis-h').each(function(index, item){
 		$(this).click(function(){
 			$(this).parent('a').next('.cmtEditBtn').toggle();
 		});
-
 	});
+	
+	$('.replyBtnDiv').each(function(index,item){
+		$(this).click(function(){
+			$(this).parent('.cmtOne').next('.replyBoxWrap').toggle();
+		});
+	});
+	
+	$('.replyFold').each(function(index,item){
+		$(this).click(function(){
+			$(this).parent('.replyBoxWrap').hide();
+		});
+	});
+	
+	//댓글 ajax
+	$('#replyFrm').each(function(){
+		$('#replyFrm').submit(function(){
+			
+			$.ajax({
+				url:"<c:url value='/indiv/community/reply.do'/>",
+				type:"post",
+				dataType:"json",
+				data:$(this).serialize(),
+				success:function(res){
+					//alert(res);
+					if(res.length>0){
+						var replyList="";
+						$.each(res, function(idx, item){
+							replyList+="<p>"+item.commentAbout+"</p><hr>";
+						});
+						
+						$('#replyContent').html(replyList);
+					}
+				},
+				error:function(xhr, status, error){
+					alert('error:'+error);
+				}
+			});
+			event.preventDefault();
+		});
+	
+	});
+		
+	//////댓글 등록, 뿌리기 - AJAX이용 
+	//////기존의 댓글들은 항상 조회되도록 기존 방식 사용해서 댓글 조회하기
+	
 });
 
 
@@ -294,36 +332,12 @@ function pageFunc(curPage){
 		<b class="recmdCnt">${map['COMMENTRESPOND_LIKENUM'] }</b></a>
 	</div>
 </div><!-- cmtBoxWrap -->
+
+<!-- 댓글 -->
+<%@include file="reply.jsp" %>
 </c:forEach>
 <!-- 답변 반복 끝  -->
 
-<!-- 댓글 -->
-
-<div class="replyBoxWrap active">
-	<div class="replyOne">
-		<div class="nickDiv">
-			<span>┗  &nbsp; @silver</span>
-		</div>
-		<div class="replyCont">
-			<p>댓글 내용<br>........<br>......</p>
-		</div>
-		<div class="regdateDiv">
-			<span>2020-12-20 작성</span>
-		</div>
-	</div><!-- replyOne -->
-		<div class="replyWrap">
-			<form name="replyFrm" id="replyFrm">
-				<div class="replyWriteArea">
-					<textarea class="replyWrite" placeholder="댓글을 입력해주세요."
-					></textarea>
-					<input type="submit" value="등록" id="replyBtn">
-				</div>
-			</form>
-		</div>
-		<div class="replyFold">
-			<a href="#">댓글 접기&nbsp;<i class="fa fa-angle-up"></i></a>
-		</div>
-</div>
 
 <!-- 페이징 처리 -->
 <div class="paging col-lg-12">

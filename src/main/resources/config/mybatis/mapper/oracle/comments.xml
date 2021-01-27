@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="config.mybatis.mapper.oracle.comments">
+	<insert id="insertReply" parameterType="commentsVo">
+		<selectKey keyProperty="commentNo" resultType="int" order="BEFORE">
+			select COMMENTS_SEQ.NEXTVAL from dual
+		</selectKey>
+		INSERT INTO COMMENTS(COMMENT_NO,COMMENT_ABOUT,COMMENTRESPOND_NO,USER_NO)
+		VALUES(#{commentNo},#{commentAbout},#{commentrespondNo},#{userNo})
+	</insert>
+	
+	<select id="selectComment" resultType="commentsVo" parameterType="int">
+		SELECT * FROM COMMENTS
+		WHERE COMMENTRESPOND_NO=#{commentrespondNo}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
