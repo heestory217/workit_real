@@ -5,7 +5,7 @@
 <mapper namespace="config.mybatis.mapper.oracle.orders">
 
 	<!-- 개인 마이페이지 결제내역 사용 -->
-	<select id="selectIndivPaymentByUserno" parameterType="int" resultType="ordersVo">
+<!-- 	<select id="selectIndivPaymentByUserno" parameterType="int" resultType="ordersVo">
 		select a.*, b.PAIDSERVICE_STARTDATE, b.PAIDSERVICE_ENDDATE, c.PAIDSERVICE_NAME
 		from ORDERS a join ORDERDETAILSEERV b
 		on a.order_no=b.order_no
@@ -13,7 +13,32 @@
 		on b.PAIDSERVICE_NO=c.PAIDSERVICE_NO
 		where a.user_no=#{userNo}
 		order by a.ORDER_NO desc
+	</select> -->
+	
+	<select id="selectIndivPaymentByUserno" parameterType="indivpagingVo" resultType="ordersVo">
+		select *
+		from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        		select a.*, b.PAIDSERVICE_STARTDATE, b.PAIDSERVICE_ENDDATE, c.PAIDSERVICE_NAME
+                        from ORDERS a join ORDERDETAILSEERV b
+                        on a.order_no=b.order_no
+                        join PAIDSERVICE c
+                        on b.PAIDSERVICE_NO=c.PAIDSERVICE_NO
+                        where a.user_no=#{userNo}
+                        order by a.ORDER_NO desc
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
 	</select>
 	
-	
+	<select id="ordersGetTotalRecord" parameterType="indivpagingVo" resultType="int">
+		select count(*) from orders
+		where user_no=#{userNo}
+	</select>
 </mapper>
