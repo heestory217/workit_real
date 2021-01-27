@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.it.workit.indivMypage.model.IndivpagingVO;
+
 @Repository
 public class ApplicantDAOMybatis implements ApplicantDAO{
 	
@@ -35,17 +37,17 @@ public class ApplicantDAOMybatis implements ApplicantDAO{
 	}
 
 	@Override
-	public List<ApplicantlistVO> selectApplyAllByUserNo(int userNo) {
-		return sqlSession.selectList(namespace+"selectApplyAllByUserNo",userNo);
+	public List<ApplicantlistVO> selectApplyAllByUserNo(IndivpagingVO vo) {
+		return sqlSession.selectList(namespace+"selectApplyAllByUserNo",vo);
 	}
 
 	@Override
-	public List<ApplicantlistVO> selectPassAllByUserNo(int userNo) {
-		return sqlSession.selectList(namespace+"selectPassAllByUserNo",userNo);
+	public List<ApplicantlistVO> selectPassAllByUserNo(IndivpagingVO vo) {
+		return sqlSession.selectList(namespace+"selectPassAllByUserNo",vo);
 	}
 
 	@Override
-	public List<ApplicantlistVO> selectFailAllByUserNo(int userNo) {
-		return sqlSession.selectList(namespace+"selectFailAllByUserNo",userNo);
+	public List<ApplicantlistVO> selectFailAllByUserNo(IndivpagingVO vo) {
+		return sqlSession.selectList(namespace+"selectFailAllByUserNo",vo);
 	}
 }
