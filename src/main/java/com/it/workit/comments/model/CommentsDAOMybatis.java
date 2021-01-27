@@ -17,8 +17,8 @@ public class CommentsDAOMybatis implements CommentsDAO{
 	}
 
 	@Override
-	public List<CommentsVO> selectComment(int replyNo) {
-		return sqlSession.selectList(namespace+"selectComment", replyNo);
+	public List<CommentsVO> selectComment(int cmntNo) {
+		return sqlSession.selectList(namespace+"selectComment", cmntNo);
 	}
 	
 	

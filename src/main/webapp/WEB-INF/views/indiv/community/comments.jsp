@@ -216,7 +216,10 @@
     color: gray;
 }
 
-</style>    
+</style>  
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script> 
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"
+></script>
 <script type="text/javascript">
 $(function(){
 	/* 수정&삭제 아이콘 클릭시 수정, 삭제 버튼 보이도록 클릭 이벤트 */
@@ -230,6 +233,8 @@ $(function(){
 	$('.replyBtnDiv').each(function(index,item){
 		$(this).click(function(){
 			$(this).parent('.cmtOne').next('.replyBoxWrap').toggle();
+			//댓글 버튼 클릭 => 답변에 해당하는 댓글 조회
+			replyList();
 		});
 	});
 	
@@ -239,40 +244,59 @@ $(function(){
 		});
 	});
 	
-	//댓글 ajax
-	$('#replyFrm').each(function(){
-		$('#replyFrm').submit(function(){
-			
-			$.ajax({
-				url:"<c:url value='/indiv/community/reply.do'/>",
-				type:"post",
-				dataType:"json",
-				data:$(this).serialize(),
-				success:function(res){
-					//alert(res);
-					if(res.length>0){
-						var replyList="";
-						$.each(res, function(idx, item){
-							replyList+="<p>"+item.commentAbout+"</p><hr>";
-						});
-						
-						$('#replyContent').html(replyList);
-					}
-				},
-				error:function(xhr, status, error){
-					alert('error:'+error);
-				}
-			});
-			event.preventDefault();
-		});
 	
+	
+	//댓글 등록 버튼 클릭 시, 댓글 등록 함수 처리
+	$('#replyBtn').click(function(){
+		var replyTxt = $('form[name=replyFrm]').serialize();
+		$.ajax({
+			url:"<c:url value='/indiv/community/replyWrite.do'/>",
+			type:"post",
+			data:$('#replyFrm').serialize(),
+			dataType:"json",
+			success:function(res){
+				if(res == 1) {
+					replyList(); //댓글 작성 후 댓글 목록 조회
+	                $('.replyWrite').val('');
+	            }
+			},
+			error:function(xhr, status, error){
+				alert('댓글 등록에 실패하였습니다.');
+			}
+		});
+		event.preventDefault();
 	});
-		
-	//////댓글 등록, 뿌리기 - AJAX이용 
-	//////기존의 댓글들은 항상 조회되도록 기존 방식 사용해서 댓글 조회하기
 	
 });
 
+//댓글 조회 ajax
+function replyList(){
+	 $.ajax({
+	        url : "<c:url value='/indiv/community/replyList.do'/>",
+	        type : "GET",
+	        data : "cmntNo="+$('#cmntNo').val(),
+	        dataType:"json",
+	        async: false,
+	        success : function(res){
+	        	if(res.length>0){
+		            var replyList =""; 
+		            $.each(res,function(i,result){ 
+		            	replyList+="<span style='color:black;font-weight:bold'>@ 작성자 아이디</p></span>";
+		            	replyList+="<p style='color:gray;'>"+result.commentAbout+"</p></div>";
+		            	replyList+="<span style='font-size:13px;color:gray;'>"+moment(result.COMMENT_DATE).format("YYYY-MM-DD")
+		            	+"</span></div><hr>";
+		            	
+		            	/* 참조변수.테이블컬럼명으로 적기 => 예) result.USER_NO */
+		            	$('.replyOne').html("<div>"+replyList+"</div>");
+		            
+		            });
+		            
+	        	}
+	        },error:function(xhr, status, error){
+	        	alert("댓글이 조회되지 않습니다.");
+	        }
+	    });/* 댓글 조회 ajax  */
+}
 
 function pageFunc(curPage){
 	$('input[name=currentPage]').val(curPage);

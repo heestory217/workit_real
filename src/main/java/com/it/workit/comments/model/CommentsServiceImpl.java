@@ -15,8 +15,8 @@ public class CommentsServiceImpl implements CommentsService {
 	}
 
 	@Override
-	public List<CommentsVO> selectComment(int replyNo) {
-		return commentDao.selectComment(replyNo);
+	public List<CommentsVO> selectComment(int cmntNo) {
+		return commentDao.selectComment(cmntNo);
 	}
 	
 	

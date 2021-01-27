@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface CommentsDAO {
 	int insertReply(CommentsVO vo);	//답변 등록
-	List<CommentsVO> selectComment(int replyNo);	//답변 조회
+	List<CommentsVO> selectComment(int cmntNo);	//답변 조회
 }
