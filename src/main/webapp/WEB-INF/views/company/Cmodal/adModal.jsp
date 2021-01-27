@@ -24,7 +24,7 @@
 			 	</button>
 			</div>
 			<div class="modal-body" style="padding:20px">
-				<div class="modalservice">
+				<div class="modalservice" style="margin-bottom: 30px;">
 					<h1><img src="<c:url value='/resources/img/icon_adv.png'/>">채용공고 광고 서비스</h1>
 					<h3>기업회원이 홈페이지 메인에 광고를 등록하는 유료서비스</h3>
 					<h2>채용공고를 효과적으로 홍보하는 방법</h2>
@@ -37,8 +37,8 @@
 						<strong>메인 광고 일정에 따라</strong> 광고시작일 협의가 이루어집니다.<br>
 					</h3>
 				</div>
-				<div class="modalserviceContent" style="text-align: center;">
-					<div class="cart-table" style="margin-bottom: 30px;">
+				<div class="modalserviceContent" style="text-align: center; margin-bottom: 30px;">
+					<div class="cart-table">
 						<table>
 							<colgroup>
 								<col style="width: 30%;" />
@@ -89,9 +89,6 @@
 					</div>
 					<button type="button" class="btn btn-default" data-dismiss="modal">등록한 채용공고 목록보기</button>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal" style="padding: 5px 10px !important;">닫기</button>
 			</div>
 		</div>
 	</div>
