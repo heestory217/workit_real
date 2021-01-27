@@ -208,7 +208,7 @@
                                 	<div style="display: contents;" id="percent">
                                 	</div>
                                 	<div style="display: contents;">
-                                		<a href="#" id="removeCoupon" class="btn btn-link btn-sm">취소</a>
+                                		<a href="#" id="removeCoupon" class="btn btn-link btn-sm" style="color: red;">취소</a>
                                 	</div>
                                 	<span style="margin-left: 5px;">원</span>
                                 	<span id="discountAmount">${discount}</span>
