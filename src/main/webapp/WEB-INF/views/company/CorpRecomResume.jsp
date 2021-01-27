@@ -27,6 +27,7 @@
 	                            <div class="pi-pic">
 	                                <ul>
 	                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+	                                    <input type="hidden" value="${matchVo.resumesVo.resumeNo }">
 	                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
 	                                </ul>
 	                            </div>
