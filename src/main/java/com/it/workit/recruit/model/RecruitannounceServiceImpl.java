@@ -24,5 +24,9 @@ public class RecruitannounceServiceImpl implements RecruitannounceService {
 		return RecruitannounceDao.recruitcorpwantedarea(recruitannounceNo);
 	}
 	
-
+	@Override
+	public String recruitcorpwantedlang(int recruitannounceNo) {
+		return RecruitannounceDao.recruitcorpwantedlang(recruitannounceNo);
+	}
+	
 }

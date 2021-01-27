@@ -30,4 +30,10 @@ public class RecruitannounceDAOMybatis implements RecruitannounceDAO {
 		return vo;
 	}
 
+	@Override
+	public String recruitcorpwantedlang(int recruitannounceNo) {
+		String rc= sqlSession.selectOne(namespace+"recruitcorpwantedlanguage", recruitannounceNo);
+		return rc;
+	}
+
 }

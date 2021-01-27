@@ -10,15 +10,19 @@
 	
 	
 	<select id="recruitcorpwantwork" parameterType="int" resultType="String">
-		select WORKKIND_NAME from WORKKIND where WORKKIND_NO=(select WORKKIND_NO from CORPWANTWORK where RECRUITANNOUNCE_NO=#{recruitannounceNo})
+		select WORKKIND_NAME from WORKKIND where WORKKIND_NO=(select WORKKIND_NO from RECRUITANNOUNCE where RECRUITANNOUNCE_NO=#{recruitannounceNo})
 	</select>
 	
 	<select id="recruitcorpwantedarea1" parameterType="int" resultType="String">
-		select AREA_ADD1 from AREALIST where AREA_NO = (select AREA_NO from CORPWANTEDAREA where RECRUITANNOUNCE_NO=#{recruitannounceNo})
+		select AREA_ADD1 from AREALIST where AREA_NO = (select AREALIST_NO from RECRUITANNOUNCE where RECRUITANNOUNCE_NO=#{recruitannounceNo})
 	</select>
 	
 	<select id="recruitcorpwantedarea2" parameterType="int" resultType="String">
-		select AREA_ADD2 from AREALIST where AREA_NO = (select AREA_NO from CORPWANTEDAREA where RECRUITANNOUNCE_NO=#{recruitannounceNo})
+		select AREA_ADD2 from AREALIST where AREA_NO = (select AREALIST_NO from RECRUITANNOUNCE where RECRUITANNOUNCE_NO=#{recruitannounceNo})
+	</select>
+	
+	<select id="recruitcorpwantedlanguage" parameterType="int" resultType="String">
+		select LANGUAGE_NAME from LANGUAGE where LANGUAGE_NO = (select LANGUAGE_NO from RECRUITANNOUNCE where RECRUITANNOUNCE_NO=#{recruitannounceNo})
 	</select>
 	
 </mapper>

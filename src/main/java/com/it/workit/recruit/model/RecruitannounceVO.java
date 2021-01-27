@@ -24,6 +24,147 @@ public class RecruitannounceVO {
 	private int recruitannounceUpcheck;//RECRUITANNOUNCE_UPCHECK	NUMBER	NOT NULL
 	private int recruitannounceEndcheck;//RECRUITANNOUNCE_ENDCHECK	NUMBER	NOT NULL
 	private String recruitannounceLink;//RECRUITANNOUNCE_LINK	VARCHAR2(200)	NULL
+	public int getRecruitannounceNo() {
+		return recruitannounceNo;
+	}
+	public void setRecruitannounceNo(int recruitannounceNo) {
+		this.recruitannounceNo = recruitannounceNo;
+	}
+	public int getUserNo() {
+		return userNo;
+	}
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+	public int getWorkkindNo() {
+		return workkindNo;
+	}
+	public void setWorkkindNo(int workkindNo) {
+		this.workkindNo = workkindNo;
+	}
+	public int getArealistNo() {
+		return arealistNo;
+	}
+	public void setArealistNo(int arealistNo) {
+		this.arealistNo = arealistNo;
+	}
+	public int getLanguageNo() {
+		return languageNo;
+	}
+	public void setLanguageNo(int languageNo) {
+		this.languageNo = languageNo;
+	}
+	public String getRecruitannounceTitle() {
+		return recruitannounceTitle;
+	}
+	public void setRecruitannounceTitle(String recruitannounceTitle) {
+		this.recruitannounceTitle = recruitannounceTitle;
+	}
+	public Date getRecruitannounceStartdate() {
+		return recruitannounceStartdate;
+	}
+	public void setRecruitannounceStartdate(Date recruitannounceStartdate) {
+		this.recruitannounceStartdate = recruitannounceStartdate;
+	}
+	public Date getRecruitannounceEnddate() {
+		return recruitannounceEnddate;
+	}
+	public void setRecruitannounceEnddate(Date recruitannounceEnddate) {
+		this.recruitannounceEnddate = recruitannounceEnddate;
+	}
+	public String getRecruitannounceScarrer() {
+		return recruitannounceScarrer;
+	}
+	public void setRecruitannounceScarrer(String recruitannounceScarrer) {
+		this.recruitannounceScarrer = recruitannounceScarrer;
+	}
+	public String getRecruitannounceSworkkind() {
+		return recruitannounceSworkkind;
+	}
+	public void setRecruitannounceSworkkind(String recruitannounceSworkkind) {
+		this.recruitannounceSworkkind = recruitannounceSworkkind;
+	}
+	public String getRecruitannounceSpay() {
+		return recruitannounceSpay;
+	}
+	public void setRecruitannounceSpay(String recruitannounceSpay) {
+		this.recruitannounceSpay = recruitannounceSpay;
+	}
+	public String getRecruitannounceSkill() {
+		return recruitannounceSkill;
+	}
+	public void setRecruitannounceSkill(String recruitannounceSkill) {
+		this.recruitannounceSkill = recruitannounceSkill;
+	}
+	public String getRecruitannounceWorkkind() {
+		return recruitannounceWorkkind;
+	}
+	public void setRecruitannounceWorkkind(String recruitannounceWorkkind) {
+		this.recruitannounceWorkkind = recruitannounceWorkkind;
+	}
+	public String getRecruitannounceWork() {
+		return recruitannounceWork;
+	}
+	public void setRecruitannounceWork(String recruitannounceWork) {
+		this.recruitannounceWork = recruitannounceWork;
+	}
+	public int getRecruitannounceWantedcarrer() {
+		return recruitannounceWantedcarrer;
+	}
+	public void setRecruitannounceWantedcarrer(int recruitannounceWantedcarrer) {
+		this.recruitannounceWantedcarrer = recruitannounceWantedcarrer;
+	}
+	public String getRecruitannounceUpcheckcarrer() {
+		return recruitannounceUpcheckcarrer;
+	}
+	public void setRecruitannounceUpcheckcarrer(String recruitannounceUpcheckcarrer) {
+		this.recruitannounceUpcheckcarrer = recruitannounceUpcheckcarrer;
+	}
+	public String getRecruitannounceHirestep() {
+		return recruitannounceHirestep;
+	}
+	public void setRecruitannounceHirestep(String recruitannounceHirestep) {
+		this.recruitannounceHirestep = recruitannounceHirestep;
+	}
+	public String getRecruitannounceElse() {
+		return recruitannounceElse;
+	}
+	public void setRecruitannounceElse(String recruitannounceElse) {
+		this.recruitannounceElse = recruitannounceElse;
+	}
+	public int getRecruitannounceUpcheck() {
+		return recruitannounceUpcheck;
+	}
+	public void setRecruitannounceUpcheck(int recruitannounceUpcheck) {
+		this.recruitannounceUpcheck = recruitannounceUpcheck;
+	}
+	public int getRecruitannounceEndcheck() {
+		return recruitannounceEndcheck;
+	}
+	public void setRecruitannounceEndcheck(int recruitannounceEndcheck) {
+		this.recruitannounceEndcheck = recruitannounceEndcheck;
+	}
+	public String getRecruitannounceLink() {
+		return recruitannounceLink;
+	}
+	public void setRecruitannounceLink(String recruitannounceLink) {
+		this.recruitannounceLink = recruitannounceLink;
+	}
+	@Override
+	public String toString() {
+		return "RecruitannounceVO [recruitannounceNo=" + recruitannounceNo + ", userNo=" + userNo + ", workkindNo="
+				+ workkindNo + ", arealistNo=" + arealistNo + ", languageNo=" + languageNo + ", recruitannounceTitle="
+				+ recruitannounceTitle + ", recruitannounceStartdate=" + recruitannounceStartdate
+				+ ", recruitannounceEnddate=" + recruitannounceEnddate + ", recruitannounceScarrer="
+				+ recruitannounceScarrer + ", recruitannounceSworkkind=" + recruitannounceSworkkind
+				+ ", recruitannounceSpay=" + recruitannounceSpay + ", recruitannounceSkill=" + recruitannounceSkill
+				+ ", recruitannounceWorkkind=" + recruitannounceWorkkind + ", recruitannounceWork="
+				+ recruitannounceWork + ", recruitannounceWantedcarrer=" + recruitannounceWantedcarrer
+				+ ", recruitannounceUpcheckcarrer=" + recruitannounceUpcheckcarrer + ", recruitannounceHirestep="
+				+ recruitannounceHirestep + ", recruitannounceElse=" + recruitannounceElse + ", recruitannounceUpcheck="
+				+ recruitannounceUpcheck + ", recruitannounceEndcheck=" + recruitannounceEndcheck
+				+ ", recruitannounceLink=" + recruitannounceLink + "]";
+	}
 	
 	
 	

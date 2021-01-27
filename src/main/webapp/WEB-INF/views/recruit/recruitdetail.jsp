@@ -19,12 +19,15 @@
                     <div class="blog-details-inner">
                         <div class="blog-detail-title">
                             <h2>${RecruitannounceVO.recruitannounceTitle}</h2>
-                            <p>등록일 : <span><fmt:formatDate value="${RecruitannounceVO.recruitannounceStartdate}" pattern="yyyy년 MM월 dd일  hh:mm:ss"/></span></p>
+                            <p>등록일 : <span><fmt:formatDate value="${RecruitannounceVO.recruitannounceStartdate}" pattern="yyyy년 MM월 dd일"/></span></p>
                         </div>
                         <h4>${CorpVO.corpName}</h4>
-                        <div style="color:blue; float:right;">
-                        <h1>D-17</h1>
-                        </div>
+                        <c:if test="${d>=0}">
+	                        <h1 style="color:blue; float:right;">D-${d}</h1>
+                        </c:if>
+                        <c:if test="${d<0}">
+                            <h1 style="color:red; float:right;">D+${d*-1}</h1>
+                        </c:if>
                         <div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <h3 class="col-lg-7"></h3>
@@ -74,7 +77,7 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <h4 class="col-lg-7">요구 언어</h4>
                             <div class="pb-text">
-                                <p>언어</p>
+                                <p>${lang}</p>
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <h4 class="col-lg-7">근무지</h4>
@@ -134,6 +137,7 @@
                                                 <h5>대표  <span>${CorpVO.corpHeadname}</span> </h5>
                                                 <p>회사소개 </p>
                                                 <p>${CorpVO.corpIntro}</p>
+                                                <button type="submit" class="site-btn">회사상세보기</button>
                                             </div>
                                             <div class="col-lg-5">
                                                 <img src="img/product-single/tab-desc.jpg" alt="">
@@ -151,11 +155,10 @@
                         <c:if test="${sessionScope.user_corpcheck==1}">
                     	<button type="submit" class="site-btn">지원하기</button>
                     </c:if>
-                    <c:if test="${sessionScope.user_corpcheck==2}">
-                    	<button type="submit" class="site-btn">공고삭제 요청</button>
+                    <c:if test="${sessionScope.userNo==RecruitannounceVO.userNo}">
                     	<button type="submit" class="site-btn">공고수정 요청</button>
+                    	<button type="submit" class="site-btn">공고삭제 요청</button>
                     </c:if>
-                    <button type="submit" class="site-btn">탕탕</button>
                         </div>
                     </div>
                 </div>
