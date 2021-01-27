@@ -61,7 +61,7 @@
                         </ul>
                     </div>
                      
-                    <div id="resume" class="col-lg-9 offset-lg-1" >
+                    <div id="resume" class="col-lg-10 offset-lg-1" >
                     
                 	</div>
                 	

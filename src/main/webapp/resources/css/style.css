@@ -1289,9 +1289,9 @@ button.site-btn.register-btn {
 }
 
 .product-item .pi-text {
+	width: 70%;
 	text-align: center;
 	padding-top: 26px;
-	width: 70%;
 }
 
 .product-item .pi-text .catagory-name {
