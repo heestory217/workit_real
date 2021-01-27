@@ -6,142 +6,8 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script type="text/javascript">
-//결제
-var IMP = window.IMP; 
-IMP.init("imp52828174"); 
-
-	$(function(){
-		//로드될 때 처리
-		var subtotal = $('#subtotal').html();
-		var totalPrice = $('#totalPrice').html();
-		$('#subtotal').html(numberWithCommas(subtotal));
-		$('#totalPrice').html(numberWithCommas(totalPrice));
-		$('#removeCoupon').css('display','none');
-		
-		
-		$('.cart-table table tbody tr').find('i').click(function(){
-			if(!confirm('해당 이력서를 장바구니에서 삭제하시겠습니까?')){
-				event.preventDefault();
-			}
-		});
-
-		$('#clearCart').click(function(){
-			if(!confirm('장바구니를 비우시겠습니까?')){
-				event.preventDefault();
-			}
-		});
-		
-		//쿠폰 적용 
-		$('form[name=couponFrm]').submit(function(){
-			$.ajax({
-				url:"<c:url value='/coupon/couponApply.do'/>",
-				type:"GET",
-				data:{
-					couponName : $('#couponName').val()
-				},
-				dataType:"json",
-				success:function(res){
-					//성공하면 할인률 입력
-					if(res!=0){
-						var subtotal = removeComma($('#subtotal').html());	//콤마제거
-						var discountAmount = subtotal*res/100;
-						var totalPrice = subtotal-discountAmount;
-						
-						//콤마추가
-						discountAmount = numberWithCommas(discountAmount);
-						totalPrice = numberWithCommas(totalPrice);
-						
-						$('#discountAmount').html(discountAmount);
-						$('#totalPrice').html(totalPrice);
-						
-						//percentage 추가 입력
-						var str = "("+res+"%)";
-						$('#percent').html(str);
-					}
-				},
-				error:function(xhr, status, error){
-					alert('해당 쿠폰이 존재하지 않습니다.\n쿠폰코드를 다시 확인해주세요.');
-				}
-			});	//ajax
-			$('#removeCoupon').css('display','inline');
-			event.preventDefault();
-		});//submit
-		
-		$('#removeCoupon').click(function(){
-			$.ajax({
-				url:"<c:url value='/coupon/removeCoupon.do'/>",
-				type:"GET",
-				dataType:"json",
-				success:function(res){
-					//쿠폰적용취소하기
-					if(res==0){
-						var subtotal = removeComma($('#subtotal').html());	//콤마제거
-						var discountAmount = 0;
-						var totalPrice = subtotal;
-						
-						//콤마추가
-						totalPrice = numberWithCommas(totalPrice);
-						
-						$('#percent').html('');
-						$('#discountAmount').html(discountAmount);
-						$('#totalPrice').html(totalPrice);
-					}
-				},
-				error:function(xhr, status, error){
-					alert('쿠폰 적용 취소 실패 error:'+error);
-				}
-			});	//ajax
-			$('#couponName').val('');
-			$('#removeCoupon').css('display','none');
-			event.preventDefault();
-		});//click
-		
-		//결제
-		$('#pay').click(function(){
-			IMP.request_pay({
-			    pg : 'inicis', // version 1.1.0부터 지원.
-			    pay_method : 'card',
-			    merchant_uid : 'merchant_' + new Date().getTime(),	//필수
-			    name : '이력서 열람권',
-			    amount : removeComma($('#totalPrice').html()),	//필수
-			    buyer_email : $('#buyer_email').html(),
-			    buyer_name : $('#buyer_name').html(),	
-			    buyer_tel : $('#buyer_tel').html(),	//필수
-			    m_redirect_url : 'https://www.yourdomain.com/payments/complete'	//확인해야할 부분
-			}, function(rsp) {
-			    if ( rsp.success ) {
-			        var msg = '결제가 완료되었습니다.';
-			        msg += '고유ID : ' + rsp.imp_uid;
-			        msg += '상점 거래ID : ' + rsp.merchant_uid;
-			        msg += '결제 금액 : ' + rsp.paid_amount;
-			        msg += '카드 승인번호 : ' + rsp.apply_num;
-			    } else {
-			        var msg = '결제에 실패하였습니다.\n';
-			        msg += rsp.error_msg;
-			    }
-			    alert(msg);
-			});
-		});	//click 결제
-		
-	});
-	
-	//숫자 (#,###) 표현 함수
-	function numberWithCommas(x) {
-	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	}
-	
-	//숫자 (#,###) 표현 제거 함수
-	function removeComma(x){
-		n = parseInt(x.replace(/,/g,""));
-		return n;
-	}
 
 </script>
-
-<!-- 결제처리를 위한 정보 : 확인하고 display none으로 바꾸기-->
-<p id="buyer_email">${userEmail}</p>
-<p id="buyer_name">${userName}</p>
-<p id="buyer_tel">${userHp}</p>
 
 <!-- 장바구니 상단 -->
 <div class="breacrumb-section">
@@ -259,7 +125,7 @@ IMP.init("imp52828174");
                                 	<span id="totalPrice">${totalPrice}</span>
                                 </li>
                             </ul>
-                            <a href="#" class="proceed-btn" id="pay">결  제</a>
+                            <a href="#" class="proceed-btn">결  제</a>
                         </div>
                     </div>
                 </div>
