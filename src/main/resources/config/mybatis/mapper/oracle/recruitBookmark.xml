@@ -4,13 +4,39 @@
 
 <mapper namespace="config.mybatis.mapper.oracle.recruitBookmark">
 
-	<select id="selectRecruitBookmark" parameterType="int" resultType="recruitannouncebookmarkVO">
+<!-- 	<select id="selectRecruitBookmark" parameterType="int" resultType="recruitannouncebookmarkVO">
 		select a.*, b.RECRUITANNOUNCE_TITLE, b.RECRUITANNOUNCE_STARTDATE, b.RECRUITANNOUNCE_ENDDATE, 
 		    b.RECRUITANNOUNCE_SCARRER, b.RECRUITANNOUNCE_SWORKKIND, b.RECRUITANNOUNCE_SPAY
 		from RECRUITANNOUNCEBOOKMARK a join RECRUITANNOUNCE b
 		on a.RECRUITANNOUNCE_NO=b.RECRUITANNOUNCE_NO
 		where a.user_no=#{userNo}
 		order by RECRUITANNOUNCEBOOKMARK_NO desc
+	</select> -->
+	
+	<select id="selectRecruitBookmark" parameterType="indivpagingVo" resultType="recruitannouncebookmarkVO">
+		select *
+		from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        select a.*, b.RECRUITANNOUNCE_TITLE, b.RECRUITANNOUNCE_STARTDATE, b.RECRUITANNOUNCE_ENDDATE, 
+                    b.RECRUITANNOUNCE_SCARRER, b.RECRUITANNOUNCE_SWORKKIND, b.RECRUITANNOUNCE_SPAY
+                from RECRUITANNOUNCEBOOKMARK a join RECRUITANNOUNCE b
+                on a.RECRUITANNOUNCE_NO=b.RECRUITANNOUNCE_NO
+                where a.user_no=#{userNo}
+                order by RECRUITANNOUNCEBOOKMARK_NO desc
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="rBookMarkGetTotalRecord" parameterType="indivpagingVo" resultType="int">
+		select count(*) from RECRUITANNOUNCEBOOKMARK
+		where user_no=#{userNo}
 	</select>
 	
 	<delete id="deleteBookmarkByRecruitNo" parameterType="int">
