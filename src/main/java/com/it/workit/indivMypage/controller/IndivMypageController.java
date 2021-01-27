@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.applicant.model.ApplicantService;
 import com.it.workit.applicant.model.ApplicantlistVO;
+import com.it.workit.common.PaginationInfo;
+import com.it.workit.common.SearchVO;
+import com.it.workit.common.Utility;
+import com.it.workit.indivMypage.model.IndivpagingVO;
 import com.it.workit.orders.model.OrdersService;
 import com.it.workit.orders.model.OrdersVO;
 import com.it.workit.position.model.PositionService;
@@ -125,16 +129,16 @@ public class IndivMypageController {
 	
 	@RequestMapping("/indivMypageSituation.do")
 	public String situation(HttpSession session, Model model,
-			@RequestParam(defaultValue = "0") int type) {
+			@RequestParam(defaultValue = "0") int type, @ModelAttribute IndivpagingVO vo) {
 		
 		//세션 userno 가져오기
-		int userno=(Integer) session.getAttribute("userNo");
+		int userNo=(Integer) session.getAttribute("userNo");
 		
-		logger.info("개인 마이페이지 - 지원현황 조회 / userNo={}",userno);
+		logger.info("개인 마이페이지 - 지원현황 조회 / userNo={}",userNo);
 		
-		int applyCount=applicantService.selectApplyCountByUserNo(userno);
-		int passCount=applicantService.selectPassCountByUserNo(userno);
-		int failCount=applicantService.selectFailCountByUserNo(userno);
+		int applyCount=applicantService.selectApplyCountByUserNo(userNo);
+		int passCount=applicantService.selectPassCountByUserNo(userNo);
+		int failCount=applicantService.selectFailCountByUserNo(userNo);
 		
 		logger.info("개인 마이페이지 - 지원현황 조회 / applyCount={}",applyCount);
 		logger.info("개인 마이페이지 - 지원현황 조회 / passCount={}",passCount);
@@ -144,13 +148,31 @@ public class IndivMypageController {
 		model.addAttribute("passCount", passCount);
 		model.addAttribute("failCount", failCount);
 		
+		vo.setUserNo(userNo);
+		
+		//[1]pagingInfo
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(vo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		//[2]searchVo
+		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		int totalRecord=0;
+
+		
 		List<ApplicantlistVO> list=null;
 		if(type==1) {
-			list=applicantService.selectPassAllByUserNo(userno);
+			list=applicantService.selectPassAllByUserNo(vo);
+			totalRecord=passCount;
 		}else if(type==2) {
-			list=applicantService.selectFailAllByUserNo(userno);
+			list=applicantService.selectFailAllByUserNo(vo);
+			totalRecord=failCount;
 		}else if(type==3) {
-			list=applicantService.selectApplyAllByUserNo(userno);
+			list=applicantService.selectApplyAllByUserNo(vo);
+			totalRecord=applyCount;
 		}else {
 			//type 값이 세팅이 되지 않았을 때
 			
@@ -162,6 +184,11 @@ public class IndivMypageController {
 			return "common/message";
 		}
 		
+		logger.info("총 레코드 수, totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		model.addAttribute("pagingInfo", pagingInfo);
+		
 		logger.info("type ={}",type);
 		logger.info("list.size={}",list.size());
 		
@@ -171,13 +198,31 @@ public class IndivMypageController {
 	}
 	
 	@RequestMapping("/indivBookmark.do")
-	public String bookmark(HttpSession session, Model model) {
+	public String bookmark(HttpSession session, Model model,@ModelAttribute IndivpagingVO vo) {
 		
 		//세션 userno 가져오기
-		int userno=(Integer) session.getAttribute("userNo");
-		logger.info("개인 마이페이지 - 채용북마크 화면 보여주기 / userno={}",userno);
+		int userNo=(Integer) session.getAttribute("userNo");
+		logger.info("개인 마이페이지 - 채용북마크 화면 보여주기 / userno={}",userNo);
 		
-		List<RecruitannouncebookmarkVO> list=recruitBookmarkService.selectRecruitBookmark(userno);
+		vo.setUserNo(userNo);
+		
+		//[1]pagingInfo
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(vo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		//[2]searchVo
+		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		int totalRecord=recruitBookmarkService.rBookMarkGetTotalRecord(vo);
+		logger.info("총 레코드 수, totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		List<RecruitannouncebookmarkVO> list=recruitBookmarkService.selectRecruitBookmark(vo);
 		
 		logger.info("list.size={}",list.size());
 		
@@ -212,13 +257,31 @@ public class IndivMypageController {
 	}
 	
 	@RequestMapping("/indivPayment.do")
-	public String payment(Model model,HttpSession session) {
+	public String payment(Model model,HttpSession session,
+			@ModelAttribute IndivpagingVO vo) {
 		//세션 userno 가져오기
 		int userNo=(Integer) session.getAttribute("userNo");
 		
 		logger.info("개인 마이페이지 - 결제내역 view 보여주기 / userno={}",userNo);
 		
-		List<OrdersVO> list=ordersService.selectIndivPaymentByUserno(userNo);
+		vo.setUserNo(userNo);
+		
+		//[1]pagingInfo
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(vo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		//[2]searchVo
+		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		int totalRecord=ordersService.ordersGetTotalRecord(vo);
+		logger.info("총 레코드 수, totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		model.addAttribute("pagingInfo", pagingInfo);
+		List<OrdersVO> list=ordersService.selectIndivPaymentByUserno(vo);
 		
 		logger.info("list.size={}",list.size());
 		model.addAttribute("list",list);
@@ -227,13 +290,32 @@ public class IndivMypageController {
 	}
 	
 	@RequestMapping("/indivPosition.do")
-	public String position(Model model,HttpSession session) {
+	public String position(Model model,HttpSession session,
+			@ModelAttribute IndivpagingVO vo) {
 		//세션 userno 가져오기
 		int userNo=(Integer) session.getAttribute("userNo");
 		
 		logger.info("개인 마이페이지 - 포지션 제안 view 보여주기 / userNo={}",userNo);
 		
-		List<PositionsuggestVO> list=positionService.selectPositionFlag2ByUserno(userNo);
+		vo.setUserNo(userNo);
+		
+		//[1]pagingInfo
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(vo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		//[2]searchVo
+		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		int totalRecord=positionService.positionGetTotalRecord(vo);
+		logger.info("총 레코드 수, totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		List<PositionsuggestVO> list=positionService.selectPositionFlag2ByUserno(vo);
 		
 		logger.info("list.size={}",list.size());
 		model.addAttribute("list", list);

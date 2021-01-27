@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.it.workit.indivMypage.model.IndivpagingVO;
+
 @Service
 public class ApplicantServiceImpl implements ApplicantService{
 
@@ -31,17 +33,17 @@ public class ApplicantServiceImpl implements ApplicantService{
 	}
 
 	@Override
-	public List<ApplicantlistVO> selectApplyAllByUserNo(int userNo) {
-		return applicantDao.selectApplyAllByUserNo(userNo);
+	public List<ApplicantlistVO> selectApplyAllByUserNo(IndivpagingVO vo) {
+		return applicantDao.selectApplyAllByUserNo(vo);
 	}
 
 	@Override
-	public List<ApplicantlistVO> selectPassAllByUserNo(int userNo) {
-		return applicantDao.selectPassAllByUserNo(userNo);
+	public List<ApplicantlistVO> selectPassAllByUserNo(IndivpagingVO vo) {
+		return applicantDao.selectPassAllByUserNo(vo);
 	}
 
 	@Override
-	public List<ApplicantlistVO> selectFailAllByUserNo(int userNo) {
-		return applicantDao.selectFailAllByUserNo(userNo);
+	public List<ApplicantlistVO> selectFailAllByUserNo(IndivpagingVO vo) {
+		return applicantDao.selectFailAllByUserNo(vo);
 	}
 }

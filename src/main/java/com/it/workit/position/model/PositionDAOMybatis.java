@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.it.workit.indivMypage.model.IndivpagingVO;
+
 @Repository
 public class PositionDAOMybatis implements PositionDAO{
 	@Autowired
@@ -14,7 +16,12 @@ public class PositionDAOMybatis implements PositionDAO{
 	private String namespace="config.mybatis.mapper.oracle.position.";
 
 	@Override
-	public List<PositionsuggestVO> selectPositionFlag2ByUserno(int userNo) {
-		return sqlSession.selectList(namespace+"selectPositionFlag2ByUserno",userNo);
+	public List<PositionsuggestVO> selectPositionFlag2ByUserno(IndivpagingVO vo) {
+		return sqlSession.selectList(namespace+"selectPositionFlag2ByUserno",vo);
+	}
+
+	@Override
+	public int positionGetTotalRecord(IndivpagingVO vo) {
+		return sqlSession.selectOne(namespace+"positionGetTotalRecord",vo);
 	}
 }

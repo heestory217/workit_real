@@ -2,6 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="indivMypageMenu.jsp"%>
 
+<form action="<c:url value='/indivMypage/indivPosition.do'/>" 
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage">
+</form>
+
 <div class="filter-widget">
 	<h4 class="fw-title center">포지션 제안</h4>
 </div>
@@ -37,7 +42,15 @@
                                 	<c:forEach var="vo" items="${list }">
 										<tr>
 											<td class="cart-title padding-bottom0"><br>
-												<a href="#"><p class="center">${vo.positionsuggestTitle }</p></a>
+												<a href="#"><p class="center">
+												<c:if test="${fn:length(vo.positionsuggestTitle)>=13}">
+													${fn:substring(vo.positionsuggestTitle, 0,13) } ...
+												</c:if>
+												<c:if test="${fn:length(vo.positionsuggestTitle)<13}">						
+													${vo.positionsuggestTitle }
+												</c:if>
+												</p></a>
+												<%-- <a href="#"><p class="center">${vo.positionsuggestTitle }</p></a> --%>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">${vo.positionsuggestPosition }</p>
@@ -60,6 +73,36 @@
 			</div>
 		</div>
 	</div>
+	<!-- 페이징 처리 -->
+				<div class="paging col-lg-12 center">
+				<!-- 이전블럭 -->	
+				 <div class="product__pagination blog__pagination">
+				 	<c:if test="${pagingInfo.firstPage>1 }">	
+						<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
+							<i class="fa fa-long-arrow-left"></i>
+						</a>
+					</c:if>
+					
+					<!-- 블럭 -->
+					<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
+						<c:if test="${i==pagingInfo.currentPage }">
+							<span id="currentPage" >
+								${i}</span>			
+						</c:if>
+						<c:if test="${i!=pagingInfo.currentPage }">
+							<a href="#" onclick="pageFunc(${i})">
+								${i}</a>			
+						</c:if>
+					</c:forEach>
+					
+					<!-- 다음블럭 -->	
+					<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">	
+						<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
+							<i class="fa fa-long-arrow-right"></i>
+						</a>
+					</c:if>
+				    </div>
+				</div>
 </section>
 
 <!-- Menu include 한것 닫는 태그 -->

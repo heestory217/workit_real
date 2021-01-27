@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="indivMypageMenu.jsp"%>
+
+<form action="<c:url value='/indivMypage/indivMypageSituation.do?type=${param.type} '/>" 
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage">
+</form>
+
 <div class="filter-widget">
 	<h4 class="fw-title center">지원 현황</h4>
 </div>
@@ -73,7 +79,16 @@
                                 	<c:forEach var="vo" items="${list }">
 										<tr>
 											<td class="cart-title padding-bottom0"><br>
-												<a href="#"><p class="center">${vo.recruitannounceTitle }</p></a>
+												<!-- 제목이 긴 경우 일부만 보여주기 -->
+												<a href="#"><p class="center">
+												<c:if test="${fn:length(vo.recruitannounceTitle)>=18}">
+													${fn:substring(vo.recruitannounceTitle, 0,18) } ...
+												</c:if>
+												<c:if test="${fn:length(vo.recruitannounceTitle)<18}">						
+													${vo.recruitannounceTitle }
+												</c:if>
+												</p></a>
+												<%-- <a href="#"><p class="center">${vo.recruitannounceTitle }</p></a> --%>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">${vo.recruitannounceSworkkind }</p>
@@ -96,6 +111,36 @@
 			</div>
 		</div>
 	</div>
+		<!-- 페이징 처리 -->
+				<div class="paging col-lg-12 center">
+				<!-- 이전블럭 -->	
+				 <div class="product__pagination blog__pagination">
+				 	<c:if test="${pagingInfo.firstPage>1 }">	
+						<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
+							<i class="fa fa-long-arrow-left"></i>
+						</a>
+					</c:if>
+					
+					<!-- 블럭 -->
+					<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
+						<c:if test="${i==pagingInfo.currentPage }">
+							<span id="currentPage" >
+								${i}</span>			
+						</c:if>
+						<c:if test="${i!=pagingInfo.currentPage }">
+							<a href="#" onclick="pageFunc(${i})">
+								${i}</a>			
+						</c:if>
+					</c:forEach>
+					
+					<!-- 다음블럭 -->	
+					<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">	
+						<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
+							<i class="fa fa-long-arrow-right"></i>
+						</a>
+					</c:if>
+				    </div>
+				</div>
 </section>
 
 

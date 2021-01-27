@@ -2,6 +2,10 @@ package com.it.workit.orders.model;
 
 import java.util.List;
 
+import com.it.workit.indivMypage.model.IndivpagingVO;
+
 public interface OrdersService {
-	public List<OrdersVO> selectIndivPaymentByUserno(int userNo);
+	public List<OrdersVO> selectIndivPaymentByUserno(IndivpagingVO vo);
+	public int ordersGetTotalRecord(IndivpagingVO vo);
+	
 }

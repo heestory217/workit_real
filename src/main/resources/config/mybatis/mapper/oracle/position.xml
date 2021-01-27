@@ -3,9 +3,32 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="config.mybatis.mapper.oracle.position">
-	<select id="selectPositionFlag2ByUserno" parameterType="int" resultType="positionsuggestVo">
+<!-- 	<select id="selectPositionFlag2ByUserno" parameterType="int" resultType="positionsuggestVo">
 		select * from POSITIONSUGGEST
 		where user_no=#{userNo} and send_delflag=2
 		order by POSITIONSUGGEST_NO desc
+	</select> -->
+	
+	<select id="selectPositionFlag2ByUserno" parameterType="indivpagingVo" resultType="positionsuggestVo">
+		select *
+		from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        		select * from POSITIONSUGGEST
+                        where user_no=#{userNo} and send_delflag=2
+                        order by POSITIONSUGGEST_NO desc
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="positionGetTotalRecord" parameterType="indivpagingVo" resultType="int">
+		select count(*) from POSITIONSUGGEST
+		where user_no=#{userNo}
 	</select>
 </mapper>

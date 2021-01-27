@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.it.workit.indivMypage.model.IndivpagingVO;
+
 @Repository
 public class OrdersDAOMybatis implements OrdersDAO{
 
@@ -15,7 +17,13 @@ public class OrdersDAOMybatis implements OrdersDAO{
 	private String namespace="config.mybatis.mapper.oracle.orders.";
 
 	@Override
-	public List<OrdersVO> selectIndivPaymentByUserno(int userNo) {
-		return sqlSession.selectList(namespace+"selectIndivPaymentByUserno",userNo);
+	public List<OrdersVO> selectIndivPaymentByUserno(IndivpagingVO vo) {
+		return sqlSession.selectList(namespace+"selectIndivPaymentByUserno",vo);
 	}
+
+	@Override
+	public int ordersGetTotalRecord(IndivpagingVO vo) {
+		return sqlSession.selectOne(namespace+"ordersGetTotalRecord", vo);
+	}
+
 }
