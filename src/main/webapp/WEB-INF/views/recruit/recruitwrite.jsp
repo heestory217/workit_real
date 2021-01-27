@@ -11,53 +11,77 @@
 	});
 </script>
 
-<!-- Shopping Cart Section Begin -->
-    <section class="checkout-section spad">
+
+<div class="register-login-section spad">
         <div class="container">
-            <form action="#" class="checkout-form">
-                <div class="row">
-                    <div class="col-lg-6 offset-lg-3">
-                        <h4>채용공고 등록</h4>
-                        <div class="row">
-                            <div class="col-lg-12 offset-lg-3">
-                                <label for="fir">제목</label>
-                                <input type="text" id="fir">
+            <div class="row">
+                <div class="col-lg-9 offset-lg-2">
+                    <div class="register-form">
+                        <h2>채용공고</h2>
+                        <form action="#">
+                            <div class="group-input">
+                                <label for="username">제목</label>
+                                <input type="text" id="username">
                             </div>
-                            <div class="col-lg-6">
-                                <label for="last">요약-채용형태</label>
-                                <input type="text" id="last">
+                            <!-- 마감일 -->
+                            <div class="group-input">
+                                <label for="pass">요약-채용형태</label>
+                                <input type="text" id="pass">
                             </div>
-                            <div class="col-lg-6">
-                                <label for="last">요약-경력</label>
-                                <input type="text" id="last">
+                            <div class="group-input">
+                                <label for="pass">요약-경력</label>
+                                <input type="text" id="pass">
                             </div>
-                            <div class="col-lg-6">
-                                <label for="last">요약-급여</label>
-                                <input type="text" id="last">
+                            <div class="group-input">
+                                <label for="pass">요약-급여</label>
+                                <input type="text" id="pass">
                             </div>
-                            <div class="col-lg-12">
-                            <label for="last">채용형태</label>
-                                <textarea placeholder="Messages"></textarea>
+                            <div class="group-input">
+                                <label for="pass">요약-기술</label>
+                                <input type="text" id="pass">
                             </div>
-                            <div class="col-lg-6">
-                                <label for="last">요약-기술</label>
-                                <input type="text" id="last">
+                            
+                            <div class="leave-comment">
+	                            <div class="col-lg-9 offset-lg-3">
+	                            <label for="last">채용형태</label>
+	                                <textarea placeholder="Messages"></textarea>
+	                            </div>
+	                            <div class="col-lg-9">
+	                            <label for="last">주요업무</label>
+	                                <textarea placeholder="Messages"></textarea>
+	                            </div>
+	                            <!-- 자격요건 -->
+	                            <div class="col-lg-9">
+	                            <label for="last">우대사항</label>
+	                                <textarea placeholder="Messages"></textarea>
+	                            </div>
                             </div>
-                            <div class="col-lg-12">
-                                <label for="cun-name">채용절차</label>
-                                <input type="text" id="cun-name">
+                            <!-- 직무 -->
+                            <!-- 요구 언어 -->
+                            <!-- 근무지 -->
+                            
+                            <div class="group-input">
+                                <label for="pass">채용절차</label>
+                                <input type="text">
                             </div>
-                            <div class="col-lg-12">
-                                <label for="cun">회사링크</label>
-                                <input type="text" id="cun">
+                            <div class="group-input">
+                                <label for="pass">기타</label>
+                                <input type="text">
                             </div>
+                            <div class="group-input">
+                                <label for="pass">회사링크</label>
+                                <input type="text">
+                            </div>
+                            <button type="submit" class="site-btn register-btn">공고등록 요청</button>
+                        </form>
+                        <div class="switch-login col-lg-6">
+                            <a href="./login.html" class="or-login">Or Login</a>
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </section>
-    <!-- Shopping Cart Section End -->
+    </div>
 
 
 <%@ include file="../inc/bottom.jsp" %>
