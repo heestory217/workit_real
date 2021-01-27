@@ -22,23 +22,27 @@
                     </div>
                     <div class="product-slider owl-carousel">
                     <!-- 이력서 반복 시작 -->
-						<div class="product-item">
-                            <div class="pi-pic">
-                                <ul>
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                                <div class="catagory-name">year</div>
-                                <a href="#">
-                                    <h5>title</h5>
-                                </a>
-                                <div class="product-price">
-                                    language
-                                </div>
-                            </div>
-                        </div>
+                    <c:if test="${!empty matchingList}">
+                    	<c:forEach var='matchVo' items='${matchingList }'>
+							<div class="product-item">
+	                            <div class="pi-pic">
+	                                <ul>
+	                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+	                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+	                                </ul>
+	                            </div>
+	                            <div class="pi-text">
+	                                <div class="catagory-name">경력 자리</div>
+	                                <a href="#">
+	                                    <h5>${matchVo.resumesVo.resumeTitle }</h5>
+	                                </a>
+	                                <div class="product-price">
+	                                   
+	                                </div>
+	                            </div>
+	                        </div>
+                    	</c:forEach>
+                    </c:if>
                         <!-- 이력서 반복 끝-->
 						<div class="product-item">
                             <div class="pi-pic">

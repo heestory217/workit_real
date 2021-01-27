@@ -25,6 +25,8 @@ import com.it.workit.recruit.model.RecruitannounceService;
 import com.it.workit.recruit.model.RecruitannounceVO;
 import com.it.workit.resumes.model.ResumesAllVO;
 import com.it.workit.resumes.model.ResumesService;
+import com.it.workit.users.model.UsersService;
+import com.it.workit.users.model.UsersVO;
 
 @Controller
 @RequestMapping("/company")
@@ -36,6 +38,7 @@ public class CorpRecruitResumeController {
 	@Autowired private RecruitannounceService reService;
 	@Autowired private CorpSearchService searchService;
 	@Autowired private ResumesService resumeService;
+	@Autowired private UsersService userSerivce;
 	
 	@RequestMapping("/CorpRecruitResume.do")
 	public String CorpRecruitResume(HttpSession session, Model model) {
@@ -107,7 +110,11 @@ public class CorpRecruitResumeController {
 		for(ResumesAllVO vo : resumeList) {
 			int resumeNo=vo.getResumesVo().getResumeNo();
 			List<LanguageListView> langList = corpService.selectLanguageList(resumeNo);
+			int userNoForResume=vo.getResumesVo().getUserNo();
+			UsersVO userVo = userSerivce.selectByUserNo(userNoForResume);
+			String userExp = userVo.getUserExperience();
 			vo.setLangList(langList);
+			vo.setUserExperience(userExp);
 		}
 		model.addAttribute("matchingList",resumeList);
 		return "company/CorpRecomResume";

@@ -8,7 +8,9 @@ public class ResumesAllVO {
 	private ResumesVO resumesVo;
 	
 	private List<LanguageListView> langList;
-
+	
+	private String userExperience;
+	
 	public ResumesVO getResumesVo() {
 		return resumesVo;
 	}
@@ -24,10 +26,19 @@ public class ResumesAllVO {
 	public void setLangList(List<LanguageListView> langList) {
 		this.langList = langList;
 	}
+	
+	public String getUserExperience() {
+		return userExperience;
+	}
+
+	public void setUserExperience(String userExperience) {
+		this.userExperience = userExperience;
+	}
 
 	@Override
 	public String toString() {
-		return "ResumesAllVO [resumesVo=" + resumesVo + ", langList=" + langList + "]";
+		return "ResumesAllVO [resumesVo=" + resumesVo + ", langList=" + langList + ", userExperience=" + userExperience
+				+ "]";
 	}
 	
 }
