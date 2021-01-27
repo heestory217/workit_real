@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/slicknav.min.css"/>" type="text/css">
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>" type="text/css">
 
-	<!-- 맞춤 이력서 추천 -->
-	<p>${matchingList }</p>
+	<!-- 맞춤 이력서 추천 : 기업이 등록한 채용공고의 경력, 지역, 언어로 매칭함 : 추천할 이력서가 있을때만 보여줌 -->
+ <c:if test="${!empty matchingList}">
     <section class="man-banner spad">
         <div class="container-fluid">
             <div class="row">
@@ -22,7 +22,6 @@
                     </div>
                     <div class="product-slider owl-carousel">
                     <!-- 이력서 반복 시작 -->
-                    <c:if test="${!empty matchingList}">
                     	<c:forEach var='matchVo' items='${matchingList }'>
 							<div class="product-item">
 	                            <div class="pi-pic">
@@ -32,85 +31,27 @@
 	                                </ul>
 	                            </div>
 	                            <div class="pi-text">
-	                                <div class="catagory-name">경력 자리</div>
+	                            <c:if test="${matchVo.userExperience==0}">
+	                            	<div class="catagory-name">신입</div>
+	                            </c:if>
+	                            <c:if test="${matchVo.userExperience!=0}">
+	                                <div class="catagory-name">${matchVo.userExperience}년</div>
+	                            </c:if>
 	                                <a href="#">
 	                                    <h5>${matchVo.resumesVo.resumeTitle }</h5>
 	                                </a>
+	                                <!-- 언어 리스트 -->
 	                                <div class="product-price">
-	                                   
+						                <c:forEach var="lang" items="${matchVo.langList}" >
+			                                    ${lang.languageName} 
+										</c:forEach>
 	                                </div>
+									
 	                            </div>
 	                        </div>
                     	</c:forEach>
-                    </c:if>
+                    
                         <!-- 이력서 반복 끝-->
-						<div class="product-item">
-                            <div class="pi-pic">
-                                <ul>
-                                	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <!-- 이력서 미리보기 기능 -->
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                            	<!-- 경력이 들어갈 것임 -->
-                                <div class="catagory-name">3년</div>
-                                <!-- 지원서 제목이 들어갈 것임 -->
-                                <a href="#">
-                                    <h5>3년차 웹 개발자입니다.</h5>
-                                </a>
-                                <!-- 사용 언어가 들어갈 것임 최대 4개 -->
-                                <div class="product-price">
-                                    JAVA, SQL, PL/SQL, PYTHON
-                                </div>
-                            </div>
-                        </div>
-						<div class="product-item">
-                            <div class="pi-pic">
-                                <ul>
-                                	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <!-- 이력서 미리보기 기능 -->
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                            	<!-- 경력이 들어갈 것임 -->
-                                <div class="catagory-name">3년</div>
-                                <!-- 지원서 제목이 들어갈 것임 -->
-                                <a href="#">
-                                    <h5>3년차 웹 개발자입니다.</h5>
-                                </a>
-                                <!-- 사용 언어가 들어갈 것임 최대 4개 -->
-                                <div class="product-price">
-                                    JAVA, SQL, PL/SQL, PYTHON
-                                </div>
-                            </div>
-                        </div>
-						<div class="product-item">
-                            <div class="pi-pic">
-                                <ul>
-                                	<!-- 장바구니 담기 float버튼 기능, ajax처리 -->
-                                    <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                    <!-- 이력서 미리보기 기능 -->
-                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                </ul>
-                            </div>
-                            <div class="pi-text">
-                            	<!-- 경력이 들어갈 것임 -->
-                                <div class="catagory-name">3년</div>
-                                <!-- 지원서 제목이 들어갈 것임 -->
-                                <a href="#">
-                                    <h5>3년차 웹 개발자입니다.</h5>
-                                </a>
-                                <!-- 사용 언어가 들어갈 것임 최대 4개 -->
-                                <div class="product-price">
-                                    JAVA, SQL, PL/SQL, PYTHON
-                                </div>
-                            </div>
-                        </div>
-                        
                     </div>
                 </div>
                 <div class="col-lg-3 offset-lg-1">
@@ -123,6 +64,7 @@
             </div>
         </div>
     </section>
+    </c:if>
     <!-- 맞춤인재추천끝 -->
     
  <!-- Js Plugins -->

@@ -61,9 +61,13 @@
 	</select>
 	
 	<select id="selectRecruitList" parameterType="int" resultType="Map">
-		select r.RECRUITANNOUNCE_NO, r.RECRUITANNOUNCE_TITLE
+		select *
+		from	(select r.RECRUITANNOUNCE_NO, r.RECRUITANNOUNCE_TITLE
 		from users u, RECRUITANNOUNCE r
-		where u.USER_NO = r.USER_NO and u.user_no=#{userNo}
+		where u.USER_NO = r.USER_NO and u.user_no=5 order by RECRUITANNOUNCE_NO desc)
+		<![CDATA[
+		where rownum<4
+		]]>
 	</select>
 	
    <resultMap type="AppResumeUserAllVO" id="appResumeUserList">
