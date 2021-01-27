@@ -4,6 +4,14 @@
 
 <script type="text/javascript">
 	$(function(){
+		//로드될 때 처리
+		var subtotal = $('#subtotal').html();
+		var totalPrice = $('#totalPrice').html();
+		$('#subtotal').html(numberWithCommas(subtotal));
+		$('#totalPrice').html(numberWithCommas(totalPrice));
+		$('#removeCoupon').css('display','none');
+		
+		
 		$('.cart-table table tbody tr').find('i').click(function(){
 			if(!confirm('해당 이력서를 장바구니에서 삭제하시겠습니까?')){
 				event.preventDefault();
@@ -28,17 +36,72 @@
 				success:function(res){
 					//성공하면 할인률 입력
 					if(res!=0){
-						$('#rate').html(res);
+						var subtotal = removeComma($('#subtotal').html());	//콤마제거
+						var discountAmount = subtotal*res/100;
+						var totalPrice = subtotal-discountAmount;
+						
+						//콤마추가
+						discountAmount = numberWithCommas(discountAmount);
+						totalPrice = numberWithCommas(totalPrice);
+						
+						$('#discountAmount').html(discountAmount);
+						$('#totalPrice').html(totalPrice);
+						
+						//percentage 추가 입력
+						var str = "("+res+"%)";
+						$('#percent').html(str);
 					}
 				},
 				error:function(xhr, status, error){
-					alert('해당 쿠폰이 존재하지 않습니다.\n쿠폰번호를 다시 확인해주세요.');
+					alert('해당 쿠폰이 존재하지 않습니다.\n쿠폰코드를 다시 확인해주세요.');
 				}
 			});	//ajax
-			
+			$('#removeCoupon').css('display','inline');
+			event.preventDefault();
+		});//submit
+		
+		$('#removeCoupon').click(function(){
+			$.ajax({
+				url:"<c:url value='/coupon/removeCoupon.do'/>",
+				type:"GET",
+				dataType:"json",
+				success:function(res){
+					//쿠폰적용취소하기
+					if(res==0){
+						var subtotal = removeComma($('#subtotal').html());	//콤마제거
+						var discountAmount = 0;
+						var totalPrice = subtotal;
+						
+						//콤마추가
+						totalPrice = numberWithCommas(totalPrice);
+						
+						$('#percent').html('');
+						$('#discountAmount').html(discountAmount);
+						$('#totalPrice').html(totalPrice);
+					}
+				},
+				error:function(xhr, status, error){
+					alert('쿠폰 적용 취소 실패 error:'+error);
+				}
+			});	//ajax
+			$('#couponName').val('');
+			$('#removeCoupon').css('display','none');
 			event.preventDefault();
 		});//click
+		
 	});
+	
+	//숫자 (#,###) 표현 함수
+	function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	
+	//숫자 (#,###) 표현 제거 함수
+	function removeComma(x){
+		n = parseInt(x.replace(/,/g,""));
+		return n;
+	}
+
 </script>
 
 <!-- 장바구니 상단 -->
@@ -132,19 +195,30 @@
                         </div>
                     </div>
                     
-               		<div id="rate"> <!-- 할인율 자리 --></div>
-                    <c:set var="discount" value="${subTotalPrice*(dcRate/100)}"/>
-                    <c:set var="totalPrice" value="${subTotalPrice-discount}" />
-                    
                      
                     <div class="col-lg-4 offset-lg-4">
                         <div class="proceed-checkout">
                             <ul>
-                                <li class="subtotal">주문금액 <span><fmt:formatNumber value="${subTotalPrice}" pattern="#,###"/> 원</span></li>
-                                <li class="subtotal" style="padding-top: 14px;" id="discountAmount">할인금액 
-                                	<span><fmt:formatNumber value="${discount}" pattern="#,###"/> 원</span>
+                                <li class="subtotal">주문금액 
+                                	<span style="margin-left: 5px;">원</span>
+                                	<span id="subtotal">${subTotalPrice}</span>
                                	</li>
-                                <li class="cart-total">총 결제금액 <span><fmt:formatNumber value="${totalPrice}" pattern="#,###"/> 원</span></li>
+                                
+                                <li class="subtotal" style="padding-top: 14px;">할인적용  
+                                	<div style="display: contents;" id="percent">
+                                	</div>
+                                	<div style="display: contents;">
+                                		<a href="#" id="removeCoupon" class="btn btn-link btn-sm">취소</a>
+                                	</div>
+                                	<span style="margin-left: 5px;">원</span>
+                                	<span id="discountAmount">${discount}</span>
+                               	</li>
+                               	
+                               	<c:set var="totalPrice" value="${subTotalPrice - discount}" />
+                                <li class="cart-total">총 결제금액 
+                                	<span style="margin-left: 5px;">원</span>
+                                	<span id="totalPrice">${totalPrice}</span>
+                                </li>
                             </ul>
                             <a href="#" class="proceed-btn">결  제</a>
                         </div>

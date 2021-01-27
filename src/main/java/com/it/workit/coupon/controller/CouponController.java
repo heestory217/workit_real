@@ -29,4 +29,13 @@ public class CouponController {
 		
 		return couponRate;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/removeCoupon.do")
+	public int removeCoupon() {
+		logger.info("쿠폰 취소하기");
+		int couponRate = 0;
+		
+		return couponRate;
+	}
 }
