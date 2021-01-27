@@ -29,9 +29,14 @@
 
 <!-- 채용공고별 이력서 시작 -->
  <c:if test="${empty rList}">
- 	<p>등록된 채용 공고가 없습니다. 채용공고를 추가해주세요(링크와 이미지 추가 예정)</p>
+ 	<div style="border: 1px solid #bbb; margin: 0px 60px 60px; border-style: dashed; border-radius: 20px; text-align: center;">
+ 	<img src='<c:url value='/resources/img/empty2.jpg'/>' style="width: 10%;margin-top: 60px;">
+ 	<h2 style="font-weight: 600; color: #666; margin-top: 40px; margin-bottom: 20px;">아직 등록된 채용 공고가 없습니다.</h2>
+ 	<p style="margin-bottom: 0px;">채용 공고를 추가하시면 추천 이력서와 지원이력서를 보실 수 있습니다.</p>
+ 	<p style="margin-bottom: 60px;">(단, 채용 공고를 추가 하기 위해서는 기업 승인을 받아야 합니다.)</p>
+ 	</div>
  </c:if>
-
+	
 <c:if test="${!empty rList}">
     <section class="women-banner spad">
         <div class="container-fluid">
@@ -56,7 +61,7 @@
                         </ul>
                     </div>
                      
-                    <div id="resume" class="col-lg-12"style="padding-left: 300px;">
+                    <div id="resume" class="col-lg-10 offset-lg-1" >
                     
                 	</div>
                 	
@@ -85,7 +90,10 @@
 	<script type="text/javascript">
 	$(function(){
 		var firstRnum = $('.rList:first').find("input").val();
-		send2(firstRnum);
+		$('.rList').filter(':first').attr("class","active");
+		if (firstRnum!=null) {
+			send2(firstRnum	);
+		};
 		
 		//클릭하면 다른 이력서 보여주기
 		$('.rList').each(function(index,item){
@@ -116,7 +124,10 @@
 	            */
 	            $('#resume').html("");
 	            if(res.length>0){
-	               str+="<p style='text-align: center; padding-right: 230px;'>총 "+res.length+"명의 지원자가 이력서를 제출했습니다 <a>전체 보기</a></p>";
+	               str+="<p style='text-align: center; font-size: 17px; margin-bottom: 10px;'>총 <bold style='font-weight: 800; color: #4750D6;'>"+res.length+"</bold>명의 지원자가 이력서를 제출했습니다</p>";
+	            	str+="<div style='border-bottom: 2px solid #4750d6;width: 8%;margin: auto;margin-bottom: 40px;'>"
+	               str+="<p style='text-align: center;margin-bottom: 2px;'><a href=# id='goResumesAll' style='text-align:center;'>전체 보기</a></p>";
+	               str+="</div>"
 	               $(res).each(function(){
 	                  //str+="이력서 번호 : "+this.appReUsView.resumeNo+"<br>";
 	                  str+="<div class='col-lg-3'>";
@@ -134,7 +145,10 @@
 	               str+="</div>";
 	               $('#resume').html(str);
 	            }else{
-	            	str+="<p>아직 지원자가 없습니다.</p>"
+	            	str+="<div style='text-align:center; margin-bottom:30px;'>";
+	            	str+="<img src='/workit/resources/img/empty.jpg' style='width: 17%; margin-top: 50px;'>";
+	            	str+="</div>";
+	            	str+="<p style='text-align: center; font-size: 17px; margin-bottom: 10px;color: #bbb;'>앗, 이런... 아직 지원자가 없습니다.</p>";
 	            	$('#resume').html(str);
 	            }
 	         },

@@ -106,6 +106,8 @@ public class CorpRecruitResumeController {
 		
 		//매칭된 이력서 번호를 넣어서 해당 이력서의 상세 정보 + 언어리스트 검색
 		List<ResumesAllVO> resumeList=resumeService.searchResumeByNo(matchList);
+		
+		
 		logger.info("이력서 번호로 조회한 이력서 리스트의 갯수 : {}",resumeList.size());
 		for(ResumesAllVO vo : resumeList) {
 			int resumeNo=vo.getResumesVo().getResumeNo();
