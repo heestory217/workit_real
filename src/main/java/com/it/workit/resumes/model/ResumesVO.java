@@ -6,13 +6,12 @@ public class ResumesVO {
 	private int resumeNo;
 	private int userNo;
 	private String resumeTitle;
-	private int resumeSelfintro;
+	private String resumeSelfintro;
 	private Timestamp resumeDate;
 	private String resumeFilename;
 	private long resumeFilesize;
 	private String resumeFileoriginalname;
 	private int resumeResumeopencheck;
-	
 	
 	public int getResumeNo() {
 		return resumeNo;
@@ -32,10 +31,10 @@ public class ResumesVO {
 	public void setResumeTitle(String resumeTitle) {
 		this.resumeTitle = resumeTitle;
 	}
-	public int getResumeSelfintro() {
+	public String getResumeSelfintro() {
 		return resumeSelfintro;
 	}
-	public void setResumeSelfintro(int resumeSelfintro) {
+	public void setResumeSelfintro(String resumeSelfintro) {
 		this.resumeSelfintro = resumeSelfintro;
 	}
 	public Timestamp getResumeDate() {
@@ -68,7 +67,6 @@ public class ResumesVO {
 	public void setResumeResumeopencheck(int resumeResumeopencheck) {
 		this.resumeResumeopencheck = resumeResumeopencheck;
 	}
-	
 	@Override
 	public String toString() {
 		return "ResumesVO [resumeNo=" + resumeNo + ", userNo=" + userNo + ", resumeTitle=" + resumeTitle
@@ -76,5 +74,6 @@ public class ResumesVO {
 				+ resumeFilename + ", resumeFilesize=" + resumeFilesize + ", resumeFileoriginalname="
 				+ resumeFileoriginalname + ", resumeResumeopencheck=" + resumeResumeopencheck + "]";
 	}
+	
 	
 }

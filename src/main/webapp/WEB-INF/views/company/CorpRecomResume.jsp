@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/slicknav.min.css"/>" type="text/css">
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>" type="text/css">
 
-	<!-- 맞춤 인재 추천 -->
+	<!-- 맞춤 이력서 추천 -->
+	<p>${matchingList }</p>
     <section class="man-banner spad">
         <div class="container-fluid">
             <div class="row">

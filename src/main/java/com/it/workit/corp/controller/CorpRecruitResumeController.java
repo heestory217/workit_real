@@ -23,6 +23,7 @@ import com.it.workit.corpsearch.model.CorpSearchService;
 import com.it.workit.corpsearch.model.MatchSearchVO;
 import com.it.workit.recruit.model.RecruitannounceService;
 import com.it.workit.recruit.model.RecruitannounceVO;
+import com.it.workit.resumes.model.ResumesAllVO;
 import com.it.workit.resumes.model.ResumesService;
 
 @Controller
@@ -38,7 +39,7 @@ public class CorpRecruitResumeController {
 	
 	@RequestMapping("/CorpRecruitResume.do")
 	public String CorpRecruitResume(HttpSession session, Model model) {
-		logger.info("채용 공고별 지원서, 맞춤채용 공고 보여주기");
+		logger.info("채용 공고별 지원서 보여주기");
 		//1. 
 		int userNo = (Integer) session.getAttribute("userNo");
 		logger.info("userNo={}",userNo);
@@ -46,9 +47,6 @@ public class CorpRecruitResumeController {
 		//채용공고 카테고리를 위한 db작업
 		List<Map<String, Object>> recruitList = corpService.selectRecruitList(userNo);
 		logger.info("recruitList={}",recruitList.size());
-		
-		//맞춤 이력서 보여주기를 위한 사용자의 채용공고 정보 : 언어, 경력, 지역
-		//List<Map<String, Object>> recruitCont = CorpService.selectRecruitCont(userNo); 		
 		
 		model.addAttribute("rList",recruitList);
 		return "company/CorpRecruitResume";
@@ -102,9 +100,16 @@ public class CorpRecruitResumeController {
 		for(int i =0; i<matchList.size(); i++) {
 			System.out.println("매칭된 이력서 번호"+matchList.get(i));
 		}
-		//매칭된 이력서 번호를 넣어서 이력서 정보를 view로 보내줌
 		
-		
+		//매칭된 이력서 번호를 넣어서 해당 이력서의 상세 정보 + 언어리스트 검색
+		List<ResumesAllVO> resumeList=resumeService.searchResumeByNo(matchList);
+		logger.info("이력서 번호로 조회한 이력서 리스트의 갯수 : {}",resumeList.size());
+		for(ResumesAllVO vo : resumeList) {
+			int resumeNo=vo.getResumesVo().getResumeNo();
+			List<LanguageListView> langList = corpService.selectLanguageList(resumeNo);
+			vo.setLangList(langList);
+		}
+		model.addAttribute("matchingList",resumeList);
 		return "company/CorpRecomResume";
 	}
 	
