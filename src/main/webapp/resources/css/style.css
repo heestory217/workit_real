@@ -1123,7 +1123,7 @@ button.site-btn.register-btn {
 
 .filter-control {
 	text-align: center;
-	margin-bottom: 45px;
+	margin-bottom: 30px;
 	padding-top: 32px;
 }
 
@@ -1289,9 +1289,9 @@ button.site-btn.register-btn {
 }
 
 .product-item .pi-text {
+	width: 70%;
 	text-align: center;
 	padding-top: 26px;
-	width: 250px;
 }
 
 .product-item .pi-text .catagory-name {

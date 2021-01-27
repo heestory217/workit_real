@@ -16,7 +16,9 @@ public class ResumesServiceImpl implements ResumesService{
 		if(!matchList.isEmpty() || matchList.size()>0) {
 			for(int i=0;i<matchList.size();i++) {
 				int resumeNo = matchList.get(i);
-				resumeList = resumesDao.searchResumeByNo(resumeNo);
+				System.out.println("서비스로 넘어간 resumeNo : "+resumeNo);
+				resumeList.add(resumesDao.searchResumeByNo(resumeNo));
+				System.out.println("resumeList.get(i) : "+resumeList.get(i));
 			}
 		}
 		return resumeList;
