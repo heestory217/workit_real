@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.commentRespond.model.CommentRespondService;
 import com.it.workit.commentRespond.model.CommentRespondVO;
+import com.it.workit.comments.model.CommentsService;
+import com.it.workit.comments.model.CommentsVO;
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
 import com.it.workit.question.model.QstnPagingVO;
@@ -31,6 +33,7 @@ public class CommunityController {
 	
 	@Autowired QuestionService qstnService;
 	@Autowired CommentRespondService comntService;
+	@Autowired CommentsService replyService;
 
 	//커뮤니티 메뉴
 	@RequestMapping("/cmtyNavbar.do")
@@ -408,27 +411,48 @@ public class CommunityController {
 		
 		return "common/message";
 	}
-	/*
-	//답변 조회
-	@RequestMapping("/comments.do")
-	public String cmtDetail(@RequestParam(defaultValue = "0") int qstnNo, Model model) {
-		logger.info("답변 조회, 파라미터 qstnNo={}", qstnNo);
-		if(qstnNo==0) {
-			model.addAttribute("msg", "잘못된 url입니다.");
-			model.addAttribute("url", "/indiv/community/qstnDetail.do?qstnNo="+qstnNo);
+	
+	@RequestMapping("/reply.do")
+	public String replyList(@RequestParam(defaultValue = "0") int cmntNo, Model model) {
+		logger.info("댓글 조회, 파라미터 cmntNo={}", cmntNo);
+		if(cmntNo==0) {
+			model.addAttribute("msg","잘못된 url입니다.");
+			model.addAttribute("url","redirect:/indiv/community/comments.do?cmntNo="+cmntNo);
+			return "common/message";
 		}
+		List<CommentsVO> replyList=replyService.selectComment(cmntNo);
+		logger.info("댓글 조회 결과, replyList.size={}", replyList.size());
 		
-		List<Map<String, Object>> cmtList = comntService.selectAllComnt(qstnNo);
-		logger.info("답변 조회 결과, cmtList.size={}", cmtList.size());
+		model.addAttribute("replyList", replyList);
 		
-		model.addAttribute("cmtList", cmtList);
-		
-		return "indiv/community/comments";
-		
+		return "indiv/community/reply";
 	}
-	
+	/*
+	 * @RequestMapping(value="/reply.do", method = RequestMethod.GET) public String
+	 * replyWrite(@RequestParam(defaultValue = "0") int commentrespondNo, Model
+	 * model) { logger.info("댓글 등록 화면, 파라미터 commentrespondNo={}",commentrespondNo);
+	 * 
+	 * model.addAttribute("commentrespondNo", commentrespondNo);
+	 * 
+	 * return "indiv/community/reply"; }
+	 */
 
-	
-	*/
+	/*
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping("/reply.do") public List<CommentsVO> replyWrite(@RequestParam
+	 * int commentrespondNo, HttpSession session, @ModelAttribute CommentsVO vo) {
+	 * int userNo=(Integer) session.getAttribute("userNo"); vo.setUserNo(userNo);
+	 * vo.setCommentrespondNo(commentrespondNo);
+	 * 
+	 * logger.info("댓글 등록, 파라미터 vo={},commentrespondNo={}", vo, commentrespondNo);
+	 * 
+	 * int cnt=replyService.insertReply(vo); logger.info("댓글 등록 결과, cnt={}", cnt);
+	 * 
+	 * List<CommentsVO> replyList=replyService.selectComment(commentrespondNo);
+	 * logger.info("댓글 조회 결과, replyList.size()={}", replyList.size());
+	 * 
+	 * return replyList; }
+	 */
 	
 }

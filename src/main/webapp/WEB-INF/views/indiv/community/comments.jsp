@@ -217,7 +217,6 @@
 }
 
 </style>    
-
 <script type="text/javascript">
 $(function(){
 	/* 수정&삭제 아이콘 클릭시 수정, 삭제 버튼 보이도록 클릭 이벤트 */
@@ -232,9 +231,45 @@ $(function(){
 		$(this).click(function(){
 			$(this).parent('.cmtOne').next('.replyBoxWrap').toggle();
 		});
-		
 	});
 	
+	$('.replyFold').each(function(index,item){
+		$(this).click(function(){
+			$(this).parent('.replyBoxWrap').hide();
+		});
+	});
+	
+	//댓글 ajax
+	$('#replyFrm').each(function(){
+		$('#replyFrm').submit(function(){
+			
+			$.ajax({
+				url:"<c:url value='/indiv/community/reply.do'/>",
+				type:"post",
+				dataType:"json",
+				data:$(this).serialize(),
+				success:function(res){
+					//alert(res);
+					if(res.length>0){
+						var replyList="";
+						$.each(res, function(idx, item){
+							replyList+="<p>"+item.commentAbout+"</p><hr>";
+						});
+						
+						$('#replyContent').html(replyList);
+					}
+				},
+				error:function(xhr, status, error){
+					alert('error:'+error);
+				}
+			});
+			event.preventDefault();
+		});
+	
+	});
+		
+	//////댓글 등록, 뿌리기 - AJAX이용 
+	//////기존의 댓글들은 항상 조회되도록 기존 방식 사용해서 댓글 조회하기
 	
 });
 
