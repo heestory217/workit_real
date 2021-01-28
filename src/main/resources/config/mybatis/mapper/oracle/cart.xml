@@ -4,11 +4,11 @@
 
 <mapper namespace="config.mybatis.mapper.oracle.cart">
 	<insert id="insertCart" parameterType="shoppingCartVo">
-		<selectKey keyProperty="shoppingcart_no" resultType="int" order="BEFORE">
+		<selectKey keyProperty="shoppingcartNo" resultType="int" order="BEFORE">
 			select shoppingcart_seq.nextval from dual
 		</selectKey>
 		insert into shoppingCart(shoppingcart_no, user_no, resume_no)
-		values(shoppingcart_no,#{userNo},#{resumeNo})
+		values(#{shoppingcartNo},#{userNo},#{resumeNo})
 	</insert>
 	
 	<select id="selectCartList" parameterType="int" resultType="cartViewVo">
@@ -23,5 +23,8 @@
 		delete from shoppingCart where user_no=#{userNo}
 	</delete>
 	
+	<select id="cartDupChk" parameterType="ShoppingCartVO" resultType="int">
+		select count(*) from shoppingCart where user_no=#{userNo} and resume_no=#{resumeNo}
+	</select>
 	
 </mapper>

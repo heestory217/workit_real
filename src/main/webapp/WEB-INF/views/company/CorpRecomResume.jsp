@@ -89,7 +89,6 @@
  <script type="text/javascript">
 
  function insertCart(no){
-		alert(no);
 		insertResume(no);
 		event.preventDefault();
 	}
@@ -97,16 +96,21 @@
     //[1] 아작스 요청
    function insertResume(no){
     	var no = no;
-    	alert("아작스에 들어온 no:"+no);
     	$.ajax({
-    		url:"<c:url value=''/>",
+   			url:"<c:url value='/shop/insertCartAjax.do'/>",
     		type:"GET",
     		data:{
     			resumeNo:no
     		},
     		dataType:"json",
     		success:function(res){
-    			
+    			if(res==1){
+    				alert('이력서를 장바구니에 담았습니다.');
+    			}else if(res==2){
+    				alert('이미 장바구니에 담긴 이력서입니다.');
+    			}else{
+    				alert('이력서를 장바구니에 담을 수 없습니다.');
+    			}
     		},
     		error:function(xhs, status, error){
 				alert('error : '+error);

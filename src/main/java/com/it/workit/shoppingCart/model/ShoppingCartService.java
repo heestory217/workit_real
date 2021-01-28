@@ -8,4 +8,5 @@ public interface ShoppingCartService {
 	List<CartViewVO> selectCartList(int userNo);
 	int deleteOne(int shoppingcartNo);
 	int clearCart(int userNo);
+	int cartDupChk(ShoppingCartVO vo);
 }
