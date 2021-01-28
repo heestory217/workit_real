@@ -18,4 +18,5 @@ public interface CorpService {
 	List<AreaListView> selectAreaList(int resumeNo);
 	List<LanguageListView> selectLanguageList(int resumeNo);
 	List<Integer> selectResumeNoList(List<MatchSearchVO> mList);
+	public int insertCorpReview(CorpreviewVO vo);
 }

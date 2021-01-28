@@ -20,4 +20,6 @@ public interface CorpDAO {
 	List<AreaListView> selectAreaList(int resumeNo);
 	List<LanguageListView> selectLanguageList(int resumeNo);
 	List<Integer> selectResumeNoList(MatchSearchVO matchSearchVO);
+	
+	public int insertCorpReview(CorpreviewVO vo);
 }
