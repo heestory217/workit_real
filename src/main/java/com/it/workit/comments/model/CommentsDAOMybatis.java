@@ -1,6 +1,7 @@
 package com.it.workit.comments.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class CommentsDAOMybatis implements CommentsDAO{
 	}
 
 	@Override
-	public List<CommentsVO> selectComment(int cmntNo) {
+	public List<Map<String, Object>> selectComment(int cmntNo) {
 		return sqlSession.selectList(namespace+"selectComment", cmntNo);
 	}
 	

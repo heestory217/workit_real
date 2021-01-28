@@ -17,7 +17,7 @@
 		<result property="commentAbout" column="COMMENT_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
 	</resultMap>
 	<select id="selectComment" resultType="HashMap" parameterType="int" resultMap="replyAbout">
-		SELECT * FROM COMMENTS
+		SELECT * FROM COMMENTVIEW
 		WHERE COMMENTRESPOND_NO=#{commentrespondNo}
 		ORDER BY COMMENT_NO
 	</select>

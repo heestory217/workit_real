@@ -413,11 +413,13 @@ public class CommunityController {
 		return "common/message";
 	}
 	
+	//댓글 조회
 	@ResponseBody
 	@RequestMapping("/replyList.do")
-	public List<CommentsVO> selectReply(@RequestParam int cmntNo, Model model) {
+	public List<Map<String, Object>> selectReply(@RequestParam int cmntNo,
+						Model model) {
 		logger.info("댓글 조회, 파라미터 cmntNo={}", cmntNo);
-		List<CommentsVO> replyList=replyService.selectComment(cmntNo);
+		List<Map<String, Object>> replyList=replyService.selectComment(cmntNo);
 		logger.info("댓글 조회 결과, replyList.size={}", replyList.size());
 		
 		return replyList;

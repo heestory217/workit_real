@@ -89,7 +89,7 @@
 
 .replyOne{
 	border-bottom:1px solid silver;
-	padding:10px 0;
+	padding: 22px 0 10px;
 }
 
 .replyWrite:placeholder{
@@ -244,7 +244,13 @@ $(function(){
 		});
 	});
 	
-	
+	$('.replyWrap').click(function(){
+		if($('input[name=userNo]').val()==""){
+			alert('댓글을 등록하려면 로그인이 필요합니다.\n로그인 페이지로 이동합니다.');
+			event.preventDefault();
+			location.href="<c:url value='/users/login.do'/>"
+		}
+	});
 	
 	//댓글 등록 버튼 클릭 시, 댓글 등록 함수 처리
 	$('#replyBtn').click(function(){
@@ -281,10 +287,11 @@ function replyList(){
 	        	if(res.length>0){
 		            var replyList =""; 
 		            $.each(res,function(i,result){ 
-		            	replyList+="<span style='color:black;font-weight:bold'>@ 작성자 아이디</p></span>";
+		            	replyList+="<span style='color:black;font-weight:bold;'>└  @"
+		            	+result.USER_ID+"</p></span>";
 		            	replyList+="<p style='color:gray;'>"+result.commentAbout+"</p></div>";
 		            	replyList+="<span style='font-size:13px;color:gray;'>"+moment(result.COMMENT_DATE).format("YYYY-MM-DD")
-		            	+"</span></div><hr>";
+		            	+" 작성</span></div><hr>";
 		            	
 		            	/* 참조변수.테이블컬럼명으로 적기 => 예) result.USER_NO */
 		            	$('.replyOne').html("<div>"+replyList+"</div>");
