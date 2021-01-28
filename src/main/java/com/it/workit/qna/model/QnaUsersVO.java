@@ -2,7 +2,9 @@ package com.it.workit.qna.model;
 
 import java.sql.Timestamp;
 
-public class QnaVO {
+import com.it.workit.users.model.UsersVO;
+
+public class QnaUsersVO extends UsersVO{
 	private int qaNo; // qna번호
 	private int qaWriteno;  //작성자번호
 	private String qaWriter; //작성자
@@ -18,6 +20,8 @@ public class QnaVO {
     private String qaDeletecheck;  //삭제여부
     private int ManagerNo;  //관리자번호
     private int userNo;	//회원번호
+    
+    private String userPassword;
     
 	public int getQaNo() {
 		return qaNo;
@@ -103,7 +107,6 @@ public class QnaVO {
 	public void setManagerNo(int managerNo) {
 		ManagerNo = managerNo;
 	}
-	
 	public int getUserNo() {
 		return userNo;
 	}
@@ -111,13 +114,21 @@ public class QnaVO {
 		this.userNo = userNo;
 	}
 	
+	public String getUserPassword() {
+		return userPassword;
+	}
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
+	
 	@Override
 	public String toString() {
-		return "QnaVO [qaNo=" + qaNo + ", qaWriteno=" + qaWriteno + ", qaWriter=" + qaWriter + ", qaTitle=" + qaTitle
-				+ ", qaAbout=" + qaAbout + ", qaSecret=" + qaSecret + ", qaPassword=" + qaPassword + ", qaDate="
-				+ qaDate + ", qaView=" + qaView + ", qaGroupno=" + qaGroupno + ", qaOrderno=" + qaOrderno
+		return "QnaUsersVO [qaNo=" + qaNo + ", qaWriteno=" + qaWriteno + ", qaWriter=" + qaWriter + ", qaTitle="
+				+ qaTitle + ", qaAbout=" + qaAbout + ", qaSecret=" + qaSecret + ", qaPassword=" + qaPassword
+				+ ", qaDate=" + qaDate + ", qaView=" + qaView + ", qaGroupno=" + qaGroupno + ", qaOrderno=" + qaOrderno
 				+ ", qaSortno=" + qaSortno + ", qaDeletecheck=" + qaDeletecheck + ", ManagerNo=" + ManagerNo
-				+ ", userNo=" + userNo + "]";
+				+ ", userNo=" + userNo + ", toString()=" + super.toString() + "]";
 	}
+    
     
 }

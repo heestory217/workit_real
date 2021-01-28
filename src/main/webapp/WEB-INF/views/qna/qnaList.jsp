@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 
+
 <style type="text/css">
 .product__pagination.blog__pagination {
 	text-align: center;
@@ -85,6 +86,14 @@ select.qaSelete {
 		$('input[name=currentPage]').val(curPage);
 		$('form[name=frmPage]').submit();
 	}
+	
+// 	var contextPath="/workit";
+// 	$(function(){
+// 		$('.pwck').click(function(){
+// 				open(contextPath+"/qna/passwordCheck.do?qaNo=${param.qaNo }", "chk",
+// 		"width=600,height=320,left=500,top=250,location=yes,resizable=yes");
+// 			});
+// 	});
 </script>
 
 <!-- Breadcrumb Section Begin -->
@@ -124,7 +133,7 @@ select.qaSelete {
                 <div class="col-lg-9 order-1 order-lg-2">
 					<div class="container">
 						<div class="register-form">
-							<h2>FAQ 목록</h2>
+							<h2>Q&A 목록</h2>
 						</div>
 					</div>
                 
@@ -150,9 +159,18 @@ select.qaSelete {
 	                                <tr>
 			                            <td class="cart-pic first-row">${qaVo.qaNo}</td>
 			                            <td class="cart-title first-row">
-				                            <a href="<c:url value='/qna/qnaCount.do?qaNo=${qaVo.qaNo }'/>">
-				                            	${qaVo.qaTitle }
-				                            </a>
+			                            	<!-- 잠금버튼  -->
+			                            	<c:if test="${qaVo.qaSecret =='Y' }">
+												<span><i class="fa fa-lock" aria-hidden="true">&nbsp;</i></span>		                            	
+					                            <a class="pwck" href="<c:url value='/qna/passwordCheck.do?qaNo=${qaVo.qaNo }'/>">
+					                            	${qaVo.qaTitle }
+					                            </a>
+			                            	</c:if>
+			                            	<c:if test="${qaVo.qaSecret !='Y' }">
+					                            <a href="<c:url value='/qna/qnaCount.do?qaNo=${qaVo.qaNo }'/>">
+					                            	${qaVo.qaTitle }
+					                            </a>
+			                            	</c:if>
 			                            </td>
 			                            <td class="first-row">${qaVo.qaWriter}</td>
 			                            <td class="first-row">
@@ -167,9 +185,9 @@ select.qaSelete {
 					</div>
 					<!--버튼 -->
 					<div class="qaWbt">
-						<input type="button" value="글쓰기"
+						<input type="button" value="문의하기"
 							class="faqBt btn btn-primary site-btn"
-							onclick="location.href='<c:url value="/qna/qnaWrite.do?qaNo=${qaVo.qaNo }"/>'" />
+							onclick="location.href='<c:url value="/qna/qnaWrite.do"/>'" />
 					</div>
                     
                     <div class="product__pagination blog__pagination">

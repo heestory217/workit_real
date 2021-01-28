@@ -12,7 +12,7 @@ input.faqBt.btn.btn-primary.site-btn {
 	float: right;
 }
 
-input#qaPassword {
+input#password {
     width: 200px;
     float: left;
     margin: 9px 25px;
@@ -36,36 +36,34 @@ input#ckbox {
 <script type="text/javascript">
 	$(function() {
 		$('#qaTitle').focus();
+		
 
-		$('form[name=qnaWrite]').submit(function() {
+
+		$('#submit_qna').click(function() {
 			if ($('#qaTitle').val().length < 1) {
 				alert('제목을 입력하세요');
-
 				$('#qaTitle').focus();
+				event.preventDefault();
+			} else if ($('#qaSecret').val()=='Y' && $('#password').val().length < 1) {
+				alert('비밀번호를 입력하세요');
+				$('#password').focus();
 				event.preventDefault();
 			} else if ($('#qaAbout').val().length < 1) {
 				write_go();
 				event.preventDefault();
 			}
+			
+		});
 
-			$(function() {
-				if ($('#ckbox').is(':ckecked')) {
-					$("#qaSecret").val('Y');
-					
-					if ($("#qaPassword").val()<1) {
-						alert('비밀번호를 입력하세요');
-					}
-					event.preventDefault();
-					//return false;
-				} else {
-					$("#qaSecret").val('N');
-					$("#qaPassword").val('');
-				}
-			});
+		$('input[name=ckbox]').click(function() {
+			if ($('#ckbox').is(':checked')) {
+				$('#qaSecret').val('Y');
+			} else {
+				$('#qaSecret').val('N');
+			}
 		});
 
 	});
-
 
 	function write_go() {
 		var ckeditor = CKEDITOR.instances['qaAbout'];
@@ -136,11 +134,10 @@ input#ckbox {
 					
 					<div class="group-input gi-check col-lg-12 pwWarp" style="clear: both;">
 						<div class="gi-more pwBox">
-							<input type="hidden" id="qaSecret" name="qaSecret"> 
+							<input type="hidden" id="qaSecret" name="qaSecret" value="N"> 
 							<span id="qaspan">비밀글로 설정하시겠습니까? </span>
 							<input type="checkbox" id="ckbox" name="ckbox"> 
-							<input type="password" id="qaPassword" 
-								name="qaPassword" placeholder="숫자만 입력하세요">
+							<input type="text" id="password" name="qaPassword" placeholder="숫자만 입력하세요">
 						</div>
 						<input type="button" value="목록"
 							class="faqBt btn btn-primary site-btn"

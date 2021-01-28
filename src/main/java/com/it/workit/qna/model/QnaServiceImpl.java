@@ -33,9 +33,15 @@ public class QnaServiceImpl implements QnaService{
 	}
 
 	@Override
-	public QnaVO qaSelectByNo(int qaNo) {
+	public QnaUsersVO qaSelectByNo(int qaNo) {
 		return qaDao.qaSelectByNo(qaNo);
 	}
+
+	@Override
+	public int qaDelete(int qaNo) {
+		return qaDao.qaDelete(qaNo);
+	}
+
 
 	
 	
