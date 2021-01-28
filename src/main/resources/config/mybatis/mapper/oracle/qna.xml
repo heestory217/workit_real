@@ -51,14 +51,15 @@
 		where qa_no= #{qaNo}
 	</update>
 	
-	<select id="qaSelectByNo" parameterType="int" resultType="qnaVo">
-		select * from qa where qa_no=#{qaNo}
+	<select id="qaSelectByNo" parameterType="int" resultType="qnaUsersVO">
+		select * from qaUserPassword where qa_no=#{qaNo}
 	</select>
 	
+	<delete id="qaDelete" parameterType="int">
+		delete from qaUserPassword 
+		where qa_no=#{qaNo}
+	</delete>
 	
-<!-- 	<delete id="qaDetail"> -->
-		
-<!-- 	</delete> -->
 </mapper>
 
 

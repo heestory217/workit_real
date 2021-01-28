@@ -37,8 +37,13 @@ public class QnaDAOMybatis implements QnaDAO{
 	}
 
 	@Override
-	public QnaVO qaSelectByNo(int qaNo) {
+	public QnaUsersVO qaSelectByNo(int qaNo) {
 		return sqlSession.selectOne(namespace+"qaSelectByNo",qaNo);
+	}
+
+	@Override
+	public int qaDelete(int qaNo) {
+		return sqlSession.delete(namespace+"qaDelete",qaNo);
 	}
 
 	
