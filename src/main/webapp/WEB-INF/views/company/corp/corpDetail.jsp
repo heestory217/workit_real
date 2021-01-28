@@ -124,7 +124,7 @@
                     </c:import>
 					<!-- 채용중인 포지션 리스트 끝-->
                     <hr>
-					<!-- 기업 리뷰 리스트 인클루드 할거임 -->
+					<!-- 기업 리뷰 리스트 -->
 					<c:import url="/company/corp/corpReviewList.do">
                     	<c:param name="corpNo" value="${cVo.corpNo}"></c:param>
                     </c:import>
