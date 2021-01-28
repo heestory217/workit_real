@@ -15,7 +15,7 @@
 									"width=771,height=819,left=0,top=0,location=yes,resizable=yes");
 						});
 
-		$('#corpStardate').datepicker(
+		$('#corpStartdate').datepicker(
 				{
 					dateFormat : 'yymmdd',
 					changeYear : true,
@@ -94,12 +94,12 @@ input[type=file]{
     <form class="checkout-form" method="POST" enctype="multipart/form-data" name="corpfrm"
     		action="<c:url value='/company/corp/corpWrite.do'/>">
         <div class="row">
-            <div class="col-lg-9 offset-lg-2">
+            <div class="col-lg-10 offset-lg-1">
    				<div class="section-title">
 					<h2>기업 	등록</h2>
 				</div>
                 <div class="row">
-                        <input type="text" name="userNo" value="${sessionScope.userNo}">
+                        <input type="hidden" name="userNo" value="${sessionScope.userNo}">
              	   <div class="col-lg-12">
                         <label for="corpName">법인명<span>*</span></label>
                         <input type="text" id="corpName" name="corpName">
