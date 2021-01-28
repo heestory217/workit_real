@@ -22,16 +22,18 @@
 						회사에 부정적인 영향이 우려되는 리뷰를 삭제할 수 있습니다.
 					</h3>
 				</div>
-				<div class="modalserviceContent" style="text-align: center;">
+				<div class="modalserviceContent" style="text-align: center;margin-bottom: 30px;">
 					<button type="button" class="btn btn-default" data-dismiss="modal" 
 						onclick="location.href='<c:url value='/company/corp/corpDetail.do?corpNo=${corpNo}'/>'">기업 리뷰 보러가기</button>
 					<br><br>
 					<span style="font-size: 13px;">※ Workit은 고객(기업회원과 개인회원)간 소통의 중개자로서 운영정책에 따라 운영되며 실제 리뷰삭제에 대한 모든 책임은 리뷰작성 및 삭제 당사자에게 있습니다.</span>
 				</div>
 			</div>
+			<!-- 
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal" style="padding: 5px 10px !important;">닫기</button>
 			</div>
+			 -->
 		</div>
 	</div>
 </div>

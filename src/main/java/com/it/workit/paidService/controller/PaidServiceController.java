@@ -11,4 +11,5 @@ import com.it.workit.message.controller.MessageController;
 @RequestMapping("/shop")
 public class PaidServiceController {
 	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
+	
 }

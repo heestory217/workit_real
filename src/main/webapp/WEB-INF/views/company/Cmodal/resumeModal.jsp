@@ -22,12 +22,9 @@
 						해당 지원자에게 직접 입사를 제안할 수 있습니다.
 					</h3>
 				</div>
-				<div class="modalserviceContent" style="text-align: center;">
+				<div class="modalserviceContent" style="text-align: center; margin-bottom: 30px;">
 					<button type="button" class="btn btn-default" data-dismiss="modal">이력서 탐색하기</button>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal" style="padding: 5px 10px !important;">닫기</button>
 			</div>
 		</div>
 	</div>
