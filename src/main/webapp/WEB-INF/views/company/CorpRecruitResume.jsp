@@ -42,7 +42,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="product-large set-bg" data-setbg="<c:url value='/resources/img/products/women-large.jpg'/>">
+                    <div class="product-large set-bg" style="background-color: #4750d6;">
                         <h2>채용 공고별 지원자 현황</h2>
                         <a href="#">More</a>
                     </div>

@@ -31,4 +31,9 @@ public class ShoppingCartDAOMybatis implements ShoppingCartDAO {
 	public int clearCart(int userNo) {
 		return sqlSession.delete(namespace+"clearCart",userNo);
 	}
+
+	@Override
+	public int cartDupChk(ShoppingCartVO vo) {
+		return sqlSession.selectOne(namespace+"cartDupChk", vo);
+	}
 }

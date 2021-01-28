@@ -29,4 +29,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	public int clearCart(int userNo) {
 		return cartDao.clearCart(userNo);
 	}
+
+	@Override
+	public int cartDupChk(ShoppingCartVO vo) {
+		return cartDao.cartDupChk(vo);
+	}
 }

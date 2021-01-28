@@ -26,8 +26,8 @@
 							<div class="product-item">
 	                            <div class="pi-pic">
 	                                <ul>
-	                                    <li class="w-icon active" onclick="insertCart()">
-		                                    <input type="hidden" value="${matchVo.resumesVo.resumeNo }" id="resumeNo">
+	                                    <li class="w-icon active" onclick="insertCart('${matchVo.resumesVo.resumeNo }')">
+		                                    <input type="hidden" value="${matchVo.resumesVo.resumeNo }" class="resumeNo">
 	                                    	<a href="#">
 	                                    		<i class="icon_bag_alt"></i>
                                     		</a>
@@ -87,9 +87,35 @@
  <script src="<c:url value="/resources/js/check.js"/>" type="text/javascript"></script>
  <script src="https://kit.fontawesome.com/a86f09c0f4.js" crossorigin="anonymous"></script>
  <script type="text/javascript">
- 	function insertCart(){
- 		var resumeNo = document.getElementById("resumeNo").value;
-		alert('resumeNo:'+resumeNo); 		
- 		event.preventDefault();
- 	}
+
+ function insertCart(no){
+		insertResume(no);
+		event.preventDefault();
+	}
+	
+    //[1] 아작스 요청
+   function insertResume(no){
+    	var no = no;
+    	$.ajax({
+   			url:"<c:url value='/shop/insertCartAjax.do'/>",
+    		type:"GET",
+    		data:{
+    			resumeNo:no
+    		},
+    		dataType:"json",
+    		success:function(res){
+    			if(res==1){
+    				alert('이력서를 장바구니에 담았습니다.');
+    			}else if(res==2){
+    				alert('이미 장바구니에 담긴 이력서입니다.');
+    			}else{
+    				alert('이력서를 장바구니에 담을 수 없습니다.');
+    			}
+    		},
+    		error:function(xhs, status, error){
+				alert('error : '+error);
+			}
+    	});
+    }
+	
  </script>

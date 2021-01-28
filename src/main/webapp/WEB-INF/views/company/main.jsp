@@ -42,9 +42,9 @@
                 </div>
                 <div class="col-lg-3">
                     <div class="single-banner">
-                        <img src="<c:url value="/resources/img/banner-3.jpg"/>">
+                        <img src="<c:url value="/resources/img/banner-4.jpg"/>">
                         <div class="inner-text">
-                            <h4>JavaScript 개발자</h4>
+                            <h4>C언어 개발자</h4>
                         </div>
                     </div>
                 </div>
