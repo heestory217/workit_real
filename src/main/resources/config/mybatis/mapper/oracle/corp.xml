@@ -165,6 +165,15 @@
 	  	and USER_EXPERIENCE>=#{year}
    </select>
 	
+	<insert id="insertCorpReview" parameterType="corpreviewVo">
+		<selectKey keyProperty="corpreviewNo" resultType="int" order="BEFORE">
+			select CORPREVIEW_SEQ.nextval from dual
+		</selectKey>
+		insert into CORPREVIEW(CORPREVIEW_NO,USER_NO,CORP_NO,CORPREVIEW_ONELINE,
+		    CORPREVIEW_GOOD,CORPREVIEW_BAD,CORPREVIEW_WANT,CORPREVIEW_RATE)
+		values(#{corpreviewNo},#{userNo},#{corpNo},#{corpreviewOneline},
+			#{corpreviewGood},#{corpreviewBad},#{corpreviewWant},#{corpreviewRate})
+	</insert>
 	
 </mapper>
 

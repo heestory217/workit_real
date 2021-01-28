@@ -110,6 +110,11 @@ public class CorpServiceImpl implements CorpService {
 		return resumeNo;
 	}
 
+	@Override
+	public int insertCorpReview(CorpreviewVO vo) {
+		return corpDao.insertCorpReview(vo);
+	}
+
 
 
 }

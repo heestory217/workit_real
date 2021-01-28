@@ -38,6 +38,14 @@
 				alert('비밀번호가 일치하지 않습니다.');
 				$('#con-pwd').focus();
 				event.preventDefault();
+			}else if($('#hp2').val().length<1){
+				alert('전화번호를 입력하세요');
+				$('#hp2').focus();
+				event.preventDefault();
+			}else if($('#hp3').val().length<1){
+				alert('전화번호를 입력하세요');
+				$('#hp3').focus();
+				event.preventDefault();
 			}/* else if($('#pwd').val()!=${vo.userPassword }){	//디비 비밀번호랑 일치하지않으면 으로 바꾸기
 				alert('비밀번호가 일치하지 않습니다.');
 				$('#con-pwd').focus();

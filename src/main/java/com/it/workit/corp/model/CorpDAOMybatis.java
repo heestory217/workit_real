@@ -75,6 +75,11 @@ public class CorpDAOMybatis implements CorpDAO {
 	public List<Integer> selectResumeNoList(MatchSearchVO matchSearchVO) {
 		return sqlSession.selectList(namespace+"selectResumeNoList", matchSearchVO);
 	}
+
+	@Override
+	public int insertCorpReview(CorpreviewVO vo) {
+		return sqlSession.insert(namespace+"insertCorpReview",vo);
+	}
 	
 
 

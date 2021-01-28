@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ import com.it.workit.corp.model.CorpRecruitViewVO;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.CorpVO;
 import com.it.workit.corp.model.CorpimgVO;
+import com.it.workit.corp.model.CorpreviewVO;
 
 @Controller
 @RequestMapping("/company/corp")
@@ -338,6 +340,50 @@ public class CorpController {
 		imgVo.setCorpimgSortno(i);
 		imgVo.setCorpNo(vo.getCorpNo());
 		return imgVo;
+	}
+	
+	//회사 리뷰 작성 - get
+	@RequestMapping(value = "/corpReviewWrite.do", method = RequestMethod.GET)
+	public String corpReviewWrite_get(@RequestParam(defaultValue = "0") int corpno,
+			Model model) {
+		if(corpno==0) {
+			String msg="잘못된 접근입니다. 다시 시도하세요", url="/index.do";
+			
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+
+			return "common/message";
+		}
+		logger.info("기업 회사 리뷰작성 view 보여주기");
+		
+		return "company/corp/corpReviewWrite";
+	}
+	
+	//회사 리뷰 작성 - post
+	@RequestMapping(value = "/corpReviewWrite.do", method = RequestMethod.POST)
+	public String corpReviewWrite_post(@RequestParam(defaultValue = "0") int corpno,
+			Model model, HttpSession session, @ModelAttribute CorpreviewVO vo) {
+		
+		//세션 userno 가져오기
+		int userNo=(Integer) session.getAttribute("userNo");
+		vo.setUserNo(userNo);
+		vo.setCorpNo(corpno);
+		
+		logger.info("기업 회사 리뷰작성 insert / userno={}",userNo);
+		
+		int cnt=corpService.insertCorpReview(vo);
+		
+		//임시 리턴 index
+		String msg="리뷰 등록 실패하였습니다. 다시 시도하세요.", url="/index.do";
+		if(cnt>0) {
+			msg="리뷰 등록 요청 성공하였습니다. 관리자 승인 후 게시됩니다.";
+			url="/index.do";
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "common/message";
 	}
 
 }

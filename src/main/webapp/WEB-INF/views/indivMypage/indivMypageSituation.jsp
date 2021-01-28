@@ -28,15 +28,15 @@
 						</tr> -->
 						<tr>
 							<td class="cart-title"><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=3'/>"><br><br>
-								<h2 class="center">${applyCount }</h2>
+								<h2 class="center textColorblue">${applyCount }</h2>
 								<p class="center">지원 완료</p></a>
 							</td>
 							<td class="cart-title"><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=1'/>"><br><br>
-								<h2 class="center">${passCount }</h2>
+								<h2 class="center textColorblue">${passCount }</h2>
 								<p class="center">서류 합격</p></a>
 							</td>
 							<td class="cart-title"><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=2'/>"><br><br>
-								<h2 class="center">${failCount }</h2>
+								<h2 class="center textColorblue">${failCount }</h2>
 								<p class="center">불합격</p></a>
 							</td>
 						</tr>

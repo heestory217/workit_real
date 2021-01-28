@@ -43,6 +43,14 @@
 				alert('비밀번호가 일치하지 않습니다.');
 				$('#con-pwd').focus();
 				event.preventDefault();
+			}else if($('#hp2').val().length<1){
+				alert('전화번호를 입력하세요');
+				$('#hp2').focus();
+				event.preventDefault();
+			}else if($('#hp3').val().length<1){
+				alert('전화번호를 입력하세요');
+				$('#hp3').focus();
+				event.preventDefault();
 			}else if(!validate_phone($('#hp2').val()) ||
 					!validate_phone($('#hp3').val())){
 				alert('전화번호는 숫자만 가능합니다.');

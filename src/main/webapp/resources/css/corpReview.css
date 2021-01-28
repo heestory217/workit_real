@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+.borderGray{
+	border: 1px solid #ebebeb;
+}
+
+.center{
+	text-align: center;
+}
