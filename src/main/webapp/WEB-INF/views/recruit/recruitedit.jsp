@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col-lg-9 offset-lg-1">
                     <div class="register-form">
-                        <h2>채용공고 수정하기</h2>
+                        <h2>채용공고</h2>
                         <form action="#">
                             <div class="group-input">
                                 <label for="username">제목</label>

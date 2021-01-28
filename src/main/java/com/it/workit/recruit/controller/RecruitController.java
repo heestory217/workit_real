@@ -28,16 +28,16 @@ public class RecruitController {
 	
 	
 	@RequestMapping("/recruitdetail.do")
-	public String recruitdetail(@RequestParam(defaultValue = "0") int recruitannounceNo, Model model) {
-		//int recruitannounceNo=1;
+	public String recruitdetail(/*@RequestParam(defaultValue = "0") int recruitannounceNo, */Model model) {
+		int recruitannounceNo=5;
 		logger.info("채용정보 호출 no={}",recruitannounceNo);
 		
 		//2
 		RecruitannounceVO recvo = recruitannounceService.recruitannounceselectByNo(recruitannounceNo);
 		logger.info("채용정보 화면처리 {}",recvo);
 		
-		int num = corpservice.selectCorpNo(recvo.getUserNo());
-		CorpVO cvo = corpservice.selectCorp(num);
+		//int num = corpservice.selectCorpNo(3/*recvo.getUserNo()*/);
+		CorpVO cvo = corpservice.selectCorp(3);
 		logger.info("채용기업 화면처리 {}",cvo);
 		
 		String cwvo = recruitannounceService.recruitcorpwantwork(recruitannounceNo);
@@ -48,7 +48,7 @@ public class RecruitController {
 		logger.info("주언어 {}",lang);
 		
 		Date time = new Date();
-		long d= ((recvo.getRecruitannounceEnddate()).getTime() - time.getTime())/(24*60*60*1000);
+		long d= ((recvo.getRecruitannounceEnddate()).getTime() - time.getTime())/(24*60*60*1000)+17;
 		
 		//3
 		model.addAttribute("RecruitannounceVO", recvo);
@@ -68,5 +68,12 @@ public class RecruitController {
 		
 		//4
 		return "recruit/recruitwrite";
+	}
+	
+	@RequestMapping("/recruitedit.do")
+	public String recruitedit() {
+		
+		//4
+		return "recruit/recruitedit";
 	}
 }
