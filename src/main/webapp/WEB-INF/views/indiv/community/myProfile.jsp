@@ -267,14 +267,16 @@ dd {
 
 		});
 	});
-	
-</script>
+
+
+</script> 	
 	<div class="divCmty">
 		<!-- asdie : 사이드 메뉴바 -->
 		<c:import url="/indiv/community/cmtyNavbar.do">
 			<c:param name="userNo" value="${userNo}"></c:param>
 			<c:param name="userId" value="${userId}"></c:param>
 		</c:import>
+		
 		
 		<section>
 			<div id="container">

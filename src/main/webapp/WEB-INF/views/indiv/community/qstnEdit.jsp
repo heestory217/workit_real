@@ -116,9 +116,10 @@
 	.explain{
 		border:1px solid silver;
 		font-size: 14px;	
-		padding:10px;
+		padding:20px 10px 30px 10px;
 		padding-top:20px;
 		background-color: #F6F6F6;	
+	   	color:#6d6d6d;
 	}
 	
 	article{
@@ -354,8 +355,8 @@
 				<!-- 직무, 기업선택 -->
 				<form name="qstnEditFrm" method="post" 
 					action="<c:url value='/indiv/community/qstnEdit.do'/>">
-					<input type="text" name="questionNo" value="${qstnVo.questionNo }">
-					<input type="text" name="userNo" value="${qstnVo.userNo }">
+					<input type="hidden" name="questionNo" value="${qstnVo.questionNo }">
+					<input type="hidden" name="userNo" value="${qstnVo.userNo }">
 					<article>
 						<div class="checkListArea">
 							<div class="checkboxCommWrap row">
@@ -493,13 +494,16 @@
 				<article>
 					<div class="explain">
                     <ul class="txInfoWrap">
+						<li>정확한 답변을 위해 질문자의 아이디를 포함한 기본 정보가 제공됩니다.</li>
+						<li>개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포 시 이에 대한 민형사상 책임은 작성자에게 있습니다.</li>
+						<li>인기 질문으로 추천될 수 있습니다.</li>
                     </ul>
 					</div>				
 				</article>
 			</div>
 		</div>
 	</section>
-	<div style="clear:both;height:400px;"></div>
+	<div style="clear:both;"></div>
 
 </div>	
 </body>
