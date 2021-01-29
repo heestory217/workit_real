@@ -7,3 +7,17 @@
 .center{
 	text-align: center;
 }
+
+.colorBlue{
+	color: #4C50BB;
+}
+
+#star_grade a{
+	text-decoration: none;
+	color: gray;
+	font-size: 30px;
+}
+
+#star_grade a.on{
+	color: #4C50BB;
+}
