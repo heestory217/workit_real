@@ -93,7 +93,7 @@
                                 	value="${vo.userEmail1}@${vo.userEmail2 }" readonly="readonly">
                             </div>
                             <div class="group-input">
-                                <label for="hp1">전화번호</label>
+                                <label for="hp1">전화번호 *</label>
                                 <select name="userHp1" id="hp1" class="col-lg-3 mystyle">
 						            <option value="010"
 						            	<c:if test="${vo.userHp1 =='010'}">
