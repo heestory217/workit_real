@@ -116,12 +116,10 @@
 	.explain{
 		border:1px solid silver;
 		font-size: 14px;	
-		padding:20px 10px 30px 10px;
-		padding-top:20px;
+		padding:20px 10px 20px 30px;
 		background-color: #F6F6F6;	
 	   	color:#6d6d6d;
 	}
-	
 	article{
 		margin-bottom: 30px;
 	}

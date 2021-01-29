@@ -19,6 +19,11 @@ public class CommentsServiceImpl implements CommentsService {
 	public List<Map<String, Object>> selectComment(int cmntNo) {
 		return commentDao.selectComment(cmntNo);
 	}
+
+	@Override
+	public int updateReply(CommentsVO vo) {
+		return commentDao.updateReply(vo);
+	}
 	
 	
 }

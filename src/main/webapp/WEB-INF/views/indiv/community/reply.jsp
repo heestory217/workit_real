@@ -6,7 +6,7 @@
 <div class="replyBoxWrap active">
 <input type="hidden" name="commentrespondNo" value="${map['COMMENTRESPOND_NO']}"/>
 	<div class="replyOne">
-		<!-- 댓글 조회 -->
+		
 	</div><!-- replyOne -->
 	<div class="replyWrap">
 		<form name="replyFrm" id="replyFrm">

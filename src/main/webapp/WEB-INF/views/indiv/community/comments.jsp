@@ -106,7 +106,7 @@
     padding:15px;
 }
 
-#replyBtn{
+#replyBtn, #replyEditBtn{
 	float:left;
 	width:100px;
 	height:60px;
@@ -216,6 +216,9 @@
     color: gray;
 }
 
+.replyOne{
+	overflow: hidden;
+}
 </style>  
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script> 
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"
@@ -254,7 +257,6 @@ $(function(){
 	
 	//댓글 등록 버튼 클릭 시, 댓글 등록 함수 처리
 	$('#replyBtn').click(function(){
-		var replyTxt = $('form[name=replyFrm]').serialize();
 		$.ajax({
 			url:"<c:url value='/indiv/community/replyWrite.do'/>",
 			type:"post",
@@ -278,31 +280,74 @@ $(function(){
 //댓글 조회 ajax
 function replyList(){
 	 $.ajax({
-	        url : "<c:url value='/indiv/community/replyList.do'/>",
-	        type : "GET",
-	        data : "cmntNo="+$('#cmntNo').val(),
-	        dataType:"json",
-	        async: false,
-	        success : function(res){
-	        	if(res.length>0){
-		            var replyList =""; 
-		            $.each(res,function(i,result){ 
-		            	replyList+="<span style='color:black;font-weight:bold;'>└  @"
-		            	+result.USER_ID+"</p></span>";
-		            	replyList+="<p style='color:gray;'>"+result.commentAbout+"</p></div>";
-		            	replyList+="<span style='font-size:13px;color:gray;'>"+moment(result.COMMENT_DATE).format("YYYY-MM-DD")
-		            	+" 작성</span></div><hr>";
-		            	
-		            	/* 참조변수.테이블컬럼명으로 적기 => 예) result.USER_NO */
-		            	$('.replyOne').html("<div>"+replyList+"</div>");
-		            
-		            });
-		            
-	        	}
-	        },error:function(xhr, status, error){
-	        	alert("댓글이 조회되지 않습니다.");
+        url : "<c:url value='/indiv/community/replyList.do'/>",
+        type : "GET",
+        data : "cmntNo="+$('#cmntNo').val(),
+        dataType:"json",
+        async: false,
+        success : function(res){
+        	if(res.length>0){
+	            var replyList =""; 
+	            $.each(res,function(i,result){ 
+	            	replyList+="<span style='color:black;font-weight:bold;'>└  @"+result.USER_ID+"</span>";
+	            	replyList+="<div class='commentContent"+result.COMMENT_NO+"'><div>";
+	            	replyList+="<p style='color:gray;padding-top:10px;'>";
+	            	replyList+=result.commentAbout+"</p></div>";
+	            	replyList+="<div><span style='font-size:13px;color:gray;float:left;'>"
+		            	+moment(result.COMMENT_DATE).format("YYYY-MM-DD")
+		            	+" 작성</span></div></div>";
+	            	replyList+="<div style='float:right'>";
+	            	replyList+="<a style='font-size:13px;color:gray;cursor:pointer'"; 
+	            	replyList+=" onclick='commentUpdate("+result.COMMENT_NO+",\""+result.commentAbout+"\");'>";
+	            	replyList+=" 수정 </a></div><br><hr>";
+	            	
+
+
+	            	/* 참조변수.테이블컬럼명으로 적기 => 예) result.USER_NO */
+	            	$('.replyOne').html("<div>"+replyList+"</div>");
+	            
+	            });
+	            
+        	}
+        },error:function(xhr, status, error){
+        	alert("댓글이 조회되지 않습니다.");
+        }
+    });/* 댓글 조회 ajax  */
+}
+
+//댓글 수정 - 수정 버튼 클릭시 댓글 내용 => 수정 input 폼으로 변경 
+function commentUpdate(COMMENT_NO, commentAbout){
+    var replyEdit ='';
+    
+    replyEdit+='<div class="input-group" style="margin:10px 0 10px 20px;">';
+    replyEdit+='<input type="hidden" name="commentNo" id="replyNo" value="'+COMMENT_NO+'">';	
+    replyEdit+='<textarea id="replyEditWrite" class="replyWrite" name="commentAbout" style="font-size:14px"';
+    replyEdit+=' placeholder="댓글을 입력해주세요.">'+commentAbout+'</textarea>';
+    replyEdit+='<input type="button" value="수정" id="replyEditBtn"';
+    replyEdit+=' onclick="commentUpdateProc('+COMMENT_NO+');"></div>';
+    
+    $('.commentContent'+COMMENT_NO).html(replyEdit);
+    
+}
+
+//댓글 수정ajax
+function commentUpdateProc(COMMENT_NO){
+    var content = $('.replyWrite').val();
+    var replyNo = $('#replyNo').val();
+    
+	$.ajax({
+	    url:"<c:url value='/indiv/community/replyEdit.do'/>",
+	    type:"post",
+	    data:"content="+$('.replyWrite').val()+"&replyNo="+COMMENT_NO,
+	    dataType:"json",
+	    success : function(cnt){
+	        if(cnt == 1){
+	        	replyList(); //댓글 수정후 목록 출력 
 	        }
-	    });/* 댓글 조회 ajax  */
+	    },error:function(xhr, status, error){
+	    	alert("댓글 수정에 실패하였습니다.");
+	    }
+	});
 }
 
 function pageFunc(curPage){
@@ -356,7 +401,7 @@ function pageFunc(curPage){
 		<span><fmt:formatDate value="${map['COMMENTRESPOND_DATE']}" pattern="yyyy-MM-dd"/> 작성</span>
 	</div>
 	<div class="replyBtnDiv">
-		<span>댓글 <b class="replyCnt">0</b></span>
+		<span>댓글 <b class="replyCnt">2</b></span>
 	</div>
 	<div class="recommendCntDiv">
 		<a href="#"><i class="fa fa-thumbs-o-up"></i>

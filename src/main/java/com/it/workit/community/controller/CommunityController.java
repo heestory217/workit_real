@@ -57,9 +57,10 @@ public class CommunityController {
 	
 
 	//회원 활동 내역 조회 - 질문
-	@RequestMapping(value="/myProfile.do", method = RequestMethod.GET)
+	@RequestMapping("/myProfile.do")
 	public String myProfile(@ModelAttribute QstnPagingVO vo,HttpSession session, Model model) {
 		int userNo=(Integer) session.getAttribute("userNo");
+		vo.setUserNo(userNo);
 		logger.info("질문 내역 조회, userNo={}", userNo);
 		
 		//[1]pagingInfo
@@ -71,6 +72,12 @@ public class CommunityController {
 		//[2]searchVo
 		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+	
+
+		//답변 개수
+		int totalCmt=comntService.getTotalUserCmt(vo);
+		logger.info("총 답변 개수, totalCmt={}", totalCmt);
+		pagingInfo.setTotalRecord(totalCmt);
 		
 		//질문 개수
 		int totalRecord=qstnService.getTotalRecord(vo);
@@ -80,19 +87,14 @@ public class CommunityController {
 		//질문 
 		List<Map<String, Object>> qstnList=qstnService.selectAllQuestion(vo);
 		logger.info("활동 내역 조회 결과-질문, qstnList.size={}", qstnList.size());
-		
-		//답변 개수
-		int totalCmt=comntService.getTotalUserCmt(vo);
-		logger.info("총 답변 개수, totalCmt={}", totalCmt);
-		pagingInfo.setTotalRecord(totalCmt);
 
 		//답변
 		List<Map<String, Object>> cmtList = comntService.userCmntSelect(vo);
 		logger.info("답변 조회 결과, cmtList.size={}", cmtList.size());
 		
 		
-		model.addAttribute("qstnList", qstnList);	//질문
 		model.addAttribute("cmtList", cmtList);
+		model.addAttribute("qstnList", qstnList);	//질문
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("totalRecord", totalRecord);
 		model.addAttribute("totalCmt", totalCmt);
@@ -101,8 +103,8 @@ public class CommunityController {
 		
 	}
 
-	//회원 활동 내역 조회 - 답변
-	@RequestMapping(value="/userCmtyList/userCommentList.do", method = RequestMethod.GET)	
+	/*회원 활동 내역 조회 - 답변
+	@RequestMapping("/userCmtyList/userCommentList.do")	
 	public String myComment(@ModelAttribute QstnPagingVO vo,HttpSession session, Model model) {
 		int userNo=(Integer) session.getAttribute("userNo");
 		logger.info("회원 활동 내역 조회 - 답변, userNo={}", userNo);
@@ -116,16 +118,25 @@ public class CommunityController {
 		//[2]searchVo
 		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		vo.setUserNo(userNo);
 		
-				
-	
+		//답변 개수
+		int totalCmt=comntService.getTotalUserCmt(vo);
+		logger.info("총 답변 개수, totalCmt={}", totalCmt);
+		pagingInfo.setTotalRecord(totalCmt);
+
+		//답변
+		List<Map<String, Object>> cmtList = comntService.userCmntSelect(vo);
+		logger.info("답변 조회 결과, cmtList.size={}", cmtList.size());
 		
 		model.addAttribute("pagingInfo", pagingInfo);
+		model.addAttribute("cmtList", cmtList);
+		model.addAttribute("totalCmt", totalCmt);
 		
 		
-		return "indiv/community/userCmtyList/userCommentList";
+		return "redirect:/indiv/community/myProfile.do?userNo="+userNo;
 		
-	}
+	}*/
 	
 	//회원 질문 조회
 	@RequestMapping("/myQstn.do")
@@ -425,6 +436,7 @@ public class CommunityController {
 		return replyList;
 	}
 	
+	//댓글 등록
 	@ResponseBody
 	@RequestMapping("/replyWrite.do")
 	public int replyWrite(@ModelAttribute CommentsVO vo, HttpSession session) {
@@ -438,4 +450,16 @@ public class CommunityController {
 		return cnt;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/replyEdit.do")
+    private int replyEdit(@ModelAttribute CommentsVO vo) {
+		logger.info("댓글 수정, 파라미터 vo={}", vo);
+		
+		int cnt=replyService.updateReply(vo);
+		logger.info("댓글 수정 결과, cnt={}", cnt);
+		
+		return cnt;
+    }
+
+
 }

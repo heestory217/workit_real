@@ -268,8 +268,8 @@ dd {
 		});
 	});
 
+</script>
 
-</script> 	
 	<div class="divCmty">
 		<!-- asdie : 사이드 메뉴바 -->
 		<c:import url="/indiv/community/cmtyNavbar.do">
@@ -312,7 +312,6 @@ dd {
 					<div id="tab-2" class="tab-content">
 						<%@include file="userCmtyList/userCommentList.jsp"%>
 					</div>
-
 
 				</div>
 
