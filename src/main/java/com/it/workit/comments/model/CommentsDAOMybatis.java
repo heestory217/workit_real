@@ -21,6 +21,11 @@ public class CommentsDAOMybatis implements CommentsDAO{
 	public List<Map<String, Object>> selectComment(int cmntNo) {
 		return sqlSession.selectList(namespace+"selectComment", cmntNo);
 	}
+
+	@Override
+	public int updateReply(CommentsVO vo) {
+		return sqlSession.update(namespace+"updateReply",vo);
+	}
 	
 	
 }

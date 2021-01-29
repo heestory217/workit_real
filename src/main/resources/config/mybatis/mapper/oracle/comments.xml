@@ -21,7 +21,13 @@
 		WHERE COMMENTRESPOND_NO=#{commentrespondNo}
 		ORDER BY COMMENT_NO
 	</select>
-
+	
+	<!-- 댓글 수정 -->
+	<update id="updateReply" parameterType="commentsVo">
+		UPDATE COMMENTS
+		SET COMMENT_ABOUT=#{commentAbout}, COMMENT_DATE=SYSDATE
+		WHERE COMMENT_NO=#{commentNo}
+	</update>
 </mapper>
 
 

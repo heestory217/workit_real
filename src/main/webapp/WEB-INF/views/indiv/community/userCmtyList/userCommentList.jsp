@@ -45,16 +45,36 @@
     font-weight: lighter;
 }
 </style>
-	<p style="font-size: 18px;">
-		답변 <b id="myContCnt">${totalCmt}</b>건
-	</p>
-	<c:if test="${empty cmtList }">
-	<article id="noneQuestBox">
-		<div class="noneBox">
-			<i class="fa fa-commenting-o"></i>
-			<p>아직 등록한 답변이 없습니다.</p>
-		</div>
-	</article>
+
+<script type="text/javascript">
+function pageFunc(curPage) {
+	$('input[name=currentPage]').val(curPage);
+	$('form[name=frmPage]').submit();
+}
+</script>
+    
+<!-- 페이징 처리를 위한 form  -->
+<form action="<c:url value='/indiv/community/myProfile.do'/>"
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage"> 
+	<input type="hidden" name="userNo" value="${userNo}"> 
+</form>
+
+
+
+
+<p style="font-size: 18px;">
+	답변 <b id="myContCnt">${totalCmt}</b>건
+</p>
+
+
+<c:if test="${empty cmtList }">
+<article id="noneQuestBox">
+	<div class="noneBox">
+		<i class="fa fa-commenting-o"></i>
+		<p>아직 등록한 답변이 없습니다.</p>
+	</div>
+</article>
 </c:if>
 
 <!-- 등록한 답변이 존재하는 경우  -->

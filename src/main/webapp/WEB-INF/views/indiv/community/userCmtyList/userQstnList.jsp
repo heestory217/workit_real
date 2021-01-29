@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script type="text/javascript">
+function pageFunc(curPage) {
+	$('input[name=currentPage]').val(curPage);
+	$('form[name=frmPage]').submit();
+}
+</script>
+    
+<!-- 페이징 처리를 위한 form  -->
+<form action="<c:url value='/indiv/community/myProfile.do'/>"
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage"> 
+	<input type="hidden" name="userNo" value="${userNo}"> 
+</form>
 
 <!--아직 등록한 질문이 없는 경우-->   
 <p style="font-size: 18px;">
@@ -18,13 +31,6 @@
 
 <!-- 질문 목록 : 등록한 질문이 존재하는 경우  -->
 <c:if test="${!empty qstnList }">
-<!-- 페이징 처리를 위한 form  -->
-<form action="<c:url value='/indiv/community/myProfile.do'/>" 
-		name="frmPage" method="post">
-	<input type="hidden" name="currentPage">
-	<input type="hidden" name="userNo" value="${userNo}">
-</form>
-
 	<article id="questBox">
 		<div class="qstnExistBox">
 			<c:forEach var="map" items="${qstnList }">
@@ -65,11 +71,3 @@
 		</div>
 	</article>
 </c:if>
-
-<script type="text/javascript">
-function pageFunc(curPage){
-	$('input[name=currentPage]').val(curPage);
-	$('form[name=frmPage]').submit();
-}
-
-</script>
