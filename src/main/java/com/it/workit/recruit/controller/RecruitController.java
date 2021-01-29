@@ -28,16 +28,16 @@ public class RecruitController {
 	
 	
 	@RequestMapping("/recruitdetail.do")
-	public String recruitdetail(/*@RequestParam(defaultValue = "0") int recruitannounceNo, */Model model) {
-		int recruitannounceNo=5;
+	public String recruitdetail(@RequestParam(defaultValue = "0") int recruitannounceNo, Model model) {
+		//int recruitannounceNo=4;
 		logger.info("채용정보 호출 no={}",recruitannounceNo);
 		
 		//2
 		RecruitannounceVO recvo = recruitannounceService.recruitannounceselectByNo(recruitannounceNo);
 		logger.info("채용정보 화면처리 {}",recvo);
-		
-		//int num = corpservice.selectCorpNo(3/*recvo.getUserNo()*/);
-		CorpVO cvo = corpservice.selectCorp(3);
+		int num = corpservice.selectCorpNo(recvo.getUserNo());
+		logger.info("기업번호 {}",num);
+		CorpVO cvo = corpservice.selectCorp(num);
 		logger.info("채용기업 화면처리 {}",cvo);
 		
 		String cwvo = recruitannounceService.recruitcorpwantwork(recruitannounceNo);
@@ -48,7 +48,7 @@ public class RecruitController {
 		logger.info("주언어 {}",lang);
 		
 		Date time = new Date();
-		long d= ((recvo.getRecruitannounceEnddate()).getTime() - time.getTime())/(24*60*60*1000)+17;
+		long d= ((recvo.getRecruitannounceEnddate()).getTime() - time.getTime())/(24*60*60*1000);
 		
 		//3
 		model.addAttribute("RecruitannounceVO", recvo);
@@ -63,17 +63,36 @@ public class RecruitController {
 	}
 	
 	
-	@RequestMapping("/recruitwrite.do")
-	public String recruitwrite() {
+	@RequestMapping(value="/recruitwrite.do", method=RequestMethod.POST)
+	public String recruitwritesee(Model model) {
+		//받은 정보들 등록
 		
-		//4
 		return "recruit/recruitwrite";
 	}
+	
+	@RequestMapping(value="/recruitwrite.do", method=RequestMethod.GET)
+	public String recruitwritewatch(Model model) {
+		//언어목록, 지역목록1,2 
+		
+		
+		return "recruit/recruitwrite";
+	}
+	
+
+	
 	
 	@RequestMapping("/recruitedit.do")
 	public String recruitedit() {
 		
 		//4
 		return "recruit/recruitedit";
+	}
+	
+	@RequestMapping("/recruitdelete.do")
+	public String recruitdelete(@RequestParam int recruitannounceNo) {
+		
+		
+		
+		return "/index";
 	}
 }

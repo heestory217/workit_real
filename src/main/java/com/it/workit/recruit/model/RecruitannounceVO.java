@@ -151,7 +151,6 @@ public class RecruitannounceVO {
 	public void setRecruitannounceLink(String recruitannounceLink) {
 		this.recruitannounceLink = recruitannounceLink;
 	}
-	
 	@Override
 	public String toString() {
 		return "RecruitannounceVO [recruitannounceNo=" + recruitannounceNo + ", userNo=" + userNo + ", workkindNo="
@@ -165,21 +164,9 @@ public class RecruitannounceVO {
 				+ ", recruitannounceUpcheckcarrer=" + recruitannounceUpcheckcarrer + ", recruitannounceHirestep="
 				+ recruitannounceHirestep + ", recruitannounceElse=" + recruitannounceElse + ", recruitannounceUpcheck="
 				+ recruitannounceUpcheck + ", recruitannounceEndcheck=" + recruitannounceEndcheck
-				+ ", recruitannounceLink=" + recruitannounceLink + ", getRecruitannounceNo()=" + getRecruitannounceNo()
-				+ ", getUserNo()=" + getUserNo() + ", getWorkkindNo()=" + getWorkkindNo() + ", getArealistNo()="
-				+ getArealistNo() + ", getLanguageNo()=" + getLanguageNo() + ", getRecruitannounceTitle()="
-				+ getRecruitannounceTitle() + ", getRecruitannounceStartdate()=" + getRecruitannounceStartdate()
-				+ ", getRecruitannounceEnddate()=" + getRecruitannounceEnddate() + ", getRecruitannounceScarrer()="
-				+ getRecruitannounceScarrer() + ", getRecruitannounceSworkkind()=" + getRecruitannounceSworkkind()
-				+ ", getRecruitannounceSpay()=" + getRecruitannounceSpay() + ", getRecruitannounceSkill()="
-				+ getRecruitannounceSkill() + ", getRecruitannounceWorkkind()=" + getRecruitannounceWorkkind()
-				+ ", getRecruitannounceWork()=" + getRecruitannounceWork() + ", getRecruitannounceWantedcarrer()="
-				+ getRecruitannounceWantedcarrer() + ", getRecruitannounceUpcheckcarrer()="
-				+ getRecruitannounceUpcheckcarrer() + ", getRecruitannounceHirestep()=" + getRecruitannounceHirestep()
-				+ ", getRecruitannounceElse()=" + getRecruitannounceElse() + ", getRecruitannounceUpcheck()="
-				+ getRecruitannounceUpcheck() + ", getRecruitannounceEndcheck()=" + getRecruitannounceEndcheck()
-				+ ", getRecruitannounceLink()=" + getRecruitannounceLink() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", recruitannounceLink=" + recruitannounceLink + "]";
 	}
+	
+	
 	
 }
