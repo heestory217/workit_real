@@ -366,8 +366,8 @@ public class CommunityController {
 	
 	//답변 조회 - 페이징처리
 	@RequestMapping("/comments.do")
-	public String cmtDetail(@ModelAttribute QstnPagingVO vo, 
-			@RequestParam int qstnNo,Model model) {
+	public String cmtDetail(@ModelAttribute QstnPagingVO vo,
+			@RequestParam int qstnNo, Model model) {
 		logger.info("답변 조회, 파라미터 qstnNo={}, vo={}", qstnNo, vo);
 		if(qstnNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
@@ -391,6 +391,8 @@ public class CommunityController {
 		
 		List<Map<String, Object>> cmtList = comntService.selectAllComnt(vo);
 		logger.info("답변 조회 결과, cmtList.size={}", cmtList.size());
+		
+		
 		
 		model.addAttribute("cmtList", cmtList);
 		model.addAttribute("pagingInfo", pagingInfo);
@@ -463,6 +465,7 @@ public class CommunityController {
 		return cnt;
     }
 	
+	//댓글 삭제
 	@ResponseBody
 	@RequestMapping("/replyDelete.do")
 	public int replyDel(@RequestParam int replyNo) {
@@ -474,5 +477,4 @@ public class CommunityController {
 		return cnt;
 		
 	}
-
 }

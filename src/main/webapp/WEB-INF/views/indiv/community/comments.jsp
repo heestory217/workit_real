@@ -265,6 +265,7 @@ $(function(){
 			success:function(res){
 				if(res == 1) {
 					replyList(); //댓글 작성 후 댓글 목록 조회
+	            	commentCount();
 	                $('.replyWrite').val('');
 	            }
 			},
@@ -275,8 +276,20 @@ $(function(){
 		event.preventDefault();
 	});
 	
-	$('#replyEditFrm')
-	
+	//댓글 개수
+	ajax({
+		url:"<c:url value='/indiv/community/replyCnt.do'/>",
+		type:"get",
+		data:"cmtNo="+$('#cmtNo').val(),
+		dataType:"json",
+		success:function(res){
+			alert(res);
+			$('.replyCnt').html(res);
+		},error:function(xhr, status, error){
+			alert('댓글 개수 조회 오류');
+		}
+		
+	});	
 	
 });
 
@@ -310,13 +323,12 @@ function replyList(){
 	            	replyList+="| 삭제 </a></div><br><hr>";
 	            	
 
-
 	            	/* 참조변수.테이블컬럼명으로 적기 => 예) result.USER_NO */
 	            	$('.replyOne').html("<div>"+replyList+"</div>");
-	            
+	            	$('.replyCnt').html(res.length);
 	            });
-	            
         	}
+           	
         },error:function(xhr, status, error){
         	alert("댓글이 조회되지 않습니다.");
         }
@@ -380,14 +392,6 @@ function commentDelete(COMMENT_NO){
 	}
 }
 
-//댓글 개수
-function commentCount(){
-	ajax({
-		url:"<c:url value=''/>",
-		
-		
-	});	
-}
 
 function pageFunc(curPage){
 	$('input[name=currentPage]').val(curPage);
@@ -411,6 +415,7 @@ function pageFunc(curPage){
 <c:forEach var="map" items="${cmtList}">
 <div class="cmtOne">
 	<div class="nickDiv">
+		<input type="text" name="commentrespondNo" id="cmtNo" value="${map['COMMENTRESPOND_NO']}">
 		<span>@ ${map['USER_ID'] }</span>
 		<c:if test="${userId eq map['USER_ID'] }">
 		<!-- if 조건으로 로그인한 회원의 번호와 질문글의 회원번호가 같은 경우에만 보이도록 설정 -->
@@ -440,7 +445,7 @@ function pageFunc(curPage){
 		<span><fmt:formatDate value="${map['COMMENTRESPOND_DATE']}" pattern="yyyy-MM-dd"/> 작성</span>
 	</div>
 	<div class="replyBtnDiv">
-		<span>댓글 <b class="replyCnt">2</b></span>
+		<span>댓글 <b class="replyCnt">${totalReply }</b></span>
 	</div>
 	<div class="recommendCntDiv">
 		<a href="#"><i class="fa fa-thumbs-o-up"></i>
