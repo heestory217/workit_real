@@ -275,14 +275,19 @@ $(function(){
 		event.preventDefault();
 	});
 	
+	$('#replyEditFrm')
+	
+	
 });
 
 //댓글 조회 ajax
 function replyList(){
+	var cmntNo=$('#cmntNo').val();
+
 	 $.ajax({
         url : "<c:url value='/indiv/community/replyList.do'/>",
         type : "GET",
-        data : "cmntNo="+$('#cmntNo').val(),
+        data : {'cmntNo':cmntNo},
         dataType:"json",
         async: false,
         success : function(res){
@@ -313,6 +318,8 @@ function replyList(){
         	alert("댓글이 조회되지 않습니다.");
         }
     });/* 댓글 조회 ajax  */
+    
+
 }
 
 //댓글 수정 - 수정 버튼 클릭시 댓글 내용 => 수정 input 폼으로 변경 
@@ -324,7 +331,7 @@ function commentUpdate(COMMENT_NO, commentAbout){
     replyEdit+='<textarea id="replyEditWrite" class="replyWrite" name="commentAbout" style="font-size:14px"';
     replyEdit+=' placeholder="댓글을 입력해주세요.">'+commentAbout+'</textarea>';
     replyEdit+='<input type="button" value="수정" id="replyEditBtn"';
-    replyEdit+=' onclick="commentUpdateProc('+COMMENT_NO+');"></div>';
+    replyEdit+=' onClick="commentUpdateProc('+COMMENT_NO+');"></div>';
     
     $('.commentContent'+COMMENT_NO).html(replyEdit);
     
@@ -332,13 +339,13 @@ function commentUpdate(COMMENT_NO, commentAbout){
 
 //댓글 수정ajax
 function commentUpdateProc(COMMENT_NO){
-    var content = $('.replyWrite').val();
-    var replyNo = $('#replyNo').val();
-    
+	var cmntNo=$('[name=commentrespondNo]').val();
+    var commentNo = $('[name=commentNo]').val();
+    var commentAbout = $('[name=commentAbout]').val();
 	$.ajax({
 	    url:"<c:url value='/indiv/community/replyEdit.do'/>",
 	    type:"post",
-	    data:"content="+$('.replyWrite').val()+"&replyNo="+COMMENT_NO,
+	    data:{'commentNo':commentNo,'commentAbout':commentAbout,'cmntNo':cmntNo},
 	    dataType:"json",
 	    success : function(cnt){
 	        if(cnt == 1){

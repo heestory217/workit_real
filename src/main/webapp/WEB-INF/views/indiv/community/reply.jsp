@@ -7,6 +7,7 @@
 <input type="hidden" name="commentrespondNo" value="${map['COMMENTRESPOND_NO']}"/>
 	<div class="replyOne">
 		
+		<input type="hidden" name="commentrespondNo" id="cmntNo" value="${map['COMMENTRESPOND_NO']}">
 	</div><!-- replyOne -->
 	<div class="replyWrap">
 		<form name="replyFrm" id="replyFrm">
