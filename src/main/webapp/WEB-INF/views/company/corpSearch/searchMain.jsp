@@ -75,11 +75,11 @@
                     <div class="filter-widget">
                         <h4 class="fw-title">언어</h4>
                         <div class="fw-tags">
-                            <a href="#">Towel</a>
-                            <a href="#">Shoes</a>
-                            <a href="#">Coat</a>
-                            <a href="#">Dresses</a>
-                            <a href="#">Trousers</a>
+                            <a href="#">JAVA</a>
+                            <a href="#">Python</a>
+                            <a href="#">C/C++</a>
+                            <a href="#">JavaScript</a>
+                            <a href="#">SQL</a>
                             <a href="#">Men's hats</a>
                             <a href="#">Backpack</a>
                         </div>
@@ -89,259 +89,86 @@
                     <div class="product-show-option">
                         <div class="row">
                             <div class="col-lg-7 ">
-								<p>Show 01- 09 Of 36 Product</p>
-                            </div>
-                            <div class="col-lg-5 col-md-5 text-right">
-								<p>Show 01- 09 Of 36 Product</p>
-                                
+								<p>총 <span>${resumeList.size() }</span>개의 검색 결과가 있습니다.</p>
                             </div>
                         </div>
                     </div>
                     <div class="product-list">
                         <div class="row">
+                        <!-- 이력서 리스트 반복 -->
+                        <c:if test="${empty resumeList}">
+                        	<h2>검색된 이력서가 없습니다.</h2>
+                        </c:if>
+                        <c:if test="${!empty resumeList}">
+                        	<c:forEach var="resume" items="${resumeList}">
                             <div class="col-lg-4 col-sm-6">
                                 <div class="product-item">
                                     <div class="pi-pic">
                                         <div class="sale pp-sale">구매한 이력서</div>
                                         <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                        	<li class="w-icon active" onclick="insertCart('${resume.resumesVo.resumeNo }')">
+	                                            <a href="#"><i class="icon_bag_alt"></i></a>
+                                            </li>
                                             <li class="quick-view"><a href="#">+ Quick View</a></li>
                                         </ul>
                                     </div>
                                     <div class="pi-text">
-                                        <div class="catagory-name">Towel</div>
-                                        <a href="#">
-                                            <h5>Pure Pineapple</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $14.00
-                                        </div>
+	                                    <c:if test="${resume.userExperience==0}">
+			                            	<div class="catagory-name">신입</div>
+			                            </c:if>
+			                            <c:if test="${resume.userExperience!=0}">
+			                                <div class="catagory-name">${resume.userExperience}년</div>
+			                            </c:if>
+			                                <a href="#">
+			                                    <h5>${resume.resumesVo.resumeTitle }</h5>
+			                                </a>
+		                                <!-- 언어 리스트 -->
+		                                <div class="product-price">
+							                <c:forEach var="lang" items="${resume.langList}" >
+				                                    ${lang.languageName} 
+											</c:forEach>
+		                                </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <div class="sale pp-sale">구매한 이력서</div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Towel</div>
-                                        <a href="#">
-                                            <h5>Pure Pineapple</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $14.00
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-2.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Coat</div>
-                                        <a href="#">
-                                            <h5>Guangzhou sweater</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $13.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-3.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Shoes</div>
-                                        <a href="#">
-                                            <h5>Guangzhou sweater</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $34.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-4.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Coat</div>
-                                        <a href="#">
-                                            <h5>Microfiber Wool Scarf</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $64.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-5.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Shoes</div>
-                                        <a href="#">
-                                            <h5>Men's Painted Hat</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $44.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-6.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Shoes</div>
-                                        <a href="#">
-                                            <h5>Converse Shoes</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $34.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-7.jpg" alt="">
-                                        <div class="sale pp-sale">Sale</div>
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Towel</div>
-                                        <a href="#">
-                                            <h5>Pure Pineapple</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $64.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-8.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Coat</div>
-                                        <a href="#">
-                                            <h5>2 Layer Windbreaker</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $44.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                        <img src="img/products/product-9.jpg" alt="">
-                                        <div class="icon">
-                                            <i class="icon_heart_alt"></i>
-                                        </div>
-                                        <ul>
-                                            <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
-                                            <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-                                        <div class="catagory-name">Shoes</div>
-                                        <a href="#">
-                                            <h5>Converse Shoes</h5>
-                                        </a>
-                                        <div class="product-price">
-                                            $34.00
-                                            <span>$35.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
+                        </c:if>
                         </div>
                     </div>
+                    <!-- 페이징처리 -->
+                     <div class="col-lg-12">
+						 <div class="product__pagination blog__pagination">
+						 	<c:if test="">	
+								<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
+									<i class="fa fa-long-arrow-left"></i>
+								</a>
+							</c:if>
+								
+						
+							<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
+								<c:if test="${i==pagingInfo.currentPage }">
+									<span id="currentPage" >
+										${i}</span>			
+								</c:if>
+								<c:if test="${i!=pagingInfo.currentPage }">
+									<a href="#" onclick="pageFunc(${i})">
+										${i}</a>			
+								</c:if>
+							</c:forEach>
+							
+							
+							<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">	
+								<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
+									<i class="fa fa-long-arrow-right"></i>
+								</a>
+							</c:if>
+						    </div>
+						</div>
+						<form action="<c:url value='/corpSearch.do'/>" name="frmPage" method="post">
+							<input type="hidden" name="currentPage">
+							<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+						</form>
+                    <!-- 페이징처리 -->
                 </div>
             </div>
         </div>
@@ -361,4 +188,43 @@
     <script src="<c:url value="/resources/js/jquery-3.5.1.min.js"/>" type="text/javascript"></script>
     <script src="<c:url value="/resources/js/check.js"/>" type="text/javascript"></script>
     <script src="https://kit.fontawesome.com/a86f09c0f4.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    
+    ///[2] 페이징처리
+	function pageFunc(curPage){
+		$('input[name=currentPage]').val(curPage);
+		$('form[name=frmPage]').submit();
+	}
+	
+	//[1] 장바구니 담기
+	function insertCart(no){
+		insertResume(no);
+		event.preventDefault();
+	}
+	
+	//[1] 장바구니 담기 아작스 요청
+	function insertResume(no) {
+		var no = no;
+		$.ajax({
+			url : "<c:url value='/shop/insertCartAjax.do'/>",
+			type : "GET",
+			data : {
+				resumeNo : no
+			},
+			dataType : "json",
+			success : function(res) {
+				if (res == 1) {
+					alert('이력서를 장바구니에 담았습니다.');
+				} else if (res == 2) {
+					alert('이미 장바구니에 담긴 이력서입니다.');
+				} else {
+					alert('이력서를 장바구니에 담을 수 없습니다.');
+				}
+			},
+			error : function(xhs, status, error) {
+				alert('error : ' + error);
+			}
+		});
+	}
+				</script>
 <%@ include file="../../inc/bottom.jsp"%>
