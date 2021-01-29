@@ -16,14 +16,14 @@ input.faqBt.btn.btn-primary.site-btn {
 
 <script type="text/javascript">
 	$(function(){
-		$('form[name=faqUpdate]').submit(function(){
+		$('form[name=qaUpdate]').submit(function(){
 			var result = confirm('수정하시겠습니까?');
 			
-			if ($('#faqTitle').val().length<1) {
+			if ($('#qaTitle').val().length<1) {
 				alert('제목을 입력하세요');
-				$('#faqTitle').focus();
+				$('#qaTitle').focus();
 				event.preventDefault();
-			} else if($('#faqAbout').val().length<1){
+			} else if($('#qaAbout').val().length<1){
 				contentBox();
 				event.preventDefault();
 			}else if (result) {
@@ -36,7 +36,7 @@ input.faqBt.btn.btn-primary.site-btn {
 	});
 	
 	function contentBox(){
-		var ckeditor = CKEDITOR.instances['faqAbout'];
+		var ckeditor = CKEDITOR.instances['qaAbout'];
 		
 		if (ckeditor.getData()=="") {
 			alert('내용을 입력하세요');
@@ -54,7 +54,7 @@ input.faqBt.btn.btn-primary.site-btn {
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<a href="#"><i class="fa fa-home"></i> Home</a> <span>FAQs</span>
+					<a href="#"><i class="fa fa-home"></i> Home</a> <span>Q&A</span>
 				</div>
 			</div>
 		</div>
@@ -81,17 +81,18 @@ input.faqBt.btn.btn-primary.site-btn {
 					</div>
 				</div>
 
-				<form class="checkout-form" name="faqUpdate" method="POST"
-					action="<c:url value='/faq/faqUpdate.do'/>">
+				<form class="checkout-form" name="qnaUpdate" method="POST"
+					action="<c:url value='/qna/qnaUpdate.do'/>">
 					<div class="col-lg-12">
 						<label for="qaTitle">제목<span>*</span></label> <input type="text"
 							id="qaTitle" name="qaTitle" value="${qaVo.qaTitle}"> 
+						<!-- hidden -->
 						<input type="hidden" id="qaNo" name="qaNo" value="${qaVo.qaNo}">
 					</div>
 					<div class="col-lg-12">
-						<label for="qaWriter">작성자<span>*</span></label> <input type="text"
-							id="qaWriter" name="qaWriter" value="${qaVo.qaWriter}"> 
-						<input type="hidden" id="qaNo" name="qaNo" value="${qaVo.qaNo}">
+						<label for="qaWriter">작성자<span>*</span></label> 
+						<input type="text" id="qaWriter" name="qaWriter" value="${qaVo.qaWriter}" 
+						 	readonly style="background-color: #ddd"> 
 					</div>
 					<div class="col-lg-12">
 						<label for="faqAbout">글쓰기<span>*</span></label>

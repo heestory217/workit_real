@@ -39,10 +39,8 @@
 		<selectKey keyProperty="qaNo" resultType="int" order="BEFORE">
 			select QA_SEQ.nextval from dual
 		</selectKey>
-		insert into qa(QA_NO,QA_WRITENO,QA_WRITER,QA_TITLE,QA_ABOUT
-			,QA_SECRET,QA_PASSWORD,QA_GROUPNO,USER_NO)
-		values(#{qaNo},#{userNo},#{qaWriter},#{qaTitle},#{qaAbout}
-			,#{qaSecret},#{qaPassword},#{qaNo},#{userNo})
+		insert into qa(QA_NO,QA_WRITENO,QA_WRITER,QA_TITLE,QA_ABOUT,QA_SECRET,QA_PASSWORD,QA_GROUPNO,USER_NO)
+		values(#{qaNo},#{userNo},#{qaWriter},#{qaTitle},#{qaAbout},#{qaSecret},#{qaPassword},#{qaNo},#{userNo})
 	</insert>
 	
 	<update id="qaViewCount" parameterType="int">
@@ -60,6 +58,16 @@
 		where qa_no=#{qaNo}
 	</delete>
 	
+	<update id="qaUpdate" parameterType="qnaUsersVO">
+		update qa 
+		set qa_title=#{qaTitle}, qa_about=#{qaAbout}
+		where qa_no=#{qaNo}
+	</update>
+	
+	<select id="chkPassword" resultType="String">
+		select user_password from qaUserPassword
+		where qa_no=#{qaNo}
+	</select>
 </mapper>
 
 

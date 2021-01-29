@@ -108,18 +108,17 @@ input#ckbox {
 			<div class="col-lg-9 order-1 order-lg-2">
 				<div class="container">
 					<div class="register-form">
-						<h2>Q&A 문의하기</h2>
+						<h2>Q&A 답변하기</h2>
 					</div>
 				</div>
 
 				<form class="checkout-form" name="qnaWrite" method="POST"
-					action="<c:url value='/qna/qnaWrite.do'/>">
-<%-- 					<input type="hidden" name="qaWriteno" value="${sessionScope.userNo }"> --%>
-					<input type="hidden" name="qaWriter" value="${sessionScope.userId }">
-					<input type="hidden" name="userNo" value="${sessionScope.userNo }">
+					action="<c:url value='/qna/qnaReply.do'/>">
+<%-- 					<input type="hidden" name="qaWriter" value="${sessionScope.userId }"> --%>
+<%-- 					<input type="hidden" name="userNo" value="${sessionScope.userNo }"> --%>
 					<div class="col-lg-12">
 						<label for="qaTitle">제목<span>*</span></label> 
-						<input type="text" id="qaTitle" name="qaTitle" value="">
+						<input type="text" id="qaTitle" name="qaTitle">
 					</div>
 					<div class="col-lg-12">
 						<label for="qaAbout">글쓰기<span>*</span></label>

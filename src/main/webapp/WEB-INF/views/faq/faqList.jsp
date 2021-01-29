@@ -12,6 +12,15 @@
 	margin: 50px 0;
 	float: right;
 }
+
+span#listEmpth {
+    display: block;
+    text-align: center;
+    width: 300px;
+    margin: 0 auto;
+    padding: 14px;
+    font-size: 18px;
+}
 </style>
 
 <!-- Breadcrumb Section Begin -->
@@ -55,7 +64,7 @@
 				</div>
 				
 				<c:if test="${empty faqList}">
-					<span>등록된 FAQ가 없습니다</span>
+					<span id="listEmpth">등록된 FAQ가 없습니다</span>
 				</c:if>
 
 				<c:if test="${!empty faqList}">
