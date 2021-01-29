@@ -107,7 +107,8 @@ IMP.init("imp52828174");
 			    buyer_email : $('#buyer_email').html(),
 			    buyer_name : $('#buyer_name').html(),	
 			    buyer_tel : $('#buyer_tel').html(),	//필수
-			    m_redirect_url : 'https://www.yourdomain.com/payments/complete'	//확인해야할 부분
+			    //기업 마이페이지 결제내역으로 이동함
+			    m_redirect_url : '<c:url value="/companyMypage/companyPayment.do"/>'	
 			}, function(rsp) {
 			    if ( rsp.success ) {
 			        var msg = '결제가 완료되었습니다.';
