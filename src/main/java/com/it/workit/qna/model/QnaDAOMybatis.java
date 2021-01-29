@@ -46,6 +46,16 @@ public class QnaDAOMybatis implements QnaDAO{
 		return sqlSession.delete(namespace+"qaDelete",qaNo);
 	}
 
+	@Override
+	public int qaUpdate(QnaUsersVO qauVo) {
+		return sqlSession.update(namespace+"qaUpdate",qauVo);
+	}
+
+	@Override
+	public String chkPassword(int qaNo) {
+		return sqlSession.selectOne(namespace+"chkPassword",qaNo);
+	}
+
 	
 	
 }

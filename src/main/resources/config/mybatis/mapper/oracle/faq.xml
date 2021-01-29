@@ -11,6 +11,8 @@
 		<selectKey keyProperty="faqNo" resultType="int" order="BEFORE">
 			select FAQ_SEQ.nextval from dual
 		</selectKey>
+<!-- 		insert into faq(FAQ_NO,FAQ_TITLE,FAQ_ABOUT) -->
+<!-- 		values(#{faqNo},#{faqTitle},#{faqAbout}) -->
 		insert into faq(FAQ_NO,MANAGER_NO,FAQ_TITLE,FAQ_ABOUT)
 		values(#{faqNo},#{managerNo},#{faqTitle},#{faqAbout})
 	</insert>

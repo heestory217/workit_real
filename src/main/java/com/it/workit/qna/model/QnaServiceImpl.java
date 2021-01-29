@@ -42,6 +42,16 @@ public class QnaServiceImpl implements QnaService{
 		return qaDao.qaDelete(qaNo);
 	}
 
+	@Override
+	public int qaUpdate(QnaUsersVO qauVo) {
+		return qaDao.qaUpdate(qauVo);
+	}
+
+	@Override
+	public String chkPassword(int qaNo) {
+		return qaDao.chkPassword(qaNo);
+	}
+
 
 	
 	

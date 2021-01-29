@@ -84,7 +84,7 @@ input.faqBt.btn.btn-primary.site-btn {
 
 				<form class="checkout-form" name="faqWrite" method="POST"
 					action="<c:url value='/faq/faqWrite.do?managerNo=1'/>">
-					<!--                     <input type="hidden" id="managerNo" name="managerNo"> -->
+<!-- 					<input type="hidden" id="managerNo" name="managerNo" value="1"> -->
 					<div class="col-lg-12">
 						<label for="faqTitle">제목<span>*</span></label> 
 						<input type="text" id="faqTitle" name="faqTitle">

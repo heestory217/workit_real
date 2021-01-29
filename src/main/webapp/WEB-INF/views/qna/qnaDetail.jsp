@@ -12,9 +12,10 @@
    	margin-top: 20px;
 }
 
-.qaBt, .qaDelBt {
+.qaBt, .qaDelBt, .qaRpyBt {
     margin: 0 3px;
    	float: left;
+   	padding: 11px 24px;
 }
 
 span#qaspan {
@@ -43,7 +44,6 @@ $(function(){
 			event.preventDefault();
 		} else{
 			if (result) {
-				alert('선택한 글을 삭제하였습니다');
 				$("form").attr("action","<c:url value='/qna/qnaDelete.do'/>")
 			} else {
 				alert('삭제 취소하였습니다');
@@ -54,6 +54,7 @@ $(function(){
 	
 	$('.qaBt').click(function(){
 		var result = confirm('수정하시겠습니까?');
+		var userPassword=$('#userPassword').val();
 
 		if ($('#userPassword').val()<1) {
 			alert('비밀번호를 입력하세요');
@@ -61,13 +62,23 @@ $(function(){
 			event.preventDefault();
 		} else{
 			if (result) {
-location.href="<c:url value='/qna/qnaUpdate.do?qaNo=${qaVo.qaNo}&userPassword=${qaVo.userPassword}'/>";
+		location.href='qnaUpdate.do?qaNo=${qaVo.qaNo}&userPassword='+userPassword;
 			} else {
 				alert('수정 취소하였습니다');
 				return false;
 			}
 		}
 		
+	});
+	
+	$('.qaRpyBt').click(function(){
+		var result = confirm('답변하시겠습니까?');
+		
+			if (result) {
+				location.href="qnaReply.do?qaNo=${qaVo.qaNo}";
+			} else {
+				return false;
+			}
 	});
 	
 });
@@ -96,13 +107,12 @@ location.href="<c:url value='/qna/qnaUpdate.do?qaNo=${qaVo.qaNo}&userPassword=${
 				
 			<!-- content -->
 			<form class="checkout-form" name="frm1" method="post">
-					<input type="text" id="qaNo" name="qaNo" value="${qaVo.qaNo}">
-<%-- 					<input type="hidden" name="userNo" value="${qaVo.userNo }"> --%>
+					<input type="hidden" id="qaNo" name="qaNo" value="${qaVo.qaNo}">
+					<input type="hidden" name="qaWriter" value="${sessionScope.userId }">
 					<div class="place-order">
 						<div class="order-total">
 							<ul class="order-table">
 								<li class="fw-normal">제목 <span>${qaVo.qaTitle }</span></li>
-								<li class="fw-normal">작성자 <span>${qaVo.qaWriter }</span></li>
 								<li class="fw-normal">작성일 
 								<span><fmt:formatDate value="${qaVo.qaDate }" pattern="yyyy-MM-dd"/> </span></li>
 							</ul>
@@ -119,8 +129,12 @@ location.href="<c:url value='/qna/qnaUpdate.do?qaNo=${qaVo.qaNo}&userPassword=${
 						</div>
 						<div class="order-btn faqBtWarp">
 							<button type="button" class="site-btn place-btn qaBt">수정</button>
-<%-- 								onclick="<c:url value='/qna/qnaUpdate.do&qaNo=${qaVo.qaNo}'/>">수정</button> --%>
+<!-- 							<button type="button" class="site-btn place-btn qaBt" -->
+<%-- 					onclick="<c:url value='/qna/qnaUpdate.do?qaNo=${qaVo.qaNo}&userPassword=${qaVo.userPassword }'/>">수정</button> --%>
 							<button type="submit" class="site-btn place-btn qaDelBt">삭제</button>
+							
+							<!-- 매니저 답변 달기 버튼 -->
+							<button type="button" class="site-btn place-btn qaRpyBt">답변</button>
 						</div>
 					</div>
 					

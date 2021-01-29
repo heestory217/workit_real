@@ -12,4 +12,8 @@ public interface QnaDAO {
 	public QnaUsersVO qaSelectByNo(int qaNo);
 	
 	public int qaDelete(int qaNo);
+	
+	public int qaUpdate(QnaUsersVO qauVo);
+	
+	public String chkPassword(int qaNo);
 }

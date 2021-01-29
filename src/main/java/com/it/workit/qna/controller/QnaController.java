@@ -175,11 +175,7 @@ public class QnaController {
 			Model model ) {
 		//1
 		logger.info("삭제 파라미터  qaNo={}, userPasswoed={}",qaNo,userPassword);
-		//logger.info("삭제 파라미터  qauVo={}",qauVo);
 		//2
-		//int qaNo = qauVo.getQaNo();
-		//String userPassword = qauVo.getUserPassword();
-		
 		QnaUsersVO qauVo = qaService.qaSelectByNo(qaNo);
 		logger.info("qauVo={}",qauVo);
 		
@@ -202,15 +198,19 @@ public class QnaController {
 		return "common/message";
 	}
 	
-	
+/*	
 	@RequestMapping(value="/qnaUpdate.do", method = RequestMethod.GET)
 	public String qnaUpdate(@RequestParam(defaultValue = "0")int qaNo,
 			@RequestParam String userPassword, Model model) {
 		logger.info("수정화면 파라미터 qaNo={},userPassword={}",qaNo,userPassword);
 		
 		//2
-		QnaUsersVO qaVo=qaService.qaSelectByNo(qaNo);
-		logger.info("디테일 페이지 화면 처리 qaVo={}",qaVo);
+//		QnaUsersVO qaVo=qaService.qaSelectByNo(qaNo);
+//		logger.info("디테일 페이지 화면 처리 qaVo={}",qaVo);
+		QnaUsersVO qaVo = qaService.qaSelectByNo(qaNo);
+		qaVo.setQaNo(qaNo);
+		
+		logger.info("디테일 페이지 화면 처리 매개변수 qaVo={}",qaVo);
 		
 		if (!(qaVo.getUserPassword().equals(userPassword))) {
 			model.addAttribute("msg", "비밀번호가 틀렸습니다.");
@@ -224,6 +224,73 @@ public class QnaController {
 				
 		//4
 		return "qna/qnaUpdate";
+	}*/
+	
+	@RequestMapping(value="/qnaUpdate.do", method = RequestMethod.GET)
+	public String qnaUpdate(@RequestParam(defaultValue = "0")int qaNo,
+			@RequestParam String userPassword,
+			HttpSession session, Model model) {
+		logger.info("수정화면 파라미터 qaNo={},userPassword={}",qaNo,userPassword);
+		
+		//2
+//		String qaWriter = (String)session.getAttribute("userId");
+//		logger.info("userId 셋팅 qaWriter={}",qaWriter);
+//		logger.info("디테일 페이지 화면 처리 매개변수 qaVo={}",qauVo);
+//		qauVo.setQaWriter(qaWriter);
+		
+		String dbPwd = qaService.chkPassword(qaNo);
+		logger.info("디비 사용자 비번 dbPwd={}",dbPwd);
+		
+		QnaUsersVO qauVo = null;
+		if (dbPwd.equals(userPassword)) {
+			qauVo = qaService.qaSelectByNo(qaNo);
+			logger.info("처리결과 qauVo={}",qauVo);
+			
+		} else {
+			model.addAttribute("msg", "비밀번호가 틀렸습니다.");
+			model.addAttribute("url", "/qna/qnaDetail.do?qaNo="+qaNo);
+			
+			return "common/message";
+		}
+				
+		//3
+		model.addAttribute("qaVo",qauVo);
+				
+		//4
+		return "qna/qnaUpdate";
+	}
+	
+	@RequestMapping(value="/qnaUpdate.do", method = RequestMethod.POST)
+	public String qnaUpdate(@ModelAttribute QnaUsersVO qaVo,
+			Model model) {
+		//1
+		logger.info("수정처리 qaVo={}",qaVo);
+		//2
+		int cnt = qaService.qaUpdate(qaVo);
+		
+		String msg="수정 실패하였습니다", url="/qna/qnaUpdate.do?qaNo="+qaVo.getQaNo();
+		if (cnt>0) {
+			msg="수정 성공하였습니다";
+			url="/qna/qnaDetail.do?qaNo="+qaVo.getQaNo();
+		}
+		//3
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		//4
+		return "common/message";
+	}
+	
+	@RequestMapping(value="/qnaReply.do", method = RequestMethod.GET)
+	public String qnaReply(@RequestParam (defaultValue = "0") int qaNo) {
+		//1
+		logger.info("답변화면 처리 qaNo={}",qaNo);
+		//2
+		QnaUsersVO qauVo = qaService.qaSelectByNo(qaNo);
+		logger.info("답변화면 처리 파라미터 qauVo",qauVo);
+		
+		//3
+		return "qna/qnaReply";
 	}
 }
 
