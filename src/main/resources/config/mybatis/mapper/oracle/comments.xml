@@ -28,6 +28,16 @@
 		SET COMMENT_ABOUT=#{commentAbout}, COMMENT_DATE=SYSDATE
 		WHERE COMMENT_NO=#{commentNo}
 	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="int">
+		delete from comments where comment_no=#{commentsNo}
+	</delete>
+	
+	<!-- 댓글 개수 -->
+	<select id="selectReplyCnt" parameterType="int" resultType="int">
+		select count(*) from comments where commentrespond_no=#{commentrespondNo}
+	</select>
 </mapper>
 
 

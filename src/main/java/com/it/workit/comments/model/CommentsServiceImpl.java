@@ -24,6 +24,16 @@ public class CommentsServiceImpl implements CommentsService {
 	public int updateReply(CommentsVO vo) {
 		return commentDao.updateReply(vo);
 	}
+
+	@Override
+	public int deleteReply(int replyNo) {
+		return commentDao.deleteReply(replyNo);
+	}
+
+	@Override
+	public int selectReplyCnt(int commentNo) {
+		return commentDao.selectReplyCnt(commentNo);
+	}
 	
 	
 }

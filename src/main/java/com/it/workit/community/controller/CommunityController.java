@@ -462,6 +462,17 @@ public class CommunityController {
 		
 		return cnt;
     }
-
+	
+	@ResponseBody
+	@RequestMapping("/replyDelete.do")
+	public int replyDel(@RequestParam int replyNo) {
+		logger.info("댓글 삭제, 파라미터 replyNo={}", replyNo);
+		
+		int cnt=replyService.deleteReply(replyNo);
+		logger.info("댓글 삭제 결과, cnt={}", cnt);
+		
+		return cnt;
+		
+	}
 
 }

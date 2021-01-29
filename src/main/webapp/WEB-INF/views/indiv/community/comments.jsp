@@ -304,7 +304,10 @@ function replyList(){
 	            	replyList+="<div style='float:right'>";
 	            	replyList+="<a style='font-size:13px;color:gray;cursor:pointer'"; 
 	            	replyList+=" onclick='commentUpdate("+result.COMMENT_NO+",\""+result.commentAbout+"\");'>";
-	            	replyList+=" 수정 </a></div><br><hr>";
+	            	replyList+=" 수정 </a>";
+	            	replyList+="<a style='font-size:13px;color:gray;cursor:pointer'"; 
+	            	replyList+=" onclick='commentDelete("+result.COMMENT_NO+");'>";
+	            	replyList+="| 삭제 </a></div><br><hr>";
 	            	
 
 
@@ -352,9 +355,38 @@ function commentUpdateProc(COMMENT_NO){
 	        	replyList(); //댓글 수정후 목록 출력 
 	        }
 	    },error:function(xhr, status, error){
-	    	alert("댓글 수정에 실패하였습니다.");
+	    	alert("댓글 수정에 실패했습니다.");
 	    }
 	});
+}
+
+//댓글 삭제 ajax 
+function commentDelete(COMMENT_NO){
+	if(!confirm('정말 삭제하시겠습니까?')){
+		return false;
+	}else{
+		$.ajax({
+		    url:"<c:url value='/indiv/community/replyDelete.do?replyNo="+COMMENT_NO+"'/>",
+		    type:"get",
+		    dataType:"json",
+		    success : function(cnt){
+		        if(cnt == 1){
+		        	replyList(); //댓글 수정후 목록 출력 
+		        }
+		    },error:function(xhr, status, error){
+		    	alert("댓글 삭제에 실패했습니다.");
+		    }
+		});
+	}
+}
+
+//댓글 개수
+function commentCount(){
+	ajax({
+		url:"<c:url value=''/>",
+		
+		
+	});	
 }
 
 function pageFunc(curPage){
