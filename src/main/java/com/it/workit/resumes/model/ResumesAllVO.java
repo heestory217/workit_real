@@ -2,15 +2,23 @@ package com.it.workit.resumes.model;
 
 import java.util.List;
 
+import com.it.workit.corp.model.AreaListView;
 import com.it.workit.corp.model.LanguageListView;
 
 public class ResumesAllVO {
 	private ResumesVO resumesVo;
-	
-	private List<LanguageListView> langList;
-	
 	private String userExperience;
+	private List<LanguageListView> langList;
+	private List<AreaListView> areaList;
 	
+	public List<AreaListView> getAreaList() {
+		return areaList;
+	}
+
+	public void setAreaList(List<AreaListView> areaList) {
+		this.areaList = areaList;
+	}
+
 	public ResumesVO getResumesVo() {
 		return resumesVo;
 	}
@@ -37,8 +45,8 @@ public class ResumesAllVO {
 
 	@Override
 	public String toString() {
-		return "ResumesAllVO [resumesVo=" + resumesVo + ", langList=" + langList + ", userExperience=" + userExperience
-				+ "]";
+		return "ResumesAllVO [resumesVo=" + resumesVo + ", userExperience=" + userExperience + ", langList=" + langList
+				+ ", areaList=" + areaList + "]";
 	}
 	
 }

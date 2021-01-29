@@ -22,6 +22,40 @@
 		top: 0px;
 	    width: 100%;
 	}
+	
+    .product__pagination a,
+	.blog__pagination a,
+	#currentPage {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #b2b2b2;
+	font-size: 14px;
+	color: #b2b2b2;
+	font-weight: 700;
+	line-height: 28px;
+	text-align: center;
+	margin-right: 16px;
+	-webkit-transition: all, 0.3s;
+	-moz-transition: all, 0.3s;
+	-ms-transition: all, 0.3s;
+	-o-transition: all, 0.3s;
+	transition: all, 0.3s;
+	}
+	
+	.product__pagination a:hover,
+	.blog__pagination a:hover,
+	#currentPage {
+		background: #4C50BB;
+		border-color: #4C50BB;
+		color: #ffffff;
+	}
+	
+	.product__pagination a:last-child,
+	.blog__pagination a:last-child {
+		margin-right: 0;
+	}
+	
 	</style>
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section">

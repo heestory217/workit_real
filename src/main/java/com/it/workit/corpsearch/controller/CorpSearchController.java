@@ -5,7 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,7 +25,6 @@ public class CorpSearchController {
 	private static final Logger logger = LoggerFactory.getLogger(CorpSearchController.class);
 	
 	@Autowired private CorpSearchService searchService;
-	@Autowired private ResumesService resumeService;
 	@Autowired private CorpService corpService;
 	@Autowired private UsersService userSerivce;
 	
@@ -35,29 +33,35 @@ public class CorpSearchController {
 		logger.info("검색 화면에 들어온 SearchVO = {}", searchVo);
 		
 		//검색으로 원하는 resumeNo찾기
-		List<Integer> resumeNoList = searchService.searchDefault(searchVo);
-		logger.info("검색 결과로 찾은 resumeNOList = {}", resumeNoList.size());
 		
-		//찾은 resmueNo로 페이징 처리만(검색어로 걸러진 이력서들로 이미 유지된 상태임)
+		
 		PaginationInfo pagingInfo = new PaginationInfo();
-		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setBlockSize(10);
 		pagingInfo.setRecordCountPerPage(12);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 		
-		//매칭된 이력서 번호+!페이징처리!를 넣어서 해당 이력서의 상세 정보 
-		List<ResumesAllVO> resumeList=resumeService.searchResumeByNo(resumeNoList);
+		searchVo.setRecordCountPerPage(12);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		
-		// 언어리스트+경력 검색
-		logger.info("이력서 번호로 조회한 이력서 리스트의 갯수 : {}",resumeList.size());
-		for(ResumesAllVO vo : resumeList) {
-			int resumeNo=vo.getResumesVo().getResumeNo();
+		List<ResumesAllVO> resumeList = searchService.searchDefault(searchVo);
+		logger.info("검색 결과로 찾은 resumeList = {}", resumeList.size());
+		for(ResumesAllVO vo:resumeList) {
+			int resumeNo = vo.getResumesVo().getResumeNo();
+			logger.info("for에 들어온 resumeNo ={}", resumeNo);
 			List<LanguageListView> langList = corpService.selectLanguageList(resumeNo);
-			int userNoForResume=vo.getResumesVo().getUserNo();
+			int userNoForResume = vo.getResumesVo().getUserNo();
+			logger.info("for에 들어온 userNo ={}", resumeNo);
 			UsersVO userVo = userSerivce.selectByUserNo(userNoForResume);
 			String userExp = userVo.getUserExperience();
 			vo.setLangList(langList);
 			vo.setUserExperience(userExp);
 		}
+		int totalRecord=searchService.selectTotalRecord(searchVo);
+		logger.info("전체 글 갯수 : {}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
 		model.addAttribute("resumeList",resumeList);
+		model.addAttribute("pagingInfo",pagingInfo);
 		
 		return "company/corpSearch/searchMain";
 	}
