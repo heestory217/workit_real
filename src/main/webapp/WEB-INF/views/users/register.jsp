@@ -187,7 +187,7 @@
                                 <!-- <input type="button" id="emailCheck" class="col-lg-2 site-btn margin_left" value="확인"> -->
                             </div>
                             <div class="group-input">
-                                <label for="hp1">전화번호</label>
+                                <label for="hp1">전화번호 *</label>
                                 <select name="userHp1" id="hp1" class="col-lg-3 mystyle">
 						            <option value="010">010</option>
 						            <option value="011">011</option>

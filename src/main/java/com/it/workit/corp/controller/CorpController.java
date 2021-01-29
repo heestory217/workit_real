@@ -346,15 +346,19 @@ public class CorpController {
 	@RequestMapping(value = "/corpReviewWrite.do", method = RequestMethod.GET)
 	public String corpReviewWrite_get(@RequestParam(defaultValue = "0") int corpno,
 			Model model) {
-		if(corpno==0) {
+		logger.info("기업 회사 리뷰작성 view 보여주기 corpno={}",corpno);
+		
+		CorpVO vo=corpService.selectCorp(corpno);
+		model.addAttribute("vo", vo);
+		
+		if(corpno==0 || vo==null) {
 			String msg="잘못된 접근입니다. 다시 시도하세요", url="/index.do";
 			
 			model.addAttribute("msg", msg);
 			model.addAttribute("url", url);
-
+			
 			return "common/message";
 		}
-		logger.info("기업 회사 리뷰작성 view 보여주기");
 		
 		return "company/corp/corpReviewWrite";
 	}
