@@ -7,10 +7,34 @@
 </head>
 <script type="text/javascript">
 	$(function(){
+		$('#editclick').click(function(){
+			var confirm_test = confirm("채용공고 수정은 이후 관리자 허가 이후에 그 내용이 반영되며 그전에는 채용공고는 대기상태로 변합니다. 공고를 수정하시겠습니까?");
+			if ( confirm_test == true ) {
+				window.location.href = 'http://localhost:9090/workit/index.do';
+		    } else if ( confirm_test == false ) {
+		    	event.preventDefault();
+		    }
+		});
+		
+		$('#deleteclick').click(function(){
+			var confirm_test = confirm("채용공고 삭제는 추가적인 관리자 승인없이 바로 삭제됩니다. 정말로 채용공고를 삭제하게시겠습니까?");
+			if ( confirm_test == true ) {
+				window.location.href = 'http://localhost:9090/workit/recruit/recruitdelete.do';
+		    } else if ( confirm_test == false ) {
+		    	event.preventDefault();
+		    }
+		});
+		
+		$('#corpinfo').click(function(){
+			window.location.href = 'http://localhost:9090/workit/index.do';
+		});
+		
+		$('#applicant').click(function(){
+			window.location.href = 'http://localhost:9090/workit/index.do';
+		});
 		
 	});
 </script>
-	
     <!-- Blog Details Section Begin -->
     <section class="blog-details spad">
         <div class="container">
@@ -26,7 +50,7 @@
 	                        <h1 style="color:blue; float:right;">D-${d}</h1>
                         </c:if>
                         <c:if test="${d<0}">
-                            <h1 style="color:red; float:right;">D+${d*-1}</h1>
+                            <h1 style="color:red; float:right;">마감</h1>
                         </c:if>
                         <div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -137,7 +161,7 @@
                                                 <h5>대표  <span>${CorpVO.corpHeadname}</span> </h5>
                                                 <p>회사소개 </p>
                                                 <p>${CorpVO.corpIntro}</p>
-                                                <button type="submit" class="site-btn">회사상세보기</button>
+                                                <button type="button" class="site-btn" id="corpinfo" name="corpinfo">회사상세보기</button>
                                             </div>
                                             <div class="col-lg-5">
                                                 <img src="img/product-single/tab-desc.jpg" alt="">
@@ -153,17 +177,19 @@
                     </div>
                         <div class="leave-comment">
                         <c:if test="${sessionScope.user_corpcheck==1}">
-                    	<button type="submit" class="site-btn">지원하기</button>
+                    	<button type="button" class="site-btn" id="applicant" name="applicant">지원하기</button>
                     </c:if>
                     <c:if test="${sessionScope.userNo==RecruitannounceVO.userNo}">
-                    	<button type="submit" class="site-btn">공고수정 요청</button>
-                    	<button type="submit" class="site-btn">공고삭제 요청</button>
+                    	<button type="button" class="site-btn" id="editclick" name="editclick">공고수정 요청</button>
+                    	<button type="button" class="site-btn" id="deleteclick" name="editclick">공고삭제 요청</button>
                     </c:if>
                         </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
+        <input type="hidden" id="recruitannounceNo" name="recruitannounceNo" value="${RecruitannounceVO.recruitannounceNo}">
         </div>
     </section>
     <!-- Blog Details Section End -->
