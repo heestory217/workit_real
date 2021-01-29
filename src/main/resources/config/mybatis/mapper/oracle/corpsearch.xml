@@ -3,14 +3,20 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mybatis.mapper.corpsearch">
+		<sql id="searchWhere">
+		<where>
+			<if test="searchKeyword !=null and searchKeyword != ''">
+				language_name like '%' || #{searchKeyword} || '%'
+				or workkind_name like '%' || #{searchKeyword} || '%'
+				or user_name like '%' || #{searchKeyword} || '%'
+			</if>
+		</where>
+	</sql>
 	
+	<select id="searchDefault" parameterType="searchVo" resultType="int">
+		select resume_no from RecruitListview
+		<include refid="searchWhere"></include>
+	    group by resume_no order by resume_no desc
+	</select>
 </mapper>
-
-
-
-
-
-
-
-
 
