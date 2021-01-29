@@ -99,15 +99,14 @@ public class CorpRecruitResumeController {
 		
 		//매칭되는 이력서 번호를 찾음
 		List<Integer> matchList = corpService.selectResumeNoList(mList);
-		logger.info("매칭되는 번호 리스트 사이즈 {}",matchList.size());
+		logger.info("매칭되는 이력서 번호 리스트 사이즈 {}",matchList.size());
 		for(int i =0; i<matchList.size(); i++) {
 			System.out.println("매칭된 이력서 번호"+matchList.get(i));
 		}
 		
-		//매칭된 이력서 번호를 넣어서 해당 이력서의 상세 정보 + 언어리스트 검색
+		//매칭된 이력서 번호를 넣어서 해당 이력서의 상세 정보 
 		List<ResumesAllVO> resumeList=resumeService.searchResumeByNo(matchList);
-		
-		
+		// 언어리스트+경력 검색
 		logger.info("이력서 번호로 조회한 이력서 리스트의 갯수 : {}",resumeList.size());
 		for(ResumesAllVO vo : resumeList) {
 			int resumeNo=vo.getResumesVo().getResumeNo();
