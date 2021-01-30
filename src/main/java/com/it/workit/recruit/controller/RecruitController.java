@@ -1,6 +1,10 @@
 package com.it.workit.recruit.controller;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +19,7 @@ import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.CorpVO;
 import com.it.workit.recruit.model.RecruitannounceService;
 import com.it.workit.recruit.model.RecruitannounceVO;
+import com.it.workit.users.model.arealistVO;
 
 @Controller
 @RequestMapping("/recruit")
@@ -65,22 +70,31 @@ public class RecruitController {
 	
 	@RequestMapping(value="/recruitwrite.do", method=RequestMethod.POST)
 	public String recruitwritesee(Model model) {
-		//받은 정보들 등록
 		
-		return "recruit/recruitwrite";
+		String msg="공고가 등록되었습니다.", url="/index.do";
+		
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		//4
+		return "common/message";
 	}
+	
 	
 	@RequestMapping(value="/recruitwrite.do", method=RequestMethod.GET)
 	public String recruitwritewatch(Model model) {
-		//언어목록, 지역목록1,2 
+		//언어목록, 지역목록1,2
+		List<String> language=recruitannounceService.selectcwlanguage();
+		model.addAttribute("language", language);
 		
+		List<arealistVO> arealist=recruitannounceService.selectcwplace();
+		model.addAttribute("arealist", arealist);
 		
 		return "recruit/recruitwrite";
 	}
 	
 
-	
-	
 	@RequestMapping("/recruitedit.do")
 	public String recruitedit() {
 		
@@ -88,11 +102,23 @@ public class RecruitController {
 		return "recruit/recruitedit";
 	}
 	
+	
 	@RequestMapping("/recruitdelete.do")
-	public String recruitdelete(@RequestParam int recruitannounceNo) {
+	public String recruitdelete(@RequestParam int recruitannounceNo, Model model) {
+				
+		String msg="삭제에 실패하셨습니다", url="/recruit/recruitdetail.do?recruitannounceNo="+recruitannounceNo;
+		int cnt = recruitannounceService.recruitdelete(recruitannounceNo);
+		logger.info("채용정보 화면처리 {}",cnt);
 		
+		msg="공고가 등록되었습니다.";
+		url="/index.do";
 		
-		
-		return "/index";
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		//4
+		return "common/message";
 	}
+	
 }

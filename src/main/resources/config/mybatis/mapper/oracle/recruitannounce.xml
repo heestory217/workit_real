@@ -33,4 +33,17 @@
 		]]>
 	</select>
 	
+	<delete id="recruitdelete" parameterType="int">
+		delete from RECRUITANNOUNCE 
+		where RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	</delete>
+	
+	<select id="selectcwlanguage" resultType="String">
+		select language_name from language
+	</select>
+	
+	<select id="selectcwplace" resultType="arealistVO">
+		select area_no, area_add1, area_add2 from arealist
+	</select>
+
 </mapper>

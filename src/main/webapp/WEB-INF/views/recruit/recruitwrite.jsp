@@ -8,34 +8,54 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/usersRegister.css'/>" />
 
 <!DOCTYPE html>
+
 <head>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/themify-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+
 </head>
+<style>
+input[type=number]::-webkit-outer-spin-button{-webkit-appearance: none;margin: 0;}
+input[type=number]::-webkit-inner-spin-button{-webkit-appearance: none;margin: 0;}
+
+</style>
+
 <script type="text/javascript">
-	var pattern = new RegExp(/^[0-9]*$/g);
-    return pattern.test(tel);
+function numberMaxLength(e){
+    if(e.value.length > 2){
+        e.value = e.value.slice(0, 2);
+    }
+}
+	
 	
 	$(function(){
+		var check1=false;
+		var core;
 		$('.infobox').keyup(function() {
 			$('.infobox').each(function(){
-				if(!pattern.test($("#year").val())){
-					$("#call2").text("숫자만 입력해라");
+				var core=$("#month").val();
+				if($("#year").val()>30 || $("#year").val()<21){
+					$("#check").text("올바르지 않은 년도입니다.(현재 workit에서 지원하는 최대 지원년도는 2030년입니다)");
+					check1=false;
+				}else if($("#month").val()>12 || $("#month").val()<1){
+					$("#check").text("올바르지 않은 월입니다");
+					check1=false;
+				}else if((core==2 && ($("#day").val()>28 || $("#day").val()<1)) || 
+						((core==4 || core==6 || core==9 || core==11)  && ($("#day").val()>30 || $("#day").val()<1)) ||
+						((core==1 || core==3 || core==5 || core==7 || core==8 || core==10 || core==12)  && ($("#day").val()>31 || $("#day").val()<1))){
+					$("#check").text("올바르지 않은 날짜입니다");
+					check1=false;
+				}else{
+					$("#check").text("");
+					check1=true;
 				}
+				
 			});
 		});
+		
+		
 	});
 </script>
 
@@ -48,23 +68,26 @@
                         <h2>채용공고</h2>
                         <form action="#">
                             <div class="group-input">
-                                <label for="username">제목</label>
+                                <label for="username">제목(필수)</label>
                                 <input type="text" id="username">
                             </div>
                             
                             <div class="group-input">
-                                    <label for="pass">모집 종료일</label>
-	                                    <p><input type="text" id="year" name="year" class="col-lg-3 infobox">년
-	                                    <input type="text" id="pass" class="col-lg-1 infobox">월
-	                                    <input type="text" id="pass" class="col-lg-1 infobox">일</p>
+                                    <label for="pass">모집 종료일(필수)</label>
+	                                    <p>20<input type="number" id="year" name="year" class="col-lg-2 infobox" 
+	                                    maxlength="2" oninput="numberMaxLength(this);">년
+	                                    <input type="number" id="month" name="month" class="col-lg-2 infobox" maxlength="2" 
+	                                    oninput="numberMaxLength(this);">월
+	                                    <input type="number" id="day" name="day" class="col-lg-2 infobox" maxlength="2" 
+	                                    oninput="numberMaxLength(this);">일</p>
+	                                    <p style="cursor:hand;color:blue">※년도의 경우 뒤의 두자리만 입력해 주세요</p>
 	                                <span class="call" id="check" style="cursor:hand;color:red"></span>
                             </div>
                             
                             <div class="group-input">
-                                <label for="pass">요약-채용형태</label>
+                                <label for="pass">요약-채용형태(필수)</label>
                                 <input type="text" id="pass">
                             </div>
-                            
                             <div class="group-input">
                                 <label for="pass">요약-경력</label>
                                 <input type="text" id="pass">
@@ -141,29 +164,18 @@
                             <div class="group-input">
                                     <label for="pass">필수 요구 언어</label>
 	                                    <select class="col-lg-5 mystyle">
-	                                        <script type="text/javascript">
-	                                    	for(i=1; i<=44; i++){
-	                                    		document.write("<option value="+i+">"+i+"</option>"); 
-	                                    	}
-	                                   		</script>
+	                                    <c:forEach items="${language}" var="langs">
+	                                    	<option>${langs}</option>
+	                                    </c:forEach>
                                     	</select>
                             </div>                                  
                             
 							<div class="group-input">
                                     <label for="pass">요구 근무지</label>
-                                    <select class="col-lg-3 mystyle">
-                                        <script type="text/javascript">
-                                    	for(i=1; i<=12; i++){
-                                    		document.write("<option value="+i+">"+i+"</option>"); 
-                                    	}
-                                    </script>
-                                    </select>
-                                    <select class="col-lg-3 mystyle">
-                                        <script type="text/javascript">
-                                    	for(i=1; i<=31; i++){
-                                    		document.write("<option value="+i+">"+i+"</option>"); 
-                                    	}
-                                    </script>
+                                    <select class="col-lg-7 mystyle">
+                                        <c:forEach items="${arealist}" var="ho">
+	                                    	<option>${ho.areaadd1}, ${ho.areaadd2}</option>
+	                                    </c:forEach>
                                     </select>
                             </div>
                             
