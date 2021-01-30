@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mybatis.mapper.corpsearch">
-		<sql id="searchWhere">
+	<sql id="searchWhere">
 		<where>
 			<if test="searchKeyword !=null and searchKeyword != ''">
 				language_name like '%' || #{searchKeyword} || '%'
@@ -13,10 +13,52 @@
 		</where>
 	</sql>
 	
-	<select id="searchDefault" parameterType="searchVo" resultType="int">
-		select resume_no from RecruitListview
-		<include refid="searchWhere"></include>
-	    group by resume_no order by resume_no desc
+   <resultMap type="ResumesAllVO" id="searchResume">
+      <association property="resumesVo" column="resumeNo" javaType="ResumesVO">
+         <id property="resumeNo" column="resume_No" jdbcType="BIGINT"/>
+         <result property="userNo" column="user_No" jdbcType="BIGINT" />
+         <result property="resumeTitle" column="resume_title" jdbcType="VARCHAR" />
+      </association>
+      <collection property="areaList" column="resumeNo" javaType="ArrayList" ofType="AreaListView" select="parameterType">
+     	<id property="resumeNo" column="RESUME_NO" jdbcType="BIGINT"/>
+     	<result property="areaNo" column="area_No" jdbcType="BIGINT" />
+     	<result property="areaAdd1" column="area_Add1" jdbcType="VARCHAR" />
+     	<result property="areaAdd2" column="area_Add2" jdbcType="VARCHAR" />
+      </collection>
+      <collection property="languageList" column="resumeNo" javaType="ArrayList" ofType="LanguageListView" select="parameterType">
+      	<id property="resumeNo" column="RESUME_NO" jdbcType="BIGINT"/>
+      	<result property="languageNo" column="LANGUAGE_NO" jdbcType="BIGINT"/>
+      	<result property="languageName" column="LANGUAGE_NAME" jdbcType="VARCHAR"/>
+      </collection>
+   </resultMap>
+	
+	<select id="searchDefault" parameterType="searchVo" resultMap="searchResume">
+		select resume_no, resume_title, user_NO
+		from
+			(
+				select A.*, rownum as RNUM
+				from
+				(
+					select resume_no, resume_title, user_NO from RecruitListview
+					<include refid="searchWhere"></include>
+				    group by resume_no, resume_title, user_NO order by resume_no desc
+			    )A
+		    )
+   		<![CDATA[
+		where RNUM > #{firstRecordIndex}
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="selectTotalRecord" parameterType="searchVo" resultType="int">
+		select count(*)
+		from
+			(
+			select resume_no, resume_title, user_experience, workkind_name
+			from RecruitListview
+			<include refid="searchWhere"></include>
+			group by resume_no,resume_title,user_experience,workkind_name order by resume_no desc
+			)
 	</select>
 </mapper>
 

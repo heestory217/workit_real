@@ -120,7 +120,7 @@
  </c:forEach>
  </c:if>
  
- <div class="col-lg-12">
+ <div class="col-lg-8">
  <div class="product__pagination blog__pagination">
  	<c:if test="${pagingInfo.firstPage>1 }">	
 		<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
@@ -148,6 +148,7 @@
 	</c:if>
     </div>
 </div>
+<!-- user가 일반회원일때만 보여줘야함 -->
+<a href="<c:url value="/company/corp/corpReviewWrite.do?corpno=${param.corpNo }"/>"><button style="float: right;" class="site-btn">기업 리뷰 작성</button></a>
 </body>
 </html>
-<!-- 기업 반복 끝 -->

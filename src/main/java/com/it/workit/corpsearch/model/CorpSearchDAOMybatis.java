@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.it.workit.common.SearchVO;
+import com.it.workit.resumes.model.ResumesAllVO;
 
 @Repository
 public class CorpSearchDAOMybatis implements CorpSearchDAO {
@@ -15,8 +16,13 @@ public class CorpSearchDAOMybatis implements CorpSearchDAO {
 	private String namespace="com.mybatis.mapper.corpsearch.";
 	
 	@Override
-	public List<Integer> searchDefault(SearchVO searchVo) {
+	public List<ResumesAllVO> searchDefault(SearchVO searchVo) {
 		return sqlSession.selectList(namespace+"searchDefault",searchVo);
+	}
+
+	@Override
+	public int selectTotalRecord(SearchVO searchVo) {
+		return sqlSession.selectOne(namespace+"selectTotalRecord", searchVo);
 	}
 	
 }
