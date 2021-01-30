@@ -10,7 +10,7 @@
 		$('#editclick').click(function(){
 			var confirm_test = confirm("채용공고 수정은 이후 관리자 허가 이후에 그 내용이 반영되며 그전에는 채용공고는 대기상태로 변합니다. 공고를 수정하시겠습니까?");
 			if ( confirm_test == true ) {
-				window.location.href = 'http://localhost:9090/workit/index.do';
+				window.location.href = 'http://localhost:9090/workit/recruit/recruitedit.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo}';
 		    } else if ( confirm_test == false ) {
 		    	event.preventDefault();
 		    }
@@ -19,14 +19,14 @@
 		$('#deleteclick').click(function(){
 			var confirm_test = confirm("채용공고 삭제는 추가적인 관리자 승인없이 바로 삭제됩니다. 정말로 채용공고를 삭제하게시겠습니까?");
 			if ( confirm_test == true ) {
-				window.location.href = 'http://localhost:9090/workit/recruit/recruitdelete.do';
+				window.location.href = 'http://localhost:9090/workit/recruit/recruitdelete.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo}';
 		    } else if ( confirm_test == false ) {
 		    	event.preventDefault();
 		    }
 		});
 		
 		$('#corpinfo').click(function(){
-			window.location.href = 'http://localhost:9090/workit/index.do';
+			window.location.href = 'http://localhost:9090/workit/company/corp/corpDetail.do?corpNo=${CorpVO.corpNo}';
 		});
 		
 		$('#applicant').click(function(){
@@ -42,6 +42,7 @@
                 <div class="col-lg-12">
                     <div class="blog-details-inner">
                         <div class="blog-detail-title">
+                        
                             <h2>${RecruitannounceVO.recruitannounceTitle}</h2>
                             <p>등록일 : <span><fmt:formatDate value="${RecruitannounceVO.recruitannounceStartdate}" pattern="yyyy년 MM월 dd일"/></span></p>
                         </div>
@@ -161,6 +162,9 @@
                                                 <h5>대표  <span>${CorpVO.corpHeadname}</span> </h5>
                                                 <p>회사소개 </p>
                                                 <p>${CorpVO.corpIntro}</p>
+                                                
+           										
+       											
                                                 <button type="button" class="site-btn" id="corpinfo" name="corpinfo">회사상세보기</button>
                                             </div>
                                             <div class="col-lg-5">
@@ -180,16 +184,15 @@
                     	<button type="button" class="site-btn" id="applicant" name="applicant">지원하기</button>
                     </c:if>
                     <c:if test="${sessionScope.userNo==RecruitannounceVO.userNo}">
+                    
                     	<button type="button" class="site-btn" id="editclick" name="editclick">공고수정 요청</button>
-                    	<button type="button" class="site-btn" id="deleteclick" name="editclick">공고삭제 요청</button>
+                    	<button type="button" class="site-btn" id="deleteclick" name="editclick">공고삭제</button>
                     </c:if>
                         </div>
-                        
                     </div>
                 </div>
             </div>
         </div>
-        <input type="hidden" id="recruitannounceNo" name="recruitannounceNo" value="${RecruitannounceVO.recruitannounceNo}">
         </div>
     </section>
     <!-- Blog Details Section End -->
