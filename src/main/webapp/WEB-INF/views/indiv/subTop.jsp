@@ -3,12 +3,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script type="text/javascript">
+	$(function(){
+		$('#mainSearchBtn').click(function(){
+			location.href="/workit/indivSearch/indivKeywordSearch.do?keyword="+$('#mainSearchKeyword').val();
+		});
+		
+	});
+	function mainEnter(){
+		if (window.event.keyCode == 13) { // 엔터키가 눌렸을 때 
+			location.href="/workit/indivSearch/indivKeywordSearch.do?keyword="+$('#mainSearchKeyword').val();
+		}
+	}
+</script>
+
 <!-- 개인 subTop -->
  <div class="col-lg-8 col-md-8">
      <div class="advanced-search">
          <div class="input-group">
-             <input type="text" placeholder="채용공고를 직군, 언어, 회사 이름으로 검색" name="searckKeyword">
-             <button type="button" id="searchBtn"><i class="ti-search"></i></button>
+             <input type="text" placeholder="채용공고를 직군, 언어, 회사 이름으로 검색" id="mainSearchKeyword" onkeyup="mainEnter()">
+             <button type="button" id="mainSearchBtn"><i class="ti-search"></i></button>
          </div>
      </div>
  </div>
