@@ -107,24 +107,11 @@ IMP.init("imp52828174");
 			    buyer_email : $('#buyer_email').html(),
 			    buyer_name : $('#buyer_name').html(),	
 			    buyer_tel : $('#buyer_tel').html(),	//필수
-			    //기업 마이페이지 결제내역으로 이동함
-			    m_redirect_url : '<c:url value="/companyMypage/companyPayment.do"/>'		//안먹힘 확인필요
-			}, function(rsp) {	//callback
-				 if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-				      // jQuery로 HTTP 요청
-				      jQuery.ajax({
-				          url: "https://www.myservice.com/payments/complete", // 가맹점 서버
-				          method: "POST",
-				          headers: { "Content-Type": "application/json" },
-				          data: {
-				              imp_uid: rsp.imp_uid,
-				              merchant_uid: rsp.merchant_uid
-				          }
-				      }).done(function (data) {
-				        // 가맹점 서버 결제 API 성공시 로직
-				        var msg = '결제 완료되었습니다.';
-				      })
-				} else {
+			}, function(rsp) {
+				if ( rsp.success ) {
+	    			var msg = '결제가 완료되었습니다.';
+	    			alert(msg);
+			    } else {
 			        var msg = '결제에 실패하였습니다.\n';
 			        msg += rsp.error_msg;
 			    }
@@ -148,11 +135,9 @@ IMP.init("imp52828174");
 </script>
 
 <!-- 결제처리를 위한 정보 : 확인하고 display none으로 바꾸기-->
-<div style="display: none;">
-	<p id="buyer_email">${userEmail}</p>
-	<p id="buyer_name">${userName}</p>
-	<p id="buyer_tel">${userHp}</p>
-</div>
+<p id="buyer_email">${userEmail}</p>
+<p id="buyer_name">${userName}</p>
+<p id="buyer_tel">${userHp}</p>
 
 <!-- 장바구니 상단 -->
 <div class="breacrumb-section">
@@ -214,14 +199,7 @@ IMP.init("imp52828174");
 		                                <td class="p-price" style="padding: 14px 0;">${cartVo.userName}</td>
 		                                <td class="cart-title" style="padding: 14px 0;">${cartVo.resumeTitle}</td>
 		                                <td class="cart-pic" style="padding: 14px 0;">${cartVo.workkindName}</td>
-		                                <td class="cart-pic" style="padding: 14px 0;">
-			                                <c:if test="${cartVo.userExperience==0}">
-			                                	신입
-			                                </c:if>
-			                                <c:if test="${cartVo.userExperience!=0}">
-			                                	${cartVo.userExperience}년
-			                                </c:if>
-	                                	</td>
+		                                <td class="cart-pic" style="padding: 14px 0;">${cartVo.userExperience}년</td>
 		                                <td class="p-price" style="padding: 14px 0;">
 		                                	<fmt:formatNumber value="${cartVo.paidServicePrice}" pattern="#,###"/>원</td>
 		                                	<c:set var="subTotalPrice" value="${subTotalPrice+cartVo.paidServicePrice}"/>
