@@ -3,6 +3,18 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="config.mybatis.mapper.oracle.orders">
+	<!-- 주문테이블 insert : 쿠폰 사용했을 경우 -->
+	<insert id="insertOrderWithCoupon" parameterType="ordersVo">
+		insert into orders(ORDER_NO, USER_NO, ORDER_PAYKIND, COUPON_NO, ORDER_DISCOUNT, ORDER_PAY)
+		values(orders_seq.nextval, #{userNo}, #{orderPaykind}, #{couponNo}, #{orderDiscount}, #{orderPay})
+	</insert>
+	
+	<!-- 주문테이블 insert : 쿠폰 사용 없을 경우-->
+	<insert id="insertOrder" parameterType="ordersVo">
+		insert into orders(ORDER_NO, USER_NO, ORDER_PAYKIND, ORDER_PAY)
+		values(orders_seq.nextval, #{userNo}, #{orderPaykind}, #{orderPay})
+	</insert>
+
 
 	<!-- 개인 마이페이지 결제내역 사용 -->
 <!-- 	<select id="selectIndivPaymentByUserno" parameterType="int" resultType="ordersVo">

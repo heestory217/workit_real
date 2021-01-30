@@ -67,7 +67,7 @@ public class ShoppingCartController {
 
 		return "redirect:/shop/shoppingCart.do";
 	}
-
+	
 	@RequestMapping("/clearCart.do")
 	public String clearCart(HttpSession session, Model model) {
 		int userNo = (Integer) session.getAttribute("userNo");
@@ -101,4 +101,5 @@ public class ShoppingCartController {
 		}
 		return result;
 	}
+	
 }

@@ -26,4 +26,14 @@ public class OrdersDAOMybatis implements OrdersDAO{
 		return sqlSession.selectOne(namespace+"ordersGetTotalRecord", vo);
 	}
 
+	@Override
+	public int insertOrderWithCoupon(OrdersVO vo) {
+		return sqlSession.insert(namespace+"insertOrderWithCoupon", vo);
+	}
+	
+	@Override
+	public int insertOrder(OrdersVO vo) {
+		return sqlSession.insert(namespace+"insertOrder", vo);
+	}
+
 }

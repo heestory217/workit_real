@@ -107,28 +107,37 @@ IMP.init("imp52828174");
 			    buyer_email : $('#buyer_email').html(),
 			    buyer_name : $('#buyer_name').html(),	
 			    buyer_tel : $('#buyer_tel').html(),	//필수
-			    //기업 마이페이지 결제내역으로 이동함
-			    m_redirect_url : '<c:url value="/companyMypage/companyPayment.do"/>'		//안먹힘 확인필요
-			}, function(rsp) {	//callback
-				 if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-				      // jQuery로 HTTP 요청
-				      jQuery.ajax({
-				          url: "https://www.myservice.com/payments/complete", // 가맹점 서버
-				          method: "POST",
-				          headers: { "Content-Type": "application/json" },
-				          data: {
-				              imp_uid: rsp.imp_uid,
-				              merchant_uid: rsp.merchant_uid
-				          }
-				      }).done(function (data) {
-				        // 가맹점 서버 결제 API 성공시 로직
-				        var msg = '결제 완료되었습니다.';
-				      })
-				} else {
+			}, function(rsp) {
+				if ( rsp.success ) {
+				    //결제완료 후 로직처리
+				    $.ajax({
+						url:"<c:url value='/shop/order.do'/>",
+						type:"GET",
+						data:{
+							orderPaykind : 'card',
+							couponName : $('#couponName').val(),
+							orderDiscount : removeComma($('#discountAmount').html()).
+							orderPay : removeComma($('#totalPrice').html())
+						},
+						dataType:"json",
+						success:function(res){
+							if(res>0){
+								console.log("장바구니 비운결과="+res);
+							}
+						},
+						error:function(xhr, status, error){
+							console.log("error="+error);
+						}
+					});	//ajax
+					
+					//결제 완료 후 주문내역 페이지로 이동
+				    alert('결제가 완료되었습니다.');
+					location.href="<c:url value='/shop/paymentComplete.do'/>";	    			
+			    } else {
 			        var msg = '결제에 실패하였습니다.\n';
 			        msg += rsp.error_msg;
+				    alert(msg);
 			    }
-			    alert(msg);
 			});
 		});	//click 결제
 		
@@ -215,13 +224,13 @@ IMP.init("imp52828174");
 		                                <td class="cart-title" style="padding: 14px 0;">${cartVo.resumeTitle}</td>
 		                                <td class="cart-pic" style="padding: 14px 0;">${cartVo.workkindName}</td>
 		                                <td class="cart-pic" style="padding: 14px 0;">
-			                                <c:if test="${cartVo.userExperience==0}">
+		                                 	<c:if test="${cartVo.userExperience==0}">
 			                                	신입
 			                                </c:if>
 			                                <c:if test="${cartVo.userExperience!=0}">
 			                                	${cartVo.userExperience}년
 			                                </c:if>
-	                                	</td>
+			                            </td>
 		                                <td class="p-price" style="padding: 14px 0;">
 		                                	<fmt:formatNumber value="${cartVo.paidServicePrice}" pattern="#,###"/>원</td>
 		                                	<c:set var="subTotalPrice" value="${subTotalPrice+cartVo.paidServicePrice}"/>
