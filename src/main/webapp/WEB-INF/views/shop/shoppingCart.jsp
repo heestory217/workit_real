@@ -116,23 +116,22 @@ IMP.init("imp52828174");
 						data:{
 							orderPaykind : 'card',
 							couponName : $('#couponName').val(),
-							orderDiscount : removeComma($('#discountAmount').html()).
-							orderPay : removeComma($('#totalPrice').html())
+							orderDiscount : removeComma($('#discountAmount').html()),
+							orderPay : removeComma($('#totalPrice').html()),
 						},
 						dataType:"json",
 						success:function(res){
-							if(res>0){
-								console.log("장바구니 비운결과="+res);
+							//res 는 orderNo
+							if(res>0){								
+								//결제 완료 후 주문내역 페이지로 이동
+							    alert('결제가 완료되었습니다.');
+								location.href="<c:url value='/shop/paymentComplete.do?orderNo="+res+"'/>";	    			
 							}
 						},
 						error:function(xhr, status, error){
 							console.log("error="+error);
 						}
 					});	//ajax
-					
-					//결제 완료 후 주문내역 페이지로 이동
-				    alert('결제가 완료되었습니다.');
-					location.href="<c:url value='/shop/paymentComplete.do'/>";	    			
 			    } else {
 			        var msg = '결제에 실패하였습니다.\n';
 			        msg += rsp.error_msg;
@@ -218,6 +217,7 @@ IMP.init("imp52828174");
 							</c:if>
 							<c:if test="${!empty cartList}">
                         		<c:forEach var="cartVo" items="${cartList}">
+	                                <p style="display: none;" id="resumeNo">${cartVo.resumeNo}</p>
 									<%-- <input type="text" name="shoppingcartNo" value="${cartVo.shoppingCartNo}"> --%>
 		                            <tr>
 		                                <td class="p-price" style="padding: 14px 0;">${cartVo.userName}</td>
@@ -232,8 +232,9 @@ IMP.init("imp52828174");
 			                                </c:if>
 			                            </td>
 		                                <td class="p-price" style="padding: 14px 0;">
-		                                	<fmt:formatNumber value="${cartVo.paidServicePrice}" pattern="#,###"/>원</td>
+		                                	<fmt:formatNumber value="${cartVo.paidServicePrice}" pattern="#,###"/>원
 		                                	<c:set var="subTotalPrice" value="${subTotalPrice+cartVo.paidServicePrice}"/>
+	                                	</td>
 		                                <td class="close-td" style="padding: 14px;">
 		                                	<a href="<c:url value='/shop/deleteOne.do?shoppingCartNo=${cartVo.shoppingCartNo}'/>">
 		                                		<i class="ti-close"></i>
