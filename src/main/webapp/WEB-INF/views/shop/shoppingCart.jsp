@@ -109,11 +109,25 @@ IMP.init("imp52828174");
 			    buyer_tel : $('#buyer_tel').html(),	//필수
 			}, function(rsp) {
 				if ( rsp.success ) {
-				    //결제완료되면 장바구니 내역 지우기
+				    //결제완료 후 로직처리
 				    $.ajax({
-						url:"<c:url value='/shop/clearCartAfterPayment.do'/>",
+						url:"<c:url value='/shop/order.do'/>",
 						type:"GET",
+						data:{
+							orderPaykind : 'card',
+							couponName : $('#couponName').val(),
+							orderDiscount : removeComma($('#discountAmount').html()).
+							orderPay : removeComma($('#totalPrice').html())
+						},
 						dataType:"json",
+						success:function(res){
+							if(res>0){
+								console.log("장바구니 비운결과="+res);
+							}
+						},
+						error:function(xhr, status, error){
+							console.log("error="+error);
+						}
 					});	//ajax
 					
 					//결제 완료 후 주문내역 페이지로 이동

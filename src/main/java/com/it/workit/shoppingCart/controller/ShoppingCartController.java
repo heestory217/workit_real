@@ -77,19 +77,6 @@ public class ShoppingCartController {
 
 		return "redirect:/shop/shoppingCart.do";
 	}
-	
-	//결제완료 시 장바구니 비우기 로직
-	@ResponseBody
-	@RequestMapping("/clearCartAfterPayment.do")
-	public int clearCartAfterPayment(HttpSession session, Model model) {
-		int userNo = (Integer) session.getAttribute("userNo");
-		logger.info("장바구니 비우기 userNo={}", userNo);
-		
-		int cnt = cartService.clearCart(userNo);
-		logger.info("cnt="+cnt);
-		
-		return cnt;
-	}
 
 	@ResponseBody
 	@RequestMapping("/insertCartAjax.do")
@@ -114,4 +101,5 @@ public class ShoppingCartController {
 		}
 		return result;
 	}
+	
 }
