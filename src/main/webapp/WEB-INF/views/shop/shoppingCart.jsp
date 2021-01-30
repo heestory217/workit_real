@@ -110,7 +110,7 @@ IMP.init("imp52828174");
 			}, function(rsp) {
 				if ( rsp.success ) {
 	    			var msg = '결제가 완료되었습니다.';
-	    			alert(msg);
+	    			
 			    } else {
 			        var msg = '결제에 실패하였습니다.\n';
 			        msg += rsp.error_msg;
@@ -135,9 +135,11 @@ IMP.init("imp52828174");
 </script>
 
 <!-- 결제처리를 위한 정보 : 확인하고 display none으로 바꾸기-->
-<p id="buyer_email">${userEmail}</p>
-<p id="buyer_name">${userName}</p>
-<p id="buyer_tel">${userHp}</p>
+<div style="display: none;">
+	<p id="buyer_email">${userEmail}</p>
+	<p id="buyer_name">${userName}</p>
+	<p id="buyer_tel">${userHp}</p>
+</div>
 
 <!-- 장바구니 상단 -->
 <div class="breacrumb-section">
@@ -199,7 +201,14 @@ IMP.init("imp52828174");
 		                                <td class="p-price" style="padding: 14px 0;">${cartVo.userName}</td>
 		                                <td class="cart-title" style="padding: 14px 0;">${cartVo.resumeTitle}</td>
 		                                <td class="cart-pic" style="padding: 14px 0;">${cartVo.workkindName}</td>
-		                                <td class="cart-pic" style="padding: 14px 0;">${cartVo.userExperience}년</td>
+		                                <td class="cart-pic" style="padding: 14px 0;">
+		                                 	<c:if test="${cartVo.userExperience==0}">
+			                                	신입
+			                                </c:if>
+			                                <c:if test="${cartVo.userExperience!=0}">
+			                                	${cartVo.userExperience}년
+			                                </c:if>
+			                            </td>
 		                                <td class="p-price" style="padding: 14px 0;">
 		                                	<fmt:formatNumber value="${cartVo.paidServicePrice}" pattern="#,###"/>원</td>
 		                                	<c:set var="subTotalPrice" value="${subTotalPrice+cartVo.paidServicePrice}"/>
