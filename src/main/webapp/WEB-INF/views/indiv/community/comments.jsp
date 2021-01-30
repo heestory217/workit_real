@@ -255,6 +255,8 @@ $(function(){
 		}
 	});
 	
+	replyList();
+	
 	//댓글 등록 버튼 클릭 시, 댓글 등록 함수 처리
 	$('#replyBtn').click(function(){
 		$.ajax({
@@ -308,6 +310,7 @@ function replyList(){
 	            var replyList =""; 
 	            $.each(res,function(i,result){ 
 	            	replyList+="<span style='color:black;font-weight:bold;'>└  @"+result.USER_ID+"</span>";
+	            	replyList+="<input type='text' name='commentrespondNo' value='"+result.COMMENTRESPOND_NO+"'>";
 	            	replyList+="<div class='commentContent"+result.COMMENT_NO+"'><div>";
 	            	replyList+="<p style='color:gray;padding-top:10px;'>";
 	            	replyList+=result.commentAbout+"</p></div>";
@@ -316,7 +319,7 @@ function replyList(){
 		            	+" 작성</span></div></div>";
 	            	replyList+="<div style='float:right'>";
 	            	replyList+="<a style='font-size:13px;color:gray;cursor:pointer'"; 
-	            	replyList+=" onclick='commentUpdate("+result.COMMENT_NO+",\""+result.commentAbout+"\");'>";
+	            	replyList+=" onclick='commentUpdate("+result.COMMENT_NO+",\""+result.COMMENTRESPOND_NO+",\""+result.commentAbout+"\");'>";
 	            	replyList+=" 수정 </a>";
 	            	replyList+="<a style='font-size:13px;color:gray;cursor:pointer'"; 
 	            	replyList+=" onclick='commentDelete("+result.COMMENT_NO+");'>";
@@ -329,8 +332,6 @@ function replyList(){
 	            });
         	}
            	
-        },error:function(xhr, status, error){
-        	alert("댓글이 조회되지 않습니다.");
         }
     });/* 댓글 조회 ajax  */
     
@@ -338,7 +339,7 @@ function replyList(){
 }
 
 //댓글 수정 - 수정 버튼 클릭시 댓글 내용 => 수정 input 폼으로 변경 
-function commentUpdate(COMMENT_NO, commentAbout){
+function commentUpdate(COMMENT_NO, commentAbout, COMMENTRESPOND_NO){
     var replyEdit ='';
     
     replyEdit+='<div class="input-group" style="margin:10px 0 10px 20px;">';
