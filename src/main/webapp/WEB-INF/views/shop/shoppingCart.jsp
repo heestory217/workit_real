@@ -109,8 +109,15 @@ IMP.init("imp52828174");
 			    buyer_tel : $('#buyer_tel').html(),	//필수
 			}, function(rsp) {
 				if ( rsp.success ) {
-	    			var msg = '결제가 완료되었습니다.';
-				    alert(msg);
+				    //결제완료되면 장바구니 내역 지우기
+				    $.ajax({
+						url:"<c:url value='/shop/clearCartAfterPayment.do'/>",
+						type:"GET",
+						dataType:"json",
+					});	//ajax
+					
+					//결제 완료 후 주문내역 페이지로 이동
+				    alert('결제가 완료되었습니다.');
 					location.href="<c:url value='/shop/paymentComplete.do'/>";	    			
 			    } else {
 			        var msg = '결제에 실패하였습니다.\n';
