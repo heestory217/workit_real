@@ -110,12 +110,13 @@ IMP.init("imp52828174");
 			}, function(rsp) {
 				if ( rsp.success ) {
 	    			var msg = '결제가 완료되었습니다.';
-	    			
+				    alert(msg);
+					location.href="<c:url value='/shop/paymentComplete.do'/>";	    			
 			    } else {
 			        var msg = '결제에 실패하였습니다.\n';
 			        msg += rsp.error_msg;
+				    alert(msg);
 			    }
-			    alert(msg);
 			});
 		});	//click 결제
 		
