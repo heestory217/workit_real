@@ -366,8 +366,8 @@ public class CommunityController {
 	
 	//답변 조회 - 페이징처리
 	@RequestMapping("/comments.do")
-	public String cmtDetail(@ModelAttribute QstnPagingVO vo, 
-			@RequestParam int qstnNo,Model model) {
+	public String cmtDetail(@ModelAttribute QstnPagingVO vo,
+			@RequestParam int qstnNo, Model model) {
 		logger.info("답변 조회, 파라미터 qstnNo={}, vo={}", qstnNo, vo);
 		if(qstnNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
@@ -391,6 +391,8 @@ public class CommunityController {
 		
 		List<Map<String, Object>> cmtList = comntService.selectAllComnt(vo);
 		logger.info("답변 조회 결과, cmtList.size={}", cmtList.size());
+		
+		
 		
 		model.addAttribute("cmtList", cmtList);
 		model.addAttribute("pagingInfo", pagingInfo);
@@ -452,14 +454,27 @@ public class CommunityController {
 	
 	@ResponseBody
 	@RequestMapping("/replyEdit.do")
-    private int replyEdit(@ModelAttribute CommentsVO vo) {
+    public int replyEdit(@ModelAttribute CommentsVO vo,HttpSession session) {
+		int userNo=(Integer) session.getAttribute("userNo");
+		vo.setUserNo(userNo);
 		logger.info("댓글 수정, 파라미터 vo={}", vo);
 		
 		int cnt=replyService.updateReply(vo);
-		logger.info("댓글 수정 결과, cnt={}", cnt);
+		logger.info("댓글 수정 결과, cnt={}, vo={}", cnt, vo);
 		
 		return cnt;
     }
-
-
+	
+	//댓글 삭제
+	@ResponseBody
+	@RequestMapping("/replyDelete.do")
+	public int replyDel(@RequestParam int replyNo) {
+		logger.info("댓글 삭제, 파라미터 replyNo={}", replyNo);
+		
+		int cnt=replyService.deleteReply(replyNo);
+		logger.info("댓글 삭제 결과, cnt={}", cnt);
+		
+		return cnt;
+		
+	}
 }

@@ -2,11 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
-
 <div class="replyBoxWrap active">
-<input type="hidden" name="commentrespondNo" value="${map['COMMENTRESPOND_NO']}"/>
 	<div class="replyOne">
-		
+	<input type="hidden" name="commentrespondNo" id="cmntNo" value="${map['COMMENTRESPOND_NO']}">
 	</div><!-- replyOne -->
 	<div class="replyWrap">
 		<form name="replyFrm" id="replyFrm">

@@ -26,6 +26,16 @@ public class CommentsDAOMybatis implements CommentsDAO{
 	public int updateReply(CommentsVO vo) {
 		return sqlSession.update(namespace+"updateReply",vo);
 	}
+
+	@Override
+	public int deleteReply(int replyNo) {
+		return sqlSession.delete(namespace+"deleteReply", replyNo);
+	}
+
+	@Override
+	public int selectReplyCnt(int commentNo) {
+		return sqlSession.selectOne(namespace+"selectReplyCnt", commentNo);
+	}
 	
 	
 }

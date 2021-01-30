@@ -255,6 +255,8 @@ $(function(){
 		}
 	});
 	
+	replyList();
+	
 	//댓글 등록 버튼 클릭 시, 댓글 등록 함수 처리
 	$('#replyBtn').click(function(){
 		$.ajax({
@@ -265,6 +267,7 @@ $(function(){
 			success:function(res){
 				if(res == 1) {
 					replyList(); //댓글 작성 후 댓글 목록 조회
+	            	commentCount();
 	                $('.replyWrite').val('');
 	            }
 			},
@@ -275,14 +278,31 @@ $(function(){
 		event.preventDefault();
 	});
 	
+	//댓글 개수
+	ajax({
+		url:"<c:url value='/indiv/community/replyCnt.do'/>",
+		type:"get",
+		data:"cmtNo="+$('#cmtNo').val(),
+		dataType:"json",
+		success:function(res){
+			alert(res);
+			$('.replyCnt').html(res);
+		},error:function(xhr, status, error){
+			alert('댓글 개수 조회 오류');
+		}
+		
+	});	
+	
 });
 
 //댓글 조회 ajax
 function replyList(){
+	var cmntNo=$('#cmntNo').val();
+
 	 $.ajax({
         url : "<c:url value='/indiv/community/replyList.do'/>",
         type : "GET",
-        data : "cmntNo="+$('#cmntNo').val(),
+        data : {'cmntNo':cmntNo},
         dataType:"json",
         async: false,
         success : function(res){
@@ -290,6 +310,7 @@ function replyList(){
 	            var replyList =""; 
 	            $.each(res,function(i,result){ 
 	            	replyList+="<span style='color:black;font-weight:bold;'>└  @"+result.USER_ID+"</span>";
+	            	replyList+="<input type='text' name='commentrespondNo' value='"+result.COMMENTRESPOND_NO+"'>";
 	            	replyList+="<div class='commentContent"+result.COMMENT_NO+"'><div>";
 	            	replyList+="<p style='color:gray;padding-top:10px;'>";
 	            	replyList+=result.commentAbout+"</p></div>";
@@ -298,25 +319,27 @@ function replyList(){
 		            	+" 작성</span></div></div>";
 	            	replyList+="<div style='float:right'>";
 	            	replyList+="<a style='font-size:13px;color:gray;cursor:pointer'"; 
-	            	replyList+=" onclick='commentUpdate("+result.COMMENT_NO+",\""+result.commentAbout+"\");'>";
-	            	replyList+=" 수정 </a></div><br><hr>";
+	            	replyList+=" onclick='commentUpdate("+result.COMMENT_NO+",\""+result.COMMENTRESPOND_NO+",\""+result.commentAbout+"\");'>";
+	            	replyList+=" 수정 </a>";
+	            	replyList+="<a style='font-size:13px;color:gray;cursor:pointer'"; 
+	            	replyList+=" onclick='commentDelete("+result.COMMENT_NO+");'>";
+	            	replyList+="| 삭제 </a></div><br><hr>";
 	            	
-
 
 	            	/* 참조변수.테이블컬럼명으로 적기 => 예) result.USER_NO */
 	            	$('.replyOne').html("<div>"+replyList+"</div>");
-	            
+	            	$('.replyCnt').html(res.length);
 	            });
-	            
         	}
-        },error:function(xhr, status, error){
-        	alert("댓글이 조회되지 않습니다.");
+           	
         }
     });/* 댓글 조회 ajax  */
+    
+
 }
 
 //댓글 수정 - 수정 버튼 클릭시 댓글 내용 => 수정 input 폼으로 변경 
-function commentUpdate(COMMENT_NO, commentAbout){
+function commentUpdate(COMMENT_NO, commentAbout, COMMENTRESPOND_NO){
     var replyEdit ='';
     
     replyEdit+='<div class="input-group" style="margin:10px 0 10px 20px;">';
@@ -324,7 +347,7 @@ function commentUpdate(COMMENT_NO, commentAbout){
     replyEdit+='<textarea id="replyEditWrite" class="replyWrite" name="commentAbout" style="font-size:14px"';
     replyEdit+=' placeholder="댓글을 입력해주세요.">'+commentAbout+'</textarea>';
     replyEdit+='<input type="button" value="수정" id="replyEditBtn"';
-    replyEdit+=' onclick="commentUpdateProc('+COMMENT_NO+');"></div>';
+    replyEdit+=' onClick="commentUpdateProc('+COMMENT_NO+');"></div>';
     
     $('.commentContent'+COMMENT_NO).html(replyEdit);
     
@@ -332,23 +355,44 @@ function commentUpdate(COMMENT_NO, commentAbout){
 
 //댓글 수정ajax
 function commentUpdateProc(COMMENT_NO){
-    var content = $('.replyWrite').val();
-    var replyNo = $('#replyNo').val();
-    
+	var cmntNo=$('[name=commentrespondNo]').val();
+    var commentNo = $('[name=commentNo]').val();
+    var commentAbout = $('[name=commentAbout]').val();
 	$.ajax({
 	    url:"<c:url value='/indiv/community/replyEdit.do'/>",
 	    type:"post",
-	    data:"content="+$('.replyWrite').val()+"&replyNo="+COMMENT_NO,
+	    data:{'commentNo':commentNo,'commentAbout':commentAbout,'cmntNo':cmntNo},
 	    dataType:"json",
 	    success : function(cnt){
 	        if(cnt == 1){
 	        	replyList(); //댓글 수정후 목록 출력 
 	        }
 	    },error:function(xhr, status, error){
-	    	alert("댓글 수정에 실패하였습니다.");
+	    	alert("댓글 수정에 실패했습니다.");
 	    }
 	});
 }
+
+//댓글 삭제 ajax 
+function commentDelete(COMMENT_NO){
+	if(!confirm('정말 삭제하시겠습니까?')){
+		return false;
+	}else{
+		$.ajax({
+		    url:"<c:url value='/indiv/community/replyDelete.do?replyNo="+COMMENT_NO+"'/>",
+		    type:"get",
+		    dataType:"json",
+		    success : function(cnt){
+		        if(cnt == 1){
+		        	replyList(); //댓글 수정후 목록 출력 
+		        }
+		    },error:function(xhr, status, error){
+		    	alert("댓글 삭제에 실패했습니다.");
+		    }
+		});
+	}
+}
+
 
 function pageFunc(curPage){
 	$('input[name=currentPage]').val(curPage);
@@ -372,6 +416,7 @@ function pageFunc(curPage){
 <c:forEach var="map" items="${cmtList}">
 <div class="cmtOne">
 	<div class="nickDiv">
+		<input type="text" name="commentrespondNo" id="cmtNo" value="${map['COMMENTRESPOND_NO']}">
 		<span>@ ${map['USER_ID'] }</span>
 		<c:if test="${userId eq map['USER_ID'] }">
 		<!-- if 조건으로 로그인한 회원의 번호와 질문글의 회원번호가 같은 경우에만 보이도록 설정 -->
@@ -401,7 +446,7 @@ function pageFunc(curPage){
 		<span><fmt:formatDate value="${map['COMMENTRESPOND_DATE']}" pattern="yyyy-MM-dd"/> 작성</span>
 	</div>
 	<div class="replyBtnDiv">
-		<span>댓글 <b class="replyCnt">2</b></span>
+		<span>댓글 <b class="replyCnt">${totalReply }</b></span>
 	</div>
 	<div class="recommendCntDiv">
 		<a href="#"><i class="fa fa-thumbs-o-up"></i>
