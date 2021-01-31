@@ -1,8 +1,10 @@
 package com.it.workit.community.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -429,26 +431,24 @@ public class CommunityController {
 	//댓글 조회
 	@ResponseBody
 	@RequestMapping("/replyList.do")
-	public List<Map<String, Object>> selectReply(@RequestParam int cmntNo,
+	public List<Map<String, Object>> selectReply(@RequestParam(defaultValue = "0") int cmtNo,
 						Model model) {
-		logger.info("댓글 조회, 파라미터 cmntNo={}", cmntNo);
-		List<Map<String, Object>> replyList=replyService.selectComment(cmntNo);
+		logger.info("댓글 조회, 파라미터 cmntNo={}", cmtNo);
+		List<Map<String, Object>> replyList=replyService.selectComment(cmtNo);
 		logger.info("댓글 조회 결과, replyList.size={}", replyList.size());
 		
 		return replyList;
 	}
 	
-	//댓글 등록
+	//댓글 등록 , produces="text/html;charset=UTF-8"
 	@ResponseBody
 	@RequestMapping("/replyWrite.do")
-	public int replyWrite(@ModelAttribute CommentsVO vo, HttpSession session) {
+	public int replyWrite(@ModelAttribute CommentsVO vo,HttpSession session) {
 		int userNo=(Integer) session.getAttribute("userNo");
 		vo.setUserNo(userNo);
 		logger.info("댓글 등록, 파라미터 vo={}", vo);
-		
-		int cnt=replyService.insertReply(vo);
-		logger.info("댓글 등록 결과, cnt={}", cnt);
-		
+		int	cnt=replyService.insertReply(vo);
+			logger.info("댓글 등록 결과, cnt={}", cnt);
 		return cnt;
 	}
 	
