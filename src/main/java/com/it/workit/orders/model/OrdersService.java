@@ -16,4 +16,5 @@ public interface OrdersService {
 	
 	OrdersVO selectOrdersByOrderNo(int orderNo);
 	
+	List<Integer> selectPurchasedResumeNo(int userNo);
 }

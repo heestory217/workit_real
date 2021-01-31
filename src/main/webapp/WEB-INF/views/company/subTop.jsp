@@ -89,7 +89,7 @@
                         <li><a href="#">채용 공고 등록</a></li>
                         <li><a href="#">기업 관리</a>
                             <ul class="dropdown">
-                                <li><a href="<c:url value='company/corp/corpDetail.do?corpNo=${corpNo}'/>">기업 정보</a></li>
+                                <li><a href="<c:url value='/company/corp/corpDetail.do?corpNo=${corpNo}'/>">기업 정보</a></li>
                                 <li><a href="#">채용 공고 관리</a></li>
                             </ul>
                         </li>
@@ -101,8 +101,8 @@
                             </ul>
                         <li><a href="#">인재 관리</a>
                             <ul class="dropdown">
-                                <li><a href="#">포지션제안</a></li>
-                                <li><a href="#">구매 이력서</a></li>
+                                <li><a href="<c:url value='/company/humanResourceManagement/positionSuggest.do'/>">포지션제안</a></li>
+                                <li><a href="<c:url value='/company/humanResourceManagement/purchasedResumes.do'/>">구매 이력서</a></li>
                             </ul>
                         </li>
                         <li><a href="#">마이페이지</a>

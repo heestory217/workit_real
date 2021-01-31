@@ -41,6 +41,12 @@
 		select * from orders where order_no=#{orderNo}
 	</select>
 	
+	<!-- 회원이 구입한 이력서 번호 list -->
+	<select id="selectPurchasedResumeNo" parameterType="int" resultType="int">
+		select RESUME_NO from ORDERDETAILRESUME 
+		where exists (select order_no from orders where user_no=#{userNo})
+	</select>
+	
 
 	<!-- 개인 마이페이지 결제내역 사용 -->
 <!-- 	<select id="selectIndivPaymentByUserno" parameterType="int" resultType="ordersVo">

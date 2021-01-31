@@ -52,5 +52,10 @@ public class OrdersServiceImpl implements OrdersService{
 	public OrdersVO selectOrdersByOrderNo(int orderNo) {
 		return ordersDao.selectOrdersByOrderNo(orderNo);
 	}
+
+	@Override
+	public List<Integer> selectPurchasedResumeNo(int userNo) {
+		return ordersDao.selectPurchasedResumeNo(userNo);
+	}
 	
 }
