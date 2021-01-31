@@ -94,8 +94,11 @@ h3.resumeName {
 												이력서 네임
 											</a>
 										</h3>
-										<p class="resumeDate">작성일</p>
-										<p class="openOnOff">임시저장</span>
+										<p class="resumeDate">
+											<i class="fa fa-calendar" aria-hidden="true"></i>
+											 작성일</p>
+										<p class="openOnOff">
+											임시저장
 										</p>
 									</div>
 									<div class="icon" title="삭제">
