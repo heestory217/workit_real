@@ -103,7 +103,7 @@
                         <h4 class="fw-title">언어</h4>
                         <div class="fw-tags">
                             <c:forEach var="lang" items="${langlist }">
-                            	<a>${lang.languageName}</a>
+                            	<a href="#" onclick=reSearch(${lang.languageNo}) id="tag_${lang.languageNo}">${lang.languageName}</a>
                             </c:forEach>
                         </div>
                     </div>
@@ -174,7 +174,7 @@
 										${i}</span>			
 								</c:if>
 								<c:if test="${i!=pagingInfo.currentPage }">
-						q			<a href="#" onclick="pageFunc(${i})">
+									<a href="#" onclick="pageFunc(${i})">
 										${i}</a>			
 								</c:if>
 							</c:forEach>
@@ -212,6 +212,14 @@
     <script src="<c:url value="/resources/js/check.js"/>" type="text/javascript"></script>
     <script src="https://kit.fontawesome.com/a86f09c0f4.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
+    
+    //[3]결과내 재검색
+    function reSearch(langNo){
+    	var el = document.getElementById("tag_"+langNo);
+    	el.style.color = 'white';
+    	el.style.background = 'black';
+    	event.preventDefault();
+    }
     
     ///[2] 페이징처리
 	function pageFunc(curPage){
