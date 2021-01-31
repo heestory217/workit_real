@@ -63,7 +63,6 @@
                     <div class="product-large set-bg m-large" data-setbg="<c:url value='/resources/img/products/man-large.jpg'/>"
                     	style="height: 400px;padding-top: 120px;" >
                         <h2>맞춤 이력서<br>추천</h2>
-                        <a href="#">More</a>
                     </div>
                 </div>
             </div>

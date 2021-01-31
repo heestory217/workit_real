@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../../inc/top.jsp"%>
+    
     <style>
     .product-item {
     	position:relative;
@@ -78,14 +79,6 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
                     <div class="filter-widget">
-                        <h4 class="fw-title">직군</h4>
-                        <ul class="filter-catagories">
-                            <li><a href="#">Men</a></li>
-                            <li><a href="#">Women</a></li>
-                            <li><a href="#">Kids</a></li>
-                        </ul>
-                    </div>
-                    <div class="filter-widget">
                         <h4 class="fw-title">지역 설정</h4>
                         <div class="fw-size-choose">
                             <div class="sc-item">
@@ -109,7 +102,7 @@
                     <div class="filter-widget">
                         <h4 class="fw-title">언어</h4>
                         <div class="fw-tags">
-                            <a href="#">JAVA</a>
+                            <a>JAVA</a>
                             <a href="#">Python</a>
                             <a href="#">C/C++</a>
                             <a href="#">JavaScript</a>
@@ -138,7 +131,7 @@
                             <div class="col-lg-4 col-sm-6">
                                 <div class="product-item">
                                     <div class="pi-pic">
-                                        <div class="sale pp-sale">구매한 이력서</div>
+                                        <!-- <div class="sale pp-sale">구매한 이력서</div> -->
                                         <ul>
                                         	<li class="w-icon active" onclick="insertCart('${resume.resumesVo.resumeNo }')">
 	                                            <a href="#"><i class="icon_bag_alt"></i></a>
@@ -185,7 +178,7 @@
 										${i}</span>			
 								</c:if>
 								<c:if test="${i!=pagingInfo.currentPage }">
-									<a href="#" onclick="pageFunc(${i})">
+						q			<a href="#" onclick="pageFunc(${i})">
 										${i}</a>			
 								</c:if>
 							</c:forEach>

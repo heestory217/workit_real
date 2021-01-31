@@ -110,9 +110,10 @@
         <p class="card-text pt-3" >${reVo.corpreviewBad}</p>
         <h6 style="font-weight: 600; color: #333;">경영진에게 바라는 점</h6>
         <p class="card-text pt-3" style="margin-bottom: 40px;">${reVo.corpreviewWant}</p>
-        <hr style="margin-top: 20px;">
-	  		<button type="button" class="btn" style="border-left-width: 0px;padding-left: 0px;padding-right: 0px;color: #999;">리뷰 삭제</button>
-	  		</a>
+       	<!-- c:if 이 회사의 userNo가 로그인한 userNo와 같은경우 삭제버튼 보여줌 -->
+	        <hr style="margin-top: 20px;">
+		  		<button type="button" class="btn" style="border-left-width: 0px;padding-left: 0px;padding-right: 0px;color: #999;">리뷰 삭제</button>
+	  			</a>
       </div>
 
     </div>
@@ -149,6 +150,8 @@
     </div>
 </div>
 <!-- user가 일반회원일때만 보여줘야함 -->
-<a href="<c:url value="/company/corp/corpReviewWrite.do?corpno=${param.corpNo }"/>"><button style="float: right;" class="site-btn">기업 리뷰 작성</button></a>
+<c:if test="${sessionScope.user_corpcheck eq 1 }">
+	<a href="<c:url value="/company/corp/corpReviewWrite.do?corpno=${param.corpNo }"/>"><button style="float: right;" class="site-btn">기업 리뷰 작성</button></a>
+</c:if>
 </body>
 </html>
