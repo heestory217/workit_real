@@ -25,6 +25,8 @@
 	<select id="searchResumeByNo" parameterType="int" resultMap="resumeList">
 		select * from resumes where resume_no=#{resumeNo}
 	</select>
+	
+	
 </mapper>
 
 
