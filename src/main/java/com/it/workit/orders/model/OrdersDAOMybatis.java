@@ -54,4 +54,10 @@ public class OrdersDAOMybatis implements OrdersDAO{
 		return sqlSession.selectOne(namespace+"selectOrdersByOrderNo", orderNo);
 	}
 
+	//구입한 이력서 번호 리스트
+	@Override
+	public List<Integer> selectPurchasedResumeNo(int userNo) {
+		return sqlSession.selectList(namespace+"selectPurchasedResumeNo", userNo);
+	}
+
 }
