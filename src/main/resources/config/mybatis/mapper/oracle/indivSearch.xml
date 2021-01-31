@@ -4,7 +4,7 @@
 
 <mapper namespace="config.mybatis.mapper.oracle.indivSearch">
 
-
+	<!-- 키워드 검색 -->
 	<select id="selectIndivKeyword" parameterType="String" resultType="indivKeywordSearchVo">
 		select r.*, c.CORP_NAME, c.CORP_IMGURL, l.LANGUAGE_NAME, w.WORKKIND_NAME, 
 			a.AREA_ADD1, a.AREA_ADD2
@@ -19,8 +19,33 @@
 		where (CORP_NAME like '%'|| #{keyword} ||'%' OR
 			LANGUAGE_NAME like '%'|| #{keyword} ||'%' OR
 			WORKKIND_NAME like '%'|| #{keyword} ||'%')
-		<!-- and RECRUITANNOUNCE_ENDDATE>=sysdate -->
+		<![CDATA[
+		and RECRUITANNOUNCE_ENDDATE>=sysdate
+		]]>
 		order by RECRUITANNOUNCE_ENDDATE
+	</select>
+	
+	<!-- 언어 검색 -->
+	<select id="selectIndivLanguage" parameterType="int" resultType="indivKeywordSearchVo">
+		select r.*, c.CORP_NAME, c.CORP_IMGURL, l.LANGUAGE_NAME, w.WORKKIND_NAME, a.AREA_ADD1, a.AREA_ADD2
+		from RECRUITANNOUNCE r join CORP c
+		on r.user_no=c.user_no
+		join LANGUAGE l
+		on r.LANGUAGE_NO=l.LANGUAGE_NO
+		join WORKKIND w
+		on r.WORKKIND_NO = w.WORKKIND_NO
+		join AREALIST a
+		on r.AREALIST_NO = a.AREA_NO
+		where r.LANGUAGE_NO=#{languageNo}
+		<![CDATA[
+		and RECRUITANNOUNCE_ENDDATE>=sysdate
+		]]>
+		order by RECRUITANNOUNCE_ENDDATE
+	</select>
+	
+	<!-- 언어목록 -->
+	<select id="selectLanguage" resultType="languageVo">
+		select * from language order by LANGUAGE_NO
 	</select>
 
 </mapper>

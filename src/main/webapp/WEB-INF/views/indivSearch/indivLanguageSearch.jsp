@@ -4,6 +4,66 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/css/indivSearch.css'/>" />
 
+<script type="text/javascript">
+	$(function(){
+		$('#languageNo').change(function(){
+			var languageNo=$('#languageNo option:selected').val();
+			//alert(languageNo);
+			
+			$.ajax({
+				url:"<c:url value='/indivSearch/indivLanguageSearchAjax.do'/>",
+				type:"get",
+				data:{
+					languageNo:languageNo
+				},
+				success:function(res){
+					alert(res.length);
+					if(res.length>0){
+						var corpImgurl="";
+						var recruitannounceEnddate="";
+						var workkindName="";
+						var corpName="";
+						var areaAdd1="";
+						var areaAdd2="";
+						var recruitannounceTitle="";
+						var languageName="";
+						var recruitannounceScarrer="";
+						var recruitannounceSpay="";
+						$.each(res, function(idx, item){
+							corpImgurl+=item.workkindName;
+							recruitannounceEnddate+=item.recruitannounceEnddate;
+							workkindName+=item.workkindName;
+							corpName+=item.corpName;
+							areaAdd1+=item.areaAdd1;
+							areaAdd2+=item.areaAdd2;
+							recruitannounceTitle+=item.recruitannounceTitle;
+							languageName+=item.languageName;
+							recruitannounceScarrer+=item.recruitannounceScarrer;
+							recruitannounceSpay+=item.recruitannounceSpay;
+						});
+						
+						$('#result').html(recruitannounceTitle);
+					}
+				},
+				error:function(xhr, status, error){
+					alert('error! : '  +error);
+				}	
+			});
+		});
+	});
+</script>
+<p id="result"></p>
+<div class="group-input">
+	<label for="languageNo">언어</label>
+	<select name="languageNo" id="languageNo" class="col-lg-7 mystyle">
+		<option disabled selected>언어 목록</option>
+		<c:if test="${!empty Llist }">
+			<c:forEach var="Lvo" items="${Llist }">
+				<option value="${Lvo.languageNo }">${Lvo.languageName }</option>
+			</c:forEach>
+		</c:if>
+	</select>
+</div>
 <!-- Latest Blog Section Begin -->
 <section class="latest-blog spad margin_left_right_150">
 	<div class="container">
@@ -27,7 +87,7 @@
 					<div class="col-lg-4 col-md-6 padding_20">
 						<div class="single-latest-blog">
 							<a href="<c:url value='/index.do'/>"> 
-								<img src="<c:url value='/pd_images/${vo.corpImgurl }'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
+								<img id="searchImg" src="<c:url value='/pd_images/${vo.corpImgurl }'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
 								<div class="latest-text">
 									<div class="tag-list">
 										<div class="tag-item">
@@ -36,7 +96,7 @@
 												pattern="yyyy-MM-dd"/>
 										</div>
 										<div class="tag-item">
-											<i class="fas fa-search"></i> ${vo.workkindName }
+											<i class="fas fa-search"></i> <span id="workkindName"></span>
 										</div>
 									</div>
 									<h4>
@@ -65,38 +125,6 @@
 					</div>
 				</c:forEach>
 			</c:if> 
-			<!-- 반복 끝 -->
-			<!-- 반복시작 -->
-			<%-- <div class="col-lg-4 col-md-6 padding_20">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img src="<c:url value='/resources/img/latest-1.jpg'/>" alt="">
-						<div class="latest-text">
-							<div class="tag-list">
-								<div class="tag-item">
-									<i class="fa fa-calendar-o"></i> 2021-02-19
-								</div>
-								<div class="tag-item">
-									<i class="fas fa-search"></i> 자바 개발자
-								</div>
-							</div>
-							<h4>
-								<b>예시 : 패스트캠퍼스</b>
-							</h4>
-							<p>B회사 JAVA프로그래머 채용</p>
-							<p class="margin_bottom_0">
-								<i class="fas fa-building"></i> 서울 · 도봉구
-							</p>
-							<p class="margin_bottom_0">
-								<i class="fas fa-pencil-alt"></i> JAVA · 경력 1년 이상
-							</p>
-							<p class="margin_bottom_0">
-								<i class="fas fa-dollar-sign"></i> 연 2600만
-							</p>
-						</div>
-					</a>
-				</div>
-			</div>  --%>
 			<!-- 반복 끝 -->
 		</div>
 	</div>
