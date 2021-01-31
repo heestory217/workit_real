@@ -3,14 +3,12 @@ package com.it.workit.recruit.controller;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -69,10 +67,45 @@ public class RecruitController {
 	
 	
 	@RequestMapping(value="/recruitwrite.do", method=RequestMethod.POST)
-	public String recruitwritesee(Model model) {
+	public String recruitwritesee(@ModelAttribute RecruitannounceVO vo, Model model) {
+		logger.info("채용정보 화면처리 {}", vo);
+
+		String msg="공고에 실패했습니다", url="/index.do";
+
 		
-		String msg="공고가 등록되었습니다.", url="/index.do";
+		if(vo.getRecruitannounceWorkkind()==null || vo.getRecruitannounceWorkkind().isEmpty()) {
+			vo.setRecruitannounceSworkkind("");
+		}
 		
+		if(vo.getRecruitannounceWorkkind()==null || vo.getRecruitannounceWorkkind().isEmpty()) {
+			vo.setRecruitannounceSworkkind("");
+		}
+		
+		if(vo.getRecruitannounceUpcheckcarrer()==null || vo.getRecruitannounceUpcheckcarrer().isEmpty()) {
+			vo.setRecruitannounceUpcheckcarrer("");
+		}
+		
+		if(vo.getRecruitannounceHirestep()==null || vo.getRecruitannounceHirestep().isEmpty()) {
+			vo.setRecruitannounceHirestep("");
+		}
+		
+		if(vo.getRecruitannounceElse()==null || vo.getRecruitannounceElse().isEmpty()) {
+			vo.setRecruitannounceElse("");
+		}
+		
+		if(vo.getRecruitannounceLink()==null || vo.getRecruitannounceLink().isEmpty()) {
+			vo.setRecruitannounceLink("");
+		}
+		
+		int cnt=recruitannounceService.recruitannouncewrite(vo);
+		
+		logger.info("채용공고 등록 결과 {}", cnt);
+		
+		if(cnt>0) {
+			msg="채용공고 등록 완료";
+			url="/index.do";
+		}
+
 		//3
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
