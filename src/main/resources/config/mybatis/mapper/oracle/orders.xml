@@ -5,16 +5,42 @@
 <mapper namespace="config.mybatis.mapper.oracle.orders">
 	<!-- 주문테이블 insert : 쿠폰 사용했을 경우 -->
 	<insert id="insertOrderWithCoupon" parameterType="ordersVo">
+		<selectKey keyProperty="orderNo" resultType="int" order="BEFORE">
+			select orders_seq.nextval from dual
+		</selectKey>
 		insert into orders(ORDER_NO, USER_NO, ORDER_PAYKIND, COUPON_NO, ORDER_DISCOUNT, ORDER_PAY)
-		values(orders_seq.nextval, #{userNo}, #{orderPaykind}, #{couponNo}, #{orderDiscount}, #{orderPay})
+		values(#{orderNo}, #{userNo}, #{orderPaykind}, #{couponNo}, #{orderDiscount}, #{orderPay})
 	</insert>
 	
 	<!-- 주문테이블 insert : 쿠폰 사용 없을 경우-->
 	<insert id="insertOrder" parameterType="ordersVo">
+		<selectKey keyProperty="orderNo" resultType="int" order="BEFORE">
+			select orders_seq.nextval from dual
+		</selectKey>
 		insert into orders(ORDER_NO, USER_NO, ORDER_PAYKIND, ORDER_PAY)
-		values(orders_seq.nextval, #{userNo}, #{orderPaykind}, #{orderPay})
+		values(#{orderNo}, #{userNo}, #{orderPaykind}, #{orderPay})
 	</insert>
-
+	
+	<!-- 이력서 주문상세 : 트랜잭션 처리를 위해 -->
+	<update id="insertOrderDetailResume" parameterType="ordersVo">
+		insert into ORDERDETAILRESUME
+		select #{orderNo} as ORDER_NO,
+		    (select PAIDSERVICE_NO from paidservice 
+		        where PAIDSERVICE_NAME like '이력서') as PAIDSERVICE_NO, RESUME_NO
+		from shoppingCart
+		where user_no=#{userNo}
+	</update>
+	
+	<!-- 주문완료 후 상세내역 출력 -->
+	<select id="selectOrderdetailsResumeView" parameterType="int" resultType="map">
+		select * from OrderdetailsResumeView
+		where order_no=#{orderNo}
+	</select>
+	
+	<select id="selectOrdersByOrderNo" parameterType="int" resultType="ordersVo">
+		select * from orders where order_no=#{orderNo}
+	</select>
+	
 
 	<!-- 개인 마이페이지 결제내역 사용 -->
 <!-- 	<select id="selectIndivPaymentByUserno" parameterType="int" resultType="ordersVo">
