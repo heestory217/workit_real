@@ -3,6 +3,7 @@ package com.it.workit.language.model;
 public class LanguageVO {
 	private int languageNo;
 	private String languageName;
+	
 	public int getLanguageNo() {
 		return languageNo;
 	}

@@ -102,13 +102,9 @@
                     <div class="filter-widget">
                         <h4 class="fw-title">언어</h4>
                         <div class="fw-tags">
-                            <a>JAVA</a>
-                            <a href="#">Python</a>
-                            <a href="#">C/C++</a>
-                            <a href="#">JavaScript</a>
-                            <a href="#">SQL</a>
-                            <a href="#">Men's hats</a>
-                            <a href="#">Backpack</a>
+                            <c:forEach var="lang" items="${langlist }">
+                            	<a>${lang.languageName}</a>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>

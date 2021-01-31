@@ -16,6 +16,8 @@ import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.LanguageListView;
 import com.it.workit.corpsearch.model.CorpSearchService;
 import com.it.workit.corpsearch.model.CorpSearchkeywordConvertor;
+import com.it.workit.language.model.LanguageService;
+import com.it.workit.language.model.LanguageVO;
 import com.it.workit.resumes.model.ResumesAllVO;
 import com.it.workit.resumes.model.ResumesService;
 import com.it.workit.users.model.UsersService;
@@ -29,6 +31,7 @@ public class CorpSearchController {
 	@Autowired private CorpService corpService;
 	@Autowired private UsersService userSerivce;
 	@Autowired private CorpSearchkeywordConvertor CSKConvertor;
+	@Autowired private LanguageService langService;
 	
 	@RequestMapping("/corpSearch.do")
 	public String searchMain(@ModelAttribute SearchVO searchVo, Model model) {
@@ -63,6 +66,9 @@ public class CorpSearchController {
 		logger.info("전체 글 갯수 : {}", totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
 		
+		List<LanguageVO> langList = langService.selectAllLang();
+		
+		model.addAttribute("langlist",langList);
 		model.addAttribute("resumeList",resumeList);
 		model.addAttribute("pagingInfo",pagingInfo);
 		
