@@ -60,4 +60,9 @@ public class RecruitannounceDAOMybatis implements RecruitannounceDAO {
 		return sqlSession.selectList(namespace+"selectcwplace");
 	}
 
+	@Override
+	public int recruitannouncewrite(RecruitannounceVO vo) {
+		return 0;//sqlSession.insert(namespace+"recruitannouncewrite", vo);
+	}
+
 }

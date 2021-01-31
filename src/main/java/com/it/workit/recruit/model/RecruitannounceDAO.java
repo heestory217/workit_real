@@ -13,4 +13,5 @@ public interface RecruitannounceDAO {
 	public int recruitdelete(int recruitannounceNo);
 	public List<String> selectcwlanguage();
 	public List<arealistVO> selectcwplace();
+	public int recruitannouncewrite(RecruitannounceVO vo);
 }

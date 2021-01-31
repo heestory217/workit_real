@@ -10,11 +10,8 @@
 <!DOCTYPE html>
 
 <head>
-
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
-
 </head>
 <style>
 input[type=number]::-webkit-outer-spin-button{-webkit-appearance: none;margin: 0;}
@@ -55,7 +52,24 @@ function numberMaxLength(e){
 			});
 		});
 		
-		
+			//$('.infobox').each(function(idx, item){
+
+			//});
+		$('#recruitask').click(function(){
+			if($("#recruitannounceTitle").val().length<1){
+				$("#finalcheck").text("제목을 입력해주세요");
+				return false;
+			}else if($("#year").val().length<1 || $("#month").val().length<1 || $("#day").val().length<1){
+				$("#finalcheck").text("마감날짜를 입력해 주세요");
+				return false;
+			}else if($("#recruitannounceSworkkind").val().length<1 || $("#recruitannounceScarrer").val().length<1 || 
+					$("#recruitannounceSpay").val().length<1 || $("#recruitannounceSkill").val().length<1){
+				$("#finalcheck").text("필수사항을 입력해주세요");
+				return false;
+			}else{
+				$("#finalcheck").text("");
+			}
+		});
 	});
 </script>
 
@@ -66,10 +80,10 @@ function numberMaxLength(e){
                 <div class="col-lg-9 offset-lg-1">
                     <div class="register-form">
                         <h2>채용공고</h2>
-                        <form action="#">
+                        <form action="<c:url value='/recruit/recruitwrite.do'/>" method="POST">
                             <div class="group-input">
                                 <label for="username">제목(필수)</label>
-                                <input type="text" id="username">
+                                <input type="text" id="recruitannounceTitle" name="recruitannounceTitle">
                             </div>
                             
                             <div class="group-input">
@@ -86,42 +100,42 @@ function numberMaxLength(e){
                             
                             <div class="group-input">
                                 <label for="pass">요약-채용형태(필수)</label>
-                                <input type="text" id="pass">
+                                <input type="text" id="recruitannounceSworkkind" name="recruitannounceSworkkind" value="1">
                             </div>
                             <div class="group-input">
-                                <label for="pass">요약-경력</label>
-                                <input type="text" id="pass">
-                            </div>
-                            
-                            <div class="group-input">
-                                <label for="pass">요약-급여</label>
-                                <input type="text" id="pass">
+                                <label for="pass">요약-경력(필수)</label>
+                                <input type="text" id="recruitannounceScarrer" name="recruitannounceScarrer">
                             </div>
                             
                             <div class="group-input">
-                                <label for="pass">요약-기술</label>
-                                <input type="text" id="pass">
+                                <label for="pass">요약-급여(필수)</label>
+                                <input type="text" id="recruitannounceSpay" name="recruitannounceSpay">
+                            </div>
+                            
+                            <div class="group-input">
+                                <label for="pass">요약-기술(필수)</label>
+                                <input type="text" id="recruitannounceSkill" name="recruitannounceSkill">
                             </div>
                             
                             <div class="group-input">
 		                    	<label for="corpIntro">채용형태</label>
-		                    	<textarea id="workhire" name="workhire"></textarea><br><br>
+		                    	<textarea id="recruitannounceWorkkind" name="recruitannounceWorkkind"></textarea><br><br>
 								<script type="text/javascript">
-									CKEDITOR.replace('workhire',	{height : 200});
+									CKEDITOR.replace('recruitannounceWorkkind',	{height : 200});
 								</script>
                    			</div>
                    			
                             <div class="group-input">
 		                    	<label for="corpIntro">주요업무</label>
-		                    	<textarea id="workhir" name="workhir"></textarea><br><br>
+		                    	<textarea id="recruitannounceWork" name="recruitannounceWork"></textarea><br><br>
 								<script type="text/javascript">
-									CKEDITOR.replace('workhir',	{height : 200});
+									CKEDITOR.replace('recruitannounceWork',	{height : 200});
 								</script>
                    			</div>
                    			
                             <div class="group-input">
 	                            <label for="pass">자격 요건</label>
-		                            <select class="col-lg-5 mystyle">
+		                            <select class="col-lg-5 mystyle" id="recruitannounceWantedcarrer" name="recruitannounceWantedcarrer">
 		                           				<option value=0>신입</option>
 		                              			<option value=1>1년차</option>
 		                         		        <option value=2>2년차</option>
@@ -138,12 +152,12 @@ function numberMaxLength(e){
                             
                             <div class="group-input">
                                 <label for="pass">우대사항</label>
-                                <input type="text" id="pass">
+                                <input type="text" id="recruitannounceUpcheckcarrer" name="recruitannounceUpcheckcarrer">
                             </div>
                             
                             <div class="group-input">
                             <label for="pass">요구 직무</label>
-                                    <select class="col-lg-5 mystyle">
+                                    <select class="col-lg-5 mystyle" id="workkindNo" name="workkindNo">
                                         <option value=1>서버개발자</option>
                                         <option value=2>웹 개발자</option>
                                         <option value=3>프론트엔드 개발자</option>
@@ -172,29 +186,29 @@ function numberMaxLength(e){
                             
 							<div class="group-input">
                                     <label for="pass">요구 근무지</label>
-                                    <select class="col-lg-7 mystyle">
+                                    <select class="col-lg-7 mystyle" id="arealistNo" name="arealistNo">
                                         <c:forEach items="${arealist}" var="ho">
-	                                    	<option>${ho.areaadd1}, ${ho.areaadd2}</option>
+	                                    	<option value="${ho.areaNo}">${ho.areaadd1}, ${ho.areaadd2}</option>
 	                                    </c:forEach>
                                     </select>
                             </div>
                             
                             <div class="group-input">
                                 <label for="pass">채용절차</label>
-                                <input type="text">
+                                <input type="text" id="recruitannounceHirestep" name="recruitannounceHirestep">
                             </div>
                             
                             <div class="group-input">
                                 <label for="pass">기타</label>
-                                <input type="text">
+                                <input type="text" id="recruitannounceElse" name="recruitannounceElse">
                             </div>
                             
                             <div class="group-input">
                                 <label for="pass">회사링크</label>
-                                <input type="text">
+                                <input type="text" id="recruitannounceLink" name="recruitannounceLink">
                             </div>
-                            
-                            <button type="submit" class="site-btn register-btn">공고등록 요청</button>
+                            <span class="call" id="finalcheck" name="finalcheck" style="cursor:hand;color:red"></span>
+                            <button type="submit" class="site-btn register-btn" id='recruitask' name='recruitask'>공고등록 요청</button>
                         </form>
                     </div>
                 </div>

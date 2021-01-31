@@ -53,5 +53,10 @@ public class RecruitannounceServiceImpl implements RecruitannounceService {
 		return RecruitannounceDao.selectcwplace();
 	}
 
+	@Override
+	public int recruitannouncewrite(RecruitannounceVO vo) {
+		return RecruitannounceDao.recruitannouncewrite(vo);
+	}
+
 	
 }
