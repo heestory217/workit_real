@@ -28,6 +28,12 @@ public class OrdersController {
 	@Autowired private CouponService couponService;
 	@Autowired private OrdersService ordersService;
 	
+	@RequestMapping("/checkOut.do")
+	public void checkOut() {}
+	
+	
+	
+	
 	@ResponseBody
 	@RequestMapping("/order.do")
 	public int order(@ModelAttribute OrdersVO vo, 
