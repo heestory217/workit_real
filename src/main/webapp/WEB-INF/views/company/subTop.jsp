@@ -22,26 +22,22 @@
              </a>
          </li>
      	<!-- 장바구니 -->
-         <li class="cart-icon">
+         <li class="cart-icon" onmouseover="showCart(${sessionScope.userNo})" onmouseout="hideCart()">
              <a href="#">
                  <i class="icon_bag_alt"></i>
-                 <span>3</span>
+                 <span id="miniCartQty">3</span>
              </a>
              <div class="cart-hover">
                  <div class="select-items">
                      <table>
-                         <tbody>
+                         <tbody id="miniCart">
                          <!-- 장바구니에 담은 이력서 최대 3개 반복 -->
                              <tr>
-                                 <td class="si-pic"><img src="img/select-product-1.jpg" alt=""></td>
                                  <td class="si-text">
                                      <div class="product-selected">
                                          <p>이력서 제목 자리</p>
                                          <h6>직무, 경력, 언어 자리</h6>
                                      </div>
-                                 </td>
-                                 <td class="si-close">
-                                     <i class="ti-close"></i>
                                  </td>
                              </tr>
                          <!-- 장바구니에 담은 이력서 반복끝 -->
@@ -136,8 +132,55 @@
     <script src="<c:url value="/resources/js/check.js"/>" type="text/javascript"></script>
     <script src="https://kit.fontawesome.com/a86f09c0f4.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
-    	function search(){
-	    	var searchKeyword = document.getElementById("searckKeyword").value;
-    		location.href="/workit/corpSearch.do?searchKeyword="+searchKeyword;
-    	}
+   	function search(){
+    	var searchKeyword = document.getElementById("searckKeyword").value;
+   		location.href="/workit/corpSearch.do?searchKeyword="+searchKeyword;
+   	}
+
+   	//장바구니에 최근 담은 이력서 보여주기
+   	function showCart(userNo){
+   		$('.cart-hover').show();
+   		CartList(userNo);
+   	}
+
+	function CartList(userNo){
+		//alert(userNo);
+		var str="";
+	      $.ajax({
+	         url:"<c:url value='/shop/miniCart.do'/>",
+	         type:"get",
+	         data: "userNo="+userNo,
+	         dataType:'json',
+	         success:function(res){
+	        	 /*
+	     		[{"shoppingCartNo":6,"userNo":5,"resumeNo":4,"userName":"최보미","resumeTitle":"최보미_1","userExperience":"7","workkindName":"서버 개발자","paidServicePrice":2000},
+	     		{"shoppingCartNo":7,"userNo":5,"resumeNo":1,"userName":"김길동","resumeTitle":"김길동_1","userExperience":"3","workkindName":"서버 개발자","paidServicePrice":2000},
+	     		{"shoppingCartNo":8,"userNo":5,"resumeNo":7,"userName":"박나은","resumeTitle":"박나은_1","userExperience":"0","workkindName":"서버 개발자","paidServicePrice":2000},
+	     		{"shoppingCartNo":9,"userNo":5,"resumeNo":2,"userName":"홍길동","resumeTitle":"홍길동_1","userExperience":"1","workkindName":"서버 개발자","paidServicePrice":2000}]
+	     		 */
+	        	 if(res.length>0){
+	        		 $(res).each(function(){
+	        			 var resumeTitle = this.resumeTitle;
+	        			 var userExperience = this.userExperience;
+	        			 var workkindName = this.workkindName;
+		        			 if(userExperience=='0'){
+		        				 userExperience = '신입';
+		        			 }else{
+		        				 userExperience = userExperience+'년';
+		        			 }
+
+	        			 str+="<tr><td class='si-text'> <div class='product-selected'> <p>"+resumeTitle+"</p> <h6>"userExperience+", "+workkindName+"</h6> </div> </td></tr>";
+	        		 });
+	        	 }else{
+	        		 str+="<tr>장바구니에 담은 이력서가 없습니다.</tr>"
+	        	 }
+	     		 $('#miniCart').html(str);
+	       	 },
+	         error:function(xhs, status, error){
+	            alert('error : '+error);
+	         }
+	      });
+	      return str;
+	}
+
     </script>

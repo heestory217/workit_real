@@ -17,36 +17,44 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3">
+            	<a href="<c:url value="/corpSearch.do?searchKeyword=JAVA"/>">
                     <div class="single-banner">
                         <img src="<c:url value='/resources/img/banner-1.jpg'/>">
                         <div class="inner-text">
                             <h4>JAVA 개발자</h4>
                         </div>
                     </div>
+                </a>
                 </div>
                 <div class="col-lg-3">
+                <a href="<c:url value="/corpSearch.do?searchKeyword=Python"/>">
                     <div class="single-banner">
                         <img src="<c:url value="/resources/img/banner-2.jpg"/>">
                         <div class="inner-text">
                             <h4>Python 개발자</h4>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3">
+                <a href="<c:url value="/corpSearch.do?searchKeyword=JavaScript"/>">
                     <div class="single-banner">
                         <img src="<c:url value="/resources/img/banner-3.jpg"/>">
                         <div class="inner-text">
                             <h4>JavaScript 개발자</h4>
                         </div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-lg-3">
+                <a href="<c:url value="/corpSearch.do?searchKeyword=C++"/>">
                     <div class="single-banner">
                         <img src="<c:url value="/resources/img/banner-4.jpg"/>">
                         <div class="inner-text">
-                            <h4>C언어 개발자</h4>
+                            <h4>C++ 개발자</h4>
                         </div>
                     </div>
+                    </a>
                 </div>
             </div>
         </div>

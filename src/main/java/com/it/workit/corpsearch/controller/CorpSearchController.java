@@ -15,6 +15,7 @@ import com.it.workit.common.SearchVO;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.LanguageListView;
 import com.it.workit.corpsearch.model.CorpSearchService;
+import com.it.workit.corpsearch.model.CorpSearchkeywordConvertor;
 import com.it.workit.resumes.model.ResumesAllVO;
 import com.it.workit.resumes.model.ResumesService;
 import com.it.workit.users.model.UsersService;
@@ -27,14 +28,12 @@ public class CorpSearchController {
 	@Autowired private CorpSearchService searchService;
 	@Autowired private CorpService corpService;
 	@Autowired private UsersService userSerivce;
+	@Autowired private CorpSearchkeywordConvertor CSKConvertor;
 	
 	@RequestMapping("/corpSearch.do")
 	public String searchMain(@ModelAttribute SearchVO searchVo, Model model) {
 		logger.info("검색 화면에 들어온 SearchVO = {}", searchVo);
-		
-		//검색으로 원하는 resumeNo찾기
-		
-		
+				
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(10);
 		pagingInfo.setRecordCountPerPage(12);
@@ -42,6 +41,10 @@ public class CorpSearchController {
 		
 		searchVo.setRecordCountPerPage(12);
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		String searchKeyword = searchVo.getSearchKeyword();
+		searchKeyword = CSKConvertor.CSKConvertor(searchKeyword);
+		searchVo.setSearchKeyword(searchKeyword);		
 		
 		List<ResumesAllVO> resumeList = searchService.searchDefault(searchVo);
 		logger.info("검색 결과로 찾은 resumeList = {}", resumeList.size());

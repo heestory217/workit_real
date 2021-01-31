@@ -102,4 +102,19 @@ public class ShoppingCartController {
 		return result;
 	}
 	
+	@ResponseBody
+	@RequestMapping("/miniCart.do")
+	public List<CartViewVO> miniCart(@RequestParam(defaultValue = "0") int userNo, Model model) {
+		logger.info("장바구니 내역 보여주기 userNo={}", userNo);
+
+		//장바구니 내역전달
+		List<CartViewVO> cartList = cartService.selectCartList(userNo);
+		/*
+		[{"shoppingCartNo":6,"userNo":5,"resumeNo":4,"userName":"최보미","resumeTitle":"최보미_1","userExperience":"7","workkindName":"서버 개발자","paidServicePrice":2000},
+		{"shoppingCartNo":7,"userNo":5,"resumeNo":1,"userName":"김길동","resumeTitle":"김길동_1","userExperience":"3","workkindName":"서버 개발자","paidServicePrice":2000},
+		{"shoppingCartNo":8,"userNo":5,"resumeNo":7,"userName":"박나은","resumeTitle":"박나은_1","userExperience":"0","workkindName":"서버 개발자","paidServicePrice":2000},
+		{"shoppingCartNo":9,"userNo":5,"resumeNo":2,"userName":"홍길동","resumeTitle":"홍길동_1","userExperience":"1","workkindName":"서버 개발자","paidServicePrice":2000}]
+		 */
+		return cartList;
+	}
 }
