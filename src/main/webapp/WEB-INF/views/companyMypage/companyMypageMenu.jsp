@@ -33,10 +33,8 @@
 					<div class="filter-widget">
 						<h4 class="fw-title">마이페이지</h4>
 						<ul class="filter-catagories">
-							<li><a href="<c:url value='/companyMypage/companyMypageSituation.do?type=3 '/>">지원현황</a></li>
 							<li><a href="<c:url value='/companyMypage/companyMypageEdit.do '/>">회원정보수정</a></li>
 							<li><a href="<c:url value='/companyMypage/companyPayment.do '/>">결제내역</a></li>
-							<li><a href="<c:url value='/companyMypage/companyPosition.do '/>">포지션제안</a></li>
 						</ul>
 					</div>
 				</div>

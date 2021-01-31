@@ -89,21 +89,31 @@
                 <nav class="nav-menu mobile-menu">
                     <ul>
                         <li><a href="#">이력서 탐색</a></li>
-                        <li><a href="#">구매 이력서</a></li>
-                        <li><a href="#">포지션 제안</a></li>
+                        <li><a href="#">채용 공고 등록</a></li>
                         <li><a href="#">기업 관리</a>
                             <ul class="dropdown">
                                 <li><a href="<c:url value='company/corp/corpDetail.do?corpNo=${corpNo}'/>">기업 정보</a></li>
-                                <li><a href="#">채용 공고</a></li>
+                                <li><a href="#">채용 공고 관리</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">지원자 관리</a>
+                            <ul class="dropdown">
+                                <li><a href="#">전체지원자</a></li>
+                                <li><a href="#">공고별지원자</a></li>
+                                <li><a href="#">입사지원제한</a></li>
+                            </ul>
+                        <li><a href="#">인재 관리</a>
+                            <ul class="dropdown">
+                                <li><a href="#">포지션제안</a></li>
+                                <li><a href="#">구매 이력서</a></li>
                             </ul>
                         </li>
                         <li><a href="#">마이페이지</a>
                             <ul class="dropdown">
                                 <li><a href="#">회원 정보 수정</a></li>
-                                <li><a href="#">결제 내역</a></li>
+                                <li><a href="#">유료 결제 내역</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">서비스 안내</a></li>
                     </ul>
                 </nav>
                 <div id="mobile-menu-wrap"></div>
