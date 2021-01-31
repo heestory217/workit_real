@@ -27,7 +27,7 @@
 					<div class="col-lg-4 col-md-6 padding_20">
 						<div class="single-latest-blog">
 							<a href="<c:url value='/index.do'/>"> 
-								<img src="<c:url value='/pd_images/${vo.corpImgurl }'/>" alt="로고존재하지않을때 임시이미지를 넣어야합니다.">
+								<img src="<c:url value='/pd_images/${vo.corpImgurl }'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
 								<div class="latest-text">
 									<div class="tag-list">
 										<div class="tag-item">
