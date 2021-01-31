@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.coupon.model.CouponService;
 import com.it.workit.coupon.model.CouponVO;
-import com.it.workit.message.controller.MessageController;
 import com.it.workit.orders.model.OrdersService;
 import com.it.workit.orders.model.OrdersVO;
 
@@ -25,7 +24,7 @@ import com.it.workit.orders.model.OrdersVO;
 @RequestMapping("/shop")
 public class OrdersController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
+	private static final Logger logger = LoggerFactory.getLogger(OrdersController.class);
 	@Autowired private CouponService couponService;
 	@Autowired private OrdersService ordersService;
 	
