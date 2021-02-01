@@ -44,11 +44,24 @@ public class OrdersDAOMybatis implements OrdersDAO{
 		return sqlSession.update(namespace+"insertOrderDetailResume", vo);
 	}
 
+	//기업후기 삭제 주문상세 INSERT
+	@Override
+	public int insertOrderDetailDelReview(OrderDetailDelRvVO vo) {
+		return sqlSession.insert(namespace+"insertOrderDetailDelReview", vo);
+	}
+	
+	//주문완료페이지 - 이력서
 	@Override
 	public List<Map<String, Object>> selectOrderdetailsResumeView(int orderNo) {
 		return sqlSession.selectList(namespace+"selectOrderdetailsResumeView", orderNo);
 	}
 
+	//주문완료페이지 - 기업후기 삭제
+	@Override
+	public Map<String, Object> selectOrderdetailsDelRVView(int orderNo) {
+		return sqlSession.selectOne(namespace+"selectOrderdetailsDelRVView", orderNo);
+	}
+	
 	@Override
 	public OrdersVO selectOrdersByOrderNo(int orderNo) {
 		return sqlSession.selectOne(namespace+"selectOrdersByOrderNo", orderNo);

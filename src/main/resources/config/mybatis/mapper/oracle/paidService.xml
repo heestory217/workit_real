@@ -3,7 +3,9 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.mybatis.mapper.paidService">
-	
+	<select id="selectPaidServByServiceNo" parameterType="int" resultType="paidServiceVo">
+		SELECT * FROM PAIDSERVICE WHERE PAIDSERVICE_NO=#{paidServiceNo}
+	</select>
 </mapper>
 
 

@@ -6,7 +6,8 @@ import com.it.workit.common.ReviewPageVO;
 
 public interface ReviewDAO {
 	List<ReviewVO> selectReviewList(ReviewPageVO searchVo);
-
 	int selectTotalRecord(ReviewPageVO searchVo);
-
+	
+	ReviewVO selectByReviewNo(int corpreviewNo);
+	int updateDeleteCheck(int corpreviewNo);
 }

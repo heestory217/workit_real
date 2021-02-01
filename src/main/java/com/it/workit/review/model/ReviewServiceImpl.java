@@ -20,4 +20,14 @@ public class ReviewServiceImpl implements ReviewService{
 	public int selectTotalRecord(ReviewPageVO searchVo) {
 		return reDao.selectTotalRecord(searchVo);
 	}
+
+	@Override
+	public ReviewVO selectByReviewNo(int corpreviewNo) {
+		return reDao.selectByReviewNo(corpreviewNo);
+	}
+
+	@Override
+	public int updateDeleteCheck(int corpreviewNo) {
+		return reDao.updateDeleteCheck(corpreviewNo);
+	}
 }

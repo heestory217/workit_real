@@ -22,6 +22,16 @@ public class ReviewDAOMybatis implements ReviewDAO{
 	public int selectTotalRecord(ReviewPageVO searchVo) {
 		return sqlSession.selectOne(namespace+"selectTotalRecord", searchVo);
 	}
+
+	@Override
+	public ReviewVO selectByReviewNo(int corpreviewNo) {
+		return sqlSession.selectOne(namespace+"selectByReviewNo", corpreviewNo);
+	}
+
+	@Override
+	public int updateDeleteCheck(int corpreviewNo) {
+		return sqlSession.update(namespace+"updateDeleteCheck", corpreviewNo);
+	}
 	
 	
 }
