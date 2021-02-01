@@ -43,7 +43,7 @@ public class OrdersController {
 	
 	@RequestMapping("/checkOut.do")
 	public void checkOut(HttpSession session, Model model,
-			@RequestParam (required = false) int corpreviewNo) {
+			@RequestParam (defaultValue = "0") int corpreviewNo) {
 		
 		//1. 이력서 일 때 장바구니
 		int userNo = (Integer) session.getAttribute("userNo");
@@ -89,8 +89,8 @@ public class OrdersController {
 	@RequestMapping("/order.do")
 	public int order(@ModelAttribute OrdersVO vo, 
 			@RequestParam (required = false) String couponName,
-			@RequestParam (required = false) int paidServiceNo,
-			@RequestParam (required = false) int corpreviewNo,
+			@RequestParam (defaultValue = "0") int paidServiceNo,
+			@RequestParam (defaultValue = "0") int corpreviewNo,
 			HttpSession session, Model model) {
 		
 		int userNo = (Integer) session.getAttribute("userNo");
