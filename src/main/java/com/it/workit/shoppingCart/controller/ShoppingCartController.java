@@ -104,7 +104,7 @@ public class ShoppingCartController {
 	
 	@ResponseBody
 	@RequestMapping("/miniCart.do")
-	public List<CartViewVO> miniCart(@RequestParam(defaultValue = "0") int userNo, Model model) {
+	public List<CartViewVO> miniCart(@RequestParam(defaultValue = "0") int userNo) {
 		logger.info("장바구니 내역 보여주기 userNo={}", userNo);
 
 		//장바구니 내역전달

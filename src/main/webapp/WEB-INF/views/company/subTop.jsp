@@ -22,31 +22,23 @@
              </a>
          </li>
      	<!-- 장바구니 -->
-         <li class="cart-icon" onmouseover="showCart(${sessionScope.userNo})" onmouseout="hideCart()">
-             <a href="#">
+         <li class="cart-icon" onmouseover="showCart(${sessionScope.userNo})">
+             <a href="#" id="miniCartQty">
                  <i class="icon_bag_alt"></i>
-                 <span id="miniCartQty">3</span>
              </a>
              <div class="cart-hover">
                  <div class="select-items">
                      <table>
                          <tbody id="miniCart">
-                         <!-- 장바구니에 담은 이력서 최대 3개 반복 -->
-                             <tr>
-                                 <td class="si-text">
-                                     <div class="product-selected">
-                                         <p>이력서 제목 자리</p>
-                                         <h6>직무, 경력, 언어 자리</h6>
-                                     </div>
-                                 </td>
-                             </tr>
+                         <!-- 장바구니에 담은 이력서 최대 3개 반복 ajax -->
+                         
                          <!-- 장바구니에 담은 이력서 반복끝 -->
                          </tbody>
                      </table>
                  </div>
                  <div class="select-total">
                      <span>total:</span>
-                     <h5>합계금액자리:원</h5>
+                     <h5 id="totalCount"></h5>
                  </div>
                  <div class="select-button">
                      <a href="<c:url value='/shop/shoppingCart.do'/>" class="primary-btn view-card">장바구니 보러가기</a>
@@ -85,7 +77,7 @@
                 </div>
                 <nav class="nav-menu mobile-menu">
                     <ul>
-                        <li><a href="#">이력서 탐색</a></li>
+                        <li><a href="<c:url value='corpSearch.do'/>">이력서 탐색</a></li>
                         <li><a href="#">채용 공고 등록</a></li>
                         <li><a href="#">기업 관리</a>
                             <ul class="dropdown">
@@ -132,6 +124,11 @@
     <script src="<c:url value="/resources/js/check.js"/>" type="text/javascript"></script>
     <script src="https://kit.fontawesome.com/a86f09c0f4.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
+    $(function(){
+    	userNo=$('#userNoforCart').val();
+    });
+    
+    //검색
    	function search(){
     	var searchKeyword = document.getElementById("searckKeyword").value;
    		location.href="/workit/corpSearch.do?searchKeyword="+searchKeyword;
@@ -143,44 +140,62 @@
    		CartList(userNo);
    	}
 
+	
+   	function delResume(cartNo){
+   		alert(cartNo);
+   	}
+   	
+   	//장바구니 리스트 ajax
 	function CartList(userNo){
-		//alert(userNo);
-		var str="";
-	      $.ajax({
-	         url:"<c:url value='/shop/miniCart.do'/>",
-	         type:"get",
-	         data: "userNo="+userNo,
-	         dataType:'json',
-	         success:function(res){
-	        	 /*
-	     		[{"shoppingCartNo":6,"userNo":5,"resumeNo":4,"userName":"최보미","resumeTitle":"최보미_1","userExperience":"7","workkindName":"서버 개발자","paidServicePrice":2000},
-	     		{"shoppingCartNo":7,"userNo":5,"resumeNo":1,"userName":"김길동","resumeTitle":"김길동_1","userExperience":"3","workkindName":"서버 개발자","paidServicePrice":2000},
-	     		{"shoppingCartNo":8,"userNo":5,"resumeNo":7,"userName":"박나은","resumeTitle":"박나은_1","userExperience":"0","workkindName":"서버 개발자","paidServicePrice":2000},
-	     		{"shoppingCartNo":9,"userNo":5,"resumeNo":2,"userName":"홍길동","resumeTitle":"홍길동_1","userExperience":"1","workkindName":"서버 개발자","paidServicePrice":2000}]
-	     		 */
-	        	 if(res.length>0){
-	        		 $(res).each(function(){
-	        			 var resumeTitle = this.resumeTitle;
-	        			 var userExperience = this.userExperience;
-	        			 var workkindName = this.workkindName;
-		        			 if(userExperience=='0'){
-		        				 userExperience = '신입';
-		        			 }else{
-		        				 userExperience = userExperience+'년';
-		        			 }
+		$.ajax({
+		   url:"<c:url value='/shop/miniCart.do'/>",
+		   type:"GET",
+		   data: "userNo="+userNo,
+		   dataType:"json",
+		   success:function(res){
+			/*
+			[{"shoppingCartNo":6,"userNo":5,"resumeNo":4,"userName":"최보미","resumeTitle":"최보미_1","userExperience":"7","workkindName":"서버 개발자","paidServicePrice":2000},
+			{"shoppingCartNo":7,"userNo":5,"resumeNo":1,"userName":"김길동","resumeTitle":"김길동_1","userExperience":"3","workkindName":"서버 개발자","paidServicePrice":2000},
+			{"shoppingCartNo":8,"userNo":5,"resumeNo":7,"userName":"박나은","resumeTitle":"박나은_1","userExperience":"0","workkindName":"서버 개발자","paidServicePrice":2000},
+			{"shoppingCartNo":9,"userNo":5,"resumeNo":2,"userName":"홍길동","resumeTitle":"홍길동_1","userExperience":"1","workkindName":"서버 개발자","paidServicePrice":2000}]
+			 */
+			   	var str="";
+			   	var qty=0;
+			   	if(res.length>0){
+					$.each(res, function(idx, item){
+						str+="<tr> <td class='si-text'> <div class='product-selected'> <p>";
+						str+=this.resumeTitle;
+						str+="</p>";
+						str+="<h6>"
+						var userexp;
+						if(this.userExperience==='0'){
+							userexp="신입";
+						}else{
+							userexp=this.userExperience+"년";
+						}
+						str+=userexp+", "+this.workkindName;
+						str+="</h6></div></td>";
+						str+="</tr>";
+					});
+					$('#miniCart').html(str);
+					var total = (res.length*2000);
+					$('#totalCount').html(numberWithCommas(total)+"원");
+				}else{
+					str+="<p>장바구니가 비어있습니다.</p>";
+					$('#miniCart').html(str);
+				}//if
+		 	},
+		   error:function(xhs, status, error){
+		      alert('error : '+error);
+		   }
+		});
+   	}//CartList 
 
-	        			 str+="<tr><td class='si-text'> <div class='product-selected'> <p>"+resumeTitle+"</p> <h6>"userExperience+", "+workkindName+"</h6> </div> </td></tr>";
-	        		 });
-	        	 }else{
-	        		 str+="<tr>장바구니에 담은 이력서가 없습니다.</tr>"
-	        	 }
-	     		 $('#miniCart').html(str);
-	       	 },
-	         error:function(xhs, status, error){
-	            alert('error : '+error);
-	         }
-	      });
-	      return str;
+   	
+	//숫자 (#,###) 표현 함수
+	function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-
+	
+	
     </script>
