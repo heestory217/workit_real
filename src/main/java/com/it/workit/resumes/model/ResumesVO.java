@@ -3,15 +3,16 @@ package com.it.workit.resumes.model;
 import java.sql.Timestamp;
 
 public class ResumesVO {
-	private int resumeNo;
-	private int userNo;
-	private String resumeTitle;
-	private String resumeSelfintro;
-	private Timestamp resumeDate;
-	private String resumeFilename;
-	private long resumeFilesize;
-	private String resumeFileoriginalname;
-	private int resumeResumeopencheck;
+	private int resumeNo; //이력서 번호
+	private int userNo; //회원 번호
+	private String resumeTitle; //제목
+	private String resumeFinaleducation; //최종학력
+	private String resumeSelfintro;	//자기소개
+	private Timestamp resumeDate; //등록일자
+	private String resumeFilename; //파일이름
+	private long resumeFilesize; //파일사이즈
+	private String resumeFileoriginalname; //파일 오리지날 이름
+	private int resumeResumeopencheck; //이력서 승인 여부
 	
 	public int getResumeNo() {
 		return resumeNo;
@@ -30,6 +31,12 @@ public class ResumesVO {
 	}
 	public void setResumeTitle(String resumeTitle) {
 		this.resumeTitle = resumeTitle;
+	}
+	public String getResumeFinaleducation() {
+		return resumeFinaleducation;
+	}
+	public void setResumeFinaleducation(String resumeFinaleducation) {
+		this.resumeFinaleducation = resumeFinaleducation;
 	}
 	public String getResumeSelfintro() {
 		return resumeSelfintro;
@@ -70,9 +77,10 @@ public class ResumesVO {
 	@Override
 	public String toString() {
 		return "ResumesVO [resumeNo=" + resumeNo + ", userNo=" + userNo + ", resumeTitle=" + resumeTitle
-				+ ", resumeSelfintro=" + resumeSelfintro + ", resumeDate=" + resumeDate + ", resumeFilename="
-				+ resumeFilename + ", resumeFilesize=" + resumeFilesize + ", resumeFileoriginalname="
-				+ resumeFileoriginalname + ", resumeResumeopencheck=" + resumeResumeopencheck + "]";
+				+ ", resumeFinaleducation=" + resumeFinaleducation + ", resumeSelfintro=" + resumeSelfintro
+				+ ", resumeDate=" + resumeDate + ", resumeFilename=" + resumeFilename + ", resumeFilesize="
+				+ resumeFilesize + ", resumeFileoriginalname=" + resumeFileoriginalname + ", resumeResumeopencheck="
+				+ resumeResumeopencheck + "]";
 	}
 	
 	

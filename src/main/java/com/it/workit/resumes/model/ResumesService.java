@@ -6,4 +6,5 @@ public interface ResumesService {
 
 	List<ResumesAllVO> searchResumeByNo(List<Integer> matchList);
 
+	int insertAward(AwardVO aVo);
 }

@@ -26,6 +26,14 @@
 		select * from resumes where resume_no=#{resumeNo}
 	</select>
 	
+	<insert id="insertAward" parameterType="awardVo">
+		<selectKey keyProperty="awardNo" resultType="int" order="BEFORE">
+			select award_seq.nextval from dual
+		</selectKey>
+		insert into award(award_no, resume_no,award_about,award_date)
+		values(#{awardNo},#{resumeNo},#{awardAbout},#{awardDate})
+	</insert>
+	
 	
 </mapper>
 

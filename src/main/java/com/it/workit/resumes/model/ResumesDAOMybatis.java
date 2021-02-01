@@ -13,5 +13,10 @@ public class ResumesDAOMybatis implements ResumesDAO{
 	public ResumesAllVO searchResumeByNo(int resumeNo) {
 		return sqlSession.selectOne(namespace+"searchResumeByNo", resumeNo);
 	}
+
+	@Override
+	public int insertAward(AwardVO aVo) {
+		return sqlSession.insert(namespace+"insertAward", aVo);
+	}
 	
 }

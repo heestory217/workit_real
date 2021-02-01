@@ -6,12 +6,15 @@
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
 <script type="text/javascript">
 	$(function() {
+		var count=0;
+			
+			//커리어
 			$('#carrerBt').click(function() {
 				var carrerInput1 =""; 
-carrerInput1 +='<div id="addcarrer"><input type="text" id="carrerStartdate" name="carrerStartdate[]" placeholder="YYYY.MM"> ~';
-carrerInput1 +='<input type="text" id="carrerEnddate" name="carrerEnddate[]" placeholder="YYYY.MM">';
-carrerInput1 +='<input type="text" id="carrerCorp" name="carrerCorp[]" placeholder="회사명">';
-carrerInput1 +='<input type="text" id="carrerWork" name="carrerWork[]" placeholder="부서명/직책">';
+carrerInput1 +='<div id="addcarrer"><input type="text" id="carrerStartdate" name="carrerStartdate" placeholder="YYYY.MM"> ~';
+carrerInput1 +='<input type="text" id="carrerEnddate" name="carrerEnddate" placeholder="YYYY.MM">';
+carrerInput1 +='<input type="text" id="carrerCorp" name="carrerCorp" placeholder="회사명">';
+carrerInput1 +='<input type="text" id="carrerWork" name="carrerWork" placeholder="부서명/직책">';
 carrerInput1 +='<button class="btnRemove" value="Remove"><i class="fa fa-times" aria-hidden="true"></i></button><br></div>';
 	   	
 				$('#new-carrerDiv').append(carrerInput1);
@@ -21,7 +24,55 @@ carrerInput1 +='<button class="btnRemove" value="Remove"><i class="fa fa-times" 
 			$('#new-carrerDiv').on('click','.btnRemove', function(){
 				$(this).parent().remove();
 		    });
-	   	
+			
+			//수상
+	   		$('#awardBt').click(function(){
+	   			var awardInput = "";
+awardInput += '<div id="addaward"><input type="text" id="awardDate" name="AwardVOList['+count+'].awardDate" placeholder="활동명">';	   			
+// awardInput += '<input type="text" name="count" value="'+count+'">';	   			
+awardInput += '<input type="text" id="awardAbout" name="AwardVOList['+count+'].awardAbout" placeholder="세부사항">';	   			
+awardInput += '<button class="btnRemove" value="Remove"><i class="fa fa-times" aria-hidden="true"></i></button><br></div>';	   			
+	   		
+				$('#new-awardDiv').append(awardInput);
+
+				count++;
+				
+	   		});//awardBt
+	   		
+	   		$('#new-awardDiv').on('click','.btnRemove', function(){
+				$(this).parent().remove();
+		    });
+	   		
+	   		//자격증
+	   		$('#licencseBt').click(function(){
+	   			var licenInput = "";
+licenInput+='<div id="addlicen"><input type="text" id="licencseName" name="licencseName" placeholder="자격증 이름">';
+licenInput+='<input type="text" id="licencseIssuerLace" name="licencseIssuerLace" placeholder="발행처">';
+licenInput+='<button class="btnRemove" value="Remove"><i class="fa fa-times" aria-hidden="true"></i></button><br></div>';	   			
+	   			
+				$('#new-licencseDiv').append(licenInput);
+				
+	   		});
+	   		
+	   		$('#new-licencseDiv').on('click','.btnRemove', function(){
+				$(this).parent().remove();
+		    });
+	   		
+	   		//외국어
+	   		$('#foreignBt').click(function(){
+	   			var i =0;
+	   			var foreignInput = "";
+	   			
+foreignInput+='<div id="addforeign"><input type="text" id="foreignlanguageskillLang" name="foreignlanguageskillLang" placeholder="언어">';
+foreignInput+='<input type="text" id="foreignlanguageskillExpert" name="foreignlanguageskillExpert" placeholder="수준">';
+foreignInput+='<button class="btnRemove" value="Remove"><i class="fa fa-times" aria-hidden="true"></i></button><br></div>';	   			
+	   			
+				$('#new-foreignDiv').append(foreignInput);
+	   		});
+	   		
+	   		$('#new-foreignDiv').on('click','.btnRemove', function(){
+				$(this).parent().remove();
+		    });
 		});
 </script>
 <style type="text/css">
@@ -76,7 +127,8 @@ input#carrerWork {
 }
 #awardAbout, #licencseIssuerLace,
 #foreignlanguageskillExpert{
-    width: 640px;
+    width: 580px;
+    margin: 0 20px;
 }
 
 .myWarp {
@@ -130,58 +182,45 @@ button.btnRemove {
                         	<i class="fa fa-plus" aria-hidden="true"></i>
                         	추가
                         </button><br><br>
-                        <div id="new-carrerDiv">
-                        	
-                        </div>
+                        <div id="new-carrerDiv"></div>
                     </div>
                     <div class="col-lg-12 colWarp2">
                     	<div class="labelWarp">
                  		<label id="resume-colName" for="corpIndustry">학력</label>
                  		</div>
-                        <input type="text" id="corpIndustry" name="corpIndustry">
+                        <input type="text" id="corpIndustry" name="corpIndustry"
+                        	placeholder="학교/학과">
                     </div>
                     <div class="col-lg-12 colWarp">
                     	<div class="labelWarp">
                         <label id="resume-colName" for="award">수상 및 기타</label>
                         </div>
-                        <button class="resumeBt" id="awardBt">
+                        <input type="hidden" name="resumeNo" value="1">
+                        <button type="button" class="resumeBt" id="awardBt">
                         	<i class="fa fa-plus" aria-hidden="true"></i>
                         	추가
                         </button><br><br>
-                        <div id="resume-list award">
-	                        <input type="text" id="awardDate" name="awardDate" placeholder="활동명">
-	                        <input type="text" id="awardAbout" name="awardAbout" placeholder="세부사항">
-                        </div>
+                        <div id="new-awardDiv"></div>
                     </div>
                     <div class="col-lg-12 colWarp">
                     	<div class="labelWarp">
                         <label id="resume-colName" for="licencse">자격증</label>
                         </div>
-                        <button class="resumeBt" id="licencseBt">
+                        <button type="button" class="resumeBt" id="licencseBt">
                         	<i class="fa fa-plus" aria-hidden="true"></i>
                         	추가
                         </button><br><br>
-                        <div id="resume-list licencse">
-	                        <input type="text" id="licencseName" name="licencseName"
-	                        	placeholder="자격증 이름">
-	                        <input type="text" id="licencseIssuerLace" name="licencseIssuerLace"
-	                        	placeholder="발행처">
-                        </div>
+                        <div id="new-licencseDiv"></div>
                     </div>
                     <div class="col-lg-12 colWarp">
                     	<div class="labelWarp">
                         <label id="resume-colName" for="foreign">외국어</label>
                         </div>
-                        <button class="resumeBt" id="foreignBt">
+                        <button type="button" class="resumeBt" id="foreignBt">
                         	<i class="fa fa-plus" aria-hidden="true"></i>
                         	추가
                         </button><br><br>
-                        <div id="resume-list foreign">
-	                        <input type="text" id="foreignlanguageskillLang" 
-	                        	name="foreignlanguageskillLang" placeholder="언어">
-	                        <input type="text" id="foreignlanguageskillExpert" 
-	                        	name="foreignlanguageskillExpert" placeholder="수준">
-                        </div>
+                        <div id="new-foreignDiv"></div>
                     </div>
 					<button class="site-btn register-btn " type="submit">작성 완료</button>
                 </div>
