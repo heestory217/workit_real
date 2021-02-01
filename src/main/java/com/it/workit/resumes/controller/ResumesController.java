@@ -1,17 +1,12 @@
 package com.it.workit.resumes.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.it.workit.resumes.model.AwardVO;
-import com.it.workit.resumes.model.CarrerVO;
 import com.it.workit.resumes.model.ResumesService;
 
 @Controller
@@ -34,6 +29,7 @@ public class ResumesController {
 		logger.info("이력서 쓰기 화면");
 	}
 	
+	/*
 	@RequestMapping(value ="/resumeWrite.do", method = RequestMethod.POST)
 	public void resumeWrite_post(@ModelAttribute AwardVO avo, @ModelAttribute CarrerVO cvo, 
 			HttpServletRequest request) {
@@ -41,7 +37,7 @@ public class ResumesController {
 		logger.info("어워드 avo={}", cvo);
 		
 		String awardDate = avo.getAwardAbout();
-//		String awardAbout = avo.getAwardDate();
+		String awardAbout = avo.getAwardDate();
 		logger.info("get awardDate={}",awardDate);
 		String[] awardDateArr = awardDate.split(",");
 		logger.info("awardDate의 개수? awardDateArr.length={}", awardDateArr.length);
@@ -55,8 +51,6 @@ public class ResumesController {
 			
 			//rsService.insertAward(avo);
 		}
-		
-		
-		
 	}
+	*/
 }
