@@ -15,6 +15,13 @@
 		order by QUESTION_NO desc
 	</select>
 
+	<!-- 회원 직무 -->
+	<select id="selectUserWorkkind" parameterType="int" resultType="workkindVo">
+		select u.WORKKIND_NO, w.WORKKIND_NAME
+		from users u join workkind w
+		on u.WORKKIND_NO = w.WORKKIND_NO
+		where u.user_no=#{userNo}
+	</select>
 	
 	<!-- 질문 등록 -->
 	<insert id="insertQstn" parameterType="questionVo">

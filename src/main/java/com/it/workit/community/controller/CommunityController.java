@@ -25,6 +25,7 @@ import com.it.workit.common.Utility;
 import com.it.workit.question.model.QstnPagingVO;
 import com.it.workit.question.model.QuestionService;
 import com.it.workit.question.model.QuestionVO;
+import com.it.workit.question.model.WorkkindVO;
 
 @Controller
 @RequestMapping("/indiv/community")
@@ -221,8 +222,17 @@ public class CommunityController {
 
 	//질문 등록 화면
 	@RequestMapping(value="/qstnWrite.do", method = RequestMethod.GET)
-	public void qstnWrite_get() {
-		logger.info("질문 등록 화면");
+	public String qstnWrite_get(HttpSession session, Model model) {
+		int userNo=(Integer) session.getAttribute("userNo");
+		logger.info("질문 등록 화면, 파라미터 userNo={}", userNo);
+		
+		WorkkindVO workkindVo=qstnService.selectUserWorkkind(userNo);
+		logger.info("회원 직무 조회 결과, workkindVo={}", workkindVo);
+		
+		model.addAttribute("workkindVo", workkindVo);
+		
+		return "indiv/community/qstnWrite";
+		
 	}
 
 
@@ -270,10 +280,11 @@ public class CommunityController {
 		return "common/message";
 		
 	}
+	
 	//질문 수정 화면
 	@RequestMapping(value="/qstnEdit.do", method = RequestMethod.GET)
 	public String qstnEdit_get(@RequestParam(defaultValue = "0") int qstnNo,
-			Model model) {
+			HttpSession session, Model model) {
 		logger.info("질문 수정 화면, 파라미터 qstnNo={}", qstnNo);
 		if(qstnNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
@@ -282,9 +293,14 @@ public class CommunityController {
 			return "common/message";
 		}
 		
+		int userNo=(Integer) session.getAttribute("userNo");
+		WorkkindVO workkindVo=qstnService.selectUserWorkkind(userNo);
+		logger.info("회원 직무 조회 결과, workkindVo={}", workkindVo);
+		
 		QuestionVO qstnVo = qstnService.selectQstn(qstnNo);
 		logger.info("질문 조회 결과, qstnVo={}",qstnVo);
 		
+		model.addAttribute("workkindVo", workkindVo);
 		model.addAttribute("qstnVo", qstnVo);
 		
 		return "indiv/community/qstnEdit";

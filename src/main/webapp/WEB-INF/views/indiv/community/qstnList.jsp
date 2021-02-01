@@ -35,7 +35,7 @@
 	}
 	
 	.oneQuestBox{
-	    padding: 40px 10px;
+	    padding: 20px 10px 40px 10px;
 	    height: auto;
 	    width: 92%;
 	    border-bottom: 1px solid silver;
@@ -74,6 +74,13 @@
 		font-size:22px;
 		color:#4c50bb;	
 		margin-right: 5px;
+	}
+	
+	.workkind{
+		margin: 0 0 18px 0;
+	    font-size: 13px;
+	    background-color: #c0c0c059;
+	    width: max-content;
 	}
 	
 	dd{
@@ -205,6 +212,7 @@
 		="<c:url value='/indiv/community/cntUpdate.do?qstnNo=${map["QUESTION_NO"] }'/>"
 							class="contentArea">
 							<dl>
+								<dd class="workkind">#${map["WORKKIND_NAME"] }</dd>
 								<!-- 제목 -->
 								<dt class="qtTitle">
 								<i class="fa fa-quora"></i><span>${map['QUESTION_TITLE'] }</span></dt>

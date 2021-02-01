@@ -63,6 +63,12 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	public int updateReadCnt(int qstnNo) {
 		return sqlSession.update(namespace+"updateReadCnt", qstnNo);
 	}
+
+	//회원 직무 조회
+	@Override
+	public WorkkindVO selectUserWorkkind(int userNo) {
+		return sqlSession.selectOne(namespace+"selectUserWorkkind",userNo);
+	}
 	
 	
 }

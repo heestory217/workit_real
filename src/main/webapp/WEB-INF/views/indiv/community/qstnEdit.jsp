@@ -316,7 +316,9 @@
 		
 		$('.selectBox').change(function(){
 			var selectJob = $(this).find('option:selected').html();
+			var selectJobVal = $(this).find('option:selected').val();
 			$('.jobBtn').val(selectJob);
+			$('.jobNum').val(selectJobVal);
 			$('.jobWrap').css('border','1px solid #4c50bb');
 			$('.jobBtn').css('color','#4c50bb');
 			$('.fa-angle-down').css('color','#4c50bb');
@@ -325,12 +327,14 @@
 		
 		$('.userJob a').click(function(){
 			var userJob=$(this).text();
+			var userJobNum=$(this).find('input').val();
 			$('.jobBtn').val(userJob);
+			$('.jobNum').val(userJobNum);
 			$('.jobWrap').css('border','1px solid #4c50bb');
 			$('.jobBtn').css('color','#4c50bb');
 			$('.fa-angle-down').css('color','#4c50bb');
 			$('.pop-up').hide();
-		});
+		}); 
 	});
 	
 </script>
@@ -362,9 +366,11 @@
 								<!-- 버튼 -->
 								<div class="selectJob">
 									<div class="jobWrap">
-										<input type="button" name="workkindNo" 
-										class="jobBtn" value="${qstnVo.workkindNo}"> <i
-											class="fa fa-angle-down"></i>
+										<input type="button" name="workkindName" 
+										class="jobBtn"> 
+										<input type="hidden" name="workkindNo" 
+										class="jobNum" value="${qstnVo.workkindNo}"> 
+										<i class="fa fa-angle-down"></i>
 									</div>
 									<p>· 원하는 직무를 검색해 질문할 수 있습니다.</p>
 									<!-- 레이어 팝업창 -->
@@ -446,10 +452,14 @@
 														selected="selected"
 													</c:if>
 												>VR 엔지니어</option>
-											</select> <span>나의 직무</span><br>
-											<div class="userJob">
-												<a href="#"><i class="fa fa-search"></i>&nbsp;서버개발자</a>
-											</div>
+											</select> 
+											<c:if test="${!empty workkindVo }">
+												<span>나의 직무</span><br>
+												<div class="userJob">
+													<a href="#"><i class="fa fa-search"></i>&nbsp;${workkindVo.workkindName }
+													<input type="hidden" name="workkindNo" value="${workkindVo.workkindNo }"></a>	
+												</div>
+											</c:if>
 										</div>
 									</div>
 									<!-- 레이어 팝업창 끝 -->

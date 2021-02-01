@@ -288,7 +288,7 @@
 		});
 		
 		$('.btnTempSave').click(function(){
-			if(!confirm('질문 글을 임시저장하시겠습니까?')){
+			if(!confirm('질문을 임시저장 하시겠습니까?')){
 				return false;
 			}
 		});
@@ -306,19 +306,23 @@
 		    }
 		});
 		
+		//직무선택 클릭 => 직무선택창 띄우기
 	    $('.pop-up').hide();
 		$('.jobWrap').click(function(){
 		    $('.pop-up').show();
 		});
 	
+		//직무선택창 닫기 버튼 클릭시 창 숨기기
 		$('.closeBtn').click(function(){
 		    $('.pop-up').hide();
 		});
 		
-		//
+		//직무선택 selectBox클릭 => 직무선택란에 선택한 직무 입력시키기
 		$('.selectBox').change(function(){
 			var selectJob = $(this).find('option:selected').html();
+			var selectJobVal = $(this).find('option:selected').val();
 			$('.jobBtn').val(selectJob);
+			$('.jobNum').val(selectJobVal);
 			$('.jobWrap').css('border','1px solid #4c50bb');
 			$('.jobBtn').css('color','#4c50bb');
 			$('.fa-angle-down').css('color','#4c50bb');
@@ -327,12 +331,15 @@
 		
 		$('.userJob a').click(function(){
 			var userJob=$(this).text();
+			var userJobNum=$(this).find('input').val();
 			$('.jobBtn').val(userJob);
+			$('.jobNum').val(userJobNum);
 			$('.jobWrap').css('border','1px solid #4c50bb');
 			$('.jobBtn').css('color','#4c50bb');
 			$('.fa-angle-down').css('color','#4c50bb');
 			$('.pop-up').hide();
-		});
+		}); 
+		
 	});
 	
 </script>
@@ -355,16 +362,18 @@
 
 				<!-- 직무, 기업선택 -->
 				<form name="qstnWriteFrm" id="writeFrm" method="post">
-				<input type="hidden" name="userNo" value="${sessionScope.userNo }">
+				<input type="hidden" name="userNo" value="${sessionScope.userNo}">
 					<article>
 						<div class="checkListArea">
 							<div class="checkboxCommWrap row">
 								<!-- 버튼 -->
 								<div class="selectJob">
 									<div class="jobWrap">
-										<input type="button" name="workkindNo" 
-										class="jobBtn" value="직무 선택"> <i
-											class="fa fa-angle-down"></i>
+										<input type="button" name="workkindName" 
+										class="jobBtn" value="직무 선택"> 
+										<input type="hidden" name="workkindNo" 
+										class="jobNum"> 
+										<i class="fa fa-angle-down"></i>
 									</div>
 									<p>· 원하는 직무를 검색해 질문할 수 있습니다.</p>
 									<!-- 레이어 팝업창 -->
@@ -390,10 +399,14 @@
 												<option value="12">머신러닝 엔지니어</option>
 												<option value="13">C,C++ 개발자</option>
 												<option value="14">VR 엔지니어</option>
-											</select> <span>나의 직무</span><br>
-											<div class="userJob">
-												<a href="#"><i class="fa fa-search"></i>&nbsp;서버개발자</a>
-											</div>
+											</select> 
+											<c:if test="${!empty workkindVo }">
+												<span>나의 직무</span><br>
+												<div class="userJob">
+													<a href="#"><i class="fa fa-search"></i>&nbsp;${workkindVo.workkindName }
+													<input type="hidden" name="workkindNo" value="${workkindVo.workkindNo }"></a>	
+												</div>
+											</c:if>
 										</div>
 									</div>
 									<!-- 레이어 팝업창 끝 -->

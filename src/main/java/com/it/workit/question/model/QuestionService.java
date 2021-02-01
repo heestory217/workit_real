@@ -15,4 +15,6 @@ public interface QuestionService {
 	
 	List<Map<String, Object>> selectAllQuestion(QstnPagingVO vo);
 	int updateReadCnt(int qstnNo);
+	
+	WorkkindVO selectUserWorkkind(int userNo);	//회원 직무 조회
 }
