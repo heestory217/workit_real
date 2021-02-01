@@ -241,7 +241,6 @@
     	$('input[name=langReSearch]:checked').each(function(){
     		reSearchLangNoList.push($(this).val());
     	});
-    	alert(reSearchLangNoList);
     	
     	$('input[name=currentPage]').val(curPage);
     	$('input[name=langNo]').val(reSearchLangNoList);

@@ -6,9 +6,9 @@
 	<sql id="searchWhere">
 		<where>
 			<if test="searchKeyword !=null and searchKeyword != ''">
-				language_name like '%' || #{searchKeyword} || '%'
+				(language_name like '%' || #{searchKeyword} || '%'
 				or workkind_name like '%' || #{searchKeyword} || '%'
-				or user_name like '%' || #{searchKeyword} || '%'
+				or user_name like '%' || #{searchKeyword} || '%')
 			</if>
 			<if test="lang !=null and lang !=''">
 				and language_no=#{lang}
