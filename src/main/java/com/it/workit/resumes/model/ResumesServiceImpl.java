@@ -23,4 +23,9 @@ public class ResumesServiceImpl implements ResumesService{
 		}
 		return resumeList;
 	}
+
+	@Override
+	public int insertAward(AwardVO aVo) {
+		return resumesDao.insertAward(aVo);
+	}
 }
