@@ -42,7 +42,7 @@
                 <div class="col-lg-12">
                     <div class="blog-details-inner">
                         <div class="blog-detail-title">
-                        
+                        <input type="hidden" id="recruitannounceNo" name="recruitannounceNo" value="${RecruitannounceVO.recruitannounceNo}">
                             <h2>${RecruitannounceVO.recruitannounceTitle}</h2>
                             <p>등록일 : <span><fmt:formatDate value="${RecruitannounceVO.recruitannounceStartdate}" pattern="yyyy년 MM월 dd일"/></span></p>
                         </div>
@@ -84,7 +84,7 @@
                             	<p>신입</p>
                             </c:if>
                              <c:if test="${RecruitannounceVO.recruitannounceWantedcarrer>0}">
-                            	<p>경력 ${RecruitannounceVO.recruitannounceWantedcarrer}이상</p>
+                            	<p>경력 ${RecruitannounceVO.recruitannounceWantedcarrer}년 이상</p>
                             </c:if>
                             </div>
                             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -162,9 +162,6 @@
                                                 <h5>대표  <span>${CorpVO.corpHeadname}</span> </h5>
                                                 <p>회사소개 </p>
                                                 <p>${CorpVO.corpIntro}</p>
-                                                
-           										
-       											
                                                 <button type="button" class="site-btn" id="corpinfo" name="corpinfo">회사상세보기</button>
                                             </div>
                                             <div class="col-lg-5">
@@ -185,6 +182,7 @@
                     </c:if>
                     <c:if test="${sessionScope.userNo==RecruitannounceVO.userNo}">
                     	<button type="button" class="site-btn" id="editclick" name="editclick">공고수정 요청</button>
+                    	
                     	<button type="button" class="site-btn" id="deleteclick" name="editclick">공고삭제</button>
                     </c:if>
                         </div>

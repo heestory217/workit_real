@@ -100,7 +100,7 @@ function numberMaxLength(e){
                             
                             <div class="group-input">
                                 <label for="pass">요약-채용형태(필수)</label>
-                                <input type="text" id="recruitannounceSworkkind" name="recruitannounceSworkkind" value="1">
+                                <input type="text" id="recruitannounceSworkkind" name="recruitannounceSworkkind">
                             </div>
                             <div class="group-input">
                                 <label for="pass">요약-경력(필수)</label>
@@ -177,9 +177,9 @@ function numberMaxLength(e){
                             
                             <div class="group-input">
                                     <label for="pass">필수 요구 언어</label>
-	                                    <select class="col-lg-5 mystyle">
+	                                    <select class="col-lg-5 mystyle" id="languageNo" name="languageNo">
 	                                    <c:forEach items="${language}" var="langs">
-	                                    	<option>${langs}</option>
+	                                    	<option value="${langs.languageNo}">${langs. languageName}</option>
 	                                    </c:forEach>
                                     	</select>
                             </div>                                  
@@ -207,6 +207,7 @@ function numberMaxLength(e){
                                 <label for="pass">회사링크</label>
                                 <input type="text" id="recruitannounceLink" name="recruitannounceLink">
                             </div>
+                            <input type="hidden" id="userNo" name="userNo" value="${sessionScope.userNo}">
                             <span class="call" id="finalcheck" name="finalcheck" style="cursor:hand;color:red"></span>
                             <button type="submit" class="site-btn register-btn" id='recruitask' name='recruitask'>공고등록 요청</button>
                         </form>

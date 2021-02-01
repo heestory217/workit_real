@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.it.workit.language.model.LanguageVO;
 import com.it.workit.users.model.arealistVO;
 
 @Repository
@@ -51,7 +52,7 @@ public class RecruitannounceDAOMybatis implements RecruitannounceDAO {
 	}
 
 	@Override
-	public List<String> selectcwlanguage() {
+	public List<LanguageVO> selectcwlanguage() {
 		return sqlSession.selectList(namespace+"selectcwlanguage");
 	}
 
@@ -62,7 +63,12 @@ public class RecruitannounceDAOMybatis implements RecruitannounceDAO {
 
 	@Override
 	public int recruitannouncewrite(RecruitannounceVO vo) {
-		return 0;//sqlSession.insert(namespace+"recruitannouncewrite", vo);
+		return sqlSession.insert(namespace+"recruitannouncewrite", vo);
+	}
+
+	@Override
+	public int recruitannounceedit(RecruitannounceVO vo) {
+		return sqlSession.update(namespace+"recruitannounceedit", vo);
 	}
 
 }
