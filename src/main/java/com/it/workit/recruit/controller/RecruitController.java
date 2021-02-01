@@ -1,5 +1,7 @@
 package com.it.workit.recruit.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.CorpVO;
+import com.it.workit.language.model.LanguageVO;
 import com.it.workit.recruit.model.RecruitannounceService;
 import com.it.workit.recruit.model.RecruitannounceVO;
 import com.it.workit.users.model.arealistVO;
@@ -67,11 +70,39 @@ public class RecruitController {
 	
 	
 	@RequestMapping(value="/recruitwrite.do", method=RequestMethod.POST)
-	public String recruitwritesee(@ModelAttribute RecruitannounceVO vo, Model model) {
+	public String recruitwritesee(@ModelAttribute RecruitannounceVO vo, Model model, @RequestParam String year,
+			@RequestParam String month, @RequestParam String day) {
 		logger.info("채용정보 화면처리 {}", vo);
 
-		String msg="공고에 실패했습니다", url="/index.do";
+		String msg="공고등록에 실패했습니다", url="/index.do";
+		
+		String ddate;
+		
+		int to = Integer.parseInt(month);
+		int to2 = Integer.parseInt(day);
+	
+		if(to<10) {
+			month="0"+month;
+		}
+		if(to2<10) {
+			day="0"+day;
+		}
 
+		ddate="20"+year+"-"+month+"-"+day;
+		logger.info("날짜 {}", ddate);
+		
+		Date tox=new Date();
+		
+		
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				tox = transFormat.parse(ddate);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		
+		logger.info("날짜 {}", ddate);
+		vo.setRecruitannounceEnddate(tox);
 		
 		if(vo.getRecruitannounceWorkkind()==null || vo.getRecruitannounceWorkkind().isEmpty()) {
 			vo.setRecruitannounceSworkkind("");
@@ -118,7 +149,7 @@ public class RecruitController {
 	@RequestMapping(value="/recruitwrite.do", method=RequestMethod.GET)
 	public String recruitwritewatch(Model model) {
 		//언어목록, 지역목록1,2
-		List<String> language=recruitannounceService.selectcwlanguage();
+		List<LanguageVO> language=recruitannounceService.selectcwlanguage();
 		model.addAttribute("language", language);
 		
 		List<arealistVO> arealist=recruitannounceService.selectcwplace();
@@ -128,11 +159,95 @@ public class RecruitController {
 	}
 	
 
-	@RequestMapping("/recruitedit.do")
-	public String recruitedit() {
+	@RequestMapping(value="/recruitedit.do", method=RequestMethod.GET)
+	public String recruiteditcall(@RequestParam int recruitannounceNo, Model model) {
+		logger.info("채용공고번호 {}", recruitannounceNo);
+		RecruitannounceVO vo=recruitannounceService.recruitannounceselectByNo(recruitannounceNo);
+		model.addAttribute("RecruitannounceVO", vo);
 		
+		List<LanguageVO> language=recruitannounceService.selectcwlanguage();
+		model.addAttribute("language", language);
+		
+		List<arealistVO> arealist=recruitannounceService.selectcwplace();
+		model.addAttribute("arealist", arealist);
 		//4
 		return "recruit/recruitedit";
+	}
+	
+	@RequestMapping(value="/recruitedit.do", method=RequestMethod.POST)
+	public String recruiteditwrite(@ModelAttribute RecruitannounceVO vo, Model model, @RequestParam String year,
+			@RequestParam String month, @RequestParam String day) {
+		logger.info("채용정보 화면처리 {}", vo);
+
+		String msg="공고수정에 실패했습니다", url="/index.do";
+		
+		String ddate;
+		
+		int to = Integer.parseInt(month);
+		int to2 = Integer.parseInt(day);
+	
+		if(to<10) {
+			month="0"+month;
+		}
+		if(to2<10) {
+			day="0"+day;
+		}
+
+		ddate="20"+year+"-"+month+"-"+day;
+		logger.info("날짜 {}", ddate);
+		
+		Date tox=new Date();
+		
+		
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				tox = transFormat.parse(ddate);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		
+		logger.info("날짜 {}", ddate);
+		vo.setRecruitannounceEnddate(tox);
+		
+		if(vo.getRecruitannounceWorkkind()==null || vo.getRecruitannounceWorkkind().isEmpty()) {
+			vo.setRecruitannounceSworkkind("");
+		}
+		
+		if(vo.getRecruitannounceWorkkind()==null || vo.getRecruitannounceWorkkind().isEmpty()) {
+			vo.setRecruitannounceSworkkind("");
+		}
+		
+		if(vo.getRecruitannounceUpcheckcarrer()==null || vo.getRecruitannounceUpcheckcarrer().isEmpty()) {
+			vo.setRecruitannounceUpcheckcarrer("");
+		}
+		
+		if(vo.getRecruitannounceHirestep()==null || vo.getRecruitannounceHirestep().isEmpty()) {
+			vo.setRecruitannounceHirestep("");
+		}
+		
+		if(vo.getRecruitannounceElse()==null || vo.getRecruitannounceElse().isEmpty()) {
+			vo.setRecruitannounceElse("");
+		}
+		
+		if(vo.getRecruitannounceLink()==null || vo.getRecruitannounceLink().isEmpty()) {
+			vo.setRecruitannounceLink("");
+		}
+		
+		int cnt=recruitannounceService.recruitannounceedit(vo);
+		
+		logger.info("채용공고 수정 결과 {}", cnt);
+		
+		if(cnt>0) {
+			msg="채용공고 수정 완료";
+			url="/index.do";
+		}
+
+		//3
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		//4
+		return "common/message";
 	}
 	
 	

@@ -28,3 +28,17 @@
 .gray{
 	color:#4C4747;
 }
+
+#languageBtn{
+	background: #4C50BB;
+	border: 1px solid #4C50BB;
+	color: #ffffff;
+	width: 80px;
+	height: 40px;
+	margin-left: 15px;
+}
+
+#languageNo{
+	border: 1px solid #ebebeb;
+    height: 40px;
+}

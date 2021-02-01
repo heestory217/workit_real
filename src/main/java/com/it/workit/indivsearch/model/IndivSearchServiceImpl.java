@@ -26,4 +26,9 @@ public class IndivSearchServiceImpl implements IndivSearchService{
 	public List<LanguageVO> selectLanguage() {
 		return indivSearchDao.selectLanguage();
 	}
+
+	@Override
+	public List<IndivKeywordSearchVO> selectSearchAll() {
+		return indivSearchDao.selectSearchAll();
+	}
 }

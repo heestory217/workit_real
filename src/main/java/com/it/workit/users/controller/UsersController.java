@@ -208,6 +208,18 @@ public class UsersController {
 			session.setAttribute("userName", vo.getUserName());
 			logger.info("회원종류={}", kind);
 			session.setAttribute("user_corpcheck", kind);
+
+			  
+			if(vo.getUserCorpcheck()==1){
+				
+			}
+			
+			/*
+			  2.일반회원시 주문결제테이블 찾기
+			  3.주문번호별 구매한 리뷰열람권 목록 가져오기
+			  4.존재하는 열람권중에서 시작일 종료일이 현재에 걸쳐진 열람권 있으면 종료일 보내기
+			 */
+			
 			
 			avx[1]=vo.getUserName();
 		}

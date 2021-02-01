@@ -1,10 +1,8 @@
 package com.it.workit.community.controller;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -234,6 +232,7 @@ public class CommunityController {
 			Model model) {
 		int userNo=(Integer) session.getAttribute("userNo");
 		logger.info("질문 등록, 파라미터 vo={}", vo);
+		vo.setQuestionImmsave(2);
 		
 		int cnt=qstnService.insertQstn(vo);
 		logger.info("질문 등록 결과, cnt={}", cnt);
@@ -249,6 +248,7 @@ public class CommunityController {
 		
 		return "common/message";
 	}
+	
 	
 	//질문 수정 화면
 	@RequestMapping(value="/qstnEdit.do", method = RequestMethod.GET)
@@ -440,18 +440,21 @@ public class CommunityController {
 		return replyList;
 	}
 	
-	//댓글 등록 , produces="text/html;charset=UTF-8"
+	//댓글 등록 
 	@ResponseBody
-	@RequestMapping("/replyWrite.do")
+	@RequestMapping(value="/replyWrite.do",produces="text/plain;charset=UTF-8")
 	public int replyWrite(@ModelAttribute CommentsVO vo,HttpSession session) {
 		int userNo=(Integer) session.getAttribute("userNo");
 		vo.setUserNo(userNo);
 		logger.info("댓글 등록, 파라미터 vo={}", vo);
-		int	cnt=replyService.insertReply(vo);
-			logger.info("댓글 등록 결과, cnt={}", cnt);
+		
+		int cnt=replyService.insertReply(vo);
+		logger.info("댓글 등록 결과, cnt={}", cnt);
 		return cnt;
 	}
 	
+	
+	//댓글 수정
 	@ResponseBody
 	@RequestMapping("/replyEdit.do")
     public int replyEdit(@ModelAttribute CommentsVO vo,HttpSession session) {
@@ -477,4 +480,5 @@ public class CommunityController {
 		return cnt;
 		
 	}
+	
 }

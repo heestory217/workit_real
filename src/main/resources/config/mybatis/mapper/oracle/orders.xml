@@ -85,4 +85,9 @@
 		select count(*) from orders
 		where user_no=#{userNo}
 	</select>
+	
+	<select id="orderscall" parameterType="int" resultType="int">
+		select ORDER_NO from orders
+		where user_no=#{userNo}
+	</select>
 </mapper>
