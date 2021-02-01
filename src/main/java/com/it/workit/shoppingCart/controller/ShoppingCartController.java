@@ -25,8 +25,7 @@ public class ShoppingCartController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ShoppingCartController.class);
 	@Autowired private ShoppingCartService cartService;
-	@Autowired private UsersService usersService;
-
+	
 	@RequestMapping("/shoppingCart.do")
 	public void shoppingCart(HttpSession session, Model model) {
 		int userNo = (Integer) session.getAttribute("userNo");
@@ -34,25 +33,7 @@ public class ShoppingCartController {
 
 		//장바구니 내역전달
 		List<CartViewVO> cartList = cartService.selectCartList(userNo);
-
-		//결제처리를 위한 기업회원 정보 전달
-		UsersVO usersVo = usersService.selectByUserNo(userNo);
-		//이름
-		String userName = usersVo.getUserName();
-		//전화번호
-		String hp1 = usersVo.getUserHp1();
-		String hp2 = usersVo.getUserHp2();
-		String hp3 = usersVo.getUserHp3();
-		String userHp = hp1+"-"+hp2+"-"+hp3;
-		//이메일
-		String email1 = usersVo.getUserEmail1();
-		String email2 = usersVo.getUserEmail2();
-		String userEmail = email1+"@"+email2;
-
 		model.addAttribute("cartList", cartList);
-		model.addAttribute("userName", userName);
-		model.addAttribute("userHp", userHp);
-		model.addAttribute("userEmail", userEmail);
 	}
 
 	@RequestMapping("/deleteOne.do")
