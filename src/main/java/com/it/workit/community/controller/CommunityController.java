@@ -227,7 +227,7 @@ public class CommunityController {
 
 
 	//질문 등록 처리
-	@RequestMapping(value="/qstnWrite.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/qstnWrite.do", method = RequestMethod.POST)
 	public String qstnWrite_post(@ModelAttribute QuestionVO vo, HttpSession session, 
 			Model model) {
 		int userNo=(Integer) session.getAttribute("userNo");
@@ -249,7 +249,27 @@ public class CommunityController {
 		return "common/message";
 	}
 	
-	
+	//임시저장
+	@RequestMapping(value="/tempQstn.do", method=RequestMethod.POST)
+	public String temp_qstn(@ModelAttribute QuestionVO vo, Model model) {
+		vo.setQuestionImmsave(1);
+		logger.info("질문 임시 저장, 파라미터 vo={}, tempSave",vo);
+		
+		int cnt=qstnService.insertQstn(vo);
+		logger.info("질문 임시 저장 결과, cnt={}", cnt);
+		String msg="임시저장에 실패하였습니다, 다시 시도해주세요.",
+				url="/indiv/community/qstnWrite.do";
+		if(cnt>0) {
+			msg="임시저장 되었습니다.";
+			url="/indiv/community/qstnList.do";
+		}
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "common/message";
+		
+	}
 	//질문 수정 화면
 	@RequestMapping(value="/qstnEdit.do", method = RequestMethod.GET)
 	public String qstnEdit_get(@RequestParam(defaultValue = "0") int qstnNo,

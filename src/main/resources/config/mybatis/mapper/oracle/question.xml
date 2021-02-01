@@ -40,7 +40,9 @@
 	
 	<!-- 질문 조회 -->
 	<select id="selectAllQstn" resultType="questionVo">
-		select * from QUESTION order by QUESTION_NO desc
+		select * from QUESTION 
+		where QUESTION_IMMSAVE=2
+		order by QUESTION_NO desc
 	</select>
 	
 	
@@ -58,10 +60,11 @@
 			    (
 			    	<if test="userNo!='' and userNo!=null">
 				        select * from userQstnView 
-						where USER_NO=#{userNo} 
+						where USER_NO=#{userNo} and QUESTION_IMMSAVE=2
 			    	</if>
 			    	<if test="userNo=='' or userNo==null">
 			    		select * from userQstnView 
+			    		where QUESTION_IMMSAVE=2
 			    	</if>
 					order by QUESTION_NO desc
 			    )A
