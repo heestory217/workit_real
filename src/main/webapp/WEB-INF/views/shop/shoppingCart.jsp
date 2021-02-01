@@ -2,14 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 
-<!-- iamport.payment.js -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
 <script type="text/javascript">
-//결제
-var IMP = window.IMP; 
-IMP.init("imp52828174"); 
-
 	$(function(){
 		//로드될 때 처리
 		var subtotal = $('#subtotal').html();
@@ -57,6 +50,9 @@ IMP.init("imp52828174");
 						//percentage 추가 입력
 						var str = "("+res+"%)";
 						$('#percent').html(str);
+						
+						//쿠폰 넘겨주기 파라미터 세팅
+						$('#order').attr('href','<c:url value="/shop/checkOut.do?couponName='+$('#couponName').val()+'"/>');
 					}
 				},
 				error:function(xhr, status, error){
@@ -85,6 +81,7 @@ IMP.init("imp52828174");
 						$('#percent').html('');
 						$('#discountAmount').html(discountAmount);
 						$('#totalPrice').html(totalPrice);
+						
 					}
 				},
 				error:function(xhr, status, error){
@@ -95,50 +92,6 @@ IMP.init("imp52828174");
 			$('#removeCoupon').css('display','none');
 			event.preventDefault();
 		});//click
-		
-		//결제
-		$('#pay').click(function(){
-			IMP.request_pay({
-			    pg : 'inicis', // version 1.1.0부터 지원.
-			    pay_method : 'card',
-			    merchant_uid : 'merchant_' + new Date().getTime(),	//필수
-			    name : '이력서 열람권',
-			    amount : removeComma($('#totalPrice').html()),	//필수
-			    buyer_email : $('#buyer_email').html(),
-			    buyer_name : $('#buyer_name').html(),	
-			    buyer_tel : $('#buyer_tel').html(),	//필수
-			}, function(rsp) {
-				if ( rsp.success ) {
-				    //결제완료 후 로직처리
-				    $.ajax({
-						url:"<c:url value='/shop/order.do'/>",
-						type:"GET",
-						data:{
-							orderPaykind : 'card',
-							couponName : $('#couponName').val(),
-							orderDiscount : removeComma($('#discountAmount').html()),
-							orderPay : removeComma($('#totalPrice').html()),
-						},
-						dataType:"json",
-						success:function(res){
-							//res 는 orderNo
-							if(res>0){								
-								//결제 완료 후 주문내역 페이지로 이동
-							    alert('결제가 완료되었습니다.');
-								location.href="<c:url value='/shop/paymentComplete.do?orderNo="+res+"'/>";	    			
-							}
-						},
-						error:function(xhr, status, error){
-							console.log("error="+error);
-						}
-					});	//ajax
-			    } else {
-			        var msg = '결제에 실패하였습니다.\n';
-			        msg += rsp.error_msg;
-				    alert(msg);
-			    }
-			});
-		});	//click 결제
 		
 	});
 	
@@ -154,13 +107,6 @@ IMP.init("imp52828174");
 	}
 
 </script>
-
-<!-- 결제처리를 위한 정보 : 확인하고 display none으로 바꾸기-->
-<div style="display: none;">
-	<p id="buyer_email">${userEmail}</p>
-	<p id="buyer_name">${userName}</p>
-	<p id="buyer_tel">${userHp}</p>
-</div>
 
 <!-- 장바구니 상단 -->
 <div class="breacrumb-section">
@@ -287,7 +233,7 @@ IMP.init("imp52828174");
                                 	<span id="totalPrice">${totalPrice}</span>
                                 </li>
                             </ul>
-                            <a href="#" class="proceed-btn" id="pay">결  제</a>
+                            <a href="<c:url value='/shop/checkOut.do'/>" class="proceed-btn" id="order">주문하기</a>
                         </div>
                     </div>
                 </div>

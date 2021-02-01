@@ -19,20 +19,48 @@ import com.it.workit.coupon.model.CouponService;
 import com.it.workit.coupon.model.CouponVO;
 import com.it.workit.orders.model.OrdersService;
 import com.it.workit.orders.model.OrdersVO;
+import com.it.workit.shoppingCart.model.CartViewVO;
+import com.it.workit.shoppingCart.model.ShoppingCartService;
+import com.it.workit.users.model.UsersService;
+import com.it.workit.users.model.UsersVO;
 
 @Controller
 @RequestMapping("/shop")
 public class OrdersController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrdersController.class);
+	@Autowired private UsersService usersService;
+	@Autowired private ShoppingCartService cartService;
 	@Autowired private CouponService couponService;
 	@Autowired private OrdersService ordersService;
 	
 	@RequestMapping("/checkOut.do")
-	public void checkOut() {}
-	
-	
-	
+	public void checkOut(HttpSession session, Model model) {
+		int userNo = (Integer) session.getAttribute("userNo");
+		logger.info("장바구니 내역 보여주기 userNo={}", userNo);
+
+		//장바구니 내역전달
+		List<CartViewVO> cartList = cartService.selectCartList(userNo);
+
+		//결제처리를 위한 기업회원 정보 전달
+		UsersVO usersVo = usersService.selectByUserNo(userNo);
+		//이름
+		String userName = usersVo.getUserName();
+		//전화번호
+		String hp1 = usersVo.getUserHp1();
+		String hp2 = usersVo.getUserHp2();
+		String hp3 = usersVo.getUserHp3();
+		String userHp = hp1+"-"+hp2+"-"+hp3;
+		//이메일
+		String email1 = usersVo.getUserEmail1();
+		String email2 = usersVo.getUserEmail2();
+		String userEmail = email1+"@"+email2;
+
+		model.addAttribute("cartList", cartList);
+		model.addAttribute("userName", userName);
+		model.addAttribute("userHp", userHp);
+		model.addAttribute("userEmail", userEmail);
+	}
 	
 	@ResponseBody
 	@RequestMapping("/order.do")
