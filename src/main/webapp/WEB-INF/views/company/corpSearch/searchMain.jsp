@@ -107,12 +107,21 @@
 							<form action="<c:url value='/corpSearch.do'/>" name="frmPage" method="post">
 								<input type="hidden" name="currentPage">
 								<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
-								<input type="text" name="langNo" value="1">
+								<input type="hidden" name="langNo" value="${param.langNo}">
 							</form>
 								<c:set var="k" value="0"/>
 	                            <c:forEach var="lang" items="${langlist }">
 		                            <div class="langTags">
-		                            	<input type="checkbox" value="${lang.languageNo}" name="langReSearch" id="${lang.languageName}" onclick="reSearch(${lang.languageNo})">
+		                            	<input type="checkbox" value="${lang.languageNo}"
+		                            			name="langReSearch" id="${lang.languageName}"
+		                            			onclick="reSearch(${lang.languageNo},${pagingInfo.currentPage})"
+		                            			<c:forEach var="no" items="${langNo }">
+		                            			<c:if test="${no == lang.languageNo}">
+		                            				checked="checked"
+		                            			</c:if>
+		                            			</c:forEach>
+                            			>
+		                            			
 		                            	<label for="${lang.languageName}" class="langName">${lang.languageName}</label>
 		                           	</div>
 		                           	<c:set var="k" value="${k+1 }"/>
@@ -124,7 +133,7 @@
                     <div class="product-show-option">
                         <div class="row">
                             <div class="col-lg-7 ">
-								<p>총 <span>${resumeList.size() }</span>개의 검색 결과가 있습니다.</p>
+								<p>총 <span>${pagingInfo.totalRecord }</span>개의 검색 결과가 있습니다.</p>
                             </div>
                         </div>
                     </div>
@@ -227,13 +236,16 @@
     <script type="text/javascript">
     
     //[3]결과 내 재검색
-    function reSearch(langNo){
+    function reSearch(langNo, curPage){
     	var reSearchLangNoList=[];
     	$('input[name=langReSearch]:checked').each(function(){
     		reSearchLangNoList.push($(this).val());
     	});
     	alert(reSearchLangNoList);
+    	
+    	$('input[name=currentPage]').val(curPage);
     	$('input[name=langNo]').val(reSearchLangNoList);
+    	$('form[name=frmPage]').submit();
     }
 
     

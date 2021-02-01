@@ -13,7 +13,17 @@ public class CorpSearchServiceImpl implements CorpSearchService{
 	@Autowired private CorpSearchDAO searchDao;
 
 	@Override
-	public List<ResumesAllVO> searchDefault(SearchVO searchVo) {
+	public List<ResumesAllVO> searchDefault(CorpReSearchAllVO searchVo) {
+		List<Integer> searchLangList = searchVo.getLangNo();
+		if(searchLangList!=null) {
+			for(int n : searchLangList) {
+				System.out.println(n);
+				searchVo.setLang(n);
+			}
+		}else {
+			System.out.println("langList는 널이다.");
+		}
+		
 		return searchDao.searchDefault(searchVo);
 	}
 

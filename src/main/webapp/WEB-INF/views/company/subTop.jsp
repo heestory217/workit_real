@@ -42,7 +42,7 @@
                  </div>
                  <div class="select-button">
                      <a href="<c:url value='/shop/shoppingCart.do'/>" class="primary-btn view-card">장바구니 보러가기</a>
-                     <a href="#" class="primary-btn checkout-btn">바로 결제하기</a>
+                     <a href="<c:url value='/shop/checkOut.do'/>" class="primary-btn checkout-btn">바로 결제하기</a>
                  </div>
              </div>
          </li>

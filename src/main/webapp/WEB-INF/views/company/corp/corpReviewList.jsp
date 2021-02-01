@@ -113,7 +113,7 @@
        	<!-- c:if 이 회사의 userNo가 로그인한 userNo와 같은경우 삭제버튼 보여줌 -->
 	        <hr style="margin-top: 20px;">
 		  		<button type="button" class="btn" style="border-left-width: 0px;padding-left: 0px;padding-right: 0px;color: #999;">리뷰 삭제</button>
-	  			</a>
+  			</a>
       </div>
 
     </div>
