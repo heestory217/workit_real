@@ -7,17 +7,16 @@
     .product-item {
     	position:relative;
     }
-	.pi-text{
-	  	position: absolute;
-		left: 30px;
-    	top: 30px;
-	}
 	.col-lg-3 {
 		float:left;
 	}
 	
 	.product-item .pi-text{
 		width:75%;
+		position: absolute;
+		left: 30px;
+    	top: 30px;
+    	padding-top : 0px;
 	}
 	.product-item .pi-pic .sale.pp-sale{
 		top: 0px;
@@ -57,6 +56,31 @@
 		margin-right: 0;
 	}
 	
+	.langTags{
+	    border: 1px solid #ebebeb;
+	    padding: 5px 5px 5px 10px; 
+	    width: max-content;
+	    float: left;
+	    margin : 5px 5px 5px 0px;
+	}
+	
+	.langName{
+	    padding: 5px 5px 0px 5px;
+        font-weight: 700;
+	}
+	
+	.wantedArea{
+	    background-color: #f2f2f2;
+	    border-radius: 35px;
+	    text-align: left;
+	    padding: 5px 10px;
+	    width: fit-content;
+	    font-size: 14px;
+	    color: #666;
+	    float: left;
+  		margin: 5px 5px 0px 0px;
+	}
+	
 	</style>
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section">
@@ -72,39 +96,27 @@
         </div>
     </div>
     <!-- Breadcrumb Section Begin -->
-
     <!-- Product Shop Section Begin -->
     <section class="product-shop spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
                     <div class="filter-widget">
-                        <h4 class="fw-title">지역 설정</h4>
-                        <div class="fw-size-choose">
-                            <div class="sc-item">
-                                <input type="radio" id="s-size">
-                                <label for="s-size">s</label>
-                            </div>
-                            <div class="sc-item">
-                                <input type="radio" id="m-size">
-                                <label for="m-size">m</label>
-                            </div>
-                            <div class="sc-item">
-                                <input type="radio" id="l-size">
-                                <label for="l-size">l</label>
-                            </div>
-                            <div class="sc-item">
-                                <input type="radio" id="xs-size">
-                                <label for="xs-size">xs</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="filter-widget">
                         <h4 class="fw-title">언어</h4>
                         <div class="fw-tags">
-                            <c:forEach var="lang" items="${langlist }">
-                            	<a href="#" onclick=reSearch(${lang.languageNo}) id="tag_${lang.languageNo}">${lang.languageName}</a>
-                            </c:forEach>
+							<form action="<c:url value='/corpSearch.do'/>" name="frmPage" method="post">
+								<input type="hidden" name="currentPage">
+								<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+								<input type="text" name="langNo" value="1">
+							</form>
+								<c:set var="k" value="0"/>
+	                            <c:forEach var="lang" items="${langlist }">
+		                            <div class="langTags">
+		                            	<input type="checkbox" value="${lang.languageNo}" name="langReSearch" id="${lang.languageName}" onclick="reSearch(${lang.languageNo})">
+		                            	<label for="${lang.languageName}" class="langName">${lang.languageName}</label>
+		                           	</div>
+		                           	<c:set var="k" value="${k+1 }"/>
+	                            </c:forEach>
                         </div>
                     </div>
                 </div>
@@ -120,7 +132,8 @@
                         <div class="row">
                         <!-- 이력서 리스트 반복 -->
                         <c:if test="${empty resumeList}">
-                        	<h2>검색된 이력서가 없습니다.</h2>
+                        	<br><div class="center size_150 lightgray"><i class="fas fa-search"></i></div><br>
+							<div class="center"><p>검색 결과가 없습니다.</p></div>
                         </c:if>
                         <c:if test="${!empty resumeList}">
                         	<c:forEach var="resume" items="${resumeList}">
@@ -148,8 +161,14 @@
 		                                <!-- 언어 리스트 -->
 		                                <div class="product-price">
 							                <c:forEach var="lang" items="${resume.langList}" >
-				                                    ${lang.languageName} 
+				                                 ${lang.languageName} 
 											</c:forEach>
+		                                </div>
+		                                <!-- 희망 근무 지역 리스트 -->
+		                                <div class="areaList">
+		                                	<c:forEach var="area" items="${resume.areaList}">
+		                                	<h5 class="wantedArea">${area.areaAdd1} ${area.areaAdd2}</h5>
+		                                	</c:forEach>
 		                                </div>
                                     </div>
                                 </div>
@@ -166,7 +185,6 @@
 									<i class="fa fa-long-arrow-left"></i>
 								</a>
 							</c:if>
-								
 						
 							<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
 								<c:if test="${i==pagingInfo.currentPage }">
@@ -179,7 +197,6 @@
 								</c:if>
 							</c:forEach>
 							
-							
 							<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">	
 								<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
 									<i class="fa fa-long-arrow-right"></i>
@@ -187,10 +204,6 @@
 							</c:if>
 						    </div>
 						</div>
-						<form action="<c:url value='/corpSearch.do'/>" name="frmPage" method="post">
-							<input type="hidden" name="currentPage">
-							<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
-						</form>
                     <!-- 페이징처리 -->
                 </div>
             </div>
@@ -213,13 +226,16 @@
     <script src="https://kit.fontawesome.com/a86f09c0f4.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
     
-    //[3]결과내 재검색
+    //[3]결과 내 재검색
     function reSearch(langNo){
-    	var el = document.getElementById("tag_"+langNo);
-    	el.style.color = 'white';
-    	el.style.background = 'black';
-    	event.preventDefault();
+    	var reSearchLangNoList=[];
+    	$('input[name=langReSearch]:checked').each(function(){
+    		reSearchLangNoList.push($(this).val());
+    	});
+    	alert(reSearchLangNoList);
+    	$('input[name=langNo]').val(reSearchLangNoList);
     }
+
     
     ///[2] 페이징처리
 	function pageFunc(curPage){
@@ -257,5 +273,6 @@
 			}
 		});
 	}
-				</script>
+	
+</script>
 <%@ include file="../../inc/bottom.jsp"%>

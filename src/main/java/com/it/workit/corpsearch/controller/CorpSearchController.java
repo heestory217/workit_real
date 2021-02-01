@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.it.workit.common.PaginationInfo;
-import com.it.workit.common.SearchVO;
+import com.it.workit.corp.model.AreaListView;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.LanguageListView;
+import com.it.workit.corpsearch.model.CorpReSearchAllVO;
 import com.it.workit.corpsearch.model.CorpSearchService;
 import com.it.workit.corpsearch.model.CorpSearchkeywordConvertor;
 import com.it.workit.language.model.LanguageService;
 import com.it.workit.language.model.LanguageVO;
 import com.it.workit.resumes.model.ResumesAllVO;
-import com.it.workit.resumes.model.ResumesService;
 import com.it.workit.users.model.UsersService;
 import com.it.workit.users.model.UsersVO;
 
@@ -34,9 +34,9 @@ public class CorpSearchController {
 	@Autowired private LanguageService langService;
 	
 	@RequestMapping("/corpSearch.do")
-	public String searchMain(@ModelAttribute SearchVO searchVo, Model model) {
+	public String searchMain(@ModelAttribute CorpReSearchAllVO searchVo, Model model) {
 		logger.info("검색 화면에 들어온 SearchVO = {}", searchVo);
-				
+		
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(10);
 		pagingInfo.setRecordCountPerPage(12);
@@ -50,15 +50,14 @@ public class CorpSearchController {
 		searchVo.setSearchKeyword(searchKeyword);		
 		
 		List<ResumesAllVO> resumeList = searchService.searchDefault(searchVo);
-		logger.info("검색 결과로 찾은 resumeList = {}", resumeList.size());
 		for(ResumesAllVO vo:resumeList) {
 			int resumeNo = vo.getResumesVo().getResumeNo();
-			logger.info("for에 들어온 resumeNo ={}", resumeNo);
 			List<LanguageListView> langList = corpService.selectLanguageList(resumeNo);
+			List<AreaListView> areaList = corpService.selectAreaList(resumeNo);
 			int userNoForResume = vo.getResumesVo().getUserNo();
-			logger.info("for에 들어온 userNo ={}", resumeNo);
 			UsersVO userVo = userSerivce.selectByUserNo(userNoForResume);
 			String userExp = userVo.getUserExperience();
+			vo.setAreaList(areaList);
 			vo.setLangList(langList);
 			vo.setUserExperience(userExp);
 		}
@@ -74,4 +73,5 @@ public class CorpSearchController {
 		
 		return "company/corpSearch/searchMain";
 	}
+	
 }
