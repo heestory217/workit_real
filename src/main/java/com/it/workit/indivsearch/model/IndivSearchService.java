@@ -8,4 +8,5 @@ public interface IndivSearchService {
 	public List<IndivKeywordSearchVO> selectIndivKeyword(String keyword);
 	public List<IndivKeywordSearchVO> selectIndivLanguage(int languageNo);
 	public List<LanguageVO> selectLanguage();
+	public List<IndivKeywordSearchVO> selectSearchAll();
 }

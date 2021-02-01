@@ -29,4 +29,9 @@ public class IndivSearchDAOMybatis implements IndivSearchDAO{
 	public List<LanguageVO> selectLanguage() {
 		return sqlSession.selectList(namespace+"selectLanguage");
 	}
+
+	@Override
+	public List<IndivKeywordSearchVO> selectSearchAll() {
+		return sqlSession.selectList(namespace+"selectSearchAll");
+	}
 }

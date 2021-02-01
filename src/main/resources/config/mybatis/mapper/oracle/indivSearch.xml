@@ -47,5 +47,22 @@
 	<select id="selectLanguage" resultType="languageVo">
 		select * from language order by LANGUAGE_NO
 	</select>
+	
+	<!-- 전체 -->
+	<select id="selectSearchAll" resultType="indivKeywordSearchVo">
+		select r.*, c.CORP_NAME, c.CORP_IMGURL, l.LANGUAGE_NAME, w.WORKKIND_NAME, a.AREA_ADD1, a.AREA_ADD2
+		from RECRUITANNOUNCE r join CORP c
+		on r.user_no=c.user_no
+		join LANGUAGE l
+		on r.LANGUAGE_NO=l.LANGUAGE_NO
+		join WORKKIND w
+		on r.WORKKIND_NO = w.WORKKIND_NO
+		join AREALIST a
+		on r.AREALIST_NO = a.AREA_NO
+		<![CDATA[
+		and RECRUITANNOUNCE_ENDDATE>=sysdate
+		]]>
+		order by RECRUITANNOUNCE_ENDDATE
+	</select>
 
 </mapper>
