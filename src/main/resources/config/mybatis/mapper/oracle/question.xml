@@ -21,8 +21,8 @@
 		<selectKey keyProperty="questionNo" resultType="int" order="BEFORE">
 			select QUESTION_SEQ.NEXTVAL from dual
 		</selectKey>
-		insert into question(QUESTION_NO,USER_NO,WORKKIND_NO,QUESTION_TITLE,QUESTION_ABOUT)
-		values(#{questionNo},#{userNo},#{workkindNo},#{questionTitle},#{questionAbout})
+		insert into question(QUESTION_NO,USER_NO,WORKKIND_NO,QUESTION_TITLE,QUESTION_IMMSAVE,QUESTION_ABOUT)
+		values(#{questionNo},#{userNo},#{workkindNo},#{questionTitle},#{questionImmsave},#{questionAbout})
 	</insert>	
 	
 	<!-- 질문 상세 조회 -->
