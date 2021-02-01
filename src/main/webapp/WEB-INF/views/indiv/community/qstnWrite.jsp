@@ -90,20 +90,21 @@
 		/* 테두리 없애기 */
 		outline:0;
 		border:0;
-		width:140px;
-		height:50px;
+		width:120px;
+		height:40px;
 	}
 	
-	.btnCancel{
+	.btnCancel, .btnTempSave{
 		background-color: white;
 		color:gray;
 		outline:0;
 		border:0.5px solid silver;
-		width:140px;
-		height:50px;
+		width:120px;
+		height:40px;
 	}
 	
 	.btnCommWrap{
+		margin-top:20px;
 		text-align:center;
 	}
 	
@@ -283,6 +284,10 @@
 			}
 			
 		});
+
+		$('.btnTempSave').click(function(){
+			location.href="<c:url value='/indiv/community/tempQstn.do'/>"
+		});
 		
 		//textarea 글자수 체크
 		$('.questionAbout').keyup(function (e){
@@ -416,6 +421,10 @@
 
 								<div class="btnCommWrap">
 									<button type="submit" class="btnQuestion devQnaWriteButton">질문하기</button>
+									<button type="button"
+										class="btnTempSave bg_white devQnaWriteCancelButton"
+										onclick="<c:url value='/indiv/community/tempQstn.do'/>"	
+									>임시저장</button>
 									<button type="button"
 										class="btnCancel bg_white devQnaWriteCancelButton">취소</button>
 								</div>

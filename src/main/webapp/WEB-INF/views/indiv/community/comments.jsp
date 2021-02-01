@@ -236,8 +236,8 @@
 <!-- 답변 반복 시작 -->
 <c:forEach var="map" items="${cmtList}">
 <div class="cmtOne">
+   <input type="text" name="commentrespondNo" id="cmtNo" value="${map['COMMENTRESPOND_NO']}">
    <div class="nickDiv">
-      <input type="text" name="commentrespondNo" id="cmtNo" value="${map['COMMENTRESPOND_NO']}">
       <span>@ ${map['USER_ID'] }</span>
       <c:if test="${userId eq map['USER_ID'] }">
       <!-- if 조건으로 로그인한 회원의 번호와 질문글의 회원번호가 같은 경우에만 보이도록 설정 -->
@@ -345,12 +345,6 @@ $(function(){
       
    });
    
-   $('.replyBtnDiv').parent('.cmtOne').next('.replyBoxWrap').find('#replyBtn').click(function(){
-		var no=$('.replyBtnDiv').parent('.cmtOne').next('.replyBoxWrap').find('.replyWrap').find('#replyFrm').find('#cmntNo').val();
-		var commentAbout=$('.replyBtnDiv').parent('.cmtOne').next('.replyBoxWrap').find('.replyWrite').find('replyWrap').find('#replyFrm').find('.replyWriteArea').find('.replyWrite').html();
-	    var insertData='commentrespondNo='+no+'&commentAbout='+commentAbout;
-		replyInsert(insertData);
-   });
    
    $('.replyFold').each(function(index,item){
       $(this).click(function(){
@@ -366,26 +360,8 @@ $(function(){
       }
    });
    
-	
    
 });//
-
-//댓글 등록
-function replyInsert(para){
-	$.ajax({
-		url:"<c:url value='/indiv/community/replyWrite.do'/>",
-		type:"post",
-		data:para,
-		async: false,
-		dataType:"json",
-		success:function(res){
-			alert(res);
-		},error:function(xhr, status, error){
-			alert('실패');
-		}
-	});
-}
-
 
 
 
