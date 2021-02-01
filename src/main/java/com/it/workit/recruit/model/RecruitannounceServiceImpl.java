@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.it.workit.language.model.LanguageVO;
 import com.it.workit.users.model.arealistVO;
 
 @Service
@@ -44,7 +45,7 @@ public class RecruitannounceServiceImpl implements RecruitannounceService {
 	}
 
 	@Override
-	public List<String> selectcwlanguage() {
+	public List<LanguageVO> selectcwlanguage() {
 		return RecruitannounceDao.selectcwlanguage();
 	}
 
@@ -56,6 +57,11 @@ public class RecruitannounceServiceImpl implements RecruitannounceService {
 	@Override
 	public int recruitannouncewrite(RecruitannounceVO vo) {
 		return RecruitannounceDao.recruitannouncewrite(vo);
+	}
+
+	@Override
+	public int recruitannounceedit(RecruitannounceVO vo) {
+		return RecruitannounceDao.recruitannounceedit(vo);
 	}
 
 	
