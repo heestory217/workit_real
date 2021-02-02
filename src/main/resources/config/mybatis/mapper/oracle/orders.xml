@@ -52,12 +52,19 @@
 		select * from orders where order_no=#{orderNo}
 	</select>
 	
-	<!-- 회원이 구입한 이력서 번호 list -->
-	<select id="selectPurchasedResumeNo" parameterType="int" resultType="int">
-		select RESUME_NO from ORDERDETAILRESUME 
-		where exists (select order_no from orders where user_no=#{userNo})
+	<!-- 회원이 구입한 전체 이력서 정보 -->
+	<select id="selectPurchasedResume" parameterType="int" resultType="map">
+		select * from OrderdetailsResumeView 
+		where ORDER_NO in (select ORDER_NO from orders where user_no=#{userNo})
+		order by ORDER_NO
 	</select>
 	
+	<!-- 구매한 이력서 읽음처리 -->
+	<update id="updateResumeRead" parameterType="orderDetailResumeVO">
+		UPDATE OrderdetailsResumeView
+		SET RESUME_READ=1
+		WHERE ORDER_NO=#{orderNo} and RESUME_NO=#{resumeNo}
+	</update>
 
 	<!-- 개인 마이페이지 결제내역 사용 -->
 <!-- 	<select id="selectIndivPaymentByUserno" parameterType="int" resultType="ordersVo">

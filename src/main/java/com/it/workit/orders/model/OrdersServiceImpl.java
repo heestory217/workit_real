@@ -85,8 +85,13 @@ public class OrdersServiceImpl implements OrdersService{
 	}
 
 	@Override
-	public List<Integer> selectPurchasedResumeNo(int userNo) {
-		return ordersDao.selectPurchasedResumeNo(userNo);
+	public List<Map<String, Object>> selectPurchasedResume(int userNo) {
+		return ordersDao.selectPurchasedResume(userNo);
+	}
+
+	@Override
+	public int updateResumeRead(OrderDetailResumeVO vo) {
+		return ordersDao.updateResumeRead(vo);
 	}
 	
 }

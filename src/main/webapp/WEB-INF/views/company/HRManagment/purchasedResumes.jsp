@@ -30,7 +30,10 @@
 
 			<!-- 제목 -->
 			<div class="section-title" style="width: 100%">
-				<h4><i class="far fa-file"></i>구매 이력서 상세보기</h4>
+				<h4><i class="far fa-file"></i>구매 이력서</h4>
+				<h6 style="margin-top:15px;">구매 이력서의 상세내용을 확인하려면 
+					<span style="color: #4C50BB;">이력서 제목</span>을 클릭하세요.
+				</h6>
 			</div>
 			<!-- 제목 끝 -->
 			
@@ -56,7 +59,7 @@
 			                                <th scope="col" class="p-name">이력서 제목</th>
 			                                <th scope="col">직무</th>
 			                                <th scope="col">경력</th>
-			                                <th scope="col">가격</th>
+			                                <th scope="col">열람여부</th>
 			                            </tr>
 			                        </thead>
 			                        <tbody>
@@ -65,16 +68,20 @@
 										<c:set var="discount" value="0" />
 										<c:set var="totalPrice" value="0" />
 										
-				                        <c:if test="${empty list}">
+				                        <c:if test="${empty resumeList}">
 											<tr>
 												<td colspan="6" style="padding: 14px 0;">장바구니 내역이 없습니다.</td>
 											</tr>
 										</c:if>
-										<c:if test="${!empty list}">
-			                        		<c:forEach var="map" items="${list}">
+										<c:if test="${!empty resumeList}">
+			                        		<c:forEach var="map" items="${resumeList}">
 					                            <tr>
 					                                <td class="p-price" style="padding: 14px 0;">${map['USER_NAME']}</td>
-					                                <td class="cart-title" style="padding: 14px 0;">${map['RESUME_TITLE']}</td>
+					                                <td class="cart-title" style="padding: 14px 0;">
+                              	<a href="<c:url value="/company/HRManagment/ResumeCountUpdate.do?orderNo=${map['ORDER_NO']}&resumeNo=${map['RESUME_NO']}"/>">
+                              		${map['RESUME_TITLE']}
+                           		</a>
+				                                	</td>
 					                                <td class="cart-pic" style="padding: 14px 0;">${map['WORKKIND_NAME']}</td>
 					                                <td class="cart-pic" style="padding: 14px 0;">
 					                                 	<c:if test="${map['USER_EXPERIENCE']==0}">
@@ -85,9 +92,13 @@
 						                                </c:if>
 						                            </td>
 				                                	<td class="p-price" style="padding: 14px 0;">
-					                                	<fmt:formatNumber value="${map['PAIDSERVICE_PRICE']}" pattern="#,###"/>원
-					                                	<c:set var="subTotalPrice" value="${subTotalPrice + map['PAIDSERVICE_PRICE']}"/>
-	                                				</td>
+					                                 	<c:if test="${map['RESUME_READ']==0}">
+						                                	미열람
+						                                </c:if>
+					                                 	<c:if test="${map['RESUME_READ']==1}">
+						                                	열람
+						                                </c:if>
+				                                	</td>
 					                            </tr>
 			                            </c:forEach>
 			                            </c:if>

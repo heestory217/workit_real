@@ -22,5 +22,7 @@ public interface OrdersService {
 	Map<String, Object> selectOrderdetailsDelRVView(int orderNo);
 	
 	OrdersVO selectOrdersByOrderNo(int orderNo);
-	List<Integer> selectPurchasedResumeNo(int userNo);
+	
+	List<Map<String, Object>> selectPurchasedResume(int userNo);
+	int updateResumeRead(OrderDetailResumeVO vo);
 }

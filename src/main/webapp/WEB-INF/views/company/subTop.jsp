@@ -93,8 +93,8 @@
                             </ul>
                         <li><a href="#">인재 관리</a>
                             <ul class="dropdown">
-                                <li><a href="<c:url value='/company/humanResourceManagement/positionSuggest.do'/>">포지션제안</a></li>
-                                <li><a href="<c:url value='/company/humanResourceManagement/purchasedResumes.do'/>">구매 이력서</a></li>
+                                <li><a href="<c:url value='/company/HRManagment/positionSuggest.do'/>">포지션제안</a></li>
+                                <li><a href="<c:url value='/company/HRManagment/purchasedResumes.do'/>">구매 이력서</a></li>
                             </ul>
                         </li>
                         <li><a href="#">마이페이지</a>

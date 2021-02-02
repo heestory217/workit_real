@@ -7,6 +7,7 @@ import com.it.workit.indivMypage.model.IndivpagingVO;
 import com.it.workit.resumes.model.ResumesVO;
 
 public interface OrdersDAO {
+	//개인 마이페이지 사용
 	public List<OrdersVO> selectIndivPaymentByUserno(IndivpagingVO vo);
 	public int ordersGetTotalRecord(IndivpagingVO vo);
 	
@@ -23,6 +24,10 @@ public interface OrdersDAO {
 	Map<String, Object> selectOrderdetailsDelRVView(int orderNo);
 	
 	OrdersVO selectOrdersByOrderNo(int orderNo);
-	List<Integer> selectPurchasedResumeNo(int userNo);
+	
+	//구매이력서 리스트
+	List<Map<String, Object>> selectPurchasedResume(int userNo);
+	//구매 이력서 읽음처리 업데이트
+	int updateResumeRead(OrderDetailResumeVO vo);
 	
 }
