@@ -43,12 +43,22 @@
 		order by RECRUITANNOUNCE_ENDDATE
 	</select>
 	
+	
 	<!-- 언어목록 -->
 	<select id="selectLanguage" resultType="languageVo">
 		select * from language order by LANGUAGE_NO
 	</select>
 	
-	<!-- 전체 -->
+	<!-- 지역목록 -->
+	<select id="selectAreaList1" resultType="arealistVo">
+		select distinct(area_add1) from AREALIST
+	</select>
+	
+	<select id="selectAreaList2" resultType="arealistVo" parameterType="String">
+		select area_add2 from AREALIST where area_add1=#{areaAdd1}
+	</select>
+	
+	<!-- 전체 기본데이터 -->
 	<select id="selectSearchAll" resultType="indivKeywordSearchVo">
 		select r.*, c.CORP_NAME, c.CORP_IMGURL, l.LANGUAGE_NAME, w.WORKKIND_NAME, a.AREA_ADD1, a.AREA_ADD2
 		from RECRUITANNOUNCE r join CORP c
@@ -64,5 +74,47 @@
 		]]>
 		order by RECRUITANNOUNCE_ENDDATE
 	</select>
+	
+	<!-- 탐색별 전체 areaAdd2 가 전체가 아닐때 -->
+	<select id="selectExplore" resultType="indivKeywordSearchVo" parameterType="indivKeywordSearchVo">
+		select r.*, c.CORP_NAME, c.CORP_IMGURL, l.LANGUAGE_NAME, w.WORKKIND_NAME, a.AREA_ADD1, a.AREA_ADD2
+      	from RECRUITANNOUNCE r join CORP c
+      	on r.user_no=c.user_no
+      	join LANGUAGE l
+      	on r.LANGUAGE_NO=l.LANGUAGE_NO
+      	join WORKKIND w
+      	on r.WORKKIND_NO = w.WORKKIND_NO
+      	join AREALIST a
+      	on r.AREALIST_NO = a.AREA_NO
+      	where r.RECRUITANNOUNCE_WANTEDCARRER = #{indivCareer}
+      	AND r.LANGUAGE_NO=#{languageNo}
+      	AND a.AREA_ADD1=#{areaAdd1}
+      	AND a.AREA_ADD2=#{areaAdd2}
+		<![CDATA[
+		and RECRUITANNOUNCE_ENDDATE>=sysdate
+		]]>
+		order by RECRUITANNOUNCE_ENDDATE
+	</select>
+	
+	<!-- 탐색별 전체 areaAdd2 가 전체일때-->
+	<select id="selectExploreAll" resultType="indivKeywordSearchVo" parameterType="indivKeywordSearchVo">
+		select r.*, c.CORP_NAME, c.CORP_IMGURL, l.LANGUAGE_NAME, w.WORKKIND_NAME, a.AREA_ADD1, a.AREA_ADD2
+      	from RECRUITANNOUNCE r join CORP c
+      	on r.user_no=c.user_no
+      	join LANGUAGE l
+      	on r.LANGUAGE_NO=l.LANGUAGE_NO
+      	join WORKKIND w
+      	on r.WORKKIND_NO = w.WORKKIND_NO
+      	join AREALIST a
+      	on r.AREALIST_NO = a.AREA_NO
+      	where r.RECRUITANNOUNCE_WANTEDCARRER = #{indivCareer}
+      	AND r.LANGUAGE_NO=#{languageNo}
+      	AND a.AREA_ADD1=#{areaAdd1}
+		<![CDATA[
+		and RECRUITANNOUNCE_ENDDATE>=sysdate
+		]]>
+		order by RECRUITANNOUNCE_ENDDATE
+	</select>
+	
 
 </mapper>
