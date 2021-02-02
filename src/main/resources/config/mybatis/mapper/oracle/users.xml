@@ -63,5 +63,15 @@
 		set user_password=#{tempPwd}
 		where user_Id=#{userId}
 	</update>
+	
+	<select id="selectUser" parameterType="hashMap" resultType="int">
+		select count(*) from users where user_id=#{userId} and USER_PASSWORD=#{userTemp}
+	</select>
+	
+	<update id="updatePwdReal" parameterType="hashMap">
+		update users
+		set user_password=#{userPwd}
+		 where user_id=#{userId} and USER_PASSWORD=#{userTemp}
+	</update>
 
 </mapper>

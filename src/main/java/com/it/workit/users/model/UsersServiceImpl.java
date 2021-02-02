@@ -84,4 +84,16 @@ public class UsersServiceImpl implements UsersService{
 		return usersDao.updatePwd(tempUser);
 	}
 
+	@Override
+	@Transactional
+	public int updatePwdReal(Map<String, Object> userMap) {
+		int cnt = usersDao.selectUser(userMap);
+		if(cnt>0) {
+			cnt = usersDao.updatePwdReal(userMap);
+		}else {
+			cnt = -1;
+		}
+		return cnt;
+	}
+
 }

@@ -67,15 +67,26 @@ public class UsersDAOMybatis implements UsersDAO {
 	public String findId(Map<String, Object> eMailMap) {
 		return sqlSession.selectOne(namespace+"findId", eMailMap);
 	}
-
+	//비밀번호 찾기
 	@Override
 	public int findPwd(Map<String, Object> findPwdMap) {
 		return sqlSession.selectOne(namespace+"findPwd", findPwdMap);
 	}
-
+	//임시 비밀번호 업데이트
 	@Override
 	public int updatePwd(Map<String, Object> tempUser) {
 		return sqlSession.update(namespace+"updatePwd", tempUser);
+	}
+
+	//비밀번호 재설정시 조회하는 userSelect
+	@Override
+	public int selectUser(Map<String, Object> userMap) {
+		return sqlSession.selectOne(namespace+"selectUser", userMap);
+	}
+	//비밀번호 재설정시 비밀번호 업데이트
+	@Override
+	public int updatePwdReal(Map<String, Object> userMap) {
+		return sqlSession.update(namespace+"updatePwdReal", userMap);
 	}
 
 }

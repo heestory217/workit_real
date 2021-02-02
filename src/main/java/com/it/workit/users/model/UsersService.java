@@ -34,4 +34,6 @@ public interface UsersService {
 	public int findPwd(Map<String, Object> findPwdMap);
 	public int updatePwd(Map<String, Object> tempUser);
 	
+	public int updatePwdReal(Map<String, Object> userMap);
+	
 }

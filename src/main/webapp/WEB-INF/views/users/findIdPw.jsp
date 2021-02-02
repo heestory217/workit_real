@@ -60,7 +60,7 @@
 	}
 </script>
 
-    <!-- Register Section Begin -->
+    <!-- Section Begin -->
     <div class="register-login-section spad">
         <div class="container">
             <div class="row">
@@ -100,5 +100,5 @@
              </div>
          </div>
       </div>
-    <!-- Register Form Section End -->
+    <!-- Section End -->
 <%@ include file="../inc/bottom.jsp" %>

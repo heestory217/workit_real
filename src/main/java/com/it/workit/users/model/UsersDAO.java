@@ -14,4 +14,7 @@ public interface UsersDAO {
 	public String findId(Map<String, Object> eMailMap);
 	public int findPwd(Map<String, Object> findPwdMap);
 	public int updatePwd(Map<String, Object> tempUser);
+	
+	public int selectUser(Map<String, Object> userMap);
+	public int updatePwdReal(Map<String, Object> userMap);
 }

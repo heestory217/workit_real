@@ -123,7 +123,7 @@ public class EmailController {
 				String subject="[ WorkIT ] 비밀번호 재설정";
 				String content="<h1>[WorkIT]</h1><h3> 회원님의 임시비밀번호는 [ "+tempPwd+" ] 입니다.</h3>";
 				logger.info("비밀번호 재설정1 tempPwd={}",tempPwd);
-				content+="<a href='http://localhost:9090/workit/'>비밀번호 재설정</a>";
+				content+="<a href='http://localhost:9090/workit/users/tempPwdUpdate.do'>비밀번호 재설정 바로가기</a>";
 				String receiver=userEmail;	//받는 사람의 이메일 주소
 				String sender="workit2022@gmail.com";	//보내는 사람의 이메일 주소
 				try {

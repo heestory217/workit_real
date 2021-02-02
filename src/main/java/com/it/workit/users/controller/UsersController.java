@@ -1,5 +1,8 @@
 package com.it.workit.users.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -257,5 +261,38 @@ public class UsersController {
 	@RequestMapping("/findIdPw.do")
 	public void findIdPw() {
 		logger.info("아이디비번찾기");
+	}
+	
+	@RequestMapping(value="/tempPwdUpdate.do", method = RequestMethod.GET)
+	public void updatePwd() {
+		logger.info("아이디 비번 재설정 페이지");
+	}
+	
+	@RequestMapping(value="/tempPwdUpdate.do", method = RequestMethod.POST)
+	public String updatePwdDB(HttpServletRequest request, Model model) {
+		String userId = request.getParameter("userId");
+		String userTemp = request.getParameter("userTemp");
+		String userPwd = request.getParameter("userPwd");
+		
+		logger.info("userId={}, userTemp={}", userId, userTemp);
+		logger.info("userPwd={}", userPwd);
+		
+		Map<String, Object> userMap = new HashMap<String, Object>();
+		userMap.put("userId", userId);
+		userMap.put("userTemp", userTemp);
+		userMap.put("userPwd", userPwd);
+		String msg = "", url="";
+		int result = usersService.updatePwdReal(userMap);
+		if(result==1) {
+			msg="비밀번호 재설정을 완료했습니다. 로그인해주세요.";
+			url="/users/login.do";
+		}else if(result==-1) {
+			msg="아이디 또는 임시 비밀번호가 일치하지 않습니다.";
+			url="/users/tempPwdUpdate.do";
+		}
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		return "common/message";
 	}
 }
