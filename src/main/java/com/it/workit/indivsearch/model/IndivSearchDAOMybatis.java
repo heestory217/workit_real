@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.it.workit.language.model.LanguageVO;
+import com.it.workit.users.model.arealistVO;
 
 @Repository
 public class IndivSearchDAOMybatis implements IndivSearchDAO{
@@ -33,5 +34,30 @@ public class IndivSearchDAOMybatis implements IndivSearchDAO{
 	@Override
 	public List<IndivKeywordSearchVO> selectSearchAll() {
 		return sqlSession.selectList(namespace+"selectSearchAll");
+	}
+
+	@Override
+	public List<IndivKeywordSearchVO> selectExplore(IndivKeywordSearchVO vo) {
+		return sqlSession.selectList(namespace+"selectExplore",vo);
+	}
+
+	@Override
+	public List<arealistVO> selectAreaList() {
+		return sqlSession.selectList(namespace+"selectAreaList");
+	}
+
+	@Override
+	public List<arealistVO> selectAreaList1() {
+		return sqlSession.selectList(namespace+"selectAreaList1");
+	}
+
+	@Override
+	public List<arealistVO> selectAreaList2(String areaAdd1) {
+		return sqlSession.selectList(namespace+"selectAreaList2", areaAdd1);
+	}
+
+	@Override
+	public List<IndivKeywordSearchVO> selectExploreAll(IndivKeywordSearchVO vo) {
+		return sqlSession.selectList(namespace+"selectExploreAll",vo);
 	}
 }
