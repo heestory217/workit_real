@@ -15,6 +15,13 @@
 		order by QUESTION_NO desc
 	</select>
 
+	<!-- 회원 직무 -->
+	<select id="selectUserWorkkind" parameterType="int" resultType="workkindVo">
+		select u.WORKKIND_NO, w.WORKKIND_NAME
+		from users u join workkind w
+		on u.WORKKIND_NO = w.WORKKIND_NO
+		where u.user_no=#{userNo}
+	</select>
 	
 	<!-- 질문 등록 -->
 	<insert id="insertQstn" parameterType="questionVo">
@@ -40,7 +47,9 @@
 	
 	<!-- 질문 조회 -->
 	<select id="selectAllQstn" resultType="questionVo">
-		select * from QUESTION order by QUESTION_NO desc
+		select * from QUESTION 
+		where QUESTION_IMMSAVE=2
+		order by QUESTION_NO desc
 	</select>
 	
 	
@@ -58,10 +67,11 @@
 			    (
 			    	<if test="userNo!='' and userNo!=null">
 				        select * from userQstnView 
-						where USER_NO=#{userNo} 
+						where USER_NO=#{userNo} and QUESTION_IMMSAVE=2
 			    	</if>
 			    	<if test="userNo=='' or userNo==null">
 			    		select * from userQstnView 
+			    		where QUESTION_IMMSAVE=2
 			    	</if>
 					order by QUESTION_NO desc
 			    )A

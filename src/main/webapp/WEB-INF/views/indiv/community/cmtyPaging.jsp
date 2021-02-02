@@ -3,6 +3,11 @@
 
 <!-- 페이징 처리 -->
 
+<form action="<c:url value='/indiv/community/myProfile.do?userNo=${userNo}&type=${param.type}'/>" 
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage">
+</form>	
+
 <div class="paging col-lg-12">
 	<!-- 이전블럭 -->	
 	 <div class="product__pagination blog__pagination">

@@ -119,8 +119,9 @@
 		font-size: 14px;	
 		padding:20px 10px 20px 30px;
 		background-color: #F6F6F6;	
-	   	color:#6d6d6d;
+	   	color: #6d6d6d;
 	}
+	
 	article{
 		margin-bottom: 30px;
 	}
@@ -262,13 +263,14 @@
 		cursor: pointer;
 	}
 	
+	
 </style>
 <script type="text/javascript" 
 	src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
 <script type="text/javascript">
 	$(function(){
 		
-		$('form[name=qstnWriteFrm]').submit(function(){
+		$('.btnQuestion').submit(function(){
 			if($('.questionTitle').val().length<10){
 				alert('질문 제목을 최소 10자 이상 작성해 주세요.');
 				event.preventDefault();
@@ -278,16 +280,19 @@
 			}			
 		});
 		
-		$('.btnCancel').click(function(){
+		$('.btnCancel').submit(function(){
 			if(confirm("[취소]를 누르면 글이 저장되지 않습니다.\n글을 저장하지 않고 나가시겠습니까?")){
-				location.href="<c:url value='/indiv/community/myQstn.do'/>"
+				location.href="<c:url value='/indiv/community/myQstn.do'/>";
 			}
 			
 		});
-
+		
 		$('.btnTempSave').click(function(){
-			location.href="<c:url value='/indiv/community/tempQstn.do'/>"
+			if(!confirm('질문을 임시저장 하시겠습니까?')){
+				return false;
+			}
 		});
+
 		
 		//textarea 글자수 체크
 		$('.questionAbout').keyup(function (e){
@@ -301,19 +306,23 @@
 		    }
 		});
 		
+		//직무선택 클릭 => 직무선택창 띄우기
 	    $('.pop-up').hide();
 		$('.jobWrap').click(function(){
 		    $('.pop-up').show();
 		});
 	
+		//직무선택창 닫기 버튼 클릭시 창 숨기기
 		$('.closeBtn').click(function(){
 		    $('.pop-up').hide();
 		});
 		
-		//
+		//직무선택 selectBox클릭 => 직무선택란에 선택한 직무 입력시키기
 		$('.selectBox').change(function(){
 			var selectJob = $(this).find('option:selected').html();
+			var selectJobVal = $(this).find('option:selected').val();
 			$('.jobBtn').val(selectJob);
+			$('.jobNum').val(selectJobVal);
 			$('.jobWrap').css('border','1px solid #4c50bb');
 			$('.jobBtn').css('color','#4c50bb');
 			$('.fa-angle-down').css('color','#4c50bb');
@@ -322,12 +331,15 @@
 		
 		$('.userJob a').click(function(){
 			var userJob=$(this).text();
+			var userJobNum=$(this).find('input').val();
 			$('.jobBtn').val(userJob);
+			$('.jobNum').val(userJobNum);
 			$('.jobWrap').css('border','1px solid #4c50bb');
 			$('.jobBtn').css('color','#4c50bb');
 			$('.fa-angle-down').css('color','#4c50bb');
 			$('.pop-up').hide();
-		});
+		}); 
+		
 	});
 	
 </script>
@@ -349,18 +361,19 @@
 			</div>
 
 				<!-- 직무, 기업선택 -->
-				<form name="qstnWriteFrm" method="post" 
-				action="<c:url value='/indiv/community/qstnWrite.do'/>">
-				<input type="hidden" name="userNo" value="${sessionScope.userNo }">
+				<form name="qstnWriteFrm" id="writeFrm" method="post">
+				<input type="hidden" name="userNo" value="${sessionScope.userNo}">
 					<article>
 						<div class="checkListArea">
 							<div class="checkboxCommWrap row">
 								<!-- 버튼 -->
 								<div class="selectJob">
 									<div class="jobWrap">
-										<input type="button" name="workkindNo" 
-										class="jobBtn" value="직무 선택"> <i
-											class="fa fa-angle-down"></i>
+										<input type="button" name="workkindName" 
+										class="jobBtn" value="직무 선택"> 
+										<input type="hidden" name="workkindNo" 
+										class="jobNum"> 
+										<i class="fa fa-angle-down"></i>
 									</div>
 									<p>· 원하는 직무를 검색해 질문할 수 있습니다.</p>
 									<!-- 레이어 팝업창 -->
@@ -386,10 +399,14 @@
 												<option value="12">머신러닝 엔지니어</option>
 												<option value="13">C,C++ 개발자</option>
 												<option value="14">VR 엔지니어</option>
-											</select> <span>나의 직무</span><br>
-											<div class="userJob">
-												<a href="#"><i class="fa fa-search"></i>&nbsp;서버개발자</a>
-											</div>
+											</select> 
+											<c:if test="${!empty workkindVo }">
+												<span>나의 직무</span><br>
+												<div class="userJob">
+													<a href="#"><i class="fa fa-search"></i>&nbsp;${workkindVo.workkindName }
+													<input type="hidden" name="workkindNo" value="${workkindVo.workkindNo }"></a>	
+												</div>
+											</c:if>
 										</div>
 									</div>
 									<!-- 레이어 팝업창 끝 -->
@@ -420,12 +437,14 @@
 								</div>
 
 								<div class="btnCommWrap">
-									<button type="submit" class="btnQuestion devQnaWriteButton">질문하기</button>
-									<button type="button"
+									<button type="submit" class="btnQuestion devQnaWriteButton"
+									formaction="<c:url value='/indiv/community/qstnWrite.do'/>"
+									>질문하기</button>
+									<button type="click" 
 										class="btnTempSave bg_white devQnaWriteCancelButton"
-										onclick="<c:url value='/indiv/community/tempQstn.do'/>"	
+										formaction="<c:url value='/indiv/community/tempQstn.do'/>"
 									>임시저장</button>
-									<button type="button"
+									<button type="button" 
 										class="btnCancel bg_white devQnaWriteCancelButton">취소</button>
 								</div>
 							</fieldset>

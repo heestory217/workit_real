@@ -126,7 +126,7 @@
 				<!-- 로그인한 경우 -->
 				<c:if test="${!empty sessionScope.userNo}">
 				<a class="myInfo" href
-		="<c:url value='/indiv/community/myProfile.do?userNo=${sessionScope.userNo }'/>">
+		="<c:url value='/indiv/community/myProfile.do?userNo=${sessionScope.userNo }&type=1'/>">
 					<div id="userInfo">
 						<i class="fa fa-user-circle userProfImg"></i><br>
 						<span class="nickname">${sessionScope.userId }</span><br>

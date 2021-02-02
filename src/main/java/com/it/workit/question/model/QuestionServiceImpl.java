@@ -60,6 +60,12 @@ public class QuestionServiceImpl implements QuestionService{
 	public int updateReadCnt(int qstnNo) {
 		return questionDao.updateReadCnt(qstnNo);
 	}
+	
+	//회원 직무 조회
+	@Override
+	public WorkkindVO selectUserWorkkind(int userNo) {
+		return questionDao.selectUserWorkkind(userNo);
+	}
 
 
 	

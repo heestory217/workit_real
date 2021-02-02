@@ -14,4 +14,5 @@ public interface QuestionDAO {
 	int getTotalRecord(QstnPagingVO vo);	//총 레코드수
 	List<Map<String, Object>> selectAllQuestion(QstnPagingVO vo);	//질문 목록 조회(전체,회원)
 	int updateReadCnt(int qstnNo);		//조회수 증가
+	WorkkindVO selectUserWorkkind(int userNo); //회원 직무 조회
 }

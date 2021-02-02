@@ -1,26 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script type="text/javascript">
-function pageFunc(curPage) {
-	$('input[name=currentPage]').val(curPage);
-	$('form[name=frmPage]').submit();
-}
-</script>
-    
-<!-- 페이징 처리를 위한 form  -->
-<form action="<c:url value='/indiv/community/myProfile.do'/>"
-	name="frmPage" method="post">
-	<input type="hidden" name="currentPage"> 
-	<input type="hidden" name="userNo" value="${userNo}"> 
-</form>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 
-<!--아직 등록한 질문이 없는 경우-->   
+<!--아직 등록한 질문이 없는 경우-->
 <p style="font-size: 18px;">
-	질문 <b id="myContCnt">${totalRecord }</b>건
+	질문 <b id="myContCnt">${qstnCnt}</b>건
 </p>
 
-
-<c:if test="${empty qstnList}">
+<c:if test="${empty list}">
 	<article id="noneQuestBox">
 		<div class="noneBox">
 			<i class="fa fa-commenting-o"></i>
@@ -30,10 +17,10 @@ function pageFunc(curPage) {
 </c:if>
 
 <!-- 질문 목록 : 등록한 질문이 존재하는 경우  -->
-<c:if test="${!empty qstnList }">
+<c:if test="${!empty list }">
 	<article id="questBox">
 		<div class="qstnExistBox">
-			<c:forEach var="map" items="${qstnList }">
+			<c:forEach var="map" items="${list }">
 				<div class="questBoxWrap">
 					<div class="oneQuestBox">
 						<div>
@@ -48,7 +35,14 @@ function pageFunc(curPage) {
 									</dt>
 
 									<!-- 내용 -->
-									<dd class="qtContent">${map['questionAbout']}</dd>
+									<dd class="qtContent">
+										<c:if test="${fn:length(map['questionAbout'])>=150}">
+											${fn:substring(map['questionAbout'],0,150) } ...
+										</c:if>
+										<c:if test="${fn:length(map['questionAbout'])<150}">						
+											${map['questionAbout'] }
+										</c:if>
+									</dd>
 
 									<!-- 답변, 조회수, 작성시간 -->
 									<dd class="cellBx">
@@ -67,7 +61,10 @@ function pageFunc(curPage) {
 				</div>
 			</c:forEach>
 			<!-- 질문 반복 끝 -->
-			<%@include file="../cmtyPaging.jsp" %>
 		</div>
+		<!-- 페이징처리 -->
+			<%@include file="../cmtyPaging.jsp" %>
+		<!-- 페이징 끝 -->
+		
 	</article>
 </c:if>
