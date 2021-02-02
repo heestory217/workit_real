@@ -1,10 +1,12 @@
 package com.it.workit.resumes.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ResumesServiceImpl implements ResumesService{
@@ -23,9 +25,36 @@ public class ResumesServiceImpl implements ResumesService{
 		}
 		return resumeList;
 	}
+	
+	
+	@Override
+	public int insertResume(ResumesVO resumeVo) {
+		return resumesDao.insertResume(resumeVo);
+	}
 
 	@Override
-	public int insertAward(AwardVO aVo) {
-		return resumesDao.insertAward(aVo);
-	}
+	@Transactional
+	public int insertResumesMulti(ResumeListVO resumlist) {
+		int cnt =0;
+		
+//		ResumesVO resumesVo = resumlist.getResumesVo();
+//		cnt = resumesDao.insertResume(resumesVo);
+		
+		for (AwardVO aVo : resumlist.getAwardVOList()) {
+			cnt = resumesDao.insertAward(aVo);
+		}
+		for (LicencseVO licenVo : resumlist.getLicenVOList()) {
+			cnt = resumesDao.insertLicen(licenVo);
+		}
+		for (CarrerVO carrVo : resumlist.getCarrerVOList()) {
+			cnt = resumesDao.insertCarrer(carrVo);
+		}
+		for (ForeignlanguageskillVO foreignVo : resumlist.getForeignskillVO()) {
+			cnt = resumesDao.insertForeignskill(foreignVo);
+		}
+		return cnt;
+	
+	}//
+
+	
 }

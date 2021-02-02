@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ResumesDAOMybatis implements ResumesDAO{
 	@Autowired private SqlSessionTemplate sqlSession;
-	private String namespace="com.mybatis.mapper.resumes.";
+	private String namespace="config.mybatis.mapper.oracle.resumes.";
 	
 	@Override
 	public ResumesAllVO searchResumeByNo(int resumeNo) {
@@ -17,6 +17,26 @@ public class ResumesDAOMybatis implements ResumesDAO{
 	@Override
 	public int insertAward(AwardVO aVo) {
 		return sqlSession.insert(namespace+"insertAward", aVo);
+	}
+
+	@Override
+	public int insertResume(ResumesVO resumeVo) {
+		return sqlSession.insert(namespace+"insertResume",resumeVo);
+	}
+
+	@Override
+	public int insertCarrer(CarrerVO carrVo) {
+		return sqlSession.insert(namespace+"insertCarrer",carrVo);
+	}
+
+	@Override
+	public int insertLicen(LicencseVO licenVo) {
+		return sqlSession.insert(namespace+"insertLicen",licenVo);
+	}
+
+	@Override
+	public int insertForeignskill(ForeignlanguageskillVO foreignVo) {
+		return sqlSession.insert(namespace+"insertForeignskill",foreignVo);
 	}
 	
 }
