@@ -12,4 +12,6 @@ public interface UsersDAO {
 	public int userkindcheck(String userid);
 	public int updateUserCorpCheck(int userNo);
 	public String findId(Map<String, Object> eMailMap);
+	public int findPwd(Map<String, Object> findPwdMap);
+	public int updatePwd(Map<String, Object> tempUser);
 }

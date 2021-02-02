@@ -29,7 +29,9 @@ public interface UsersService {
 	
 	public int updateUsers(UsersVO vo);
 	
-	//수하 이메일로 아이디 찾기
+	//수하 이메일로 아이디 , 비번찾기 , 비번 재설정
 	public String findId(Map<String, Object> eMailMap);
+	public int findPwd(Map<String, Object> findPwdMap);
+	public int updatePwd(Map<String, Object> tempUser);
 	
 }
