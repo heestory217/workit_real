@@ -116,20 +116,20 @@ input[type=file]{
 					<h2>기업 	정보 수정</h2>
 				</div>
                 <div class="row">
-                        <input type="text" name="userNo" value="${cVo.userNo}">
-                        <input type="text" name="corpNo" value="${cVo.corpNo}">
+                        <input type="hidden" name="userNo" value="${cVo.userNo}">
+                        <input type="hidden" name="corpNo" value="${cVo.corpNo}">
                         
-                        <input type="text" name="oldCorpImgurl" value="${cVo.corpImgurl}">
-                        <input type="text" name="oldAddimg1" value="${imgList[0].corpimgUrl}">
-                        <input type="text" name="oldAddimg2" value="${imgList[1].corpimgUrl}">
-                        <input type="text" name="oldAddimg3" value="${imgList[2].corpimgUrl}">
-                        <input type="text" name="oldAddimg4" value="${imgList[3].corpimgUrl}">
+                        <input type="hidden" name="oldCorpImgurl" value="${cVo.corpImgurl}">
+                        <input type="hidden" name="oldAddimg1" value="${imgList[0].corpimgUrl}">
+                        <input type="hidden" name="oldAddimg2" value="${imgList[1].corpimgUrl}">
+                        <input type="hidden" name="oldAddimg3" value="${imgList[2].corpimgUrl}">
+                        <input type="hidden" name="oldAddimg4" value="${imgList[3].corpimgUrl}">
 
-                        <input type="text" name="corpImgurl" id="corpImgurl">
-                        <input type="text" name="img1" id="img1">
-                        <input type="text" name="img2" id="img2">
-                        <input type="text" name="img3" id="img3">
-                        <input type="text" name="img4" id="img4">
+                        <input type="hidden" name="corpImgurl" id="corpImgurl">
+                        <input type="hidden" name="img1" id="img1">
+                        <input type="hidden" name="img2" id="img2">
+                        <input type="hidden" name="img3" id="img3">
+                        <input type="hidden" name="img4" id="img4">
              	   <div class="col-lg-12">
                         <label for="corpName">법인명<span>*</span></label>
                         <input type="text" id="corpName" name="corpName" value="${cVo.corpName}" readonly>

@@ -106,10 +106,10 @@
     <!-- Product Shop Section Begin -->
     <section class="product-shop spad">
 		<form action="<c:url value='/corpSearch.do'/>" name="frmPage" method="post">
-			<input type="text" name="currentPage">
-			<input type="text" name="searchKeyword" value="${param.searchKeyword}">
-			<input type="text" name="langNo" value="${param.langNo}">
-			<input type="text" name="career" id="career" value="${param.career}">
+			<input type="hidden" name="currentPage">
+			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
+			<input type="hidden" name="langNo" value="${param.langNo}">
+			<input type="hidden" name="career" id="career" value="${param.career}">
 		</form>
         <div class="container">
             <div class="row">
