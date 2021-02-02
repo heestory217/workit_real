@@ -66,6 +66,12 @@ public class QuestionServiceImpl implements QuestionService{
 	public WorkkindVO selectUserWorkkind(int userNo) {
 		return questionDao.selectUserWorkkind(userNo);
 	}
+	
+	//인기 있는 질문 조회
+	@Override
+	public List<Map<String, Object>> selectPopularQstn(int userNo) {
+		return questionDao.selectPopularQstn(userNo);
+	}
 
 
 	

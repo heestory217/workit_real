@@ -212,6 +212,7 @@
 		="<c:url value='/indiv/community/cntUpdate.do?qstnNo=${map["QUESTION_NO"] }'/>"
 							class="contentArea">
 							<dl>
+								<!-- 직무 -->
 								<dd class="workkind">#${map["WORKKIND_NAME"] }</dd>
 								<!-- 제목 -->
 								<dt class="qtTitle">

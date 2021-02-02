@@ -17,4 +17,5 @@ public interface QuestionService {
 	int updateReadCnt(int qstnNo);
 	
 	WorkkindVO selectUserWorkkind(int userNo);	//회원 직무 조회
+	List<Map<String, Object>> selectPopularQstn(int userNo);	//인기 있는 질문 조회
 }

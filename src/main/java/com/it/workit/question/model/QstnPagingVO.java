@@ -5,6 +5,15 @@ import com.it.workit.common.SearchVO;
 public class QstnPagingVO extends SearchVO{
 	private int userNo;
 	private int questionNo;
+	private int questionImmsave;
+	
+	public int getQuestionImmsave() {
+		return questionImmsave;
+	}
+
+	public void setQuestionImmsave(int questionImmsave) {
+		this.questionImmsave = questionImmsave;
+	}
 
 	public int getUserNo() {
 		return userNo;
@@ -24,7 +33,8 @@ public class QstnPagingVO extends SearchVO{
 
 	@Override
 	public String toString() {
-		return "QstnPagingVO [userNo=" + userNo + ", questionNo=" + questionNo + "]";
+		return "QstnPagingVO [userNo=" + userNo + ", questionNo=" + questionNo + ", questionImmsave=" + questionImmsave
+				+ "]";
 	}
 	
 	

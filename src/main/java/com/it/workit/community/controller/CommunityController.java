@@ -43,6 +43,7 @@ public class CommunityController {
 		logger.info("커뮤니티 메뉴 화면");
 		QstnPagingVO vo=new QstnPagingVO();
 		vo.setUserNo(userNo);
+		vo.setQuestionImmsave(2);
 		//질문 개수
 		int totalRecord=qstnService.getTotalRecord(vo);
 		logger.info("회원 질문 개수, totalRecord={}",totalRecord);
@@ -66,14 +67,23 @@ public class CommunityController {
 		logger.info("회원 활동 내역 조회, userNo={}", userNo);
 		
 		vo.setUserNo(userNo);
-		int qstnCnt=qstnService.getTotalRecord(vo);
-		int cmntCnt=comntService.getTotalUserCmt(vo);
+		int qstnCnt=0, cmntCnt=0, tempCnt=0;
+		if(type==1) {
+			vo.setQuestionImmsave(2);
+			qstnCnt=qstnService.getTotalRecord(vo);
+			model.addAttribute("qstnCnt", qstnCnt);
+			logger.info("회원 활동 내역 - 총 질문 수, qstnCnt={}", qstnCnt);
+		}else if(type==2){
+			cmntCnt=comntService.getTotalUserCmt(vo);
+			logger.info("회원 활동 내역 - 총 답변 개수, cmntCnt={}", cmntCnt);
+			model.addAttribute("cmntCnt", cmntCnt);
+		}else if(type==3) {
+			vo.setQuestionImmsave(1);
+			tempCnt=qstnService.getTotalRecord(vo);
+			logger.info("회원 활동 내역 - 총 임시저장 글 개수, tempCnt={}", tempCnt);
+			model.addAttribute("tempCnt", tempCnt);
+		}
 		
-		logger.info("회원 활동 내역 - 총 질문 수, qstnCnt={}", qstnCnt);
-		logger.info("회원 활동 내역 - 총 답변 개수, cmntCnt={}", cmntCnt);
-		
-		model.addAttribute("qstnCnt", qstnCnt);
-		model.addAttribute("cmntCnt", cmntCnt);
 		
 		vo.setUserNo(userNo);
 		
@@ -97,8 +107,15 @@ public class CommunityController {
 			totalRecord=qstnCnt;
 		}else if(type==2) {
 			list=comntService.userCmntSelect(vo);
-			logger.info("답변 조회 결과, list.size={}", list.size());
+			logger.info("활동 내역 조회 결과 - 답변, list.size={}", list.size());
 			totalRecord=cmntCnt;
+		}else if(type==3) {
+			vo.setQuestionImmsave(1);
+			list=qstnService.selectAllQuestion(vo);
+			int tempSave=vo.getQuestionImmsave();
+			logger.info("활동 내역 조회 결과 - 임시저장, list.size={}, tempSave={}", list.size(), tempSave);
+			totalRecord=tempCnt;
+			
 		}else {
 			//type 값이 세팅이 되지 않았을 때
 			
@@ -127,98 +144,13 @@ public class CommunityController {
 	}
 	
 	
-	/*
-	 * //회원 활동 내역 조회 - 질문
-	 * 
-	 * @RequestMapping("/myProfile.do") public String myProfile(@ModelAttribute
-	 * QstnPagingVO vo,
-	 * 
-	 * @ModelAttribute QstnPagingVO cmntVo, HttpSession session, Model model) { int
-	 * userNo=(Integer) session.getAttribute("userNo"); vo.setUserNo(userNo);
-	 * logger.info("질문 내역 조회, userNo={}", userNo);
-	 * 
-	 * //질문 PaginationInfo pagingInfo=new PaginationInfo();
-	 * pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
-	 * pagingInfo.setCurrentPage(vo.getCurrentPage());
-	 * pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
-	 * 
-	 * vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-	 * vo.setRecordCountPerPage(Utility.RECORD_COUNT);
-	 * 
-	 * //답변 PaginationInfo comntPaging = new PaginationInfo();
-	 * comntPaging.setBlockSize(Utility.BLOCK_SIZE);
-	 * comntPaging.setCurrentPage(vo.getCurrentPage());
-	 * comntPaging.setRecordCountPerPage(Utility.RECORD_COUNT);
-	 * 
-	 * cmntVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-	 * cmntVo.setRecordCountPerPage(Utility.RECORD_COUNT);
-	 * 
-	 * //질문 개수 int totalRecord=qstnService.getTotalRecord(vo);
-	 * logger.info("총 레코드 수, totalRecord={}", totalRecord);
-	 * pagingInfo.setTotalRecord(totalRecord);
-	 * 
-	 * //질문 List<Map<String, Object>> qstnList=qstnService.selectAllQuestion(vo);
-	 * logger.info("활동 내역 조회 결과-질문, qstnList.size={}", qstnList.size());
-	 * 
-	 * //답변 개수 int totalCmt=comntService.getTotalUserCmt(cmntVo);
-	 * logger.info("총 답변 개수, totalCmt={}", totalCmt);
-	 * pagingInfo.setTotalRecord(totalCmt);
-	 * 
-	 * //답변 List<Map<String, Object>> cmtList = comntService.userCmntSelect(cmntVo);
-	 * logger.info("답변 조회 결과, cmtList.size={}", cmtList.size());
-	 * 
-	 * 
-	 * model.addAttribute("cmtList", cmtList); model.addAttribute("qstnList",
-	 * qstnList); //질문 model.addAttribute("pagingInfo", pagingInfo);
-	 * model.addAttribute("comntPaging", comntPaging);
-	 * model.addAttribute("totalRecord", totalRecord);
-	 * model.addAttribute("totalCmt", totalCmt);
-	 * 
-	 * return "indiv/community/myProfile";
-	 * 
-	 * }
-	 */
-	/*회원 활동 내역 조회 - 답변
-	@RequestMapping("/userCmtyList/userCommentList.do")	
-	public String myComment(@ModelAttribute QstnPagingVO vo,HttpSession session, Model model) {
-		int userNo=(Integer) session.getAttribute("userNo");
-		logger.info("회원 활동 내역 조회 - 답변, userNo={}", userNo);
-		
-		//[1]pagingInfo
-		PaginationInfo pagingInfo=new PaginationInfo();
-		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
-		pagingInfo.setCurrentPage(vo.getCurrentPage());
-		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
-		
-		//[2]searchVo
-		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
-		vo.setUserNo(userNo);
-		
-		//답변 개수
-		int totalCmt=comntService.getTotalUserCmt(vo);
-		logger.info("총 답변 개수, totalCmt={}", totalCmt);
-		pagingInfo.setTotalRecord(totalCmt);
-
-		//답변
-		List<Map<String, Object>> cmtList = comntService.userCmntSelect(vo);
-		logger.info("답변 조회 결과, cmtList.size={}", cmtList.size());
-		
-		model.addAttribute("pagingInfo", pagingInfo);
-		model.addAttribute("cmtList", cmtList);
-		model.addAttribute("totalCmt", totalCmt);
-		
-		
-		return "redirect:/indiv/community/myProfile.do?userNo="+userNo;
-		
-	}*/
-	
 	//회원 질문 조회
 	@RequestMapping("/myQstn.do")
 	public String userQstnList(@ModelAttribute QstnPagingVO vo,
 				HttpSession session, Model model) {
 		int userNo=(Integer)session.getAttribute("userNo");
 		vo.setUserNo(userNo);
+		vo.setQuestionImmsave(2);
 		logger.info("회원 질문 목록 조회, userNo={}", userNo);
 		
 		//[1]pagingInfo
@@ -239,8 +171,15 @@ public class CommunityController {
 		List<Map<String, Object>> qstnList=qstnService.selectAllQuestion(vo);
 		logger.info("회원 질문 목록 조회 결과, qstnLis.size={}", qstnList.size());
 		
+		
+		List<Map<String, Object>> popQstnList=qstnService.selectPopularQstn(userNo);
+		logger.info("인기 있는 질문 조회, 결과 popQstnList.size={}",popQstnList.size());
+		
+		
+		
 		model.addAttribute("qstnList", qstnList);
 		model.addAttribute("pagingInfo", pagingInfo);
+		model.addAttribute("popQstnList", popQstnList);
 		
 		return "indiv/community/myQstn";
 	}
@@ -260,7 +199,6 @@ public class CommunityController {
 		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
 		
-		int userNo=0;
 		int totalRecord=qstnService.getTotalRecord(vo);
 		logger.info("총 레코드 수, totalRecord={}", totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
@@ -539,6 +477,13 @@ public class CommunityController {
 		return "common/message";
 	}
 	
+	
+	
+	
+	
+	
+	
+	
 	//댓글 조회
 	@ResponseBody
 	@RequestMapping("/replyList.do")
@@ -591,5 +536,7 @@ public class CommunityController {
 		return cnt;
 		
 	}
+	
+	
 	
 }

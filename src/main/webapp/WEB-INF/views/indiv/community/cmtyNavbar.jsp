@@ -154,7 +154,7 @@
 					<li class="sideNav"><a class="nav-link allQstn" href
 				="<c:url value='/indiv/community/qstnList.do'/>">
 						전체 질문</a><hr></li>
-					<li class="sideNav"><a class="nav-link" href="#">답변하기</a><hr></li>
+					<li class="sideNav"><a class="nav-link" href="#">답변하기</a></li>
 				</ul>
 			</div>
 		</div>

@@ -11,9 +11,10 @@
 	<select id="selectUserQstnAll" parameterType="int" resultType="HashMap"
 		resultMap="selectQstnAbout">
 		select * from userQstnView 
-		where USER_NO=#{userNo} 
+		where USER_NO=#{userNo}
 		order by QUESTION_NO desc
 	</select>
+	
 
 	<!-- 회원 직무 -->
 	<select id="selectUserWorkkind" parameterType="int" resultType="workkindVo">
@@ -67,7 +68,7 @@
 			    (
 			    	<if test="userNo!='' and userNo!=null">
 				        select * from userQstnView 
-						where USER_NO=#{userNo} and QUESTION_IMMSAVE=2
+						where USER_NO=#{userNo} and QUESTION_IMMSAVE=#{questionImmsave}
 			    	</if>
 			    	<if test="userNo=='' or userNo==null">
 			    		select * from userQstnView 
@@ -85,9 +86,13 @@
 	<!-- 질문 개수 -->
 	<select id="getTotalRecord" parameterType="qstnPagingVo"
 		resultType="int">
-		select count(*) from QUESTION
+		<if test="userNo=='' or userNo==null">
+			select count(*) from QUESTION
+			where QUESTION_IMMSAVE=2
+		</if>
 		<if test="userNo!='' and userNo!=null">
-			where USER_NO=#{userNo} 
+			select count(*) from QUESTION
+			where USER_NO=#{userNo} and QUESTION_IMMSAVE=#{questionImmsave}
 		</if>
 	</select>
 	
@@ -102,6 +107,21 @@
 		set QUESTION_VIEW=QUESTION_VIEW+1
 		where QUESTION_NO=#{questionNo}
 	</update>
+	
+	<!-- 인기 있는 질문(조회수 기준) -->
+	<select id="selectPopularQstn" parameterType="int" resultType="map">
+		select *
+		from
+		(
+		select * from userQstnView 
+		where workkind_no in (select workkind_no from users where user_no=#{userNo})
+		and question_immsave=2
+		order by question_view desc
+		)
+		<![CDATA[
+		where rownum <=3
+		]]>
+	</select>
 </mapper>
 
 
