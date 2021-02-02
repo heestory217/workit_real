@@ -8,6 +8,7 @@ public class IndivKeywordSearchVO extends RecruitannounceVO{
 	private String workkindName;	//직무이름
 	private String areaAdd1;	//ex 서울
 	private String areaAdd2;	//ex 중랑구
+	private String indivCareer; //경력
 	
 	public String getCorpName() {
 		return corpName;
@@ -46,11 +47,18 @@ public class IndivKeywordSearchVO extends RecruitannounceVO{
 	public void setAreaAdd2(String areaAdd2) {
 		this.areaAdd2 = areaAdd2;
 	}
+	
+	public String getIndivCareer() {
+		return indivCareer;
+	}
+	public void setIndivCareer(String indivCareer) {
+		this.indivCareer = indivCareer;
+	}
 	@Override
 	public String toString() {
 		return "IndivKeywordSearchVO [corpName=" + corpName + ", corpImgurl=" + corpImgurl + ", languageName="
 				+ languageName + ", workkindName=" + workkindName + ", areaAdd1=" + areaAdd1 + ", areaAdd2=" + areaAdd2
-				+ "]";
+				+ ", indivCareer=" + indivCareer + "]";
 	}
 	
 }
