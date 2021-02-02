@@ -5,6 +5,8 @@ import java.util.List;
 public interface ResumesService {
 
 	List<ResumesAllVO> searchResumeByNo(List<Integer> matchList);
-
-	int insertAward(AwardVO aVo);
+	
+	int insertResume(ResumesVO resumeVo);
+	
+	int insertResumesMulti(ResumeListVO resumlist);
 }

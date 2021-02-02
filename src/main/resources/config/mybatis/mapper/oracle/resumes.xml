@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mybatis.mapper.resumes">
+<mapper namespace="config.mybatis.mapper.oracle.resumes">
 	<resultMap type="ResumesAllVO" id="resumeList">
       <association property="resumesVo" column="resumeNo" javaType="ResumesVO">
          <id property="resumeNo" column="resume_No" jdbcType="BIGINT"/>
@@ -26,14 +26,50 @@
 		select * from resumes where resume_no=#{resumeNo}
 	</select>
 	
+	<!-- 이력서 -->
+	<insert id="insertResume" parameterType="resumesVO">
+		<selectKey keyProperty="resumeNo" resultType="int" order="BEFORE">
+			select RESUMES_SEQ.nextval from dual
+		</selectKey>
+		insert into RESUMES (RESUME_NO,USER_NO,RESUME_TITLE,RESUME_FINALEDUCATION,RESUME_SELFINTRO)
+		values (#{resumeNo},#{userNo},#{resumeTitle},#{resumeFinaleducation},#{resumeSelfintro})
+	</insert>
+	
+	<!-- 수상 -->
 	<insert id="insertAward" parameterType="awardVo">
 		<selectKey keyProperty="awardNo" resultType="int" order="BEFORE">
 			select award_seq.nextval from dual
 		</selectKey>
-		insert into award(award_no, resume_no,award_about,award_date)
+		insert into award(AWARD_NO, RESUME_NO,AWARD_ABOUT,AWARD_DATE)
 		values(#{awardNo},#{resumeNo},#{awardAbout},#{awardDate})
 	</insert>
 	
+	<!-- 경력 -->
+	<insert id="insertCarrer" parameterType="carrerVO">
+		<selectKey keyProperty="carrerNo" resultType="int" order="BEFORE">
+			select CARRER_SEQ.nextval from dual
+		</selectKey>
+		insert into CARRER(CARRER_NO,CARRER_CORP,CARRER_STARTDATE,CARRER_ENDDATE,CARRER_WORK,RESUME_NO)
+		values(#{carrerNo},#{carrerCorp},#{carrerStartdate},#{carrerEnddate},#{carrerWork},#{resumeNo})
+	</insert>
+	
+	<!-- 자격증 -->
+	<insert id="insertLicen" parameterType="licencseVO">
+		<selectKey keyProperty="licencseNo" resultType="int" order="BEFORE">
+			select LICENCSE_seq.nextval from dual
+		</selectKey>
+		insert into LICENCSE(LICENCSE_NO,RESUME_NO,LICENCSE_NAME,LICENCSE_ISSUEPLACE)
+		values(#{licencseNo},#{resumeNo},#{licencseName},#{licencseIssueplace})
+	</insert>
+	
+	<!-- 외국어 -->
+	<insert id="insertForeignskill" parameterType="foreignlanguageskillVO">
+		<selectKey keyProperty="foreignlanguageskillNo" resultType="int" order="BEFORE">
+			select FOREIGNLANGUAGESKILL_SEQ.nextval from dual
+		</selectKey>
+		insert into FOREIGNLANGUAGESKILL(FOREIGNLANGUAGESKILL_NO,RESUME_NO,FOREIGNLANGUAGESKILL_LANG,FOREIGNLANGUAGESKILL_EXPERT)
+		values (#{foreignlanguageskillNo},#{resumeNo},#{foreignlanguageskillLang},#{foreignlanguageskillExpert})
+	</insert>
 	
 </mapper>
 

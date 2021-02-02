@@ -6,56 +6,66 @@
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
 <script type="text/javascript">
 	$(function() {
+		var counCrr=0;
+		var countAw=0;
+		var countLi=0;
 		var count=0;
 			
 			//커리어
 			$('#carrerBt').click(function() {
 				var carrerInput1 =""; 
-carrerInput1 +='<div id="addcarrer"><input type="text" id="carrerStartdate" name="carrerStartdate" placeholder="YYYY.MM"> ~';
-carrerInput1 +='<input type="text" id="carrerEnddate" name="carrerEnddate" placeholder="YYYY.MM">';
-carrerInput1 +='<input type="text" id="carrerCorp" name="carrerCorp" placeholder="회사명">';
-carrerInput1 +='<input type="text" id="carrerWork" name="carrerWork" placeholder="부서명/직책">';
+carrerInput1 +='<div id="addcarrer"><input type="text" id="carrerStartdate" name="CarrerVOList['+counCrr+'].carrerStartdate" placeholder="YYYY.MM"> ~';
+carrerInput1 +='<input type="text" id="carrerEnddate" name="CarrerVOList['+counCrr+'].carrerEnddate" placeholder="YYYY.MM">';
+carrerInput1 +='<input type="text" id="carrerCorp" name="CarrerVOList['+counCrr+'].carrerCorp" placeholder="회사명">';
+carrerInput1 +='<input type="text" id="carrerWork" name="CarrerVOList['+counCrr+'].carrerWork" placeholder="부서명/직책">';
+// carrerInput1 +='<input type="hidden" name="CarrerVOList['+counCrr+'].carrerNo">';
 carrerInput1 +='<button class="btnRemove" value="Remove"><i class="fa fa-times" aria-hidden="true"></i></button><br></div>';
 	   	
 				$('#new-carrerDiv').append(carrerInput1);
 				
+				counCrr++;
 			});//carrerBt
 			
 			$('#new-carrerDiv').on('click','.btnRemove', function(){
 				$(this).parent().remove();
+				//counCrr--;
 		    });
 			
 			//수상
 	   		$('#awardBt').click(function(){
 	   			var awardInput = "";
-awardInput += '<div id="addaward"><input type="text" id="awardDate" name="AwardVOList['+count+'].awardDate" placeholder="활동명">';	   			
-// awardInput += '<input type="text" name="count" value="'+count+'">';	   			
-awardInput += '<input type="text" id="awardAbout" name="AwardVOList['+count+'].awardAbout" placeholder="세부사항">';	   			
+awardInput += '<div id="addaward"><input type="text" id="awardAbout" name="AwardVOList['+countAw+'].awardAbout" placeholder="활동명">';	   			
+awardInput += '<input type="text" id="awardDate" name="AwardVOList['+countAw+'].awardDate" placeholder="세부사항">';	   			
+// awardInput += '<input type="hidden" name="AwardVOList['+countAw+'].awardNo">';	   			
 awardInput += '<button class="btnRemove" value="Remove"><i class="fa fa-times" aria-hidden="true"></i></button><br></div>';	   			
 	   		
 				$('#new-awardDiv').append(awardInput);
 
-				count++;
+				countAw++;
 				
 	   		});//awardBt
 	   		
 	   		$('#new-awardDiv').on('click','.btnRemove', function(){
 				$(this).parent().remove();
+				//countAw--;
 		    });
 	   		
 	   		//자격증
 	   		$('#licencseBt').click(function(){
 	   			var licenInput = "";
-licenInput+='<div id="addlicen"><input type="text" id="licencseName" name="licencseName" placeholder="자격증 이름">';
-licenInput+='<input type="text" id="licencseIssuerLace" name="licencseIssuerLace" placeholder="발행처">';
+licenInput+='<div id="addlicen"><input type="text" id="licencseName" name="LicenVOList['+countLi+'].licencseName" placeholder="자격증 이름">';
+licenInput+='<input type="text" id="licencseIssuerLace" name="LicenVOList['+countLi+'].licencseIssueplace" placeholder="발행처">';
+// licenInput+='<input type="hidden" name="LicenVOList['+countLi+'].licencseNo">';
 licenInput+='<button class="btnRemove" value="Remove"><i class="fa fa-times" aria-hidden="true"></i></button><br></div>';	   			
 	   			
 				$('#new-licencseDiv').append(licenInput);
 				
+				countLi++;
 	   		});
 	   		
 	   		$('#new-licencseDiv').on('click','.btnRemove', function(){
 				$(this).parent().remove();
+				//countLi--;
 		    });
 	   		
 	   		//외국어
@@ -63,15 +73,18 @@ licenInput+='<button class="btnRemove" value="Remove"><i class="fa fa-times" ari
 	   			var i =0;
 	   			var foreignInput = "";
 	   			
-foreignInput+='<div id="addforeign"><input type="text" id="foreignlanguageskillLang" name="foreignlanguageskillLang" placeholder="언어">';
-foreignInput+='<input type="text" id="foreignlanguageskillExpert" name="foreignlanguageskillExpert" placeholder="수준">';
+foreignInput+='<div id="addforeign"><input type="text" id="foreignlanguageskillLang" name="ForeignskillVO['+count+'].foreignlanguageskillLang" placeholder="언어">';
+foreignInput+='<input type="text" id="foreignlanguageskillExpert" name="ForeignskillVO['+count+'].foreignlanguageskillExpert" placeholder="수준">';
 foreignInput+='<button class="btnRemove" value="Remove"><i class="fa fa-times" aria-hidden="true"></i></button><br></div>';	   			
 	   			
 				$('#new-foreignDiv').append(foreignInput);
+				
+				count++;
 	   		});
 	   		
 	   		$('#new-foreignDiv').on('click','.btnRemove', function(){
 				$(this).parent().remove();
+				//count--;
 		    });
 		});
 </script>
@@ -152,6 +165,7 @@ button.btnRemove {
 					<h2>이력서 등록</h2>
 				</div>
                 <div class="row">
+<!--                 	<input type="hidden" name="resumeNo"> -->
                     <input type="hidden" name="userNo" value="${sessionScope.userNo}">
              	    <div class="col-lg-12 colWarp">
              	    	<div class="labelWarp">
@@ -186,16 +200,15 @@ button.btnRemove {
                     </div>
                     <div class="col-lg-12 colWarp2">
                     	<div class="labelWarp">
-                 		<label id="resume-colName" for="corpIndustry">학력</label>
+                 		<label id="resume-colName" for="resumeFinaleducation">학력</label>
                  		</div>
-                        <input type="text" id="corpIndustry" name="corpIndustry"
+                        <input type="text" id="resumeFinaleducation" name="resumeFinaleducation"
                         	placeholder="학교/학과">
                     </div>
                     <div class="col-lg-12 colWarp">
                     	<div class="labelWarp">
                         <label id="resume-colName" for="award">수상 및 기타</label>
                         </div>
-                        <input type="hidden" name="resumeNo" value="1">
                         <button type="button" class="resumeBt" id="awardBt">
                         	<i class="fa fa-plus" aria-hidden="true"></i>
                         	추가

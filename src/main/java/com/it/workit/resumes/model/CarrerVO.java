@@ -1,5 +1,7 @@
 package com.it.workit.resumes.model;
 
+import java.util.List;
+
 public class CarrerVO {
 	private int carrerNo;
 	private String carrerCorp; //회사
@@ -7,6 +9,8 @@ public class CarrerVO {
 	private String carrerEnddate; //근무기간
 	private String carrerWork; //담당업무
 	private int resumeNo;
+	
+	private List<CarrerVO> CarrerVOList;
 	
 	public int getCarrerNo() {
 		return carrerNo;
@@ -45,10 +49,18 @@ public class CarrerVO {
 		this.resumeNo = resumeNo;
 	}
 	
+	public List<CarrerVO> getCarrerVOList() {
+		return CarrerVOList;
+	}
+	public void setCarrerVOList(List<CarrerVO> carrerVOList) {
+		CarrerVOList = carrerVOList;
+	}
+	
 	@Override
 	public String toString() {
 		return "CarrerVO [carrerNo=" + carrerNo + ", carrerCorp=" + carrerCorp + ", carrerStartdate=" + carrerStartdate
-				+ ", carrerEnddate=" + carrerEnddate + ", carrerWork=" + carrerWork + ", resumeNo=" + resumeNo + "]";
+				+ ", carrerEnddate=" + carrerEnddate + ", carrerWork=" + carrerWork + ", resumeNo=" + resumeNo
+				+ ", CarrerVOList=" + CarrerVOList + "]";
 	}
 	
 	
