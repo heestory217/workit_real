@@ -38,11 +38,13 @@ public class HrmController {
 		logger.info("검색 키워드 : searchKeyword={}", searchPRKeyword);
 		
 		//키워드 조절
-		if(searchPRKeyword.equals("신입")) {
-			searchVo.setSearchKeyword("0");
-		}else if(searchPRKeyword.lastIndexOf("년")>0) {
-			int idx = searchPRKeyword.lastIndexOf("년");
-			searchVo.setSearchKeyword(searchPRKeyword.substring(0, idx));
+		if(searchPRKeyword!=null && !searchPRKeyword.isEmpty()) {
+			if(searchPRKeyword.equals("신입")) {
+				searchVo.setSearchKeyword("0");
+			}else if(searchPRKeyword.lastIndexOf("년")>0) {
+				int idx = searchPRKeyword.lastIndexOf("년");
+				searchVo.setSearchKeyword(searchPRKeyword.substring(0, idx));
+			}
 		}
 
 		int userNo = (Integer) session.getAttribute("userNo");
