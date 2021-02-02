@@ -23,7 +23,8 @@
 					</h3>
 				</div>
 				<div class="modalserviceContent" style="text-align: center; margin-bottom: 30px;">
-					<button type="button" class="btn btn-default" data-dismiss="modal">이력서 탐색하기</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+						onclick="location.href='<c:url value='/corpSearch.do'/>'">이력서 탐색하기</button>
 				</div>
 			</div>
 		</div>
