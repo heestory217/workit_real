@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
 <style>
 
 #cmntBox{
@@ -24,12 +25,12 @@
 }
 
 .userName{
-	font-size:18px;
+	font-size:16px;
 	color:gray;
 }
 
 .regdate{
-	font-size:16px;
+	font-size:13px;
 	font-weight:lighter;
 	color:gray;
 }
@@ -40,48 +41,31 @@
 }
 
 .cmntAbout{
-	font-size: 20px;
+	font-size:16px;
     color: black;
     font-weight: lighter;
 }
 </style>
 
-<script type="text/javascript">
-function pageFunc(curPage) {
-	$('input[name=currentPage]').val(curPage);
-	$('form[name=frmPage]').submit();
-}
-</script>
-    
-<!-- 페이징 처리를 위한 form  -->
-<form action="<c:url value='/indiv/community/myProfile.do'/>"
-	name="frmPage" method="post">
-	<input type="hidden" name="currentPage"> 
-	<input type="hidden" name="userNo" value="${userNo}"> 
-</form>
-
-
-
-
 <p style="font-size: 18px;">
-	답변 <b id="myContCnt">${totalCmt}</b>건
+	답변 <b id="myContCnt">${cmntCnt}</b>건
 </p>
 
-
-<c:if test="${empty cmtList }">
-<article id="noneQuestBox">
-	<div class="noneBox">
-		<i class="fa fa-commenting-o"></i>
-		<p>아직 등록한 답변이 없습니다.</p>
-	</div>
-</article>
+<!--답변 목록 : 아직 등록한 답변이 없는 경우-->
+<c:if test="${empty list }">
+	<article id="noneQuestBox">
+		<div class="noneBox">
+			<i class="fa fa-commenting-o"></i>
+			<p>아직 등록한 답변이 없습니다.</p>
+		</div>
+	</article>
 </c:if>
 
 <!-- 등록한 답변이 존재하는 경우  -->
-<c:if test="${!empty cmtList }">
+<c:if test="${!empty list}">
 	<article id="cmntBox">
 		<div class="qstnExistBox">
-			<c:forEach var="map" items="${cmtList}">
+			<c:forEach var="map" items="${list}">
 				<div class="questBoxWrap">
 					<div class="oneCmntBox">
 						<div>
@@ -91,16 +75,23 @@ function pageFunc(curPage) {
 								class="contentArea">
 								<dl>
 									<dt>
-										<i class="far fa-comment-dots"></i>&nbsp;&nbsp;
-										<span class="userName">@${userId }</span>
-										<span class="regdate">&nbsp;<fmt:formatDate
-												value="${map['COMMENTRESPOND_DATE']}" pattern="yyyy-MM-dd" /></span>
+										<i class="far fa-comment-dots"></i>&nbsp;&nbsp; <span
+											class="userName">@${userId }</span> <span
+											class="regdate">&nbsp;<fmt:formatDate
+												value="${map['COMMENTRESPOND_DATE']}"
+												pattern="yyyy-MM-dd" /></span>
 									</dt>
 									<!-- 답변 내용 -->
-									<dd class="cmntAbout">	
-										${map['commentrespondAbout']}
+									<dd class="cmntAbout">
+										<c:if test="${fn:length(map['commentrespondAbout'])>=50}">
+											${fn:substring(map['commentrespondAbout'],0,50) } ...
+										</c:if>
+										<c:if test="${fn:length(map['commentrespondAbout'])<50}">						
+											${map['commentrespondAbout'] }
+										</c:if>
 									</dd>
-
+									
+									
 									<!-- 내용 -->
 									<dd class="questionTitle">
 										<span>질문 제목 : ${map['QUESTION_TITLE']}</span>
@@ -113,8 +104,12 @@ function pageFunc(curPage) {
 				</div>
 			</c:forEach>
 			<!-- 답변 반복 끝 -->
-			<%@include file="../cmtyPaging.jsp" %>
 		</div>
+		<!-- 페이징처리 -->
+			<%@include file="../cmtyPaging.jsp" %>
+		<!-- 페이징 끝 -->
 	</article>
 </c:if>
+
+
 			

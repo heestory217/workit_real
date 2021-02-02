@@ -23,17 +23,46 @@ section {
 	width: 800px;
 }
 
+.oneQuestBox {
+	padding: 40px 10px;
+	width: 92%;
+	border-bottom: 1px solid silver;
+	margin: 0px 30px 0 30px;
+}
+
 .qtTitle {
 	font-size: 20px;
 	color: black;
 	font-weight: lighter;
 }
 
+.qtContent {
+	font-size: 18px;
+	color: #5f5f5f;
+}
+
+.fa-quora {
+	font-size: 22px;
+	color: #4c50bb;
+}
+
+dd {
+	margin-top: 20px;
+}
+
+.cellBx {
+	color: gray;
+}
+
+.replyNum {
+	color: black;
+	font-weight: bold;
+}
+
 .paging {
 	height: 100px;
 	clear: both;
 	text-align: center;
-	padding: 35px 0;
 }
 
 .questBoxWrap:hover {
@@ -64,7 +93,7 @@ article {
 }
 
 .tabMenuWrap>div {
-	/* float: left; */
+	float: left;
 	width: 25%;
 	height: 100%;
 	text-align: center;
@@ -135,14 +164,14 @@ article {
 }
 
 /*  */
-#questBox{
+#questBox {
 	border-top: 1px solid silver;
 	border-left: 1px solid silver;
 	border-right: 1px solid silver;
 	border-bottom: 1px solid silver;
 }
 
-.oneQuestBox{
+.oneQuestBox {
 	padding: 40px 10px;
 	height: auto;
 	width: 92%;
@@ -172,6 +201,13 @@ dd {
 .replyNum {
 	color: black;
 	font-weight: bold;
+}
+
+.paging {
+	height: 100px;
+	clear: both;
+	text-align: center;
+	padding: 35px 0;
 }
 
 .cellBx>.bookmark {
@@ -210,130 +246,79 @@ dd {
 	margin-right: 0;
 }
 
-td{
-	text-align: center;
-    padding-top: 5px;
-    border-right: 1px solid silver;
+.tab-content.current {
+	display: inherit;
 }
 
-td:last-child{
-	border-right:none;
+.tab-content {
+	display: none;
 }
-
-td a:hover{
-	color:black;
-}
-
-table{
-	height:100%;
-}
-
-.active-bgColor{
-	background-color: #4C50BB;
-}
-
-.active-fontColor{
-	color:white;
-}
-
 </style>
-
-	
 <script type="text/javascript">
-$(function(){
-	$('td').each(function(idx){
-		$('#menu'+ idx).click(function(){
-			$('#menu0').removeClass('active-bgColor');
-			$('#menu0').find('a').removeClass('active-fontColor');
-			$('#menu'+ idx).addClass('active-bgColor');
-			$('#menu'+ idx).find('a').addClass('active-fontColor');
-		});	
-	});	
-});
+	$(function() {
+		$('#tabMenu .tabMenuWrap').find('div').click(function() {
+			var tab_id = $(this).attr('data-tab');
 
-function pageFunc(curPage){
-	$('input[name=currentPage]').val(curPage);
-	$('form[name=frmPage]').submit();
-}
+			$('.tabMenuWrap').find('div').removeClass('current');
+			$('.tab-content').removeClass('current');
+
+			$('#tabMenu .tabMenuWrap').find('div').addClass('current');
+			$('#' + tab_id).addClass('current');
+
+		});
+	});
+
 </script>
-	
-	
-<div class="divCmty">
-	<!-- asdie : 사이드 메뉴바 -->
-	<c:import url="/indiv/community/cmtyNavbar.do">
-		<c:param name="userNo" value="${userNo}"></c:param>
-		<c:param name="userId" value="${userId}"></c:param>
-	</c:import>
-	
-<section>
-	<div id="container">
-		<div id="content" class="AllQuestList">
-			<article id="profile">
-				<div class="imgBox" style="background: #BDBDBD; overflow: hidden;">
-					<a href="#"><img class="profilePic"
-						src="<c:url value='/resources/img/banner-1.jpg'/>"></a>
-				</div>
-				<div class="profileId">
-					<span>${userId }</span>
-				</div>
-				<div></div>
-			</article>
 
-			<!-- 탭 메뉴 -->
-			<article id="tabMenu">
-				<div class="tabMenuWrap">
-				<table>
-					<colgroup>
-						<col width="200px">
-						<col width="200px">
-						<col width="200px">
-						<col width="200px">
-					</colgroup>
-					<tbody>
-						<tr>
-							<td class="active-bgColor" id="menu0">
-								<a class="active-fontColor"
-								href="<c:url value='/indiv/community/myProfile.do?userNo=${userNo}&type=1'/>">
-								질문</a>
-							</td>
-							<td id="menu1">
-								<a href="<c:url value='/indiv/community/myProfile.do?userNo=${userNo}&type=2'/>">
-								답변</a>
-							</td>
-							<td>
-								<a href="#">
-								임시저장</a>
-							</td>
-							<td>
-								<a href="#">
-								북마크</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				</div>	
-			</article>
+	<div class="divCmty">
+		<!-- asdie : 사이드 메뉴바 -->
+		<c:import url="/indiv/community/cmtyNavbar.do">
+			<c:param name="userNo" value="${userNo}"></c:param>
+			<c:param name="userId" value="${userId}"></c:param>
+		</c:import>
 		
-			<!--질문 목록-->
-			<c:if test="${param.type==1 }">
-				<div>
-					<%@include file="userCmtyList/userQstnList.jsp" %>	
-				</div>
-			</c:if>
-			
-			<!-- 답변 목록 -->
-			<c:if test="${param.type==2 }">
-				<div>
-					<%@include file="userCmtyList/userCommentList.jsp" %>
-				</div>
-			</c:if>
-			
 		
-		</div>
+		<section>
+			<div id="container">
+				<div id="content" class="AllQuestList">
+					<article id="profile">
+						<div class="imgBox" style="background: #BDBDBD; overflow: hidden;">
+							<a href="#"><img class="profilePic"
+								src="<c:url value='/resources/img/banner-1.jpg'/>"></a>
+						</div>
+						<div class="profileId">
+							<span>${userId }</span>
+						</div>
+						<div></div>
+					</article>
+
+					<!-- 탭 메뉴 -->
+					<article id="tabMenu">
+						<div class="tabMenuWrap">
+							<div id="qstnTab" class="tab-link current" data-tab="tab-1">질문</div>
+							<div id="comntTab" class="tab-link" data-tab="tab-2">답변</div>
+							<div id="comntTab" class="tab-link" data-tab="tab-3">댓글</div>
+							<div id="comntTab" class="tab-link" data-tab="tab-4">북마크</div>
+						</div>
+					</article>
+
+					<!--질문 목록-->
+					<div id="tab-1" class="tab-content current">
+						<%@include file="userCmtyList/userQstnList.jsp"%>
+					</div>
+
+
+					<!--답변 목록 : 아직 등록한 답변이 없는 경우-->
+					<div id="tab-2" class="tab-content">
+						<%@include file="userCmtyList/userCommentList.jsp"%>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+		<div style="clear: both;"></div>
 	</div>
-</section>
-<div style="clear: both;"></div>
-</div>
 
 
 <%@ include file="../../inc/bottom.jsp"%>
