@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
@@ -29,9 +30,21 @@ public class HrmController {
 	
 	@RequestMapping("/purchasedResumes.do")
 	public String purchasedResumes(@ModelAttribute HrmResumePageVO searchVo, 
+			@RequestParam (required = false) String searchPRKeyword,
 			HttpSession session, Model model) {
 		logger.info("구매 이력서 페이지");
-		logger.info("페이지 파라미터 searchvo={}", searchVo);
+		
+		searchVo.setSearchKeyword(searchPRKeyword);
+		logger.info("검색 키워드 : searchKeyword={}", searchPRKeyword);
+		
+		//키워드 조절
+		if(searchPRKeyword.equals("신입")) {
+			searchVo.setSearchKeyword("0");
+		}else if(searchPRKeyword.lastIndexOf("년")>0) {
+			int idx = searchPRKeyword.lastIndexOf("년");
+			searchVo.setSearchKeyword(searchPRKeyword.substring(0, idx));
+		}
+
 		int userNo = (Integer) session.getAttribute("userNo");
 		searchVo.setUserNo(userNo);
 		
@@ -44,6 +57,7 @@ public class HrmController {
 		searchVo.setRecordCountPerPage(5);
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		
+		
 		//구매한 이력서 리스트 
 		List<Map<String, Object>> resumeList = ordersService.selectPurchasedResume(searchVo);
 		logger.info("구매 이력서 list.size={}", resumeList.size());
@@ -52,7 +66,6 @@ public class HrmController {
 		logger.info("전체 구매 이력서 수 totalRecord={}", totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
 		
-
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("resumeList", resumeList);
 		
