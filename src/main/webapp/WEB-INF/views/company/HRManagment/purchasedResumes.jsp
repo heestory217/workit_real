@@ -62,11 +62,10 @@
 <form action="<c:url value='/company/HRManagment/purchasedResumes.do'/>" name="frmPage" method="post">
 	<input type="hidden" name="currentPage">
 </form>
-
+               
 <section class="blog-section spad">
 	<div class="container">
 		<div class="row">
-
 			<!-- 제목 -->
 			<div class="section-title" style="width: 100%">
 				<h4><i class="far fa-file"></i>구매 이력서</h4>
@@ -76,6 +75,16 @@
 			</div>
 			<!-- 제목 끝 -->
 			
+			<div class="col-lg-6"></div>
+			<div class="col-lg-6" style="text-align: right;">
+				<div class="search-form">
+	                <form action="#">
+	                    <input type="text" placeholder="검색어를 입력하세요">
+	                    <button type="submit"><i class="fas fa-search"></i></button>
+	                </form>
+				</div>
+			</div>
+					
 			
 			<!-- 본문 시작 -->
 			<section class="shopping-cart spad" style="width: 100%; padding:25px 0 10px 0;">
@@ -99,7 +108,7 @@
 			                            </tr>
 			                        </thead>
 			                        <tbody>
-                                       	<!-- 가격 계산을 위한 변수 설정 -->
+	                                      	<!-- 가격 계산을 위한 변수 설정 -->
 										<c:set var="subTotalPrice" value="0" />
 										<c:set var="discount" value="0" />
 										<c:set var="totalPrice" value="0" />
@@ -114,9 +123,9 @@
 					                            <tr>
 					                                <td class="p-price" style="padding: 14px 0;">${map['USER_NAME']}</td>
 					                                <td class="cart-title" style="padding: 14px 0;">
-                              	<a href="<c:url value="이력서 상세보기.do?resumeNo=${map['RESUME_NO']}"/>">
-                              		${map['RESUME_TITLE']}
-                           		</a>
+	                             	<a href="<c:url value="이력서 상세보기.do?resumeNo=${map['RESUME_NO']}"/>">
+	                             		${map['RESUME_TITLE']}
+	                          		</a>
 				                                	</td>
 					                                <td class="cart-pic" style="padding: 14px 0;">${map['WORKKIND_NAME']}</td>
 					                                <td class="cart-pic" style="padding: 14px 0;">
@@ -128,49 +137,47 @@
 						                                </c:if>
 						                            </td>
 					                            </tr>
-			                            </c:forEach>
+			                            	</c:forEach>
 			                            </c:if>
 			                        </tbody>
 			                    </table>
-			               <!--  </form> -->
 			                </div>
 						</div>
 					</div>
 				</div>
 			</section>
+			<!-- 본문 끝 -->
 			
+			<!-- 페이징 -->
 			<div class="col-lg-12" style="text-align: center;">
-			 <div class="product__pagination blog__pagination">
-			 	<c:if test="${pagingInfo.firstPage>1 }">
-					<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
-						<i class="fa fa-long-arrow-left"></i>
-					</a>
-				</c:if>
-			
-			
-				<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
-					<c:if test="${i==pagingInfo.currentPage }">
-						<span id="currentPage" >
-							${i}</span>
+				<div class="product__pagination blog__pagination">
+				 	<c:if test="${pagingInfo.firstPage>1 }">
+						<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
+							<i class="fa fa-long-arrow-left"></i>
+						</a>
 					</c:if>
-					<c:if test="${i!=pagingInfo.currentPage }">
-						<a href="#" onclick="pageFunc(${i})">
-							${i}</a>
+					<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
+						<c:if test="${i==pagingInfo.currentPage }">
+							<span id="currentPage" >
+								${i}</span>
+						</c:if>
+						<c:if test="${i!=pagingInfo.currentPage }">
+							<a href="#" onclick="pageFunc(${i})">
+								${i}</a>
+						</c:if>
+					</c:forEach>
+					<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+						<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
+							<i class="fa fa-long-arrow-right"></i>
+						</a>
 					</c:if>
-				</c:forEach>
-			
-			
-				<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
-					<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
-						<i class="fa fa-long-arrow-right"></i>
-					</a>
-				</c:if>
-			    </div>
+				</div>
 			</div>
-			
+			<!-- 페이징 -->
+
 		</div>
 	</div>
 </section>
-<!-- 페이징 -->
-<!-- 본문 끝 -->
+
+		
 <%@ include file="../../inc/bottom.jsp"%>
