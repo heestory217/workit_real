@@ -72,22 +72,9 @@
                 </div>
                 <nav class="nav-menu mobile-menu">
                     <ul>
-                        <li><a href="#">채용 공고 탐색</a>
-                            <ul class="dropdown">
-                                <li><a href="#">지역별 탐색</a></li>
-                                <li><a href="#">언어별 탐색</a></li>
-                                <li><a href="#">경력별 탐색</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">이력서</a></li>
-                        <li><a href="#">마이페이지</a>
-                            <ul class="dropdown">
-                                <li><a href="<c:url value='/indivMypage/indivMypageEdit.do'/>">회원 정보 수정</a></li>
-                                <li><a href="#">채용 지원 현황</a></li>
-                                <li><a href="#">포지션 제안 내역</a></li>
-                                <li><a href="#">결제 내역</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="<c:url value='/indivSearch/indivExplore.do'/>">채용 공고 탐색</a></li>
+                        <li><a href="<c:url value='/resumes/resumesList.do'/>">이력서</a></li>
+                        <li><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=3'/>">마이페이지</a></li>
                         <li><a href="<c:url value='/indiv/community/qstnList.do'/>">커뮤니티</a></li>
                         <li><a href="#">서비스 안내</a></li>
                     </ul>
