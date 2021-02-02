@@ -1,6 +1,9 @@
 package com.it.workit.corpsearch.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.corp.model.AreaListView;
@@ -38,7 +42,7 @@ public class CorpSearchController {
 		logger.info("검색 화면에 들어온 SearchVO = {}", searchVo);
 		
 		PaginationInfo pagingInfo = new PaginationInfo();
-		pagingInfo.setBlockSize(10);
+		pagingInfo.setBlockSize(5);
 		pagingInfo.setRecordCountPerPage(12);
 		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
 		
@@ -47,9 +51,10 @@ public class CorpSearchController {
 		
 		String searchKeyword = searchVo.getSearchKeyword();
 		searchKeyword = CSKConvertor.CSKConvertor(searchKeyword);
-		searchVo.setSearchKeyword(searchKeyword);		
+		searchVo.setSearchKeyword(searchKeyword);
 		
 		List<ResumesAllVO> resumeList = searchService.searchDefault(searchVo);
+		
 		for(ResumesAllVO vo:resumeList) {
 			int resumeNo = vo.getResumesVo().getResumeNo();
 			List<LanguageListView> langList = corpService.selectLanguageList(resumeNo);
@@ -66,7 +71,8 @@ public class CorpSearchController {
 		pagingInfo.setTotalRecord(totalRecord);
 		
 		List<LanguageVO> langList = langService.selectAllLang();
-		
+		List<Integer> langNo = searchVo.getLangNo();
+		model.addAttribute("langNo", langNo);
 		model.addAttribute("langlist",langList);
 		model.addAttribute("resumeList",resumeList);
 		model.addAttribute("pagingInfo",pagingInfo);

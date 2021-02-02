@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.min.css"/>" type="text/css">
     <link rel="stylesheet" href="<c:url value="/resources/css/slicknav.min.css"/>" type="text/css">
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>" type="text/css">
-    
+
     <!-- Js Plugins -->
     <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
     <script src="<c:url value="/resources/js/bootstrap.min.js"/>"></script>
@@ -59,7 +59,7 @@
 		-o-transition: all, 0.3s;
 		transition: all, 0.3s;
 		}
-		
+
 		.product__pagination a:hover,
 		.blog__pagination a:hover,
 		#currentPage {
@@ -67,13 +67,13 @@
 			border-color: #4C50BB;
 			color: #ffffff;
 		}
-		
+
 		.product__pagination a:last-child,
 		.blog__pagination a:last-child {
 			margin-right: 0;
 		}
     </style>
-    
+
     <script type="text/javascript">
 	    function pageFunc(curPage){
 	    	$('input[name=currentPage]').val(curPage);
@@ -89,7 +89,7 @@
 </form>
 <c:if test="${!empty reList}">
 <c:forEach var="reVo" items="${reList}" >
-	
+
   <div class="col-md-12 mb-3 mb-md-0" style="padding-left: 0px; padding-right: 0px;">
     <div class="card h-100"style="margin-bottom: 30px; margin-top: 60px;">
       <div class="card-body" style="padding: 3.3rem;">
@@ -123,29 +123,29 @@
   </div>
  </c:forEach>
  </c:if>
- 
+
  <div class="col-lg-8">
  <div class="product__pagination blog__pagination">
- 	<c:if test="${pagingInfo.firstPage>1 }">	
+ 	<c:if test="${pagingInfo.firstPage>1 }">
 		<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
 			<i class="fa fa-long-arrow-left"></i>
 		</a>
 	</c:if>
-		
+
 
 	<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
 		<c:if test="${i==pagingInfo.currentPage }">
 			<span id="currentPage" >
-				${i}</span>			
+				${i}</span>
 		</c:if>
 		<c:if test="${i!=pagingInfo.currentPage }">
 			<a href="#" onclick="pageFunc(${i})">
-				${i}</a>			
+				${i}</a>
 		</c:if>
 	</c:forEach>
-	
-	
-	<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">	
+
+
+	<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
 		<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
 			<i class="fa fa-long-arrow-right"></i>
 		</a>

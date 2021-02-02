@@ -16,7 +16,7 @@ public class CorpSearchDAOMybatis implements CorpSearchDAO {
 	private String namespace="com.mybatis.mapper.corpsearch.";
 	
 	@Override
-	public List<ResumesAllVO> searchDefault(SearchVO searchVo) {
+	public List<ResumesAllVO> searchDefault(CorpReSearchAllVO searchVo) {
 		return sqlSession.selectList(namespace+"searchDefault",searchVo);
 	}
 

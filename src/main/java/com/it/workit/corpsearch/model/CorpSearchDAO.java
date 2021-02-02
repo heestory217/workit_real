@@ -7,7 +7,7 @@ import com.it.workit.resumes.model.ResumesAllVO;
 
 public interface CorpSearchDAO {
 
-	List<ResumesAllVO> searchDefault(SearchVO searchVo);
+	List<ResumesAllVO> searchDefault(CorpReSearchAllVO searchVo);
 
 	int selectTotalRecord(SearchVO searchVo);
 
