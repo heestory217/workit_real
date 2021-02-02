@@ -13,7 +13,7 @@
 			<if test="lang !=null and lang !=''">
 				and language_no=#{lang}
 			</if>
-			<if test="career !=null ">
+			<if test="career !=null and career !=''">
 				and USER_EXPERIENCE=#{career}
 			</if>
 		</where>

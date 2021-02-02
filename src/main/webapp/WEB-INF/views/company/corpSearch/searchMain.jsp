@@ -105,35 +105,79 @@
     <!-- Breadcrumb Section Begin -->
     <!-- Product Shop Section Begin -->
     <section class="product-shop spad">
+		<form action="<c:url value='/corpSearch.do'/>" name="frmPage" method="post">
+			<input type="text" name="currentPage">
+			<input type="text" name="searchKeyword" value="${param.searchKeyword}">
+			<input type="text" name="langNo" value="${param.langNo}">
+			<input type="text" name="career" id="career" value="${param.career}">
+		</form>
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
                     <div class="filter-widget">
                         <h4 class="fw-title">경력</h4>
                         <select id="careerYear" onchange="careerYear(${pagingInfo.currentPage})">
-                        	<option>경력을 선택하세요</option>
-                        	<option value="0">신입</option>
-                        	<option value="1">1년차</option>
-                        	<option value="2">2년차</option>
-                        	<option value="3">3년차</option>
-                        	<option value="4">4년차</option>
-                        	<option value="5">5년차</option>
-                        	<option value="6">6년차</option>
-                        	<option value="7">7년차</option>
-                        	<option value="8">8년차</option>
-                        	<option value="9">9년차</option>
-                        	<option value="10">10년 이상</option>
+                        	<option value="">경력을 선택하세요</option>
+                        	<option value="0"
+                        		<c:if test="${param.career=='0'}">
+                       			selected="selected"
+                        		</c:if>
+                       		>신입</option>
+                        	<option value="1"
+                        		<c:if test="${param.career=='1'}">
+                       			selected="selected"
+                        		</c:if>
+                        	>1년차</option>
+                        	<option value="2"
+                        		<c:if test="${param.career=='2'}">
+                       			selected="selected"
+                        		</c:if>
+                        	>2년차</option>
+                        	<option value="3"
+                        		<c:if test="${param.career=='3'}">
+                       			selected="selected"
+                        		</c:if>
+                        	>3년차</option>
+                        	<option value="4"
+                        		<c:if test="${param.career=='4'}">
+                       			selected="selected"
+                        		</c:if>
+                        	>4년차</option>
+                        	<option value="5"
+                        		<c:if test="${param.career=='5'}">
+                       			selected="selected"
+                        		</c:if>
+                        	>5년차</option>
+                        	<option value="6"
+                        		<c:if test="${param.career=='6'}">
+                       			selected="selected"
+                        		</c:if>
+                        	>6년차</option>
+                        	<option value="7"
+                        		<c:if test="${param.career=='7'}">
+                       			selected="selected"
+                        		</c:if>
+                        	>7년차</option>
+                        	<option value="8"
+                        		<c:if test="${param.career=='8'}">
+                       			selected="selected"
+                        		</c:if>
+                        	>8년차</option>
+                        	<option value="9"
+                        		<c:if test="${param.career=='9'}">
+                       			selected="selected"
+                        		</c:if>
+                        	>9년차</option>
+                        	<option value="10"
+                        		<c:if test="${param.career=='10'}">
+                       			selected="selected"
+                        		</c:if>
+                        	>10년 이상</option>
                         </select>
                     </div>
                     <div class="filter-widget">
                         <h4 class="fw-title">언어</h4>
                         <div class="fw-tags">
-							<form action="<c:url value='/corpSearch.do'/>" name="frmPage" method="post">
-								<input type="text" name="currentPage">
-								<input type="text" name="searchKeyword" value="${param.searchKeyword}">
-								<input type="text" name="langNo" value="${param.langNo}">
-								<input type="text" name="career" id="career" value="${param.career}">
-							</form>
 								<c:set var="k" value="0"/>
 	                            <c:forEach var="lang" items="${langlist }">
 		                            <div class="langTags">

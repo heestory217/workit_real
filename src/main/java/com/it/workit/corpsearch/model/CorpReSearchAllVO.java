@@ -7,23 +7,23 @@ import com.it.workit.common.SearchVO;
 public class CorpReSearchAllVO extends SearchVO {
 	private List<Integer> langNo;
 	private int lang;
-	private int career;
-	private int area;
+	private String career;
+	private String area;
 
 
-	public int getCareer() {
+	public String getCareer() {
 		return career;
 	}
 
-	public void setCareer(int career) {
+	public void setCareer(String career) {
 		this.career = career;
 	}
 
-	public int getArea() {
+	public String getArea() {
 		return area;
 	}
 
-	public void setArea(int area) {
+	public void setArea(String area) {
 		this.area = area;
 	}
 
