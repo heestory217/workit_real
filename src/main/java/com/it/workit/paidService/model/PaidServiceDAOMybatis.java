@@ -8,4 +8,9 @@ import org.springframework.stereotype.Repository;
 public class PaidServiceDAOMybatis implements PaidServiceDAO{
 	@Autowired private SqlSessionTemplate sqlSession;
 	private String namespace = "com.mybatis.mapper.paidService.";
+	
+	@Override
+	public PaidServiceVO selectPaidServByServiceNo(int paidServiceNo) {
+		return sqlSession.selectOne(namespace+"selectPaidServByServiceNo", paidServiceNo);
+	}
 }

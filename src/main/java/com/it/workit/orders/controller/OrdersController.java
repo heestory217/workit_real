@@ -17,8 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.coupon.model.CouponService;
 import com.it.workit.coupon.model.CouponVO;
+import com.it.workit.orders.model.OrderDetailDelRvVO;
 import com.it.workit.orders.model.OrdersService;
 import com.it.workit.orders.model.OrdersVO;
+import com.it.workit.paidService.model.PaidServiceService;
+import com.it.workit.paidService.model.PaidServiceVO;
+import com.it.workit.review.model.ReviewService;
+import com.it.workit.review.model.ReviewVO;
 import com.it.workit.shoppingCart.model.CartViewVO;
 import com.it.workit.shoppingCart.model.ShoppingCartService;
 import com.it.workit.users.model.UsersService;
@@ -33,14 +38,29 @@ public class OrdersController {
 	@Autowired private ShoppingCartService cartService;
 	@Autowired private CouponService couponService;
 	@Autowired private OrdersService ordersService;
+	@Autowired private PaidServiceService paidService; 
+	@Autowired private ReviewService reviewService; 
 	
 	@RequestMapping("/checkOut.do")
-	public void checkOut(HttpSession session, Model model) {
+	public void checkOut(HttpSession session, Model model,
+			@RequestParam (defaultValue = "0") int corpreviewNo) {
+		
+		//1. 이력서 일 때 장바구니
 		int userNo = (Integer) session.getAttribute("userNo");
 		logger.info("장바구니 내역 보여주기 userNo={}", userNo);
-
-		//장바구니 내역전달
 		List<CartViewVO> cartList = cartService.selectCartList(userNo);
+		
+		//2.기업후기 삭제일때 => 6번
+		PaidServiceVO paidServVo = null;
+		ReviewVO reviewVo = null;
+		if(corpreviewNo!=0) {
+			logger.info("기업후기 삭제, corpreviewNo={}", corpreviewNo);
+			paidServVo = paidService.selectPaidServByServiceNo(6);
+			reviewVo = reviewService.selectByReviewNo(corpreviewNo);
+		}else {
+			//이력서일때 => 1번
+			paidServVo = paidService.selectPaidServByServiceNo(1);
+		}
 
 		//결제처리를 위한 기업회원 정보 전달
 		UsersVO usersVo = usersService.selectByUserNo(userNo);
@@ -57,6 +77,9 @@ public class OrdersController {
 		String userEmail = email1+"@"+email2;
 
 		model.addAttribute("cartList", cartList);
+		model.addAttribute("paidServVo", paidServVo);
+		model.addAttribute("reviewVo", reviewVo);
+
 		model.addAttribute("userName", userName);
 		model.addAttribute("userHp", userHp);
 		model.addAttribute("userEmail", userEmail);
@@ -66,6 +89,8 @@ public class OrdersController {
 	@RequestMapping("/order.do")
 	public int order(@ModelAttribute OrdersVO vo, 
 			@RequestParam (required = false) String couponName,
+			@RequestParam (defaultValue = "0") int paidServiceNo,
+			@RequestParam (defaultValue = "0") int corpreviewNo,
 			HttpSession session, Model model) {
 		
 		int userNo = (Integer) session.getAttribute("userNo");
@@ -73,6 +98,12 @@ public class OrdersController {
 		
 		vo.setUserNo(userNo);
 		logger.info("OrdersVO vo={}", vo);
+		
+		OrderDetailDelRvVO rvVo = new OrderDetailDelRvVO();
+		if(corpreviewNo!=0) {	//기업후기
+			rvVo.setCorpreviewNo(corpreviewNo);
+			rvVo.setPaidServiceNo(paidServiceNo);
+		}
 		
 		//[1] 주문 테이블 insert
 		int cnt=0;
@@ -83,11 +114,20 @@ public class OrdersController {
 			int couponNo = couponVo.getCouponNo();
 			vo.setCouponNo(couponNo);
 			logger.info("쿠폰이 있는 경우, OrdersVO vo={}", vo);
+
+			if(corpreviewNo!=0) {	//기업후기
+				cnt = ordersService.insertOrderWithCoupon(vo, rvVo);
+			}else {	//이력서 구매
+				cnt = ordersService.insertOrderWithCoupon(vo);
+			}
 			
-			cnt = ordersService.insertOrderWithCoupon(vo);
 		}else {	
 			//쿠폰이 없는경우
-			cnt = ordersService.insertOrder(vo);
+			if(corpreviewNo!=0) {	//기업후기
+				cnt = ordersService.insertOrder(vo, rvVo);
+			}else {	//이력서 구매
+				cnt = ordersService.insertOrder(vo);
+			}
 		}
 		
 		logger.info("주문테이블 insert cnt="+cnt);
@@ -104,13 +144,18 @@ public class OrdersController {
 	public String paymentComplete(@RequestParam (defaultValue = "0" ) int orderNo, Model model) {
 		logger.info("주문 완료 내역 보여주기, orderNo={}", orderNo);
 		
+		//이력서
 		List<Map<String, Object>> list = ordersService.selectOrderdetailsResumeView(orderNo);
 		logger.info("주문 내역 list.size={}", list.size());
+		
+		//기업후기 삭제
+		Map<String, Object> ReviewMap = ordersService.selectOrderdetailsDelRVView(orderNo);
 		
 		OrdersVO ordersVo = ordersService.selectOrdersByOrderNo(orderNo);
 		logger.info("주문 ordersVo={}", ordersVo);
 		
 		model.addAttribute("list", list);
+		model.addAttribute("ReviewMap", ReviewMap);
 		model.addAttribute("ordersVo", ordersVo);
 		
 		return "shop/paymentComplete";

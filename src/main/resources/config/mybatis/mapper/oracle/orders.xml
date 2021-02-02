@@ -21,7 +21,7 @@
 		values(#{orderNo}, #{userNo}, #{orderPaykind}, #{orderPay})
 	</insert>
 	
-	<!-- 이력서 주문상세 : 트랜잭션 처리를 위해 -->
+	<!-- 주문상세[1] 이력서 : 트랜잭션 처리를 위해 update -->
 	<update id="insertOrderDetailResume" parameterType="ordersVo">
 		insert into ORDERDETAILRESUME
 		select #{orderNo} as ORDER_NO,
@@ -30,10 +30,21 @@
 		from shoppingCart
 		where user_no=#{userNo}
 	</update>
+	<!-- 주문상세[2] 기업후기-->
+	<insert id="insertOrderDetailDelReview" parameterType="orderDetailDelRvVO">
+		insert into ORDERDETAILDELRV(ORDER_NO, PAIDSERVICE_NO, CORPREVIEW_NO)
+		values(#{orderNo},#{paidServiceNo}, #{corpreviewNo})
+	</insert>
 	
-	<!-- 주문완료 후 상세내역 출력 -->
+	<!-- 주문완료 후 상세내역 출력 [1] 이력서-->
 	<select id="selectOrderdetailsResumeView" parameterType="int" resultType="map">
 		select * from OrderdetailsResumeView
+		where order_no=#{orderNo}
+	</select>
+	
+	<!-- 주문완료 후 상세내역 출력 [2] 기업후기-->
+	<select id="selectOrderdetailsDelRVView" parameterType="int" resultType="map">
+		select * from OrderdetailsDelRVView
 		where order_no=#{orderNo}
 	</select>
 	

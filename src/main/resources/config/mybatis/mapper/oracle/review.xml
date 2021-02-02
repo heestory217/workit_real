@@ -23,5 +23,15 @@
 		select count(*) from CORPREVIEW where corp_no=#{corpNo}
 	</select>
 	
+	<select id="selectByReviewNo" parameterType="int" resultType="ReviewVO">
+		select * from CORPREVIEW where CORPREVIEW_NO=#{corpreviewNo}
+	</select>
+	
+	<update id="updateDeleteCheck" parameterType="int">
+		update CORPREVIEW
+		set CORPREVIEW_DELETECHECK=1
+		where CORPREVIEW_NO=#{corpreviewNo}
+	</update>
+	
 </mapper>
 

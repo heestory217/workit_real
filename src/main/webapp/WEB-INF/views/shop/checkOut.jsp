@@ -113,6 +113,8 @@ IMP.init("imp52828174");
 							couponName : $('#couponName').val(),
 							orderDiscount : removeComma($('#discountAmount').html()),
 							orderPay : removeComma($('#totalPrice').html()),
+							paidServiceNo : $('#paidServiceNo').html(),
+							corpreviewNo : $('#corpreviewNo').html(),
 						},
 						dataType:"json",
 						success:function(res){
@@ -155,6 +157,8 @@ IMP.init("imp52828174");
 	<p id="buyer_email">${userEmail}</p>
 	<p id="buyer_name">${userName}</p>
 	<p id="buyer_tel">${userHp}</p>
+	<p id="paidServiceNo">${paidServVo.paidServiceNo}</p>
+	<p id="corpreviewNo">${param.corpreviewNo}</p>
 </div>
 
 <!-- 주문 페이지 상단 -->
@@ -187,12 +191,12 @@ IMP.init("imp52828174");
 							</div>
 							<!-- 제목 끝 -->
                         
-                         	<c:if test="${empty cartList}">
+                         	<c:if test="${empty cartList and empty param.corpreviewNo}">
 	                            <div class="order-total" style="padding-bottom: 22px">
                                    <p style="text-align: center;margin: 0 0 0 0;">주문 요청 내역이 없습니다.</p>
 	                            </div>
 							</c:if>
-							<c:if test="${!empty cartList}">
+							<c:if test="${!empty cartList or !empty param.corpreviewNo}">
 	                            <div class="order-total">
 	                            
 	                                <!-- 가격 계산을 위한 변수 설정 -->
@@ -203,17 +207,32 @@ IMP.init("imp52828174");
 	                                <ul class="order-table">
 	                                    <li>구매 서비스<span>합  계</span></li>
 	                                    
-			                        		<c:forEach var="cartVo" items="${cartList}">
-			                        			
+											<c:if test="${!empty cartList}">
+				                        		<c:forEach var="cartVo" items="${cartList}">
+				                                    <li class="fw-normal" style="color: #4C50BB;">
+					                        			<!-- 유료서비스 종료 파악을 위한 p -->
+				                                    	[<p id="paidServiceName">${paidServVo.paidServiceName}</p>]  
+				                                    		${cartVo.resumeTitle}
+			                                    		<span style="margin-left: 5px;">원</span>
+				                                    	<span>
+				                                    		<fmt:formatNumber value="${paidServVo.paidServicePrice}" pattern="#,###"/>
+				                                    	</span>
+			                                    	</li>
+				                               		<c:set var="subTotalPrice" value="${subTotalPrice+paidServVo.paidServicePrice}"/>
+				                                </c:forEach>
+			                                </c:if>
+	                        			<!-- 기업 후기 삭제-->
+											<c:if test="${!empty param.corpreviewNo}">
 			                                    <li class="fw-normal" style="color: #4C50BB;">
-				                        			<!-- 유료서비스 종료 파악을 위한 p -->
-			                                    	[<p id="paidServiceName">이력서</p>]  
-			                                    		${cartVo.resumeTitle}
+			                                    	[<p id="paidServiceName">${paidServVo.paidServiceName}</p>]  
+			                                    		${reviewVo.corpreviewOneline}
 		                                    		<span style="margin-left: 5px;">원</span>
-			                                    	<span><fmt:formatNumber value="${cartVo.paidServicePrice}" pattern="#,###"/></span>
+			                                    	<span>
+			                                    		<fmt:formatNumber value="${paidServVo.paidServicePrice}" pattern="#,###"/>
+			                                    	</span>
 		                                    	</li>
-			                               		<c:set var="subTotalPrice" value="${subTotalPrice+cartVo.paidServicePrice}"/>
-			                                </c:forEach>
+			                               		<c:set var="subTotalPrice" value="${subTotalPrice+paidServVo.paidServicePrice}"/>
+	                                    	</c:if>
 		                                
 	                                    <li class="fw-normal" style="margin-top:50px;">주문금액 
 	                                    	<span style="margin-left: 5px;">원</span>

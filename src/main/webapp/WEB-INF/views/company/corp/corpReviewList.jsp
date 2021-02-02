@@ -96,13 +96,15 @@
         <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 30px;">
           <div class="d-flex align-items-center"><img class="img-fluid" src="assets/img/gallery/user-3.png" alt="" />
             <div class="flex-1 ms-3">
-              <h4 class="mb-0 fs--1 text-1000 fw-medium">${reVo.corpreviewOneline }</h6>
+              <h4 class="mb-0 fs--1 text-1000 fw-medium">${reVo.corpreviewOneline }</h4>
               <p class="fs--2 fw-normal mb-0"><fmt:formatDate value="${reVo.corpreviewDate}" pattern="yyyy년 MM월 dd일"/> </p>
             </div>
           </div>
-          <div class="d-flex align-items-center"><span class="text-900 me-3">${reVo.corpreviewRate}</span><svg class="bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FEA250" viewBox="0 0 16 16">
+          <div class="d-flex align-items-center"><span class="text-900 me-3">${reVo.corpreviewRate}</span>
+          	<svg class="bi bi-star-fill" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FEA250" viewBox="0 0 16 16">
               <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"> </path>
-            </svg></div>
+            </svg>
+          </div>
         </div>
         <h6 style="color: #4C50BB; font-weight: 600;">장점</h6>
         <p class="card-text pt-3">${reVo.corpreviewGood}</p>
@@ -112,8 +114,9 @@
         <p class="card-text pt-3" style="margin-bottom: 40px;">${reVo.corpreviewWant}</p>
        	<!-- c:if 이 회사의 userNo가 로그인한 userNo와 같은경우 삭제버튼 보여줌 -->
 	        <hr style="margin-top: 20px;">
-		  		<button type="button" class="btn" style="border-left-width: 0px;padding-left: 0px;padding-right: 0px;color: #999;">리뷰 삭제</button>
-	  			</a>
+	  		<a href="<c:url value='/shop/checkOut.do?corpreviewNo=${reVo.corpreviewNo}'/>" class="btn" style="border-left-width: 0px;padding-left: 0px;padding-right: 0px;color: #999;">
+	  			리뷰 삭제
+  			</a>
       </div>
 
     </div>

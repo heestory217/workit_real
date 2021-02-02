@@ -12,9 +12,15 @@ public interface OrdersService {
 	//주문
 	int insertOrderWithCoupon(OrdersVO vo);
 	int insertOrder(OrdersVO vo);
+	
+	//주문  - 기업후기삭제
+	int insertOrderWithCoupon(OrdersVO vo, OrderDetailDelRvVO rvVo);
+	int insertOrder(OrdersVO vo, OrderDetailDelRvVO rvVo);
+
+	//주문완료페이지
 	List<Map<String, Object>> selectOrderdetailsResumeView(int orderNo);
+	Map<String, Object> selectOrderdetailsDelRVView(int orderNo);
 	
 	OrdersVO selectOrdersByOrderNo(int orderNo);
-	
 	List<Integer> selectPurchasedResumeNo(int userNo);
 }
