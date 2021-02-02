@@ -53,10 +53,27 @@
 	</select>
 	
 	<!-- 회원이 구입한 전체 이력서 정보 -->
-	<select id="selectPurchasedResume" parameterType="int" resultType="map">
-		select * from OrderdetailsResumeView 
+	<select id="selectPurchasedResume" parameterType="HrmResumePageVO" resultType="map">
+		select *
+		from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        select * from OrderdetailsResumeView
+		        where ORDER_NO in (select ORDER_NO from orders where user_no=#{userNo})
+		        order by ORDER_NO
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<!-- 이력서 구매 개수 -->
+	<select id="selectTotalResumeRecord" parameterType="HrmResumePageVO" resultType="int">
+		select count(*) from OrderdetailsResumeView
 		where ORDER_NO in (select ORDER_NO from orders where user_no=#{userNo})
-		order by ORDER_NO
 	</select>
 	
 	<!-- 개인 마이페이지 결제내역 사용 -->

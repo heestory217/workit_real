@@ -3,11 +3,11 @@ package com.it.workit.orders.model;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
 
 @Repository
@@ -69,8 +69,13 @@ public class OrdersDAOMybatis implements OrdersDAO{
 
 	//구입한 이력서 번호 리스트
 	@Override
-	public List<Map<String, Object>> selectPurchasedResume(int userNo) {
-		return sqlSession.selectList(namespace+"selectPurchasedResume", userNo);
+	public List<Map<String, Object>> selectPurchasedResume(HrmResumePageVO vo) {
+		return sqlSession.selectList(namespace+"selectPurchasedResume", vo);
+	}
+
+	@Override
+	public int selectTotalResumeRecord(HrmResumePageVO vo) {
+		return sqlSession.selectOne(namespace+"selectTotalResumeRecord", vo);
 	}
 
 }

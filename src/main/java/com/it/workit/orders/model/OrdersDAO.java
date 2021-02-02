@@ -3,8 +3,8 @@ package com.it.workit.orders.model;
 import java.util.List;
 import java.util.Map;
 
+import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
-import com.it.workit.resumes.model.ResumesVO;
 
 public interface OrdersDAO {
 	//개인 마이페이지 사용
@@ -26,6 +26,7 @@ public interface OrdersDAO {
 	OrdersVO selectOrdersByOrderNo(int orderNo);
 	
 	//구매이력서 리스트
-	List<Map<String, Object>> selectPurchasedResume(int userNo);
+	List<Map<String, Object>> selectPurchasedResume(HrmResumePageVO vo);
+	int selectTotalResumeRecord(HrmResumePageVO vo);
 	
 }

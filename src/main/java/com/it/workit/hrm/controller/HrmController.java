@@ -10,9 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.it.workit.common.PaginationInfo;
+import com.it.workit.common.Utility;
+import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.orders.model.OrdersService;
+import com.it.workit.review.model.ReviewVO;
 
 @Controller
 @RequestMapping("/company/HRManagment")
@@ -23,12 +28,32 @@ public class HrmController {
 	//@Autowired private ResumesService resumesService;
 	
 	@RequestMapping("/purchasedResumes.do")
-	public String purchasedResumes(HttpSession session, Model model) {
+	public String purchasedResumes(@ModelAttribute HrmResumePageVO searchVo, 
+			HttpSession session, Model model) {
 		logger.info("구매 이력서 페이지");
+		logger.info("페이지 파라미터 searchvo={}", searchVo);
 		int userNo = (Integer) session.getAttribute("userNo");
+		searchVo.setUserNo(userNo);
 		
-		//map에 담긴건 이력서 번호
-		List<Map<String, Object>> resumeList = ordersService.selectPurchasedResume(userNo);
+		//페이징
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(5);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		
+		searchVo.setRecordCountPerPage(5);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		//구매한 이력서 리스트 
+		List<Map<String, Object>> resumeList = ordersService.selectPurchasedResume(searchVo);
+		logger.info("구매 이력서 list.size={}", resumeList.size());
+		
+		int totalRecord=ordersService.selectTotalResumeRecord(searchVo);
+		logger.info("전체 구매 이력서 수 totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+
+		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("resumeList", resumeList);
 		
 		return "company/HRManagment/purchasedResumes";

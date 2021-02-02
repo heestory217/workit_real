@@ -2,11 +2,46 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../../inc/top.jsp"%>
 
-<style>
+<style type="text/css">
 .row i {
 	margin: 0 10px;
 }
+
+.product__pagination a, .blog__pagination a, #currentPage {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #b2b2b2;
+	font-size: 14px;
+	color: #b2b2b2;
+	font-weight: 700;
+	line-height: 28px;
+	text-align: center;
+	margin-right: 16px;
+	-webkit-transition: all, 0.3s;
+	-moz-transition: all, 0.3s;
+	-ms-transition: all, 0.3s;
+	-o-transition: all, 0.3s;
+	transition: all, 0.3s;
+}
+
+.product__pagination a:hover, .blog__pagination a:hover, #currentPage {
+	background: #4C50BB;
+	border-color: #4C50BB;
+	color: #ffffff;
+}
+
+.product__pagination a:last-child, .blog__pagination a:last-child {
+	margin-right: 0;
+}
 </style>
+
+<script type="text/javascript">
+    function pageFunc(curPage){
+    	$('input[name=currentPage]').val(curPage);
+    	$('form[name=frmPage]').submit();
+    }
+</script>
 
 <!-- 주문완료 페이지 상단 -->
 <div class="breacrumb-section">
@@ -23,6 +58,10 @@
     </div>
 </div>
 <!-- 주문완료 페이지 상단  끝-->
+
+<form action="<c:url value='/company/HRManagment/purchasedResumes.do'/>" name="frmPage" method="post">
+	<input type="hidden" name="currentPage">
+</form>
 
 <section class="blog-section spad">
 	<div class="container">
@@ -67,7 +106,7 @@
 										
 				                        <c:if test="${empty resumeList}">
 											<tr>
-												<td colspan="6" style="padding: 14px 0;">장바구니 내역이 없습니다.</td>
+												<td colspan="6" style="padding: 14px 0;">구매 내역이 없습니다.</td>
 											</tr>
 										</c:if>
 										<c:if test="${!empty resumeList}">
@@ -99,8 +138,39 @@
 					</div>
 				</div>
 			</section>
+			
+			<div class="col-lg-12" style="text-align: center;">
+			 <div class="product__pagination blog__pagination">
+			 	<c:if test="${pagingInfo.firstPage>1 }">
+					<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
+						<i class="fa fa-long-arrow-left"></i>
+					</a>
+				</c:if>
+			
+			
+				<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
+					<c:if test="${i==pagingInfo.currentPage }">
+						<span id="currentPage" >
+							${i}</span>
+					</c:if>
+					<c:if test="${i!=pagingInfo.currentPage }">
+						<a href="#" onclick="pageFunc(${i})">
+							${i}</a>
+					</c:if>
+				</c:forEach>
+			
+			
+				<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+					<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
+						<i class="fa fa-long-arrow-right"></i>
+					</a>
+				</c:if>
+			    </div>
+			</div>
+			
 		</div>
 	</div>
 </section>
+<!-- 페이징 -->
 <!-- 본문 끝 -->
 <%@ include file="../../inc/bottom.jsp"%>
