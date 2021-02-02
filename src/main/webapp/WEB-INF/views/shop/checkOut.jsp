@@ -207,7 +207,7 @@ IMP.init("imp52828174");
 	                                <ul class="order-table">
 	                                    <li>구매 서비스<span>합  계</span></li>
 	                                    
-											<c:if test="${!empty cartList}">
+											<c:if test="${!empty cartList and empty param.corpreviewNo}">
 				                        		<c:forEach var="cartVo" items="${cartList}">
 				                                    <li class="fw-normal" style="color: #4C50BB;">
 					                        			<!-- 유료서비스 종료 파악을 위한 p -->
