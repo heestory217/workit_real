@@ -2,7 +2,6 @@ package com.it.workit.resumes.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -27,7 +26,7 @@ import com.it.workit.resumes.model.ResumesVO;
 public class ResumesController {
 
 	private static final Logger logger
-		=LoggerFactory.getLogger(ResumesController.class);
+	=LoggerFactory.getLogger(ResumesController.class);
 
 	@Autowired private ResumesService rsService;
 
@@ -67,7 +66,6 @@ public class ResumesController {
 		for (CarrerVO vo : carrlist) {
 			vo.setResumeNo(resumeNo);
 		}
-	}
 
 		List<ForeignlanguageskillVO> flslist = relistVo.getForeignskillVO();
 		for (ForeignlanguageskillVO vo : flslist) {
@@ -85,7 +83,6 @@ public class ResumesController {
 		logger.info("carrlist={}",carrlist);
 		logger.info("flslist={}",flslist);
 		logger.info("licelist={}",licelist);
-
 
 
 		String msg="등록 실패하였습니다", url="/resumes/resumeWrite.do";
@@ -118,5 +115,7 @@ public class ResumesController {
 		model.addAttribute("url",url);
 
 		return "common/message";
-	}//
-}
+	}//이력서 등록
+
+
+}//컨트롤러

@@ -4,8 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.companyMypage.model.CompanypagingVO;
+import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
 
 public interface OrdersService {
@@ -25,7 +25,7 @@ public interface OrdersService {
 	Map<String, Object> selectOrderdetailsDelRVView(int orderNo);
 
 	OrdersVO selectOrdersByOrderNo(int orderNo);
-	
+
 	List<Map<String, Object>> selectPurchasedResume(HrmResumePageVO vo);
 	int selectTotalResumeRecord(HrmResumePageVO vo);
 

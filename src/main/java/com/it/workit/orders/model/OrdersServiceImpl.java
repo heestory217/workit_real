@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.companyMypage.model.CompanypagingVO;
+import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
 import com.it.workit.review.model.ReviewDAO;
 import com.it.workit.shoppingCart.model.ShoppingCartDAO;
@@ -97,7 +97,7 @@ public class OrdersServiceImpl implements OrdersService{
 		return ordersDao.selectTotalResumeRecord(vo);
 	}
 
-  @Override
+	@Override
 	public List<Date> selectorderscall(int userNo) {
 		return ordersDao.selectorderscall(userNo);
 	}

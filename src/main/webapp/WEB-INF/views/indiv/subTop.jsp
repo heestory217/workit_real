@@ -30,7 +30,7 @@
      <ul class="nav-right">
          <!-- 쪽지함 -->
          <li class="heart-icon">
-             <a href="#">
+             <a href="<c:url value='/message/messageBox.do'/>">
              	<i class="fa fa-envelope-o" aria-hidden="true"></i>
                  <!-- 안읽은 메시지 갯수 표현: <span>1</span>  : 최대값 표현 : +99 -->
                  
