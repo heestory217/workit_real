@@ -16,7 +16,7 @@
      <ul class="nav-right">
      	<!-- 쪽지함 : 아이콘 바꿔야함 -->
          <li class="heart-icon">
-             <a href="#">
+             <a href="<c:url value='/message/messageBox.do'/>">
                  <i class="fa fa-envelope-o" aria-hidden="true"></i>
                  <!-- 안읽은 메시지 갯수 표현: <span>1</span>  : 최대값 표현 : +99 -->
              </a>
@@ -93,8 +93,8 @@
                             </ul>
                         <li><a href="#">인재 관리</a>
                             <ul class="dropdown">
-                                <li><a href="<c:url value='/company/humanResourceManagement/positionSuggest.do'/>">포지션제안</a></li>
-                                <li><a href="<c:url value='/company/humanResourceManagement/purchasedResumes.do'/>">구매 이력서</a></li>
+                                <li><a href="<c:url value='/company/HRManagment/positionSuggest.do'/>">포지션제안</a></li>
+                                <li><a href="<c:url value='/company/HRManagment/purchasedResumes.do'/>">구매 이력서</a></li>
                             </ul>
                         </li>
                         <li><a href="#">마이페이지</a>

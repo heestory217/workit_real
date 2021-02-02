@@ -31,7 +31,7 @@
 
 			<!-- 제목 -->
 			<div class="section-title" style="width: 100%">
-				<h2>주문완료</h2>
+				<h2>임시페이지~</h2>
 				<h5 style="color: #4C50BB;">주문과 결제가 정상적으로 완료되었습니다 [주문번호 : ${param.orderNo}]</h5>
 			</div>
 			<!-- 제목 끝 -->

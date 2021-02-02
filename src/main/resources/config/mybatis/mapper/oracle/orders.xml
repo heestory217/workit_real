@@ -52,13 +52,30 @@
 		select * from orders where order_no=#{orderNo}
 	</select>
 	
-	<!-- 회원이 구입한 이력서 번호 list -->
-	<select id="selectPurchasedResumeNo" parameterType="int" resultType="int">
-		select RESUME_NO from ORDERDETAILRESUME 
-		where exists (select order_no from orders where user_no=#{userNo})
+	<!-- 회원이 구입한 전체 이력서 정보 -->
+	<select id="selectPurchasedResume" parameterType="HrmResumePageVO" resultType="map">
+		select *
+		from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        select * from OrderdetailsResumeView
+		        where ORDER_NO in (select ORDER_NO from orders where user_no=#{userNo})
+		        order by ORDER_NO
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
 	</select>
 	
-
+	<!-- 이력서 구매 개수 -->
+	<select id="selectTotalResumeRecord" parameterType="HrmResumePageVO" resultType="int">
+		select count(*) from OrderdetailsResumeView
+		where ORDER_NO in (select ORDER_NO from orders where user_no=#{userNo})
+	</select>
+	
 	<!-- 개인 마이페이지 결제내역 사용 -->
 <!-- 	<select id="selectIndivPaymentByUserno" parameterType="int" resultType="ordersVo">
 		select a.*, b.PAIDSERVICE_STARTDATE, b.PAIDSERVICE_ENDDATE, c.PAIDSERVICE_NAME

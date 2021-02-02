@@ -3,6 +3,7 @@ package com.it.workit.orders.model;
 import java.util.List;
 import java.util.Map;
 
+import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
 
 public interface OrdersService {
@@ -22,5 +23,7 @@ public interface OrdersService {
 	Map<String, Object> selectOrderdetailsDelRVView(int orderNo);
 	
 	OrdersVO selectOrdersByOrderNo(int orderNo);
-	List<Integer> selectPurchasedResumeNo(int userNo);
+	
+	List<Map<String, Object>> selectPurchasedResume(HrmResumePageVO vo);
+	int selectTotalResumeRecord(HrmResumePageVO vo);
 }
