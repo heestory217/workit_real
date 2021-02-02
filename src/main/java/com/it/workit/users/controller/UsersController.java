@@ -2,6 +2,8 @@ package com.it.workit.users.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -146,13 +149,13 @@ public class UsersController {
 				logger.info("로그인 처리 결과, result={}", result);
 
 				String msg="로그인 체크 실패!", url="/users/login.do";
-				
+
 				if(result==UsersService.LOGIN_OK) {
 					UsersVO userVo = usersService.selectByUserId(vo.getUserId());
 					logger.info("userVo={}", vo);
-					
+
 					int kind=usersService.userkindcheck(vo.getUserId());
-					
+
 					//[1] session
 					HttpSession session=request.getSession();
 					session.setAttribute("userId", vo.getUserId());
@@ -160,8 +163,8 @@ public class UsersController {
 					session.setAttribute("userName", userVo.getUserName());
 					logger.info("회원종류={}", kind);
 					session.setAttribute("user_corpcheck", kind);
-					
-					
+
+
 					msg=userVo.getUserName()+"님, 로그인되었습니다.";
 					url="/index.do";
 				}else if(result==UsersService.PWD_DISAGREE) {
@@ -169,7 +172,7 @@ public class UsersController {
 				}else if(result==UsersService.ID_NONE) {
 					msg="해당 아이디가 존재하지 않습니다.";
 				}
-				
+
 				//[2] cookie
 				Cookie ck = new Cookie("ck_userid", vo.getUserId());
 				ck.setPath("/");
@@ -187,26 +190,26 @@ public class UsersController {
 				//4
 				return "common/message";
 	}
-	
-	
+
+
 	@ResponseBody
 	@RequestMapping("/loginajax.do")
 	public String[] loginajax(@RequestParam("userId") String userId, @RequestParam("password") String password, HttpServletRequest request,
 			@RequestParam(required = false) String savepass, HttpServletResponse response) {
 		logger.info("로그인 채크 userId = {}, password= {}", userId, password);
-		
+
 		int result=usersService.loginCheck(userId, password);
 		logger.info("로그인 처리 결과, result={}", result);
-		
+
 		String result2=Integer.toString(result);
 		String[] avx = new String[2];
 		avx[0]=result2;
-		
+
 		if(result==UsersService.LOGIN_OK) {
 			UsersVO vo = usersService.selectByUserId(userId);
-			
+
 			int kind=usersService.userkindcheck(userId);
-			
+
 			//[1] session
 			HttpSession session=request.getSession();
 			session.setAttribute("userId", vo.getUserId());
@@ -215,14 +218,14 @@ public class UsersController {
 			logger.info("회원종류={}", kind);
 			session.setAttribute("user_corpcheck", kind);
 
-			  
+
 			if(vo.getUserCorpcheck()==1){
 				List<Date> seervcheck=ordersService.selectorderscall(vo.getUserNo());
 				logger.info("로그인 처리 결과, 회원권 구매결과={}", seervcheck);
 				logger.info("갯수 {}", seervcheck.size());
 				int t =seervcheck.size();
 				Date d = new Date();
-				
+
 				if(t>0) {
 					for(int i=0; i<t; i++) {
 						int compare=d.compareTo(seervcheck.get(i));
@@ -234,11 +237,11 @@ public class UsersController {
 					}
 				}
 			}
-			
-			
+
+
 			avx[1]=vo.getUserName();
 		}
-		
+
 		//[2] cookie
 		Cookie ck = new Cookie("ck_userid", userId);
 		ck.setPath("/");
@@ -252,8 +255,8 @@ public class UsersController {
 		//4
 		return avx;
 	}
-	
-	
+
+
 
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
@@ -266,5 +269,44 @@ public class UsersController {
 		session.removeAttribute("user_corpcheck");
 
 		return "redirect:/index.do";
+	}
+
+
+	@RequestMapping("/findIdPw.do")
+	public void findIdPw() {
+		logger.info("아이디비번찾기");
+	}
+
+	@RequestMapping(value="/tempPwdUpdate.do", method = RequestMethod.GET)
+	public void updatePwd() {
+		logger.info("아이디 비번 재설정 페이지");
+	}
+
+	@RequestMapping(value="/tempPwdUpdate.do", method = RequestMethod.POST)
+	public String updatePwdDB(HttpServletRequest request, Model model) {
+		String userId = request.getParameter("userId");
+		String userTemp = request.getParameter("userTemp");
+		String userPwd = request.getParameter("userPwd");
+
+		logger.info("userId={}, userTemp={}", userId, userTemp);
+		logger.info("userPwd={}", userPwd);
+
+		Map<String, Object> userMap = new HashMap<String, Object>();
+		userMap.put("userId", userId);
+		userMap.put("userTemp", userTemp);
+		userMap.put("userPwd", userPwd);
+		String msg = "", url="";
+		int result = usersService.updatePwdReal(userMap);
+		if(result==1) {
+			msg="비밀번호 재설정을 완료했습니다. 로그인해주세요.";
+			url="/users/login.do";
+		}else if(result==-1) {
+			msg="아이디 또는 임시 비밀번호가 일치하지 않습니다.";
+			url="/users/tempPwdUpdate.do";
+		}
+
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		return "common/message";
 	}
 }

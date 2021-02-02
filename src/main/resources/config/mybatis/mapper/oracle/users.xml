@@ -49,5 +49,29 @@
 		set user_corpcheck=2
 		where user_no=#{userNo}
 	</update>
+	
+	<select id="findId" parameterType="hashMap" resultType="String">
+		select user_Id from users where user_email1=#{email1} and user_email2=#{email2}
+	</select>
+	
+	<select id="findPwd" parameterType="hashMap" resultType="int">
+		select count(*) from users where user_id=#{userId} and user_email1=#{email1} and user_email2=#{email2}
+	</select>
+	
+	<update id="updatePwd" parameterType="hashMap">
+		update users
+		set user_password=#{tempPwd}
+		where user_Id=#{userId}
+	</update>
+	
+	<select id="selectUser" parameterType="hashMap" resultType="int">
+		select count(*) from users where user_id=#{userId} and USER_PASSWORD=#{userTemp}
+	</select>
+	
+	<update id="updatePwdReal" parameterType="hashMap">
+		update users
+		set user_password=#{userPwd}
+		 where user_id=#{userId} and USER_PASSWORD=#{userTemp}
+	</update>
 
 </mapper>

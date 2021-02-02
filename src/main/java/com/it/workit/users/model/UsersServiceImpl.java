@@ -1,7 +1,11 @@
 package com.it.workit.users.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UsersServiceImpl implements UsersService{
@@ -63,6 +67,33 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public int userkindcheck(String userid) {
 		return usersDao.userkindcheck(userid);
+	}
+
+	@Override
+	public String findId(Map<String, Object> eMailMap) {
+		return usersDao.findId(eMailMap);
+	}
+
+	@Override
+	public int findPwd(Map<String, Object> findPwdMap) {
+		return usersDao.findPwd(findPwdMap); // cnt : 1
+	}
+
+	@Override
+	public int updatePwd(Map<String, Object> tempUser) {
+		return usersDao.updatePwd(tempUser);
+	}
+
+	@Override
+	@Transactional
+	public int updatePwdReal(Map<String, Object> userMap) {
+		int cnt = usersDao.selectUser(userMap);
+		if(cnt>0) {
+			cnt = usersDao.updatePwdReal(userMap);
+		}else {
+			cnt = -1;
+		}
+		return cnt;
 	}
 
 }

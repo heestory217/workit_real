@@ -1,5 +1,7 @@
 package com.it.workit.users.model;
 
+import java.util.Map;
+
 public interface UsersService {
 	//아이디 중복확인시 사용
 	public static final int EXIST_ID=1;  //아이디가 이미 존재하는 경우
@@ -26,5 +28,12 @@ public interface UsersService {
 	public UsersVO selectByUserId(String userId);
 	
 	public int updateUsers(UsersVO vo);
+	
+	//수하 이메일로 아이디 , 비번찾기 , 비번 재설정
+	public String findId(Map<String, Object> eMailMap);
+	public int findPwd(Map<String, Object> findPwdMap);
+	public int updatePwd(Map<String, Object> tempUser);
+	
+	public int updatePwdReal(Map<String, Object> userMap);
 	
 }
