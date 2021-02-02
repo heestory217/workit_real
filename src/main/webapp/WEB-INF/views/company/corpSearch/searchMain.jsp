@@ -81,6 +81,13 @@
   		margin: 5px 5px 0px 0px;
 	}
 	
+	#careerYear{
+	    width: 90%;
+	    height: 40px;
+	    border: 1px solid #e6e6e6;
+	    padding: 10px;
+	}
+	
 	</style>
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section">
@@ -102,12 +109,30 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
                     <div class="filter-widget">
+                        <h4 class="fw-title">경력</h4>
+                        <select id="careerYear" onchange="careerYear(${pagingInfo.currentPage})">
+                        	<option>경력을 선택하세요</option>
+                        	<option value="0">신입</option>
+                        	<option value="1">1년차</option>
+                        	<option value="2">2년차</option>
+                        	<option value="3">3년차</option>
+                        	<option value="4">4년차</option>
+                        	<option value="5">5년차</option>
+                        	<option value="6">6년차</option>
+                        	<option value="7">7년차</option>
+                        	<option value="8">8년차</option>
+                        	<option value="9">9년차</option>
+                        	<option value="10">10년 이상</option>
+                        </select>
+                    </div>
+                    <div class="filter-widget">
                         <h4 class="fw-title">언어</h4>
                         <div class="fw-tags">
 							<form action="<c:url value='/corpSearch.do'/>" name="frmPage" method="post">
-								<input type="hidden" name="currentPage">
-								<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
-								<input type="hidden" name="langNo" value="${param.langNo}">
+								<input type="text" name="currentPage">
+								<input type="text" name="searchKeyword" value="${param.searchKeyword}">
+								<input type="text" name="langNo" value="${param.langNo}">
+								<input type="text" name="career" id="career" value="${param.career}">
 							</form>
 								<c:set var="k" value="0"/>
 	                            <c:forEach var="lang" items="${langlist }">
@@ -170,19 +195,19 @@
 		                                <!-- 언어 리스트 -->
 		                                <div class="product-price">
 							                <c:forEach var="lang" items="${resume.langList}" >
-				                                 ${lang.languageName} 
+				                                ${lang.languageName} 
 											</c:forEach>
 		                                </div>
 		                                <!-- 희망 근무 지역 리스트 -->
 		                                <div class="areaList">
 		                                	<c:forEach var="area" items="${resume.areaList}">
 		                                	<h5 class="wantedArea">${area.areaAdd1} ${area.areaAdd2}</h5>
-		                                	</c:forEach>
+		                 		    	</c:forEach>
 		                                </div>
                                     </div>
                                 </div>
                             </div>
-                            </c:forEach>
+						    </c:forEach>
                         </c:if>
                         </div>
                     </div>
@@ -246,7 +271,15 @@
     	$('input[name=langNo]').val(reSearchLangNoList);
     	$('form[name=frmPage]').submit();
     }
-
+    
+    var year = document.getElementById("careerYear");
+	function careerYear(curPage){
+		 alert('선택된 옵션 value 값=' + year.options[year.selectedIndex].value);
+		 var selectYear = year.options[year.selectedIndex].value
+		 $('input[name=currentPage]').val(curPage);
+		 $('input[name=career]').val(selectYear);
+		 $('form[name=frmPage]').submit();
+	}
     
     ///[2] 페이징처리
 	function pageFunc(curPage){
