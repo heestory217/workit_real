@@ -10,10 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.it.workit.orders.model.OrderDetailResumeVO;
 import com.it.workit.orders.model.OrdersService;
 
 @Controller
@@ -36,20 +34,9 @@ public class HrmController {
 		return "company/HRManagment/purchasedResumes";
 	}
 	
-	@RequestMapping("/ResumeCountUpdate.do")
-	public String ResumeCountUpdate(@ModelAttribute OrderDetailResumeVO vo){
-		logger.info("이력서 열람여부 업데이트");
-		logger.info("OrderDetailResumeVO vo={}", vo);
-		
-		int cnt = ordersService.updateResumeRead(vo);
-		logger.info("이력서 열람! cnt={}", cnt);
-		
-		//이력서 상세 페이지로 리다이렉트 (수정하기)
-		return "redirect:/company/HRManagment/purchasedResumes.do";
-	}
-	
 	@RequestMapping("/positionSuggest.do")
 	public void positionSuggest() {
+		
 	}
 
 }

@@ -73,9 +73,4 @@ public class OrdersDAOMybatis implements OrdersDAO{
 		return sqlSession.selectList(namespace+"selectPurchasedResume", userNo);
 	}
 
-	@Override
-	public int updateResumeRead(OrderDetailResumeVO vo) {
-		return sqlSession.update(namespace+"updateResumeRead", vo);
-	}
-
 }

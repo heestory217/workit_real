@@ -27,7 +27,5 @@ public interface OrdersDAO {
 	
 	//구매이력서 리스트
 	List<Map<String, Object>> selectPurchasedResume(int userNo);
-	//구매 이력서 읽음처리 업데이트
-	int updateResumeRead(OrderDetailResumeVO vo);
 	
 }

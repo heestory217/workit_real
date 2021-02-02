@@ -59,13 +59,6 @@
 		order by ORDER_NO
 	</select>
 	
-	<!-- 구매한 이력서 읽음처리 -->
-	<update id="updateResumeRead" parameterType="orderDetailResumeVO">
-		UPDATE OrderdetailsResumeView
-		SET RESUME_READ=1
-		WHERE ORDER_NO=#{orderNo} and RESUME_NO=#{resumeNo}
-	</update>
-
 	<!-- 개인 마이페이지 결제내역 사용 -->
 <!-- 	<select id="selectIndivPaymentByUserno" parameterType="int" resultType="ordersVo">
 		select a.*, b.PAIDSERVICE_STARTDATE, b.PAIDSERVICE_ENDDATE, c.PAIDSERVICE_NAME

@@ -46,12 +46,10 @@
 			                <div class="cart-table">
 			                    <table>
 			                   		<colgroup>
-										<col style="width:10%;" />
-										<col style="width:30%;" />
-										<col style="width:15%;" />
-										<col style="width:15%;" />
 										<col style="width:20%;" />
-										<col style="width:10%;" />
+										<col style="width:40%;" />
+										<col style="width:20%;" />
+										<col style="width:20%;" />
 									</colgroup>
 			                        <thead>
 			                            <tr>
@@ -59,7 +57,6 @@
 			                                <th scope="col" class="p-name">이력서 제목</th>
 			                                <th scope="col">직무</th>
 			                                <th scope="col">경력</th>
-			                                <th scope="col">열람여부</th>
 			                            </tr>
 			                        </thead>
 			                        <tbody>
@@ -78,7 +75,7 @@
 					                            <tr>
 					                                <td class="p-price" style="padding: 14px 0;">${map['USER_NAME']}</td>
 					                                <td class="cart-title" style="padding: 14px 0;">
-                              	<a href="<c:url value="/company/HRManagment/ResumeCountUpdate.do?orderNo=${map['ORDER_NO']}&resumeNo=${map['RESUME_NO']}"/>">
+                              	<a href="<c:url value="이력서 상세보기.do?resumeNo=${map['RESUME_NO']}"/>">
                               		${map['RESUME_TITLE']}
                            		</a>
 				                                	</td>
@@ -91,14 +88,6 @@
 						                                	${map['USER_EXPERIENCE']}년
 						                                </c:if>
 						                            </td>
-				                                	<td class="p-price" style="padding: 14px 0;">
-					                                 	<c:if test="${map['RESUME_READ']==0}">
-						                                	미열람
-						                                </c:if>
-					                                 	<c:if test="${map['RESUME_READ']==1}">
-						                                	열람
-						                                </c:if>
-				                                	</td>
 					                            </tr>
 			                            </c:forEach>
 			                            </c:if>

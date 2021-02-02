@@ -89,9 +89,4 @@ public class OrdersServiceImpl implements OrdersService{
 		return ordersDao.selectPurchasedResume(userNo);
 	}
 
-	@Override
-	public int updateResumeRead(OrderDetailResumeVO vo) {
-		return ordersDao.updateResumeRead(vo);
-	}
-	
 }

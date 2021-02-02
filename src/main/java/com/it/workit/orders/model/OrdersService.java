@@ -24,5 +24,4 @@ public interface OrdersService {
 	OrdersVO selectOrdersByOrderNo(int orderNo);
 	
 	List<Map<String, Object>> selectPurchasedResume(int userNo);
-	int updateResumeRead(OrderDetailResumeVO vo);
 }
