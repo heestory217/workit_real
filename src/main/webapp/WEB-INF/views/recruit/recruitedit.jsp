@@ -188,7 +188,7 @@ function numberMaxLength(e){
                                     <label for="pass">요구 근무지</label>
                                     <select class="col-lg-7 mystyle" id="arealistNo" name="arealistNo">
                                         <c:forEach items="${arealist}" var="ho">
-	                                    	<option value="${ho.areaNo}">${ho.areaadd1}, ${ho.areaadd2}</option>
+	                                    	<option value="${ho.areaNo}">${ho.areaAdd1}, ${ho.areaAdd2}</option>
 	                                    </c:forEach>
                                     </select>
                             </div>

@@ -1,5 +1,6 @@
 package com.it.workit.orders.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,13 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.it.workit.hrm.model.HrmResumePageVO;
+import com.it.workit.companyMypage.model.CompanypagingVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
 
 @Repository
 public class OrdersDAOMybatis implements OrdersDAO{
 
 	@Autowired SqlSessionTemplate sqlSession;
-	
+
 	private String namespace="config.mybatis.mapper.oracle.orders.";
 
 	@Override
@@ -26,14 +28,14 @@ public class OrdersDAOMybatis implements OrdersDAO{
 	public int ordersGetTotalRecord(IndivpagingVO vo) {
 		return sqlSession.selectOne(namespace+"ordersGetTotalRecord", vo);
 	}
-	
-	
+
+
 	//주문하기
 	@Override
 	public int insertOrderWithCoupon(OrdersVO vo) {
 		return sqlSession.insert(namespace+"insertOrderWithCoupon", vo);
 	}
-	
+
 	@Override
 	public int insertOrder(OrdersVO vo) {
 		return sqlSession.insert(namespace+"insertOrder", vo);
@@ -49,7 +51,7 @@ public class OrdersDAOMybatis implements OrdersDAO{
 	public int insertOrderDetailDelReview(OrderDetailDelRvVO vo) {
 		return sqlSession.insert(namespace+"insertOrderDetailDelReview", vo);
 	}
-	
+
 	//주문완료페이지 - 이력서
 	@Override
 	public List<Map<String, Object>> selectOrderdetailsResumeView(int orderNo) {
@@ -61,7 +63,7 @@ public class OrdersDAOMybatis implements OrdersDAO{
 	public Map<String, Object> selectOrderdetailsDelRVView(int orderNo) {
 		return sqlSession.selectOne(namespace+"selectOrderdetailsDelRVView", orderNo);
 	}
-	
+
 	@Override
 	public OrdersVO selectOrdersByOrderNo(int orderNo) {
 		return sqlSession.selectOne(namespace+"selectOrdersByOrderNo", orderNo);
@@ -76,6 +78,21 @@ public class OrdersDAOMybatis implements OrdersDAO{
 	@Override
 	public int selectTotalResumeRecord(HrmResumePageVO vo) {
 		return sqlSession.selectOne(namespace+"selectTotalResumeRecord", vo);
+	}
+
+	@Override
+	public List<Date> selectorderscall(int userNo) {
+		return sqlSession.selectList(namespace+"selectorderscall", userNo);
+	}
+
+	@Override
+	public List<OrdersVO> selectCompanyPaymentByUserno(CompanypagingVO vo) {
+		return null;//sqlSession.selectList(namespace+"selectCompanyPaymentByUserno",vo);
+	}
+
+	@Override
+	public int ordersGetTotalRecords(CompanypagingVO vo) {
+		return sqlSession.selectOne(namespace+"ordersGetTotalRecords", vo);
 	}
 
 }

@@ -28,17 +28,12 @@
 	<section class="product-shop spad">
 		<div class="container">
 			<div class="row">
-				<div
-					class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+				<div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
 					<div class="filter-widget">
 						<h4 class="fw-title">마이페이지</h4>
 						<ul class="filter-catagories">
 							<li><a href="<c:url value='/companyMypage/companyMypageEdit.do '/>">기업회원정보수정</a></li>
-							<li><a href="<c:url value='/companyMypage/companyPayment.do '/>">포지션제안자목록</a></li>
-							<li><a href="<c:url value='/companyMypage/companyPayment.do '/>">지원제한자 목록</a></li>
 							<li><a href="<c:url value='/companyMypage/companyPayment.do '/>">결제내역</a></li>
-							<li><a href="<c:url value='/companyMypage/companyPayment.do '/>">공고목록-지원자목록</a></li>
-							<li><a href="<c:url value='/companyMypage/companyPayment.do '/>">기업정보</a></li>
 						</ul>
 					</div>
 				</div>

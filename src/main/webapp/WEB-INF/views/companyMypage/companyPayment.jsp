@@ -112,8 +112,7 @@
 				</div>
 </section>
 
-
-<!-- Menu include 한것 닫는 태그 -->
 </div></div></div></section>
+<!-- Menu include 한것 닫는 태그 -->
 
 <%@ include file="../inc/bottom.jsp"%>

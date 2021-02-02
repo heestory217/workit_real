@@ -1,5 +1,6 @@
 package com.it.workit.orders.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.it.workit.hrm.model.HrmResumePageVO;
+import com.it.workit.companyMypage.model.CompanypagingVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
 import com.it.workit.review.model.ReviewDAO;
 import com.it.workit.shoppingCart.model.ShoppingCartDAO;
@@ -36,7 +38,7 @@ public class OrdersServiceImpl implements OrdersService{
 		cnt = cartDao.clearCart(vo.getUserNo());
 		return cnt;
 	}
-	
+
 	@Override
 	@Transactional
 	public int insertOrder(OrdersVO vo) {
@@ -45,7 +47,7 @@ public class OrdersServiceImpl implements OrdersService{
 		cnt = cartDao.clearCart(vo.getUserNo());
 		return cnt;
 	}
-	
+
 	//기업후기 삭제 쿠폰
 	@Override
 	@Transactional
@@ -56,7 +58,7 @@ public class OrdersServiceImpl implements OrdersService{
 		cnt = reDao.updateDeleteCheck(rvVo.getCorpreviewNo());	//결제하면 후기삭제 여부 업데이트
 		return cnt;
 	}
-	
+
 	//기업후기 삭제 쿠폰없음
 	@Override
 	@Transactional
@@ -67,13 +69,13 @@ public class OrdersServiceImpl implements OrdersService{
 		cnt = reDao.updateDeleteCheck(rvVo.getCorpreviewNo());	//결제하면 후기삭제 여부 업데이트
 		return cnt;
 	}
-	
+
 	//주문완료 - 이력서
 	@Override
 	public List<Map<String, Object>> selectOrderdetailsResumeView(int orderNo) {
 		return ordersDao.selectOrderdetailsResumeView(orderNo);
 	}
-	
+
 	//주문완료 - 기업후기
 	@Override
 	public Map<String, Object> selectOrderdetailsDelRVView(int orderNo) {
@@ -93,6 +95,21 @@ public class OrdersServiceImpl implements OrdersService{
 	@Override
 	public int selectTotalResumeRecord(HrmResumePageVO vo) {
 		return ordersDao.selectTotalResumeRecord(vo);
+	}
+
+  @Override
+	public List<Date> selectorderscall(int userNo) {
+		return ordersDao.selectorderscall(userNo);
+	}
+
+	@Override
+	public List<OrdersVO> selectCompanyPaymentByUserno(CompanypagingVO vo) {
+		return ordersDao.selectCompanyPaymentByUserno(vo);
+	}
+
+	@Override
+	public int ordersGetTotalRecords(CompanypagingVO vo) {
+		return ordersDao.ordersGetTotalRecords(vo);
 	}
 
 }
