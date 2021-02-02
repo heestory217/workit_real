@@ -252,4 +252,10 @@ public class UsersController {
 
 		return "redirect:/index.do";
 	}
+	
+	
+	@RequestMapping("/findIdPw.do")
+	public void findIdPw() {
+		logger.info("아이디비번찾기");
+	}
 }

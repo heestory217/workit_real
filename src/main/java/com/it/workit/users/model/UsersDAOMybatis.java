@@ -1,5 +1,7 @@
 package com.it.workit.users.model;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -59,6 +61,11 @@ public class UsersDAOMybatis implements UsersDAO {
 	@Override
 	public int updateUserCorpCheck(int userNo) {
 		return sqlSession.update(namespace+"updateUserCorpCheck", userNo);
+	}
+
+	@Override
+	public String findId(Map<String, Object> eMailMap) {
+		return sqlSession.selectOne(namespace+"findId", eMailMap);
 	}
 
 }

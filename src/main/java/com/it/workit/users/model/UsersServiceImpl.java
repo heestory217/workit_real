@@ -1,5 +1,7 @@
 package com.it.workit.users.model;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +65,11 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public int userkindcheck(String userid) {
 		return usersDao.userkindcheck(userid);
+	}
+
+	@Override
+	public String findId(Map<String, Object> eMailMap) {
+		return usersDao.findId(eMailMap);
 	}
 
 }

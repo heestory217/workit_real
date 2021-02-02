@@ -105,7 +105,7 @@
                                         >
                                         <span class="checkmark" id="save-pass" name="savepass"></span>
                                     </label>
-                                    <a href="#" class="forget-pass">아이디나 비밀번호를 잊으셨나요?</a>
+                                    <a href="<c:url value='/users/findIdPw.do'/>" class="forget-pass">아이디나 비밀번호를 잊으셨나요?</a>
                                 </div>
                             </div>
                                                     <button

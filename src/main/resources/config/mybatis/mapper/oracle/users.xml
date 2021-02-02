@@ -49,5 +49,9 @@
 		set user_corpcheck=2
 		where user_no=#{userNo}
 	</update>
+	
+	<select id="findId" parameterType="hashMap" resultType="String">
+		select user_Id from users where user_email1=#{email1} and user_email2=#{email2}
+	</select>
 
 </mapper>
