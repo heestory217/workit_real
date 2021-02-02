@@ -1,5 +1,8 @@
 package com.it.workit.users.controller;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.it.workit.language.model.LanguageVO;
+import com.it.workit.orders.model.OrdersService;
 import com.it.workit.users.model.UsersService;
 import com.it.workit.users.model.UsersVO;
 
@@ -27,6 +32,7 @@ public class UsersController {
 	=LoggerFactory.getLogger(UsersController.class);
 
 	@Autowired private UsersService usersService;
+	@Autowired private OrdersService ordersService;
 
 	@RequestMapping("/register.do")
 	public String register() {
@@ -211,14 +217,23 @@ public class UsersController {
 
 			  
 			if(vo.getUserCorpcheck()==1){
+				List<Date> seervcheck=ordersService.selectorderscall(vo.getUserNo());
+				logger.info("로그인 처리 결과, 회원권 구매결과={}", seervcheck);
+				logger.info("갯수 {}", seervcheck.size());
+				int t =seervcheck.size();
+				Date d = new Date();
 				
+				if(t>0) {
+					for(int i=0; i<t; i++) {
+						int compare=d.compareTo(seervcheck.get(i));
+						if(compare<0) {
+							logger.info("이용권존재함");
+							session.setAttribute("seervcheck", seervcheck.get(i));
+							break;
+						}
+					}
+				}
 			}
-			
-			/*
-			  2.일반회원시 주문결제테이블 찾기
-			  3.주문번호별 구매한 리뷰열람권 목록 가져오기
-			  4.존재하는 열람권중에서 시작일 종료일이 현재에 걸쳐진 열람권 있으면 종료일 보내기
-			 */
 			
 			
 			avx[1]=vo.getUserName();

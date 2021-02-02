@@ -97,8 +97,15 @@
 		where user_no=#{userNo}
 	</select>
 	
-	<select id="orderscall" parameterType="int" resultType="int">
-		select ORDER_NO from orders
+	<!-- 사용자번호로 사용자가 주문한 후기열람권결제내역 불러오기 -->
+	<select id="selectorderscall" parameterType="int" resultType="Date">
+		select PAIDSERVICE_ENDDATE from ORDERDETAILSEERV where exists (select order_no from orders where user_no=#{userNo})
+	</select>
+	
+
+	
+	<select id="ordersGetTotalRecords" parameterType="CompanypagingVO" resultType="int">
+		select count(*) from orders
 		where user_no=#{userNo}
 	</select>
 </mapper>

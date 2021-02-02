@@ -78,7 +78,7 @@
                 <nav class="nav-menu mobile-menu">
                     <ul>
                         <li><a href="<c:url value='corpSearch.do'/>">이력서 탐색</a></li>
-                        <li><a href="#">채용 공고 등록</a></li>
+                        <li><a href="<c:url value='/recruit/recruitwrite.do'/>">채용 공고 등록</a></li>
                         <li><a href="#">기업 관리</a>
                             <ul class="dropdown">
                                 <li><a href="<c:url value='/company/corp/corpDetail.do?corpNo=${corpNo}'/>">기업 정보</a></li>

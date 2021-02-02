@@ -1,5 +1,6 @@
 package com.it.workit.orders.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.it.workit.companyMypage.model.CompanypagingVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
 
 @Repository
@@ -71,6 +73,21 @@ public class OrdersDAOMybatis implements OrdersDAO{
 	@Override
 	public List<Integer> selectPurchasedResumeNo(int userNo) {
 		return sqlSession.selectList(namespace+"selectPurchasedResumeNo", userNo);
+	}
+
+	@Override
+	public List<Date> selectorderscall(int userNo) {
+		return sqlSession.selectList(namespace+"selectorderscall", userNo);
+	}
+
+	@Override
+	public List<OrdersVO> selectCompanyPaymentByUserno(CompanypagingVO vo) {
+		return null;//sqlSession.selectList(namespace+"selectCompanyPaymentByUserno",vo);
+	}
+
+	@Override
+	public int ordersGetTotalRecords(CompanypagingVO vo) {
+		return sqlSession.selectOne(namespace+"ordersGetTotalRecords", vo);
 	}
 
 }
