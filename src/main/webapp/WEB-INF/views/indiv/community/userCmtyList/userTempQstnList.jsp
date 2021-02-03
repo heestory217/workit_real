@@ -4,14 +4,14 @@
 
 <!--아직 등록한 질문이 없는 경우-->
 <p style="font-size: 18px;">
-	질문 <b id="myContCnt">${qstnCnt}</b>건
+	임시저장 <b id="myContCnt">${tempCnt}</b>건
 </p>
 
 <c:if test="${empty list}">
 	<article id="noneQuestBox">
 		<div class="noneBox">
 			<i class="fa fa-commenting-o"></i>
-			<p>아직 등록한 질문이 없습니다.</p>
+			<p>임시저장한 질문이 없습니다.</p>
 		</div>
 	</article>
 </c:if>
@@ -26,12 +26,9 @@
 						<div>
 							<a
 								href="<c:url value
-='/indiv/community/cntUpdate.do?qstnNo=${map["QUESTION_NO"]}&userNo=${map["USER_NO"] }'/>"
+='/indiv/community/qstnEdit.do?qstnNo=${map["QUESTION_NO"]}&userNo=${map["USER_NO"] }'/>"
 								class="contentArea">
 								<dl>
-								
-									<!-- 직무 -->
-									<dd class="workkind">#${map["WORKKIND_NAME"] }</dd>
 									<!-- 제목 -->
 									<dt class="qtTitle">
 										<i class="fa fa-quora"></i><span>${map['QUESTION_TITLE']}</span>
@@ -39,23 +36,25 @@
 
 									<!-- 내용 -->
 									<dd class="qtContent">
-										<c:if test="${fn:length(map['questionAbout'])>=50}">
-											${fn:substring(map['questionAbout'],0,50) } ...
+										<c:if test="${fn:length(map['questionAbout'])>=150}">
+											${fn:substring(map['questionAbout'],0,150) } ...
 										</c:if>
-										<c:if test="${fn:length(map['questionAbout'])<50}">						
+										<c:if test="${fn:length(map['questionAbout'])<150}">						
 											${map['questionAbout'] }
 										</c:if>
 									</dd>
 
 									<!-- 답변, 조회수, 작성시간 -->
 									<dd class="cellBx">
-										<span class="reply">답변<span class="replyNum">
-												0</span>&nbsp;&nbsp;|&nbsp;
-										</span> <span class="readCnt">조회
-											${map['QUESTION_VIEW']}&nbsp;&nbsp;|&nbsp;</span> <span
-											class="regTime"> <fmt:formatDate
-												value="${map['QUESTION_DATE']}" pattern="yyyy-MM-dd" />
+										<span class="regTime">저장일 : <fmt:formatDate
+											value="${map['QUESTION_DATE']}" pattern="yyyy-MM-dd" />
 										</span>
+										
+										<c:if test="${!empty map['WORKKIND_NAME']}">
+										<span>&nbsp;&nbsp;|&nbsp; 분야 : <span class="workkind">#${map["WORKKIND_NAME"] }</span>
+											<!-- 직무 -->
+										</span>
+										</c:if>
 									</dd>
 								</dl>
 							</a>

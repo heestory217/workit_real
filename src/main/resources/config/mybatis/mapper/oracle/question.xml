@@ -11,7 +11,7 @@
 	<select id="selectUserQstnAll" parameterType="int" resultType="HashMap"
 		resultMap="selectQstnAbout">
 		select * from userQstnView 
-		where USER_NO=#{userNo} 
+		where USER_NO=#{userNo}
 		order by QUESTION_NO desc
 	</select>
 
@@ -67,7 +67,7 @@
 			    (
 			    	<if test="userNo!='' and userNo!=null">
 				        select * from userQstnView 
-						where USER_NO=#{userNo} and QUESTION_IMMSAVE=2
+						where USER_NO=#{userNo} and QUESTION_IMMSAVE=#{questionImmsave}
 			    	</if>
 			    	<if test="userNo=='' or userNo==null">
 			    		select * from userQstnView 
@@ -85,9 +85,13 @@
 	<!-- 질문 개수 -->
 	<select id="getTotalRecord" parameterType="qstnPagingVo"
 		resultType="int">
-		select count(*) from QUESTION
+		<if test="userNo=='' or userNo==null">
+			select count(*) from QUESTION
+			where QUESTION_IMMSAVE=2
+		</if>
 		<if test="userNo!='' and userNo!=null">
-			where USER_NO=#{userNo} 
+			select count(*) from QUESTION
+			where USER_NO=#{userNo} and QUESTION_IMMSAVE=#{questionImmsave}
 		</if>
 	</select>
 	
@@ -102,6 +106,78 @@
 		set QUESTION_VIEW=QUESTION_VIEW+1
 		where QUESTION_NO=#{questionNo}
 	</update>
+	
+	<!-- 인기 있는 질문(조회수 기준) -->
+	<select id="selectPopularQstn" parameterType="int" resultType="map">
+		select *
+		from
+		(
+		select * from userQstnView 
+		where workkind_no in (select workkind_no from users where user_no=#{userNo})
+		and question_immsave=2
+		order by question_view desc
+		)
+		<![CDATA[
+		where rownum <=3
+		]]>
+	</select>
+	
+	<!-- 답변하기 질문 조회(최신순) -->
+	<resultMap type="HashMap" id="qstnAbout">
+		<result property="questionAbout" column="QUESTION_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	<select id="selectQstnByWorkkind" parameterType="qstnPagingVo" resultType="HashMap"
+		resultMap="qstnAbout">
+		select *
+			from
+			(
+			    select A.*, rownum as RNUM
+			    from
+			    (
+				        select * from userQstnView 
+						where QUESTION_IMMSAVE=2
+						and workkind_no in (select workkind_no from users where user_no=#{userNo})
+						order by QUESTION_DATE desc
+			    )A
+			)
+			<![CDATA[
+			where RNUM > #{firstRecordIndex} 
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+			]]>
+	</select>
+	
+
+	<!-- 답변하기 질문 조회(추천순) -->
+	<resultMap type="HashMap" id="qstnText">
+		<result property="questionAbout" column="QUESTION_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	<select id="selectQstnByRecmd" parameterType="qstnPagingVo" resultType="HashMap"
+		resultMap="qstnText">
+		select *
+			from
+			(
+			    select A.*, rownum as RNUM
+			    from
+			    (
+				        select * from userQstnView 
+						where QUESTION_IMMSAVE=2
+						and workkind_no in (select workkind_no from users where user_no=#{userNo})
+						order by QUESTION_VIEW desc
+			    )A
+			)
+			<![CDATA[
+			where RNUM > #{firstRecordIndex} 
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+			]]>
+	</select>
+		
+	<!-- 답변하기 게시판 질문 개수 -->
+	<select id="getTotalRecordByWorkkind" parameterType="qstnPagingVo"
+		resultType="int">
+			select count(*) from userQstnView 
+			where QUESTION_IMMSAVE=2
+			and workkind_no in (select workkind_no from users where user_no=#{userNo})
+	</select>
 </mapper>
 
 

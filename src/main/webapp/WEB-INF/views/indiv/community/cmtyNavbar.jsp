@@ -89,9 +89,40 @@
 		color:#4c50bb;
 		font-weight:600;
 	}
+	
+	.fa-question{
+        font-size: 9px;
+	    border: 0.8px solid gray;
+	    color: #a7a7a7;
+	    padding: 2px;
+	    position: relative;
+	    cursor: pointer;
+	    float: left;
+	    margin-top: 13px;
+	}
+	
+	.toggleBx{
+		border: 0.8px solid gray;
+	    width: 286px;
+	    font-size: 13px;
+	    background: #f4f3ff;
+	    padding: 6px;
+	    position: absolute;
+ 	    margin-left: 60px;
+	}
+	
+	.answerBoard{
+	    float: left;
+	    margin-right: 0px;
+	    padding-right: 5px;
+	}
 </style>
 <script type="text/javascript">
 	$(function(){
+			$('.toggleBx').hide();
+		$('.fa-question').click(function(){
+			$('.toggleBx').toggle();
+		});
 	});
 </script>
 <!-- 커뮤니티 게시판, 사이드 메뉴 바 -->
@@ -154,8 +185,15 @@
 					<li class="sideNav"><a class="nav-link allQstn" href
 				="<c:url value='/indiv/community/qstnList.do'/>">
 						전체 질문</a><hr></li>
-					<li class="sideNav"><a class="nav-link" href="#">답변하기</a><hr></li>
+					<li class="sideNav"><div><a class="nav-link answerBoard" href
+				="<c:url value='/indiv/community/answerList.do?type=1'/>">
+						답변하기</a><i class="fa fa-question"></i></div></li>
 				</ul>
+				<div class="toggleBx">
+					<span>
+					답변하기 게시판은 회원 가입시 선택하신<br>직무를 기준으로 질문이 조회됩니다. 
+					</span>
+				</div>
 			</div>
 		</div>
 </aside>

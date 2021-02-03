@@ -2,10 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../../inc/top.jsp" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+
 <style type="text/css">
 	.divCmty{
 		width: 1140px;
@@ -65,7 +62,6 @@
 	#moreQuestBtn{
 		width:148px;
 		height:25px;
-		padding:3px;
 		margin:5px 0 5px 0;
 		padding-left:5px;
 		border:1px solid white;
@@ -81,7 +77,8 @@
 	}
 	
 	.first-card{
-		background-color: #4c50bb;
+		/* background-color: #4c50bb; */
+		background:linear-gradient(45deg, #8965f9, #656AFA, #787bdc, #9765f9);
 		color:white;
 	}
 	 
@@ -160,24 +157,18 @@
 		height:100px;
 		text-align:center;
 	    padding: 35px 0;
+		clear:both;
 	}
 	
 	.questBoxWrap:hover{
 		background-color: #f5f7ff;;
 	}
 	
-	.paging{
-		clear:both;
-	}
-	
 	.cellBx > span{
 		float:left;
-	}
-
-	.cellBx > span{
 		font-size:14px;	
 	}
-	
+
 	.userQstn{
 		font-weight: bold;
 		color:#4c50bb;
@@ -216,6 +207,25 @@
 		margin-right: 0;
 	}
 	
+	.workkind{
+		margin: 0 0 18px 0;
+	    font-size: 13px;
+	    background-color: #c0c0c059;
+	    width: max-content;
+	}
+	
+	.card-workkind{
+		margin-bottom:0px;
+	    font-size: 13px;
+	    width: max-content;
+	    color:#adadad;
+	}
+	
+	.fa-crown{
+		color:#ffda24;
+		margin-right:5px;
+	}
+	
 </style>
 <script type="text/javascript">
 	function pageFunc(curPage){
@@ -224,9 +234,6 @@
 	}
 </script>
 
-<title>커뮤니티게시판</title>
-</head>
-<body>
 <div class="divCmty">
 <!-- asdie : 사이드 메뉴바 -->
 <c:import url="/indiv/community/cmtyNavbar.do">
@@ -275,13 +282,22 @@
 							<a href="<c:url value='/indiv/community/cntUpdate.do?qstnNo=${map["QUESTION_NO"]}'/>"
 								class="contentArea">
 								<dl>
+								<!-- 직무 -->
+								<dd class="workkind">#${map["WORKKIND_NAME"] }</dd>
 								<!-- 제목 -->
 								<dt class="qtTitle">
 									<i class="fa fa-quora"></i><span>${map['QUESTION_TITLE']}</span>
 								</dt>
 
 								<!-- 내용 -->
-								<dd class="qtContent">${map['questionAbout']}</dd>
+								<dd class="qtContent">
+									<c:if test="${fn:length(map['questionAbout'])>=50}">
+										${fn:substring(map['questionAbout'],0,50) } ...
+									</c:if>
+									<c:if test="${fn:length(map['questionAbout'])<50}">						
+										${map['questionAbout'] }
+									</c:if>
+								</dd>
 
 								<!-- 답변, 조회수, 작성시간 -->
 								<dd class="cellBx">
@@ -334,56 +350,63 @@
 		</article>
 
 
+		<!-- 자주 묻는 질문 -->
 		<!-- 자주 묻는 질문  -->
 		<article id="popularQuest">
 		<div class="row">
 		  <div class="col-sm-3 popQstnCard">
 		    <div class="card first-card">
 		      <div class="card-body">
-		        <h5 class="card-title" style="color:white">인기질문</h5>
-		        <p class="card-text" style="color:white">지금 가장 관심받는 커리어 질문은?</p>
-		        <span class="card-text" style="color:white">yyyy-mm-dd일 기준</span>
-		        <div id="moreQuestBtn"><a href="#">인기질문 더보기</a></div>
+		        <h5 class="card-title" style="color:white;height:15%">
+		        	<i class="fas fa-crown"></i>인기질문
+		        </h5>
+		        <p class="card-text" style="color:#ffffffc7;height:25%;font-size:17px">
+		        	지금 가장 관심받는 커리어 질문은?</p>
+		        <p class="card-text" style="color:#ffffff99;height:20%;font-size:13px">
+		        <jsp:useBean id="now" class="java.util.Date" />
+					<fmt:formatDate value="${now}" pattern="yyyy.MM.dd" var="today" />
+					<c:out value="${today}"/>기준</p>
+		        <div id="moreQuestBtn" style="height:10%">
+		        <a href="<c:url value='/indiv/community/answerList.do?type=2'/>">
+		    	    인기질문 더보기</a></div>
 		      </div>
 		    </div>
 		  </div>
-		  <!-- 두번째 -->
-		  <div class="col-sm-3 popQstnCard">
-		    <div class="card">
-		      <div class="card-body">
-		        <p class="card-title">@silver</p>
-		        <p class="card-text">이력서 자기소개서 작성 팁이 궁금합니다. </p>
-		      </div>
-		    </div>
-		  </div>
-		  <!-- 세번째 -->
-		  <div class="col-sm-3 popQstnCard">
-		    <div class="card">
-		      <div class="card-body">
-		        <p class="card-title">@hong</p>
-		        <p class="card-text">현재 직무에 대해서 필요한 스펙이 있을까요?</p>
-		      </div>
-		    </div>
-		  </div>
-		  <!-- 네번째 -->
-		  <div class="col-sm-3 popQstnCard">
-		    <div class="card">
-		      <div class="card-body">
-		        <p class="card-title">@gildong</p>
-		        <p class="card-text">이력서 열람 후 보통 언제 연락이 오나요 ?</p>
-		      </div>
-		    </div>
-		  </div>
-		</div>	
-		</article>
+		  <!-- 인기 있는 질문 반복 -->
+		  	<c:forEach var="map" items="${popQstnList }" varStatus="status">
+			  <div class="col-sm-3 popQstnCard">
+		  	  <c:set var="cnt" value="${status.count}"/>
+			  <c:if test="${cnt==1 }">
+			    <div class="card" style="border:1px solid #5b9dff;">
+			  </c:if>
+			  <c:if test="${cnt==2 }">
+			    <div class="card" style="border:1px solid #934fff;">
+			  </c:if>
+			  <c:if test="${cnt==3 }">
+			    <div class="card" style="border:1px solid #b0dc75;">
+			  </c:if>
+			      <div class="card-body">
+			      	<div style="height:20%">
+			        	<p class="card-title" style="font-size: 18px;color:#4C4747">@${map['USER_ID'] }</p>
+			        </div>
+			        <div style="height:60%">
+			        	<p class="card-text" style="font-size:20px;color:#4C4747">${map['QUESTION_TITLE'] }</p>
+			        </div>
+			        <div style="height:20%">
+			        	<p class="card-workkind"> #${map['WORKKIND_NAME'] } </p>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+		  	</c:forEach>
+		  	</div>
+		  	</article>
+		
 		</div>
 	</div>
 </section>
 	<div style="clear:both;"></div>
 </div>
-
-</body>
-</html>
 
 
 <%@ include file="../../inc/bottom.jsp" %>
