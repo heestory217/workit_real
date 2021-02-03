@@ -32,7 +32,7 @@
 			});//ajax
 		});//change
 		
-		$('#languageBtn').click(function(){
+		$('#ExploreBtn').click(function(){
 			if($('#areaAdd1 option:selected').val()=="X"){
 				alert('지역을 선택하세요.');
 				$('#areaAdd1').focus();
@@ -160,7 +160,7 @@
 			</c:if>
 		>10년이상</option>
 	</select>
-	<input type="submit" value="검색" id="languageBtn">
+	<input type="submit" value="검색" id="ExploreBtn">
 	</form>
 	<br><br><br>
 	<div class="container">
