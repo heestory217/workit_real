@@ -329,7 +329,7 @@ function pageFunc(curPage){
 				</div>
 			</c:if>
 
-			<!-- 답변 목록 -->
+			<!-- 임시저장 목록 -->
 			<c:if test="${param.type==3 }">
 				<div>
 					<%@include file="userCmtyList/userTempQstnList.jsp" %>

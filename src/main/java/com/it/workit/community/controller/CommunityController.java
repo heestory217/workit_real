@@ -247,10 +247,16 @@ public class CommunityController {
 		}else if(type==2) {
 			list=qstnService.selectQstnByRecmd(vo);
 			logger.info("답변하기 질문 조회-추천순, list.size={}", list.size());
+		}else if(type==3) {
+			list=qstnService.selectQstnByCmntCnt(vo);
+			logger.info("답변하기 질문 조회-답변적은순, list.size={}", list.size());			
 		}
 		
+		List<Map<String, Object>> popQstnList=qstnService.selectPopularAllQstn();
+		logger.info("답변하기 - 인기 있는 질문 조회 결과, popQstnList.size={}", popQstnList.size());
 		model.addAttribute("qstnListByWorkkind", list);
 		model.addAttribute("pagingInfo", pagingInfo);
+		model.addAttribute("popQstnList", popQstnList);
 		
 		return "indiv/community/answerList";
 	}

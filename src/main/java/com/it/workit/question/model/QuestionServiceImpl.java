@@ -67,7 +67,7 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionDao.selectUserWorkkind(userNo);
 	}
 	
-	//인기 있는 질문 조회
+	//인기 있는 질문 조회(나의질문)
 	@Override
 	public List<Map<String, Object>> selectPopularQstn(int userNo) {
 		return questionDao.selectPopularQstn(userNo);
@@ -89,6 +89,24 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public List<Map<String, Object>> selectQstnByRecmd(QstnPagingVO vo) {
 		return questionDao.selectQstnByRecmd(vo);
+	}
+
+	//답변하기 게시판 질문 조회(답변적은순)
+	@Override
+	public List<Map<String, Object>> selectQstnByCmntCnt(QstnPagingVO vo) {
+		return questionDao.selectQstnByCmntCnt(vo);
+	}
+	
+	//질문번호에 해당하는 답변수
+	@Override
+	public int getTotalCmtCntByQstnNo(int qstnNo) {
+		return questionDao.getTotalCmtCntByQstnNo(qstnNo);
+	}
+	
+	//인기 있는 질문 전체 조회
+	@Override
+	public List<Map<String, Object>> selectPopularAllQstn() {
+		return questionDao.selectPopularAllQstn();
 	}
 
 

@@ -121,6 +121,20 @@
 		where rownum <=3
 		]]>
 	</select>
+
+	<!-- 인기 있는 질문(조회수 기준) -->
+	<select id="selectPopularAllQstn" resultType="map">
+		select *
+		from
+		(
+		select * from userQstnView 
+		where question_immsave=2
+		order by question_view desc
+		)
+		<![CDATA[
+		where rownum <=3
+		]]>
+	</select>
 	
 	<!-- 답변하기 질문 조회(최신순) -->
 	<resultMap type="HashMap" id="qstnAbout">
@@ -162,7 +176,7 @@
 				        select * from userQstnView 
 						where QUESTION_IMMSAVE=2
 						and workkind_no in (select workkind_no from users where user_no=#{userNo})
-						order by QUESTION_VIEW desc
+						order by QUESTION_VIEW desc, question_date desc
 			    )A
 			)
 			<![CDATA[
@@ -170,6 +184,30 @@
 			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 			]]>
 	</select>
+	
+	<!-- 답변하기 질문 조회(답변적은 순) -->
+	<select id="selectQstnByCmntCnt" parameterType="qstnPagingVo" resultType="HashMap"
+		resultMap="qstnText">
+		select *
+			from
+			(
+			    select A.*, rownum as RNUM
+			    from
+			    (
+						select q.*, 
+						(select count(*) from commentrespond c 
+						where c.QUESTION_NO=q.question_no) as commentCnt 
+						from userQstnView q where workkind_no 
+						in (select workkind_no from users where user_no=5)
+						order by commentCnt asc, question_date desc
+			    )A
+			)
+			<![CDATA[
+			where RNUM > #{firstRecordIndex} 
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+			]]>
+	</select>
+	
 		
 	<!-- 답변하기 게시판 질문 개수 -->
 	<select id="getTotalRecordByWorkkind" parameterType="qstnPagingVo"
@@ -178,6 +216,7 @@
 			where QUESTION_IMMSAVE=2
 			and workkind_no in (select workkind_no from users where user_no=#{userNo})
 	</select>
+	
 </mapper>
 
 

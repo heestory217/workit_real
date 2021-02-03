@@ -350,60 +350,60 @@
 		</article>
 
 
-		<!-- 자주 묻는 질문 -->
 		<!-- 자주 묻는 질문  -->
 		<article id="popularQuest">
-		<div class="row">
-		  <div class="col-sm-3 popQstnCard">
-		    <div class="card first-card">
-		      <div class="card-body">
-		        <h5 class="card-title" style="color:white;height:15%">
-		        	<i class="fas fa-crown"></i>인기질문
-		        </h5>
-		        <p class="card-text" style="color:#ffffffc7;height:25%;font-size:17px">
-		        	지금 가장 관심받는 커리어 질문은?</p>
-		        <p class="card-text" style="color:#ffffff99;height:20%;font-size:13px">
-		        <jsp:useBean id="now" class="java.util.Date" />
-					<fmt:formatDate value="${now}" pattern="yyyy.MM.dd" var="today" />
-					<c:out value="${today}"/>기준</p>
-		        <div id="moreQuestBtn" style="height:10%">
-		        <a href="<c:url value='/indiv/community/answerList.do?type=2'/>">
-		    	    인기질문 더보기</a></div>
-		      </div>
-		    </div>
-		  </div>
-		  <!-- 인기 있는 질문 반복 -->
-		  	<c:forEach var="map" items="${popQstnList }" varStatus="status">
+			<div class="row">
 			  <div class="col-sm-3 popQstnCard">
-		  	  <c:set var="cnt" value="${status.count}"/>
-			  <c:if test="${cnt==1 }">
-			    <div class="card" style="border:1px solid #5b9dff;">
-			  </c:if>
-			  <c:if test="${cnt==2 }">
-			    <div class="card" style="border:1px solid #934fff;">
-			  </c:if>
-			  <c:if test="${cnt==3 }">
-			    <div class="card" style="border:1px solid #b0dc75;">
-			  </c:if>
+			    <div class="card first-card">
 			      <div class="card-body">
-			      	<div style="height:20%">
-			        	<p class="card-title" style="font-size: 18px;color:#4C4747">@${map['USER_ID'] }</p>
-			        </div>
-			        <div style="height:60%">
-			        	<p class="card-text" style="font-size:20px;color:#4C4747">${map['QUESTION_TITLE'] }</p>
-			        </div>
-			        <div style="height:20%">
-			        	<p class="card-workkind"> #${map['WORKKIND_NAME'] } </p>
-			        </div>
+			        <h5 class="card-title" style="color:white;height:15%">
+			        	<i class="fas fa-crown"></i>인기질문
+			        </h5>
+			        <p class="card-text" style="color:#ffffffc7;height:25%;font-size:17px">
+			        	지금 가장 관심받는 커리어 질문은?</p>
+			        <p class="card-text" style="color:#ffffff99;height:20%;font-size:13px">
+			        <jsp:useBean id="now" class="java.util.Date" />
+						<fmt:formatDate value="${now}" pattern="yyyy.MM.dd" var="today" />
+						<c:out value="${today}"/>기준</p>
+			        <div id="moreQuestBtn" style="height:10%">
+			        <a href="<c:url value='/indiv/community/answerList.do?type=2'/>">
+			    	    인기질문 더보기</a></div>
 			      </div>
 			    </div>
 			  </div>
-		  	</c:forEach>
+			  <!-- 인기 있는 질문 반복 -->
+			  	<c:forEach var="map" items="${popQstnList }" varStatus="status">
+				  <div class="col-sm-3 popQstnCard">
+			  	  <c:set var="cnt" value="${status.count}"/>
+				  <c:if test="${cnt==1 }">
+				    <div class="card" style="border:1px solid #5b9dff;">
+				  </c:if>
+				  <c:if test="${cnt==2 }">
+				    <div class="card" style="border:1px solid #934fff;">
+				  </c:if>
+				  <c:if test="${cnt==3 }">
+				    <div class="card" style="border:1px solid #b0dc75;">
+				  </c:if>
+				      <div class="card-body">
+				      <a href="<c:url value='/indiv/community/cntUpdate.do?qstnNo=${map["QUESTION_NO"] }'/>">
+				      	<div style="height:20%">
+				        	<p class="card-title" style="font-size: 18px;color:#4C4747">@${map['USER_ID'] }</p>
+				        </div>
+				        <div style="height:60%">
+				        	<p class="card-text" style="font-size:20px;color:#4C4747">${map['QUESTION_TITLE'] }</p>
+				        </div>
+				        <div style="height:20%">
+				        	<p class="card-workkind"> #${map['WORKKIND_NAME'] } </p>
+				        </div>
+				        </a>
+				      </div>
+				    </div>
+				  </div>
+		 	 	</c:forEach>
 		  	</div>
-		  	</article>
-		
-		</div>
-	</div>
+	  	</article>
+	  	</div>
+	</div>	
 </section>
 	<div style="clear:both;"></div>
 </div>

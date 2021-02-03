@@ -70,7 +70,7 @@ public class QuestionDAOMybatis implements QuestionDAO{
 		return sqlSession.selectOne(namespace+"selectUserWorkkind",userNo);
 	}
 	
-	//인기 있는 질문 조회
+	//인기 있는 질문 조회(나의질문 게시판)
 	@Override
 	public List<Map<String, Object>> selectPopularQstn(int userNo) {
 		return sqlSession.selectList(namespace+"selectPopularQstn",userNo);
@@ -92,6 +92,24 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	@Override
 	public List<Map<String, Object>> selectQstnByRecmd(QstnPagingVO vo) {
 		return sqlSession.selectList(namespace+"selectQstnByRecmd", vo);
+	}
+
+	//답변하기 게시판 질문 조회(답변적은순)
+	@Override
+	public List<Map<String, Object>> selectQstnByCmntCnt(QstnPagingVO vo) {
+		return sqlSession.selectList(namespace+"selectQstnByCmntCnt", vo);
+	}
+	
+	//질문번호에 해당하는 답변수
+	@Override
+	public int getTotalCmtCntByQstnNo(int qstnNo) {
+		return sqlSession.selectOne(namespace+"getTotalCmtCntByQstnNo", qstnNo);
+	}
+
+	//인기 있는 질문 전체조회
+	@Override
+	public List<Map<String, Object>> selectPopularAllQstn() {
+		return sqlSession.selectList(namespace+"selectPopularAllQstn");
 	}
 	
 	

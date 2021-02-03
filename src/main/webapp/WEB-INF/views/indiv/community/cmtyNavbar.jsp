@@ -92,7 +92,7 @@
 	
 	.fa-question{
         font-size: 9px;
-	    border: 0.8px solid gray;
+	    border: 0.8px solid #bdbdbd;
 	    color: #a7a7a7;
 	    padding: 2px;
 	    position: relative;
@@ -102,13 +102,13 @@
 	}
 	
 	.toggleBx{
-		border: 0.8px solid gray;
-	    width: 286px;
+	    border: 0.8px solid #bdbdbd;
+	    width: 255px;
 	    font-size: 13px;
 	    background: #f4f3ff;
-	    padding: 6px;
+	    padding: 6px 0 6px 9px;
 	    position: absolute;
- 	    margin-left: 60px;
+	    margin-left: 60px;
 	}
 	
 	.answerBoard{
@@ -185,9 +185,18 @@
 					<li class="sideNav"><a class="nav-link allQstn" href
 				="<c:url value='/indiv/community/qstnList.do'/>">
 						전체 질문</a><hr></li>
-					<li class="sideNav"><div><a class="nav-link answerBoard" href
+					<li class="sideNav">
+					
+					<c:if test="${empty sessionScope.userNo }">
+					<div><a class="nav-link answerBoard" href
+				="<c:url value='/users/login.do'/>">
+						답변하기</a><i class="fa fa-question"></i></div></c:if>
+					<c:if test="${!empty sessionScope.userNo }">
+					<div><a class="nav-link answerBoard" href
 				="<c:url value='/indiv/community/answerList.do?type=1'/>">
-						답변하기</a><i class="fa fa-question"></i></div></li>
+						답변하기</a><i class="fa fa-question"></i></div></c:if>
+						
+					</li>
 				</ul>
 				<div class="toggleBx">
 					<span>

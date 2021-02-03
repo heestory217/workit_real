@@ -316,6 +316,7 @@
 			if(!confirm('질문을 임시저장 하시겠습니까?')){
 				return false;
 			}
+			/* 임시저장 update */
 		});
 
 		
