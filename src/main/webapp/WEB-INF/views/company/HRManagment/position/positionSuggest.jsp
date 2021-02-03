@@ -31,9 +31,15 @@
 <div class="section-title">
 	<c:if test="${empty param.type}">
 		<h2>포지션 제안</h2>
+		<h6 style="margin-top:15px;">제안 상세내용을 확인하려면 
+			<span style="color: #4C50BB;">제목</span>을 클릭하세요.
+		</h6>
 	</c:if>
 	<c:if test="${!empty param.type}">
 		<h2>양식함</h2>
+		<h6 style="margin-top:15px;">양식 내용 상세 확인 및 수정은
+			<span style="color: #4C50BB;">제목</span>을 클릭하세요.
+		</h6>
 	</c:if>
 </div>
 <!-- 제목 끝 -->
@@ -57,9 +63,9 @@
 			<c:if test="${!empty param.type}">
 				<col style="width:10%;" />
 				<col style="width:30%;" />
-				<col style="width:30%;" />
-				<col style="width:15%;" />
-				<col style="width:15%;" />	
+				<col style="width:20%;" />
+				<col style="width:20%;" />
+				<col style="width:20%;" />	
 			</c:if>	
 		</colgroup>
 		<thead>
@@ -75,9 +81,9 @@
 				</c:if>
 				<c:if test="${!empty param.type}">
 					<th class="p-name">제목</th>
-					<th class="p-name">내용</th>
 					<th>포지션</th>
 					<th>연봉</th>
+					<th>작성날짜</th>
 				</c:if>
 			</tr>
 		</thead>
@@ -106,10 +112,10 @@
 							<td>
 								<a href="<c:url value="/company/HRManagment/positionDetail.do?positionsuggestNo=${map['POSITIONSUGGEST_NO']}"/>">
 									<!-- 제목이 긴 경우 일부만 보여주기 -->
-									<c:if test="${fn:length(map['POSITIONSUGGEST_TITLE'])>=30}">
-										${fn:substring(map['POSITIONSUGGEST_TITLE'], 0,30) } ...
+									<c:if test="${fn:length(map['POSITIONSUGGEST_TITLE'])>=10}">
+										${fn:substring(map['POSITIONSUGGEST_TITLE'],0,10) } ...
 									</c:if>
-									<c:if test="${fn:length(map['POSITIONSUGGEST_TITLE'])<30}">						
+									<c:if test="${fn:length(map['POSITIONSUGGEST_TITLE'])<10}">						
 										${map['POSITIONSUGGEST_TITLE']}
 									</c:if>
 								</a>
@@ -137,11 +143,9 @@
 									</c:if>
 								</a>
 							</td>
-							<td style="text-align: left;">
-								내용 clob 오류
-							</td>
 							<td>${map['POSITIONSUGGEST_POSITION']}</td>
 							<td>${map['POSITIONSUGGEST_PRICE']}</td>
+							<td><fmt:formatDate value="${map['POSITIONSUGGEST_REGDATE']}" pattern="yyyy-MM-dd" /></td>
 						</c:if>
 					</tr>
 					<c:set var="k" value="${k+1}"/>

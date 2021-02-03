@@ -35,25 +35,13 @@ $(document).ready(function() {
 			$('.error:eq(3)').html('연봉을 입력하세요');
 			$('#positionsuggestPrice').focus();
 			event.preventDefault();
-		}else if($('#positionsuggestContents').val().length<1){
-			$('.error:eq(4)').html('내용을 입력하세요');
-			$('#positionsuggestContents').focus();
+		}else if($('#positionsuggestContents').val().length<1) {
+			write_go();
 			event.preventDefault();
 		}else if($('.error:eq(0)').html().length>1){
 			event.preventDefault();
 		}
 	});//submit
-	
-	$('#positionsuggestTitle').keyup(function(){
-		if($(this).val().length<1){
-			$('.error:eq(1)').html('제목을 입력하세요');
-			$(this).focus();
-		}else if($(this).val().length>=30){
-			$('.error:eq(1)').html('제목은 최대 30자까지 입력가능합니다. (현재 30자)');
-		}else{
-			$('.error:eq(1)').html('');
-		}
-	});
 	
 	$('#positionsuggestTitle').keyup(function(){
 		if($(this).val().length<1){
@@ -76,15 +64,6 @@ $(document).ready(function() {
 	});
 	
 	$('#positionsuggestPrice').keyup(function(){
-		if($(this).val().length<1){
-			$(this).parent().find('span').html($(this).prop('placeholder'));
-			$(this).focus();
-		}else{
-			$(this).parent().find('span').html('');
-		}
-	});
-	
-	$('#positionsuggestContents').keyup(function(){
 		if($(this).val().length<1){
 			$(this).parent().find('span').html($(this).prop('placeholder'));
 			$(this).focus();
