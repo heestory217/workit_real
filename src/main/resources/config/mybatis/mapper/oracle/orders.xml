@@ -140,10 +140,27 @@
 		where user_no=#{userNo}
 	</select>
 	
-	<select id="selectCompanyPaymentByUserno" parameterType="CompanypagingVO" resultType="ordersVo">
-                   	select ORDER_NO, USER_NO, ORDER_PAYKIND, COUPON_NO, ORDER_DISCOUNT, ORDER_PAY, ORDER_DATE from ORDERS 
-					where user_no=#{userNo}
-					order by ORDER_DATE desc
+	<select id="selectCompanyPaymentByUserno" parameterType="CompanypagingVO" resultType="OrdersCorpPayVO">
+				select * from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        select a.*, (select PAIDSERVICE_NAME from PAIDSERVICE where PAIDSERVICE_NO in b.PAIDSERVICE_NO  or PAIDSERVICE_NO in c.PAIDSERVICE_NO or PAIDSERVICE_NO in d.PAIDSERVICE_NO) as pay_Name, b.RECRUITANNOUNCE_NO, c.RESUME_NO, d.CORPREVIEW_NO, 
+                b.PAIDSERVICE_STARTDATE,b.PAIDSERVICE_ENDDATE, (select RECRUITANNOUNCE_TITLE from recruitannounce x where x.recruitannounce_no=b.recruitannounce_no) as recruitname,
+                (select RESUME_TITLE from resumes y where y.RESUME_NO=c.RESUME_NO) as resumtitle, (select CORPREVIEW_ONELINE from CORPREVIEW z where z.CORPREVIEW_NO=d.CORPREVIEW_NO) as oneline
+                from orders a 
+				full outer join ORDERDETAILAD b on a.ORDER_NO = b.ORDER_NO 
+				full outer join ORDERDETAILRESUME c on a.ORDER_NO = c.ORDER_NO 
+				full outer join ORDERDETAILDELRV d on a.ORDER_NO = d.ORDER_NO 
+				where user_no=#{userNo}
+				order by a.ORDER_DATE desc
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
 	</select>
 	
 </mapper>

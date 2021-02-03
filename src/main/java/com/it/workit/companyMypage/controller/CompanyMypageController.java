@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
 import com.it.workit.companyMypage.model.CompanypagingVO;
+import com.it.workit.orders.model.OrdersCorpPayVO;
 import com.it.workit.orders.model.OrdersService;
 import com.it.workit.orders.model.OrdersVO;
 import com.it.workit.users.model.UsersService;
@@ -120,9 +121,10 @@ public class CompanyMypageController {
 				pagingInfo.setTotalRecord(totalRecord);
 
 				model.addAttribute("pagingInfo", pagingInfo);
-				List<OrdersVO> list=ordersService.selectCompanyPaymentByUserno(vo);
+				List<OrdersCorpPayVO> list=ordersService.selectCompanyPaymentByUserno(vo);
 
 				logger.info("list.size={}",list.size());
+				logger.info("list-3={}",list.get(3));
 				model.addAttribute("list",list);
 		return "companyMypage/companyPayment";
 	}

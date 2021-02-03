@@ -31,6 +31,6 @@ public interface OrdersService {
 
 	public List<Date> selectorderscall(int userNo);
 
-	public List<OrdersVO> selectCompanyPaymentByUserno(CompanypagingVO vo);
+	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(CompanypagingVO vo);
 	public int ordersGetTotalRecords(CompanypagingVO vo);
 }
