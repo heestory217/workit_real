@@ -112,5 +112,35 @@ public class QuestionDAOMybatis implements QuestionDAO{
 		return sqlSession.selectList(namespace+"selectPopularAllQstn");
 	}
 	
+	//북마크 등록
+	@Override
+	public int insertBookMark(BookmarkVO vo) {
+		return sqlSession.insert(namespace+"insertBookMark", vo);
+	}
+	
+	//북마크 중복 체크
+	@Override
+	public int DupChkBookmark(BookmarkVO vo) {
+		return sqlSession.selectOne(namespace+"DupChkBookmark", vo);
+	}
+	
+	//북마크 삭제
+	@Override
+	public int delBookmark(BookmarkVO vo) {
+		return sqlSession.delete(namespace+"delBookmark", vo);
+	}
+	
+	//회원 북마크 조회
+	@Override
+	public List<Map<String, Object>> selectBookMarkByUser(QstnPagingVO vo) {
+		return sqlSession.selectList(namespace+"selectBookMarkByUser", vo);
+	}
+	
+	//회원 북마크 개수
+	@Override
+	public int getBookMarkCnt(QstnPagingVO vo) {
+		return sqlSession.selectOne(namespace+"getBookMarkCnt", vo);
+	}
+	
 	
 }

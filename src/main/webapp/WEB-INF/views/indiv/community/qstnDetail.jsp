@@ -100,7 +100,7 @@ a {
 	margin-top: 20px;
 }
 
-.cont>p {
+.cont p {
 	margin: 30px 0px;
 	font-size: 18px;
 	color: black;
@@ -108,22 +108,40 @@ a {
 
 .cellBx {
 	margin-bottom: 0px;
+	color: gray;
+}
+.cellBx div{
+	display:inline-block;
 }
 
-.cellBx>span {
+.cellBx span {
 	font-size:14px;
 	float: left;
 }
 
-.cellBx>.bookmark {
+.cellBx .bookmark {
 	float: right;
-	font-size: 30px;
+	font-size: 27px;
 	padding-bottom: 20px;
 	margin-right: 5px;
+	display:block;
+	cursor:pointer;
 }
 
-.cellBx {
-	color: gray;
+
+.cellBx .bmChecked {
+	float: right;
+	font-size: 27px;
+	padding-bottom: 20px;
+	margin-right: 5px;
+	display:block;
+	cursor:pointer;
+	color:#4c50bb;
+}
+
+.cellBx  a{
+	color:gray;
+	font-size:14px;	
 }
 
 .cmtBox {
@@ -284,14 +302,28 @@ textarea::placeholder {
 								</p>
 							</div>
 							<div class="cellBx">
-								<span class="cell">조회 ${qstnVo.questionView }&nbsp;&nbsp;|</span>
-								<span class="cell">&nbsp;&nbsp;
-									<fmt:formatDate value="${qstnVo.questionDate }"
-										pattern="yyyy-MM-dd"/>	
-								</span>
-								<div class="bookmark">
-									<i class="fa fa-bookmark-o" aria-hidden="true"></i>
+								<div 
+								<c:if test="${sessionScope.userNo==qstnVo.userNo }">
+									style="margin-bottom:15px;"
+								</c:if>>
+									<span class="cell">조회 ${qstnVo.questionView }&nbsp;&nbsp;|</span>
+									<span class="cell">&nbsp;&nbsp;
+										<fmt:formatDate value="${qstnVo.questionDate }"
+											pattern="yyyy-MM-dd"/>	
+									</span>
 								</div>
+								<c:if test="${sessionScope.userNo!=qstnVo.userNo }">
+									<c:if test="${bmStatus==0 }">
+										<a class="bookmark"	
+										href='<c:url value="/indiv/community/insertBookMark.do?qstnNo=${qstnVo.questionNo}"/>'>
+										<i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
+									</c:if>
+									<c:if test="${bmStatus>0 }">
+										<a class="bmChecked"
+										href='<c:url value="/indiv/community/delBookMark.do?qstnNo=${qstnVo.questionNo}"/>'>
+										<i class="fa fa-bookmark" aria-hidden="true"></i></a>
+									</c:if>
+								</c:if>
 							</div>
 							
 							<!-- 답변 등록 -->

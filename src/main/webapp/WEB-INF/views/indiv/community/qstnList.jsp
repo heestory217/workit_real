@@ -31,7 +31,7 @@
 	}
 	
 	.oneQuestBox{
-	    padding: 20px 10px 40px 10px;
+	    padding: 30px 10px 0px 10px;
 	    height: auto;
 	    width: 92%;
 	    border-bottom: 1px solid silver;
@@ -103,19 +103,22 @@
 		background-color: #f5f7ff;;
 	}
 	
+	.cellBx > a{
+		color:gray;
+		font-size:14px;	
+	}
 	
 	.cellBx > span{
 		float:left;
-	}
-	
-	.cellBx > .bookmark{
-		float:right;
-		font-size:25px;
-		padding-bottom: 20px;
-	}
-	
-	.cellBx > span{
 		font-size:14px;	
+	}
+	
+	.cellBx  .bookmark{
+		float:right;
+		font-size:20px;
+		display:block;
+		color:gray;
+		cursor:pointer;
 	}
 	
 	.allQstn{
@@ -232,7 +235,14 @@
 										<fmt:formatDate value="${map['QUESTION_DATE']}"
 											pattern="yyyy-MM-dd"/>
 									</span>
-									<div class="bookmark"><i class="fa fa-bookmark-o" aria-hidden="true"></i></div>
+									<!-- 이미 북마크한 경우 -->
+										<a class="bookmark"
+										href='<c:url value="/indiv/community/delBookMark.do?qstnNo=${map['QUESTION_NO']}"/>'>
+										<i class="fa fa-bookmark" aria-hidden="true"></i></a>
+									<!-- 북마크하지 않은 경우
+										<a class="bookmark"
+										href='<c:url value="/indiv/community/insertBookMark.do?qstnNo=${map['QUESTION_NO']}"/>'>
+										<i class="fa fa-bookmark-o" aria-hidden="true"></i></a> -->
 								</dd>
 							</dl>
 						</a>

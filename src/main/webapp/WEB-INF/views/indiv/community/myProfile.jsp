@@ -47,9 +47,30 @@ section {
 	border: 1px solid silver;
 }
 
-.cellBx>span {
-	float: left;
-	font-size: 14px;
+.cellBx > a{
+	color:gray;
+	font-size:14px;	
+}
+
+.cellBx > span{
+	float:left;
+	font-size:14px;	
+}
+
+.cellBx  .bookmark{
+	float:right;
+	font-size:20px;
+	display:block;
+	color:gray;
+	cursor:pointer;
+}
+
+.cellBx  .bookmarked{
+	float:right;
+	font-size:20px;
+	display:block;
+	color:#4c50bb;
+	cursor:pointer;
 }
 
 article {
@@ -143,7 +164,7 @@ article {
 }
 
 .oneQuestBox{
-	padding: 40px 10px;
+	padding: 30px 10px 40px 10px;
 	height: auto;
 	width: 92%;
 	border-bottom: 1px solid silver;
@@ -306,7 +327,11 @@ function pageFunc(curPage){
 							onclick="location.href='<c:url value="/indiv/community/myProfile.do?userNo=${userNo}&type=3"/>'">
 								임시저장
 							</td>
-							<td>
+							<td
+							<c:if test="${type==4 }">
+								class="selected"
+							</c:if>
+							onclick="location.href='<c:url value="/indiv/community/myProfile.do?userNo=${userNo}&type=4"/>'">
 								북마크
 							</td>
 						</tr>
@@ -335,7 +360,13 @@ function pageFunc(curPage){
 					<%@include file="userCmtyList/userTempQstnList.jsp" %>
 				</div>
 			</c:if>
-			
+
+			<!-- 북마크 목록 -->
+			<c:if test="${param.type==4 }">
+				<div>
+					<%@include file="userCmtyList/userBookmarkList.jsp" %>
+				</div>
+			</c:if>
 		
 		</div>
 	</div>

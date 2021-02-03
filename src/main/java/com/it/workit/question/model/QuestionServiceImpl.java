@@ -108,6 +108,36 @@ public class QuestionServiceImpl implements QuestionService{
 	public List<Map<String, Object>> selectPopularAllQstn() {
 		return questionDao.selectPopularAllQstn();
 	}
+	
+	//북마크 등록
+	@Override
+	public int insertBookMark(BookmarkVO vo) {
+		return questionDao.insertBookMark(vo);
+	}
+	
+	//북마크 상태 체크
+	@Override
+	public int DupChkBookmark(BookmarkVO vo) {
+		return questionDao.DupChkBookmark(vo);
+	}
+	
+	//북마크 삭제
+	@Override
+	public int delBookmark(BookmarkVO vo) {
+		return questionDao.delBookmark(vo);
+	}
+	
+	//회원 북마크 조회
+	@Override
+	public List<Map<String, Object>> selectBookMarkByUser(QstnPagingVO vo) {
+		return questionDao.selectBookMarkByUser(vo);
+	}
+	
+	//회원 북마크 개수
+	@Override
+	public int getBookMarkCnt(QstnPagingVO vo) {
+		return questionDao.getBookMarkCnt(vo);
+	}
 
 
 	

@@ -107,7 +107,7 @@
 		where QUESTION_NO=#{questionNo}
 	</update>
 	
-	<!-- 인기 있는 질문(조회수 기준) -->
+	<!-- 회원 직무 관련 인기 있는 질문(조회수 기준) -->
 	<select id="selectPopularQstn" parameterType="int" resultType="map">
 		select *
 		from
@@ -217,6 +217,53 @@
 			and workkind_no in (select workkind_no from users where user_no=#{userNo})
 	</select>
 	
+	<!-- 북마크 등록 -->
+	<insert id="insertBookMark" parameterType="bookmarkVo">
+	<selectKey keyProperty="bookmarkNo" resultType="int" order="BEFORE">
+		select bookmark_seq.nextval from dual
+	</selectKey>
+		insert into bookmark(bookmark_no, question_no, user_no)
+		values(#{bookmarkNo},#{questionNo},#{userNo})
+	</insert>
+	
+	<!-- 북마크 삭제 -->
+	<delete id="delBookmark" parameterType="bookmarkVo">
+		delete from bookmark where question_no=#{questionNo} and user_no=#{userNo}
+	</delete>
+	
+	<!-- 북마크 중복체크 -->
+	<select id="DupChkBookmark" parameterType="bookmarkVo" resultType="int">
+		select count(*) from bookmark
+		where user_no=#{userNo} and question_no=#{questionNo}
+	</select>
+	
+	<!-- 회원 북마크 조회 -->
+	<select id="selectBookMarkByUser" parameterType="qstnPagingVo" 
+		resultType="HashMap" resultMap="qstnText">
+		select *
+			from
+			(
+			    select A.*, rownum as RNUM
+			    from
+			    (
+					select q.* 
+					from bookmark b join userQstnView q
+					on b.question_no = q.question_no
+					where b.user_no=#{userNo} and q.QUESTION_IMMSAVE=2
+					order by q.QUESTION_DATE DESC
+			    )A
+			)
+			<![CDATA[
+			where RNUM > #{firstRecordIndex} 
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+			]]>
+	</select>
+	
+	<!-- 회원 북마크 개수 -->
+	<select id="getBookMarkCnt" resultType="int" parameterType="qstnPagingVo">
+		select count(*) from bookmark where user_no=#{userNo}		
+	</select>
+
 </mapper>
 
 

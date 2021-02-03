@@ -115,7 +115,7 @@
 	}
 	
 	.oneQuestBox{
-	    padding: 40px 10px;
+	    padding: 30px 10px 40px 10px;
 	    height: auto;
 	    width: 92%;
 	    border-bottom: 1px solid silver;
