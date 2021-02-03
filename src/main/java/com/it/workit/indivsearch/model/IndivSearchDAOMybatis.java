@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.it.workit.language.model.LanguageVO;
+import com.it.workit.question.model.WorkkindVO;
 import com.it.workit.users.model.arealistVO;
 
 @Repository
@@ -59,5 +60,20 @@ public class IndivSearchDAOMybatis implements IndivSearchDAO{
 	@Override
 	public List<IndivKeywordSearchVO> selectExploreAll(IndivKeywordSearchVO vo) {
 		return sqlSession.selectList(namespace+"selectExploreAll",vo);
+	}
+
+	@Override
+	public List<IndivKeywordSearchVO> selectExploreWorkKind(int workkindNo) {
+		return sqlSession.selectList(namespace+"selectExploreWorkKind",workkindNo);
+	}
+
+	@Override
+	public List<IndivKeywordSearchVO> selectExploreWorkKindAll() {
+		return sqlSession.selectList(namespace+"selectExploreWorkKindAll");
+	}
+
+	@Override
+	public List<WorkkindVO> selectWorkkind() {
+		return sqlSession.selectList(namespace+"selectWorkkind");
 	}
 }

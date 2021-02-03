@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.it.workit.language.model.LanguageVO;
+import com.it.workit.question.model.WorkkindVO;
 import com.it.workit.users.model.arealistVO;
 
 @Service
@@ -56,5 +57,20 @@ public class IndivSearchServiceImpl implements IndivSearchService{
 	@Override
 	public List<IndivKeywordSearchVO> selectExploreAll(IndivKeywordSearchVO vo) {
 		return indivSearchDao.selectExploreAll(vo);
+	}
+
+	@Override
+	public List<IndivKeywordSearchVO> selectExploreWorkKind(int workkindNo) {
+		return indivSearchDao.selectExploreWorkKind(workkindNo);
+	}
+
+	@Override
+	public List<IndivKeywordSearchVO> selectExploreWorkKindAll() {
+		return indivSearchDao.selectExploreWorkKindAll();
+	}
+
+	@Override
+	public List<WorkkindVO> selectWorkkind() {
+		return indivSearchDao.selectWorkkind();
 	}
 }

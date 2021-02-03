@@ -1,81 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/css/indivSearch.css'/>" />
 
 <script type="text/javascript">
 	$(function(){
-		$('#languageNo').change(function(){
-			var languageNo=$('#languageNo option:selected').val();
-			//alert(languageNo);
-			
-			$.ajax({
-				url:"<c:url value='/indivSearch/indivLanguageSearchAjax.do'/>",
-				type:"get",
-				data:{
-					languageNo:languageNo
-				},
-				success:function(res){
-					alert(res.length);
-					if(res.length>0){
-						var corpImgurl="";
-						var recruitannounceEnddate="";
-						var workkindName="";
-						var corpName="";
-						var areaAdd1="";
-						var areaAdd2="";
-						var recruitannounceTitle="";
-						var languageName="";
-						var recruitannounceScarrer="";
-						var recruitannounceSpay="";
-						$.each(res, function(idx, item){
-							corpImgurl+=item.workkindName;
-							recruitannounceEnddate+=item.recruitannounceEnddate;
-							workkindName+=item.workkindName;
-							corpName+=item.corpName;
-							areaAdd1+=item.areaAdd1;
-							areaAdd2+=item.areaAdd2;
-							recruitannounceTitle+=item.recruitannounceTitle;
-							languageName+=item.languageName;
-							recruitannounceScarrer+=item.recruitannounceScarrer;
-							recruitannounceSpay+=item.recruitannounceSpay;
-						});
-						
-						$('#result').html(recruitannounceTitle);
-					}
-				},
-				error:function(xhr, status, error){
-					alert('error! : '  +error);
-				}	
-			});
+		$('#ExploreBtn').click(function(){
+			if($('#workkindNo option:selected').val()=="X"){
+				alert('직무를 선택하세요.');
+				$('#workkindNo').focus();
+				event.preventDefault();
+			}else{
+				location.href="/workit/indivSearch/indivExploreWorkkind.do?workkindno="+$('#workkindNo option:selected').val();
+			}
 		});
 	});
 </script>
-<p id="result"></p>
-<div class="group-input">
-	<label for="languageNo">언어</label>
-	<select name="languageNo" id="languageNo" class="col-lg-7 mystyle">
-		<option disabled selected>언어 목록</option>
-		<c:if test="${!empty Llist }">
-			<c:forEach var="Lvo" items="${Llist }">
-				<option value="${Lvo.languageNo }">${Lvo.languageName }</option>
+<!-- Latest Blog Section Begin -->
+<section class="latest-blog spad margin_left_right_150">
+<div class="center">
+	<select name="workkindNo" id="workkindNo" class="col-lg-5 searchSelectbox">
+		<option disabled selected value="X">직무를 선택하세요</option>
+		<c:if test="${!empty wlist }">
+			<c:forEach var="wvo" items="${wlist }">
+				<option value="${wvo.workkindNo }"
+					<c:if test="${wvo.workkindNo == wselected}">
+						selected="selected"
+					</c:if>
+				>${wvo.workkindName }</option>
 			</c:forEach>
 		</c:if>
 	</select>
+	<input type="button" value="검색" id="ExploreBtn">
+	<br><br><br>
 </div>
-<!-- Latest Blog Section Begin -->
-<section class="latest-blog spad margin_left_right_150">
+	
 	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="section-title">
-					<h2>
-						<p>검색어 : ${param.keyword }, 검색되었습니다.</p>
-					</h2>
-				</div>
-			</div>
-		</div>
 		<c:if test="${empty list }">
 			<br><div class="center size_150 lightgray"><i class="fas fa-search"></i></div><br>
 			<div class="center"><p>검색 결과가 없습니다.</p></div>
@@ -96,7 +57,7 @@
 												pattern="yyyy-MM-dd"/>
 										</div>
 										<div class="tag-item">
-											<i class="fas fa-search"></i> <span id="workkindName"></span>
+											<i class="fas fa-search"></i> ${vo.workkindName }
 										</div>
 									</div>
 									<h4>
@@ -131,5 +92,4 @@
 
 </section>
 <!-- Latest Blog Section End -->
-
 <%@ include file="../inc/bottom.jsp"%>
