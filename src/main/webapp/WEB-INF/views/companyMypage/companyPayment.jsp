@@ -25,17 +25,16 @@
 					</colgroup>
 						<thead>
                                 <tr>
-                                    <th>서비스명</th>
-                                    <th>시작일</th>
-                                    <th>마감일</th>
-                                    <th>결제수단</th>
                                     <th>결제금액</th>
+                                    <th>결제수단</th>
+                                    <th>상세보기</th>
+                                    <th>결제일</th>
                                 </tr>
                             </thead>
                             <tbody>
 								<c:if test="${empty list }">
 	                            	<tr>
-	                            		<td colspan="5"><br><br>
+	                            		<td colspan="4"><br><br>
 	                            			<p>요청하신 결과가 없습니다.</p>
 	                            		</td>
 	                            	</tr>
@@ -43,7 +42,7 @@
                                 <c:if test="${!empty list }">
                                 	<c:forEach var="vo" items="${list }">
 										<tr>
-											<td class="cart-title padding-bottom0"><br>
+											<%--<td class="cart-title padding-bottom0"><br>
 												<a href="#"><p class="center">
 												<c:if test="${fn:length(vo.paidserviceName)>=10}">
 													${fn:substring(vo.paidserviceName, 0,10) } ...
@@ -52,24 +51,22 @@
 													${vo.paidserviceName }
 												</c:if>
 												</p></a>
-												<%-- <p class="center">${vo.paidserviceName }</p> --%>
-											</td>
+												 <p class="center">${vo.paidserviceName }</p> 
+											</td> --%>
 											<td class="cart-title padding-bottom0"><br>
-												<p class="center">
-												<fmt:formatDate value="${vo.paidserviceStartdate }"
-													pattern="yyyy-MM-dd"/></p>
-											</td>
-											<td class="cart-title padding-bottom0"><br>
-												<p class="center">
-												<fmt:formatDate value="${vo.paidserviceEnddate }"
-													pattern="yyyy-MM-dd"/></p>
+												<p class="center"><fmt:formatNumber value="${vo.orderPay }" pattern="#,###">
+													</fmt:formatNumber></p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">${vo.orderPaykind }</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
-												<p class="center"><fmt:formatNumber value="${vo.orderPay }" pattern="#,###">
-													</fmt:formatNumber></p>
+												<p class="center"><a href="./companyPaymentdetail.do">[상세내역]</a></p>
+											</td>
+											<td class="cart-title padding-bottom0"><br>
+												<p class="center">
+												<fmt:formatDate value="${vo.orderDate }"
+													pattern="yyyy-MM-dd"/></p>
 											</td>
 										</tr>
 									</c:forEach>

@@ -120,9 +120,15 @@
 	</select>
 	
 
-	
 	<select id="ordersGetTotalRecords" parameterType="CompanypagingVO" resultType="int">
 		select count(*) from orders
 		where user_no=#{userNo}
 	</select>
+	
+	<select id="selectCompanyPaymentByUserno" parameterType="CompanypagingVO" resultType="ordersVo">
+                   	select ORDER_NO, USER_NO, ORDER_PAYKIND, COUPON_NO, ORDER_DISCOUNT, ORDER_PAY, ORDER_DATE from ORDERS 
+					where user_no=#{userNo}
+					order by ORDER_DATE desc
+	</select>
+	
 </mapper>
