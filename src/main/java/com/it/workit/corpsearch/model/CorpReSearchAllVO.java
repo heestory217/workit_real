@@ -8,7 +8,8 @@ public class CorpReSearchAllVO extends SearchVO {
 	private List<Integer> langNo;
 	private int lang;
 	private String career;
-	private String area;
+	private String area1;
+	private String area2;
 
 
 	public String getCareer() {
@@ -19,12 +20,21 @@ public class CorpReSearchAllVO extends SearchVO {
 		this.career = career;
 	}
 
-	public String getArea() {
-		return area;
+
+	public String getArea1() {
+		return area1;
 	}
 
-	public void setArea(String area) {
-		this.area = area;
+	public void setArea1(String area1) {
+		this.area1 = area1;
+	}
+
+	public String getArea2() {
+		return area2;
+	}
+
+	public void setArea2(String area2) {
+		this.area2 = area2;
 	}
 
 	public int getLang() {
@@ -45,13 +55,14 @@ public class CorpReSearchAllVO extends SearchVO {
 
 	@Override
 	public String toString() {
-		return "CorpReSearchAllVO [langNo=" + langNo + ", lang=" + lang + ", career=" + career + ", area=" + area
-				+ ", getSearchCondition()=" + getSearchCondition() + ", getSearchKeyword()=" + getSearchKeyword()
-				+ ", getSearchUseYn()=" + getSearchUseYn() + ", getCurrentPage()=" + getCurrentPage()
-				+ ", getBlockSize()=" + getBlockSize() + ", getFirstRecordIndex()=" + getFirstRecordIndex()
-				+ ", getLastRecordIndex()=" + getLastRecordIndex() + ", getRecordCountPerPage()="
-				+ getRecordCountPerPage() + ", toString()=" + super.toString() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + "]";
+		return "CorpReSearchAllVO [langNo=" + langNo + ", lang=" + lang + ", career=" + career + ", area1=" + area1
+				+ ", area2=" + area2 + ", getSearchCondition()=" + getSearchCondition() + ", getSearchKeyword()="
+				+ getSearchKeyword() + ", getSearchUseYn()=" + getSearchUseYn() + ", getCurrentPage()="
+				+ getCurrentPage() + ", getBlockSize()=" + getBlockSize() + ", getFirstRecordIndex()="
+				+ getFirstRecordIndex() + ", getLastRecordIndex()=" + getLastRecordIndex()
+				+ ", getRecordCountPerPage()=" + getRecordCountPerPage() + ", toString()=" + super.toString()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 
+	
 }
