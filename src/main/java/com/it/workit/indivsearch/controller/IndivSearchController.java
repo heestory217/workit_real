@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.it.workit.indivsearch.model.IndivKeywordSearchVO;
 import com.it.workit.indivsearch.model.IndivSearchService;
 import com.it.workit.language.model.LanguageVO;
+import com.it.workit.question.model.WorkkindVO;
 import com.it.workit.users.model.arealistVO;
 
 @Controller
@@ -74,13 +75,13 @@ public class IndivSearchController {
 		logger.info("Llist.size={}", Llist.size());
 
 		model.addAttribute("Llist", Llist);
-		
+
 		/* 지역 기본데이터 */
-		List<arealistVO> Alist=indivSearchServie.selectAreaList1();
+		List<arealistVO> Alist = indivSearchServie.selectAreaList1();
 		logger.info("Alist.size={}", Alist.size());
 
 		model.addAttribute("Alist", Alist);
-		
+
 		/* 기본 데이터 - 선택 X */
 		List<IndivKeywordSearchVO> list = indivSearchServie.selectSearchAll();
 		logger.info("list.size={}", list.size());
@@ -92,43 +93,40 @@ public class IndivSearchController {
 
 	@RequestMapping(value = "/indivExplore.do", method = RequestMethod.POST)
 	public String indivExplore_post(Model model, @ModelAttribute IndivKeywordSearchVO vo) {
-		logger.info("개인 - 채용 공고 탐색 보여주기 / post / 지역1={}, 지역2={}",
-				vo.getAreaAdd1(), vo.getAreaAdd2());
-		logger.info("개인 - 채용 공고 탐색 보여주기 / post / 언어 no={}, 경력={}",
-				vo.getLanguageNo(), vo.getIndivCareer());
+		logger.info("개인 - 채용 공고 탐색 보여주기 / post / 지역1={}, 지역2={}", vo.getAreaAdd1(), vo.getAreaAdd2());
+		logger.info("개인 - 채용 공고 탐색 보여주기 / post / 언어 no={}, 경력={}", vo.getLanguageNo(), vo.getIndivCareer());
 
-		
 		model.addAttribute("A1selected", vo.getAreaAdd1());
 		model.addAttribute("A2selected", vo.getAreaAdd2());
 		model.addAttribute("Lselected", vo.getLanguageNo());
 		model.addAttribute("Cselected", vo.getIndivCareer());
-		
+
 		/* 언어 기본데이터 */
 		List<LanguageVO> Llist = indivSearchServie.selectLanguage();
 		logger.info("Llist.size={}", Llist.size());
 
 		model.addAttribute("Llist", Llist);
-		
+
 		/* 지역 기본데이터 */
-		List<arealistVO> Alist=indivSearchServie.selectAreaList1();
+		List<arealistVO> Alist = indivSearchServie.selectAreaList1();
 		logger.info("Alist.size={}", Alist.size());
 
 		model.addAttribute("Alist", Alist);
-		
-		List<IndivKeywordSearchVO> list=null;
-		if(vo.getAreaAdd2().equals("전체")) {	//areaAdd2가 전체일때
+
+		List<IndivKeywordSearchVO> list = null;
+		if (vo.getAreaAdd2().equals("전체")) { // areaAdd2가 전체일때
 			list = indivSearchServie.selectExploreAll(vo);
-		}else {
+		} else {
 			list = indivSearchServie.selectExplore(vo);
 		}
-		
+
 		logger.info("list.size={}", list.size());
 
 		model.addAttribute("list", list);
-		
+
 		/* ajax area2 값 세팅 */
-		List<arealistVO> area2list=indivSearchServie.selectAreaList2(vo.getAreaAdd1());
-		logger.info("area2list.size={}",area2list.size());
+		List<arealistVO> area2list = indivSearchServie.selectAreaList2(vo.getAreaAdd1());
+		logger.info("area2list.size={}", area2list.size());
 		model.addAttribute("area2list", area2list);
 
 		return "indivSearch/indivExplore";
@@ -170,16 +168,62 @@ public class IndivSearchController {
 	 * 
 	 * return list; }
 	 */
-	
+
 	@ResponseBody
 	@RequestMapping("/indivLanguageSearchAjax.do")
-	public List<arealistVO> indivArea2Ajax(@RequestParam String areaAdd1,
-			Model model) { 
-		logger.info("개인 - 지역2 AJAX / 선택 area1 ={}",areaAdd1);
-		List<arealistVO> area2list=indivSearchServie.selectAreaList2(areaAdd1);
-		logger.info("area2list.size={}",area2list.size());
+	public List<arealistVO> indivArea2Ajax(@RequestParam String areaAdd1, Model model) {
+		logger.info("개인 - 지역2 AJAX / 선택 area1 ={}", areaAdd1);
+		List<arealistVO> area2list = indivSearchServie.selectAreaList2(areaAdd1);
+		logger.info("area2list.size={}", area2list.size());
 		model.addAttribute("area2list", area2list);
-		
-		return area2list; 
+
+		return area2list;
 	}
+
+	@RequestMapping(value = "/indivExploreWorkkind.do", method = RequestMethod.GET)
+	public String indivExploreWorkkind_get(Model model, @RequestParam(defaultValue = "0") int workkindno) {
+		logger.info("개인 - 채용 공고 탐색 보여주기 / get, workkindno={}", workkindno);
+		model.addAttribute("wselected", workkindno);
+		
+		/* 직무 데이터 */
+		List<WorkkindVO> wlist = indivSearchServie.selectWorkkind();
+		logger.info("wlist.size={}", wlist.size());
+
+		model.addAttribute("wlist", wlist);
+
+		List<IndivKeywordSearchVO> list = null;
+		if (workkindno <= wlist.size() && workkindno > 0) {
+			list = indivSearchServie.selectExploreWorkKind(workkindno);
+		} else {
+			/* 기본 데이터 - 선택 X */
+			list = indivSearchServie.selectSearchAll();
+		}
+		logger.info("list.size={}", list.size());
+
+		model.addAttribute("list", list);
+
+		return "indivSearch/indivExploreWorkkind";
+	}
+
+	/*
+	 * @RequestMapping(value = "/indivExploreWorkkind.do", method =
+	 * RequestMethod.POST) public String indivExploreWorkkind_post(Model
+	 * model, @ModelAttribute WorkkindVO vo) {
+	 * logger.info("개인 - 채용 공고 탐색 보여주기 / post, 선택 직무 no={}",vo.getWorkkindNo());
+	 * 
+	 * model.addAttribute("wselected", vo.getWorkkindNo());
+	 * 
+	 * 직무 데이터 List<WorkkindVO> wlist = indivSearchServie.selectWorkkind();
+	 * logger.info("wlist.size={}", wlist.size());
+	 * 
+	 * model.addAttribute("wlist", wlist);
+	 * 
+	 * List<IndivKeywordSearchVO> list =
+	 * indivSearchServie.selectExploreWorkKind(vo.getWorkkindNo());
+	 * logger.info("list.size={}", list.size());
+	 * 
+	 * model.addAttribute("list", list);
+	 * 
+	 * return "indivSearch/indivExploreWorkkind"; }
+	 */
 }
