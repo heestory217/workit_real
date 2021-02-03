@@ -45,5 +45,10 @@ public class PositionDAOMybatis implements PositionDAO{
 	public List<Map<String, Object>> selectPositionForm(int userNo) {
 		return sqlSession.selectList(namespace+"selectPositionForm", userNo);
 	}
+
+	@Override
+	public Map<String, Object> selectByPositionNo(int positionsuggestNo) {
+		return sqlSession.selectOne(namespace+"selectByPositionNo", positionsuggestNo);
+	}
 	
 }

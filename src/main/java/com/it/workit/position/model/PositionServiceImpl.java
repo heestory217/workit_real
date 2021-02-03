@@ -57,4 +57,9 @@ public class PositionServiceImpl implements PositionService {
 	public List<Map<String, Object>> selectPositionForm(int userNo) {
 		return positionDao.selectPositionForm(userNo);
 	}
+
+	@Override
+	public Map<String, Object> selectByPositionNo(int positionsuggestNo) {
+		return positionDao.selectByPositionNo(positionsuggestNo);
+	}
 }

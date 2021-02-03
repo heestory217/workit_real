@@ -14,15 +14,12 @@
 	$(function(){
 		$('#btDel').click(function(){
 			var len=$('.cart-table tbody tr td').find('input[type=checkbox]:checked').length;
-
 			if(len==0){
 			   alert('먼저 삭제할 제안을 선택하세요.');
 			   return false;
 			}
-			            
 			$('form[name=frmList]').prop('action', '<c:url value="/company/HRManagment/deleteMultiPosi.do"/>');
 			$('form[name=frmList]').submit();
-			
 		});
 	});
 </script>
@@ -121,7 +118,7 @@
 								</a>
 							</td>
 							<td>${map['POSITIONSUGGEST_POSITION']}</td>
-							<td>${map['POSITIONSUGGEST_PRICE']}</td>
+							<td><fmt:formatNumber value="${map['POSITIONSUGGEST_PRICE']}" pattern="#,###"/></td>
 							<td><fmt:formatDate value="${map['POSITIONSUGGEST_REGDATE']}" pattern="yyyy-MM-dd" /></td>
 							<c:if test="${map['GETPOSITIONSUGGEST_READFLAG']==2}">
 								<td id="openFlag">미열람</td>
@@ -133,7 +130,7 @@
 						
 						<c:if test="${!empty param.type}">
 							<td style="text-align: left;">
-								<a href="<c:url value="/company/HRManagment/positionDetail.do?positionsuggestNo=${map['POSITIONSUGGEST_NO']}"/>">
+								<a href="<c:url value="/company/HRManagment/positionDetail.do?type=format&positionsuggestNo=${map['POSITIONSUGGEST_NO']}"/>">
 									<!-- 제목이 긴 경우 일부만 보여주기 -->
 									<c:if test="${fn:length(map['POSITIONSUGGEST_TITLE'])>=30}">
 										${fn:substring(map['POSITIONSUGGEST_TITLE'], 0,30) } ...
@@ -144,7 +141,7 @@
 								</a>
 							</td>
 							<td>${map['POSITIONSUGGEST_POSITION']}</td>
-							<td>${map['POSITIONSUGGEST_PRICE']}</td>
+							<td><fmt:formatNumber value="${map['POSITIONSUGGEST_PRICE']}" pattern="#,###"/></td>
 							<td><fmt:formatDate value="${map['POSITIONSUGGEST_REGDATE']}" pattern="yyyy-MM-dd" /></td>
 						</c:if>
 					</tr>

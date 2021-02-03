@@ -16,5 +16,7 @@ public interface PositionService {
 	//포지션제안 페이지 조회 (기업)
 	List<Map<String, Object>> selectPositionSuggest(int userNo);
 	List<Map<String, Object>> selectPositionForm(int userNo);
+	//상세
+	Map<String, Object> selectByPositionNo(int positionsuggestNo);
 
 }

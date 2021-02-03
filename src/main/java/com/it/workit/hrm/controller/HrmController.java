@@ -95,44 +95,29 @@ public class HrmController {
 		return "common/message";
 	}
 
-	/*
-	//쪽지 상세보기
-	@RequestMapping("/messageDetail.do")
-	public String messageDetail_post(@RequestParam (defaultValue = "0") int messageNo,
-			@RequestParam (defaultValue = "0") int getMessageNo,
-			Model model) {
-		logger.info("쪽지 상세보기 파라미터 messageNo={} getMessageNo={}", messageNo, getMessageNo);
+	
+	//제안 상세보기.
+	@RequestMapping("/positionDetail.do")
+	public String messageDetail_post(@RequestParam (defaultValue = "0") int positionsuggestNo, Model model) {
+		logger.info("제안 상세보기 파라미터 positionsuggestNo={}", positionsuggestNo);
 
-		if(messageNo==0 && getMessageNo==0) {
+		if(positionsuggestNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
-			model.addAttribute("url", "/message/messageBox.do");
+			model.addAttribute("url", "/company/HRManagment/positionSuggest.do");
 			return "common/message";
 		}
 
-		Map<String, Object> map = null;
-		if(messageNo!=0) {
-			map = messageService.selectByMessageNo(messageNo);
-		}else if(getMessageNo!=0) {
-			map = messageService.selectByMessageNo(getMessageNo);
-		}
-
-		//보낸사람 ID 넘겨주기
-		int sentUserNo = 0;
-		if(map!=null && !map.isEmpty()) {
-			sentUserNo = Integer.parseInt(String.valueOf(map.get("USER_NO")));
-		}
-		UsersVO userVo = userService.selectByUserNo(sentUserNo);
-		String sentUserId = userVo.getUserId();
-
+		Map<String, Object> map = positionService.selectByPositionNo(positionsuggestNo);
+		logger.info("map={}", map);
 		model.addAttribute("map", map);
-		model.addAttribute("sentUserId", sentUserId);
 
-		return "message/messageDetail";
+		return "/company/HRManagment/position/positionDetail";
 	};
 
+	/*
 	//개별쪽지 삭제하기
-	@RequestMapping("/deleteMsg.do")
-	public String delMsg(@RequestParam (defaultValue = "0") int messageNo,
+	@RequestMapping("/deletePSG.do")
+	public String delMsg(@RequestParam (defaultValue = "0") int positionsuggestNo,
 			@RequestParam (defaultValue = "0") int getMessageNo,
 			@RequestParam (required = false) String type,
 			Model model) {
@@ -197,7 +182,7 @@ public class HrmController {
 		return "redirect:/message/messageDetail.do?getMessageNo="+getMessageNo;
 	}
 	
-	@RequestMapping("/deleteMultiMsg.do")
+	@RequestMapping("/deleteMultiPosi.do")
 	public String deleteMultiMsg(@ModelAttribute MessageListVO msgListVo,
 			Model model) {
 		logger.info("선택한 쪽지 삭제(플래그 갱신) 처리, 파라미터 msgListVo={}", msgListVo);

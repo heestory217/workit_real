@@ -17,4 +17,6 @@ public interface PositionDAO {
 	//포지션제안함 조회 (기업)
 	List<Map<String, Object>> selectPositionSuggest(int userNo);
 	List<Map<String, Object>> selectPositionForm(int userNo);
+	Map<String, Object> selectByPositionNo(int positionsuggestNo);
+	
 }

@@ -87,5 +87,16 @@
 		where USER_NO=#{userNo} and GETUSER_NO=USER_NO and GETPOSITIONSUGGEST_DELFLAG=2
 		order by POSITIONSUGGEST_REGDATE desc
 	</select>
+	
+	<resultMap type="HashMap" id="detailMap">
+   		<result property="positionsuggestContents" column="POSITIONSUGGEST_CONTENTS" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+
+	<!-- 포지션 제안 상세보기 -->
+	<select id="selectByPositionNo" parameterType="int" resultMap="detailMap">
+		select p.*, (select user_id from users where USER_NO=p.GETUSER_NO) AS "USER_ID"
+		from GetPositionView p
+		WHERE POSITIONSUGGEST_NO=#{positionsuggestNo}
+	</select>
 
 </mapper>
