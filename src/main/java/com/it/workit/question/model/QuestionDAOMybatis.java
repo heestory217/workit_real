@@ -76,5 +76,17 @@ public class QuestionDAOMybatis implements QuestionDAO{
 		return sqlSession.selectList(namespace+"selectPopularQstn",userNo);
 	}
 	
+	//답변하기 게시판 질문 조회
+	@Override
+	public List<Map<String, Object>> selectQstnByWorkkind(QstnPagingVO vo) {
+		return sqlSession.selectList(namespace+"selectQstnByWorkkind", vo);
+	}
+
+	//답변하기 게시판 질문 총 개수
+	@Override
+	public int getTotalRecordByWorkkind(QstnPagingVO vo) {
+		return sqlSession.selectOne(namespace+"getTotalRecordByWorkkind", vo);
+	}
+	
 	
 }

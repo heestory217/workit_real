@@ -290,7 +290,14 @@
 								</dt>
 
 								<!-- 내용 -->
-								<dd class="qtContent">${map['questionAbout']}</dd>
+								<dd class="qtContent">
+									<c:if test="${fn:length(map['questionAbout'])>=50}">
+										${fn:substring(map['questionAbout'],0,50) } ...
+									</c:if>
+									<c:if test="${fn:length(map['questionAbout'])<50}">						
+										${map['questionAbout'] }
+									</c:if>
+								</dd>
 
 								<!-- 답변, 조회수, 작성시간 -->
 								<dd class="cellBx">
@@ -369,13 +376,13 @@
 			  <div class="col-sm-3 popQstnCard">
 		  	  <c:set var="cnt" value="${status.count}"/>
 			  <c:if test="${cnt==1 }">
-			    <div class="card" style="border:1px solid #ff7171;">
+			    <div class="card" style="border:1px solid #5b9dff;">
 			  </c:if>
 			  <c:if test="${cnt==2 }">
-			    <div class="card" style="border:1px solid #ffb14f;">
+			    <div class="card" style="border:1px solid #934fff;">
 			  </c:if>
 			  <c:if test="${cnt==3 }">
-			    <div class="card" style="border:1px solid #c15dff;">
+			    <div class="card" style="border:1px solid #b0dc75;">
 			  </c:if>
 			      <div class="card-body">
 			      	<div style="height:20%">

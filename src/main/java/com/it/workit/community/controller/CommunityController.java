@@ -44,6 +44,7 @@ public class CommunityController {
 		QstnPagingVO vo=new QstnPagingVO();
 		vo.setUserNo(userNo);
 		vo.setQuestionImmsave(2);
+		
 		//질문 개수
 		int totalRecord=qstnService.getTotalRecord(vo);
 		logger.info("회원 질문 개수, totalRecord={}",totalRecord);
@@ -53,7 +54,11 @@ public class CommunityController {
 		int totalCmt=comntService.getTotalUserCmt(vo);
 		logger.info("총 답변 개수, totalCmt={}", totalCmt);
 		model.addAttribute("totalCmt", totalCmt);
-		
+		/*
+		 * //회원 직무 조회 WorkkindVO workVo = qstnService.selectUserWorkkind(userNo); int
+		 * userWorkkindNo=workVo.getWorkkindNo(); logger.info("회원 직무 userWorkkindNo={}",
+		 * userWorkkindNo); model.addAttribute("userWorkkindNo", userWorkkindNo);
+		 */
 		return "indiv/community/cmtyNavbar";
 	}
 	
@@ -176,7 +181,6 @@ public class CommunityController {
 		logger.info("인기 있는 질문 조회, 결과 popQstnList.size={}",popQstnList.size());
 		
 		
-		
 		model.addAttribute("qstnList", qstnList);
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("popQstnList", popQstnList);
@@ -211,6 +215,39 @@ public class CommunityController {
 		model.addAttribute("pagingInfo", pagingInfo);
 		
 		return "indiv/community/qstnList";
+	}
+	
+	//답변하기 게시판 질문 목록 조회
+	@RequestMapping("/answerList.do")
+	public String answerList(@ModelAttribute QstnPagingVO vo,
+			HttpSession session, Model model) {
+		int userNo=(Integer) session.getAttribute("userNo");
+		vo.setUserNo(userNo);
+		logger.info("질문 전체 조회, 파라미터 vo={}", vo);
+		
+		//[1]pagingInfo
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(vo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		//[2]searchVo
+		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		int totalRecordByWorkkind=qstnService.getTotalRecordByWorkkind(vo);
+		logger.info("총 레코드 수, totalRecordByWorkkind={}", totalRecordByWorkkind);
+		pagingInfo.setTotalRecord(totalRecordByWorkkind);
+		
+		
+		List<Map<String, Object>> list=qstnService.selectQstnByWorkkind(vo);
+		//List<QuestionVO> qstnList=qstnService.selectAllQstn();
+		logger.info("질문 전체 조회 결과, list.size={}", list.size());
+		
+		model.addAttribute("qstnListByWorkkind", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		return "indiv/community/answerList";
 	}
 	
 	//질문 상세페이지
@@ -476,6 +513,7 @@ public class CommunityController {
 		
 		return "common/message";
 	}
+	
 	
 	
 	

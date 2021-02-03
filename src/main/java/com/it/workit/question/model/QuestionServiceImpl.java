@@ -72,6 +72,18 @@ public class QuestionServiceImpl implements QuestionService{
 	public List<Map<String, Object>> selectPopularQstn(int userNo) {
 		return questionDao.selectPopularQstn(userNo);
 	}
+	
+	//답변하기 게시판 질문 조회
+	@Override
+	public List<Map<String, Object>> selectQstnByWorkkind(QstnPagingVO vo) {
+		return questionDao.selectQstnByWorkkind(vo);
+	}
+	
+	//답변하게 게시판 질문 총개수
+	@Override
+	public int getTotalRecordByWorkkind(QstnPagingVO vo) {
+		return questionDao.getTotalRecordByWorkkind(vo);
+	}
 
 
 	

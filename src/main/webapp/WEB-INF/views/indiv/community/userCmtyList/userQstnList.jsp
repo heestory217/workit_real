@@ -39,10 +39,10 @@
 
 									<!-- 내용 -->
 									<dd class="qtContent">
-										<c:if test="${fn:length(map['questionAbout'])>=150}">
-											${fn:substring(map['questionAbout'],0,150) } ...
+										<c:if test="${fn:length(map['questionAbout'])>=50}">
+											${fn:substring(map['questionAbout'],0,50) } ...
 										</c:if>
-										<c:if test="${fn:length(map['questionAbout'])<150}">						
+										<c:if test="${fn:length(map['questionAbout'])<50}">						
 											${map['questionAbout'] }
 										</c:if>
 									</dd>

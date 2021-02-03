@@ -286,12 +286,24 @@ function pageFunc(curPage){
 					</colgroup>
 					<tbody>
 						<tr>
-							<td onclick="location.href='<c:url value="/indiv/community/myProfile.do?userNo=${userNo}&type=1"/>'">
+							<td 
+							<c:if test="${type==1 }">
+								class="selected"
+							</c:if>
+							onclick="location.href='<c:url value="/indiv/community/myProfile.do?userNo=${userNo}&type=1"/>'">
 								질문
 							</td>
-							<td onclick="location.href='<c:url value="/indiv/community/myProfile.do?userNo=${userNo}&type=2"/>'">
+							<td 
+							<c:if test="${type==2 }">
+								class="selected"
+							</c:if>
+							onclick="location.href='<c:url value="/indiv/community/myProfile.do?userNo=${userNo}&type=2"/>'">
 								답변
-							<td onclick="location.href='<c:url value="/indiv/community/myProfile.do?userNo=${userNo}&type=3"/>'">
+							<td 
+							<c:if test="${type==3 }">
+								class="selected"
+							</c:if>
+							onclick="location.href='<c:url value="/indiv/community/myProfile.do?userNo=${userNo}&type=3"/>'">
 								임시저장
 							</td>
 							<td>

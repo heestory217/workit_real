@@ -118,7 +118,7 @@
 		font-size:14px;	
 	}
 	
-	.allQstn{
+	.answerBoard{
 		font-weight: bold;
 		color:#4c50bb;
 	}
@@ -178,7 +178,7 @@
 		<!--전체 질문 목록-->
 		<div id="content" class="AllQuestList">
 			<div class="top-title-wrap">
-				<p class="title">전체질문</p>
+				<p class="title">답변하기</p>
 			</div>
 			
 			<form action="<c:url value='/indiv/community/qstnList.do'/>" 
@@ -186,21 +186,22 @@
 				<input type="hidden" name="currentPage">
 			</form>
 			
-				<!-- 질문 없는 경우 -->
-				<c:if test="${empty qstnList}">
+				<!-- 답변 글이 없는 경우 -->
+				<c:if test="${empty qstnListByWorkkind}">
 				<article id="questBox">
 					<div class="NoneQquestBoxWrap">
 						<div class="NoneQuestBox">
 							<i class="fa fa-commenting-o"></i><br>
-							<p>등록된 질문이 없습니다.</p>
+							<p>답변 가능한 질문이 없습니다.</p>
 						</div>
 					</div>
 				</article>
 				</c:if>
-			<!-- 질문 반복 시작 -->
-				<c:if test="${!empty qstnList }">
+				
+				<!-- 글 반복 시작 -->
+				<c:if test="${!empty qstnListByWorkkind }">
 				<article id="questBox">
-					<c:forEach var="map" items="${qstnList }">
+					<c:forEach var="map" items="${qstnListByWorkkind }">
 				<div class="questBoxWrap">
 				<div class="oneQuestBox">
 					<div>							
@@ -217,11 +218,11 @@
 								<!-- 내용 -->
 								<dd class="qtContent">
 									<c:if test="${fn:length(map['questionAbout'])>=50}">
-											${fn:substring(map['questionAbout'],0,50) } ...
+										${fn:substring(map['questionAbout'],0,50) } ...
 									</c:if>
 									<c:if test="${fn:length(map['questionAbout'])<50}">						
 										${map['questionAbout'] }
-									</c:if>								
+									</c:if>
 								</dd>
 								
 								<!-- 답변, 조회수, 작성시간 -->
@@ -251,7 +252,7 @@
 						</a>
 					</c:if>
 					
-				<!-- [1][2][3][4][5][6][7][8][9][10] -->		
+					<!-- [1][2][3][4][5][6][7][8][9][10] -->		
 					<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
 						<c:if test="${i==pagingInfo.currentPage }">
 							<span id="currentPage" >
