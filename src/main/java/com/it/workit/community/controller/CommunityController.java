@@ -244,6 +244,9 @@ public class CommunityController {
 		if(type==1) {
 			list=qstnService.selectQstnByWorkkind(vo);
 			logger.info("답변하기 질문 조회-최신순, list.size={}", list.size());
+		}else if(type==2) {
+			list=qstnService.selectQstnByRecmd(vo);
+			logger.info("답변하기 질문 조회-추천순, list.size={}", list.size());
 		}
 		
 		model.addAttribute("qstnListByWorkkind", list);

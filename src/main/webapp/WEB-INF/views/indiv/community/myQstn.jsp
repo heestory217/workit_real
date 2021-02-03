@@ -366,8 +366,9 @@
 		        <jsp:useBean id="now" class="java.util.Date" />
 					<fmt:formatDate value="${now}" pattern="yyyy.MM.dd" var="today" />
 					<c:out value="${today}"/>기준</p>
-		        
-		        <div id="moreQuestBtn" style="height:10%"><a href="#">인기질문 더보기</a></div>
+		        <div id="moreQuestBtn" style="height:10%">
+		        <a href="<c:url value='/indiv/community/answerList.do?type=2'/>">
+		    	    인기질문 더보기</a></div>
 		      </div>
 		    </div>
 		  </div>

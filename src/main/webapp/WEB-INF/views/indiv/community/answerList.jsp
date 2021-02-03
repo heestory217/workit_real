@@ -200,10 +200,10 @@
 					<c:if test="${param.type==1 }">class="selected"</c:if>>
 				<i class="fa fa-check"></i>최신순&nbsp; | &nbsp; </a>
 				<a href="<c:url value='/indiv/community/answerList.do?type=2'/>"
-					<c:if test="${param.type==1 }">class="selected"</c:if>>
+					<c:if test="${param.type==2 }">class="selected"</c:if>>
 				<i class="fa fa-check"></i>추천순&nbsp; | &nbsp; </a>
 				<a href="<c:url value='/indiv/community/answerList.do?type=3'/>"
-					<c:if test="${param.type==1 }">class="selected"</c:if>>
+					<c:if test="${param.type==3}">class="selected"</c:if>>
 				<i class="fa fa-check"></i>답변적은순  </a>
 			</div>
 			

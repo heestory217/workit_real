@@ -17,6 +17,7 @@ public interface QuestionDAO {
 	WorkkindVO selectUserWorkkind(int userNo); //회원 직무 조회
 	List<Map<String, Object>> selectPopularQstn(int userNo);	//인기 있는 질문 조회
 	List<Map<String, Object>> selectQstnByWorkkind(QstnPagingVO vo);	//답변하기 게시판 목록 조회
+	List<Map<String, Object>> selectQstnByRecmd(QstnPagingVO vo);	//답변하기 게시판 목록 조회(추천순)
 	int getTotalRecordByWorkkind(QstnPagingVO vo);	//답변하기 게시판 질문 총 레코드수
 	
 }
