@@ -39,7 +39,7 @@
 <script type="text/javascript">
     function pageFunc(curPage){
     	$('input[name=currentPage]').val(curPage);
-    	$('form[name=frmPage]').submit();
+    	$('form[name=frmPRPage]').submit();
     }
 </script>
 
@@ -59,9 +59,10 @@
 </div>
 <!-- 주문완료 페이지 상단  끝-->
 
-<form action="<c:url value='/company/HRManagment/purchasedResumes.do'/>" name="frmPage" method="post">
+<form action="<c:url value='/company/HRManagment/purchasedResumes.do'/>" name="frmPRPage" method="post">
 	<input type="hidden" name="currentPage">
-</form>
+	<input type="hidden" name="searchPRKeyword" value="${param.searchPRKeyword}">
+</form>             
                
 <section class="blog-section spad">
 	<div class="container">
@@ -75,23 +76,21 @@
 			</div>
 			<!-- 제목 끝 -->
 			
-			<div class="col-lg-6"></div>
-			<div class="col-lg-6" style="text-align: right;">
+			<div class="col-lg-12" style="text-align: right;">
 				<div class="search-form">
-	                <form action="#">
-	                    <input type="text" placeholder="검색어를 입력하세요">
-	                    <button type="submit"><i class="fas fa-search"></i></button>
+	                <form action="#" name="PRFrm">
+	                	<input type="text" name="searchPRKeyword" placeholder="검색어를 입력하세요" value="${param.searchPRKeyword}">
+	                    <button type="submit"><i class="fa fa-search"></i></button>
 	                </form>
 				</div>
 			</div>
-					
 			
 			<!-- 본문 시작 -->
 			<section class="shopping-cart spad" style="width: 100%; padding:25px 0 10px 0;">
 			    <div class="container">
 			        <div class="row">
 			            <div class="col-lg-12">
-			                <div class="cart-table">
+			                <div class="cart-table" style="margin-bottom: 20px;">
 			                    <table>
 			                   		<colgroup>
 										<col style="width:20%;" />
@@ -143,6 +142,13 @@
 			                    </table>
 			                </div>
 						</div>
+			                
+			            <c:if test="${!empty param.searchPRKeyword}">
+				            <div class="col-lg-12" style="text-align: right;">
+								<span>검색결과 : ${pagingInfo.totalRecord}건</span>
+							</div>
+						</c:if>
+			                
 					</div>
 				</div>
 			</section>

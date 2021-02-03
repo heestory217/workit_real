@@ -32,7 +32,15 @@
                         <h5>My Account</h5>
                         <ul>
                             <li><a href="#">회원 정보 수정</a></li>
-                            <li><a href="#">구매 내역 조회</a></li>
+                            <li>
+	                            <c:if test="${empty sessionScope.userId || sessionScope.user_corpcheck==1}">
+	                            	<a href="<c:url value='/indivMypage/indivPayment.do'/>">유료 결제 내역</a>
+			                    </c:if>
+			                    <!-- 기업 -->
+			                    <c:if test="${sessionScope.user_corpcheck==2}">
+	                            	<a href="<c:url value='/companyMypage/companyPayment.do'/>">유료 결제 내역</a>
+			                    </c:if>
+                            </li>
                             <li><a href="<c:url value='/message/messageBox.do'/>">쪽지함</a></li>
                         </ul>
                     </div>
