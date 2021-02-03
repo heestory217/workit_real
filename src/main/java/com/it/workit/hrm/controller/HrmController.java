@@ -18,12 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
-import com.it.workit.getmessage.model.GetMessageVO;
 import com.it.workit.hrm.model.HrmResumePageVO;
-import com.it.workit.message.model.MessageListVO;
-import com.it.workit.message.model.MessageVO;
 import com.it.workit.orders.model.OrdersService;
-import com.it.workit.review.model.ReviewVO;
+import com.it.workit.position.model.PositionService;
+import com.it.workit.position.model.PositionsuggestVO;
+import com.it.workit.users.model.UsersService;
 import com.it.workit.users.model.UsersVO;
 
 @Controller
@@ -32,60 +31,29 @@ public class HrmController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HrmController.class);
 	@Autowired private OrdersService ordersService;
-	//@Autowired private ResumesService resumesService;
+	@Autowired private PositionService positionService;
+	@Autowired private UsersService userService;
 	
-	@RequestMapping("/purchasedResumes.do")
-	public String purchasedResumes(@ModelAttribute HrmResumePageVO searchVo, 
-			@RequestParam (required = false) String searchPRKeyword,
-			HttpSession session, Model model) {
-		logger.info("구매 이력서 페이지");
-		
-		searchVo.setSearchKeyword(searchPRKeyword);
-		logger.info("검색 키워드 : searchKeyword={}", searchPRKeyword);
-		
-		//키워드 조절
-		if(searchPRKeyword!=null && !searchPRKeyword.isEmpty()) {
-			if(searchPRKeyword.equals("신입")) {
-				searchVo.setSearchKeyword("0");
-			}else if(searchPRKeyword.lastIndexOf("년")>0) {
-				int idx = searchPRKeyword.lastIndexOf("년");
-				searchVo.setSearchKeyword(searchPRKeyword.substring(0, idx));
-			}
-		}
-
-		int userNo = (Integer) session.getAttribute("userNo");
-		searchVo.setUserNo(userNo);
-		
-		//페이징
-		PaginationInfo pagingInfo=new PaginationInfo();
-		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
-		pagingInfo.setRecordCountPerPage(5);
-		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
-		
-		searchVo.setRecordCountPerPage(5);
-		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-		
-		
-		//구매한 이력서 리스트 
-		List<Map<String, Object>> resumeList = ordersService.selectPurchasedResume(searchVo);
-		logger.info("구매 이력서 list.size={}", resumeList.size());
-		
-		int totalRecord=ordersService.selectTotalResumeRecord(searchVo);
-		logger.info("전체 구매 이력서 수 totalRecord={}", totalRecord);
-		pagingInfo.setTotalRecord(totalRecord);
-		
-		model.addAttribute("pagingInfo", pagingInfo);
-		model.addAttribute("resumeList", resumeList);
-		
-		return "company/HRManagment/purchasedResumes";
-	}
-	
+	//보낸 제안 & 양식함
 	@RequestMapping("/positionSuggest.do")
-	public String positionSuggest() {
+	public String positionSuggest(HttpSession session, 
+			@RequestParam (required = false) String type, Model model) {
+		int userNo = (Integer) session.getAttribute("userNo");
+		logger.info("포지션 제안 조회, userNo={}", userNo);
 		
+		List<Map<String, Object>> list = null;
+		if(type!=null && !type.isEmpty()) {
+			list = positionService.selectPositionForm(userNo);	//양식함
+		}else {
+			list = positionService.selectPositionSuggest(userNo);
+		}
+		logger.info("보낸 제안 조회 결과 list.size={}", list.size());
+		
+		model.addAttribute("list", list);
 		return "company/HRManagment/position/positionSuggest";
 	}
-	
+		
+	//제안 보내기 (글쓰기)
 	@RequestMapping(value="/positionWrite.do", method = RequestMethod.GET)
 	public String positionWrite(HttpSession session, Model model) {
 		logger.info("포지션제안 쓰기 페이지 보여주기");
@@ -94,57 +62,31 @@ public class HrmController {
 
 		return "company/HRManagment/position/positionWrite";
 	}
+	
+	@RequestMapping(value="/positionWrite.do", method = RequestMethod.POST)
+	public String messageWrite_post(HttpSession session, @ModelAttribute PositionsuggestVO vo,
+			@RequestParam (required = false) String userId, Model model) {
 
-	/*
-	@RequestMapping(value="/messageWrite.do", method = RequestMethod.POST)
-	public String messageWrite_post(HttpSession session, @ModelAttribute MessageVO vo,
-			@RequestParam (defaultValue = "0") int getMessageNo,
-			@RequestParam (required = false) String userId, 
-			Model model) {
-
-		logger.info("쪽지 쓰기 처리, 파라미터 vo={}", vo);
-		logger.info("쪽지 쓰기 처리, 파라미터 userId={}", userId);
-		logger.info("쪽지 답장쓰기 처리, 파라미터 getMessageNo={}", getMessageNo);
+		logger.info("제안 보내기(글쓰기) 처리, PositionsuggestVO vo={}", vo);
+		logger.info("userId={}", userId);
 		
-		String sentUserID="";
-		if(getMessageNo!=0) {
-			Map<String, Object> map = messageService.selectByMessageNo(getMessageNo);
-			int sentUserNo = Integer.parseInt(String.valueOf(map.get("USER_NO")));
-			UsersVO uVo = userService.selectByUserNo(sentUserNo);
-			sentUserID = uVo.getUserId();
-			logger.info("보낸회원 sentUserID={}", sentUserID);
+		int userNo=0;
+		if(userId!=null && !userId.isEmpty()) {
+			UsersVO uVo = new UsersVO();
+			uVo = userService.selectByUserId(userId);
+			userNo = uVo.getUserNo();
+		}else {
+			userNo = (Integer) session.getAttribute("userNo");
 		}
 
-		String myId = (String) session.getAttribute("userId");
-		logger.info("세션 로그인 아이디 조회, myId={}", myId);
-
-		int cnt = messageService.insertMessage(vo);
-		String msg="쪽지 전송 실패", url="/message/messageWrite.do";
+		int cnt = positionService.insertPositionSuggest(vo, userNo);
+		String msg="제안 전송 실패", url="/company/HRManagment/positionSuggest.do";
 		if(cnt>0) {
 			if(userId==null || userId.isEmpty()) {
-				if(sentUserID!=null && !sentUserID.isEmpty()) {
-					userId=sentUserID;
-					msg = userId+"님에게 답장을 성공적으로 보냈습니다.";
-				}else {
-					userId=myId;	//유저아이디가 없는 경우 => 나에게 보내는 쪽지
-					msg = "쪽지를 성공적으로 보냈습니다.\\n\\n나에게 쓴 쪽지는 [나에게 쓴 쪽지함]에서 확인할 수 있습니다.";
-				}
+				msg = "작성 제안이 양식함에 저장되었습니다.";
 			}else {
-				msg = userId+"님에게 쪽지를 성공적으로 보냈습니다.";
+				msg = userId+"님에게 제안을 성공적으로 보냈습니다.";
 			}
-
-			//쪽지 쓰면 getmessage에도 insert되어야 함
-			//1. userid로 userno 조회
-			UsersVO userVo = userService.selectByUserId(userId);
-
-			//2. getMessageVo 세팅
-			GetMessageVO gVo =  new GetMessageVO();
-			gVo.setUserNo(userVo.getUserNo());
-			gVo.setMessageNo(vo.getMessageNo());
-
-			//3. getMessage insert
-			int count = getMessageService.insertGetMessage(gVo);
-			logger.info("getMessage insert 결과 count={}", count);
 		}
 
 		model.addAttribute("msg", msg);
@@ -153,19 +95,7 @@ public class HrmController {
 		return "common/message";
 	}
 
-	@RequestMapping("/messageBoxSend.do")
-	public String messageBoxSend(HttpSession session, ModelMap model) {
-		int userNo = (Integer) session.getAttribute("userNo");
-		logger.info("보낸 쪽지함 조회, userNo={}", userNo);
-
-		List<Map<String, Object>> list = messageService.selectSentMessage(userNo);
-		logger.info("쪽지함 조회 결과 list.size={}", list.size());
-
-		model.addAttribute("list", list);
-
-		return "message/messageBoxSend";
-	}
-
+	/*
 	//쪽지 상세보기
 	@RequestMapping("/messageDetail.do")
 	public String messageDetail_post(@RequestParam (defaultValue = "0") int messageNo,
@@ -293,4 +223,52 @@ public class HrmController {
 		
 	}
 	*/
+	
+	
+	@RequestMapping("/purchasedResumes.do")
+	public String purchasedResumes(@ModelAttribute HrmResumePageVO searchVo, 
+			@RequestParam (required = false) String searchPRKeyword,
+			HttpSession session, Model model) {
+		logger.info("구매 이력서 페이지");
+		
+		searchVo.setSearchKeyword(searchPRKeyword);
+		logger.info("검색 키워드 : searchKeyword={}", searchPRKeyword);
+		
+		//키워드 조절
+		if(searchPRKeyword!=null && !searchPRKeyword.isEmpty()) {
+			if(searchPRKeyword.equals("신입")) {
+				searchVo.setSearchKeyword("0");
+			}else if(searchPRKeyword.lastIndexOf("년")>0) {
+				int idx = searchPRKeyword.lastIndexOf("년");
+				searchVo.setSearchKeyword(searchPRKeyword.substring(0, idx));
+			}
+		}
+
+		int userNo = (Integer) session.getAttribute("userNo");
+		searchVo.setUserNo(userNo);
+		
+		//페이징
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(5);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		
+		searchVo.setRecordCountPerPage(5);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		
+		//구매한 이력서 리스트 
+		List<Map<String, Object>> resumeList = ordersService.selectPurchasedResume(searchVo);
+		logger.info("구매 이력서 list.size={}", resumeList.size());
+		
+		int totalRecord=ordersService.selectTotalResumeRecord(searchVo);
+		logger.info("전체 구매 이력서 수 totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		model.addAttribute("pagingInfo", pagingInfo);
+		model.addAttribute("resumeList", resumeList);
+		
+		return "company/HRManagment/purchasedResumes";
+	}
+	
 }

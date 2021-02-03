@@ -31,4 +31,61 @@
 		select count(*) from POSITIONSUGGEST
 		where user_no=#{userNo}
 	</select>
+	
+	<!-- 포지션 제안 보내기 -->
+	<insert id="insertPositionSuggest" parameterType="positionsuggestVO">
+		<selectKey keyProperty="positionsuggestNo" resultType="int"  order="BEFORE">
+			select positionsuggest_seq.nextval from dual
+		</selectKey>
+		insert into POSITIONSUGGEST(POSITIONSUGGEST_NO, POSITIONSUGGEST_TITLE
+		    ,POSITIONSUGGEST_POSITION, POSITIONSUGGEST_PRICE, POSITIONSUGGEST_CONTENTS, USER_NO)
+		values(#{positionsuggestNo}, #{positionsuggestTitle},
+			#{positionsuggestPosition}, #{positionsuggestPrice}, #{positionsuggestContents}, #{userNo})
+	</insert>
+	
+	<!-- 회원이 방금 보낸 제안 조회 -->
+	<select id="selectPositionJustNow" parameterType="int" resultType="positionsuggestVO">
+		select A.*
+		from
+		(
+		    select * from POSITIONSUGGEST 
+		    where USER_NO=#{userNo}
+		    ORDER BY POSITIONSUGGEST_REGDATE desc
+		)A
+		where rownum=1
+	</select>
+	
+	<!-- 포지션 제안 받음 -->
+	<insert id="insertGetPositionSuggest" parameterType="getPositionsuggestVO">
+		<selectKey keyProperty="getPositionNo" resultType="int"  order="BEFORE">
+			select getpositionsuggest_seq.nextval from dual
+		</selectKey>
+		insert into GETPOSITIONSUGGEST(GETPOSITIONSUGGEST_NO, USER_NO, POSITIONSUGGEST_NO)
+		values(#{getPositionNo}, #{userNo}, #{positionsuggestNo})
+	</insert>
+	
+	<!-- 보낸 제안 조회 (삭제되지않았을 경우) -->
+	<select id="selectPositionSuggest" parameterType="int" resultType="map">
+		select A.*
+		from
+		(
+		    select p.*, (select user_id from users where USER_NO=p.GETUSER_NO) AS "USER_ID"
+		    from GetPositionView p
+		)A
+		where USER_NO=#{userNo} and GETUSER_NO!=USER_NO and SEND_DELFLAG=2
+		order by POSITIONSUGGEST_REGDATE desc
+	</select>
+	
+	<!-- 양식함 조회 -->
+	<select id="selectPositionForm" parameterType="int" resultType="map">
+		select A.*
+		from
+		(
+		    select p.*, (select user_id from users where USER_NO=p.GETUSER_NO) AS "USER_ID"
+		    from GetPositionView p
+		)A
+		where USER_NO=#{userNo} and GETUSER_NO=USER_NO and GETPOSITIONSUGGEST_DELFLAG=2
+		order by POSITIONSUGGEST_REGDATE desc
+	</select>
+
 </mapper>

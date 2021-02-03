@@ -46,40 +46,31 @@
 			<div class="col-lg-6">
 				<h4>제안 보내기</h4>
 			</div>
-			<c:if test="${empty sentUserID}">
-				<div class="col-lg-6">
-					<c:if test="${!empty param.type}">
-						<script type="text/javascript">
-							$(function(){
-								$("#saveForm").trigger("click");
-							});
-						</script>
-					</c:if>
-					<input type="checkbox" id="saveForm"> 
-					<input type="hidden" id="loginId" value="${userId}"> 
-					<label for="saveForm">양식함에 저장하기 <span class="checkmark"></span></label>
-				</div>
-				<div class="col-lg-12"style="margin: 10px 0">
-					<p id="notice" style="font-size:16px;color:#4C50BB;">
-						해당 제안은 양식함에 저장되며, 삭제하는 경우 외에 자동으로 영구 보관됩니다.
-					</p>
-				</div>
-			</c:if>
+			<div class="col-lg-6">
+				<c:if test="${!empty param.type}">
+					<script type="text/javascript">
+						$(function(){
+							$("#saveForm").trigger("click");
+						});
+					</script>
+				</c:if>
+				<input type="checkbox" id="saveForm"> 
+				<input type="hidden" id="loginId" value="${userId}"> 
+				<label for="saveForm">양식함에 저장하기 <span class="checkmark"></span></label>
+			</div>
+			<div class="col-lg-12"style="margin: 10px 0">
+				<p id="notice" style="font-size:16px;color:#4C50BB;">
+					해당 제안은 양식함에 저장되며, 삭제하는 경우 외에 자동으로 영구 보관됩니다.
+				</p>
+			</div>
 		</div>
 		
 		<form name="positionFrm" method="post" class="comment-form" action="<c:url value='/company/HRManagment/positionWrite.do'/>">
 			<div class="row">
 				<div class="col-lg-6">
-						<span class="error"></span>
-						<input type="text" name="userId" id="userId"
-							<c:if test="${empty sentUserID}">
-								placeholder="받는 회원 아이디를 입력하세요"
-							</c:if>
-							<c:if test="${!empty sentUserID}">
-								value="${sentUserID}"  disabled="disabled"
-							</c:if>
-						>
-					<input type=hidden name="userNo" value="${userNo}"> 
+					<span class="error"></span>
+					<input type="text" name="userId" id="userId" placeholder="받는 회원 아이디를 입력하세요" >
+					<input type="hidden" name="userNo" value="${sessionScope.userNo}">
 				</div>
 				<div class="col-lg-6">
 					<span class="error"></span>

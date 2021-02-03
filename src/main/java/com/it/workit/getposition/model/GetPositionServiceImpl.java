@@ -6,4 +6,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetPositionServiceImpl implements GetPositionService {
 	@Autowired private GetPositionDAO getPositionDao;
+
 }
