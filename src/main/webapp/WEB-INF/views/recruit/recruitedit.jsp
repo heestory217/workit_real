@@ -118,7 +118,7 @@ function numberMaxLength(e){
                             </div>
                             
                             <div class="group-input">
-		                    	<label for="corpIntro">채용형태</label>
+		                    	<label for="corpIntro">상세요강</label>
 		                    	<textarea id="recruitannounceWorkkind" name="recruitannounceWorkkind">${RecruitannounceVO.recruitannounceWorkkind}</textarea><br><br>
 								<script type="text/javascript">
 									CKEDITOR.replace('recruitannounceWorkkind',	{height : 200});
