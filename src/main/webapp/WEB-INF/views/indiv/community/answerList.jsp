@@ -28,6 +28,7 @@
 		border-left:1px solid silver;
 		border-right:1px solid silver;
 		border-bottom:1px solid silver;
+		clear:both;
 	}
 	
 	.oneQuestBox{
@@ -103,7 +104,6 @@
 		background-color: #f5f7ff;;
 	}
 	
-	
 	.cellBx > span{
 		float:left;
 	}
@@ -156,6 +156,21 @@
 	.blog__pagination a:last-child {
 		margin-right: 0;
 	}
+	
+	.selectMenu{
+		float: right;
+	    font-size: 14px;
+	    margin: 10px 10px 5px;
+	}
+	
+	.selected{
+		color:#4C50BB;
+	}
+	
+	.fa-check{
+		margin-right:3px;
+	}
+	
 		
 </style>
 <script type="text/javascript">
@@ -179,6 +194,17 @@
 		<div id="content" class="AllQuestList">
 			<div class="top-title-wrap">
 				<p class="title">답변하기</p>
+			</div>
+			<div class="selectMenu">
+				<a href="<c:url value='/indiv/community/answerList.do?type=1'/>"
+					<c:if test="${param.type==1 }">class="selected"</c:if>>
+				<i class="fa fa-check"></i>최신순&nbsp; | &nbsp; </a>
+				<a href="<c:url value='/indiv/community/answerList.do?type=2'/>"
+					<c:if test="${param.type==1 }">class="selected"</c:if>>
+				<i class="fa fa-check"></i>추천순&nbsp; | &nbsp; </a>
+				<a href="<c:url value='/indiv/community/answerList.do?type=3'/>"
+					<c:if test="${param.type==1 }">class="selected"</c:if>>
+				<i class="fa fa-check"></i>답변적은순  </a>
 			</div>
 			
 			<form action="<c:url value='/indiv/community/qstnList.do'/>" 

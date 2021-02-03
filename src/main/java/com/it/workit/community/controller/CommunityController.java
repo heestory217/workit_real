@@ -219,8 +219,9 @@ public class CommunityController {
 	
 	//답변하기 게시판 질문 목록 조회
 	@RequestMapping("/answerList.do")
-	public String answerList(@ModelAttribute QstnPagingVO vo,
-			HttpSession session, Model model) {
+	public String answerList(@RequestParam(defaultValue = "0") int type,
+				@ModelAttribute QstnPagingVO vo,
+				HttpSession session, Model model) {
 		int userNo=(Integer) session.getAttribute("userNo");
 		vo.setUserNo(userNo);
 		logger.info("질문 전체 조회, 파라미터 vo={}", vo);
@@ -239,10 +240,11 @@ public class CommunityController {
 		logger.info("총 레코드 수, totalRecordByWorkkind={}", totalRecordByWorkkind);
 		pagingInfo.setTotalRecord(totalRecordByWorkkind);
 		
-		
-		List<Map<String, Object>> list=qstnService.selectQstnByWorkkind(vo);
-		//List<QuestionVO> qstnList=qstnService.selectAllQstn();
-		logger.info("질문 전체 조회 결과, list.size={}", list.size());
+		List<Map<String, Object>> list=null;
+		if(type==1) {
+			list=qstnService.selectQstnByWorkkind(vo);
+			logger.info("답변하기 질문 조회-최신순, list.size={}", list.size());
+		}
 		
 		model.addAttribute("qstnListByWorkkind", list);
 		model.addAttribute("pagingInfo", pagingInfo);

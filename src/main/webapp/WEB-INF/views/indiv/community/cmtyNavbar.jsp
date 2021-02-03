@@ -186,7 +186,7 @@
 				="<c:url value='/indiv/community/qstnList.do'/>">
 						전체 질문</a><hr></li>
 					<li class="sideNav"><div><a class="nav-link answerBoard" href
-				="<c:url value='/indiv/community/answerList.do'/>">
+				="<c:url value='/indiv/community/answerList.do?type=1'/>">
 						답변하기</a><i class="fa fa-question"></i></div></li>
 				</ul>
 				<div class="toggleBx">
