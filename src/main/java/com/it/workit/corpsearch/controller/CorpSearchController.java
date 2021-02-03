@@ -17,11 +17,13 @@ import com.it.workit.corp.model.LanguageListView;
 import com.it.workit.corpsearch.model.CorpReSearchAllVO;
 import com.it.workit.corpsearch.model.CorpSearchService;
 import com.it.workit.corpsearch.model.CorpSearchkeywordConvertor;
+import com.it.workit.indivsearch.model.IndivSearchService;
 import com.it.workit.language.model.LanguageService;
 import com.it.workit.language.model.LanguageVO;
 import com.it.workit.resumes.model.ResumesAllVO;
 import com.it.workit.users.model.UsersService;
 import com.it.workit.users.model.UsersVO;
+import com.it.workit.users.model.arealistVO;
 
 @Controller
 public class CorpSearchController {
@@ -32,6 +34,7 @@ public class CorpSearchController {
 	@Autowired private UsersService userSerivce;
 	@Autowired private CorpSearchkeywordConvertor CSKConvertor;
 	@Autowired private LanguageService langService;
+	@Autowired private IndivSearchService indivSearchServie;
 	
 	@RequestMapping("/corpSearch.do")
 	public String searchMain(@ModelAttribute CorpReSearchAllVO searchVo, Model model) {
@@ -68,6 +71,11 @@ public class CorpSearchController {
 		
 		List<LanguageVO> langList = langService.selectAllLang();
 		List<Integer> langNo = searchVo.getLangNo();
+
+		//지역 데이터 
+		List<arealistVO> Alist=indivSearchServie.selectAreaList1();
+		
+		model.addAttribute("Alist",Alist);
 		model.addAttribute("langNo", langNo);
 		model.addAttribute("langlist",langList);
 		model.addAttribute("resumeList",resumeList);

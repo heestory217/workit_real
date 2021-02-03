@@ -55,7 +55,7 @@
 	</select>
 	
 	<select id="selectAreaList2" resultType="arealistVo" parameterType="String">
-		select area_add2 from AREALIST where area_add1=#{areaAdd1}
+		select area_no, area_add2 from AREALIST where area_add1=#{areaAdd1}
 	</select>
 	
 	<!-- 전체 기본데이터 -->

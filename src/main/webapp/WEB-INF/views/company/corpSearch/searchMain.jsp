@@ -81,11 +81,12 @@
   		margin: 5px 5px 0px 0px;
 	}
 	
-	#careerYear{
+	select {
 	    width: 90%;
 	    height: 40px;
 	    border: 1px solid #e6e6e6;
 	    padding: 10px;
+	    display :block;
 	}
 	
 	</style>
@@ -110,10 +111,30 @@
 			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
 			<input type="hidden" name="langNo" value="${param.langNo}">
 			<input type="hidden" name="career" id="career" value="${param.career}">
+			<input type="hidden" name="area1" id="area1" value="${param.area1}">
+			<input type="hidden" name="area2" id="area2" value="${param.area2}">
 		</form>
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+                	<div class="filter-widget">
+                        <h4 class="fw-title">지역</h4>
+                        <select name="areaAdd1" id="areaAdd1" style="margin-bottom: 10px;">
+							<option value="">지역을 선택하세요</option>
+							<c:if test="${!empty Alist }">
+								<c:forEach var="Avo" items="${Alist }">
+									<option value="${Avo.areaAdd1 }"
+										<c:if test="${Avo.areaAdd1 == A1selected}">
+											selected="selected"
+										</c:if>
+									>${Avo.areaAdd1 }</option>
+								</c:forEach>
+							</c:if>
+						</select>
+						<select name="areaAdd2" id="areaAdd2" onclick="areaAdd2(${pagingInfo.currentPage})">
+							<option>상세 지역을 선택하세요</option>
+						</select>
+                    </div>
                     <div class="filter-widget">
                         <h4 class="fw-title">경력</h4>
                         <select id="careerYear" onchange="careerYear(${pagingInfo.currentPage})">
@@ -261,7 +282,7 @@
 						 	<c:if test="">	
 								<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
 									<i class="fa fa-long-arrow-left"></i>
-								</a>
+								</a> 
 							</c:if>
 						
 							<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
@@ -304,7 +325,7 @@
     <script src="https://kit.fontawesome.com/a86f09c0f4.js" crossorigin="anonymous"></script>
     <script type="text/javascript">
     
-    //[3]결과 내 재검색
+    //[3]결과 내 재검색 - 언어 필터
     function reSearch(langNo, curPage){
     	var reSearchLangNoList=[];
     	$('input[name=langReSearch]:checked').each(function(){
@@ -316,15 +337,52 @@
     	$('form[name=frmPage]').submit();
     }
     
+    //[3]결과 내 재검색 - 경력 필터
     var year = document.getElementById("careerYear");
 	function careerYear(curPage){
-		 alert('선택된 옵션 value 값=' + year.options[year.selectedIndex].value);
+		 //alert('선택된 옵션 value 값=' + year.options[year.selectedIndex].value);
 		 var selectYear = year.options[year.selectedIndex].value
 		 $('input[name=currentPage]').val(curPage);
 		 $('input[name=career]').val(selectYear);
 		 $('form[name=frmPage]').submit();
 	}
-    
+	
+	//[3]결과 내 재검색 - 지역 필터
+	$(function(){
+		$('#areaAdd1').change(function(){
+			var areaAdd1=$('#areaAdd1 option:selected').val();
+			//alert(areaAdd1);
+			if(areaAdd1!==''){
+				$.ajax({
+					url:"<c:url value='/indivSearch/indivLanguageSearchAjax.do'/>",
+					type:"get",
+					data:{
+						areaAdd1:areaAdd1
+					},
+					success:function(res){
+						if(res.length>0){
+							$('#areaAdd2').find('option').remove();
+							
+							$('#areaAdd2').html("<option value=''>상세 지역을 선택하세요</option>");
+							$.each(res, function(idx, item){
+								$('#areaAdd2').append("<option value="+item.areaNo+">"+item.areaAdd2+"</option>");
+							});
+						}//if
+					},
+					
+					error:function(xhr, status, error){
+						alert('error! : '  +error);
+					}	
+				});//ajax
+			}else{
+				$('#areaAdd2').html("<option value=''>상세 지역을 선택하세요</option>");
+			}
+		});//change
+	});
+	
+	
+	
+
     ///[2] 페이징처리
 	function pageFunc(curPage){
 		$('input[name=currentPage]').val(curPage);
