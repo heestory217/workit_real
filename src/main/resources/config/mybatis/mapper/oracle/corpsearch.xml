@@ -16,6 +16,9 @@
 			<if test="career !=null and career !=''">
 				and USER_EXPERIENCE=#{career}
 			</if>
+			<if test="area2 !=null and area2 !=''">
+				and area_no=#{area2}
+			</if>
 		</where>
 	</sql>
 	
