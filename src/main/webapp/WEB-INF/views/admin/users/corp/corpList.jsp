@@ -21,7 +21,7 @@
 
 </style>
 
-<div class="dashboard-wrapper">
+
 <div class="col-lg-12">
     <div class="section-block">
         <h3 class="section-title">기업 회원 조회</h3>
@@ -53,7 +53,9 @@
                         <td>
                             <div class="m-r-10"><img src="<c:url value='/pd_images/${corpVo.corpImgurl }'/>" alt="corpLogo" width="35"></div>
                         </td>
-                        <td>${corpVo.corpName }</td>
+                        <td>
+                        <a href="#"> ${corpVo.corpName }</a>
+                        </td>
                         <td>${corpVo.corpHeadname}</td>
                         <td>${corpVo.corpIndustry }</td>
                         <td>
