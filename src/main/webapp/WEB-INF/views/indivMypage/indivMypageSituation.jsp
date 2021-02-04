@@ -21,11 +21,6 @@
 						<col width="33%">
 						<col width="33%">
 					</colgroup>
-						<!-- <tr>
-							<td><br>
-								<h5 class="center">지원 현황</h5>
-							</td><td></td><td></td>
-						</tr> -->
 						<tr>
 							<td class="cart-title"><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=3'/>"><br><br>
 								<h2 class="center textColorblue">${applyCount }</h2>
@@ -88,7 +83,6 @@
 													${vo.recruitannounceTitle }
 												</c:if>
 												</p></a>
-												<%-- <a href="#"><p class="center">${vo.recruitannounceTitle }</p></a> --%>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">${vo.recruitannounceSworkkind }</p>

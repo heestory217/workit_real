@@ -8,7 +8,6 @@
 	$(function(){
 		$('#areaAdd1').change(function(){
 			var areaAdd1=$('#areaAdd1 option:selected').val();
-			//alert(areaAdd1);
 			
 			$.ajax({
 				url:"<c:url value='/indivSearch/indivLanguageSearchAjax.do'/>",

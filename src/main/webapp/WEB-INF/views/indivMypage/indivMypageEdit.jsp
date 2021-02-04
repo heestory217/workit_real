@@ -30,11 +30,7 @@
 				alert('이름을 입력하세요');
 				$('#username').focus();
 				event.preventDefault();
-			}/* else if($('#pwd').val().length<1){
-				alert('비밀번호를 입력하세요');
-				$('#pwd').focus();
-				event.preventDefault();
-			} */else if($('#pwd').val()!=$('#con-pwd').val()){
+			}else if($('#pwd').val()!=$('#con-pwd').val()){
 				alert('비밀번호가 일치하지 않습니다.');
 				$('#con-pwd').focus();
 				event.preventDefault();
@@ -46,11 +42,7 @@
 				alert('전화번호를 입력하세요');
 				$('#hp3').focus();
 				event.preventDefault();
-			}/* else if($('#pwd').val()!=${vo.userPassword }){	//디비 비밀번호랑 일치하지않으면 으로 바꾸기
-				alert('비밀번호가 일치하지 않습니다.');
-				$('#con-pwd').focus();
-				event.preventDefault();
-			} */else if(!validate_phone($('#hp2').val()) ||
+			}else if(!validate_phone($('#hp2').val()) ||
 					!validate_phone($('#hp3').val())){
 				alert('전화번호는 숫자만 가능합니다.');
 				$('#hp2').focus();
@@ -75,10 +67,6 @@
                                 <input type="text" id="userid" class="col-lg-12" name="userId" 
                                 	value="${vo.userId}" readonly="readonly">
                             </div>
-<!--                             <div class="group-input">
-                                <label for="pwd">비밀번호 *</label>
-                                <input type="password" id="pwd" class="col-lg-12" name="userPassword">
-                            </div> 이건 마이페이지 접근 전에 확인하는 걸로 변경하자-->
                             <div class="group-input">
                                 <label for="pwd">비밀번호 *</label>
                                 <input type="password" id="pwd" class="col-lg-12" name="userPassword" value="${vo.userPassword }">
@@ -283,7 +271,5 @@
 <!-- Menu include 한것 닫는 태그 -->
 </div></div></div></section>
 
-<%-- <input type="text" value="${vo.userEmail1 } " name="userEmail1">
-<input type="text" value="${vo.userEmail2 } " name="userEmail1"> --%>
 
 <%@ include file="../inc/bottom.jsp"%>

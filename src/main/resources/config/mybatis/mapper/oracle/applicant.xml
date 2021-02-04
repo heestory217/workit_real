@@ -29,14 +29,6 @@
 		where APPLICANTLIST_PAPERCHECK=2 and USER_NO=#{userNo}
 	</select>
 
-	<!-- 지원완료 목록 -->
-<!-- 	<select id="selectApplyAllByUserNo" parameterType="int" resultType="applicantlistVo">
-		select a.*, r.RECRUITANNOUNCE_TITLE, r.RECRUITANNOUNCE_SWORKKIND, r.RECRUITANNOUNCE_SPAY
-		from APPLICANTLIST a join RECRUITANNOUNCE r
-		on a.RECRUITANNOUNCE_NO=r.RECRUITANNOUNCE_NO
-		where APPLICANTLIST_PAPERCHECK=3 and a.USER_NO=#{userNo}
-		order by APPLICANTLIST_NO desc
-	</select> -->
 	
 	<select id="selectApplyAllByUserNo" parameterType="indivpagingVo" resultType="applicantlistVo">
 		select *
@@ -87,14 +79,6 @@
 		]]>
 	</select>
 	
-	<!-- 불합격 목록 -->
-<!-- 	<select id="selectFailAllByUserNo" parameterType="int" resultType="applicantlistVo">
-		select a.*, r.RECRUITANNOUNCE_TITLE, r.RECRUITANNOUNCE_SWORKKIND, r.RECRUITANNOUNCE_SPAY
-		from APPLICANTLIST a join RECRUITANNOUNCE r
-		on a.RECRUITANNOUNCE_NO=r.RECRUITANNOUNCE_NO
-		where APPLICANTLIST_PAPERCHECK=2 and a.USER_NO=#{userNo}
-		order by APPLICANTLIST_NO desc
-	</select> -->
 	
 	<select id="selectFailAllByUserNo" parameterType="indivpagingVo" resultType="applicantlistVo">
 		select *

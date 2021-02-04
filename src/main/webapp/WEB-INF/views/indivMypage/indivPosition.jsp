@@ -50,7 +50,6 @@
 													${vo.positionsuggestTitle }
 												</c:if>
 												</p></a>
-												<%-- <a href="#"><p class="center">${vo.positionsuggestTitle }</p></a> --%>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">${vo.positionsuggestPosition }</p>

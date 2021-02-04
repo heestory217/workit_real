@@ -47,16 +47,6 @@ public class IndivMypageController {
 	//비밀번호 입력 -> 수정화면을 거치기 위해서 단순 get방식은 indivCheckPwd로 리턴된다.
 	@RequestMapping(value = "/indivMypageEdit.do", method = RequestMethod.GET)
 	public String usersEdit_get() {
-		//세션 userid 가져오기
-		//String userid=(String) session.getAttribute("userId");
-		//logger.info("개인 마이페이지 - 수정 화면 보여주기 / 파라미터 userid = {}",userid);
-		
-		//UsersVO vo=userService.selectByUserId(userid);
-		//logger.info("마이페이지 - 회원 수정 페이지 / 조회 결과 vo={}", vo);
-		
-		//model.addAttribute("vo", vo);
-		
-		//return "indivMypage/indivMypageEdit";
 		
 		logger.info("indivCheckPwd없이는 edit 창 진입불가, indivCheckPwd 리턴");
 		return "indivMypage/indivCheckPwd";
