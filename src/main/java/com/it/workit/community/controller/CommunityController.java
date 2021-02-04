@@ -355,6 +355,28 @@ public class CommunityController {
 		return "common/message";
 		
 	}
+
+	//임시저장 update
+	@RequestMapping(value="/updateTemp.do", method=RequestMethod.POST)
+	public String tempQstn_Update(@ModelAttribute QuestionVO vo, Model model) {
+		vo.setQuestionImmsave(1);
+		logger.info("질문 임시 저장, 파라미터 vo={}, tempSave",vo);
+		
+		int cnt=qstnService.insertQstn(vo);
+		logger.info("질문 임시 저장 결과, cnt={}", cnt);
+		String msg="임시저장에 실패하였습니다, 다시 시도해주세요.",
+				url="/indiv/community/qstnEdit.do";
+		if(cnt>0) {
+			msg="임시저장 되었습니다.";
+			url="/indiv/community/qstnList.do";
+		}
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "common/message";
+		
+	}
 	
 	//질문 수정 화면
 	@RequestMapping(value="/qstnEdit.do", method = RequestMethod.GET)

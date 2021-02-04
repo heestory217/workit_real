@@ -387,10 +387,10 @@
 				      <div class="card-body">
 				      <a href="<c:url value='/indiv/community/cntUpdate.do?qstnNo=${map["QUESTION_NO"] }'/>">
 				      	<div style="height:20%">
-				        	<p class="card-title" style="font-size: 18px;color:#4C4747">@${map['USER_ID'] }</p>
+				        	<p class="card-title" style="font-size:18px;color:#4C4747">@${map['USER_ID'] }</p>
 				        </div>
 				        <div style="height:60%">
-				        	<p class="card-text" style="font-size:20px;color:#4C4747">${map['QUESTION_TITLE'] }</p>
+				        	<p class="card-text" style="font-size:16px;color:#4C4747">${map['QUESTION_TITLE'] }</p>
 				        </div>
 				        <div style="height:20%">
 				        	<p class="card-workkind"> #${map['WORKKIND_NAME'] } </p>
