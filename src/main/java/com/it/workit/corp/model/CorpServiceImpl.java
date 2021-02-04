@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.it.workit.common.SearchVO;
 import com.it.workit.corpsearch.model.MatchSearchVO;
 import com.it.workit.users.model.UsersDAO;
 
@@ -113,6 +114,18 @@ public class CorpServiceImpl implements CorpService {
 	@Override
 	public int insertCorpReview(CorpreviewVO vo) {
 		return corpDao.insertCorpReview(vo);
+	}
+
+	
+	//admin
+	@Override
+	public List<CorpVO> selectCorpList(SearchVO searchVo) {
+		return corpDao.selectCorpList(searchVo);
+	}
+
+	@Override
+	public int selectCorpListCount(SearchVO searchVo) {
+		return corpDao.selectCorpListCount(searchVo);
 	}
 
 
