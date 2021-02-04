@@ -175,6 +175,36 @@
 			#{corpreviewGood},#{corpreviewBad},#{corpreviewWant},#{corpreviewRate})
 	</insert>
 	
+	<sql id="searchWhere">
+		<where>
+			<if test="searchKeyword !=null and searchKeyword != ''">
+				corp_name like '%' || #{searchKeyword} || '%'
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectCorpList" parameterType="searchVo" resultType="corpVO">
+		select *
+		from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        select * from corp
+		        <include refid="searchWhere"></include>
+		    )A
+		)
+		<![CDATA[
+			where RNUM >= #{firstRecordIndex}
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="selectCorpListCount" parameterType="searchVo" resultType="int">
+		select count(*) from corp <include refid="searchWhere"></include>
+	</select>
+	
+	
 </mapper>
 
 
