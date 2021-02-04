@@ -124,14 +124,14 @@
 							<c:if test="${!empty Alist }">
 								<c:forEach var="Avo" items="${Alist }">
 									<option value="${Avo.areaAdd1 }"
-										<c:if test="${Avo.areaAdd1 == A1selected}">
+										<c:if test="${Avo.areaAdd1 == param.area1}">
 											selected="selected"
 										</c:if>
 									>${Avo.areaAdd1 }</option>
 								</c:forEach>
 							</c:if>
 						</select>
-						<select name="areaAdd2" id="areaAdd2" onclick="areaAdd2(${pagingInfo.currentPage})">
+						<select name="areaAdd2" id="areaAdd2" onchange="areaSelect(${pagingInfo.currentPage})">
 							<option>상세 지역을 선택하세요</option>
 						</select>
                     </div>
@@ -231,8 +231,6 @@
                         <div class="row">
                         <!-- 이력서 리스트 반복 -->
                         <c:if test="${empty resumeList}">
-                        	<br><div class="center size_150 lightgray"><i class="fas fa-search"></i></div><br>
-							<div class="center"><p>검색 결과가 없습니다.</p></div>
                         </c:if>
                         <c:if test="${!empty resumeList}">
                         	<c:forEach var="resume" items="${resumeList}">
@@ -341,46 +339,75 @@
     var year = document.getElementById("careerYear");
 	function careerYear(curPage){
 		 //alert('선택된 옵션 value 값=' + year.options[year.selectedIndex].value);
-		 var selectYear = year.options[year.selectedIndex].value
+		 var selectYear = year.options[year.selectedIndex].value;
 		 $('input[name=currentPage]').val(curPage);
 		 $('input[name=career]').val(selectYear);
 		 $('form[name=frmPage]').submit();
 	}
 	
-	//[3]결과 내 재검색 - 지역 필터
+	//[3] 결과 내 재검색 - 지역 필터 submit()
+	var selectArea1 = document.getElementById("areaAdd1");
+	var selectArea2 = document.getElementById("areaAdd2");
+	
+	function areaSelect(curpage){
+		var area1 = selectArea1.options[selectArea1.selectedIndex].value;
+		var area2 = selectArea2.options[selectArea2.selectedIndex].value;
+		//alert(area1);
+		//alert(area2);
+		//alert(curpage);
+		 $('input[name=currentPage]').val(curpage);
+		 $('input[name=area1]').val(area1);
+		 $('input[name=area2]').val(area2);
+		 $('form[name=frmPage]').submit();
+	}
+	
+	//[3]결과 내 재검색 - 지역 필터 selector
 	$(function(){
+		var areaAdd=$('#areaAdd1 option:selected').val();
+		ajaxSend(areaAdd);//페이지 들어왔을때도 실행되게 설정
+		
 		$('#areaAdd1').change(function(){
 			var areaAdd1=$('#areaAdd1 option:selected').val();
-			//alert(areaAdd1);
-			if(areaAdd1!==''){
-				$.ajax({
-					url:"<c:url value='/indivSearch/indivLanguageSearchAjax.do'/>",
-					type:"get",
-					data:{
-						areaAdd1:areaAdd1
-					},
-					success:function(res){
-						if(res.length>0){
-							$('#areaAdd2').find('option').remove();
-							
-							$('#areaAdd2').html("<option value=''>상세 지역을 선택하세요</option>");
-							$.each(res, function(idx, item){
-								$('#areaAdd2').append("<option value="+item.areaNo+">"+item.areaAdd2+"</option>");
-							});
-						}//if
-					},
-					
-					error:function(xhr, status, error){
-						alert('error! : '  +error);
-					}	
-				});//ajax
-			}else{
-				$('#areaAdd2').html("<option value=''>상세 지역을 선택하세요</option>");
-			}
+			ajaxSend(areaAdd1);
 		});//change
-	});
+	});//jQuery
 	
-	
+	//[3]결과 내 재검색 - 지역 필터 ajax
+	function ajaxSend(areaAdd1){
+		if(areaAdd1!==''){
+			$.ajax({
+				url:"<c:url value='/indivSearch/indivLanguageSearchAjax.do'/>",
+				type:"get",
+				data:{
+					areaAdd1:areaAdd1
+				},
+				success:function(res){
+					if(res.length>0){
+						$('#areaAdd2').find('option').remove();
+						
+						var str="";
+						var selectedArea2 = $('#area2').val();
+						//alert(selectedArea2);
+						str+="<option value=''>상세 지역을 선택하세요</option>";
+						$.each(res, function(idx, item){
+							str+="<option value='"+item.areaNo;
+							if(selectedArea2==item.areaNo){
+								str+="' selected='selected";
+							}
+							str+="'>"+item.areaAdd2+"</option>";
+						});
+						$('#areaAdd2').html(str);
+					}//if
+				},
+				
+				error:function(xhr, status, error){
+					alert('error! : '  +error);
+				}	
+			});//ajax
+		}else{
+			$('#areaAdd2').html("<option value=''>상세 지역을 선택하세요</option>");
+		}
+	}
 	
 
     ///[2] 페이징처리
