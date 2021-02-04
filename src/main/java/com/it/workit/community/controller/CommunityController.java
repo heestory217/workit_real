@@ -22,6 +22,7 @@ import com.it.workit.comments.model.CommentsService;
 import com.it.workit.comments.model.CommentsVO;
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
+import com.it.workit.question.model.BookmarkVO;
 import com.it.workit.question.model.QstnPagingVO;
 import com.it.workit.question.model.QuestionService;
 import com.it.workit.question.model.QuestionVO;
@@ -63,7 +64,7 @@ public class CommunityController {
 	}
 	
 
-	//회원 활동 내역 조회 - 질문
+	//회원 활동 내역 조회 
 	@RequestMapping("/myProfile.do")
 	public String myProfile(@ModelAttribute QstnPagingVO vo, 
 					@RequestParam(defaultValue = "0") int type,
@@ -72,7 +73,7 @@ public class CommunityController {
 		logger.info("회원 활동 내역 조회, userNo={}", userNo);
 		
 		vo.setUserNo(userNo);
-		int qstnCnt=0, cmntCnt=0, tempCnt=0;
+		int qstnCnt=0, cmntCnt=0, tempCnt=0, bookMarkCnt=0;
 		if(type==1) {
 			vo.setQuestionImmsave(2);
 			qstnCnt=qstnService.getTotalRecord(vo);
@@ -87,8 +88,11 @@ public class CommunityController {
 			tempCnt=qstnService.getTotalRecord(vo);
 			logger.info("회원 활동 내역 - 총 임시저장 글 개수, tempCnt={}", tempCnt);
 			model.addAttribute("tempCnt", tempCnt);
+		}else if(type==4) {
+			bookMarkCnt=qstnService.getBookMarkCnt(vo);
+			logger.info("회원 활동 내역 - 총 임시저장 글 개수, bookMarkCnt={}", bookMarkCnt);
+			model.addAttribute("bookMarkCnt", bookMarkCnt);
 		}
-		
 		
 		vo.setUserNo(userNo);
 		
@@ -105,7 +109,6 @@ public class CommunityController {
 		int totalRecord=0;
 		
 		List<Map<String, Object>> list=null;
-		
 		if(type==1) {
 			list=qstnService.selectAllQuestion(vo);
 			logger.info("활동 내역 조회 결과 - 질문, list.size={}", list.size());
@@ -120,7 +123,10 @@ public class CommunityController {
 			int tempSave=vo.getQuestionImmsave();
 			logger.info("활동 내역 조회 결과 - 임시저장, list.size={}, tempSave={}", list.size(), tempSave);
 			totalRecord=tempCnt;
-			
+		}else if(type==4) {
+			list=qstnService.selectBookMarkByUser(vo);
+			logger.info("활동 내역 조회 결과 - 북마크, list.size={}, bookMarkCnt={}", list.size(), bookMarkCnt);
+			totalRecord=bookMarkCnt;
 		}else {
 			//type 값이 세팅이 되지 않았을 때
 			
@@ -247,18 +253,26 @@ public class CommunityController {
 		}else if(type==2) {
 			list=qstnService.selectQstnByRecmd(vo);
 			logger.info("답변하기 질문 조회-추천순, list.size={}", list.size());
+		}else if(type==3) {
+			list=qstnService.selectQstnByCmntCnt(vo);
+			logger.info("답변하기 질문 조회-답변적은순, list.size={}", list.size());			
 		}
 		
+		List<Map<String, Object>> popQstnList=qstnService.selectPopularAllQstn();
+		logger.info("답변하기 - 인기 있는 질문 조회 결과, popQstnList.size={}", popQstnList.size());
 		model.addAttribute("qstnListByWorkkind", list);
 		model.addAttribute("pagingInfo", pagingInfo);
+		model.addAttribute("popQstnList", popQstnList);
 		
 		return "indiv/community/answerList";
 	}
 	
 	//질문 상세페이지
 	@RequestMapping("/qstnDetail.do")
-	public String qstnDetail(@RequestParam(defaultValue = "0") int qstnNo, Model model) {
-		logger.info("질문 상세 페이지, 파라미터 qstnNo={}", qstnNo);
+	public String qstnDetail(@RequestParam(defaultValue = "0") int qstnNo, 
+			HttpSession session, Model model) {
+		int userNo=(Integer) session.getAttribute("userNo");
+		logger.info("질문 상세 페이지, 파라미터 qstnNo={}, userNo={}", qstnNo, userNo);
 		if(qstnNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
 			model.addAttribute("url", "/indiv/community/qstnList.do");
@@ -268,7 +282,13 @@ public class CommunityController {
 		
 		QuestionVO qstnVo = qstnService.selectQstn(qstnNo);
 		logger.info("질문 조회 결과, qstnVo={}",qstnVo);
+		BookmarkVO bmVo = new BookmarkVO(); 
+		bmVo.setQuestionNo(qstnNo);
+		bmVo.setUserNo(userNo);
+		int bmStatus=qstnService.DupChkBookmark(bmVo);
+		logger.info("북마크 상태 조회, bmStatus={}", bmStatus);
 		
+		model.addAttribute("bmStatus", bmStatus);
 		model.addAttribute("qstnVo", qstnVo);
 		
 		return "indiv/community/qstnDetail";
@@ -324,6 +344,28 @@ public class CommunityController {
 		logger.info("질문 임시 저장 결과, cnt={}", cnt);
 		String msg="임시저장에 실패하였습니다, 다시 시도해주세요.",
 				url="/indiv/community/qstnWrite.do";
+		if(cnt>0) {
+			msg="임시저장 되었습니다.";
+			url="/indiv/community/qstnList.do";
+		}
+		
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		return "common/message";
+		
+	}
+
+	//임시저장 update
+	@RequestMapping(value="/updateTemp.do", method=RequestMethod.POST)
+	public String tempQstn_Update(@ModelAttribute QuestionVO vo, Model model) {
+		vo.setQuestionImmsave(1);
+		logger.info("질문 임시 저장, 파라미터 vo={}, tempSave",vo);
+		
+		int cnt=qstnService.insertQstn(vo);
+		logger.info("질문 임시 저장 결과, cnt={}", cnt);
+		String msg="임시저장에 실패하였습니다, 다시 시도해주세요.",
+				url="/indiv/community/qstnEdit.do";
 		if(cnt>0) {
 			msg="임시저장 되었습니다.";
 			url="/indiv/community/qstnList.do";
@@ -519,7 +561,55 @@ public class CommunityController {
 		return "common/message";
 	}
 	
+	//북마크 등록
+	@RequestMapping("/insertBookMark.do")
+	public String insertBookMark(@RequestParam(defaultValue = "0")int qstnNo, 
+				HttpSession session, Model model) {
+		int userNo=(Integer) session.getAttribute("userNo");
+		logger.info("질문 북마크 등록, 파라미터 qstnNo={}, userNo={}",qstnNo, userNo);
+		BookmarkVO vo = new BookmarkVO();
+		vo.setUserNo(userNo);
+		vo.setQuestionNo(qstnNo);
+		
+		int cnt=qstnService.insertBookMark(vo);
+		logger.info("질문 북마크 등록 결과, cnt={}",cnt);
+		String msg="북마크 등록에 실패했습니다. 다시 시도해주세요", 
+				url="/indiv/community/qstnList.do"; 
+		if(cnt>0) {
+			msg="북마크 등록되었습니다.";
+			url="/indiv/community/myProfile.do?userNo="+userNo+"&type=4";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
 	
+	//북마크 삭제
+	@RequestMapping("/delBookMark.do")
+	public String delBookMark(@RequestParam(defaultValue = "0")int qstnNo, 
+			HttpSession session, Model model) {
+		int userNo=(Integer) session.getAttribute("userNo");
+		logger.info("질문 북마크 삭제, 파라미터 qstnNo={}, userNo={}",qstnNo, userNo);
+		BookmarkVO vo = new BookmarkVO();
+		vo.setUserNo(userNo);
+		vo.setQuestionNo(qstnNo);
+		
+		int cnt=qstnService.delBookmark(vo);
+		logger.info("질문 북마크 등록 결과, cnt={}",cnt);
+		String msg="북마크 삭제에 실패했습니다. 다시 시도해주세요", 
+				url="/indiv/community/qstnList.do"; 
+		if(cnt>0) {
+			msg="북마크 삭제되었습니다.";
+			url="/indiv/community/myProfile.do?userNo="+userNo+"&type=4";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
 	
 	
 	

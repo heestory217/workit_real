@@ -287,6 +287,8 @@
 			
 		});
 		
+		
+		//임시저장
 		$('.btnTempSave').click(function(){
 			if(!confirm('질문을 임시저장 하시겠습니까?')){
 				return false;
@@ -440,7 +442,7 @@
 									<button type="submit" class="btnQuestion devQnaWriteButton"
 									formaction="<c:url value='/indiv/community/qstnWrite.do'/>"
 									>질문하기</button>
-									<button type="button" 
+									<button type="submit" 
 										class="btnTempSave bg_white devQnaWriteCancelButton"
 										formaction="<c:url value='/indiv/community/tempQstn.do'/>"
 									>임시저장</button>

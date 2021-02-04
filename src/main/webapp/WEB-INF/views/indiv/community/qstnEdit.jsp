@@ -316,6 +316,7 @@
 			if(!confirm('질문을 임시저장 하시겠습니까?')){
 				return false;
 			}
+			/* 임시저장 update */
 		});
 
 		
@@ -507,9 +508,9 @@
 										<button type="submit" class="btnQuestion devQnaWriteButton"
 										formaction="<c:url value='/indiv/community/qstnWrite.do'/>"
 										>질문하기</button>
-										<button type="button" 
+										<button type="submit" 
 											class="btnTempSave bg_white devQnaWriteCancelButton"
-											formaction="<c:url value='/indiv/community/tempQstn.do'/>"
+											formaction="<c:url value='/indiv/community/updateTemp.do'/>"
 										>임시저장</button>
 										<button type="button" 
 											class="btnCancel bg_white devQnaWriteCancelButton">취소</button>

@@ -32,7 +32,7 @@
 	}
 	
 	.oneQuestBox{
-	    padding: 20px 10px 40px 10px;
+	    padding: 30px 10px 40px 10px;
 	    height: auto;
 	    width: 92%;
 	    border-bottom: 1px solid silver;
@@ -123,6 +123,7 @@
 		color:#4c50bb;
 	}
 	
+	
 	/* 페이징처리 */
 	.product__pagination a,
 		.blog__pagination a,
@@ -160,7 +161,7 @@
 	.selectMenu{
 		float: right;
 	    font-size: 14px;
-	    margin: 10px 10px 5px;
+	    margin: 15px 10px 5px;
 	}
 	
 	.selected{
@@ -171,9 +172,70 @@
 		margin-right:3px;
 	}
 	
+	/* 인기 있는 질문 */
 		
+	#moreQuestBtn{
+		width:148px;
+		height:25px;
+		margin:5px 0 5px 0;
+		padding-left:5px;
+		border:1px solid white;
+		background-color:white;
+		border-radius: 80px / 80px;
+		text-align: center;
+    	padding-bottom: 25px;
+	}
+	
+	#moreQuestBtn a{
+		font-size: 12px;
+		color:blue;
+	}
+	
+	.first-card{
+		/* background-color: #4c50bb; */
+		background:linear-gradient(45deg, #8965f9, #656AFA, #787bdc, #9765f9);
+		color:white;
+	}
+	 
+	a{
+		color:#4c50bb;
+	}
+	
+	.popQstnCard{
+		padding-left:0px;
+		width:150px;
+		height:215px;
+		float:left;
+	}
+	
+	#popularQuest{
+		margin-top:30px;
+		padding:0;
+    	margin-left: 15px;
+	}
+	
+	
+	.card{
+		width:100%;
+		height:100%;
+	}
+		
+	.fa-crown{
+		color:#ffda24;
+		margin-right:5px;
+	}
+	
+	.card-workkind{
+		margin-bottom:0px;
+	    font-size: 13px;
+	    width: max-content;
+	    color:#adadad;
+	}
+	
+	
 </style>
 <script type="text/javascript">
+
 	function pageFunc(curPage){
 		$('input[name=currentPage]').val(curPage);
 		$('form[name=frmPage]').submit();
@@ -195,19 +257,79 @@
 			<div class="top-title-wrap">
 				<p class="title">답변하기</p>
 			</div>
+			
+			<!-- 자주 묻는 질문  -->
+			<article id="popularQuest">
+				<div class="row">
+				  <div class="col-sm-3 popQstnCard">
+				    <div class="card first-card">
+				      <div class="card-body">
+				        <h5 class="card-title" style="color:white;height:15%">
+				        	<i class="fas fa-crown"></i>인기질문
+				        </h5>
+				        <p class="card-text" style="color:#ffffffc7;height:25%;font-size:17px">
+				        	지금 가장 관심받는 커리어 질문은?</p>
+				        <p class="card-text" style="color:#ffffff99;height:20%;font-size:13px">
+				        <jsp:useBean id="now" class="java.util.Date" />
+							<fmt:formatDate value="${now}" pattern="yyyy.MM.dd" var="today" />
+							<c:out value="${today}"/>기준</p>
+				        <div id="moreQuestBtn" style="height:10%">
+				        <a href="<c:url value='/indiv/community/answerList.do?type=2'/>">
+				    	    인기질문 더보기</a></div>
+				      </div>
+				    </div>
+				  </div>
+				  <!-- 인기 있는 질문 반복 -->
+				  	<c:forEach var="map" items="${popQstnList }" varStatus="status">
+					  <div class="col-sm-3 popQstnCard">
+				  	  <c:set var="cnt" value="${status.count}"/>
+					  <c:if test="${cnt==1 }">
+					    <div class="card" style="border:1px solid #4fd6ff;">
+					  </c:if>
+					  <c:if test="${cnt==2 }">
+					    <div class="card" style="border:1px solid #4fffae;">
+					  </c:if>
+					  <c:if test="${cnt==3 }">
+					    <div class="card" style="border:1px solid #f5b57e;">
+					  </c:if>
+					      <div class="card-body" >
+					  <a href="<c:url value='/indiv/community/cntUpdate.do?qstnNo=${map["QUESTION_NO"] }'/>">
+					      	<div style="height:20%">
+					        	<p class="card-title" style="font-size: 18px;color:#4C4747">@${map['USER_ID'] }</p>
+					        </div>
+					        <div style="height:60%">
+					        	<p class="card-text" style="font-size:20px;color:#4C4747">${map['QUESTION_TITLE'] }</p>
+					        </div>
+					        <div style="height:20%">
+					        	<p class="card-workkind"> #${map['WORKKIND_NAME'] } </p>
+					        </div>
+						 	</a>
+					     </div>
+					    </div>
+					  </div>
+			 	 	</c:forEach>
+			  	</div>
+		  	</article>
+			
+			
+			
+			
 			<div class="selectMenu">
 				<a href="<c:url value='/indiv/community/answerList.do?type=1'/>"
-					<c:if test="${param.type==1 }">class="selected"</c:if>>
+					<c:if test="${param.type==1 }">class="selected"</c:if>
+					<c:if test="${param.type!=1 }">style="color:#4C4747"</c:if>>
 				<i class="fa fa-check"></i>최신순&nbsp; | &nbsp; </a>
 				<a href="<c:url value='/indiv/community/answerList.do?type=2'/>"
-					<c:if test="${param.type==2 }">class="selected"</c:if>>
+					<c:if test="${param.type==2 }">class="selected"</c:if>
+					<c:if test="${param.type!=2 }">style="color:#4C4747"</c:if>>
 				<i class="fa fa-check"></i>추천순&nbsp; | &nbsp; </a>
 				<a href="<c:url value='/indiv/community/answerList.do?type=3'/>"
-					<c:if test="${param.type==3}">class="selected"</c:if>>
+					<c:if test="${param.type==3}">class="selected"</c:if>
+					<c:if test="${param.type!=3 }">style="color:#4C4747"</c:if>>
 				<i class="fa fa-check"></i>답변적은순  </a>
 			</div>
 			
-			<form action="<c:url value='/indiv/community/qstnList.do'/>" 
+			<form action="<c:url value='/indiv/community/answerList.do?type=${param.type }'/>" 
 					name="frmPage" method="post">
 				<input type="hidden" name="currentPage">
 			</form>
@@ -253,7 +375,9 @@
 								
 								<!-- 답변, 조회수, 작성시간 -->
 								<dd class="cellBx">
-									<span class="reply">답변<span class="replyNum"></span>&nbsp;&nbsp;|&nbsp;</span>
+									<span class="reply">답변 <span class="replyNum">
+										
+									</span>&nbsp;&nbsp;|&nbsp;</span>
 									<span class="readCnt">조회 ${map['QUESTION_VIEW'] }&nbsp;&nbsp;|&nbsp;</span>
 									<span class="regTime">
 										<fmt:formatDate value="${map['QUESTION_DATE']}"

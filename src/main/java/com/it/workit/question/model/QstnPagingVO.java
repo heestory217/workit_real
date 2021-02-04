@@ -6,7 +6,7 @@ public class QstnPagingVO extends SearchVO{
 	private int userNo;
 	private int questionNo;
 	private int questionImmsave;
-	
+
 	public int getQuestionImmsave() {
 		return questionImmsave;
 	}

@@ -67,7 +67,7 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionDao.selectUserWorkkind(userNo);
 	}
 	
-	//인기 있는 질문 조회
+	//인기 있는 질문 조회(나의질문)
 	@Override
 	public List<Map<String, Object>> selectPopularQstn(int userNo) {
 		return questionDao.selectPopularQstn(userNo);
@@ -89,6 +89,54 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public List<Map<String, Object>> selectQstnByRecmd(QstnPagingVO vo) {
 		return questionDao.selectQstnByRecmd(vo);
+	}
+
+	//답변하기 게시판 질문 조회(답변적은순)
+	@Override
+	public List<Map<String, Object>> selectQstnByCmntCnt(QstnPagingVO vo) {
+		return questionDao.selectQstnByCmntCnt(vo);
+	}
+	
+	//질문번호에 해당하는 답변수
+	@Override
+	public int getTotalCmtCntByQstnNo(int qstnNo) {
+		return questionDao.getTotalCmtCntByQstnNo(qstnNo);
+	}
+	
+	//인기 있는 질문 전체 조회
+	@Override
+	public List<Map<String, Object>> selectPopularAllQstn() {
+		return questionDao.selectPopularAllQstn();
+	}
+	
+	//북마크 등록
+	@Override
+	public int insertBookMark(BookmarkVO vo) {
+		return questionDao.insertBookMark(vo);
+	}
+	
+	//북마크 상태 체크
+	@Override
+	public int DupChkBookmark(BookmarkVO vo) {
+		return questionDao.DupChkBookmark(vo);
+	}
+	
+	//북마크 삭제
+	@Override
+	public int delBookmark(BookmarkVO vo) {
+		return questionDao.delBookmark(vo);
+	}
+	
+	//회원 북마크 조회
+	@Override
+	public List<Map<String, Object>> selectBookMarkByUser(QstnPagingVO vo) {
+		return questionDao.selectBookMarkByUser(vo);
+	}
+	
+	//회원 북마크 개수
+	@Override
+	public int getBookMarkCnt(QstnPagingVO vo) {
+		return questionDao.getBookMarkCnt(vo);
 	}
 
 

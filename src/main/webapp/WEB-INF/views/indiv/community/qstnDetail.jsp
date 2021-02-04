@@ -2,10 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../../inc/top.jsp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <style type="text/css">
 .divCmty {
 	width: 1140px;
@@ -100,7 +98,7 @@ a {
 	margin-top: 20px;
 }
 
-.cont>p {
+.cont p {
 	margin: 30px 0px;
 	font-size: 18px;
 	color: black;
@@ -108,22 +106,40 @@ a {
 
 .cellBx {
 	margin-bottom: 0px;
+	color: gray;
+}
+.cellBx div{
+	display:inline-block;
 }
 
-.cellBx>span {
+.cellBx span {
 	font-size:14px;
 	float: left;
 }
 
-.cellBx>.bookmark {
+.cellBx .bookmark {
 	float: right;
-	font-size: 30px;
+	font-size: 27px;
 	padding-bottom: 20px;
 	margin-right: 5px;
+	display:block;
+	cursor:pointer;
 }
 
-.cellBx {
-	color: gray;
+
+.cellBx .bmChecked {
+	float: right;
+	font-size: 27px;
+	padding-bottom: 20px;
+	margin-right: 5px;
+	display:block;
+	cursor:pointer;
+	color:#4c50bb;
+}
+
+.cellBx  a{
+	color:gray;
+	font-size:14px;	
 }
 
 .cmtBox {
@@ -234,101 +250,115 @@ textarea::placeholder {
 	
 </script>
 
-<title>커뮤니티게시판</title>
-</head>
-<body>
-	<div class="divCmty">
-		<!-- asdie : 사이드 메뉴바 -->
-		<c:import url="/indiv/community/cmtyNavbar.do">
-			<c:param name="userNo" value="${userNo}"></c:param>
-			<c:param name="userId" value="${userId}"></c:param>
-		</c:import>
-		
 
-		<section>
-			<div id="container">
-				<div class="qstnDetailBox">
-					
-					<!-- 질문 -->
-					<article>
-						<div class="BoxWrap">
-							<div class="tit">
-								<c:if test="${userNo eq qstnVo.userNo }">
-								<!-- if 조건으로 로그인한 회원의 번호와 질문글의 회원번호가 같은 경우에만 보이도록 설정 -->
-									<div class="editBox">
-									<a>
-										<i class="fa fa-ellipsis-h"></i>
-									</a>
-									<!-- 수정, 삭제  -->
-										<div class="editBtn">
-										<a href
-						="<c:url value='/indiv/community/qstnEdit.do?qstnNo=${qstnVo.questionNo }'/>">수정</a>
-										<hr>
-										<a id="delBtn" href
-						="<c:url value='/indiv/community/qstnDelete.do?qstnNo=${qstnVo.questionNo }'/>">삭제</a>
-										</div>	
-									</div>
-								<!-- editBox 끝 -->
-								</c:if>									
-								
-								<!-- 질문 제목 -->
-								<p>
-									<i class="fa fa-quora"></i>${qstnVo.questionTitle}
-								</p>
-							</div>
-							
-							<!-- 질문 내용 -->
-							<div class="cont">
-								<p>
-									${qstnVo.questionAbout }<br/>
-								</p>
-							</div>
-							<div class="cellBx">
+<div class="divCmty">
+	<!-- asdie : 사이드 메뉴바 -->
+	<c:import url="/indiv/community/cmtyNavbar.do">
+		<c:param name="userNo" value="${userNo}"></c:param>
+		<c:param name="userId" value="${userId}"></c:param>
+	</c:import>
+	
+
+	<section>
+		<div id="container">
+			<div class="qstnDetailBox">
+				
+				<!-- 질문 -->
+				<article>
+					<div class="BoxWrap">
+						<div class="tit">
+							<c:if test="${userNo eq qstnVo.userNo }">
+							<!-- if 조건으로 로그인한 회원의 번호와 질문글의 회원번호가 같은 경우에만 보이도록 설정 -->
+								<div class="editBox">
+								<a>
+									<i class="fa fa-ellipsis-h"></i>
+								</a>
+								<!-- 수정, 삭제  -->
+									<div class="editBtn">
+									<a href
+					="<c:url value='/indiv/community/qstnEdit.do?qstnNo=${qstnVo.questionNo }'/>">수정</a>
+									<hr>
+									<a id="delBtn" href
+					="<c:url value='/indiv/community/qstnDelete.do?qstnNo=${qstnVo.questionNo }'/>">삭제</a>
+									</div>	
+								</div>
+							<!-- editBox 끝 -->
+							</c:if>									
+							<!-- 직무 -->
+							<!-- 질문 제목 -->
+							<p>
+								<i class="fa fa-quora"></i>${qstnVo.questionTitle}
+							</p>
+						</div>
+						
+						<!-- 질문 내용 -->
+						<%
+							pageContext.setAttribute("newLine", "\r\n");
+						%>
+						<c:set var="questionAbout" 
+							value="${fn:replace(qstnVo.questionAbout, newLine, '<br>') }" />
+						<div class="cont">
+							<p>${questionAbout }</p>
+						</div>
+						<div class="cellBx">
+							<div 
+							<c:if test="${sessionScope.userNo==qstnVo.userNo }">
+								style="margin-bottom:15px;"
+							</c:if>>
 								<span class="cell">조회 ${qstnVo.questionView }&nbsp;&nbsp;|</span>
 								<span class="cell">&nbsp;&nbsp;
 									<fmt:formatDate value="${qstnVo.questionDate }"
 										pattern="yyyy-MM-dd"/>	
 								</span>
-								<div class="bookmark">
-									<i class="fa fa-bookmark-o" aria-hidden="true"></i>
-								</div>
 							</div>
-							
-							<!-- 답변 등록 -->
-							<div class="cmtBox">
-								<div class="writeBoxWrap cmtWrite">
-									<input type="hidden" name="userNo" value="${sessionScope.userNo }">
-									<form name="comntFrm" method="post" 
-									action="<c:url value='/indiv/community/cmtWrite.do?qstnNo=${param.qstnNo }'/>">
-										<div class="cmtWriteBox">
-											<textarea	name="commentrespondAbout" 
-											class="cmtWriteArea" placeholder="솔직하고 따뜻한 답변을 남겨주세요."></textarea>
-										</div>
-										<div class="regiBtnWrap">
-											<span class="letterNum"><b id="cnt">0</b> / 1,000</span>
-											<button type="submit" id="regiBtn">등록</button>
-										</div>
-										<div style="clear: both;"></div>
-									</form>
-								</div>
-							</div>
-							<!-- <div class="explain">
-								<ul class="txInfoWrap">
-								</ul>
-							</div> -->
+							<c:if test="${sessionScope.userNo!=qstnVo.userNo }">
+								<c:if test="${bmStatus==0 }">
+									<a class="bookmark"	
+									href='<c:url value="/indiv/community/insertBookMark.do?qstnNo=${qstnVo.questionNo}"/>'>
+									<i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
+								</c:if>
+								<c:if test="${bmStatus>0 }">
+									<a class="bmChecked"
+									href='<c:url value="/indiv/community/delBookMark.do?qstnNo=${qstnVo.questionNo}"/>'>
+									<i class="fa fa-bookmark" aria-hidden="true"></i></a>
+								</c:if>
+							</c:if>
 						</div>
-					</article>
-					
-					<!-- 답변 include -->
-					<c:import url="/indiv/community/comments.do"/>
-				</div>
+						
+						<!-- 답변 등록 -->
+						<div class="cmtBox">
+							<div class="writeBoxWrap cmtWrite">
+								<input type="hidden" name="userNo" value="${sessionScope.userNo }">
+								<form name="comntFrm" method="post" 
+								action="<c:url value='/indiv/community/cmtWrite.do?qstnNo=${param.qstnNo }'/>">
+									<div class="cmtWriteBox">
+										<textarea	name="commentrespondAbout" 
+										class="cmtWriteArea" placeholder="솔직하고 따뜻한 답변을 남겨주세요."></textarea>
+									</div>
+									<div class="regiBtnWrap">
+										<span class="letterNum"><b id="cnt">0</b> / 1,000</span>
+										<button type="submit" id="regiBtn">등록</button>
+									</div>
+									<div style="clear: both;"></div>
+								</form>
+							</div>
+						</div>
+						<!-- <div class="explain">
+							<ul class="txInfoWrap">
+							</ul>
+						</div> -->
+					</div>
+				</article>
+				
+				<!-- 답변 include -->
+				<c:import url="/indiv/community/comments.do"/>
 			</div>
-		</section>
-		<div style="clear: both;"></div>
-	</div>
+		</div>
+	</section>
+	<div style="clear: both;"></div>
+</div>
 
-</body>
-</html>
+
 
 
 <%@ include file="../../inc/bottom.jsp"%>

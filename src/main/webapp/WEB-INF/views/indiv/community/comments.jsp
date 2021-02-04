@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style type="text/css">
    
 .cmtBoxWrap {
@@ -236,7 +237,7 @@
 <!-- 답변 반복 시작 -->
 <c:forEach var="map" items="${cmtList}">
 <div class="cmtOne">
-   <input type="text" name="commentrespondNo" id="cmtNo" value="${map['COMMENTRESPOND_NO']}">
+   <input type="hidden" name="commentrespondNo" id="cmtNo" value="${map['COMMENTRESPOND_NO']}">
    <div class="nickDiv">
       <span>@ ${map['USER_ID'] }</span>
       <c:if test="${userId eq map['USER_ID'] }">
@@ -259,9 +260,12 @@
       <!-- cmtEditBox 끝 -->
       </c:if>   
    </div>
-   
+   <%
+		pageContext.setAttribute("newLine", "\r\n");
+	%>
+   <c:set var="cmtContent" value="${fn:replace(map['commentrespondAbout'], newLine, '<br>')}"/>
    <div class="cmtCont">
-      <p>${map['commentrespondAbout']}</p>
+      <p>${cmtContent}</p>
    </div>
    <div class="regdateDiv">
       <span><fmt:formatDate value="${map['COMMENTRESPOND_DATE']}" pattern="yyyy-MM-dd"/> 작성</span>
