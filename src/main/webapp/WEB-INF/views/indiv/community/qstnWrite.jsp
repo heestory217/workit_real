@@ -440,7 +440,7 @@
 									<button type="submit" class="btnQuestion devQnaWriteButton"
 									formaction="<c:url value='/indiv/community/qstnWrite.do'/>"
 									>질문하기</button>
-									<button type="click" 
+									<button type="button" 
 										class="btnTempSave bg_white devQnaWriteCancelButton"
 										formaction="<c:url value='/indiv/community/tempQstn.do'/>"
 									>임시저장</button>

@@ -66,6 +66,30 @@ public class QuestionServiceImpl implements QuestionService{
 	public WorkkindVO selectUserWorkkind(int userNo) {
 		return questionDao.selectUserWorkkind(userNo);
 	}
+	
+	//인기 있는 질문 조회
+	@Override
+	public List<Map<String, Object>> selectPopularQstn(int userNo) {
+		return questionDao.selectPopularQstn(userNo);
+	}
+	
+	//답변하기 게시판 질문 조회
+	@Override
+	public List<Map<String, Object>> selectQstnByWorkkind(QstnPagingVO vo) {
+		return questionDao.selectQstnByWorkkind(vo);
+	}
+	
+	//답변하게 게시판 질문 총개수
+	@Override
+	public int getTotalRecordByWorkkind(QstnPagingVO vo) {
+		return questionDao.getTotalRecordByWorkkind(vo);
+	}
+
+	//답변하기 게시판 질문 조회(추천순)
+	@Override
+	public List<Map<String, Object>> selectQstnByRecmd(QstnPagingVO vo) {
+		return questionDao.selectQstnByRecmd(vo);
+	}
 
 
 	

@@ -214,42 +214,37 @@ td{
 	text-align: center;
     padding-top: 5px;
     border-right: 1px solid silver;
+    cursor: pointer;
 }
 
 td:last-child{
 	border-right:none;
 }
 
-td a:hover{
-	color:black;
-}
-
 table{
 	height:100%;
 }
 
-.active-bgColor{
+.selected{
 	background-color: #4C50BB;
-}
-
-.active-fontColor{
 	color:white;
 }
 
+td:link, td.selected{
+	background-color: #4C50BB;
+	color:white;	
+}
+
+.workkind{
+		margin: 0 0 18px 0;
+	    font-size: 13px;
+	    background-color: #c0c0c059;
+	    width: max-content;
+}
 </style>
 
 	
 <script type="text/javascript">
-$(function(){
-	$('td').each(function(idx){
-		$('#menu'+ idx).click(function(){
-			$('#menu0').removeClass('active-bgColor');
-			$('#menu0').find('a').removeClass('active-fontColor');
-			$('#menu'+ idx).addClass('active-bgColor');
-			$('#menu'+ idx).find('a').addClass('active-fontColor');
-		});	
-	});	
-});
 
 function pageFunc(curPage){
 	$('input[name=currentPage]').val(curPage);
@@ -291,22 +286,28 @@ function pageFunc(curPage){
 					</colgroup>
 					<tbody>
 						<tr>
-							<td class="active-bgColor" id="menu0">
-								<a class="active-fontColor"
-								href="<c:url value='/indiv/community/myProfile.do?userNo=${userNo}&type=1'/>">
-								질문</a>
+							<td 
+							<c:if test="${type==1 }">
+								class="selected"
+							</c:if>
+							onclick="location.href='<c:url value="/indiv/community/myProfile.do?userNo=${userNo}&type=1"/>'">
+								질문
 							</td>
-							<td id="menu1">
-								<a href="<c:url value='/indiv/community/myProfile.do?userNo=${userNo}&type=2'/>">
-								답변</a>
+							<td 
+							<c:if test="${type==2 }">
+								class="selected"
+							</c:if>
+							onclick="location.href='<c:url value="/indiv/community/myProfile.do?userNo=${userNo}&type=2"/>'">
+								답변
+							<td 
+							<c:if test="${type==3 }">
+								class="selected"
+							</c:if>
+							onclick="location.href='<c:url value="/indiv/community/myProfile.do?userNo=${userNo}&type=3"/>'">
+								임시저장
 							</td>
 							<td>
-								<a href="#">
-								임시저장</a>
-							</td>
-							<td>
-								<a href="#">
-								북마크</a>
+								북마크
 							</td>
 						</tr>
 					</tbody>
@@ -325,6 +326,13 @@ function pageFunc(curPage){
 			<c:if test="${param.type==2 }">
 				<div>
 					<%@include file="userCmtyList/userCommentList.jsp" %>
+				</div>
+			</c:if>
+
+			<!-- 답변 목록 -->
+			<c:if test="${param.type==3 }">
+				<div>
+					<%@include file="userCmtyList/userTempQstnList.jsp" %>
 				</div>
 			</c:if>
 			

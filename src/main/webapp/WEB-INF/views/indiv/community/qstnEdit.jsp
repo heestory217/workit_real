@@ -94,7 +94,7 @@
 		height:50px;
 	}
 	
-	.btnCancel{
+	.btnCancel, .btnTempSave{
 		background-color: white;
 		color:gray;
 		outline:0;
@@ -311,7 +311,13 @@
 		    $('.pop-up').hide();
 		});
 		
-		//
+		//임시저장 버튼 클릭
+		$('.btnTempSave').click(function(){
+			if(!confirm('질문을 임시저장 하시겠습니까?')){
+				return false;
+			}
+		});
+
 		
 		
 		$('.selectBox').change(function(){
@@ -488,12 +494,27 @@
 									class="questionAbout" title="내용 입력" name="questionAbout">${qstnVo.questionAbout }</textarea>
 									<span class="byte"> <b id="count">0</b> / 1,000</span>
 								</div>
-
-								<div class="btnCommWrap">
-									<button type="submit" class="btnQuestion devQnaEditButton">수정하기</button>
-									<button type="button"
-										class="btnCancel bg_white devQnaEditCancelButton">취소</button>
-								</div>
+								
+								<c:if test="${qstnVo.questionImmsave=='2' }">
+									<div class="btnCommWrap">
+										<button type="submit" class="btnQuestion devQnaEditButton">수정하기</button>
+										<button type="button"
+											class="btnCancel bg_white devQnaEditCancelButton">취소</button>
+									</div>
+								</c:if>
+								<c:if test="${qstnVo.questionImmsave=='1' }">
+									<div class="btnCommWrap">
+										<button type="submit" class="btnQuestion devQnaWriteButton"
+										formaction="<c:url value='/indiv/community/qstnWrite.do'/>"
+										>질문하기</button>
+										<button type="button" 
+											class="btnTempSave bg_white devQnaWriteCancelButton"
+											formaction="<c:url value='/indiv/community/tempQstn.do'/>"
+										>임시저장</button>
+										<button type="button" 
+											class="btnCancel bg_white devQnaWriteCancelButton">취소</button>
+									</div>
+								</c:if>
 							</fieldset>
 						</div>
 					</article>

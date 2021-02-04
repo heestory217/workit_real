@@ -82,43 +82,43 @@ function numberMaxLength(e){
                         <h2>채용공고</h2>
                         <form action="<c:url value='/recruit/recruitwrite.do'/>" method="POST">
                             <div class="group-input">
-                                <label for="username">제목(필수)</label>
-                                <input type="text" id="recruitannounceTitle" name="recruitannounceTitle">
+                                <label for="username">제목(필수입력)</label>
+                                <input type="text" id="recruitannounceTitle" name="recruitannounceTitle" placeholder="예시)WORKIT에서 중견 웹프로그래머를 모집합니다">
                             </div>
                             
                             <div class="group-input">
-                                    <label for="pass">모집 종료일(필수)</label>
+                                    <label for="pass">모집 종료일(필수입력)</label>
 	                                    <p>20<input type="number" id="year" name="year" class="col-lg-2 infobox" 
-	                                    maxlength="2" oninput="numberMaxLength(this);">년
+	                                    maxlength="2" oninput="numberMaxLength(this);" placeholder="예시)21">년
 	                                    <input type="number" id="month" name="month" class="col-lg-2 infobox" maxlength="2" 
-	                                    oninput="numberMaxLength(this);">월
+	                                    oninput="numberMaxLength(this);" placeholder="예시)11">월
 	                                    <input type="number" id="day" name="day" class="col-lg-2 infobox" maxlength="2" 
-	                                    oninput="numberMaxLength(this);">일</p>
+	                                    oninput="numberMaxLength(this);" placeholder="예시)19">일</p>
 	                                    <p style="cursor:hand;color:blue">※년도의 경우 뒤의 두자리만 입력해 주세요</p>
 	                                <span class="call" id="check" style="cursor:hand;color:red"></span>
                             </div>
                             
                             <div class="group-input">
-                                <label for="pass">요약-채용형태(필수)</label>
-                                <input type="text" id="recruitannounceSworkkind" name="recruitannounceSworkkind">
+                                <label for="pass">요약-채용형태(필수입력)</label>
+                                <input type="text" id="recruitannounceSworkkind" name="recruitannounceSworkkind" placeholder="예시)비정규직, 3개월 수습이후 정규직전환">
                             </div>
                             <div class="group-input">
-                                <label for="pass">요약-경력(필수)</label>
-                                <input type="text" id="recruitannounceScarrer" name="recruitannounceScarrer">
-                            </div>
-                            
-                            <div class="group-input">
-                                <label for="pass">요약-급여(필수)</label>
-                                <input type="text" id="recruitannounceSpay" name="recruitannounceSpay">
+                                <label for="pass">요약-경력(필수입력)</label>
+                                <input type="text" id="recruitannounceScarrer" name="recruitannounceScarrer" placeholder="예시)경력자, 3년차 이상">
                             </div>
                             
                             <div class="group-input">
-                                <label for="pass">요약-기술(필수)</label>
-                                <input type="text" id="recruitannounceSkill" name="recruitannounceSkill">
+                                <label for="pass">요약-급여(필수입력)</label>
+                                <input type="text" id="recruitannounceSpay" name="recruitannounceSpay" placeholder="예시)연봉3500만원">
                             </div>
                             
                             <div class="group-input">
-		                    	<label for="corpIntro">채용형태</label>
+                                <label for="pass">요약-기술(필수입력)</label>
+                                <input type="text" id="recruitannounceSkill" name="recruitannounceSkill" placeholder="예시)JAVA">
+                            </div>
+                            
+                            <div class="group-input">
+		                    	<label for="corpIntro">상세요강</label>
 		                    	<textarea id="recruitannounceWorkkind" name="recruitannounceWorkkind"></textarea><br><br>
 								<script type="text/javascript">
 									CKEDITOR.replace('recruitannounceWorkkind',	{height : 200});
@@ -152,7 +152,7 @@ function numberMaxLength(e){
                             
                             <div class="group-input">
                                 <label for="pass">우대사항</label>
-                                <input type="text" id="recruitannounceUpcheckcarrer" name="recruitannounceUpcheckcarrer">
+                                <input type="text" id="recruitannounceUpcheckcarrer" name="recruitannounceUpcheckcarrer" placeholder="예시)4년제 대학 졸업자, 외국어가능">
                             </div>
                             
                             <div class="group-input">

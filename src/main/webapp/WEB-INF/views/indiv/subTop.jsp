@@ -55,18 +55,13 @@
                         <i class="ti-menu"></i>
                         <span>직군별 탐색</span>
                         <ul class="depart-hover">
-                            <li><a href="#">서버 개발자</a></li>
-                            <li><a href="#">웹 개발자</a></li>
-                            <li><a href="#">프론트엔드 개발자</a></li>
-                            <li><a href="#">안드로이드 개발자</a></li>
-                            <li><a href="#">iOS 개발자</a></li>
-                            <li><a href="#">데이터 엔지니어</a></li>
-                            <li><a href="#">소프트웨어엔지니어</a></li>
-                            <li><a href="#">머신러닝 엔지니어</a></li>
-                            <li><a href="#">데이터 사이언티스트</a></li>
-                            <li><a href="#">시스템 관리자</a></li>
-                            <li><a href="#">개발 매니저</a></li>
-                            <li><a href="#">더보기     ></a></li>
+                            <li><a href="<c:url value='/indivSearch/indivExploreWorkkind.do?workkindno=1'/>">서버 개발자</a></li>
+                            <li><a href="<c:url value='/indivSearch/indivExploreWorkkind.do?workkindno=2'/>">웹 개발자</a></li>
+                            <li><a href="<c:url value='/indivSearch/indivExploreWorkkind.do?workkindno=3'/>">프론트엔드 개발자</a></li>
+                            <li><a href="<c:url value='/indivSearch/indivExploreWorkkind.do?workkindno=4'/>">자바 개발자</a></li>
+                            <li><a href="<c:url value='/indivSearch/indivExploreWorkkind.do?workkindno=5'/>">안드로이드 개발자</a></li>
+                            <li><a href="<c:url value='/indivSearch/indivExploreWorkkind.do?workkindno=6'/>">iOS 개발자</a></li>
+                            <li><a href="<c:url value='/indivSearch/indivExploreWorkkind.do'/>">더보기     ></a></li>
                         </ul>
                     </div>
                 </div>

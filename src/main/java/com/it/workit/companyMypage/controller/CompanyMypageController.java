@@ -101,31 +101,35 @@ public class CompanyMypageController {
 	public String companyPayment(Model model,HttpSession session,
 			@ModelAttribute CompanypagingVO vo) {
 				int userNo=(Integer) session.getAttribute("userNo");
-				
-				logger.info("개인 마이페이지 - 결제내역 view 보여주기 / userno={}",userNo);
-				
 				vo.setUserNo(userNo);
-				
+				logger.info("개인 마이페이지 - 결제내역 view 보여주기 / userno={}",userNo);
+				logger.info("똥싸 {}", vo);
+
 				//[1]pagingInfo
 				PaginationInfo pagingInfo=new PaginationInfo();
 				pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
 				pagingInfo.setCurrentPage(vo.getCurrentPage());
 				pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
-				
+
 				//[2]searchVo
 				vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 				vo.setRecordCountPerPage(Utility.RECORD_COUNT);
-				
+
 				int totalRecord=ordersService.ordersGetTotalRecords(vo);
 				logger.info("총 레코드 수, totalRecord={}", totalRecord);
 				pagingInfo.setTotalRecord(totalRecord);
-				
+
 				model.addAttribute("pagingInfo", pagingInfo);
 				List<OrdersVO> list=ordersService.selectCompanyPaymentByUserno(vo);
-				
+
 				logger.info("list.size={}",list.size());
 				model.addAttribute("list",list);
 		return "companyMypage/companyPayment";
 	}
 	
+	@RequestMapping("/companyPaymentdetail.do")
+	public String companyPaymentdetail() {
+		
+		return "companyMypage/companyPaymentdetail";
+	}
 }
