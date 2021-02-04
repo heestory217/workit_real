@@ -169,22 +169,11 @@
                                 <label for="email1">이메일 *</label>
                                 <input type="text" id="email1" class="col-lg-4" name="userEmail1">&nbsp;&nbsp;@&nbsp;
 					        	<input type="text" id="email2" class="col-lg-4" name="userEmail2">&nbsp;&nbsp;
-                               <!--  <select name="email3" id="email3" class="col-lg-3 mystyle">
-                                	<option disabled selected>이메일 목록</option>
-						            <option value="naver.com">naver.com</option>
-						            <option value="hanmail.net">hanmail.net</option>
-						            <option value="nate.com">nate.com</option>
-						            <option value="gmail.com">gmail.com</option>
-						            <option value="etc">직접입력</option>
-					        	</select> -->
                                 <input type="button" id="emailCheck" class="col-lg-3 site-btn" value="인증번호발급">
                             </div>
                             <div class="group-input">
-                                <!-- <input type="button" id="validEmail" class="col-lg-3" value="인증번호발급"
-                                	onclick=location.href='/workit/email/send.do'> -->
                                 <input type="text" id="validEmailNum" class="col-lg-9" placeholder="인증번호를 입력하세요">
                                 <input type="button" id="emailNumCheck" class="col-lg-2 site-btn margin_left" value="확인">
-                                <!-- <input type="button" id="emailCheck" class="col-lg-2 site-btn margin_left" value="확인"> -->
                             </div>
                             <div class="group-input">
                                 <label for="hp1">전화번호 *</label>
