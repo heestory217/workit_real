@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.SearchVO;
+import com.it.workit.corp.model.CorpAllVo;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.CorpVO;
+import com.it.workit.corp.model.CorpimgVO;
 
 @Controller
 @RequestMapping("/admin/users/corp")
@@ -34,12 +36,23 @@ public class AdminCorpController {
 		searchVo.setRecordCountPerPage(10);
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		
+		//기업정보조회
 		List<CorpVO> corpList = corpService.selectCorpList(searchVo);
 		
+		//등록 심사 기업 정보+이미지 조회
+		List<CorpAllVo> corpWaitingList = corpService.selectCorpWaitingList();
+		for(CorpAllVo vo : corpWaitingList) {
+			int corpNo = vo.getCorpVo().getCorpNo();
+			List<CorpimgVO> imgVo = corpService.selectCorpWaitingImgList(corpNo);
+			vo.setCorpImgList(imgVo);
+		}
+		
+		//페이징
 		int totalRecord = corpService.selectCorpListCount(searchVo);
 		pagingInfo.setTotalRecord(totalRecord);
 		
 		model.addAttribute("corpList", corpList);
+		model.addAttribute("corpWaitingList", corpWaitingList);
 		model.addAttribute("pagingInfo", pagingInfo);
 		
 		return "admin/users/corp/corpList";

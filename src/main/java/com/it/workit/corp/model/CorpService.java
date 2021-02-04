@@ -24,4 +24,6 @@ public interface CorpService {
 	//admin
 	List<CorpVO> selectCorpList(SearchVO searchVo);
 	int selectCorpListCount(SearchVO searchVo);
+	List<CorpAllVo> selectCorpWaitingList();
+	List<CorpimgVO> selectCorpWaitingImgList(int corpNo);
 }

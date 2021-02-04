@@ -204,7 +204,42 @@
 		select count(*) from corp <include refid="searchWhere"></include>
 	</select>
 	
+   <resultMap type="CorpAllVo" id="corpAll">
+      <association property="corpVo" column="corpNo" javaType="corpVo">
+         <id property="corpNo" column="corp_No" jdbcType="BIGINT"/>
+         <result property="userNo" column="user_No" jdbcType="BIGINT" />
+         <result property="corpName" column="corp_Name" jdbcType="VARCHAR" />
+         <result property="corpIntro" column="corp_Intro" jdbcType="VARCHAR" />
+         <result property="corpImgurl" column="corp_Imgurl" jdbcType="VARCHAR" />
+         <result property="corpAvrpay" column="corp_Avrpay" jdbcType="BIGINT" />
+         <result property="corpKind" column="corp_Kind" jdbcType="VARCHAR" />
+         <result property="corpPnumber" column="corp_Pnumber" jdbcType="BIGINT" />
+         <result property="corpHeadname" column="corp_Headname" jdbcType="VARCHAR" />
+         <result property="corpAddress1" column="corp_Address1" jdbcType="VARCHAR" />
+         <result property="corpAddress2" column="corp_Address1" jdbcType="VARCHAR" />
+         <result property="corpCorpaddnumber" column="corp_Corpaddnumber" jdbcType="VARCHAR" />
+         <result property="corpIndustry" column="corp_Industry" jdbcType="VARCHAR" />
+         <result property="corpStartdate" column="corp_Startdate" jdbcType="TIMESTAMP" />
+         <result property="corpWebaddress" column="corp_Webaddress" jdbcType="VARCHAR" />
+         <result property="corpTel" column="corp_Tel" jdbcType="VARCHAR" />
+         <result property="corpOkcheck" column="corp_Okcheck" jdbcType="VARCHAR" />
+         <result property="corpRegdate" column="corp_Regdate" jdbcType="TIMESTAMP" />
+      </association>
+      <collection property="corpImgList" column="corpNo" javaType="ArrayList" ofType="CorpimgVO" select="selectCorpWaitingImgList">
+     	<id property="corpimgNo" column="corpimg_No" jdbcType="BIGINT"/>
+     	<result property="corpNo" column="corp_No" jdbcType="BIGINT" />
+     	<result property="corpimgUrl" column="corpimg_Url" jdbcType="VARCHAR" />
+     	<result property="corpimgSortno" column="corpimg_Sortno" jdbcType="BIGINT" />
+      </collection>
+   </resultMap>
 	
+	<select id="selectCorpWaitingList" resultMap="corpAll">
+		select * from corp where CORP_OKCHECK=0
+	</select>
+	
+	<select id="selectCorpWaitingImgList" parameterType="int" resultType="CorpimgVO">
+		select * from corpimg where corp_no=#{corpNo}
+	</select>
 </mapper>
 
 

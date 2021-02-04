@@ -93,6 +93,16 @@ public class CorpDAOMybatis implements CorpDAO {
 	public int selectCorpListCount(SearchVO searchVo) {
 		return sqlSession.selectOne(namespace+"selectCorpListCount", searchVo);
 	}
+
+	@Override
+	public List<CorpAllVo> selectCorpWaitingList() {
+		return sqlSession.selectList(namespace+"selectCorpWaitingList");
+	}
+
+	@Override
+	public List<CorpimgVO> selectCorpWaitingImgList(int corpNo) {
+		return sqlSession.selectList(namespace+"selectCorpWaitingImgList",corpNo);
+	}
 	
 
 
