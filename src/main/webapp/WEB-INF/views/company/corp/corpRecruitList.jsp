@@ -61,9 +61,9 @@
 			    <h5>${crVo.recruitannounceTitle }</h5>
 			</a>
 			<p>
-			   연봉 : ${crVo.recruitannounceSpay }만원 &nbsp;&nbsp;&nbsp;
+			   연봉 : ${crVo.recruitannounceSpay }원 &nbsp;&nbsp;&nbsp;
 			   언어 : ${crVo.recruitannounceSkill } &nbsp;&nbsp;&nbsp;
-			   지원자격 : ${crVo.recruitannounceWantedcarrer }
+			   지원자격 : ${crVo.recruitannounceWantedcarrer }년 이상
 			</p>
 			 </div>
 			</div>
