@@ -1,6 +1,7 @@
 package com.it.workit.resumes.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.resumes.model.AwardVO;
 import com.it.workit.resumes.model.CarrerVO;
@@ -20,6 +22,8 @@ import com.it.workit.resumes.model.LicencseVO;
 import com.it.workit.resumes.model.ResumeListVO;
 import com.it.workit.resumes.model.ResumesService;
 import com.it.workit.resumes.model.ResumesVO;
+import com.it.workit.users.model.UsersService;
+import com.it.workit.users.model.UsersVO;
 
 @Controller
 @RequestMapping("/resumes")
@@ -29,16 +33,46 @@ public class ResumesController {
 	=LoggerFactory.getLogger(ResumesController.class);
 
 	@Autowired private ResumesService rsService;
-
+	@Autowired private UsersService userService;
 
 	@RequestMapping(value = "/resumesList.do", method = RequestMethod.GET)
-	public void resumeList() {
+	public String resumeList(HttpSession session, Model model) {
 		logger.info("리스트 화면 처리");
+		
+		String userId = (String) session.getAttribute("userId");
+		logger.info("userId={}",userId);
+		
+		if (userId==null||userId.isEmpty()) {
+			String mag = "로그인 후 사용가능합니다";
+			String url = "/index.do";
+			
+			model.addAttribute("msg",mag);
+			model.addAttribute("url",url);
+			return "common/message";
+		}
+		
+		UsersVO userVo = userService.selectByUserId(userId);
+		int userNo=userVo.getUserNo();
+		logger.info("userNo={}",userNo);
+		
+		//2
+		List<ResumesVO> resumeList =rsService.selectResumeByNo(userNo);
+		logger.info("resumeList={}",resumeList);
+		//3
+		model.addAttribute("resumeList", resumeList);
+		//4
+		return "resumes/resumesList";
 	}
 
 	@RequestMapping(value ="/resumeWrite.do", method = RequestMethod.GET)
-	public void resumeWrite_get() {
+	public void resumeWrite_get(HttpSession session, Model model) {
 		logger.info("이력서 쓰기 화면");
+		
+		String userId = (String) session.getAttribute("userId");
+		
+		UsersVO userVo = userService.selectByUserId(userId);
+		
+		model.addAttribute("userVo",userVo);
 	}
 
 
@@ -61,7 +95,6 @@ public class ResumesController {
 			vo.setResumeNo(resumeNo);
 		}
 
-		//List<AwardVO> awlist = relistVo.getAwardVOList();
 		List<CarrerVO> carrlist = relistVo.getCarrerVOList();
 		for (CarrerVO vo : carrlist) {
 			vo.setResumeNo(resumeNo);
@@ -117,5 +150,30 @@ public class ResumesController {
 		return "common/message";
 	}//이력서 등록
 
+	
+	//디테일 페이지
+	@RequestMapping("/resumeDetail.do")
+	public void resumeDetail(@RequestParam(defaultValue = "0") int resumeNo,
+			HttpSession session, Model model) {
+		logger.info("디테일페이지 보여주기");
+		
+		String userId = (String) session.getAttribute("userId");
+		UsersVO userVo = userService.selectByUserId(userId);
+		model.addAttribute("userVo",userVo);
+		
+//		ResumesVO resumesVo=rsService.selectByRsno(resumeNo);
+		Map<String, Object> map=rsService.selectByRsUser(resumeNo);
+		List<AwardVO> aList=rsService.selectAwdByNo(resumeNo);
+		List<CarrerVO> cList = rsService.selectCarByNo(resumeNo);
+		List<ForeignlanguageskillVO> fList=rsService.selectFlsByNo(resumeNo);
+		List<LicencseVO> lcList=rsService.selectLicenByNo(resumeNo);
+		
+		model.addAttribute("map",map);
+		model.addAttribute("aList",aList);
+		model.addAttribute("cList",cList);
+		model.addAttribute("fList",fList);
+		model.addAttribute("lcList",lcList);
+		
+	}
 
 }//컨트롤러

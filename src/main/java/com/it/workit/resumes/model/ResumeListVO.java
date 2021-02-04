@@ -3,7 +3,7 @@ package com.it.workit.resumes.model;
 import java.util.List;
 
 public class ResumeListVO {
-	//private ResumesVO resumesVo;
+	private ResumesVO resumesVo;
 	private int resumeNo;
 	
 	private List<CarrerVO> CarrerVOList;
@@ -11,12 +11,12 @@ public class ResumeListVO {
 	private List<ForeignlanguageskillVO> ForeignskillVO;
 	private List<LicencseVO> LicenVOList;
 	
-//	public ResumesVO getResumesVo() {
-//		return resumesVo;
-//	}
-//	public void setResumesVo(ResumesVO resumesVo) {
-//		this.resumesVo = resumesVo;
-//	}
+	public ResumesVO getResumesVo() {
+		return resumesVo;
+	}
+	public void setResumesVo(ResumesVO resumesVo) {
+		this.resumesVo = resumesVo;
+	}
 	
 	public List<CarrerVO> getCarrerVOList() {
 		return CarrerVOList;
@@ -59,8 +59,9 @@ public class ResumeListVO {
 	
 	@Override
 	public String toString() {
-		return "ResumeListVO [resumeNo=" + resumeNo + ", CarrerVOList=" + CarrerVOList + ", AwardVOList=" + AwardVOList
-				+ ", ForeignskillVO=" + ForeignskillVO + ", LicenVOList=" + LicenVOList + "]";
+		return "ResumeListVO [resumesVo=" + resumesVo + ", resumeNo=" + resumeNo + ", CarrerVOList=" + CarrerVOList
+				+ ", AwardVOList=" + AwardVOList + ", ForeignskillVO=" + ForeignskillVO + ", LicenVOList=" + LicenVOList
+				+ "]";
 	}
 	
 }
