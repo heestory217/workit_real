@@ -35,7 +35,7 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="<c:url value='/admin/adminMain.do'/>">Concept</a>
+                <a class="navbar-brand" href="<c:url value='/admin/adminMain.do'/>"><img alt="mainLogo" src="<c:url value='/resources/img/logo_workit.PNG'/>"> </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
