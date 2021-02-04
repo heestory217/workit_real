@@ -57,7 +57,6 @@ $(function() {
 			}	
 		});	//AJAX
 	});	//양식 불러오기 버튼 click
-	
 });
 
 function write_go() {
@@ -71,6 +70,11 @@ function write_go() {
 	}
 }
 </script>
+
+<!-- 파라미터 처리를 위한 정보-->
+<div style="display: none;">
+	<p id="type">${param.type}</p>
+</div>
 
 <div class="blog-details-inner">
 	<div class="leave-comment" style="padding-top: 0">
@@ -114,7 +118,7 @@ function write_go() {
 				</div>
 				<div class="col-lg-6">
 					<span class="error"></span>
-					<input type="text" name="positionsuggestPrice" id="positionsuggestPrice" placeholder="연봉을 입력하세요">
+					<input type="number" name="positionsuggestPrice" id="positionsuggestPrice" placeholder="연봉을 입력하세요">
 				</div>
 				<div class="col-lg-12">
 					<span class="error"></span>

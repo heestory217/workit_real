@@ -19,4 +19,7 @@ public interface PositionDAO {
 	List<Map<String, Object>> selectPositionForm(int userNo);
 	Map<String, Object> selectByPositionNo(int positionsuggestNo);
 	
+	//삭제
+	int deletePSG(int positionsuggestNo);
+	
 }

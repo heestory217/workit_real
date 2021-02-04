@@ -50,5 +50,10 @@ public class PositionDAOMybatis implements PositionDAO{
 	public Map<String, Object> selectByPositionNo(int positionsuggestNo) {
 		return sqlSession.selectOne(namespace+"selectByPositionNo", positionsuggestNo);
 	}
+
+	@Override
+	public int deletePSG(int positionsuggestNo) {
+		return sqlSession.update(namespace+"deletePSG", positionsuggestNo);
+	}
 	
 }

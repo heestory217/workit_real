@@ -20,6 +20,7 @@ import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
 import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.orders.model.OrdersService;
+import com.it.workit.position.model.PositionListVO;
 import com.it.workit.position.model.PositionService;
 import com.it.workit.position.model.PositionsuggestVO;
 import com.it.workit.users.model.UsersService;
@@ -65,10 +66,19 @@ public class HrmController {
 	
 	@RequestMapping(value="/positionWrite.do", method = RequestMethod.POST)
 	public String messageWrite_post(HttpSession session, @ModelAttribute PositionsuggestVO vo,
-			@RequestParam (required = false) String userId, Model model) {
+			@RequestParam (required = false) String userId, 
+			@RequestParam (required = false) String type, Model model) {
 
 		logger.info("제안 보내기(글쓰기) 처리, PositionsuggestVO vo={}", vo);
 		logger.info("userId={}", userId);
+		logger.info("type={}", type);
+		
+		String msg="제안 전송 실패", url="";
+		if(type!=null && !type.isEmpty()) {
+			url="/company/HRManagment/positionSuggest.do?type=format";
+		}else {
+			url="/company/HRManagment/positionSuggest.do";
+		}
 		
 		int userNo=0;
 		if(userId!=null && !userId.isEmpty()) {
@@ -80,7 +90,6 @@ public class HrmController {
 		}
 
 		int cnt = positionService.insertPositionSuggest(vo, userNo);
-		String msg="제안 전송 실패", url="/company/HRManagment/positionSuggest.do";
 		if(cnt>0) {
 			if(userId==null || userId.isEmpty()) {
 				msg = "작성 제안이 양식함에 저장되었습니다.";
@@ -114,45 +123,31 @@ public class HrmController {
 		return "/company/HRManagment/position/positionDetail";
 	};
 
-	/*
+	
 	//개별쪽지 삭제하기
 	@RequestMapping("/deletePSG.do")
-	public String delMsg(@RequestParam (defaultValue = "0") int positionsuggestNo,
-			@RequestParam (defaultValue = "0") int getMessageNo,
-			@RequestParam (required = false) String type,
-			Model model) {
-		logger.info("개별 쪽지 삭제하기 파라미터 messageNo={} getMessageNo={}", messageNo, getMessageNo);
+	public String delMsg(@RequestParam (defaultValue = "0") int positionsuggestNo, 
+			@RequestParam (required = false) String type, Model model) {
+		logger.info("개별 제안 삭제하기 파라미터 positionsuggestNo={}, type={} ", positionsuggestNo, type);
 
-		String msg="", url="/message/messageBox.do";
+		String msg="", url="";
+		if(type!=null && !type.isEmpty()) {
+			url="/company/HRManagment/positionSuggest.do?type=format";
+		}else {
+			url="/company/HRManagment/positionSuggest.do";
+		}
 
 		int cnt=0;
-		if(messageNo!=0 || getMessageNo!=0) {
-			if(messageNo!=0) {
-				//보낸 쪽지 삭제
-				cnt = messageService.updateMsgDelflag(messageNo);
-				url="/message/messageBoxSend.do";
-			}else if(getMessageNo!=0) {
-				//받은 쪽지 삭제
-				cnt = messageService.updategetMsgDelflag(getMessageNo);
-
-				Map<String, Object>  map = messageService.selectByMessageNo(getMessageNo);
-				int important = Integer.parseInt(String.valueOf(map.get("GETMESSAGE_IMPFLAG")));
-				logger.info("쪽지보관 여부 important={}", important);
-
-				if(important==1) {
-					url="/message/messageBox.do?type=important";
-				}else if(type!=null && !type.isEmpty() && type.equals("toMe")) {
-					url="/message/messageBox.do?type=toMe";
-				}else{
-					url="/message/messageBox.do";
-				}
-			}
+		if(positionsuggestNo!=0) {
+			cnt = positionService.deletePSG(positionsuggestNo);
 		}else {	//파라미터가 없는 경우
 			msg="잘못된 url입니다.";
 		}
 
 		if(cnt>0) {
-			msg="쪽지가 삭제되었습니다.";
+			msg="선택한 제안이 삭제되었습니다.";
+		}else {
+			msg="삭제 처리에 실패하였습니다.";
 		}
 
 		model.addAttribute("msg", msg);
@@ -161,6 +156,36 @@ public class HrmController {
 		return "common/message";
 	}
 	
+	@RequestMapping("/deleteMultiPosi.do")
+	public String deleteMultiPosi(@ModelAttribute PositionListVO positionListVo, 
+			@RequestParam (required = false) String type, Model model) {
+		logger.info("선택한 제안 다중 삭제(플래그 갱신) 처리, 파라미터 positionListVo={}", positionListVo);
+		
+		List<PositionsuggestVO> posiList = positionListVo.getPosiItems();
+		int cnt = positionService.deleteMultiPosi(posiList);
+		logger.info("다중 선택한 제안 삭제 결과, cnt={}", cnt);
+		
+		String msg="선택한 제안 삭제 실패!", url="";
+		if(type!=null && !type.isEmpty()) {
+			url="/company/HRManagment/positionSuggest.do?type=format";
+		}else {
+			url="/company/HRManagment/positionSuggest.do";
+		}
+		
+		if(cnt>0) {
+			msg="선택한 제안(들)을 삭제하였습니다.";
+			for(int i=0;i<posiList.size();i++) {
+				PositionsuggestVO psgVo = posiList.get(i);
+				logger.info("[{}] : positionsuggestNo={}", i, psgVo.getPositionsuggestNo());
+			}//for
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
+	/*
 	@RequestMapping("/countUpdate.do")
 	public String countUpdate(HttpSession session, @RequestParam (defaultValue = "0") int getMessageNo,
 			@RequestParam (required = false) String type, Model model) {
@@ -181,34 +206,7 @@ public class HrmController {
 
 		return "redirect:/message/messageDetail.do?getMessageNo="+getMessageNo;
 	}
-	
-	@RequestMapping("/deleteMultiPosi.do")
-	public String deleteMultiMsg(@ModelAttribute MessageListVO msgListVo,
-			Model model) {
-		logger.info("선택한 쪽지 삭제(플래그 갱신) 처리, 파라미터 msgListVo={}", msgListVo);
-		
-		List<MessageVO> msgList = msgListVo.getMsgItems(); 
-		int cnt = messageService.updateMsgDelflagMulti(msgList);
-		logger.info("선택한 쪽지 삭제 결과, cnt={}", cnt);
-
-		String msg="선택한 쪽지 삭제 실패!", url="/message/messageBoxSend.do";
-		
-		if(cnt>0) {
-			msg="선택한 쪽지를 삭제하였습니다.";
-			for(int i=0;i<msgList.size();i++) {
-				MessageVO msgVo = msgList.get(i);
-				logger.info("[{}] : messageNo={}", i, msgVo.getMessageNo());
-			}//for
-		}
-
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-
-		return "common/message";
-		
-	}
 	*/
-	
 	
 	@RequestMapping("/purchasedResumes.do")
 	public String purchasedResumes(@ModelAttribute HrmResumePageVO searchVo, 
