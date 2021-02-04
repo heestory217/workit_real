@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.it.workit.common.SearchVO;
 import com.it.workit.corpsearch.model.MatchSearchVO;
 
 @Repository
@@ -79,6 +80,18 @@ public class CorpDAOMybatis implements CorpDAO {
 	@Override
 	public int insertCorpReview(CorpreviewVO vo) {
 		return sqlSession.insert(namespace+"insertCorpReview",vo);
+	}
+
+	
+	//admin
+	@Override
+	public List<CorpVO> selectCorpList(SearchVO searchVo) {
+		return sqlSession.selectList(namespace+"selectCorpList", searchVo);
+	}
+
+	@Override
+	public int selectCorpListCount(SearchVO searchVo) {
+		return sqlSession.selectOne(namespace+"selectCorpListCount", searchVo);
 	}
 	
 

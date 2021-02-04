@@ -3,6 +3,7 @@ package com.it.workit.corp.model;
 import java.util.List;
 import java.util.Map;
 
+import com.it.workit.common.SearchVO;
 import com.it.workit.corpsearch.model.MatchSearchVO;
 
 public interface CorpDAO {
@@ -22,4 +23,8 @@ public interface CorpDAO {
 	List<Integer> selectResumeNoList(MatchSearchVO matchSearchVO);
 	
 	public int insertCorpReview(CorpreviewVO vo);
+	
+	//admin
+	List<CorpVO> selectCorpList(SearchVO searchVo);
+	int selectCorpListCount(SearchVO searchVo);
 }
