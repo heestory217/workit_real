@@ -3,6 +3,7 @@ package com.it.workit.resumes.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +26,8 @@ public class ResumesServiceImpl implements ResumesService{
 		}
 		return resumeList;
 	}
-	
-	
+
+
 	@Override
 	public int insertResume(ResumesVO resumeVo) {
 		return resumesDao.insertResume(resumeVo);
@@ -36,10 +37,10 @@ public class ResumesServiceImpl implements ResumesService{
 	@Transactional
 	public int insertResumesMulti(ResumeListVO resumlist) {
 		int cnt =0;
-		
-//		ResumesVO resumesVo = resumlist.getResumesVo();
-//		cnt = resumesDao.insertResume(resumesVo);
-		
+
+		//		ResumesVO resumesVo = resumlist.getResumesVo();
+		//		cnt = resumesDao.insertResume(resumesVo);
+
 		for (AwardVO aVo : resumlist.getAwardVOList()) {
 			cnt = resumesDao.insertAward(aVo);
 		}
@@ -53,8 +54,35 @@ public class ResumesServiceImpl implements ResumesService{
 			cnt = resumesDao.insertForeignskill(foreignVo);
 		}
 		return cnt;
-	
+
 	}//
 
+
+	@Override
+	public List<ResumesVO> selectResumeByNo(int userNo) {
+		return resumesDao.selectResumeByNo(userNo);
+	}
+
+	//detail을 위한 select
+	@Override
+	public Map<String, Object> selectByRsUser(int resumeNo) {
+		return resumesDao.selectByRsUser(resumeNo);
+	}
+	@Override
+	public List<AwardVO> selectAwdByNo(int resumeNo) {
+		return resumesDao.selectAwdByNo(resumeNo);
+	}
+	@Override
+	public List<LicencseVO> selectLicenByNo(int resumeNo) {
+		return resumesDao.selectLicenByNo(resumeNo);
+	}
+	@Override
+	public List<CarrerVO> selectCarByNo(int resumeNo) {
+		return resumesDao.selectCarByNo(resumeNo);
+	}
+	@Override
+	public List<ForeignlanguageskillVO> selectFlsByNo(int resumeNo) {
+		return resumesDao.selectFlsByNo(resumeNo);
+	}
 	
 }

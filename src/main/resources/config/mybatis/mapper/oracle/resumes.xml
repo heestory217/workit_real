@@ -71,6 +71,37 @@
 		values (#{foreignlanguageskillNo},#{resumeNo},#{foreignlanguageskillLang},#{foreignlanguageskillExpert})
 	</insert>
 	
+	<!-- 리스트 보여주기 위한 쿼리 -->
+	<select id="selectResumeByNo" parameterType="int" resultType="ResumesVO">
+		select * from resumes where USER_NO=#{userNo} order by resume_no desc
+	</select>
+	
+	<!-- select  -->
+	<resultMap type="HashMap" id="resumeSelfintro">
+      <result property="resumeSelfintro" column="RESUME_SELFINTRO" jdbcType="CLOB" javaType="java.lang.String" />
+   </resultMap>
+	<select id="selectByRsUser" parameterType="int" resultType="HashMap" resultMap="resumeSelfintro">
+		select * from resumeUsers where RESUME_NO=#{resumeNo}
+	</select>
+	<select id="selectAwdByNo" parameterType="int" resultType="awardVO">
+		select * from AWARD where RESUME_NO=#{resumeNo}
+	</select>
+	<select id="selectLicenByNo" parameterType="int" resultType="licencseVO">
+		select * from LICENCSE where RESUME_NO=#{resumeNo}
+	</select>
+	<select id="selectCarByNo" parameterType="int" resultType="carrerVO">
+		select * from CARRER where RESUME_NO=#{resumeNo}
+	</select>
+	<select id="selectFlsByNo" parameterType="int" resultType="foreignlanguageskillVO">
+		select * from FOREIGNLANGUAGESKILL where RESUME_NO=#{resumeNo}
+	</select>
+	
+	<!-- update -->
+	
+	
+	<!-- delete -->
+	
+	
 </mapper>
 
 

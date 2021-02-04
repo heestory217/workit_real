@@ -31,19 +31,6 @@ textarea#resumeSelfintro {
 	margin-bottom: 15px;
 }
 
-input#carrerStartdate,
-#carrerEnddate {
-    width: 120px;
-}
-input#carrerCorp {
-    margin: 0 20px;
-    width: 364px;
-}
-input#carrerWork {
-    width: 234px;
-    margin-right: 20px;
-}
-
 .colWarp {
     margin-bottom: 30px;
 }
@@ -55,26 +42,39 @@ input#carrerWork {
     margin-bottom: 20px;
 }
 
-#awardDate, #licencseName,
-#foreignlanguageskillLang {
-    width: 300px;
-}
-#awardAbout, #licencseIssuerLace,
-#foreignlanguageskillExpert{
-    width: 580px;
-    margin: 0 20px;
-}
-
 .myWarp {
     width: 100%;
     margin: 14px;
     padding: 25px 0 40px 0;
     border-top: 1px solid #ddd;
 }
-button.btnRemove {
-    background: #fff;
-    border: none;
-    color: #4C50BB;
+#new-carrerDiv, #new-awardDiv, #new-licencseDiv, #new-foreignDiv{
+    position: relative;
+    width: 100%;
+    padding-bottom: 23px;
+    margin-bottom: 20px;
+}
+#new-carrerDiv > div {
+	width: 30%;
+	float: left;
+}
+#new-awardDiv > div, #new-licencseDiv > div, 
+#new-foreignDiv > div{
+	width: 40%;
+	float: left;
+}
+button.site-btn.register-btn {
+    margin: 40px 10px 40px 0;
+    float: left;
+}
+.btWarp {
+    width: 100%;
+    margin: 50px 5px;
+    padding-top: 25px;
+    border-top: 1px solid #ddd;
+}
+.bt-float {
+    float: right;
 }
 </style>
 <div class="container">
@@ -83,7 +83,7 @@ button.btnRemove {
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
    				<div class="section-title">
-					<h2>이력서 등록</h2>
+					<h2>${map['USER_NAME']}님 이력서</h2>
 				</div>
                 <div class="row">
 <!--                 	<input type="hidden" name="resumeNo"> -->
@@ -92,71 +92,88 @@ button.btnRemove {
              	    	<div class="labelWarp">
                         <label id="resume-colName" for="resumeTitle">이력서 제목<span>*</span></label>
                         </div>
-                        <input type="text" id="resumeTitle" name="resumeTitle"
-                        	placeholder="나를 잘 나타낼 수 있는 제목을 써주세요">
-                        <p>&nbsp;&nbsp;<i class="fa fa-lightbulb-o" aria-hidden="true">
-                        	</i>&nbsp;기업에게 보여지는 이름입니다</p>
+                        <p>${map['RESUME_TITLE']}</p>
                     </div>
                     <div class="myWarp">
-						<p>${userVo.userName}</p>
-						<p>${userVo.userEmail1}@${userVo.userEmail2 }</p>
-						<p>${userVo.userHp1}-${userVo.userHp2}-${userVo.userHp3 }</p>
+						<p>${map['USER_NAME']}</p>
+						<p>${map['USER_EMAIL1']}@${map['USER_EMAIL2'] }</p>
+						<p>${map['USER_HP1']}-${map['USER_HP2']}-${map['USER_HP3'] }</p>
                     </div>
                     <div class="col-lg-12 colWarp">
                     	<div class="labelWarp">
                     	<label id="resume-colName" for="resumeSelfintro">자기 소개</label>
                     	</div>
-                    	<textarea class="content" id="resumeSelfintro" name="resumeSelfintro"
-                    	 placeholder="간단한 자기소개를 통해 이력서를 돋보이게 만들어보세요. (3~5줄 권장)"></textarea><br><br>
+                    	<textarea class="content" id="resumeSelfintro" 
+                    	name="resumeSelfintro">${map['resumeSelfintro'] }</textarea><br><br>
                     </div>
-                    <div class="col-lg-12">
+					<div class="col-lg-12">
+						<div class="labelWarp">
+							<label id="resume-colName" for="carrer">경력</label>
+						</div>
+						<c:if test="${!empty cList}">
+							<c:forEach var="cVo" items="${cList}">
+								<div id="new-carrerDiv">
+									<div>${cVo.carrerStartdate }-${cVo.carrerEnddate }</div>
+									<div>${cVo.carrerCorp }</div> 
+									<div>${cVo.carrerWork }</div>
+								</div>
+							</c:forEach>
+						</c:if>
+					</div>
+					<div class="col-lg-12 colWarp2">
                     	<div class="labelWarp">
-                        <label id="resume-colName" for="carrer">경력</label>
-                        </div>
-                        <button type="button" class="resumeBt" id="carrerBt">
-                        	<i class="fa fa-plus" aria-hidden="true"></i>
-                        	추가
-                        </button><br><br>
-                        <div id="new-carrerDiv"></div>
-                    </div>
-                    <div class="col-lg-12 colWarp2">
-                    	<div class="labelWarp">
-                 		<label id="resume-colName" for="resumeFinaleducation">학력</label>
+                 			<label id="resume-colName" for="resumeFinaleducation">학력</label>
                  		</div>
-                        <input type="text" id="resumeFinaleducation" name="resumeFinaleducation"
-                        	placeholder="학교/학과">
+                        <div>
+                        	${map['RESUME_FINALEDUCATION']}
+                        </div>
                     </div>
                     <div class="col-lg-12 colWarp">
                     	<div class="labelWarp">
-                        <label id="resume-colName" for="award">수상 및 기타</label>
+                        	<label id="resume-colName" for="award">수상 및 기타</label>
                         </div>
-                        <button type="button" class="resumeBt" id="awardBt">
-                        	<i class="fa fa-plus" aria-hidden="true"></i>
-                        	추가
-                        </button><br><br>
-                        <div id="new-awardDiv"></div>
+                        <c:if test="${!empty aList}">
+							<c:forEach var="aVo" items="${aList}">
+		                        <div id="new-awardDiv">
+		                        	<div>${aVo.awardAbout }</div>
+		                        	<div>${aVo.awardDate }</div>
+		                        </div>
+		                 </c:forEach>
+						</c:if>
                     </div>
                     <div class="col-lg-12 colWarp">
                     	<div class="labelWarp">
-                        <label id="resume-colName" for="licencse">자격증</label>
+                        	<label id="resume-colName" for="licencse">자격증</label>
                         </div>
-                        <button type="button" class="resumeBt" id="licencseBt">
-                        	<i class="fa fa-plus" aria-hidden="true"></i>
-                        	추가
-                        </button><br><br>
-                        <div id="new-licencseDiv"></div>
+                      	<c:if test="${!empty lcList}">
+							<c:forEach var="lVo" items="${lcList}">
+		                        <div id="new-licencseDiv">
+		                        	<div>${lVo.licencseName }</div>
+		                        	<div>${lVo.licencseIssueplace }</div>
+		                        </div>
+		                 </c:forEach>
+						</c:if>
                     </div>
                     <div class="col-lg-12 colWarp">
                     	<div class="labelWarp">
-                        <label id="resume-colName" for="foreign">외국어</label>
+                       		<label id="resume-colName" for="foreign">외국어</label>
                         </div>
-                        <button type="button" class="resumeBt" id="foreignBt">
-                        	<i class="fa fa-plus" aria-hidden="true"></i>
-                        	추가
-                        </button><br><br>
-                        <div id="new-foreignDiv"></div>
+                        <c:if test="${!empty fList}">
+							<c:forEach var="fVo" items="${fList}">
+		                        <div id="new-foreignDiv">
+		                        	<div>${fVo.foreignlanguageskillLang }</div>
+		                        	<div>${fVo.foreignlanguageskillExpert }</div>
+		                        </div>
+		                 </c:forEach>
+						</c:if>
                     </div>
-					<button class="site-btn register-btn " type="submit">작성 완료</button>
+                    <div class="btWarp">
+                    	<div class="bt-float">
+						<button class="site-btn listBt" type="submit">목록</button>
+						<button class="site-btn updateBt" type="submit">수정</button>
+						<button class="site-btn delBt" type="submit">삭제</button>
+						</div>
+					</div>
                 </div>
             </div>
         </div>

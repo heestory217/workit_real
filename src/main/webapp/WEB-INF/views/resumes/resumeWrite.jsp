@@ -167,6 +167,7 @@ button.btnRemove {
                 <div class="row">
 <!--                 	<input type="hidden" name="resumeNo"> -->
                     <input type="hidden" name="userNo" value="${sessionScope.userNo}">
+                    <input type="hidden" name="userId" value="${sessionScope.userId}">
              	    <div class="col-lg-12 colWarp">
              	    	<div class="labelWarp">
                         <label id="resume-colName" for="resumeTitle">이력서 제목<span>*</span></label>
@@ -177,9 +178,9 @@ button.btnRemove {
                         	</i>&nbsp;기업에게 보여지는 이름입니다</p>
                     </div>
                     <div class="myWarp">
-						<p>이름</p>
-						<p>이메일 주소</p>
-						<p>전화번호</p>
+						<p>${resumesmap.userName}</p>
+						<p>${userVo.userEmail1}@${userVo.userEmail2 }</p>
+						<p>${userVo.userHp1}-${userVo.userHp2}-${userVo.userHp3 }</p>
                     </div>
                     <div class="col-lg-12 colWarp">
                     	<div class="labelWarp">
