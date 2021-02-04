@@ -103,7 +103,7 @@ public class OrdersServiceImpl implements OrdersService{
 	}
 
 	@Override
-	public List<OrdersVO> selectCompanyPaymentByUserno(CompanypagingVO vo) {
+	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(CompanypagingVO vo) {
 		return ordersDao.selectCompanyPaymentByUserno(vo);
 	}
 
