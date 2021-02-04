@@ -131,7 +131,7 @@
                                		사이트 바로가기
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"><i class="fas fa-fw fa-file"></i> Work IT 바로가기 </a>
+                                <a href="<c:url value='/index.do'/>"><i class="fas fa-fw fa-file"></i> Work IT 바로가기 </a>
                             </li>
                         </ul>
                     </div>
