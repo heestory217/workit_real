@@ -7,5 +7,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class GetPositionDAOMybatis implements GetPositionDAO{
 	@Autowired private SqlSessionTemplate sqlSession;
-	private String namespace="";
+	private String namespace="config.mybatis.mapper.oracle.position.";
+	
+	@Override
+	public int insertGetPositionSuggest(GetPositionsuggestVO vo) {
+		return sqlSession.insert(namespace+"insertGetPositionSuggest", vo);
+	}
 }
