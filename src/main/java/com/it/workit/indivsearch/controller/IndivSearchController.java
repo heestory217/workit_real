@@ -49,23 +49,6 @@ public class IndivSearchController {
 		return "indivSearch/indivKeywordSearch";
 	}
 
-	/*
-	 * @RequestMapping(value = "/indivLanguageSearch.do", method =
-	 * RequestMethod.GET) public String indivLanguage_get(Model model) {
-	 * logger.info("개인 - 언어 검색 보여주기 / get");
-	 * 
-	 * List<LanguageVO> Llist = indivSearchServie.selectLanguage();
-	 * logger.info("Llist.size={}", Llist.size());
-	 * 
-	 * model.addAttribute("Llist", Llist);
-	 * 
-	 * 기본 데이터 List<IndivKeywordSearchVO> list=indivSearchServie.selectSearchAll();
-	 * logger.info("list.size={}",list.size());
-	 * 
-	 * model.addAttribute("list", list);
-	 * 
-	 * return "indivSearch/indivLanguageSearch"; }
-	 */
 
 	@RequestMapping(value = "/indivExplore.do", method = RequestMethod.GET)
 	public String indivExplore_get(Model model) {
@@ -132,42 +115,6 @@ public class IndivSearchController {
 		return "indivSearch/indivExplore";
 	}
 
-	/*
-	 * @RequestMapping(value = "/indivLanguageSearch.do", method =
-	 * RequestMethod.POST) public String indivLanguage_post(Model
-	 * model, @ModelAttribute IndivKeywordSearchVO vo) {
-	 * logger.info("개인 - 언어 검색 보여주기 / post / 언어 no={}", vo.getLanguageNo());
-	 * 
-	 * List<LanguageVO> Llist = indivSearchServie.selectLanguage();
-	 * logger.info("Llist.size={}", Llist.size());
-	 * 
-	 * model.addAttribute("Llist", Llist);
-	 * 
-	 * List<IndivKeywordSearchVO> list =
-	 * indivSearchServie.selectIndivLanguage(vo.getLanguageNo());
-	 * logger.info("list.size={}", list.size());
-	 * 
-	 * model.addAttribute("list", list); model.addAttribute("selected",
-	 * vo.getLanguageNo());
-	 * 
-	 * return "indivSearch/indivLanguageSearch"; }
-	 */
-
-	/*
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping("/indivLanguageSearchAjax.do") public
-	 * List<IndivKeywordSearchVO> indivLanguageAjax(@RequestParam int languageNo,
-	 * Model model) { logger.info("개인 - 언어 AJAX / 선택 언어 ={}",languageNo);
-	 * 
-	 * List<IndivKeywordSearchVO>
-	 * list=indivSearchServie.selectIndivLanguage(languageNo);
-	 * logger.info("list.size={}",list.size());
-	 * 
-	 * model.addAttribute("list", list);
-	 * 
-	 * return list; }
-	 */
 
 	@ResponseBody
 	@RequestMapping("/indivLanguageSearchAjax.do")
@@ -205,25 +152,4 @@ public class IndivSearchController {
 		return "indivSearch/indivExploreWorkkind";
 	}
 
-	/*
-	 * @RequestMapping(value = "/indivExploreWorkkind.do", method =
-	 * RequestMethod.POST) public String indivExploreWorkkind_post(Model
-	 * model, @ModelAttribute WorkkindVO vo) {
-	 * logger.info("개인 - 채용 공고 탐색 보여주기 / post, 선택 직무 no={}",vo.getWorkkindNo());
-	 * 
-	 * model.addAttribute("wselected", vo.getWorkkindNo());
-	 * 
-	 * 직무 데이터 List<WorkkindVO> wlist = indivSearchServie.selectWorkkind();
-	 * logger.info("wlist.size={}", wlist.size());
-	 * 
-	 * model.addAttribute("wlist", wlist);
-	 * 
-	 * List<IndivKeywordSearchVO> list =
-	 * indivSearchServie.selectExploreWorkKind(vo.getWorkkindNo());
-	 * logger.info("list.size={}", list.size());
-	 * 
-	 * model.addAttribute("list", list);
-	 * 
-	 * return "indivSearch/indivExploreWorkkind"; }
-	 */
 }

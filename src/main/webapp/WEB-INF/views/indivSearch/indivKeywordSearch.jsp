@@ -66,38 +66,6 @@
 				</c:forEach>
 			</c:if> 
 			<!-- 반복 끝 -->
-			<!-- 반복시작 -->
-			<%-- <div class="col-lg-4 col-md-6 padding_20">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img src="<c:url value='/resources/img/latest-1.jpg'/>" alt="">
-						<div class="latest-text">
-							<div class="tag-list">
-								<div class="tag-item">
-									<i class="fa fa-calendar-o"></i> 2021-02-19
-								</div>
-								<div class="tag-item">
-									<i class="fas fa-search"></i> 자바 개발자
-								</div>
-							</div>
-							<h4>
-								<b>예시 : 패스트캠퍼스</b>
-							</h4>
-							<p>B회사 JAVA프로그래머 채용</p>
-							<p class="margin_bottom_0">
-								<i class="fas fa-building"></i> 서울 · 도봉구
-							</p>
-							<p class="margin_bottom_0">
-								<i class="fas fa-pencil-alt"></i> JAVA · 경력 1년 이상
-							</p>
-							<p class="margin_bottom_0">
-								<i class="fas fa-dollar-sign"></i> 연 2600만
-							</p>
-						</div>
-					</a>
-				</div>
-			</div>  --%>
-			<!-- 반복 끝 -->
 		</div>
 	</div>
 
