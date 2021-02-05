@@ -54,12 +54,25 @@
     <header class="header-section">
         <div class="header-top">
             <div class="container">
+                <c:if test="${empty sessionScope.userId }">
+	                <div class="ht-left">
+	                    <div class="mail-service">
+	                       		<b>NEW WORKER</b> 
+	                    </div>
+	                    <div class="phone-service" style="font-size: 20px;padding-top: 13px;">
+	                        <a href="https://github.com/heestory217/workit_real.git"><i class="fab fa-github"></i></a>
+	                    </div>
+	                </div>
+                </c:if>
                 <c:if test="${!empty sessionScope.userId }">
-                <div class="ht-left">
-                    <div class="mail-service">
-                       		<b>${sessionScope.userName }</b>님 어서오세요
-                    </div>
-                </div>
+	                <div class="ht-left">
+	                    <div class="mail-service">
+	                       		<b>${sessionScope.userName }</b>님 어서오세요
+	                    </div>
+	                    <div class="phone-service" style="font-size: 20px;padding-top: 13px;">
+	                        <a href="https://github.com/heestory217/workit_real.git"><i class="fab fa-github"></i></a>
+	                    </div>
+	                </div>
                 </c:if>
                 <c:if test="${empty sessionScope.userId }">
 	                <div class="ht-right">
