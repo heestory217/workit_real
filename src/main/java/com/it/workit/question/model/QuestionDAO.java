@@ -25,6 +25,7 @@ public interface QuestionDAO {
 	int insertBookMark(BookmarkVO vo);	//북마크 등록
 	int delBookmark(BookmarkVO vo);	//북마크 삭제
 	int DupChkBookmark(BookmarkVO vo);	//북마크 중복 체크
+	List<BookmarkVO> selectBookmark(int userNo);//북마크 조회
 	List<Map<String, Object>> selectBookMarkByUser(QstnPagingVO vo);//회원 북마크 조회
 	int getBookMarkCnt(QstnPagingVO vo);	//회원 북마크 개수
 	int updateTempQstn(QuestionVO vo);	//질문 수정(임시저장)

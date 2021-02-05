@@ -160,5 +160,11 @@ public class QuestionDAOMybatis implements QuestionDAO{
 		return sqlSession.update(namespace+"delComntCnt", qstnNo);
 	}
 	
+	//북마크 조회
+	@Override
+	public List<BookmarkVO> selectBookmark(int userNo) {
+		return sqlSession.selectList(namespace+"selectBookmark", userNo);
+	}
+	
 	
 }

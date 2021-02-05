@@ -1,6 +1,5 @@
 package com.it.workit.community.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -199,7 +198,7 @@ public class CommunityController {
 	
 	//전체 질문 조회
 	@RequestMapping("/qstnList.do")
-	public String qstnList(@ModelAttribute QstnPagingVO vo, Model model) {
+	public String qstnList(@ModelAttribute QstnPagingVO vo, HttpSession session,  Model model) {
 		logger.info("질문 전체 조회, 파라미터 vo={}", vo);
 		
 		//[1]pagingInfo
@@ -220,26 +219,15 @@ public class CommunityController {
 		List<Map<String, Object>> qstnList=qstnService.selectAllQuestion(vo);
 		logger.info("질문 전체 조회 결과, qstnList.size={}", qstnList.size());
 		
+		List<BookmarkVO> bookmarkList =null;
+		if(session.getAttribute("userNo")!=null) {
+			int userNo=(Integer) session.getAttribute("userNo");
+			bookmarkList = qstnService.selectBookmark(userNo);
+			logger.info("북마크 한 글 조회 결과, bookmarkList.size={}", bookmarkList.size());
+		}
+		model.addAttribute("bookmarkList", bookmarkList);
 		
-		 int cmtCnt=0;
-		 int qstnNo=0;Map<Integer, Integer> cmtCntList=null;
-		 for(int i = 0; i < qstnList.size(); i++){
-	        //arraylist 사이즈 만큼 for문을 실행합니다.
-	        for( Entry<String, Object> elem : qstnList.get(i).entrySet()){
-	            // list 각각 hashmap받아서 출력합니다.
-	        	if(elem.getKey().equals("QUESTION_NO")) { 
-	        		qstnNo=Integer.parseInt(String.valueOf(elem.getValue()));
-	        		logger.info("qstnNo={}", qstnNo);
-	        		vo.setQuestionNo(qstnNo);
-	        		logger.info("vo={}", vo);
-	        		cmtCnt=comntService.getTotalCmt(vo);
-	        		model.addAttribute("cmtCnt", cmtCnt);
-	        		logger.info("qstnNo={}, cmtCnt={}", qstnNo, cmtCnt);
-	        	}
-	        	
-	        }
-			
-	    }
+
 
 		model.addAttribute("qstnList", qstnList);
 		model.addAttribute("pagingInfo", pagingInfo);

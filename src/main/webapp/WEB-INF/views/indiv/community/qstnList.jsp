@@ -227,7 +227,6 @@
 										${map['questionAbout'] }
 									</c:if>								
 								</dd>
-								
 								<!-- 답변, 조회수, 작성시간 -->
 								<dd class="cellBx">
 									<span class="reply">답변<span class="replyNum"> ${map['COMMENT_COUNT']}</span>&nbsp;&nbsp;|&nbsp;</span>
@@ -236,16 +235,25 @@
 										<fmt:formatDate value="${map['QUESTION_DATE']}"
 											pattern="yyyy-MM-dd"/>
 									</span>
-									<c:if test="${!empty userNo }">
-										<!-- 이미 북마크한 경우 -->
-											<a class="bookmark"
-											href='<c:url value="/indiv/community/delBookMark.do?qstnNo=${map['QUESTION_NO']}"/>'>
-											<i class="fa fa-bookmark" aria-hidden="true"></i></a>
-										<!-- 북마크하지 않은 경우
-											<a class="bookmark"
-											href='<c:url value="/indiv/community/insertBookMark.do?qstnNo=${map['QUESTION_NO']}"/>'>
-											<i class="fa fa-bookmark-o" aria-hidden="true"></i></a> -->
-									</c:if>
+									<%-- <c:if test="${!empty userNo && !empty bookmarkList }">
+											<c:forEach var="bookmarkVo" items="${bookmarkList }">
+												<c:set var="qstnNo" value="${bookmarkVo.questionNo}"/>
+											<c:if test="${map['QUESTION_NO'] in qstnNo }">
+													<input type="text" value="${qstnNo }">
+													<input type="text" value="${map['QUESTION_NO'] }">
+													<a class="bookmark"
+													href='<c:url value="/indiv/community/delBookMark.do?qstnNo=${map['QUESTION_NO']}"/>'>
+													<i class="fa fa-bookmark" aria-hidden="true"></i></a>
+											</c:if>	
+											<c:if test="${map['QUESTION_NO'] != qstnNo}">
+												<input type="text" value="${qstnNo }">
+												<input type="text" value="${map['QUESTION_NO'] }">
+												<a class="bookmark"
+												href='<c:url value="/indiv/community/delBookMark.do?qstnNo=${map['QUESTION_NO']}"/>'>
+												<i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
+											</c:if>	
+											</c:forEach>
+									</c:if> --%>
 								</dd>
 							</dl>
 						</a>

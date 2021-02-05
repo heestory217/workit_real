@@ -290,6 +290,12 @@
 		set comment_count=comment_count-1
 		where question_no=#{questionNo}
 	</update>
+	
+	<!-- 북마크한 글 조회 -->
+	<select id="selectBookmark" parameterType="int" resultType="bookmarkVo">
+		select * from bookmark
+		where user_no=#{userNo}
+	</select>
 </mapper>
 
 
