@@ -73,5 +73,29 @@
 		set user_password=#{userPwd}
 		 where user_id=#{userId} and USER_PASSWORD=#{userTemp}
 	</update>
+	
+	<select id="selectIndivUsersAll" parameterType="searchVo" resultType="usersVo">
+		select *
+		from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        select * from users
+				where user_corpcheck=1
+				order by user_name
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="totalUsers" resultType="int">
+		select count(*) from users
+		where user_corpcheck=1
+		order by user_name
+	</select>
 
 </mapper>

@@ -1,10 +1,13 @@
 package com.it.workit.users.model;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.it.workit.common.SearchVO;
 
 @Repository
 public class UsersDAOMybatis implements UsersDAO {
@@ -88,5 +91,16 @@ public class UsersDAOMybatis implements UsersDAO {
 	public int updatePwdReal(Map<String, Object> userMap) {
 		return sqlSession.update(namespace+"updatePwdReal", userMap);
 	}
+
+	@Override
+	public List<UsersVO> selectIndivUsersAll(SearchVO searchVo) {
+		return sqlSession.selectList(namespace+"selectIndivUsersAll",searchVo);
+	}
+
+	@Override
+	public int totalUsers() {
+		return sqlSession.selectOne(namespace+"totalUsers");
+	}
+
 
 }

@@ -1,6 +1,9 @@
 package com.it.workit.users.model;
 
+import java.util.List;
 import java.util.Map;
+
+import com.it.workit.common.SearchVO;
 
 public interface UsersDAO {
 	public int checkDup(String userid);
@@ -17,4 +20,8 @@ public interface UsersDAO {
 	
 	public int selectUser(Map<String, Object> userMap);
 	public int updatePwdReal(Map<String, Object> userMap);
+	
+	/* 관리자 사용 */
+	public List<UsersVO> selectIndivUsersAll(SearchVO searchVo);
+	public int totalUsers();
 }
