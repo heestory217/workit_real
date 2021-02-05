@@ -102,22 +102,13 @@
 	letter-spacing: 2px;
 }
 
-.blog-details-inner .blog-quote p:before {
-	position: absolute;
-	left: 0;
-	top: 0;
-	height: 88px;
-	width: 3px;
-	background: #4C50BB;
-	content: "";
-}
 
 .blog-details-inner .blog-more {
 	margin-bottom: 32px;
 }
 
 .blog-details-inner .blog-more img {
-	min-width: 100%;
+	width: 100%;
 }
 
 .blog-details-inner p {
