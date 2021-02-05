@@ -29,7 +29,7 @@
                                             <div id="submenu-1-2" class="collapse submenu" style="">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="index.html">개인 회원 조회</a>
+                                                        <a class="nav-link" href="<c:url value='/admin/users/indiv/selectIndivUsers.do '/>">개인 회원 조회</a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="ecommerce-product.html">탈퇴 회원 조회</a>
