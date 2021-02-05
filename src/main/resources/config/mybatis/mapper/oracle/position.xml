@@ -35,7 +35,7 @@
 	
 	<select id="positionGetTotalRecord" parameterType="indivpagingVo" resultType="int">
 		select count(*) from GetPositionView
-		where GETUSER_NO=#{userNo}
+		where GETUSER_NO=#{userNo} and GETPOSITIONSUGGEST_DELFLAG=2
 	</select>
 	
 	<!-- 포지션 제안 보내기 -->
