@@ -97,4 +97,15 @@ public class AdminCorpController {
 		model.addAttribute("msg",msg);
 		return "common/message";
 	}
+	
+	@RequestMapping("/corpDetail.do")
+	public String corpDetail(@RequestParam int corpNo, Model model) {
+		logger.info("corpNo={}",corpNo);
+		CorpVO corpVo = corpService.selectCorp(corpNo);
+		List<CorpimgVO> imgVo=corpService.selectCorpWaitingImgList(corpNo);
+		
+		model.addAttribute("cVo", corpVo);
+		model.addAttribute("imgList", imgVo);
+		return "admin/users/corp/corpDetail";
+	}
 }
