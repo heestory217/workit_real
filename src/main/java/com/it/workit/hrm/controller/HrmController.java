@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
@@ -166,10 +167,22 @@ public class HrmController {
 		list = positionService.selectPositionForm(userNo);	//양식함
 		
 		logger.info("양식함 조회 결과 list.size={}", list.size());
-		
 		model.addAttribute("list", list);
 		
 		return "company/HRManagment/position/getPSGForm";
+	} 
+
+	//양식 불러오기
+	@ResponseBody
+	@RequestMapping("/getPSGFormDetail.do")
+	public Map<String, Object> getPSGFormDetail(@RequestParam (defaultValue = "0") int positionsuggestNo) {
+		logger.info("제안 불러오기");
+		logger.info("파라미터 positionsuggestNo={}", positionsuggestNo);
+
+		Map<String, Object> map = positionService.selectByPositionNo(positionsuggestNo);
+		logger.info("map={}", map);
+
+		return map;
 	} 
 	
 	//개별쪽지 삭제하기

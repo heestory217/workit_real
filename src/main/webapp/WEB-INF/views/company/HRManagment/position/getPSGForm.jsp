@@ -25,9 +25,39 @@
     
 <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
 <script type="text/javascript">
-</script>
+	$(function(){
+		$('form[name=bringPSGForm]').submit(function(){
+			$.ajax({
+				url : "<c:url value='/company/HRManagment/getPSGFormDetail.do'/>",
+				type : "POST",
+				dataType: "json",
+				data : "positionsuggestNo="+$('#positionsuggestNo option:selected').val(),
+				success : function(res) {
+					//res = map
+					title = res["POSITIONSUGGEST_TITLE"];
+					position = res["POSITIONSUGGEST_POSITION"];
+					price = res["POSITIONSUGGEST_PRICE"];
+					contents = res["positionsuggestContents"];
+					
+					send(title,position,price,contents);
+				},
+				error : function(xhr, status, error) {
+					alert('error! : ' + error);
+				}
+			});	//AJAX
+		});
+	});
 
+	function send(title,position,price,contents) {
+		opener.document.positionFrm.positionsuggestTitle.value = title;
+		opener.document.positionFrm.positionsuggestPosition.value = position;
+		opener.document.positionFrm.positionsuggestPrice.value = price;
+		opener.CKEDITOR.instances.positionsuggestContents.setData(contents);
+		self.close();
+	}
+</script>
 </head>
+
 <body>
 <section class="blog-section spad" style="padding: 10%;">
 	<div class="container">
@@ -40,19 +70,19 @@
 								<h4>양식 선택</h4>
 							</div>
 							<div class="col-lg-6">
-								<form name="bringPSGForm" method="post" action="<c:url value='/company/HRManagment/position/positionWrite.do'/>">
+								<form id="bringPSGForm" name="bringPSGForm" method="post" action="#">
 									<div class="center">
 										
-										<select name="positionsuggestNo" style="width: -webkit-fill-available;height: 40px;">
+										<select id="positionsuggestNo" style="width: -webkit-fill-available;height: 40px;">
 							            	<option disabled selected>제안 양식</option>
 	            							<c:forEach var="map" items="${list}">
 										        <!-- 제목이 긴 경우 일부만 보여주기 -->
-												<c:if test="${fn:length(map['POSITIONSUGGEST_TITLE'])>=10}">
+												<c:if test="${fn:length(map['POSITIONSUGGEST_TITLE'])>=30}">
 													<option value="${map['POSITIONSUGGEST_NO']}">
-														${fn:substring(map['POSITIONSUGGEST_TITLE'],0,10) } ...
+														${fn:substring(map['POSITIONSUGGEST_TITLE'],0,30) } ...
 													</option>
 												</c:if>
-												<c:if test="${fn:length(map['POSITIONSUGGEST_TITLE'])<10}">						
+												<c:if test="${fn:length(map['POSITIONSUGGEST_TITLE'])<30}">						
 													<option value="${map['POSITIONSUGGEST_NO']}">
 														${map['POSITIONSUGGEST_TITLE']}
 													</option>
@@ -60,7 +90,7 @@
 											</c:forEach>
 										</select>
 										
-										<input type="submit" class="site-btn" id="bringForm" 
+										<input type="submit" class="site-btn" id="bringForm"
 											style="margin-top: 20px;width: -webkit-fill-available;" value="불러오기">
 							        </div>
 								</form>
