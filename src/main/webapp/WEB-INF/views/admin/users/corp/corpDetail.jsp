@@ -73,4 +73,53 @@
 	                        </div>
 	                    </div>
 	                    <a href="<c:url value="/admin/users/corp/corpList.do"/>"><button style="float: right;" class="btn btn-primary">기업 목록으로</button></a>
+	                    
+ <div class="col-lg-12">
+<form action="" name="frmPage" method="post" style="clear: both;">
+	<input type="hidden" name="currentPage">
+</form>
+
+<div>
+	<h4 class="fw-title center" >결제 내역</h4>
+</div>
+<section class="shopping-cart spad">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="cart-table">
+					<table>
+					<colgroup>
+						<col width="25%">
+						<col width="20%">
+						<col width="20%">
+						<col width="15%">
+						<col width="20%">
+					</colgroup>
+						<thead>
+                                <tr>
+                                    <th>서비스명</th>
+                                    <th>시작일</th>
+                                    <th>마감일</th>
+                                    <th>결제수단</th>
+                                    <th>결제금액</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+								
+	                            	<tr>
+	                            		<td colspan="5"><br><br>
+	                            			<p>요청하신 결과가 없습니다.</p>
+	                            		</td>
+	                            	</tr>
+                                
+                                
+							</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</section>
+
 <%@ include file="../../inc/bottom.jsp" %>
