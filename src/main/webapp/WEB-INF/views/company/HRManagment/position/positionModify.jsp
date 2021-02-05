@@ -13,50 +13,7 @@
 <script type="text/javascript"  src="<c:url value='/resources/js/position.js'/>"></script>
 <script type="text/javascript">
 $(function() {
-	$('#userId').keyup(function() {
-		var userid = $(this).val();
-		if (validate_userid(userid)) {
-			$.ajax({
-				url : "<c:url value='/users/ajaxCheckId.do'/>",
-				type : "get",
-				data : {
-					userid : userid
-				},
-				success : function(res) {
-					var msg = "";
-					if (!res) {
-						msg = "등록되지 않은 아이디입니다.";
-					}
-					$('.error:eq(0)').html(msg);
-				},
-				error : function(xhr, status, error) {
-					alert('error! : ' + error);
-				}
-			});	//AJAX
-		} else {
-			$('.error:eq(0)').html("아이디는 영문, 숫자, _만 가능합니다.");
-		}
-	});	//아이디 keyup
-	
-	$('#getPGForm').click(function(){
-		$.ajax({
-			url : "<c:url value='/company/HRManagment/getPGForm.do'/>",
-			type : "get",
-			data : {
-				userid : userid
-			},
-			success : function(res) {
-				var msg = "";
-				if (!res) {
-					msg = "등록되지 않은 아이디입니다.";
-				}
-				$('.error:eq(0)').html(msg);
-			},
-			error : function(xhr, status, error) {
-				alert('등록된 양식이 없습니다!');
-			}	
-		});	//AJAX
-	});	//양식 불러오기 버튼 click
+
 });
 
 function write_go() {
@@ -68,10 +25,6 @@ function write_go() {
 	} else {
 		document.in_form.submit();
 	}
-}
-
-function execPGForm() {
-	window.open('http://www.naver.com', '양식 불러오기', 'width=500, height=300');
 }
 </script>
 
@@ -132,7 +85,7 @@ function execPGForm() {
 							height : 300
 						});
 					</script>
-					<button type="button" class="site-btn" id="getPGForm" onclick="execPGForm()"
+					<button type="button" class="site-btn" id="getPGForm"
 						style="margin-top: 25px;background: white;color: #4C50BB;">양식 불러오기</button>
 					<button type="submit" class="site-btn" style="margin-top: 25px;">보내기</button>
 				</div>
