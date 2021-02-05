@@ -138,7 +138,30 @@ public class QuestionServiceImpl implements QuestionService{
 	public int getBookMarkCnt(QstnPagingVO vo) {
 		return questionDao.getBookMarkCnt(vo);
 	}
+	
+	//질문 수정(임시저장)
+	@Override
+	public int updateTempQstn(QuestionVO vo) {
+		return questionDao.updateTempQstn(vo);
+	}
 
+	//답변이 등록되면 답변 개수가 증가됨
+	@Override
+	public int updateComntCnt(int qstnNo) {
+		return questionDao.updateComntCnt(qstnNo);
+	}
+
+	//답변이 삭제되면 답변 개수가 감소됨
+	@Override
+	public int delComntCnt(int qstnNo) {
+		return questionDao.delComntCnt(qstnNo);
+	}
+	
+	//북마크 조회
+	@Override
+	public List<BookmarkVO> selectBookmark(int userNo) {
+		return questionDao.selectBookmark(userNo);
+	}
 
 	
 }

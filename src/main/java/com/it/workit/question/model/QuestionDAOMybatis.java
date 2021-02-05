@@ -142,5 +142,29 @@ public class QuestionDAOMybatis implements QuestionDAO{
 		return sqlSession.selectOne(namespace+"getBookMarkCnt", vo);
 	}
 	
+	//질문 수정(임시저장)
+	@Override
+	public int updateTempQstn(QuestionVO vo) {
+		return sqlSession.insert(namespace+"updateTempQstn", vo);
+	}
+	
+	//답변이 등록되면 답변 개수가 증가됨
+	@Override
+	public int updateComntCnt(int qstnNo) {
+		return sqlSession.update(namespace+"updateComntCnt", qstnNo);
+	}
+
+	//답변이 삭제되면 답변 개수가 감소됨
+	@Override
+	public int delComntCnt(int qstnNo) {
+		return sqlSession.update(namespace+"delComntCnt", qstnNo);
+	}
+	
+	//북마크 조회
+	@Override
+	public List<BookmarkVO> selectBookmark(int userNo) {
+		return sqlSession.selectList(namespace+"selectBookmark", userNo);
+	}
+	
 	
 }

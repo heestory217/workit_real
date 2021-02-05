@@ -13,7 +13,14 @@ public class QuestionVO {
     private int questionImmsave;
     private int questionBookmark; 
     private String questionNicname;
-
+    private int commentCount;
+    
+	public int getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
 	public int getQuestionNo() {
 		return questionNo;
 	}
@@ -80,7 +87,8 @@ public class QuestionVO {
 		return "QuestionVO [questionNo=" + questionNo + ", userNo=" + userNo + ", workkindNo=" + workkindNo
 				+ ", questionTitle=" + questionTitle + ", questionAbout=" + questionAbout + ", questionView="
 				+ questionView + ", questionDate=" + questionDate + ", questionImmsave=" + questionImmsave
-				+ ", questionBookmark=" + questionBookmark + ", questionNicname=" + questionNicname + "]";
+				+ ", questionBookmark=" + questionBookmark + ", questionNicname=" + questionNicname + ", commentCount="
+				+ commentCount + "]";
 	}
     
     

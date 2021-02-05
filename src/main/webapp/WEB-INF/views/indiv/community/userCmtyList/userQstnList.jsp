@@ -49,8 +49,8 @@
 
 									<!-- 답변, 조회수, 작성시간 -->
 									<dd class="cellBx">
-										<span class="reply">답변<span class="replyNum">
-												0</span>&nbsp;&nbsp;|&nbsp;
+										<span class="reply">답변 <span class="replyNum">
+												${map['COMMENT_COUNT']}</span>&nbsp;&nbsp;|&nbsp;
 										</span> <span class="readCnt">조회
 											${map['QUESTION_VIEW']}&nbsp;&nbsp;|&nbsp;</span> <span
 											class="regTime"> <fmt:formatDate
