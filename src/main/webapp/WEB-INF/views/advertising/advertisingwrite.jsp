@@ -16,7 +16,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="breadcrumb-text">
-						<a href="/workit/index.do"><i class="fa fa-home"></i> Home</a> <span>Advertising</span>
+						<a href="#"><i class="fa fa-home"></i> Home</a> <span>Advertising register</span>
 					</div>
 				</div>
 			</div>
@@ -25,7 +25,7 @@
 	<!-- Breadcrumb Section Begin -->
 
 <div class="filter-widget">
-	<h4 class="fw-title center">광고 공고 목록</h4>
+	<h4 class="fw-title center">광고중인 공고 목록</h4>
 </div>
 <section class="shopping-cart spad">
 	<div class="container">
@@ -44,11 +44,11 @@
 						<thead>
                                 <tr>
                                 	<th>공고명</th>
+                                    <th>모집마감일</th>
                                     <th>광고종류</th>
                                     <th>광고마감일</th>
                                     <th>공고링크</th>
-                                    <th>연장하기</th>
-                                    <th>승인여부</th>
+                                    <th>수정하기</th>
                                 </tr>
                             </thead>
                             <tbody>
