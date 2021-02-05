@@ -19,4 +19,5 @@ public interface ResumesService {
 	public List<CarrerVO> selectCarByNo(int resumeNo);
 	public List<ForeignlanguageskillVO> selectFlsByNo(int resumeNo);
 	
+	public int deleteResumes(int resumeNo);
 }

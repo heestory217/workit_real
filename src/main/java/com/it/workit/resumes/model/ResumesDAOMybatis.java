@@ -61,6 +61,26 @@ public class ResumesDAOMybatis implements ResumesDAO{
 	public List<ForeignlanguageskillVO> selectFlsByNo(int resumeNo) {
 		return sqlSession.selectList(namespace+"selectFlsByNo",resumeNo);
 	}
+	@Override
+	public int delResume(int resumeNo) {
+		return sqlSession.delete(namespace+"delResume",resumeNo);
+	}
+	@Override
+	public int delAwd(int resumeNo) {
+		return sqlSession.delete(namespace+"delAwd",resumeNo);
+	}
+	@Override
+	public int delCarrer(int resumeNo) {
+		return sqlSession.delete(namespace+"delCarrer",resumeNo);
+	}
+	@Override
+	public int delLicen(int resumeNo) {
+		return sqlSession.delete(namespace+"delLicen",resumeNo);
+	}
+	@Override
+	public int delFskill(int resumeNo) {
+		return sqlSession.delete(namespace+"delFskill",resumeNo);
+	}
 	
 	
 }

@@ -175,5 +175,29 @@ public class ResumesController {
 		model.addAttribute("lcList",lcList);
 		
 	}
+	
+	//삭제
+	@RequestMapping("/deleteResumes.do")
+	public String deleteResumes(@RequestParam(defaultValue = "0") int resumeNo,
+			@RequestParam(defaultValue = "0") int userNo,
+			Model model) {
+		//1
+		logger.info("삭제 파라미터 resumeNo={} userNo={}",resumeNo,userNo);
+		//2
+		int cnt = rsService.deleteResumes(resumeNo);
+		logger.info("삭제 처리 cnt={}",cnt);
+		
+		String msg= "삭제 실패하였습니다", url ="/resumes/resumeDetail.do?resumeNo="+resumeNo;
+		if (cnt>0) {
+			msg="삭제 성공하였습니다";
+			url="/resumes/resumesList.do";
+		}
+		//3
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		//4
+		return "common/message";
+	}
+	
 
 }//컨트롤러

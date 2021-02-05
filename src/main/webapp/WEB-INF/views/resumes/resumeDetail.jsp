@@ -167,13 +167,17 @@ button.site-btn.register-btn {
 		                 </c:forEach>
 						</c:if>
                     </div>
+                    
+                    <c:if test="${map['USER_CORPCHECK']=='1'}">
                     <div class="btWarp">
                     	<div class="bt-float">
 						<button class="site-btn listBt" type="submit">목록</button>
 						<button class="site-btn updateBt" type="submit">수정</button>
-						<button class="site-btn delBt" type="submit">삭제</button>
+						<button class="site-btn delBt" type="button" 
+onclick="location.href='<c:url value="/resumes/deleteResumes.do?resumeNo=${map['RESUME_NO']}&userNo=${map['USER_NO'] }"/>'">삭제</button>
 						</div>
 					</div>
+					</c:if>
                 </div>
             </div>
         </div>

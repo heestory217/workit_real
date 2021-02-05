@@ -84,5 +84,27 @@ public class ResumesServiceImpl implements ResumesService{
 	public List<ForeignlanguageskillVO> selectFlsByNo(int resumeNo) {
 		return resumesDao.selectFlsByNo(resumeNo);
 	}
+
+	
+	//선택 삭제
+	@Override
+	@Transactional
+	public int deleteResumes(int resumeNo) {
+		int cnt=0;
+		
+		if (resumeNo!=0) {
+			cnt = resumesDao.delResume(resumeNo);
+		}else if (resumeNo!=0) {
+			cnt = resumesDao.delAwd(resumeNo);
+		}else if (resumeNo!=0) {
+			cnt = resumesDao.delCarrer(resumeNo);
+		}else if (resumeNo!=0) {
+			cnt = resumesDao.delFskill(resumeNo);
+		}else if (resumeNo!=0) {
+			cnt = resumesDao.delLicen(resumeNo);
+		}
+		
+		return cnt;
+	}
 	
 }
