@@ -82,13 +82,14 @@
                                 <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(14px, 19px, 0px); top: 0px; left: 0px; will-change: transform;">
                                     <!-- item-->
 			                        <c:if test="${corpVo.corpOkcheck eq 0}">
-			                        	<a href="javascript:void(0);" class="dropdown-item">기업 등록 승인</a>
+			                        	<a href="<c:url value='/admin/users/corp/corpJudge.do?corpNo=${corpVo.corpNo }&type=Y'/>" class="dropdown-item">기업 등록 승인</a>
 			                        </c:if>
 			                        <c:if test="${corpVo.corpOkcheck eq 1}">
-			                        	<a href="javascript:void(0);" class="dropdown-item">승인 취소</a>
+			                        	<a href="<c:url value='/admin/users/corp/corpJudge.do?corpNo=${corpVo.corpNo }&type=W'/>" class="dropdown-item">승인 취소</a>
 			                        </c:if>
 			                        <c:if test="${corpVo.corpOkcheck eq 2}">
-			                        	<a href="javascript:void(0);" class="dropdown-item">기업 등록 승인</a>
+			                        	<a href="<c:url value='/admin/users/corp/corpJudge.do?corpNo=${corpVo.corpNo }&type=W'/>" class="dropdown-item">등록 반려 취소</a>
+			                        	<a href="<c:url value='/admin/users/corp/corpJudge.do?corpNo=${corpVo.corpNo }&type=Y'/>" class="dropdown-item">기업 등록 승인</a>
 			                        </c:if>
                                     
                                     <!-- item-->
@@ -184,8 +185,8 @@
 	                    </div>
 	                    <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
 	                        <div class="float-xl-right float-none mt-xl-0 mt-4">
-	                            <a href="#" class="btn btn-outline-secondary">기업 등록 반려</a>
-	                            <a href="#" class="btn btn-outline-primary">기업 등록 승인</a>
+	                            <a href="<c:url value='/admin/users/corp/corpJudge.do?corpNo=${wCo.corpVo.corpNo }&type=N'/>" class="btn btn-outline-secondary">기업 등록 반려</a>
+	                            <a href="<c:url value='/admin/users/corp/corpJudge.do?corpNo=${wCo.corpVo.corpNo }&type=Y'/>" class="btn btn-outline-primary">기업 등록 승인</a>
 	                        </div>
 	                    </div>
 	                </div>
@@ -241,6 +242,7 @@
 		$('input[name=currentPage]').val(curPage);
 		$('form[name=corpFrm]').submit();
 	}
+	
 	function moreinfo(corpNo){
 		var moreInfo = document.getElementById(corpNo);
 		if(moreInfo.style.display=='none'){

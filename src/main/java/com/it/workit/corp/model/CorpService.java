@@ -26,4 +26,8 @@ public interface CorpService {
 	int selectCorpListCount(SearchVO searchVo);
 	List<CorpAllVo> selectCorpWaitingList();
 	List<CorpimgVO> selectCorpWaitingImgList(int corpNo);
+	
+	int corpOkCheck(String corpNo);
+	int corpReject(String corpNo);
+	int corpWating(String corpNo);
 }

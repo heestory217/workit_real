@@ -103,7 +103,22 @@ public class CorpDAOMybatis implements CorpDAO {
 	public List<CorpimgVO> selectCorpWaitingImgList(int corpNo) {
 		return sqlSession.selectList(namespace+"selectCorpWaitingImgList",corpNo);
 	}
-	
+
+	@Override
+	public int corpOkCheck(String corpNo) {
+		return sqlSession.update(namespace+"corpOkCheck", corpNo);
+	}
+
+	@Override
+	public int corpReject(String corpNo) {
+		return sqlSession.update(namespace+"corpReject", corpNo);
+	}
+
+	@Override
+	public int corpWaiting(String corpNo) {
+		return sqlSession.update(namespace+"corpWaiting", corpNo);
+	}
+
 
 
 }

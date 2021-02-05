@@ -29,4 +29,7 @@ public interface CorpDAO {
 	int selectCorpListCount(SearchVO searchVo);
 	List<CorpAllVo> selectCorpWaitingList();
 	List<CorpimgVO> selectCorpWaitingImgList(int corpNo);
+	int corpOkCheck(String corpNo);
+	int corpReject(String corpNo);
+	int corpWaiting(String corpNo);
 }

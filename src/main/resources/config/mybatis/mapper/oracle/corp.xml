@@ -240,6 +240,25 @@
 	<select id="selectCorpWaitingImgList" parameterType="int" resultType="CorpimgVO">
 		select * from corpimg where corp_no=#{corpNo}
 	</select>
+	
+	<update id="corpOkCheck" parameterType="string">
+		update corp
+		set corp_okcheck=1
+		where corp_no=#{corpNo}
+	</update>
+	
+	<update id="corpReject" parameterType="string">
+		update corp
+		set corp_okcheck=2
+		where corp_no=#{corpNo}
+	</update>
+
+	<update id="corpWaiting" parameterType="string">
+		update corp
+		set corp_okcheck=0
+		where corp_no=#{corpNo}
+	</update>
+	
 </mapper>
 
 
