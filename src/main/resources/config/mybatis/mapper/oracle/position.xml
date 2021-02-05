@@ -10,14 +10,27 @@
 	</select> -->
 	
 	<select id="selectPositionFlag2ByUserno" parameterType="indivpagingVo" resultType="positionsuggestVo">
+		select *
+		from
+		(
+		select A.*, rownum as RNUM
+		from
+		(
 		select A.*
 		from
 		(
-		    select p.*, (select user_id from users where USER_NO=p.USER_NO) AS "USER_ID"
-		    from GetPositionView p
+		select p.*, (select user_id from users where USER_NO=p.USER_NO) AS "USER_ID"
+		from GetPositionView p
 		)A
-		where GETUSER_NO=#{userNo} and GETUSER_NO!=USER_NO and GETPOSITIONSUGGEST_DELFLAG=2
+		where GETUSER_NO=#{userNo} and GETUSER_NO!=USER_NO and
+		GETPOSITIONSUGGEST_DELFLAG=2
 		order by POSITIONSUGGEST_NO desc
+		)A
+		)
+      <![CDATA[
+      where RNUM > #{firstRecordIndex} 
+      and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+      ]]>
 	</select>
 	
 	<select id="positionGetTotalRecord" parameterType="indivpagingVo" resultType="int">
