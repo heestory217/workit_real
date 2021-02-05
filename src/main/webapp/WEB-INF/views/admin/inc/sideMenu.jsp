@@ -51,9 +51,6 @@
                                                         <a class="nav-link" href="dashboard-influencer.html">기업 회원 조회</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="influencer-finder.html">기업 등록 심사</a>
-                                                    </li>
-                                                    <li class="nav-item">
                                                         <a class="nav-link" href="influencer-profile.html">채용 공고 조회</a>
                                                     </li>
                                                     <li class="nav-item">
