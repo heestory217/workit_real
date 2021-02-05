@@ -99,8 +99,8 @@
                         </li>
                         <li><a href="#">마이페이지</a>
                             <ul class="dropdown">
-                                <li><a href="#">회원 정보 수정</a></li>
-                                <li><a href="#">유료 결제 내역</a></li>
+                                <li><a href="<c:url value='/companyMypage/companyMypageEdit.do'/>">회원 정보 수정</a></li>
+                                <li><a href="<c:url value='/companyMypagecompanyPayment.do'/>">유료 결제 내역</a></li>
                             </ul>
                         </li>
                     </ul>
