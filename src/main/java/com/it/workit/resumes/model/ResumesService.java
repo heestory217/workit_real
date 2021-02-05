@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ResumesService {
+	
 
 	List<ResumesAllVO> searchResumeByNo(List<Integer> matchList);
 	
@@ -19,4 +20,5 @@ public interface ResumesService {
 	public List<CarrerVO> selectCarByNo(int resumeNo);
 	public List<ForeignlanguageskillVO> selectFlsByNo(int resumeNo);
 	
+	public int deleteResumes(int resumeNo);
 }

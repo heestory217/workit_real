@@ -96,10 +96,24 @@
 		select * from FOREIGNLANGUAGESKILL where RESUME_NO=#{resumeNo}
 	</select>
 	
-	<!-- update -->
-	
-	
 	<!-- delete -->
+	<delete id="delResume" parameterType="int">
+		delete from resumeUsers where RESUME_NO=#{resumeNo}
+	</delete>
+	<delete id="delAwd" parameterType="int">
+		delete from award where RESUME_NO=#{resumeNo}
+	</delete>
+	<delete id="delCarrer" parameterType="int">
+		delete from CARRER where RESUME_NO=#{resumeNo}
+	</delete>
+	<delete id="delLicen" parameterType="int">
+		delete from LICENCSE where RESUME_NO=#{resumeNo}
+	</delete>
+	<delete id="delFskill" parameterType="int">
+		delete from FOREIGNLANGUAGESKILL where RESUME_NO=#{resumeNo}
+	</delete>
+	
+	<!-- update -->
 	
 	
 </mapper>

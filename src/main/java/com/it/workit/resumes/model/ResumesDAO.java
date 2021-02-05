@@ -22,4 +22,9 @@ public interface ResumesDAO {
 	public List<CarrerVO> selectCarByNo(int resumeNo);
 	public List<ForeignlanguageskillVO> selectFlsByNo(int resumeNo);
 	
+	public int delResume(int resumeNo);
+	public int delAwd(int resumeNo);
+	public int delCarrer(int resumeNo);
+	public int delLicen(int resumeNo);
+	public int delFskill(int resumeNo);
 }
