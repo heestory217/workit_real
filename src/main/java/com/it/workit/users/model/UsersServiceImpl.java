@@ -1,11 +1,14 @@
 package com.it.workit.users.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.it.workit.common.SearchVO;
 
 @Service
 public class UsersServiceImpl implements UsersService{
@@ -94,6 +97,16 @@ public class UsersServiceImpl implements UsersService{
 			cnt = -1;
 		}
 		return cnt;
+	}
+
+	@Override
+	public List<UsersVO> selectIndivUsersAll(SearchVO searchVo) {
+		return usersDao.selectIndivUsersAll(searchVo);
+	}
+
+	@Override
+	public int totalUsers() {
+		return usersDao.totalUsers();
 	}
 
 }

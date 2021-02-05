@@ -1,6 +1,9 @@
 package com.it.workit.users.model;
 
+import java.util.List;
 import java.util.Map;
+
+import com.it.workit.common.SearchVO;
 
 public interface UsersService {
 	//아이디 중복확인시 사용
@@ -35,5 +38,9 @@ public interface UsersService {
 	public int updatePwd(Map<String, Object> tempUser);
 	
 	public int updatePwdReal(Map<String, Object> userMap);
+	
+	//은별 관리자사용, 개인회원 조회
+	public List<UsersVO> selectIndivUsersAll(SearchVO searchVo);
+	public int totalUsers();
 	
 }
