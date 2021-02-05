@@ -131,7 +131,7 @@ $(function() {
 				</div>
 				<div class="col-lg-6">
 					<span class="error"></span>
-					<input type="number" name="positionsuggestPrice" id="positionsuggestPrice" placeholder="연봉을 입력하세요">
+					<input type="number" name="positionsuggestPrice" id="positionsuggestPrice" placeholder="연봉을 입력하세요" min="0">
 				</div>
 				<div class="col-lg-12">
 					<span class="error"></span>

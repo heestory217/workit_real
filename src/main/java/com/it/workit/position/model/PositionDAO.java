@@ -22,4 +22,7 @@ public interface PositionDAO {
 	//삭제
 	int deletePSG(int positionsuggestNo);
 	
+	//양식 수정
+	int updatePSGForm(PositionsuggestVO vo);
+	
 }

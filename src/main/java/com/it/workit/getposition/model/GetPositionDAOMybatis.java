@@ -18,4 +18,9 @@ public class GetPositionDAOMybatis implements GetPositionDAO{
 	public int updateReadCount(int positionsuggestNo) {
 		return sqlSession.update(namespace+"updateReadCount", positionsuggestNo);
 	}
+
+	@Override
+	public int deleteGetPSG(int positionsuggestNo) {
+		return sqlSession.update(namespace+"deleteGetPSG", positionsuggestNo);
+	}
 }

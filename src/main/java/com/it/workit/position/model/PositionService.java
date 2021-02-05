@@ -24,5 +24,8 @@ public interface PositionService {
 	//삭제플래그 업데이트 => 보낸 제안 삭제 (개별/다중)
 	int deletePSG(int positionsuggestNo);
 	int deleteMultiPosi(List<PositionsuggestVO> posiList);
+	
+	//양식 수정
+	int updatePSGForm(PositionsuggestVO vo);
 
 }

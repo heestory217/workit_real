@@ -2,6 +2,7 @@ package com.it.workit.indivMypage.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,13 +16,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.applicant.model.ApplicantService;
 import com.it.workit.applicant.model.ApplicantlistVO;
 import com.it.workit.common.PaginationInfo;
-import com.it.workit.common.SearchVO;
 import com.it.workit.common.Utility;
+import com.it.workit.getposition.model.GetPositionService;
 import com.it.workit.indivMypage.model.IndivpagingVO;
 import com.it.workit.orders.model.OrdersService;
 import com.it.workit.orders.model.OrdersVO;
@@ -43,6 +43,7 @@ public class IndivMypageController {
 	@Autowired private RecruitBookmarkService recruitBookmarkService;
 	@Autowired private OrdersService ordersService;
 	@Autowired private PositionService positionService;
+	@Autowired private GetPositionService getPositionService;
 	
 	//비밀번호 입력 -> 수정화면을 거치기 위해서 단순 get방식은 indivCheckPwd로 리턴된다.
 	@RequestMapping(value = "/indivMypageEdit.do", method = RequestMethod.GET)
@@ -311,5 +312,69 @@ public class IndivMypageController {
 		model.addAttribute("list", list);
 		
 		return "indivMypage/indivPosition";
+	}
+	
+	@RequestMapping("/countUpdate.do")
+	public String countUpdate(HttpSession session, @RequestParam (defaultValue = "0") int positionsuggestNo,Model model) {
+		logger.info("제안 읽음 처리 getMessageNo={}", positionsuggestNo);
+
+		if(positionsuggestNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/indivMypage/indivPosition.do");
+			return "common/message";
+		}
+
+		int cnt= getPositionService.updateReadCount(positionsuggestNo);
+		logger.info("받은 제안 읽음처리 결과, cnt={}", cnt);
+
+		return "redirect:/indivMypage/positionDetail.do?&positionsuggestNo="+positionsuggestNo;
+	}
+	
+	//제안 상세보기
+	@RequestMapping("/positionDetail.do")
+	public String messageDetail_post(@RequestParam (defaultValue = "0") int positionsuggestNo, Model model) {
+		logger.info("제안 상세보기");
+		logger.info("파라미터 positionsuggestNo={}", positionsuggestNo);
+		
+		if(positionsuggestNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/indivMypage/indivPosition.do");
+			return "common/message";
+		}
+
+		Map<String, Object> map = positionService.selectByPositionNo(positionsuggestNo);
+		logger.info("map={}", map);
+		model.addAttribute("map", map);
+
+		return "/indivMypage/indivPositionDetail";
+	}
+	
+	//삭제하기
+	@RequestMapping("/deletePSG.do")
+	public String deletePSG(@RequestParam (defaultValue = "0") int positionsuggestNo,Model model) {
+		logger.info("개별 제안 삭제하기 파라미터 positionsuggestNo={}", positionsuggestNo);
+
+		String msg="잘못된 url입니다.", url="/indivMypage/indivPosition.do";
+		if(positionsuggestNo==0) {
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			return "common/message";
+		}
+		
+		int cnt=0;
+		if(positionsuggestNo!=0) {
+			cnt = getPositionService.deleteGetPSG(positionsuggestNo);
+		}
+
+		if(cnt>0) {
+			msg="선택한 제안이 삭제되었습니다.";
+		}else {
+			msg="삭제 처리에 실패하였습니다.";
+		}
+
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+
+		return "common/message";
 	}
 }

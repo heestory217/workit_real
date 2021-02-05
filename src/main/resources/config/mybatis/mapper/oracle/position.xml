@@ -118,5 +118,20 @@
 		set GETPOSITIONSUGGEST_READFLAG=1
 		where POSITIONSUGGEST_NO=#{positionsuggestNo}
 	</update>
+	
+	<!-- 양식 수정 -->
+	<update id="updatePSGForm" parameterType="positionsuggestVO">
+		update POSITIONSUGGEST
+		set POSITIONSUGGEST_TITLE=#{positionsuggestTitle}, POSITIONSUGGEST_POSITION=#{positionsuggestPosition}, 
+		    POSITIONSUGGEST_PRICE=#{positionsuggestPrice}, POSITIONSUGGEST_CONTENTS=#{positionsuggestContents}
+		where POSITIONSUGGEST_NO=#{positionsuggestNo}
+	</update>
+	
+	<!-- 받은 제안 삭제 -->
+	<update id="deleteGetPSG" parameterType="int">
+		update GETPOSITIONSUGGEST
+		set GETPOSITIONSUGGEST_DELFLAG=1
+		where POSITIONSUGGEST_NO=#{positionsuggestNo}
+	</update>
 
 </mapper>

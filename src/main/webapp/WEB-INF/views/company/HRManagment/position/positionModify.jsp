@@ -11,21 +11,23 @@
 <script src="<c:url value='/resources/js/ckeditor/ckeditor.js'/>"></script>
 <script type="text/javascript"  src="<c:url value='/resources/js/member.js'/>"></script>
 <script type="text/javascript"  src="<c:url value='/resources/js/position.js'/>"></script>
+
 <script type="text/javascript">
-$(function() {
+	$(function() {
+		var contents = $('#contents').html();
+		CKEDITOR.instances.positionsuggestContents.setData(contents);
+	});
 
-});
-
-function write_go() {
-	var ckeditor = CKEDITOR.instances['positionsuggestContents'];
-	if (ckeditor.getData() == "") {
-		alert('내용을 입력 하세요');
-		ckeditor.focus();
-		return;
-	} else {
-		document.in_form.submit();
+	function write_go() {
+		var ckeditor = CKEDITOR.instances['positionsuggestContents'];
+		if (ckeditor.getData() == "") {
+			alert('내용을 입력 하세요');
+			ckeditor.focus();
+			return;
+		} else {
+			document.in_form.submit();
+		}
 	}
-}
 </script>
 
 <!-- 파라미터 처리를 위한 정보-->
@@ -37,57 +39,42 @@ function write_go() {
 	<div class="leave-comment" style="padding-top: 0">
 		<div class="row">
 			<div class="col-lg-12" style="text-align: center;">
-				<h4>제안 보내기</h4>
-			</div>
-			<div class="col-lg-6">
-				<c:if test="${!empty param.type}">
-					<script type="text/javascript">
-						$(function(){
-							$("#saveForm").trigger("click");
-						});
-					</script>
-				</c:if>
-				<input type="checkbox" id="saveForm"> 
-				<input type="hidden" id="loginId" value="${userId}"> 
-				<label for="saveForm">양식함에 저장하기 <span class="checkmark"></span></label>
-			</div>
-			<div class="col-lg-12" style="margin: 10px 0">
-				<p id="notice" style="font-size:16px;color:#4C50BB;">
-					해당 제안은 양식함에 저장되며, 삭제하는 경우 외에 자동으로 영구 보관됩니다.
-				</p>
+				<h4>양식 수정하기</h4>
 			</div>
 		</div>
 		
-		<form name="positionFrm" method="post" class="comment-form" action="<c:url value='/company/HRManagment/positionWrite.do'/>">
+		<form name="positionFrm" method="post" class="comment-form" action="<c:url value='/company/HRManagment/modifyPSG.do'/>">
 			<div class="row">
-				<div class="col-lg-6">
 					<span class="error"></span>
-					<input type="text" name="userId" id="userId" placeholder="받는 회원 아이디를 입력하세요" >
+					<input type="hidden" name="userId" id="userId" value="${sessionScope.userId}">
+					<input type="hidden" name="positionsuggestNo" value="${param.positionsuggestNo}">
 					<input type="hidden" name="userNo" value="${sessionScope.userNo}">
+					
+				<div class="col-lg-12">
+					<span class="error"></span>
+					<input type="text" name="positionsuggestTitle" id="positionsuggestTitle" 
+						placeholder="제목을 입력하세요" maxlength="30" value="${map['POSITIONSUGGEST_TITLE']}">
 				</div>
 				<div class="col-lg-6">
 					<span class="error"></span>
-					<input type="text" name="positionsuggestTitle" id="positionsuggestTitle" placeholder="제목을 입력하세요" maxlength="30">
+					<input type="text" name="positionsuggestPosition" id="positionsuggestPosition" 
+						placeholder="포지션을 입력하세요" value="${map['POSITIONSUGGEST_POSITION']}">
 				</div>
 				<div class="col-lg-6">
 					<span class="error"></span>
-					<input type="text" name="positionsuggestPosition" id="positionsuggestPosition" placeholder="포지션을 입력하세요">
-				</div>
-				<div class="col-lg-6">
-					<span class="error"></span>
-					<input type="number" name="positionsuggestPrice" id="positionsuggestPrice" placeholder="연봉을 입력하세요">
+					<input type="number" name="positionsuggestPrice" id="positionsuggestPrice" 
+						placeholder="연봉을 입력하세요" min="0" value="${map['POSITIONSUGGEST_PRICE']}">
 				</div>
 				<div class="col-lg-12">
 					<span class="error"></span>
+					<span id="contents" style="display: none;">${map['positionsuggestContents']}</span>
 					<textarea name="positionsuggestContents" id="positionsuggestContents" placeholder="내용을 입력하세요"></textarea>
 					<script type="text/javascript">
 						CKEDITOR.replace('positionsuggestContents', {
 							height : 300
 						});
 					</script>
-					<button type="button" class="site-btn" id="getPGForm"
-						style="margin-top: 25px;background: white;color: #4C50BB;">양식 불러오기</button>
-					<button type="submit" class="site-btn" style="margin-top: 25px;">보내기</button>
+					<button type="submit" class="site-btn" style="margin-top: 25px;">수정하기</button>
 				</div>
 			</div>
 		</form>

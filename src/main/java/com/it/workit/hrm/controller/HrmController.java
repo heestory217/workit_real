@@ -34,7 +34,6 @@ public class HrmController {
 	private static final Logger logger = LoggerFactory.getLogger(HrmController.class);
 	@Autowired private OrdersService ordersService;
 	@Autowired private PositionService positionService;
-	@Autowired private GetPositionService getPositionService;
 	@Autowired private UsersService userService;
 	
 	//보낸 제안 & 양식함
@@ -75,13 +74,8 @@ public class HrmController {
 		logger.info("userId={}", userId);
 		logger.info("type={}", type);
 		
-		String msg="제안 전송 실패", url="";
-		if(type!=null && !type.isEmpty()) {
-			url="/company/HRManagment/positionSuggest.do?type=format";
-		}else {
-			url="/company/HRManagment/positionSuggest.do";
-		}
-		
+		String msg="", url="";
+
 		int userNo=0;
 		if(userId!=null && !userId.isEmpty()) {
 			UsersVO uVo = new UsersVO();
@@ -95,8 +89,16 @@ public class HrmController {
 		if(cnt>0) {
 			if(userId==null || userId.isEmpty()) {
 				msg = "작성 제안이 양식함에 저장되었습니다.";
+				url="/company/HRManagment/positionSuggest.do?type=format";
 			}else {
 				msg = userId+"님에게 제안을 성공적으로 보냈습니다.";
+				url="/company/HRManagment/positionSuggest.do";
+			}
+		}else {
+			if(type!=null && !type.isEmpty()) {
+				url="/company/HRManagment/positionSuggest.do?type=format";
+			}else {
+				url="/company/HRManagment/positionSuggest.do";
 			}
 		}
 
@@ -106,39 +108,16 @@ public class HrmController {
 		return "common/message";
 	}
 
-	@RequestMapping("/countUpdate.do")
-	public String countUpdate(HttpSession session, @RequestParam (defaultValue = "0") int positionsuggestNo,Model model) {
-		logger.info("제안 읽음 처리 getMessageNo={}", positionsuggestNo);
-
-		if(positionsuggestNo==0) {
-			model.addAttribute("msg", "잘못된 url입니다.");
-			model.addAttribute("url", "/indivMypage/indivPosition.do");
-			return "common/message";
-		}
-
-		int cnt= getPositionService.updateReadCount(positionsuggestNo);
-		logger.info("받은 제안 읽음처리 결과, cnt={}", cnt);
-
-		return "redirect:/company/HRManagment/position/positionDetail.do?type=indiv&positionsuggestNo="+positionsuggestNo;
-	}
-	
 	//제안 상세보기
 	@RequestMapping("/positionDetail.do")
-	public String messageDetail_post(@RequestParam (defaultValue = "0") int positionsuggestNo,
-			@RequestParam (required = false) String type, Model model) {
+	public String messageDetail_post(@RequestParam (defaultValue = "0") int positionsuggestNo,Model model) {
 		logger.info("제안 상세보기");
-		logger.info("파라미터 positionsuggestNo={}, 개인 type={}", positionsuggestNo, type);
+		logger.info("파라미터 positionsuggestNo={}", positionsuggestNo);
 		
+		String msg="잘못된 url입니다.", url="/company/HRManagment/positionSuggest.do";
 		if(positionsuggestNo==0) {
-			String msg="잘못된 url입니다.", url="";
-			if(type!=null && !type.isEmpty()) {
-				url = "/indivMypage/indivPosition.do";
-			}else {
-				url = "/company/HRManagment/positionSuggest.do";
-			}
 			model.addAttribute("msg", msg);
 			model.addAttribute("url", url);
-			
 			return "common/message";
 		}
 
@@ -149,15 +128,54 @@ public class HrmController {
 		return "/company/HRManagment/position/positionDetail";
 	}
 	
-	//양식 불러오기
-	@RequestMapping("/modifyPSG.do")
-	public String modifyPSG(@RequestParam (defaultValue = "0") int positionsuggestNo, 
-			@RequestParam (required = false) String type, Model model) {
+	//양식 수정하기
+	@RequestMapping(value="/modifyPSG.do", method = RequestMethod.GET)
+	public String modifyPSG(@RequestParam (defaultValue = "0") int positionsuggestNo, Model model) {
+		logger.info("양식 수정하기 화면 보여주기");
+		logger.info("파라미터 positionsuggestNo={}", positionsuggestNo);
+
+		if(positionsuggestNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/company/HRManagment/positionSuggest.do?type=format");
+			return "common/message";
+		}
+		
+		Map<String, Object> map = positionService.selectByPositionNo(positionsuggestNo);
+		logger.info("map={}", map);
+		
+		model.addAttribute("map", map);
+		
 		return "company/HRManagment/position/positionModify";
 	}
 	
+	@RequestMapping(value="/modifyPSG.do", method = RequestMethod.POST)
+	public String modifyPSG_post(@ModelAttribute PositionsuggestVO vo, Model model) {
+		logger.info("양식 수정하기 PositionsuggestVO={}", vo);
+		int positionsuggestNo = vo.getPositionsuggestNo();
+		
+		String msg="잘못된 url입니다.", url="/company/HRManagment/positionSuggest.do?type=format";
+		if(positionsuggestNo==0) {
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			return "common/message";
+		}
+		
+		int cnt = positionService.updatePSGForm(vo);
+		logger.info("수정 결과 cnt={}", cnt);
+
+		if(cnt>0) {
+			msg="양식이 성공적으로 수정되었습니다.";
+			url="/company/HRManagment/positionDetail.do?type=format&positionsuggestNo="+positionsuggestNo;
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
 	
-	//양식 불러오기
+	
+	//양식 리스트 불러오기
 	@RequestMapping("/getPSGForm.do")
 	public String getPSGForm(HttpSession session, Model model) {
 		int userNo = (Integer) session.getAttribute("userNo");
@@ -172,7 +190,7 @@ public class HrmController {
 		return "company/HRManagment/position/getPSGForm";
 	} 
 
-	//양식 불러오기
+	//양식 불러오기 ajax
 	@ResponseBody
 	@RequestMapping("/getPSGFormDetail.do")
 	public Map<String, Object> getPSGFormDetail(@RequestParam (defaultValue = "0") int positionsuggestNo) {
@@ -187,17 +205,13 @@ public class HrmController {
 	
 	//개별쪽지 삭제하기
 	@RequestMapping("/deletePSG.do")
-	public String delMsg(@RequestParam (defaultValue = "0") int positionsuggestNo, 
+	public String deletePSG(@RequestParam (defaultValue = "0") int positionsuggestNo, 
 			@RequestParam (required = false) String type, Model model) {
 		logger.info("개별 제안 삭제하기 파라미터 positionsuggestNo={}, type={} ", positionsuggestNo, type);
 
 		String msg="", url="";
 		if(type!=null && !type.isEmpty()) {
-			if(type.equals("format")) {
-				url="/company/HRManagment/positionSuggest.do?type=format";
-			}else if(type.equals("indiv")) {
-				url="/indivMypage/indivPosition.do";
-			}
+			url="/company/HRManagment/positionSuggest.do?type=format";
 		}else {
 			url="/company/HRManagment/positionSuggest.do";
 		}
@@ -230,11 +244,7 @@ public class HrmController {
 		
 		String msg="선택한 제안 삭제 실패!", url="";
 		if(type!=null && !type.isEmpty()) {
-			if(type.equals("format")) {
-				url="/company/HRManagment/positionSuggest.do?type=format";
-			}else if(type.equals("indiv")) {
-				url="/indivMypage/indivPosition.do";
-			}
+			url="/company/HRManagment/positionSuggest.do?type=format";
 		}else {
 			url="/company/HRManagment/positionSuggest.do";
 		}

@@ -89,4 +89,9 @@ public class PositionServiceImpl implements PositionService {
 		}
 		return cnt;
 	}
+
+	@Override
+	public int updatePSGForm(PositionsuggestVO vo) {
+		return positionDao.updatePSGForm(vo);
+	}
 }
