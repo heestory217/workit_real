@@ -18,11 +18,22 @@
 			   alert('먼저 삭제할 제안을 선택하세요.');
 			   return false;
 			}
-			$('form[name=frmList]').prop('action', '<c:url value="/company/HRManagment/deleteMultiPosi.do"/>');
+			
+			if($('#type').html()==''){
+				$('form[name=frmList]').prop('action', '<c:url value="/company/HRManagment/deleteMultiPosi.do"/>');
+			}else{
+				$('form[name=frmList]').prop('action', '<c:url value="/company/HRManagment/deleteMultiPosi.do?type=format"/>');
+			}
+
 			$('form[name=frmList]').submit();
 		});
 	});
 </script>
+
+<!-- 파라미터 처리를 위한 정보-->
+<div style="display: none;">
+	<p id="type">${param.type}</p>
+</div>
 
 <!-- 제목 -->
 <div class="section-title">

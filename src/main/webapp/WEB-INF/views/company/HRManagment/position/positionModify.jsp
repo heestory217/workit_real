@@ -13,75 +13,19 @@
 <script type="text/javascript"  src="<c:url value='/resources/js/position.js'/>"></script>
 <script type="text/javascript">
 $(function() {
-	$('#userId').keyup(function() {
-		var userid = $(this).val();
-		if (validate_userid(userid)) {
-			$.ajax({
-				url : "<c:url value='/users/ajaxCheckId.do'/>",
-				type : "get",
-				data : {
-					userid : userid
-				},
-				success : function(res) {
-					var msg = "";
-					if (!res) {
-						msg = "등록되지 않은 아이디입니다.";
-					}
-					$('.error:eq(0)').html(msg);
-				},
-				error : function(xhr, status, error) {
-					alert('error! : ' + error);
-				}
-			});	//AJAX
-		} else {
-			$('.error:eq(0)').html("아이디는 영문, 숫자, _만 가능합니다.");
-		}
-	});	//아이디 keyup
-	
-	$('#getPGForm').click(function(){
-		$.ajax({
-			url : "<c:url value='/company/HRManagment/getPGForm.do'/>",
-			type : "get",
-			data : {
-				userid : userid
-			},
-			success : function(res) {
-				var msg = "";
-				if (!res) {
-					msg = "등록되지 않은 아이디입니다.";
-				}
-				$('.error:eq(0)').html(msg);
-			},
-			error : function(xhr, status, error) {
-				alert('등록된 양식이 없습니다!');
-			}	
-		});	//AJAX
-	});	//양식 불러오기 버튼 click
+
 });
 
-	function write_go() {
-		var ckeditor = CKEDITOR.instances['positionsuggestContents'];
-		if (ckeditor.getData() == "") {
-			alert('내용을 입력 하세요');
-			ckeditor.focus();
-			return;
-		} else {
-			document.in_form.submit();
-		}
+function write_go() {
+	var ckeditor = CKEDITOR.instances['positionsuggestContents'];
+	if (ckeditor.getData() == "") {
+		alert('내용을 입력 하세요');
+		ckeditor.focus();
+		return;
+	} else {
+		document.in_form.submit();
 	}
-
-
-	function execPGForm() {
-		var _width = '500';
-		var _height = '280';
-
-		// 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
-		var _left = Math.ceil((window.screen.width - _width) / 2);
-		var _top = Math.ceil((window.screen.height - _height) / 2);
-
-		window.open('<c:url value="/company/HRManagment/getPSGForm.do"/>', '양식 불러오기', 
-				'width=' + _width + ', height=' + _height  + ', left=' + _left + ', top=' + _top);
-	}
+}
 </script>
 
 <!-- 파라미터 처리를 위한 정보-->
@@ -141,7 +85,7 @@ $(function() {
 							height : 300
 						});
 					</script>
-					<button type="button" class="site-btn" id="getPGForm" onclick="execPGForm()"
+					<button type="button" class="site-btn" id="getPGForm"
 						style="margin-top: 25px;background: white;color: #4C50BB;">양식 불러오기</button>
 					<button type="submit" class="site-btn" style="margin-top: 25px;">보내기</button>
 				</div>

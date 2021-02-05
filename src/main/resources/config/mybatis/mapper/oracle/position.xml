@@ -84,7 +84,7 @@
 		    select p.*, (select user_id from users where USER_NO=p.GETUSER_NO) AS "USER_ID"
 		    from GetPositionView p
 		)A
-		where USER_NO=#{userNo} and GETUSER_NO=USER_NO and GETPOSITIONSUGGEST_DELFLAG=2
+		where USER_NO=#{userNo} and GETUSER_NO=USER_NO and SEND_DELFLAG=2
 		order by POSITIONSUGGEST_REGDATE desc
 	</select>
 	
@@ -98,5 +98,19 @@
 		from GetPositionView p
 		WHERE POSITIONSUGGEST_NO=#{positionsuggestNo}
 	</select>
+	
+	<!-- 보낸 제안 개별 삭제 -->
+	<update id="deletePSG" parameterType="int">
+		update POSITIONSUGGEST
+		set send_delflag=1
+		where POSITIONSUGGEST_NO=#{positionsuggestNo}
+	</update>
+	
+	<!-- 받은 제안 읽음 -->
+	<update id="updateReadCount" parameterType="int">
+		update GETPOSITIONSUGGEST
+		set GETPOSITIONSUGGEST_READFLAG=1
+		where POSITIONSUGGEST_NO=#{positionsuggestNo}
+	</update>
 
 </mapper>
