@@ -41,7 +41,15 @@
 	<update id="updateQstn" parameterType="questionVo">
 		update QUESTION
 		set WORKKIND_NO=#{workkindNo}, QUESTION_TITLE=#{questionTitle},
-		  	QUESTION_ABOUT=#{questionAbout}, QUESTION_DATE=SYSDATE
+		  	QUESTION_ABOUT=#{questionAbout}, QUESTION_DATE=SYSDATE, QUESTION_IMMSAVE=2
+		where QUESTION_NO=#{questionNo} and USER_NO=#{userNo}
+	</update>
+
+	<!-- 질문 수정 - 임시저장 -->
+	<update id="updateTempQstn" parameterType="questionVo">
+		update QUESTION
+		set WORKKIND_NO=#{workkindNo}, QUESTION_TITLE=#{questionTitle},
+		  	QUESTION_ABOUT=#{questionAbout}, QUESTION_DATE=SYSDATE, QUESTION_IMMSAVE=1
 		where QUESTION_NO=#{questionNo} and USER_NO=#{userNo}
 	</update>
 	
@@ -80,6 +88,11 @@
 			where RNUM > #{firstRecordIndex} 
 			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 			]]>
+	</select>
+	
+	<select id="getCmntCnt" parameterType="int" resultType="map">
+		SELECT COUNT(*) FROM COMMENTRESPOND
+		WHERE QUESTION_NO=#{questionNo}
 	</select>
 	
 	<!-- 질문 개수 -->
@@ -198,7 +211,7 @@
 						(select count(*) from commentrespond c 
 						where c.QUESTION_NO=q.question_no) as commentCnt 
 						from userQstnView q where workkind_no 
-						in (select workkind_no from users where user_no=5)
+						in (select workkind_no from users where user_no=#{userNo})
 						order by commentCnt asc, question_date desc
 			    )A
 			)
@@ -264,6 +277,19 @@
 		select count(*) from bookmark where user_no=#{userNo}		
 	</select>
 
+	<!-- 답변 개수 증가 -->
+	<update id="updateComntCnt" parameterType="int">
+		update question 
+		set comment_count=comment_count+1
+		where question_no=#{questionNo}
+	</update>
+
+	<!-- 답변 개수 증가 -->
+	<update id="delComntCnt" parameterType="int">
+		update question 
+		set comment_count=comment_count-1
+		where question_no=#{questionNo}
+	</update>
 </mapper>
 
 

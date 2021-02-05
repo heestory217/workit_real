@@ -245,6 +245,12 @@ textarea::placeholder {
 				location.href="<c:url value='/users/login.do'/>"
 			}
 		});
+		
+		
+		$('.bookmark').click(function(){
+			alert('내 프로필 > 북마크에 추가되었습니다.'); 
+			location.href=href='<c:url value="/indiv/community/insertBookMark.do?qstnNo=${qstnVo.questionNo}"/>';
+		});
 	});
 	
 	
@@ -313,8 +319,7 @@ textarea::placeholder {
 							</div>
 							<c:if test="${sessionScope.userNo!=qstnVo.userNo }">
 								<c:if test="${bmStatus==0 }">
-									<a class="bookmark"	
-									href='<c:url value="/indiv/community/insertBookMark.do?qstnNo=${qstnVo.questionNo}"/>'>
+									<a class="bookmark">
 									<i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
 								</c:if>
 								<c:if test="${bmStatus>0 }">

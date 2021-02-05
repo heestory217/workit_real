@@ -363,8 +363,7 @@
 			</div>
 
 				<!-- 직무, 기업선택 -->
-				<form name="qstnEditFrm" method="post" 
-					action="<c:url value='/indiv/community/qstnEdit.do'/>">
+				<form name="qstnEditFrm" method="post">
 					<input type="hidden" name="questionNo" value="${qstnVo.questionNo }">
 					<input type="hidden" name="userNo" value="${qstnVo.userNo }">
 					<article>
@@ -497,6 +496,7 @@
 								</div>
 								
 								<c:if test="${qstnVo.questionImmsave=='2' }">
+									<input type="text" name="type" value="1">
 									<div class="btnCommWrap">
 										<button type="submit" class="btnQuestion devQnaEditButton">수정하기</button>
 										<button type="button"
@@ -504,9 +504,10 @@
 									</div>
 								</c:if>
 								<c:if test="${qstnVo.questionImmsave=='1' }">
+									<input type="text" name="type" value="2">
 									<div class="btnCommWrap">
 										<button type="submit" class="btnQuestion devQnaWriteButton"
-										formaction="<c:url value='/indiv/community/qstnWrite.do'/>"
+										formaction="<c:url value='/indiv/community/qstnEdit.do'/>"
 										>질문하기</button>
 										<button type="submit" 
 											class="btnTempSave bg_white devQnaWriteCancelButton"

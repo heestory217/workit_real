@@ -1,11 +1,23 @@
 package com.it.workit.question.model;
 
+import java.util.List;
+
 import com.it.workit.common.SearchVO;
 
 public class QstnPagingVO extends SearchVO{
 	private int userNo;
 	private int questionNo;
 	private int questionImmsave;
+	private int commentCnt;
+
+
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
 
 	public int getQuestionImmsave() {
 		return questionImmsave;

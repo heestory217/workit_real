@@ -29,5 +29,8 @@ public interface QuestionService {
 	int DupChkBookmark(BookmarkVO vo);	//북마크 중복 체크
 	List<Map<String, Object>> selectBookMarkByUser(QstnPagingVO vo);//회원 북마크 조회
 	int getBookMarkCnt(QstnPagingVO vo);	//회원 북마크 개수
+	int updateTempQstn(QuestionVO vo);	//질문 수정(임시저장)
+	int updateComntCnt(int qstnNo);	//답변이 등록되면 답변 개수가 증가됨
+	int delComntCnt(int qstnNo);	//답변이 삭제되면 답변 개수가 감소됨
 	
 }
