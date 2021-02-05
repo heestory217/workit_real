@@ -48,7 +48,7 @@
                                             <div id="submenu-1-1" class="collapse submenu" style="">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="dashboard-influencer.html">기업 회원 조회</a>
+                                                        <a class="nav-link" href="<c:url value='/admin/users/corp/corpList.do'/>">기업 회원 조회</a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="influencer-profile.html">채용 공고 조회</a>
