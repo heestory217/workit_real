@@ -155,6 +155,23 @@ public class HrmController {
 		return "company/HRManagment/position/positionModify";
 	}
 	
+	
+	//양식 불러오기
+	@RequestMapping("/getPSGForm.do")
+	public String getPSGForm(HttpSession session, Model model) {
+		int userNo = (Integer) session.getAttribute("userNo");
+		logger.info("포지션 제안 조회, userNo={}", userNo);
+		
+		List<Map<String, Object>> list = null;
+		list = positionService.selectPositionForm(userNo);	//양식함
+		
+		logger.info("양식함 조회 결과 list.size={}", list.size());
+		
+		model.addAttribute("list", list);
+		
+		return "company/HRManagment/position/getPSGForm";
+	} 
+	
 	//개별쪽지 삭제하기
 	@RequestMapping("/deletePSG.do")
 	public String delMsg(@RequestParam (defaultValue = "0") int positionsuggestNo, 

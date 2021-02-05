@@ -59,20 +59,29 @@ $(function() {
 	});	//양식 불러오기 버튼 click
 });
 
-function write_go() {
-	var ckeditor = CKEDITOR.instances['positionsuggestContents'];
-	if (ckeditor.getData() == "") {
-		alert('내용을 입력 하세요');
-		ckeditor.focus();
-		return;
-	} else {
-		document.in_form.submit();
+	function write_go() {
+		var ckeditor = CKEDITOR.instances['positionsuggestContents'];
+		if (ckeditor.getData() == "") {
+			alert('내용을 입력 하세요');
+			ckeditor.focus();
+			return;
+		} else {
+			document.in_form.submit();
+		}
 	}
-}
 
-function execPGForm() {
-	window.open('http://www.naver.com', '양식 불러오기', 'width=500, height=300');
-}
+
+	function execPGForm() {
+		var _width = '500';
+		var _height = '280';
+
+		// 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+		var _left = Math.ceil((window.screen.width - _width) / 2);
+		var _top = Math.ceil((window.screen.height - _height) / 2);
+
+		window.open('<c:url value="/company/HRManagment/getPSGForm.do"/>', '양식 불러오기', 
+				'width=' + _width + ', height=' + _height  + ', left=' + _left + ', top=' + _top);
+	}
 </script>
 
 <!-- 파라미터 처리를 위한 정보-->
