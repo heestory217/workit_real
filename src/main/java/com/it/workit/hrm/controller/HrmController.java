@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
+import com.it.workit.getposition.model.GetPositionService;
 import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.orders.model.OrdersService;
 import com.it.workit.position.model.PositionListVO;
@@ -33,6 +34,7 @@ public class HrmController {
 	private static final Logger logger = LoggerFactory.getLogger(HrmController.class);
 	@Autowired private OrdersService ordersService;
 	@Autowired private PositionService positionService;
+	@Autowired private GetPositionService getPositionService;
 	@Autowired private UsersService userService;
 	
 	//보낸 제안 & 양식함
@@ -104,15 +106,39 @@ public class HrmController {
 		return "common/message";
 	}
 
-	
-	//제안 상세보기.
-	@RequestMapping("/positionDetail.do")
-	public String messageDetail_post(@RequestParam (defaultValue = "0") int positionsuggestNo, Model model) {
-		logger.info("제안 상세보기 파라미터 positionsuggestNo={}", positionsuggestNo);
+	@RequestMapping("/countUpdate.do")
+	public String countUpdate(HttpSession session, @RequestParam (defaultValue = "0") int positionsuggestNo,Model model) {
+		logger.info("제안 읽음 처리 getMessageNo={}", positionsuggestNo);
 
 		if(positionsuggestNo==0) {
 			model.addAttribute("msg", "잘못된 url입니다.");
-			model.addAttribute("url", "/company/HRManagment/positionSuggest.do");
+			model.addAttribute("url", "/indivMypage/indivPosition.do");
+			return "common/message";
+		}
+
+		int cnt= getPositionService.updateReadCount(positionsuggestNo);
+		logger.info("받은 제안 읽음처리 결과, cnt={}", cnt);
+
+		return "redirect:/company/HRManagment/position/positionDetail.do?type=indiv&positionsuggestNo="+positionsuggestNo;
+	}
+	
+	//제안 상세보기
+	@RequestMapping("/positionDetail.do")
+	public String messageDetail_post(@RequestParam (defaultValue = "0") int positionsuggestNo,
+			@RequestParam (required = false) String type, Model model) {
+		logger.info("제안 상세보기");
+		logger.info("파라미터 positionsuggestNo={}, 개인 type={}", positionsuggestNo, type);
+		
+		if(positionsuggestNo==0) {
+			String msg="잘못된 url입니다.", url="";
+			if(type!=null && !type.isEmpty()) {
+				url = "/indivMypage/indivPosition.do";
+			}else {
+				url = "/company/HRManagment/positionSuggest.do";
+			}
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			
 			return "common/message";
 		}
 
@@ -121,7 +147,7 @@ public class HrmController {
 		model.addAttribute("map", map);
 
 		return "/company/HRManagment/position/positionDetail";
-	};
+	}
 
 	
 	//개별쪽지 삭제하기
@@ -132,7 +158,11 @@ public class HrmController {
 
 		String msg="", url="";
 		if(type!=null && !type.isEmpty()) {
-			url="/company/HRManagment/positionSuggest.do?type=format";
+			if(type.equals("format")) {
+				url="/company/HRManagment/positionSuggest.do?type=format";
+			}else if(type.equals("indiv")) {
+				url="/indivMypage/indivPosition.do";
+			}
 		}else {
 			url="/company/HRManagment/positionSuggest.do";
 		}
@@ -140,8 +170,6 @@ public class HrmController {
 		int cnt=0;
 		if(positionsuggestNo!=0) {
 			cnt = positionService.deletePSG(positionsuggestNo);
-		}else {	//파라미터가 없는 경우
-			msg="잘못된 url입니다.";
 		}
 
 		if(cnt>0) {
@@ -167,7 +195,11 @@ public class HrmController {
 		
 		String msg="선택한 제안 삭제 실패!", url="";
 		if(type!=null && !type.isEmpty()) {
-			url="/company/HRManagment/positionSuggest.do?type=format";
+			if(type.equals("format")) {
+				url="/company/HRManagment/positionSuggest.do?type=format";
+			}else if(type.equals("indiv")) {
+				url="/indivMypage/indivPosition.do";
+			}
 		}else {
 			url="/company/HRManagment/positionSuggest.do";
 		}
@@ -184,29 +216,6 @@ public class HrmController {
 		
 		return "common/message";
 	}
-	
-	/*
-	@RequestMapping("/countUpdate.do")
-	public String countUpdate(HttpSession session, @RequestParam (defaultValue = "0") int getMessageNo,
-			@RequestParam (required = false) String type, Model model) {
-
-		logger.info("쪽지읽음 처리 getMessageNo={}", getMessageNo);
-
-		if(getMessageNo==0) {
-			model.addAttribute("msg", "잘못된 url입니다.");
-			model.addAttribute("url", "/message/messageBox.do");
-			return "common/message";
-		}
-
-		int userNo = (Integer) session.getAttribute("userNo");
-		logger.info("userNo={}", userNo);
-
-		int cnt= getMessageService.updateReadCount(getMessageNo);
-		logger.info("받은쪽지 읽음처리 결과, cnt={}", cnt);
-
-		return "redirect:/message/messageDetail.do?getMessageNo="+getMessageNo;
-	}
-	*/
 	
 	@RequestMapping("/purchasedResumes.do")
 	public String purchasedResumes(@ModelAttribute HrmResumePageVO searchVo, 

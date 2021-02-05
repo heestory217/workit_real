@@ -13,4 +13,9 @@ public class GetPositionDAOMybatis implements GetPositionDAO{
 	public int insertGetPositionSuggest(GetPositionsuggestVO vo) {
 		return sqlSession.insert(namespace+"insertGetPositionSuggest", vo);
 	}
+
+	@Override
+	public int updateReadCount(int positionsuggestNo) {
+		return sqlSession.update(namespace+"updateReadCount", positionsuggestNo);
+	}
 }

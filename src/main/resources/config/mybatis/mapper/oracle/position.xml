@@ -105,5 +105,12 @@
 		set send_delflag=1
 		where POSITIONSUGGEST_NO=#{positionsuggestNo}
 	</update>
+	
+	<!-- 받은 제안 읽음 -->
+	<update id="updateReadCount" parameterType="int">
+		update GETPOSITIONSUGGEST
+		set GETPOSITIONSUGGEST_READFLAG=1
+		where POSITIONSUGGEST_NO=#{positionsuggestNo}
+	</update>
 
 </mapper>

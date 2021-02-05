@@ -63,10 +63,16 @@
 					class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 			</c:if>
 			<c:if test="${!empty param.type}">
-				<a href="<c:url value='/company/HRManagment/modifyPSG.do?type=format&positionsuggestNo=${param.positionsuggestNo}'/>" 
-					class="btn btn-primary" style="background:#4C50BB;">수정</a>
-				<a href="<c:url value='/company/HRManagment/deletePSG.do?type=format&positionsuggestNo=${param.positionsuggestNo}'/>" 
-					class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+				<c:if test="${param.type == 'format'}">
+					<a href="<c:url value='/company/HRManagment/modifyPSG.do?type=format&positionsuggestNo=${param.positionsuggestNo}'/>" 
+						class="btn btn-primary" style="background:#4C50BB;">수정</a>
+					<a href="<c:url value='/company/HRManagment/deletePSG.do?type=format&positionsuggestNo=${param.positionsuggestNo}'/>" 
+						class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+				</c:if>
+				<c:if test="${param.type == 'indiv'}">
+					<a href="<c:url value='/company/HRManagment/deletePSG.do?type=indiv&positionsuggestNo=${param.positionsuggestNo}'/>" 
+						class="btn btn-primary" style="background:#4C50BB;">삭제</a>
+				</c:if>
 			</c:if>
 		</div>
 	</div>
