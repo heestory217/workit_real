@@ -27,4 +27,9 @@ public interface CorpDAO {
 	//admin
 	List<CorpVO> selectCorpList(SearchVO searchVo);
 	int selectCorpListCount(SearchVO searchVo);
+	List<CorpAllVo> selectCorpWaitingList();
+	List<CorpimgVO> selectCorpWaitingImgList(int corpNo);
+	int corpOkCheck(String corpNo);
+	int corpReject(String corpNo);
+	int corpWaiting(String corpNo);
 }

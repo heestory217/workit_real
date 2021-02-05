@@ -128,6 +128,30 @@ public class CorpServiceImpl implements CorpService {
 		return corpDao.selectCorpListCount(searchVo);
 	}
 
+	@Override
+	public List<CorpAllVo> selectCorpWaitingList() {
+		return corpDao.selectCorpWaitingList();
+	}
+
+	@Override
+	public List<CorpimgVO> selectCorpWaitingImgList(int corpNo) {
+		return corpDao.selectCorpWaitingImgList(corpNo);
+	}
+
+	@Override
+	public int corpOkCheck(String corpNo) {
+		return corpDao.corpOkCheck(corpNo);
+	}
+
+	@Override
+	public int corpReject(String corpNo) {
+		return corpDao.corpReject(corpNo);
+	}
+
+	@Override
+	public int corpWating(String corpNo) {
+		return corpDao.corpWaiting(corpNo);
+	}
 
 
 }

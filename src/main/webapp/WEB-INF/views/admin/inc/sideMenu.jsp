@@ -17,8 +17,6 @@
                             </li>
                             <li class="nav-item ">
                             <!-- <a class="nav-link active"> 로 바꾸면 해당 a활성화  -->
-                            	<a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false">
-                               		<i class="fa fa-home" aria-hidden="true"></i>메인</a>
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">
                                 	<i class="fa fa-fw fa-user-circle"></i>회원 관리 <span class="badge badge-success">6</span></a>
                                 <div id="submenu-1" class="collapse submenu" style="">
@@ -48,10 +46,7 @@
                                             <div id="submenu-1-1" class="collapse submenu" style="">
                                                 <ul class="nav flex-column">
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="dashboard-influencer.html">기업 회원 조회</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="influencer-finder.html">기업 등록 심사</a>
+                                                        <a class="nav-link" href="<c:url value='/admin/users/corp/corpList.do'/>">기업 회원 조회</a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="influencer-profile.html">채용 공고 조회</a>
