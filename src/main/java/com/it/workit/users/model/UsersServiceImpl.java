@@ -105,8 +105,8 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	@Override
-	public int totalUsers() {
-		return usersDao.totalUsers();
+	public int totalUsers(SearchVO searchVo) {
+		return usersDao.totalUsers(searchVo);
 	}
 
 }

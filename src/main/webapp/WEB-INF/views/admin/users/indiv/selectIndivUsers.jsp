@@ -16,6 +16,42 @@
 	<br><div class="section-block">
 		<h3 class="section-title center">개인 회원 조회</h3>
 	</div><br>
+
+	<form action="<c:url value='/admin/users/indiv/selectIndivUsers.do'/>"
+		name="frmPage" method="post">
+		<input type="hidden" name="currentPage">
+		<input type="hidden" name="searchCondition" 
+			value="${param.searchCondition }">
+		<input type="hidden" name="searchKeyword"
+			value="${param.searchKeyword }">
+	</form>
+	<c:if test="${!empty param.searchKeyword }">
+		<p class="float_left textMyColor">
+			검색어 : ${param.searchKeyword}, ${pagingInfo.totalRecord }  건 검색되었습니다.</p>
+	</c:if>
+	<form action="<c:url value='/admin/users/indiv/selectIndivUsers.do'/>"
+		name="frmSearch" method="post">
+		<div class="input-group input-search inputSearchbox">
+			
+			<select name="searchCondition" class="margin_right_5">
+	            <option value="user_name" 
+	            	<c:if test="${param.searchCondition == 'user_name'}">
+	            		selected="selected"
+	            	</c:if>
+	            >이름</option>
+	            <option value="user_id"
+	            	<c:if test="${param.searchCondition == 'user_id'}">
+	            		selected="selected"
+	            	</c:if>
+	            >아이디</option>
+	        </select>   
+    		<input class="form-control" type="text" placeholder="검색어를 입력해주세요."
+    			value="${param.searchKeyword}" name="searchKeyword">
+    			<span class="input-group-btn">
+    		<button class="btn myColor textWhite" type="submit"><i class="fas fa-search"></i></button></span>
+    	</div>
+    </form><br><br>
+    
 	<div class="card">
 		<table class="table table-hover">
 		<colgroup>
@@ -70,7 +106,7 @@
 	            				<fmt:formatDate value="${vo.userRegdate }"
 	            					pattern="yyyy-MM-dd"/>
 	            			</th>
-	            			<th class="center"><a href="#">탈퇴</a></th>
+	            			<th class="center"><a href="#" class="hoverColor">탈퇴</a></th>
 	            		</tr>
 	            	</c:forEach>
 	            </c:if>
@@ -82,7 +118,7 @@
 	<!-- 페이징 처리 -->
 	<div>
 		<nav aria-label="Page navigation example">
-			<ul class="pagination">
+			<ul class="pagination justify-content-center">
 				<!-- 이전블럭 -->
 				<c:if test="${pagingInfo.firstPage>1 }">
 					<li class="page-item">
@@ -123,15 +159,8 @@
 	</div>
 	<!-- 페이징 처리 끝 -->
 	
-	<div class="input-group input-search inputSearchbox">
-    	<input class="form-control" type="text" placeholder="임시"><span class="input-group-btn">
-    	<button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button></span>
-    </div>
 	
-	<form action="<c:url value='/admin/users/indiv/selectIndivUsers.do'/>"
-		name="frmPage" method="post">
-		<input type="hidden" name="currentPage">
-	</form>
+
 	
 </div>
 <%@ include file="../../inc/bottom.jsp"%>

@@ -26,7 +26,7 @@ public class AdminIndivUsersController {
 	
 	@RequestMapping("/selectIndivUsers.do")
 	public String selectIndivUsers(Model model, @ModelAttribute SearchVO searchVo) {
-		logger.info("관리자 - 개인 회원 조회 View");
+		logger.info("관리자 - 개인 회원 조회 View / 파라미터 searchVo={}",searchVo);
 		
 		//[1]pagingInfo
 		PaginationInfo pagingInfo=new PaginationInfo();
@@ -38,7 +38,7 @@ public class AdminIndivUsersController {
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		searchVo.setRecordCountPerPage(10);
 		
-		int totalRecord=usersService.totalUsers();
+		int totalRecord=usersService.totalUsers(searchVo);
 		pagingInfo.setTotalRecord(totalRecord);
 		
 		logger.info("총 레코드 수, totalRecord={}", totalRecord);
