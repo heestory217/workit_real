@@ -8,6 +8,17 @@
 		$('input[name=currentPage]').val(curPage);
 		$('form[name=frmPage]').submit();
 	}
+	
+	function execRegisterAD(recruitannounceNo) {
+		var _width = '500';
+		var _height = '328';
+
+		// 팝업을 가운데 위치시키기 위해 아래와 같이 값 구하기
+		var _left = Math.ceil((window.screen.width - _width) / 2);
+		var _top = Math.ceil((window.screen.height - _height) / 2);
+		window.open('<c:url value="/recruit/advertisingwrite.do?recruitannounceNo='+recruitannounceNo+'"/>', '광고 신청', 
+				'width=' + _width + ', height=' + _height  + ', left=' + _left + ', top=' + _top);
+	}
 </script>
 
 <!-- Breadcrumb Section Begin -->
@@ -125,10 +136,10 @@
 											<td class="cart-title padding-bottom0"><br>
 											<p class="center">
 												<c:if test="${vo.productName==null }" >
-												<a href="<c:url value='/recruit/advertisingwrite.do?recruitannounceNo=${vo.recruitannounceNo}'/>" class="or-login">[광고등록]</a>
+													<a href="#" class="or-login" onclick="execRegisterAD(${vo.recruitannounceNo})">[광고등록]</a>
 												</c:if>
 												<c:if test="${vo.productName!=null }" >
-												<a href="<c:url value='/recruit/advertisingwrite.do?recruitannounceNo=${vo.recruitannounceNo}'/>" class="or-login">[광고연장]</a>
+													<a href="<c:url value='/recruit/advertisingwrite.do?recruitannounceNo=${vo.recruitannounceNo}'/>" class="or-login">[광고연장]</a>
 												</c:if>
 											</p>
 											</td>
