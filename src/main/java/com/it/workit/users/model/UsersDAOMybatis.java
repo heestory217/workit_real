@@ -98,8 +98,8 @@ public class UsersDAOMybatis implements UsersDAO {
 	}
 
 	@Override
-	public int totalUsers() {
-		return sqlSession.selectOne(namespace+"totalUsers");
+	public int totalUsers(SearchVO searchVo) {
+		return sqlSession.selectOne(namespace+"totalUsers",searchVo);
 	}
 
 

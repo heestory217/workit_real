@@ -41,6 +41,6 @@ public interface UsersService {
 	
 	//은별 관리자사용, 개인회원 조회
 	public List<UsersVO> selectIndivUsersAll(SearchVO searchVo);
-	public int totalUsers();
+	public int totalUsers(SearchVO searchVo);
 	
 }
