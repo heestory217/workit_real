@@ -630,26 +630,36 @@ public class CommunityController {
 		return "redirect:"+referer;
 	}
 	
+	/*
+	 * //답변 좋아요
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping("/likeComment.do") public int
+	 * likeComment(@RequestParam(defaultValue = "0") int cmtNo) {
+	 * logger.info("답변 좋아요, 파라미터 cmtNo={}", cmtNo);
+	 * 
+	 * int cnt = comntService.updateLike(cmtNo); logger.info("답변 좋아요 결과, cnt={}",
+	 * cnt);
+	 * 
+	 * int likeNum=0; if(cnt>0) { likeNum = comntService.selectLikeNum(cmtNo);
+	 * logger.info("답변 좋아요 개수, likeNum={}", likeNum); } return likeNum;
+	 * 
+	 * 
+	 * }
+	 */
 	//답변 좋아요
-	@ResponseBody
-	@RequestMapping("/likeComment.do")
-	public int likeComment(@RequestParam(defaultValue = "0") int cmtNo) {
+	@RequestMapping("/commentLike.do")
+	public String commentLike(@RequestParam(defaultValue = "0") int cmtNo,
+			HttpServletRequest request) {
 		logger.info("답변 좋아요, 파라미터 cmtNo={}", cmtNo);
 		
 		int cnt = comntService.updateLike(cmtNo);
 		logger.info("답변 좋아요 결과, cnt={}", cnt);
 		
-		int likeNum=0;
-		if(cnt>0) {
-			likeNum = comntService.selectLikeNum(cmtNo);
-			logger.info("답변 좋아요 개수, likeNum={}", likeNum);
-		}
-		return likeNum;
-		
-		
+		String referer=request.getHeader("referer");
+		return "redirect:"+referer;
 	}
-	
-	
 	
 	
 	

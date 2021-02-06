@@ -276,7 +276,9 @@
    </div>
    <c:set value="${map['COMMENTRESPOND_NO']}" var="commentNo"/>
    <div class="recommendCntDiv">
-      <a href="#" class="likeNum"><i class="fa fa-thumbs-o-up"></i>
+      <a href
+ ="<c:url value='/indiv/community/commentLike.do?cmtNo=${map["COMMENTRESPOND_NO"] }'/>" 
+     class="likeNum"><i class="fa fa-thumbs-o-up"></i>
       <b class="recmdCnt">${map['COMMENTRESPOND_LIKENUM'] }</b></a>
    </div>
 </div><!-- cmtBoxWrap -->
@@ -366,7 +368,9 @@ $(function(){
       }
    });
    
-   $('.likeNum').click(function(){
+
+   
+   /* $('.likeNum').click(function(){
 	   $.ajax({
 			url:'<c:url value="/indiv/community/likeComment.do"/>',
 			type:'get',
@@ -382,7 +386,7 @@ $(function(){
 				alert('error:'+error);
 			}
 		});	 
-   });
+   }); */
    
 });//
 
