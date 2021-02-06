@@ -187,6 +187,7 @@
                     <c:if test="${sessionScope.userNo==RecruitannounceVO.userNo}">
                     	<button type="button" class="site-btn" id="editclick" name="editclick">공고수정 요청</button>
                     	<button type="button" class="site-btn" id="deleteclick" name="editclick">공고삭제</button>
+                    	<button type="button" class="site-btn" id="deleteclick" name="editclick">공고광고 등록</button>
                     </c:if>
                         </div>
                     </div>

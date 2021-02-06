@@ -162,5 +162,8 @@
 		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 		]]>
 	</select>
+<select id="selectadvertisingrecruit" parameterType="AdvertisingVO" resultType="AdvertisinglistVO">
+
+	</select>
 	
 </mapper>

@@ -104,7 +104,7 @@ public class CompanyMypageController {
 				int userNo=(Integer) session.getAttribute("userNo");
 				vo.setUserNo(userNo);
 				logger.info("개인 마이페이지 - 결제내역 view 보여주기 / userno={}",userNo);
-				logger.info("알림 {}", vo);
+				logger.info("똥싸 {}", vo);
 
 				//[1]pagingInfo
 				PaginationInfo pagingInfo=new PaginationInfo();
@@ -127,5 +127,11 @@ public class CompanyMypageController {
 				logger.info("list-3={}",list.get(3));
 				model.addAttribute("list",list);
 		return "companyMypage/companyPayment";
+	}
+	
+	@RequestMapping("/companyPaymentdetail.do")
+	public String companyPaymentdetail() {
+		
+		return "companyMypage/companyPaymentdetail";
 	}
 }

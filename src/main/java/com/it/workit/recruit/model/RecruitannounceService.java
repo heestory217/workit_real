@@ -16,8 +16,4 @@ public interface RecruitannounceService {
 	public List<arealistVO> selectcwplace();
 	public int recruitannouncewrite(RecruitannounceVO vo);
 	public int recruitannounceedit(RecruitannounceVO vo);
-	
-	public List<AdvertisingVO> selectRecruitadList(AdvertisingVO vo);
-	public int selectadvercount(int recruitannounceNo);
-	public AdvertisingVO selectadverinfo(int recruitannounceNo);
 }

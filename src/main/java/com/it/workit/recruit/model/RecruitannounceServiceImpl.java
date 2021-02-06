@@ -64,20 +64,5 @@ public class RecruitannounceServiceImpl implements RecruitannounceService {
 		return RecruitannounceDao.recruitannounceedit(vo);
 	}
 
-	@Override
-	public List<AdvertisingVO> selectRecruitadList(AdvertisingVO vo) {
-		return RecruitannounceDao.selectRecruitadList(vo);
-	}
-
-	@Override
-	public int selectadvercount(int recruitannounceNo) {
-		return RecruitannounceDao.selectadvercount(recruitannounceNo);
-	}
-
-	@Override
-	public AdvertisingVO selectadverinfo(int recruitannounceNo) {
-		return RecruitannounceDao.selectadverinfo(recruitannounceNo);
-	}
-
 	
 }

@@ -82,7 +82,7 @@
                         <li><a href="#">기업 관리</a>
                             <ul class="dropdown">
                                 <li><a href="<c:url value='/company/corp/corpDetail.do?corpNo=${corpNo}'/>">기업 정보</a></li>
-                                <li><a href="<c:url value='/recruit/recruitlist.do'/>">채용 공고 관리</a></li>
+                                <li><a href="#">채용 공고 관리</a></li>
                             </ul>
                         </li>
                         <li><a href="#">지원자 관리</a>
@@ -100,7 +100,7 @@
                         <li><a href="#">마이페이지</a>
                             <ul class="dropdown">
                                 <li><a href="<c:url value='/companyMypage/companyMypageEdit.do'/>">회원 정보 수정</a></li>
-                                <li><a href="<c:url value='/companyMypage/companyPayment.do'/>">유료 결제 내역</a></li>
+                                <li><a href="<c:url value='/companyMypagecompanyPayment.do'/>">유료 결제 내역</a></li>
                             </ul>
                         </li>
                     </ul>

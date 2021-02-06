@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.it.workit.common.PaginationInfo;
-import com.it.workit.common.Utility;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.CorpVO;
 import com.it.workit.language.model.LanguageVO;
-import com.it.workit.recruit.model.AdvertisingVO;
 import com.it.workit.recruit.model.RecruitannounceService;
 import com.it.workit.recruit.model.RecruitannounceVO;
 import com.it.workit.users.model.arealistVO;
@@ -272,67 +267,6 @@ public class RecruitController {
 
 		//4
 		return "common/message";
-	}
-	
-	
-	@RequestMapping("recruitlist.do")
-	public String adverMain(Model model,HttpSession session,
-			@ModelAttribute AdvertisingVO vo) {
-		
-			int userNo=(Integer) session.getAttribute("userNo");
-			vo.setUserNo(userNo);
-			logger.info("개인 마이페이지 - 결제내역 view 보여주기 / userno={}",userNo);
-			logger.info("고고 {}", vo);
-
-			//[1]pagingInfo
-			PaginationInfo pagingInfo=new PaginationInfo();
-			pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
-			pagingInfo.setCurrentPage(vo.getCurrentPage());
-			pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
-
-			//[2]searchVo
-			vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
-			vo.setRecordCountPerPage(Utility.RECORD_COUNT);
-			
-			/*
-			int totalRecord=recruitannounceService.ordersGetTotalRecruit(vo);
-			logger.info("총 레코드 수, totalRecord={}", totalRecord);
-			pagingInfo.setTotalRecord(totalRecord);
-			*/
-			
-			List<AdvertisingVO> list=recruitannounceService.selectRecruitadList(vo);
-			int totalRecord=list.size();
-			logger.info("총 레코드 수, totalRecord={}", totalRecord);
-			pagingInfo.setTotalRecord(totalRecord);
-			model.addAttribute("list", list);
-			logger.info("list.size={}",list.size());
-			logger.info("list-0={}",list.get(0));
-			
-			return "recruit/recruitlist";
-	}
-	
-	@RequestMapping(value="advertisingwrite.do", method=RequestMethod.GET)
-	public String adverwrite(@RequestParam int recruitannounceNo, Model model) {
-		
-		
-		int call=recruitannounceService.selectadvercount(recruitannounceNo);
-		int adverpaynowchek=0;
-		
-		if(call>0) {
-			adverpaynowchek=1;
-		}
-		
-		AdvertisingVO vo = recruitannounceService.selectadverinfo(recruitannounceNo);
-		model.addAttribute("selectadverinfoVO", vo);
-		model.addAttribute("adverpaynowchek", adverpaynowchek);
-		logger.info("callme={}",vo);
-		return "recruit/advertisingwrite";
-	}
-	
-	@RequestMapping(value="advertisingwrite.do", method=RequestMethod.POST)
-	public String adverwritego(@RequestParam int recruitannounceNo, Model model) {
-		
-		return "recruit/advertisingwrite";
 	}
 	
 }
