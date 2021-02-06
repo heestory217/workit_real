@@ -46,4 +46,17 @@ public class CommentRespondServiceImpl implements CommentRespondService{
 	public int getTotalUserCmt(QstnPagingVO vo) {
 		return comntRespondDao.getTotalUserCmt(vo);
 	}
+	
+	//답변 좋아오
+	@Override
+	public int updateLike(int cmtNo) {
+		return comntRespondDao.updateLike(cmtNo);
+		
+	}
+	
+	//답변 좋아요 개수
+	@Override
+	public int selectLikeNum(int cmtNo) {
+		return comntRespondDao.selectLikeNum(cmtNo);
+	}
 }

@@ -7,7 +7,7 @@ public interface QuestionService {
 	List<Map<String, Object>> selectUserQstnAll(int userNo);
 	
 	int insertQstn(QuestionVO vo);
-	QuestionVO selectQstn(int qstnNo);
+	Map<String, Object> selectQstn(int qstnNo);	//질문 상세 조회
 	int updateQstn(QuestionVO vo);
 	List<QuestionVO> selectAllQstn();
 	int deleteQstn(int qstnNo);

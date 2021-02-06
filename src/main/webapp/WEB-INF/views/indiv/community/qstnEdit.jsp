@@ -364,8 +364,8 @@
 
 				<!-- 직무, 기업선택 -->
 				<form name="qstnEditFrm" method="post">
-					<input type="hidden" name="questionNo" value="${qstnVo.questionNo }">
-					<input type="hidden" name="userNo" value="${qstnVo.userNo }">
+					<input type="hidden" name="questionNo" value="${qstnMap['QUESTION_NO'] }">
+					<input type="hidden" name="userNo" value="${qstnMap['USER_NO'] }">
 					<article>
 						<div class="checkListArea">
 							<div class="checkboxCommWrap row">
@@ -375,7 +375,7 @@
 										<input type="button" name="workkindName" 
 										class="jobBtn"> 
 										<input type="hidden" name="workkindNo" 
-										class="jobNum" value="${qstnVo.workkindNo}"> 
+										class="jobNum" value="${qstnMap['WORKKIND_NO']}"> 
 										<i class="fa fa-angle-down"></i>
 									</div>
 									<p>· 원하는 직무를 검색해 질문할 수 있습니다.</p>
@@ -389,72 +389,72 @@
 											<select class="selectBox" name="workkindNo">
 												<option>전체</option>
 												<option value="1" 
-													<c:if test="${qstnVo.workkindNo=='1' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='1' }">
 														selected="selected"
 													</c:if>
 												>서버 개발자</option>
 												<option value="2"
-													<c:if test="${qstnVo.workkindNo=='2' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='2' }">
 														selected="selected"
 													</c:if>
 												>웹 개발자</option>
 												<option value="3"
-													<c:if test="${qstnVo.workkindNo=='3' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='3' }">
 														selected="selected"
 													</c:if>
 												>프론트엔드 개발자</option>
 												<option value="4"
-													<c:if test="${qstnVo.workkindNo=='4' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='4' }">
 														selected="selected"
 													</c:if>
 												>자바 개발자</option>
 												<option value="5"
-													<c:if test="${qstnVo.workkindNo=='5' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='5' }">
 														selected="selected"
 													</c:if>
 												>안드로이드 개발자</option>
 												<option value="6"
-													<c:if test="${qstnVo.workkindNo=='6' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='6' }">
 														selected="selected"
 													</c:if>
 												>IOS 개발자</option>
 												<option value="7"
-													<c:if test="${qstnVo.workkindNo=='7' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='7' }">
 														selected="selected"
 													</c:if>
 												>빅데이터 엔지니어</option>
 												<option value="8"
-													<c:if test="${qstnVo.workkindNo=='8' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='8' }">
 														selected="selected"
 													</c:if>
 												>파이썬 개발자</option>
 												<option value="9"
-													<c:if test="${qstnVo.workkindNo=='9' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='9' }">
 														selected="selected"
 													</c:if>
 												>소프트웨어 엔지니어</option>
 												<option value="10"
-													<c:if test="${qstnVo.workkindNo=='10' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='10' }">
 														selected="selected"
 													</c:if>
 												>유니티 개발자</option>
 												<option value="11"
-													<c:if test="${qstnVo.workkindNo=='11' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='11' }">
 														selected="selected"
 													</c:if>
 												>Node.js 개발자</option>
 												<option value="12"
-													<c:if test="${qstnVo.workkindNo=='12' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='12' }">
 														selected="selected"
 													</c:if>
 												>머신러닝 엔지니어</option>
 												<option value="13"
-													<c:if test="${qstnVo.workkindNo=='13' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='13' }">
 														selected="selected"
 													</c:if>
 												>C,C++ 개발자</option>
 												<option value="14"
-													<c:if test="${qstnVo.workkindNo=='14' }">
+													<c:if test="${qstnMap['WORKKIND_NO']=='14' }">
 														selected="selected"
 													</c:if>
 												>VR 엔지니어</option>
@@ -482,7 +482,7 @@
 									<p class="qstnTitle">
 										<input type="text" class="questionTitle" name="questionTitle"
 											placeholder="질문 제목을 입력해주세요."
-											value="${qstnVo.questionTitle }">
+											value="${qstnMap['QUESTION_TITLE'] }">
 									</p>
 									<hr style="margin-top: 0">
 								</div>
@@ -491,20 +491,20 @@
 
 								<div class="qstnContDiv">
 									<textarea placeholder="구체적인 내용을 입력해주세요.&#13;&#10;*휴대폰 번호, 메일 주소, 카카오톡 ID 등 개인정보가 포함된 내용은 비노출 처리될 수 있습니다" 
-									class="questionAbout" title="내용 입력" name="questionAbout">${qstnVo.questionAbout }</textarea>
+									class="questionAbout" title="내용 입력" name="questionAbout">${qstnMap['questionAbout'] }</textarea>
 									<span class="byte"> <b id="count">0</b> / 1,000</span>
 								</div>
 								
-								<c:if test="${qstnVo.questionImmsave=='2' }">
-									<input type="text" name="type" value="1">
+								<c:if test="${qstnMap['QUESTION_IMMSAVE']=='2' }">
+									<input type="hidden" name="type" value="1">
 									<div class="btnCommWrap">
 										<button type="submit" class="btnQuestion devQnaEditButton">수정하기</button>
 										<button type="button"
 											class="btnCancel bg_white devQnaEditCancelButton">취소</button>
 									</div>
 								</c:if>
-								<c:if test="${qstnVo.questionImmsave=='1' }">
-									<input type="text" name="type" value="2">
+								<c:if test="${qstnMap['QUESTION_IMMSAVE']=='1' }">
+									<input type="hidden" name="type" value="2">
 									<div class="btnCommWrap">
 										<button type="submit" class="btnQuestion devQnaWriteButton"
 										formaction="<c:url value='/indiv/community/qstnEdit.do'/>"

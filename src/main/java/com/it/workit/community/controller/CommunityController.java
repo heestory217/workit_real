@@ -2,7 +2,6 @@ package com.it.workit.community.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -292,8 +291,11 @@ public class CommunityController {
 			return "common/message";
 		}
 		
-		QuestionVO qstnVo = qstnService.selectQstn(qstnNo);
-		logger.info("질문 조회 결과, qstnVo={}",qstnVo);
+		/*
+		 * QuestionVO qstnVo = qstnService.selectQstn(qstnNo);
+		 */		
+		Map<String, Object> qstnMap = qstnService.selectQstn(qstnNo);
+		logger.info("질문 조회 결과, qstnMap={}",qstnMap);
 		if(session.getAttribute("userNo")!=null) {
 			int userNo=(Integer) session.getAttribute("userNo");
 			BookmarkVO bmVo = new BookmarkVO(); 
@@ -304,7 +306,7 @@ public class CommunityController {
 			model.addAttribute("bmStatus", bmStatus);
 		}
 		
-		model.addAttribute("qstnVo", qstnVo);
+		model.addAttribute("qstnMap", qstnMap);
 		
 		return "indiv/community/qstnDetail";
 	}
@@ -409,11 +411,13 @@ public class CommunityController {
 		WorkkindVO workkindVo=qstnService.selectUserWorkkind(userNo);
 		logger.info("회원 직무 조회 결과, workkindVo={}", workkindVo);
 		
-		QuestionVO qstnVo = qstnService.selectQstn(qstnNo);
-		logger.info("질문 조회 결과, qstnVo={}",qstnVo);
+		/* QuestionVO qstnVo = qstnService.selectQstn(qstnNo); */
+		
+		Map<String, Object> qstnMap = qstnService.selectQstn(qstnNo);
+		logger.info("질문 조회 결과, qstnVo={}",qstnMap);
 		
 		model.addAttribute("workkindVo", workkindVo);
-		model.addAttribute("qstnVo", qstnVo);
+		model.addAttribute("qstnMap", qstnMap);
 		
 		return "indiv/community/qstnEdit";
 	}
@@ -626,8 +630,36 @@ public class CommunityController {
 		return "redirect:"+referer;
 	}
 	
-	
-	
+	/*
+	 * //답변 좋아요
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping("/likeComment.do") public int
+	 * likeComment(@RequestParam(defaultValue = "0") int cmtNo) {
+	 * logger.info("답변 좋아요, 파라미터 cmtNo={}", cmtNo);
+	 * 
+	 * int cnt = comntService.updateLike(cmtNo); logger.info("답변 좋아요 결과, cnt={}",
+	 * cnt);
+	 * 
+	 * int likeNum=0; if(cnt>0) { likeNum = comntService.selectLikeNum(cmtNo);
+	 * logger.info("답변 좋아요 개수, likeNum={}", likeNum); } return likeNum;
+	 * 
+	 * 
+	 * }
+	 */
+	//답변 좋아요
+	@RequestMapping("/commentLike.do")
+	public String commentLike(@RequestParam(defaultValue = "0") int cmtNo,
+			HttpServletRequest request) {
+		logger.info("답변 좋아요, 파라미터 cmtNo={}", cmtNo);
+		
+		int cnt = comntService.updateLike(cmtNo);
+		logger.info("답변 좋아요 결과, cnt={}", cnt);
+		
+		String referer=request.getHeader("referer");
+		return "redirect:"+referer;
+	}
 	
 	
 	

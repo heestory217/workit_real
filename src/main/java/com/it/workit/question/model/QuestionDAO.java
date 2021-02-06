@@ -7,7 +7,7 @@ public interface QuestionDAO {
 	List<Map<String, Object>> selectUserQstnAll(int userNo);
 	
 	int insertQstn(QuestionVO vo);	//질문 등록
-	QuestionVO selectQstn(int qstnNo);	//질문 상세 조회
+	Map<String, Object> selectQstn(int qstnNo);	//질문 상세 조회
 	int updateQstn(QuestionVO vo);	//질문 수정
 	List<QuestionVO> selectAllQstn();	
 	int deleteQstn(int qstnNo);		//질문 삭제				

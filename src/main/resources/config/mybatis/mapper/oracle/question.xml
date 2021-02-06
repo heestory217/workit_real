@@ -33,8 +33,12 @@
 	</insert>	
 	
 	<!-- 질문 상세 조회 -->
-	<select id="selectQstn" parameterType="int" resultType="questionVo">
-		select * from QUESTION where QUESTION_NO=#{questionNo}
+	<select id="selectQstn" parameterType="int" resultType="HashMap" 
+		resultMap="selectQstnAbout">
+		SELECT Q.*, W.WORKKIND_NAME
+		FROM QUESTION Q JOIN WORKKIND W 
+		ON Q.WORKKIND_NO = W.WORKKIND_NO
+		WHERE QUESTION_NO=#{questionNo}
 	</select>
 	
 	<!-- 질문 수정 -->

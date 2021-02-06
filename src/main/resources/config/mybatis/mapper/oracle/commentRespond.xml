@@ -94,6 +94,19 @@
 			WHERE USER_NO=#{userNo}
 		</if>
 	</select>
+	
+	<!-- 답변 좋아요 -->
+	<update id="updateLike" parameterType="int">
+		UPDATE COMMENTRESPOND
+		SET COMMENTRESPOND_LIKENUM=COMMENTRESPOND_LIKENUM+1
+		WHERE COMMENTRESPOND_NO=#{commentrespondNo}
+	</update>
+	
+	<!-- 답변 좋아요 조회 -->
+	<select id="selectLikeNum" parameterType="int" resultType="int">
+		SELECT COMMENTRESPOND_LIKENUM FROM COMMENTRESPOND 
+		WHERE COMMENTRESPOND_NO=#{commentrespondNo}
+	</select>
 </mapper>
 
 

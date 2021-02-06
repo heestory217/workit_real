@@ -12,4 +12,6 @@ public interface CommentRespondService {
 	int deleteCmt(int cmtNo);	//답변 삭제
 	List<Map<String, Object>> userCmntSelect(QstnPagingVO vo);	//회원 답변 조회
 	int getTotalUserCmt(QstnPagingVO vo);	//회원 답변 개수
+	int updateLike(int cmtNo);	//답변 좋아요
+	int selectLikeNum(int cmtNo);	//답변 좋아요 개수 조회
 }

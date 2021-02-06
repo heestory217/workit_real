@@ -235,7 +235,8 @@
 										<fmt:formatDate value="${map['QUESTION_DATE']}"
 											pattern="yyyy-MM-dd"/>
 									</span>
-									<%-- <c:if test="${!empty userNo && !empty bookmarkList }">
+									<%-- 전체 질문 목록에 북마크 표시 보류 
+										<c:if test="${!empty userNo && !empty bookmarkList }">
 											<c:forEach var="bookmarkVo" items="${bookmarkList }">
 												<c:set var="qstnNo" value="${bookmarkVo.questionNo}"/>
 											<c:if test="${map['QUESTION_NO'] in qstnNo }">
