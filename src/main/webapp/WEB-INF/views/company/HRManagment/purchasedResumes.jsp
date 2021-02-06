@@ -68,8 +68,8 @@
 	<div class="container">
 		<div class="row">
 			<!-- 제목 -->
-			<div class="section-title" style="width: 100%">
-				<h4><i class="far fa-file"></i>구매 이력서</h4>
+			<div class="section-title" style="width: 100%;">
+				<h4 style="font-weight: 700;"><i class="far fa-file"></i>구매 이력서</h4>
 				<h6 style="margin-top:15px;">구매 이력서의 상세내용을 확인하려면 
 					<span style="color: #4C50BB;">이력서 제목</span>을 클릭하세요.
 				</h6>
