@@ -22,6 +22,8 @@ import com.it.workit.orders.model.OrdersService;
 import com.it.workit.orders.model.OrdersVO;
 import com.it.workit.paidService.model.PaidServiceService;
 import com.it.workit.paidService.model.PaidServiceVO;
+import com.it.workit.recruit.model.RecruitannounceService;
+import com.it.workit.recruit.model.RecruitannounceVO;
 import com.it.workit.review.model.ReviewService;
 import com.it.workit.review.model.ReviewVO;
 import com.it.workit.shoppingCart.model.CartViewVO;
@@ -40,10 +42,12 @@ public class OrdersController {
 	@Autowired private OrdersService ordersService;
 	@Autowired private PaidServiceService paidService; 
 	@Autowired private ReviewService reviewService; 
+	@Autowired private RecruitannounceService recruitService; 
 	
 	@RequestMapping("/checkOut.do")
-	public void checkOut(HttpSession session, Model model,
-			@RequestParam (defaultValue = "0") int corpreviewNo) {
+	public void checkOut(HttpSession session, @RequestParam (defaultValue = "0") int corpreviewNo,
+		@RequestParam (defaultValue = "0") int paidserviceNo,
+		@RequestParam (defaultValue = "0") int recruitannounceNo, Model model) {
 		
 		//1. 이력서 일 때 장바구니
 		int userNo = (Integer) session.getAttribute("userNo");
@@ -53,11 +57,16 @@ public class OrdersController {
 		//2.기업후기 삭제일때 => 6번
 		PaidServiceVO paidServVo = null;
 		ReviewVO reviewVo = null;
+		RecruitannounceVO recruitVo= null;
 		if(corpreviewNo!=0) {
 			logger.info("기업후기 삭제, corpreviewNo={}", corpreviewNo);
 			paidServVo = paidService.selectPaidServByServiceNo(6);
 			reviewVo = reviewService.selectByReviewNo(corpreviewNo);
-		}else {
+		}else if(recruitannounceNo!=0){	//광고결제
+			logger.info("광고결제, paidserviceNo={}", paidserviceNo);
+			paidServVo = paidService.selectPaidServByServiceNo(paidserviceNo);
+			recruitVo= recruitService.recruitannounceselectByNo(recruitannounceNo);
+		}else{
 			//이력서일때 => 1번
 			paidServVo = paidService.selectPaidServByServiceNo(1);
 		}
@@ -79,6 +88,7 @@ public class OrdersController {
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("paidServVo", paidServVo);
 		model.addAttribute("reviewVo", reviewVo);
+		model.addAttribute("recruitVo", recruitVo);
 
 		model.addAttribute("userName", userName);
 		model.addAttribute("userHp", userHp);

@@ -26,6 +26,20 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>" type="text/css">
     
 <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
+<script type="text/javascript">
+	$(function(){
+		$('form[name=ADFrm]').submit(function(){
+			self.close();
+			send();
+		});
+	});
+
+	function send() {
+		opener.document.ADFrm.paidserviceNo.value = document.ADFrm.paidserviceNo.value;
+		opener.document.ADFrm.recruitannounceNo.value = document.ADFrm.recruitannounceNo.value;
+		opener.document.ADFrm.paidserviceenddate.value = document.ADFrm.paidserviceenddate.value;
+	}
+</script>
 </head>
 
 <body>
@@ -48,7 +62,7 @@
 			                    	</div>
 			                    </div>
 								
-								<form action="<c:url value='/shop/checkOut.do'/>" method="POST">
+								<form name="ADFrm" action="" method="POST">
 		                            <div style="text-align: center;">
 			                            <h4>${selectadverinfoVO.recruitannounceTitle}</h4>
 			                            <select id="paidserviceNo" name="paidserviceNo" style="width: -webkit-fill-available;height: 40px;">

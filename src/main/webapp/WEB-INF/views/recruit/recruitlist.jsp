@@ -4,6 +4,16 @@
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/indivMypage.css'/>" />
 
 <script type="text/javascript">
+	$(function(){
+		$('#recruitannounceNo').change(function(){
+			alert('123123');
+		});
+		/*
+		if($('#recruitannounceNo').val()!=0){
+			$('form[name=ADFrm]').submit();
+		}*/
+	});
+
 	function pageFunc(curPage){
 		$('input[name=currentPage]').val(curPage);
 		$('form[name=frmPage]').submit();
@@ -19,6 +29,22 @@
 				'width=' + _width + ', height=' + _height  + ', left=' + _left + ', top=' + _top);
 	}
 </script>
+
+<!-- 결제처리를 위한 정보 넘겨주기 -->
+<div style="">
+	<form name="ADFrm" action="<c:url value='/shop/checkOut.do'/>" method="POST">
+		<select id="paidserviceNo" name="paidserviceNo">
+			<option value=7>광고1급7일</option>
+	 		<option value=8>광고1급15일</option>
+			<option value=9>광고1급30일</option>
+			<option value=10>광고2급7일</option>
+			<option value=11>광고2급15일</option>
+			<option value=12>광고2급30일</option>
+		</select>
+		<input type="text" id="recruitannounceNo" name="recruitannounceNo">
+		<input type="text" id="paidserviceenddate" name="paidserviceenddate">
+	</form>
+</div>
 
 <!-- Breadcrumb Section Begin -->
 	<div class="breacrumb-section">
