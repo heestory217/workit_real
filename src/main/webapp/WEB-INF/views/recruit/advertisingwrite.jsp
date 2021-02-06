@@ -26,30 +26,6 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>" type="text/css">
     
 <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
-<script type="text/javascript">
-	$(function(){
-		$('form[name=bringPSGForm]').submit(function(){
-			$.ajax({
-				url : "<c:url value='/company/HRManagment/getPSGFormDetail.do'/>",
-				type : "POST",
-				dataType: "json",
-				data : "positionsuggestNo="+$('#positionsuggestNo option:selected').val(),
-				success : function(res) {
-					//res = map
-					title = res["POSITIONSUGGEST_TITLE"];
-					position = res["POSITIONSUGGEST_POSITION"];
-					price = res["POSITIONSUGGEST_PRICE"];
-					contents = res["positionsuggestContents"];
-					
-					send(title,position,price,contents);
-				},
-				error : function(xhr, status, error) {
-					alert('error! : ' + error);
-				}
-			});	//AJAX
-		});
-	});
-</script>
 </head>
 
 <body>
@@ -72,7 +48,7 @@
 			                    	</div>
 			                    </div>
 								
-								<form action="<c:url value=''/>" method="POST">
+								<form action="<c:url value='/shop/checkOut.do'/>" method="POST">
 		                            <div style="text-align: center;">
 			                            <h4>${selectadverinfoVO.recruitannounceTitle}</h4>
 			                            <select id="paidserviceNo" name="paidserviceNo" style="width: -webkit-fill-available;height: 40px;">
@@ -86,18 +62,18 @@
 		                            </div>
 		                            <input type="hidden" id="recruitannounceNo" name="recruitannounceNo" value="${selectadverinfoVO.recruitannounceNo}">
 		                            <c:if test="${adverpaynowchek==0}">
-			                        <button type="submit" class="site-btn register-btn" style="margin-top: 20px;width: -webkit-fill-available;"
-			                        	id='recruitask' name='recruitask'>공고등록 요청
-		                        	</button>
-		                        </c:if>
-		                        <c:if test="${adverpaynowchek==1}">
-			                        <h4>사용중인 상품명:${selectadverinfoVO.productName}<span style="float:right">종료일:
-			                        <fmt:formatDate value="${selectadverinfoVO.adverEnddate}" pattern="yyyy/MM/dd"/></span></h4>
-			                        <input type="hidden" id="paidserviceenddate" name="paidserviceenddate" value="${RecruitannounceVO.adverEnddate}">
-		                            <button type="submit" class="site-btn register-btn" style="margin-top: 20px;width: -webkit-fill-available;"
-			                            	id='recruitask' name='recruitask' style="">공고연장 요청
-	                            	</button>
-		                        </c:if>
+				                        <button type="submit" class="site-btn register-btn" style="margin-top: 20px;width: -webkit-fill-available;"
+				                        	id='recruitask' name='recruitask'>공고등록 요청
+			                        	</button>
+		                       		</c:if>
+			                        <c:if test="${adverpaynowchek==1}">
+				                        <h4>사용중인 상품명:${selectadverinfoVO.productName}<span style="float:right">종료일:
+				                        <fmt:formatDate value="${selectadverinfoVO.adverEnddate}" pattern="yyyy/MM/dd"/></span></h4>
+				                        <input type="hidden" id="paidserviceenddate" name="paidserviceenddate" value="${RecruitannounceVO.adverEnddate}">
+			                            <button type="submit" class="site-btn register-btn" style="margin-top: 20px;width: -webkit-fill-available;"
+				                            	id='recruitask' name='recruitask' style="">공고연장 요청
+		                            	</button>
+			                        </c:if>
 		                        </form>
 							</div>
 						</div>
