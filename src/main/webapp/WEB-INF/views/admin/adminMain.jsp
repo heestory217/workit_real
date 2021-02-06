@@ -5,5 +5,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="inc/top.jsp" %>
 <%@ include file="inc/sideMenu.jsp" %>
+<div>
+	<c:import url="/admin/main/sales/totalSales.do"/>
+</div>
+
+<div>
+	<c:import url="/admin/main/sales/serviceSales.do"/>
+</div>
 
 <%@ include file="inc/bottom.jsp" %>

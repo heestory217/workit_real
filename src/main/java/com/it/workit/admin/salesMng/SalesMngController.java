@@ -7,8 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin/main/sales")
 public class SalesMngController {
 	
-	@RequestMapping("/salesManagement.do")
-	public void sales() {
+	@RequestMapping("/serviceSales.do")
+	public void serviceSales() {
+		
+	}
+	
+	@RequestMapping("/totalSales.do")
+	public void totalSales() {
 		
 	}
 }

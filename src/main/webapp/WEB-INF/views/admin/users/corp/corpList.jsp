@@ -56,7 +56,7 @@
                             <div class="m-r-10"><img src="<c:url value='/pd_images/${corpVo.corpImgurl }'/>" alt="corpLogo" width="35"></div>
                         </td>
                         <td>
-                        <a href="<c:url value='/admin/users/corp/corpDetail.do?corpNo=${corpVo.corpNo}'/>"> ${corpVo.corpName }</a>
+                        <a href="<c:url value='/admin/users/corp/corpDetail.do?corpNo=${corpVo.corpNo}&userNo=${corpVo.userNo }'/>"> ${corpVo.corpName }</a>
                         </td>
                         <td>${corpVo.corpHeadname}</td>
                         <td>${corpVo.corpIndustry }</td>

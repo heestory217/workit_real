@@ -11,11 +11,11 @@
 			    from
 			    (
 			        select * from CORPREVIEW
-			        where corp_no=#{corpNo}
+			        where corp_no=#{corpNo} and CORPREVIEW_DELETECHECK=2
 			    )A
 			)
 			<![CDATA[
-			where RNUM > #{firstRecordIndex} and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+			where RNUM >= #{firstRecordIndex} and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 			]]>
 	</select>
 	

@@ -2,6 +2,8 @@ package com.it.workit.admin.users.corpController;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.SearchVO;
+import com.it.workit.common.Utility;
+import com.it.workit.companyMypage.model.CompanypagingVO;
 import com.it.workit.corp.model.CorpAllVo;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.CorpVO;
 import com.it.workit.corp.model.CorpimgVO;
+import com.it.workit.orders.model.OrdersCorpPayVO;
+import com.it.workit.orders.model.OrdersService;
 
 @Controller
 @RequestMapping("/admin/users/corp")
@@ -24,6 +30,7 @@ public class AdminCorpController {
 	private Logger logger = LoggerFactory.getLogger(AdminCorpController.class);
 	
 	@Autowired CorpService corpService;
+	@Autowired OrdersService ordersService;
 	
 	@RequestMapping("/corpList.do")
 	public String adminCorpMain(@ModelAttribute SearchVO searchVo, Model model) {
@@ -99,13 +106,18 @@ public class AdminCorpController {
 	}
 	
 	@RequestMapping("/corpDetail.do")
-	public String corpDetail(@RequestParam int corpNo, Model model) {
-		logger.info("corpNo={}",corpNo);
+	public String corpDetail(@RequestParam int corpNo, @RequestParam int userNo, Model model) {
+		logger.info("corpNo={} userNo={}",corpNo, userNo);
 		CorpVO corpVo = corpService.selectCorp(corpNo);
 		List<CorpimgVO> imgVo=corpService.selectCorpWaitingImgList(corpNo);
 		
+		//마이페이지 주문 완성되면 이어 붙힘
+		//List<OrdersCorpPayVO> list=ordersService.selectAdminCompanyPaymentByUserno(userNo);
+
+		//model.addAttribute("list",list);
 		model.addAttribute("cVo", corpVo);
 		model.addAttribute("imgList", imgVo);
 		return "admin/users/corp/corpDetail";
 	}
+	
 }
