@@ -25,11 +25,11 @@
 					</colgroup>
 						<thead>
                                 <tr>
-                                	<th>결제상품</th>
+                                	<th>주문번호</th>
+                                    <th>결제상품종류</th>
                                     <th>결제금액</th>
-                                    <th>결제수단</th>
-                                    <th>결제일</th>
                                     <th>세부정보</th>
+                                    <th>결제일</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,7 +72,7 @@
 													pattern="yyyy-MM-dd"/></p>
 												</c:if>
 												<c:if test="${vo.resumeNo>0}">						
-													<p class="center">${vo.resumtitle }/<a href="./companyMypageEdit.do" class="or-login">링크</a></p>
+													<p class="center">${vo.resumtitle }</p>
 												</c:if>
 												<c:if test="${vo.corpreviewNo>0}">
 													<p class="center">한줄평<br>${vo.oneline }</p>

@@ -65,4 +65,36 @@
 		 where RECRUITANNOUNCE_NO=#{recruitannounceNo}
 	</update>
 	
+	
+	
+	<select id="selectRecruitadList" parameterType="int" resultType="AdvertisingVO">
+				select * from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        select 
+				a.*, (select x.PAIDSERVICE_NAME from PAIDSERVICE x where x.PAIDSERVICE_NO in (select RECRUITANNOUNCE_NO from ORDERDETAILAD b where b.RECRUITANNOUNCE_NO in a.RECRUITANNOUNCE_NO)) as product_name, 
+				(select PAIDSERVICE_ENDDATE from ORDERDETAILAD t where t.RECRUITANNOUNCE_NO=a.RECRUITANNOUNCE_NO) as adver_enddate, (select AD_APPROVE from ORDERDETAILAD t where t.RECRUITANNOUNCE_NO=a.RECRUITANNOUNCE_NO) as ad_check
+				from RECRUITANNOUNCE a
+				where a.user_no=#{userNo} 
+				order by a.RECRUITANNOUNCE_NO desc
+				)A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="selectadvercount" parameterType="int" resultType="int">
+				select count(*) from ORDERDETAILAD where RECRUITANNOUNCE_NO=#{recruitannounceNo} 
+	</select>
+	
+	<select id="selectadverinfo" parameterType="int" resultType="AdvertisingVO">
+		        select  a.*, b.PAIDSERVICE_ENDDATE as adver_Enddate, (select PAIDSERVICE_NAME from PAIDSERVICE x where x.paidservice_no=b.paidservice_no) as productName  from RECRUITANNOUNCE a
+				left outer join ORDERDETAILAD b on a.RECRUITANNOUNCE_NO=b.RECRUITANNOUNCE_NO
+				where a.RECRUITANNOUNCE_NO=#{userNo} 
+				order by PAIDSERVICE_ENDDATE desc
+	</select>
 </mapper>
