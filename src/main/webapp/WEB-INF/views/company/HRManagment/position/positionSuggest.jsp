@@ -143,10 +143,10 @@
 							<td style="text-align: left;">
 								<a href="<c:url value="/company/HRManagment/positionDetail.do?type=format&positionsuggestNo=${map['POSITIONSUGGEST_NO']}"/>">
 									<!-- 제목이 긴 경우 일부만 보여주기 -->
-									<c:if test="${fn:length(map['POSITIONSUGGEST_TITLE'])>=30}">
-										${fn:substring(map['POSITIONSUGGEST_TITLE'], 0,30) } ...
+									<c:if test="${fn:length(map['POSITIONSUGGEST_TITLE'])>=18}">
+										${fn:substring(map['POSITIONSUGGEST_TITLE'], 0,18) } ...
 									</c:if>
-									<c:if test="${fn:length(map['POSITIONSUGGEST_TITLE'])<30}">						
+									<c:if test="${fn:length(map['POSITIONSUGGEST_TITLE'])<18}">						
 										${map['POSITIONSUGGEST_TITLE']}
 									</c:if>
 								</a>

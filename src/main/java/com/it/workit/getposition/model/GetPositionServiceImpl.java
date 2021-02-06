@@ -12,4 +12,9 @@ public class GetPositionServiceImpl implements GetPositionService {
 		return getPositionDao.updateReadCount(positionsuggestNo);
 	}
 
+	@Override
+	public int deleteGetPSG(int positionsuggestNo) {
+		return getPositionDao.deleteGetPSG(positionsuggestNo);
+	}
+
 }

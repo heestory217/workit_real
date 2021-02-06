@@ -42,14 +42,16 @@
                                 	<c:forEach var="vo" items="${list }">
 										<tr>
 											<td class="cart-title padding-bottom0"><br>
-												<a href="#"><p class="center">
-												<c:if test="${fn:length(vo.positionsuggestTitle)>=13}">
-													${fn:substring(vo.positionsuggestTitle, 0,13) } ...
-												</c:if>
-												<c:if test="${fn:length(vo.positionsuggestTitle)<13}">						
-													${vo.positionsuggestTitle }
-												</c:if>
-												</p></a>
+												<a href="<c:url value='/indivMypage/countUpdate.do?positionsuggestNo=${vo.positionsuggestNo}'/>">
+													<p class="center">
+														<c:if test="${fn:length(vo.positionsuggestTitle)>=13}">
+															${fn:substring(vo.positionsuggestTitle, 0,13) } ...
+														</c:if>
+														<c:if test="${fn:length(vo.positionsuggestTitle)<13}">						
+															${vo.positionsuggestTitle }
+														</c:if>
+													</p>
+												</a>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">${vo.positionsuggestPosition }</p>

@@ -55,5 +55,10 @@ public class PositionDAOMybatis implements PositionDAO{
 	public int deletePSG(int positionsuggestNo) {
 		return sqlSession.update(namespace+"deletePSG", positionsuggestNo);
 	}
+
+	@Override
+	public int updatePSGForm(PositionsuggestVO vo) {
+		return sqlSession.update(namespace+"updatePSGForm", vo);
+	}
 	
 }

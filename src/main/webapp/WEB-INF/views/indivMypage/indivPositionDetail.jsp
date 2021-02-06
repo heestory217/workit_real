@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="positionTop.jsp"%>
+<%@ include file="indivMypageMenu.jsp"%>
 
 <style>
 .posted-by p {
@@ -58,19 +58,9 @@
 	<div class="col-lg-6"></div>
 	<div class="col-lg-6" align="right">
 		<div class="cart-buttons">
-			<c:if test="${empty param.type}">
-				<a href="<c:url value='/company/HRManagment/deletePSG.do?positionsuggestNo=${param.positionsuggestNo}'/>" 
-					class="btn btn-primary" style="background:#4C50BB;">삭제</a>
-			</c:if>
-			<c:if test="${!empty param.type}">
-				<a href="<c:url value='/company/HRManagment/modifyPSG.do?positionsuggestNo=${param.positionsuggestNo}'/>" 
-					class="btn btn-primary" style="background:#4C50BB;">수정</a>
-				<a href="<c:url value='/company/HRManagment/deletePSG.do?type=format&positionsuggestNo=${param.positionsuggestNo}'/>" 
-					class="btn btn-primary" style="background:#4C50BB;">삭제</a>
-			</c:if>
+			<a href="<c:url value='/indivMypage/deletePSG.do?positionsuggestNo=${param.positionsuggestNo}'/>" 
+				class="btn btn-primary" style="background:#4C50BB;">삭제</a>
 		</div>
 	</div>
 </div>
 <!-- 버튼 끝 -->
-
-<%@ include file="positionBottom.jsp"%>

@@ -10,19 +10,32 @@
 	</select> -->
 	
 	<select id="selectPositionFlag2ByUserno" parameterType="indivpagingVo" resultType="positionsuggestVo">
+		select *
+		from
+		(
+		select A.*, rownum as RNUM
+		from
+		(
 		select A.*
 		from
 		(
-		    select p.*, (select user_id from users where USER_NO=p.USER_NO) AS "USER_ID"
-		    from GetPositionView p
+		select p.*, (select user_id from users where USER_NO=p.USER_NO) AS "USER_ID"
+		from GetPositionView p
 		)A
-		where GETUSER_NO=#{userNo} and GETUSER_NO!=USER_NO and GETPOSITIONSUGGEST_DELFLAG=2
+		where GETUSER_NO=#{userNo} and GETUSER_NO!=USER_NO and
+		GETPOSITIONSUGGEST_DELFLAG=2
 		order by POSITIONSUGGEST_NO desc
+		)A
+		)
+      <![CDATA[
+      where RNUM > #{firstRecordIndex} 
+      and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+      ]]>
 	</select>
 	
 	<select id="positionGetTotalRecord" parameterType="indivpagingVo" resultType="int">
 		select count(*) from GetPositionView
-		where GETUSER_NO=#{userNo}
+		where GETUSER_NO=#{userNo} and GETPOSITIONSUGGEST_DELFLAG=2
 	</select>
 	
 	<!-- 포지션 제안 보내기 -->
@@ -103,6 +116,21 @@
 	<update id="updateReadCount" parameterType="int">
 		update GETPOSITIONSUGGEST
 		set GETPOSITIONSUGGEST_READFLAG=1
+		where POSITIONSUGGEST_NO=#{positionsuggestNo}
+	</update>
+	
+	<!-- 양식 수정 -->
+	<update id="updatePSGForm" parameterType="positionsuggestVO">
+		update POSITIONSUGGEST
+		set POSITIONSUGGEST_TITLE=#{positionsuggestTitle}, POSITIONSUGGEST_POSITION=#{positionsuggestPosition}, 
+		    POSITIONSUGGEST_PRICE=#{positionsuggestPrice}, POSITIONSUGGEST_CONTENTS=#{positionsuggestContents}
+		where POSITIONSUGGEST_NO=#{positionsuggestNo}
+	</update>
+	
+	<!-- 받은 제안 삭제 -->
+	<update id="deleteGetPSG" parameterType="int">
+		update GETPOSITIONSUGGEST
+		set GETPOSITIONSUGGEST_DELFLAG=1
 		where POSITIONSUGGEST_NO=#{positionsuggestNo}
 	</update>
 
