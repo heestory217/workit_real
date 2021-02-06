@@ -237,6 +237,7 @@
 <!-- 답변 반복 시작 -->
 <c:forEach var="map" items="${cmtList}">
 <div class="cmtOne">
+   <input type="hidden" name="userNo" id="userNo" value="${map['USER_NO']}">
    <input type="hidden" name="commentrespondNo" id="cmtNo" value="${map['COMMENTRESPOND_NO']}">
    <div class="nickDiv">
       <span>@ ${map['USER_ID'] }</span>
@@ -273,8 +274,9 @@
    <div class="replyBtnDiv">
       <span>댓글 <b class="replyCnt">${totalReply }</b></span>
    </div>
+   <c:set value="${map['COMMENTRESPOND_NO']}" var="commentNo"/>
    <div class="recommendCntDiv">
-      <a href="#"><i class="fa fa-thumbs-o-up"></i>
+      <a href="#" class="likeNum"><i class="fa fa-thumbs-o-up"></i>
       <b class="recmdCnt">${map['COMMENTRESPOND_LIKENUM'] }</b></a>
    </div>
 </div><!-- cmtBoxWrap -->
@@ -364,6 +366,23 @@ $(function(){
       }
    });
    
+   $('.likeNum').click(function(){
+	   $.ajax({
+			url:'<c:url value="/indiv/community/likeComment.do"/>',
+			type:'get',
+			data:'cmtNo='+$('#cmtNo').val(),
+			dataType:'json',
+			success:function(res){
+				alert('res');
+					var likeRes="";
+					likeRes+='<a href="#" style="color:#4c50bb;" class="likeNum"><i class="fa fa-thumbs-o-up"></i>';
+					likeRes+='<b class="recmdCnt">'+res+'</b></a>';
+					$('.recommendCntDiv').html(likeRes);
+			},error:function(xhr, status, error){
+				alert('error:'+error);
+			}
+		});	 
+   });
    
 });//
 

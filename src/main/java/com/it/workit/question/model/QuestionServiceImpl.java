@@ -24,7 +24,7 @@ public class QuestionServiceImpl implements QuestionService{
 	
 	//질문 조회
 	@Override
-	public QuestionVO selectQstn(int qstnNo) {
+	public Map<String, Object> selectQstn(int qstnNo) {
 		return questionDao.selectQstn(qstnNo);
 	}
 	

@@ -211,6 +211,13 @@ textarea::placeholder {
 		
 }
 
+.workkind{
+	margin: 0 0 18px 0;
+    font-size: 13px;
+    background-color: #c0c0c059;
+    width: max-content;
+}
+
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -249,7 +256,7 @@ textarea::placeholder {
 		
 		$('.bookmark').click(function(){
 			alert('내 프로필 > 북마크에 추가되었습니다.'); 
-			location.href=href='<c:url value="/indiv/community/insertBookMark.do?qstnNo=${qstnVo.questionNo}"/>';
+			location.href='<c:url value="/indiv/community/insertBookMark.do?qstnNo=${qstnMap['QUESTION_NO']}"/>';
 		});
 	});
 	
@@ -273,7 +280,7 @@ textarea::placeholder {
 				<article>
 					<div class="BoxWrap">
 						<div class="tit">
-							<c:if test="${userNo eq qstnVo.userNo }">
+							<c:if test="${userNo eq qstnMap['USER_NO'] }">
 							<!-- if 조건으로 로그인한 회원의 번호와 질문글의 회원번호가 같은 경우에만 보이도록 설정 -->
 								<div class="editBox">
 								<a>
@@ -282,18 +289,19 @@ textarea::placeholder {
 								<!-- 수정, 삭제  -->
 									<div class="editBtn">
 									<a href
-					="<c:url value='/indiv/community/qstnEdit.do?qstnNo=${qstnVo.questionNo }'/>">수정</a>
+					="<c:url value='/indiv/community/qstnEdit.do?qstnNo=${qstnMap["QUESTION_NO"]}'/>">수정</a>
 									<hr>
 									<a id="delBtn" href
-					="<c:url value='/indiv/community/qstnDelete.do?qstnNo=${qstnVo.questionNo }'/>">삭제</a>
+					="<c:url value='/indiv/community/qstnDelete.do?qstnNo=${qstnMap["QUESTION_NO"] }'/>">삭제</a>
 									</div>	
 								</div>
 							<!-- editBox 끝 -->
 							</c:if>									
 							<!-- 직무 -->
+							<span class="workkind">#${qstnMap['WORKKIND_NAME']}</span>
 							<!-- 질문 제목 -->
 							<p>
-								<i class="fa fa-quora"></i>${qstnVo.questionTitle}
+								<i class="fa fa-quora"></i>${qstnMap['QUESTION_TITLE']}
 							</p>
 						</div>
 						
@@ -302,29 +310,29 @@ textarea::placeholder {
 							pageContext.setAttribute("newLine", "\r\n");
 						%>
 						<c:set var="questionAbout" 
-							value="${fn:replace(qstnVo.questionAbout, newLine, '<br>') }" />
+							value="${fn:replace(qstnMap['questionAbout'], newLine, '<br>') }" />
 						<div class="cont">
 							<p>${questionAbout }</p>
 						</div>
 						<div class="cellBx">
 							<div 
-							<c:if test="${sessionScope.userNo==qstnVo.userNo }">
+							<c:if test="${sessionScope.userNo==qstnMap['USER_NO'] }">
 								style="margin-bottom:15px;"
 							</c:if>>
-								<span class="cell">조회 ${qstnVo.questionView }&nbsp;&nbsp;|</span>
+								<span class="cell">조회 ${qstnMap['QUESTION_VIEW'] }&nbsp;&nbsp;|</span>
 								<span class="cell">&nbsp;&nbsp;
-									<fmt:formatDate value="${qstnVo.questionDate }"
+									<fmt:formatDate value="${qstnMap['QUESTION_DATE'] }"
 										pattern="yyyy-MM-dd"/>	
 								</span>
 							</div>
-							<c:if test="${sessionScope.userNo!=qstnVo.userNo }">
+							<c:if test="${sessionScope.userNo!=qstnMap['USER_NO'] }">
 								<c:if test="${bmStatus==0 }">
 									<a class="bookmark">
 									<i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
 								</c:if>
 								<c:if test="${bmStatus>0 }">
 									<a class="bmChecked"
-									href='<c:url value="/indiv/community/delBookMark.do?qstnNo=${qstnVo.questionNo}"/>'>
+									href='<c:url value="/indiv/community/delBookMark.do?qstnNo=${qstnMap['QUESTION_NO']}"/>'>
 									<i class="fa fa-bookmark" aria-hidden="true"></i></a>
 								</c:if>
 							</c:if>

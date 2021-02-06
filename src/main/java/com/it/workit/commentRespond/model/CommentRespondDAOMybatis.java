@@ -49,5 +49,17 @@ public class CommentRespondDAOMybatis implements CommentRespondDAO{
 		return sqlSession.selectOne(namespace+"getTotalUserCmt",vo);
 	}
 	
+	//답변 좋아오
+	@Override
+	public int updateLike(int cmtNo) {
+		return sqlSession.update(namespace+"updateLike", cmtNo);
+	}
+	
+	// 답변 좋아요 개수
+	@Override
+	public int selectLikeNum(int cmtNo) {
+		return sqlSession.selectOne(namespace+"selectLikeNum", cmtNo);
+	}
+	
 	
 }
