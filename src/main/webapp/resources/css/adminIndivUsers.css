@@ -14,6 +14,7 @@
 
 .inputSearchbox{
 	width:400px;
+	float: right;
 }
 
 .page-link:hover{
@@ -24,4 +25,35 @@
 .page-item.active .page-link{
 	border-color: #4C50BB;
 	background: #4C50BB;
+}
+
+.myColor{
+	border-color: #4C50BB;
+	background: #4C50BB;
+}
+
+.textWhite{
+	color: white;
+}
+
+.textMyColor{
+	color: #4C50BB;
+}
+
+.margin_right_5{
+	margin-right: 5px;
+}
+
+select{
+	width: 80px;
+    border: 1px solid #d2d2e4;
+    color: #71748d;
+}
+
+.hoverColor:hover{
+	color: #4C50BB;
+}
+
+.float_left{
+	float:left;
 }
