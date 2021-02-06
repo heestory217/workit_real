@@ -87,9 +87,9 @@
                         </li>
                         <li><a href="#">지원자 관리</a>
                             <ul class="dropdown">
-                                <li><a href="#">전체지원자</a></li>
-                                <li><a href="#">공고별지원자</a></li>
-                                <li><a href="#">입사지원제한</a></li>
+                                <li><a href="<c:url value='/company/ApplicantMng/allApplicant.do'/>">전체지원자</a></li>
+                                <li><a href="<c:url value='/company/ApplicantMng/applicantByRecruit.do'/>">공고별지원자</a></li>
+                                <li><a href="<c:url value='/company/ApplicantMng/prohibit.do'/>">입사지원제한</a></li>
                             </ul>
                         <li><a href="#">인재 관리</a>
                             <ul class="dropdown">

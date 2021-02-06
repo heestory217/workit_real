@@ -77,7 +77,7 @@
 		    (
 		        select * from OrderdetailsResumeView
 		        <include refid="searchWhere"></include>
-		        order by ORDER_NO
+		        order by ORDER_NO desc
 		    )A
 		)
 		<![CDATA[
