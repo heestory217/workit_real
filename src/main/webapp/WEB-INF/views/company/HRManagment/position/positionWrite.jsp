@@ -93,8 +93,14 @@ $(function() {
 	<div class="leave-comment" style="padding-top: 0">
 		<div class="row">
 			<div class="col-lg-12" style="text-align: center;">
-				<h4>제안 보내기</h4>
+				<c:if test="${empty param.type}">
+					<h4>제안 보내기</h4>
+				</c:if>
+				<c:if test="${!empty param.type}">
+					<h4>양식 작성하기</h4>
+				</c:if>
 			</div>
+			
 			<div class="col-lg-6">
 				<c:if test="${!empty param.type}">
 					<script type="text/javascript">
