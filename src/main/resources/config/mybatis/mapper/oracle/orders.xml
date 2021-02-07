@@ -30,11 +30,20 @@
 		from shoppingCart
 		where user_no=#{userNo}
 	</update>
+	
 	<!-- 주문상세[2] 기업후기-->
 	<insert id="insertOrderDetailDelReview" parameterType="orderDetailDelRvVO">
 		insert into ORDERDETAILDELRV(ORDER_NO, PAIDSERVICE_NO, CORPREVIEW_NO)
 		values(#{orderNo},#{paidServiceNo}, #{corpreviewNo})
 	</insert>
+	
+	<!-- 주문상세[3] 광고결제-->
+	<insert id="insertOrderDetailAD" parameterType="orderDetailAdVO">
+		insert into ORDERDETAILAD(ORDER_NO, PAIDSERVICE_NO, RECRUITANNOUNCE_NO)
+		values(#{orderNo},#{paidServiceNo}, #{recruitannounceNo})
+	</insert>
+	
+	
 	
 	<!-- 주문완료 후 상세내역 출력 [1] 이력서-->
 	<select id="selectOrderdetailsResumeView" parameterType="int" resultType="map">

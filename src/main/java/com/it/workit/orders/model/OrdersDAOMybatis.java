@@ -51,6 +51,12 @@ public class OrdersDAOMybatis implements OrdersDAO{
 	public int insertOrderDetailDelReview(OrderDetailDelRvVO vo) {
 		return sqlSession.insert(namespace+"insertOrderDetailDelReview", vo);
 	}
+	
+	//채용공고 광고 주문상세 INSERT
+	@Override
+	public int insertOrderDetailAD(OrderDetailAdVO vo) {
+		return sqlSession.insert(namespace+"insertOrderDetailAD", vo);
+	}
 
 	//주문완료페이지 - 이력서
 	@Override

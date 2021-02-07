@@ -101,6 +101,7 @@ public class OrdersController {
 			@RequestParam (required = false) String couponName,
 			@RequestParam (defaultValue = "0") int paidServiceNo,
 			@RequestParam (defaultValue = "0") int corpreviewNo,
+			@RequestParam (defaultValue = "0") int recruitannounceNo, 
 			HttpSession session, Model model) {
 		
 		int userNo = (Integer) session.getAttribute("userNo");

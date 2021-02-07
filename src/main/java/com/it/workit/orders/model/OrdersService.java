@@ -19,6 +19,10 @@ public interface OrdersService {
 	//주문  - 기업후기삭제
 	int insertOrderWithCoupon(OrdersVO vo, OrderDetailDelRvVO rvVo);
 	int insertOrder(OrdersVO vo, OrderDetailDelRvVO rvVo);
+	
+	//주문  - 채용공고 광고
+	int insertOrderWithCoupon(OrdersVO vo, OrderDetailAdVO adVo);
+	int insertOrder(OrdersVO vo, OrderDetailAdVO adVo);
 
 	//주문완료페이지
 	List<Map<String, Object>> selectOrderdetailsResumeView(int orderNo);

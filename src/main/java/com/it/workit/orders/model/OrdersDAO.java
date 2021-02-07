@@ -20,6 +20,7 @@ public interface OrdersDAO {
 	//주문상세 INSERT
 	int insertOrderDetailResume(OrdersVO vo);
 	int insertOrderDetailDelReview(OrderDetailDelRvVO vo);
+	int insertOrderDetailAD(OrderDetailAdVO vo);
 
 	//주문완료 페이지
 	List<Map<String, Object>> selectOrderdetailsResumeView(int orderNo);
