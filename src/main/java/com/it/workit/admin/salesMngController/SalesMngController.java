@@ -1,4 +1,4 @@
-package com.it.workit.admin.salesMng;
+package com.it.workit.admin.salesMngController;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

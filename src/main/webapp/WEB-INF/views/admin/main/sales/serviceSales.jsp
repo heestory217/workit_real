@@ -58,7 +58,7 @@ Highcharts.chart('serviceContainer', {
         type: 'column'
     },
     title: {
-        text: '서비스 월간 매출'
+        text: '서비스별 월간 매출'
     },
     subtitle: {
         text: '2021년'

@@ -48,6 +48,8 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 <script type="text/javascript">
+var salesMonth = [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6];
+
 Highcharts.chart('container', {
     chart: {
         type: 'line'
@@ -76,7 +78,7 @@ Highcharts.chart('container', {
     },
     series: [{
         name: '월별 매출',
-        data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+        data: salesMonth
     }]
 });
 
