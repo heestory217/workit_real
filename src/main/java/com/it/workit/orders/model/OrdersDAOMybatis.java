@@ -118,4 +118,9 @@ public class OrdersDAOMybatis implements OrdersDAO{
 		return sqlSession.selectOne(namespace+"selectPurchasedResumeCount", vo);
 	}
 
+	@Override
+	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(int userNo) {
+		return sqlSession.selectList(namespace+"selectCompanyPaymentListByUserno",userNo);
+	}
+
 }

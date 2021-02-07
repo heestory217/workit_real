@@ -43,4 +43,7 @@ public interface OrdersService {
 	//구매한 이력서 리스트
 	List<Map<String, Object>> selectPurchasedResume(int userNo);
 	public int selectPurchasedResumeCount(ShoppingCartVO vo);
+	
+	//어드민 구매내역 조회
+	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(int userNo);
 }

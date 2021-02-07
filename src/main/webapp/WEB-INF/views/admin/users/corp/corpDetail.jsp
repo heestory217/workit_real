@@ -7,7 +7,11 @@
 <%@ include file="../../inc/sideMenu.jsp" %>
 
 <link rel="stylesheet" href="<c:url value="/resources/admin/assets/libs/css/detail.css"/>" type="text/css">
-
+<style>
+ table tbody tr td p{
+ 	text-align:center;
+ }
+</style>
 
 <section class="blog-details spad" style="padding-top: 30px; padding-bottom: 54px;">
 	<div class="container">
@@ -100,19 +104,19 @@
 				<div class="cart-table">
 					<table style="width: 80%; margin: 0 auto;">
 					<colgroup>
+						<col width="15%">
 						<col width="25%">
 						<col width="20%">
 						<col width="20%">
-						<col width="15%">
 						<col width="20%">
 					</colgroup>
 						<thead>
                                 <tr>
+                                	<th>주문번호/<br>결제페이지</th>
                                 	<th>결제상품</th>
                                     <th>결제금액</th>
                                     <th>결제수단</th>
                                     <th>결제일</th>
-                                    <th>세부정보</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -126,6 +130,10 @@
                                 <c:if test="${!empty list }">
                                 	<c:forEach var="vo" items="${list }">
 										<tr>
+											<td class="cart-title padding-bottom0"><br>
+												<p class="center"><a href="<c:url value='/shop/paymentComplete.do?orderNo=${vo.orderNo}'/>" class="or-login">${vo.orderNo }</a>
+												</p>
+											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">
 												<c:if test="${fn:length(vo.payName)>=10}">
@@ -147,19 +155,6 @@
 												<p class="center">
 												<fmt:formatDate value="${vo.orderDate }"
 													pattern="yyyy-MM-dd"/></p>
-											</td>
-											<td class="cart-title padding-bottom0"><br>
-												<c:if test="${vo.recruitannounceNo>0}">						
-													<p class="center">${vo.recruitname }<br><fmt:formatDate value="${vo.paidservicestartdate }"
-													pattern="yyyy-MM-dd"/>~<br><fmt:formatDate value="${vo.paidserviceenddate }"
-													pattern="yyyy-MM-dd"/></p>
-												</c:if>
-												<c:if test="${vo.resumeNo>0}">						
-													<p class="center">${vo.resumtitle }/<a href="./companyMypageEdit.do" class="or-login">링크</a></p>
-												</c:if>
-												<c:if test="${vo.corpreviewNo>0}">
-													<p class="center">한줄평<br>${vo.oneline }</p>
-												</c:if>
 											</td>
 										</tr>
 									</c:forEach>

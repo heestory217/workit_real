@@ -149,5 +149,10 @@ public class OrdersServiceImpl implements OrdersService{
 		return ordersDao.selectPurchasedResumeCount(vo);
 	}
 
+	@Override
+	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(int userNo) {
+		return ordersDao.selectCompanyPaymentByUserno(userNo);
+	}
+
 
 }

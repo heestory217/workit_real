@@ -43,4 +43,6 @@ public interface OrdersDAO {
 	public List<Map<String, Object>> selectPurchasedResume(int userNo);
 	public int selectPurchasedResumeCount(ShoppingCartVO vo);
 	
+	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(int userNo);
+	
 }

@@ -111,10 +111,10 @@ public class AdminCorpController {
 		CorpVO corpVo = corpService.selectCorp(corpNo);
 		List<CorpimgVO> imgVo=corpService.selectCorpWaitingImgList(corpNo);
 		
-		//마이페이지 주문 완성되면 이어 붙힘
-		//List<OrdersCorpPayVO> list=ordersService.selectAdminCompanyPaymentByUserno(userNo);
+		//기업 결제 목록
+		List<OrdersCorpPayVO> list=ordersService.selectCompanyPaymentByUserno(userNo);
 
-		//model.addAttribute("list",list);
+		model.addAttribute("list",list);
 		model.addAttribute("cVo", corpVo);
 		model.addAttribute("imgList", imgVo);
 		return "admin/users/corp/corpDetail";
