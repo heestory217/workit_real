@@ -9,11 +9,9 @@
 	<div class="row">
 				<c:import url="/admin/main/sales/totalSales.do"/>
 	</div>
-</div>
-
-
-<div>
-	<c:import url="/admin/main/sales/serviceSales.do"/>
+	<div>
+		<c:import url="/admin/main/sales/serviceSales.do"/>
+	</div>
 </div>
 
 <%@ include file="inc/bottom.jsp" %>

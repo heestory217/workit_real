@@ -3,7 +3,7 @@
 <style>
 .highcharts-figure, .highcharts-data-table table {
     min-width: 310px; 
-    max-width: 900px;
+    max-width: 1600px;
     margin: 1em auto;
 }
 
@@ -18,7 +18,7 @@
 	margin: 10px auto;
 	text-align: center;
 	width: 100%;
-	max-width: 500px;
+	max-width: 1600px;
 }
 .highcharts-data-table caption {
     padding: 1em 0;
