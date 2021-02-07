@@ -124,7 +124,6 @@ public class CompanyMypageController {
 				List<OrdersCorpPayVO> list=ordersService.selectCompanyPaymentByUserno(vo);
 
 				logger.info("list.size={}",list.size());
-				logger.info("list-3={}",list.get(3));
 				model.addAttribute("list",list);
 		return "companyMypage/companyPayment";
 	}

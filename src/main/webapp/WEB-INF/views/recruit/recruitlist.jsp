@@ -16,7 +16,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="breadcrumb-text">
-						<a href="/workit/index.do"><i class="fa fa-home"></i> Home</a> <span>Advertising</span>
+						<a href="/workit/index.do"><i class="fa fa-home"></i> Home</a> <span>RecruitannounceList</span>
 					</div>
 				</div>
 			</div>
@@ -169,6 +169,6 @@
 				    </div>
 				</div>
 </section>
-
+<br><br><br><br>
 
 <%@ include file="../inc/bottom.jsp"%>
