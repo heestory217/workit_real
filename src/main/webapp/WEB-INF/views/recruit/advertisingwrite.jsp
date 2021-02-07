@@ -56,10 +56,14 @@
 				                        	</button>
 			                       		</c:if>
 				                        <c:if test="${adverpaynowchek==1}">
-					                        <h4>사용중인 상품명:${selectadverinfoVO.productName}<span style="float:right">종료일:
-					                        <fmt:formatDate value="${selectadverinfoVO.adverEnddate}" pattern="yyyy/MM/dd"/></span></h4>
+					                        <p style="margin-top: 20px;font-weight: bold;">사용중인 상품명 : ${selectadverinfoVO.productName}</p>
+					                        <p style="font-weight: bold;">
+					                        	<c:if test="${!empty selectadverinfoVO.adverEnddate}">
+						                        	<span>종료일 : <fmt:formatDate value="${selectadverinfoVO.adverEnddate}" pattern="yyyy/MM/dd"/></span>
+					                        	</c:if>
+				                        	</p>
 					                        <input type="hidden" id="paidserviceenddate" name="paidserviceenddate" value="${RecruitannounceVO.adverEnddate}">
-				                            <button type="submit" class="site-btn register-btn" style="margin-top: 20px;width:30%;"
+				                            <button type="submit" class="site-btn register-btn" style="width:30%;"
 					                            	id='recruitask' name='recruitask' style="">광고 연장 요청
 			                            	</button>
 				                        </c:if>
