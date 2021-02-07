@@ -69,6 +69,12 @@ public class OrdersDAOMybatis implements OrdersDAO{
 	public Map<String, Object> selectOrderdetailsDelRVView(int orderNo) {
 		return sqlSession.selectOne(namespace+"selectOrderdetailsDelRVView", orderNo);
 	}
+	
+	//주문완료페이지 - 광고
+	@Override
+	public Map<String, Object> selectOrderdetailsADView(int orderNo) {
+		return sqlSession.selectOne(namespace+"selectOrderdetailsADView", orderNo);
+	}
 
 	@Override
 	public OrdersVO selectOrdersByOrderNo(int orderNo) {

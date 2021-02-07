@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.coupon.model.CouponService;
 import com.it.workit.coupon.model.CouponVO;
+import com.it.workit.orders.model.OrderDetailAdVO;
 import com.it.workit.orders.model.OrderDetailDelRvVO;
 import com.it.workit.orders.model.OrdersService;
 import com.it.workit.orders.model.OrdersVO;
@@ -110,10 +111,18 @@ public class OrdersController {
 		vo.setUserNo(userNo);
 		logger.info("OrdersVO vo={}", vo);
 		
+		//기업후기
 		OrderDetailDelRvVO rvVo = new OrderDetailDelRvVO();
-		if(corpreviewNo!=0) {	//기업후기
+		if(corpreviewNo!=0) {	
 			rvVo.setCorpreviewNo(corpreviewNo);
 			rvVo.setPaidServiceNo(paidServiceNo);
+		}
+		
+		//광고결제
+		OrderDetailAdVO adVo = new OrderDetailAdVO();
+		if(recruitannounceNo!=0) {
+			adVo.setRecruitannounceNo(recruitannounceNo);
+			adVo.setPaidServiceNo(paidServiceNo);
 		}
 		
 		//[1] 주문 테이블 insert
@@ -128,14 +137,17 @@ public class OrdersController {
 
 			if(corpreviewNo!=0) {	//기업후기
 				cnt = ordersService.insertOrderWithCoupon(vo, rvVo);
+			}else if(recruitannounceNo!=0){	//광고
+				cnt = ordersService.insertOrderWithCoupon(vo, adVo);
 			}else {	//이력서 구매
 				cnt = ordersService.insertOrderWithCoupon(vo);
 			}
-			
 		}else {	
 			//쿠폰이 없는경우
 			if(corpreviewNo!=0) {	//기업후기
 				cnt = ordersService.insertOrder(vo, rvVo);
+			}else if(recruitannounceNo!=0){	//광고
+				cnt = ordersService.insertOrder(vo, adVo);
 			}else {	//이력서 구매
 				cnt = ordersService.insertOrder(vo);
 			}
@@ -162,11 +174,15 @@ public class OrdersController {
 		//기업후기 삭제
 		Map<String, Object> ReviewMap = ordersService.selectOrderdetailsDelRVView(orderNo);
 		
+		//광고
+		Map<String, Object> AdMap = ordersService.selectOrderdetailsADView(orderNo);
+		
 		OrdersVO ordersVo = ordersService.selectOrdersByOrderNo(orderNo);
 		logger.info("주문 ordersVo={}", ordersVo);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("ReviewMap", ReviewMap);
+		model.addAttribute("AdMap", AdMap);
 		model.addAttribute("ordersVo", ordersVo);
 		
 		return "shop/paymentComplete";
