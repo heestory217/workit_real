@@ -17,18 +17,18 @@
 				<div class="cart-table">
 					<table>
 					<colgroup>
+						<col width="15%">
 						<col width="25%">
 						<col width="20%">
 						<col width="20%">
-						<col width="15%">
 						<col width="20%">
 					</colgroup>
 						<thead>
                                 <tr>
-                                	<th>주문번호</th>
+                                	<th>주문번호/<br>결제페이지</th>
                                     <th>결제상품종류</th>
                                     <th>결제금액</th>
-                                    <th>세부정보</th>
+                                    <th>결제수단</th>
                                     <th>결제일</th>
                                 </tr>
                             </thead>
@@ -44,13 +44,11 @@
                                 	<c:forEach var="vo" items="${list }">
 										<tr>
 											<td class="cart-title padding-bottom0"><br>
-												<p class="center">
-												<c:if test="${fn:length(vo.payName)>=10}">
-													${fn:substring(vo.payName, 0,10) } ...
-												</c:if>
-												<c:if test="${fn:length(vo.payName)<10}">						
-													${vo.payName }
-												</c:if>
+												<p class="center"><a href="<c:url value='/shop/paymentComplete.do?orderNo=${vo.orderNo}'/>" class="or-login">${vo.orderNo }</a>
+												</p>
+											</td>
+											<td class="cart-title padding-bottom0"><br>
+												<p class="center">${vo.payName }
 												</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
@@ -64,19 +62,6 @@
 												<p class="center">
 												<fmt:formatDate value="${vo.orderDate }"
 													pattern="yyyy-MM-dd"/></p>
-											</td>
-											<td class="cart-title padding-bottom0"><br>
-												<c:if test="${vo.recruitannounceNo>0}">						
-													<p class="center">${vo.recruitname }<br><fmt:formatDate value="${vo.paidservicestartdate }"
-													pattern="yyyy-MM-dd"/>~<br><fmt:formatDate value="${vo.paidserviceenddate }"
-													pattern="yyyy-MM-dd"/></p>
-												</c:if>
-												<c:if test="${vo.resumeNo>0}">						
-													<p class="center">${vo.resumtitle }</p>
-												</c:if>
-												<c:if test="${vo.corpreviewNo>0}">
-													<p class="center">한줄평<br>${vo.oneline }</p>
-												</c:if>
 											</td>
 										</tr>
 									</c:forEach>

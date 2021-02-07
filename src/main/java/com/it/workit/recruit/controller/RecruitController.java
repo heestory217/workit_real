@@ -304,9 +304,11 @@ public class RecruitController {
 			int totalRecord=list.size();
 			logger.info("총 레코드 수, totalRecord={}", totalRecord);
 			pagingInfo.setTotalRecord(totalRecord);
+			
 			model.addAttribute("list", list);
+			model.addAttribute("pagingInfo", pagingInfo);
+			
 			logger.info("list.size={}",list.size());
-			logger.info("list-0={}",list.get(0));
 			
 			return "recruit/recruitlist";
 	}
