@@ -4,7 +4,7 @@
 <%@ include file="inc/top.jsp" %>
 <!-- 개인 메인 c:import -->
 <c:if test="${empty sessionScope.userId || sessionScope.user_corpcheck==1}">
-비회원, 개인로그인 메인
+	<%@include file="indiv/main.jsp" %>
 </c:if>
 
 <!-- 기업 메인 c:import -->
