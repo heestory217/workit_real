@@ -37,7 +37,7 @@
 			                        </div>
 		                    	</div>
 		                    	 -->
-								<form name="ADFrm" action="<c:url value='/shop/checkOut.do'/>" method="POST">
+								<form name="ADFrm" action="<c:url value='/shop/checkOut.do?recruitannounceNo=${selectadverinfoVO.recruitannounceNo}'/>" method="POST">
 		                            <div style="text-align: center;">
 			                            <h4>${selectadverinfoVO.recruitannounceTitle}</h4>
 			                            <select id="paidserviceNo" name="paidserviceNo" style="width:30%;height: 40px;">

@@ -46,7 +46,7 @@
 			                <div class="cart-table">
 			                    <table>
 			                   		<colgroup>
-			                   			<c:if test="${empty ReviewMap}">
+			                   			<c:if test="${!empty list and empty ReviewMap and empty AdMap}">
 											<col style="width:10%;" />
 											<col style="width:30%;" />
 											<col style="width:15%;" />
@@ -62,19 +62,19 @@
 									</colgroup>
 			                        <thead>
 			                            <tr>
-			                            	<c:if test="${!empty list}">
+				                   			<c:if test="${!empty list and empty ReviewMap and empty AdMap}">
 				                                <th scope="col">이름</th>
 				                                <th scope="col" class="p-name">이력서 제목</th>
 				                                <th scope="col">직무</th>
 				                                <th scope="col">경력</th>
 				                                <th scope="col">가격</th>
 			                                </c:if>
-				                   			<c:if test="${empty list and empty AdMap and !empty ReviewMap}">
+				                   			<c:if test="${!empty ReviewMap}">
 				                                <th scope="col">서비스명</th>
 				                                <th scope="col">이력서 한줄평</th>
 				                                <th scope="col">가격</th>
 				                   			</c:if>
-				                   			<c:if test="${empty list and empty ReviewMap and !empty AdMap}">
+				                   			<c:if test="${!empty AdMap}">
 				                                <th scope="col">서비스명</th>
 				                                <th scope="col">채용공고 제목</th>
 				                                <th scope="col">가격</th>
@@ -93,7 +93,7 @@
 											</tr>
 										</c:if>
 										
-										<c:if test="${!empty list}">
+										<c:if test="${!empty list and empty ReviewMap and empty AdMap}">
 			                        		<c:forEach var="map" items="${list}">
 					                            <tr>
 					                                <td class="p-price" style="padding: 14px 0;">${map['USER_NAME']}</td>
@@ -115,7 +115,7 @@
 			                            	</c:forEach>
 			                            </c:if>
 			                            
-										<c:if test="${empty list and !empty ReviewMap}">
+										<c:if test="${!empty ReviewMap}">
 				                            <tr>
 				                                <td class="p-price" style="padding: 14px 0;">${ReviewMap['PAIDSERVICE_NAME']}</td>
 				                                <td style="padding: 14px 0;font-weight: unset;color:black;">${ReviewMap['CORPREVIEW_ONELINE']}</td>
@@ -126,7 +126,7 @@
 				                            </tr>
 			                            </c:if>
 			                            
-										<c:if test="${empty list and !empty AdMap}">
+										<c:if test="${!empty AdMap}">
 				                            <tr>
 				                                <td class="p-price" style="padding: 14px 0;">${AdMap['PAIDSERVICE_NAME']}</td>
 				                                <td style="padding: 14px 0;font-weight: unset;color:black;">${AdMap['RECRUITANNOUNCE_TITLE']}</td>
@@ -136,7 +136,6 @@
                                 				</td>
 				                            </tr>
 			                            </c:if>
-			                            
 			                            
 			                        </tbody>
 			                    </table>

@@ -115,6 +115,7 @@ IMP.init("imp52828174");
 							orderPay : removeComma($('#totalPrice').html()),
 							paidServiceNo : $('#paidServiceNo').html(),
 							corpreviewNo : $('#corpreviewNo').html(),
+							recruitannounceNo : $('#recruitannounceNo').html(),
 						},
 						dataType:"json",
 						success:function(res){
@@ -159,6 +160,7 @@ IMP.init("imp52828174");
 	<p id="buyer_tel">${userHp}</p>
 	<p id="paidServiceNo">${paidServVo.paidServiceNo}</p>
 	<p id="corpreviewNo">${param.corpreviewNo}</p>
+	<p id="recruitannounceNo">${param.recruitannounceNo}</p>
 </div>
 
 <!-- 주문 페이지 상단 -->
