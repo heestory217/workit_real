@@ -53,7 +53,7 @@ public class OrdersServiceImpl implements OrdersService{
 	@Transactional
 	public int insertOrderWithCoupon(OrdersVO vo, OrderDetailDelRvVO rvVo) {
 		int cnt = ordersDao.insertOrderWithCoupon(vo);
-		rvVo.setOrderNo(vo.getOrderNo());;
+		rvVo.setOrderNo(vo.getOrderNo());
 		cnt = ordersDao.insertOrderDetailDelReview(rvVo);
 		cnt = reDao.updateDeleteCheck(rvVo.getCorpreviewNo());	//결제하면 후기삭제 여부 업데이트
 		return cnt;
@@ -64,9 +64,29 @@ public class OrdersServiceImpl implements OrdersService{
 	@Transactional
 	public int insertOrder(OrdersVO vo, OrderDetailDelRvVO rvVo) {
 		int cnt = ordersDao.insertOrder(vo);
-		rvVo.setOrderNo(vo.getOrderNo());;
+		rvVo.setOrderNo(vo.getOrderNo());
 		cnt = ordersDao.insertOrderDetailDelReview(rvVo);
 		cnt = reDao.updateDeleteCheck(rvVo.getCorpreviewNo());	//결제하면 후기삭제 여부 업데이트
+		return cnt;
+	}
+	
+	//채용공고 광고 쿠폰
+	@Override
+	@Transactional
+	public int insertOrderWithCoupon(OrdersVO vo, OrderDetailAdVO adVo) {
+		int cnt = ordersDao.insertOrderWithCoupon(vo);
+		adVo.setOrderNo(vo.getOrderNo());
+		cnt = ordersDao.insertOrderDetailAD(adVo);
+		return cnt;
+	}
+	
+	//채용공고 광고 쿠폰없음
+	@Override
+	@Transactional
+	public int insertOrder(OrdersVO vo, OrderDetailAdVO adVo) {
+		int cnt = ordersDao.insertOrder(vo);
+		adVo.setOrderNo(vo.getOrderNo());
+		cnt = ordersDao.insertOrderDetailAD(adVo);
 		return cnt;
 	}
 

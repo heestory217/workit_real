@@ -125,10 +125,10 @@
 											<td class="cart-title padding-bottom0"><br>
 											<p class="center">
 												<c:if test="${vo.productName==null }" >
-												<a href="<c:url value='/recruit/advertisingwrite.do?recruitannounceNo=${vo.recruitannounceNo}'/>" class="or-login">[광고등록]</a>
+													<a href="<c:url value='/recruit/advertisingwrite.do?recruitannounceNo=${vo.recruitannounceNo}'/>" class="or-login">[광고등록]</a>
 												</c:if>
 												<c:if test="${vo.productName!=null }" >
-												<a href="<c:url value='/recruit/advertisingwrite.do?recruitannounceNo=${vo.recruitannounceNo}'/>" class="or-login">[광고연장]</a>
+													<a href="<c:url value='/recruit/advertisingwrite.do?recruitannounceNo=${vo.recruitannounceNo}'/>" class="or-login">[광고연장]</a>
 												</c:if>
 											</p>
 											</td>

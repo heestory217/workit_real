@@ -1,14 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ include file="../inc/top.jsp"%>
-<link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/indivMypage.css'/>" />
-
-<script type="text/javascript">
-	function pageFunc(curPage){
-		$('input[name=currentPage]').val(curPage);
-		$('form[name=frmPage]').submit();
-	}
-</script>
 
 <!-- Breadcrumb Section Begin -->
 	<div class="breacrumb-section">
@@ -16,49 +9,69 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="breadcrumb-text">
-						<a href="/workit/index.do"><i class="fa fa-home"></i> Home</a> <a href="/workit/recruit/recruitlist.do"><i class="fa fa-home"></i> Advertising </a> <span>Advertising register</span>
+						<a href="/workit/index.do"><i class="fa fa-home"></i> Home</a>
+						<a href="<c:url value='/recruit/recruitlist.do'/>">Advertising</a>
+                    	<span>Application</span>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- Breadcrumb Section Begin -->
+<!-- Breadcrumb Section Begin -->
 
-<div class="register-login-section spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-9 offset-lg-1">
-                    <div class="register-form">
-                        <h2>채용공고 광고 등록/연장</h2>
-                        <br><br><br><br>
-                        <form action="<c:url value=''/>" method="POST">
-                            <div class="group-input">
-	                            <h4>공고명:${selectadverinfoVO.recruitannounceTitle} <select class="col-lg-5 mystyle" id="paidserviceNo" name="paidserviceNo" style="float:right">
-		                           				<option value=7>광고1급7일</option>
-		                              			<option value=8>광고1급15일</option>
-		                         		        <option value=9>광고1급30일</option>
-		                                        <option value=10>광고2급7일</option>
-		                                        <option value=11>광고2급15일</option>
-		                                        <option value=12>광고2급30일</option>
-		                            </select></h4>
-                            </div>
-                            <br><br><br><br>
-                            <input type="hidden" id="recruitannounceNo" name="recruitannounceNo" value="${selectadverinfoVO.recruitannounceNo}">
-                            <c:if test="${adverpaynowchek==0}">
-	                        <button type="submit" class="site-btn register-btn" id='recruitask' name='recruitask'>공고등록 요청</button>
-                        </c:if>
-                        <c:if test="${adverpaynowchek==1}">
-                        <h4>사용중인 상품명:${selectadverinfoVO.productName}<span style="float:right">종료일:<fmt:formatDate value="${selectadverinfoVO.adverEnddate}"
-													pattern="yyyy/MM/dd"/></span></h4>
-                        <input type="hidden" id="paidserviceenddate" name="paidserviceenddate" value="${RecruitannounceVO.adverEnddate}">
-                        <br><br><br><br>
-                            <button type="submit" class="site-btn register-btn" id='recruitask' name='recruitask'>공고연장 요청</button>
-                        </c:if>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<section class="blog-section spad">
+	<div class="container">
+		<div class="row">
+			<div style="width: 100%;text-align: center;">
+				<div class="blog-details-inner">
+					<div class="leave-comment" style="padding-top: 0">
+						<div class="row">
+							<div class="col-lg-12" style="text-align: center;">
+								<!-- 
+								<div class="tag-share" style="border-bottom: 0; padding-bottom: 20px; margin-top: 0px;padding: inherit;">
+			                        <div class="details-tag">
+			                            <ul>
+			                                <li><i class="fa fa-tags"></i></li>
+			                                <li style="color:#4C50BB;">채용공고 광고 등록/연장</li>
+			                            </ul>
+			                        </div>
+		                    	</div>
+		                    	 -->
+								<form name="ADFrm" action="<c:url value='/shop/checkOut.do'/>" method="POST">
+		                            <div style="text-align: center;">
+			                            <h4>${selectadverinfoVO.recruitannounceTitle}</h4>
+			                            <select id="paidserviceNo" name="paidserviceNo" style="width:30%;height: 40px;">
+	                           				<option value=7>광고1급7일</option>
+	                              			<option value=8>광고1급15일</option>
+	                         		        <option value=9>광고1급30일</option>
+	                                        <option value=10>광고2급7일</option>
+	                                        <option value=11>광고2급15일</option>
+	                                        <option value=12>광고2급30일</option>
+	                          			</select>
+		                           		<br>
+			                            <input type="hidden" id="recruitannounceNo" name="recruitannounceNo" value="${selectadverinfoVO.recruitannounceNo}">
+			                            <c:if test="${adverpaynowchek==0}">
+					                        <button type="submit" class="site-btn register-btn" style="margin-top: 20px;width:30%;;"
+					                        	id='recruitask' name='recruitask'>광고 요청
+				                        	</button>
+			                       		</c:if>
+				                        <c:if test="${adverpaynowchek==1}">
+					                        <h4>사용중인 상품명:${selectadverinfoVO.productName}<span style="float:right">종료일:
+					                        <fmt:formatDate value="${selectadverinfoVO.adverEnddate}" pattern="yyyy/MM/dd"/></span></h4>
+					                        <input type="hidden" id="paidserviceenddate" name="paidserviceenddate" value="${RecruitannounceVO.adverEnddate}">
+				                            <button type="submit" class="site-btn register-btn" style="margin-top: 20px;width:30%;"
+					                            	id='recruitask' name='recruitask' style="">광고 연장 요청
+			                            	</button>
+				                        </c:if>
+			                         </div>
+		                        </form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 <%@ include file="../inc/bottom.jsp"%>

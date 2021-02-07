@@ -191,12 +191,12 @@ IMP.init("imp52828174");
 							</div>
 							<!-- 제목 끝 -->
                         
-                         	<c:if test="${empty cartList and empty param.corpreviewNo}">
+                         	<c:if test="${empty cartList and empty param.corpreviewNo and empty param.recruitannounceNo}">
 	                            <div class="order-total" style="padding-bottom: 22px">
                                    <p style="text-align: center;margin: 0 0 0 0;">주문 요청 내역이 없습니다.</p>
 	                            </div>
 							</c:if>
-							<c:if test="${!empty cartList or !empty param.corpreviewNo}">
+							<c:if test="${!empty cartList or !empty param.corpreviewNo or !empty param.recruitannounceNo}">
 	                            <div class="order-total">
 	                            
 	                                <!-- 가격 계산을 위한 변수 설정 -->
@@ -207,7 +207,7 @@ IMP.init("imp52828174");
 	                                <ul class="order-table">
 	                                    <li>구매 서비스<span>합  계</span></li>
 	                                    
-											<c:if test="${!empty cartList and empty param.corpreviewNo}">
+											<c:if test="${!empty cartList and empty param.corpreviewNo and empty param.recruitannounceNo}">
 				                        		<c:forEach var="cartVo" items="${cartList}">
 				                                    <li class="fw-normal" style="color: #4C50BB;">
 					                        			<!-- 유료서비스 종료 파악을 위한 p -->
@@ -226,6 +226,18 @@ IMP.init("imp52828174");
 			                                    <li class="fw-normal" style="color: #4C50BB;">
 			                                    	[<p id="paidServiceName">${paidServVo.paidServiceName}</p>]  
 			                                    		${reviewVo.corpreviewOneline}
+		                                    		<span style="margin-left: 5px;">원</span>
+			                                    	<span>
+			                                    		<fmt:formatNumber value="${paidServVo.paidServicePrice}" pattern="#,###"/>
+			                                    	</span>
+		                                    	</li>
+			                               		<c:set var="subTotalPrice" value="${subTotalPrice+paidServVo.paidServicePrice}"/>
+	                                    	</c:if>
+	                        			<!-- 채용공고 광고 결제-->
+											<c:if test="${!empty param.recruitannounceNo}">
+			                                    <li class="fw-normal" style="color: #4C50BB;">
+			                                    	[<p id="paidServiceName">${paidServVo.paidServiceName}</p>]  
+			                                    		${recruitVo.recruitannounceTitle}
 		                                    		<span style="margin-left: 5px;">원</span>
 			                                    	<span>
 			                                    		<fmt:formatNumber value="${paidServVo.paidServicePrice}" pattern="#,###"/>
