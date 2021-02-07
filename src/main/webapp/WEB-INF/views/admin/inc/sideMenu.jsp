@@ -30,7 +30,7 @@
                                                         <a class="nav-link" href="<c:url value='/admin/users/indiv/selectIndivUsers.do '/>">개인 회원 조회</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="ecommerce-product.html">탈퇴 회원 조회</a>
+                                                        <a class="nav-link" href="<c:url value='/admin/users/indiv/selectWithdrawUsers.do '/>">탈퇴 회원 조회</a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" href="ecommerce-product.html">이력서 조회</a>
