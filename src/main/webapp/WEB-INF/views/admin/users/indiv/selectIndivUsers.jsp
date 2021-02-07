@@ -106,7 +106,8 @@
 	            				<fmt:formatDate value="${vo.userRegdate }"
 	            					pattern="yyyy-MM-dd"/>
 	            			</th>
-	            			<th class="center"><a href="#" class="hoverColor">탈퇴</a></th>
+	            			<th class="center"><a href="<c:url value='/admin/users/indiv/withdrawUsers.do?userNo=${vo.userNo }'/>"
+	            				onclick="if(!confirm('탈퇴 처리 하시겠습니까?')){return false;}" class="hoverColor">탈퇴</a></th>
 	            		</tr>
 	            	</c:forEach>
 	            </c:if>

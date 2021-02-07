@@ -91,6 +91,29 @@
 		    (
 		        select * from users
 				where user_corpcheck=1
+				AND user_enddate is null
+				<if test="searchKeyword != null and searchKeyword != ''">
+					AND ${searchCondition} like '%' || #{searchKeyword} || '%'
+				</if>
+				order by user_name
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="selectWithdrawUsersAll" parameterType="searchVo" resultType="usersVo">
+		select *
+		from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        select * from users
+				where user_corpcheck=1
+				AND user_enddate is not null
 				<if test="searchKeyword != null and searchKeyword != ''">
 					AND ${searchCondition} like '%' || #{searchKeyword} || '%'
 				</if>
@@ -106,10 +129,27 @@
 	<select id="totalUsers" resultType="int" parameterType="searchVo">
 		select count(*) from users
 		where user_corpcheck=1
+		AND user_enddate is null
 		<if test="searchKeyword != null and searchKeyword != ''">
 			AND ${searchCondition} like '%' || #{searchKeyword} || '%'
 		</if>
 		order by user_name
 	</select>
+	
+	<select id="totalWithdrawUsers" resultType="int" parameterType="searchVo">
+		select count(*) from users
+		where user_corpcheck=1
+		AND user_enddate is not null
+		<if test="searchKeyword != null and searchKeyword != ''">
+			AND ${searchCondition} like '%' || #{searchKeyword} || '%'
+		</if>
+		order by user_name
+	</select>
+	
+	<update id="withdrawUsers" parameterType="int">
+		UPDATE users
+		set user_enddate=sysdate
+		where user_no=#{userNo}
+	</update>
 
 </mapper>

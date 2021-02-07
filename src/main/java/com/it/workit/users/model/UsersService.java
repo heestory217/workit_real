@@ -39,8 +39,11 @@ public interface UsersService {
 	
 	public int updatePwdReal(Map<String, Object> userMap);
 	
-	//은별 관리자사용, 개인회원 조회
+	//은별 관리자사용, 개인회원 조회 / 탈퇴회원 조회 /탈퇴
 	public List<UsersVO> selectIndivUsersAll(SearchVO searchVo);
 	public int totalUsers(SearchVO searchVo);
+	public List<UsersVO> selectWithdrawUsersAll(SearchVO searchVo);
+	public int totalWithdrawUsers(SearchVO searchVo);
+	public int withdrawUsers(int userNo);
 	
 }
