@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.it.workit.orders.model.OrdersService;
 import com.it.workit.shoppingCart.model.CartViewVO;
 import com.it.workit.shoppingCart.model.ShoppingCartService;
 import com.it.workit.shoppingCart.model.ShoppingCartVO;
@@ -25,6 +26,7 @@ public class ShoppingCartController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ShoppingCartController.class);
 	@Autowired private ShoppingCartService cartService;
+	@Autowired private OrdersService orderService;
 	
 	@RequestMapping("/shoppingCart.do")
 	public void shoppingCart(HttpSession session, Model model) {
@@ -69,13 +71,21 @@ public class ShoppingCartController {
 		ShoppingCartVO vo = new ShoppingCartVO();
 		vo.setResumeNo(resumeNum);
 		vo.setUserNo(userNo);
-
+		logger.info("장바구니 vo={}", vo);
+		
 		int result=0;
+		
 		//장바구니에 이미 있는지 체크
 		int cnt = cartService.cartDupChk(vo);
 
+		//구매 내역에 이미 있는지 체크
+		int buyCnt = orderService.selectPurchasedResumeCount(vo);
+		logger.info("buyCnt= {}",buyCnt);
+		
 		if(cnt>0) {
 			result=2;
+		}else if(buyCnt>0) {
+			result=3;
 		}else {
 			//없으면 장바구니에 담기
 			result = cartService.insertCart(vo);

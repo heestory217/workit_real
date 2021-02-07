@@ -11,7 +11,13 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.min.css"/>" type="text/css">
     <link rel="stylesheet" href="<c:url value="/resources/css/slicknav.min.css"/>" type="text/css">
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>" type="text/css">
-
+<style>
+	.product-item .pi-pic .sale.pp-sale{
+		top: 0px;
+	    width: 100%;
+	}
+	
+</style>
 	<!-- 맞춤 이력서 추천 : 기업이 등록한 채용공고의 경력, 지역, 언어로 매칭함 : 추천할 이력서가 있을때만 보여줌 -->
  <c:if test="${!empty matchingList}">
     <section class="man-banner spad">
@@ -25,6 +31,9 @@
                     	<c:forEach var='matchVo' items='${matchingList }'>
 							<div class="product-item">
 	                            <div class="pi-pic">
+	                            	<c:if test="${matchVo.buyChk eq 1 }">
+                                        	<div class="sale pp-sale">구매한 이력서</div>
+                                    </c:if>
 	                                <ul>
 	                                    <li class="w-icon active" onclick="insertCart('${matchVo.resumesVo.resumeNo }')">
 		                                    <input type="hidden" value="${matchVo.resumesVo.resumeNo }" class="resumeNo">
@@ -32,7 +41,7 @@
 	                                    		<i class="icon_bag_alt"></i>
                                     		</a>
                                    		</li>
-	                                    <li class="quick-view"><a href="#">+ Quick View</a></li>
+	                                    <li class="quick-view"><a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${matchVo.resumesVo.resumeNo }'/>">+ View</a></li>
 	                                </ul>
 	                            </div>
 	                            <div class="pi-text">
@@ -107,6 +116,8 @@
     				alert('이력서를 장바구니에 담았습니다.');
     			}else if(res==2){
     				alert('이미 장바구니에 담긴 이력서입니다.');
+    			}else if(res==3){
+    				alert('이미 구매한 이력서입니다.');
     			}else{
     				alert('이력서를 장바구니에 담을 수 없습니다.');
     			}

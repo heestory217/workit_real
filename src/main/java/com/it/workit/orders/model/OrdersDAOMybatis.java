@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.it.workit.companyMypage.model.CompanypagingVO;
 import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
+import com.it.workit.shoppingCart.model.ShoppingCartVO;
 
 @Repository
 public class OrdersDAOMybatis implements OrdersDAO{
@@ -105,6 +106,16 @@ public class OrdersDAOMybatis implements OrdersDAO{
 	@Override
 	public int ordersGetTotalRecords(CompanypagingVO vo) {
 		return sqlSession.selectOne(namespace+"ordersGetTotalRecords", vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectPurchasedResume(int userNo) {
+		return sqlSession.selectList(namespace+"selectPurchasedResumeByUserNo", userNo);
+	}
+
+	@Override
+	public int selectPurchasedResumeCount(ShoppingCartVO vo) {
+		return sqlSession.selectOne(namespace+"selectPurchasedResumeCount", vo);
 	}
 
 }

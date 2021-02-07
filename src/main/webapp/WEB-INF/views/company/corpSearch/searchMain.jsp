@@ -15,7 +15,7 @@
 		width:75%;
 		position: absolute;
 		left: 30px;
-    	top: 30px;
+    	top: 40px;
     	padding-top : 0px;
 	}
 	.product-item .pi-pic .sale.pp-sale{
@@ -91,7 +91,7 @@
 	
 	</style>
     <!-- Breadcrumb Section Begin -->
-    <div class="breacrumb-section">
+    <div class="breacrumb-section" >
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -105,7 +105,7 @@
     </div>
     <!-- Breadcrumb Section Begin -->
     <!-- Product Shop Section Begin -->
-    <section class="product-shop spad">
+    <section class="product-shop spad" style="padding-top: 20px;">
 		<form action="<c:url value='/corpSearch.do'/>" name="frmPage" method="post">
 			<input type="hidden" name="currentPage">
 			<input type="hidden" name="searchKeyword" value="${param.searchKeyword}">
@@ -237,12 +237,14 @@
                             <div class="col-lg-4 col-sm-6">
                                 <div class="product-item">
                                     <div class="pi-pic">
-                                        <!-- <div class="sale pp-sale">구매한 이력서</div> -->
+                                    	<c:if test="${resume.buyChk eq 1 }">
+                                        	<div class="sale pp-sale">구매한 이력서</div>
+                                        </c:if>
                                         <ul>
                                         	<li class="w-icon active" onclick="insertCart('${resume.resumesVo.resumeNo }')">
 	                                            <a href="#"><i class="icon_bag_alt"></i></a>
                                             </li>
-                                            <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                            <li class="quick-view"><a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${resume.resumesVo.resumeNo }'/>">+ View</a></li>
                                         </ul>
                                     </div>
                                     <div class="pi-text">
@@ -437,8 +439,10 @@
 					alert('이력서를 장바구니에 담았습니다.');
 				} else if (res == 2) {
 					alert('이미 장바구니에 담긴 이력서입니다.');
-				} else {
-					alert('이력서를 장바구니에 담을 수 없습니다.');
+				} else if(res == 3){
+					alert('이미 구매한 이력서입니다.');
+				}else{
+					alert('해당 이력서를 장바구니에 담을 수 없습니다.');
 				}
 			},
 			error : function(xhs, status, error) {

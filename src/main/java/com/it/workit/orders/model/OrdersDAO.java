@@ -7,6 +7,7 @@ import java.util.Map;
 import com.it.workit.companyMypage.model.CompanypagingVO;
 import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
+import com.it.workit.shoppingCart.model.ShoppingCartVO;
 
 public interface OrdersDAO {
 	//개인 마이페이지 사용
@@ -37,4 +38,9 @@ public interface OrdersDAO {
 
 	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(CompanypagingVO vo);
 	public int ordersGetTotalRecords(CompanypagingVO vo);
+
+	//구매이력 userNo검색
+	public List<Map<String, Object>> selectPurchasedResume(int userNo);
+	public int selectPurchasedResumeCount(ShoppingCartVO vo);
+	
 }

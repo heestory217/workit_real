@@ -13,6 +13,7 @@ import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
 import com.it.workit.review.model.ReviewDAO;
 import com.it.workit.shoppingCart.model.ShoppingCartDAO;
+import com.it.workit.shoppingCart.model.ShoppingCartVO;
 
 @Service
 public class OrdersServiceImpl implements OrdersService{
@@ -136,6 +137,16 @@ public class OrdersServiceImpl implements OrdersService{
 	@Override
 	public int ordersGetTotalRecords(CompanypagingVO vo) {
 		return ordersDao.ordersGetTotalRecords(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectPurchasedResume(int userNo) {
+		return ordersDao.selectPurchasedResume(userNo);
+	}
+
+	@Override
+	public int selectPurchasedResumeCount(ShoppingCartVO vo) {
+		return ordersDao.selectPurchasedResumeCount(vo);
 	}
 
 
