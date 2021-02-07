@@ -12,4 +12,7 @@ public interface ApplicantService {
 	public List<ApplicantlistVO> selectApplyAllByUserNo(IndivpagingVO vo);
 	public List<ApplicantlistVO> selectPassAllByUserNo(IndivpagingVO vo);
 	public List<ApplicantlistVO> selectFailAllByUserNo(IndivpagingVO vo);
+	
+	//희정 기업 지원자 관리
+	public List<ApplicantlistVO> selectAllApplicantFromCorp(int userNo);
 }

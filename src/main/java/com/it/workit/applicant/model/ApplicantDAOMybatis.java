@@ -50,4 +50,9 @@ public class ApplicantDAOMybatis implements ApplicantDAO{
 	public List<ApplicantlistVO> selectFailAllByUserNo(IndivpagingVO vo) {
 		return sqlSession.selectList(namespace+"selectFailAllByUserNo",vo);
 	}
+
+	@Override
+	public List<ApplicantlistVO> selectAllApplicantFromCorp(int userNo) {
+		return sqlSession.selectList(namespace+"selectAllApplicantFromCorp", userNo);
+	}
 }

@@ -46,4 +46,9 @@ public class ApplicantServiceImpl implements ApplicantService{
 	public List<ApplicantlistVO> selectFailAllByUserNo(IndivpagingVO vo) {
 		return applicantDao.selectFailAllByUserNo(vo);
 	}
+
+	@Override
+	public List<ApplicantlistVO> selectAllApplicantFromCorp(int userNo) {
+		return applicantDao.selectAllApplicantFromCorp(userNo);
+	}
 }

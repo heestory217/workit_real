@@ -134,32 +134,34 @@
                                </c:if>
                                <c:if test="${!empty list }">
 	                               	<c:forEach var="vo" items="${list }">
-										<tr>
-											<td class="cart-title padding-bottom0"><br>
-												<!-- 제목이 긴 경우 일부만 보여주기 -->
-												<a href="#">
+	                               		<c:forEach var="recruitvo" items="${recruitList }">
+											<tr>
+												<td class="cart-title padding-bottom0"><br>
+													<!-- 제목이 긴 경우 일부만 보여주기 -->
+													<a href="#">
+														<p class="center">
+															<c:if test="${fn:length(recruitvo.recruitannounceTitle)>=18}">
+																${fn:substring(recruitvo.recruitannounceTitle, 0,18) } ...
+															</c:if>
+															<c:if test="${fn:length(recruitvo.recruitannounceTitle)<18}">						
+																${vo.recruitannounceTitle }
+															</c:if>
+														</p>
+													</a>
+												</td>
+												<td class="cart-title padding-bottom0"><br>
+													<p class="center">${recruitvo.recruitannounceSworkkind }</p>
+												</td>
+												<td class="cart-title padding-bottom0"><br>
+													<p class="center">이력서제목넣기!</p>
+												</td>
+												<td class="cart-title padding-bottom0"><br>
 													<p class="center">
-														<c:if test="${fn:length(vo.recruitannounceTitle)>=18}">
-															${fn:substring(vo.recruitannounceTitle, 0,18) } ...
-														</c:if>
-														<c:if test="${fn:length(vo.recruitannounceTitle)<18}">						
-															${vo.recruitannounceTitle }
-														</c:if>
+														<fmt:formatDate value="${vo.applicantlistDate }" pattern="yyyy-MM-dd"/>
 													</p>
-												</a>
-											</td>
-											<td class="cart-title padding-bottom0"><br>
-												<p class="center">${vo.recruitannounceSworkkind }</p>
-											</td>
-											<td class="cart-title padding-bottom0"><br>
-												<p class="center">이력서제목넣기!</p>
-											</td>
-											<td class="cart-title padding-bottom0"><br>
-												<p class="center">
-													<fmt:formatDate value="${vo.applicantlistDate }" pattern="yyyy-MM-dd"/>
-												</p>
-											</td>
-										</tr>
+												</td>
+											</tr>
+										</c:forEach>
 									</c:forEach>
 								</c:if>
 							</tbody>

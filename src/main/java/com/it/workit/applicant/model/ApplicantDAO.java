@@ -13,4 +13,8 @@ public interface ApplicantDAO {
 	public List<ApplicantlistVO> selectApplyAllByUserNo(IndivpagingVO vo);
 	public List<ApplicantlistVO> selectPassAllByUserNo(IndivpagingVO vo);
 	public List<ApplicantlistVO> selectFailAllByUserNo(IndivpagingVO vo);
+	
+	//희정 - 기업 지원자관리
+	public List<ApplicantlistVO> selectAllApplicantFromCorp(int userNo);
+	
 }
