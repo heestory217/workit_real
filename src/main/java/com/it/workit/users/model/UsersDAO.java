@@ -23,5 +23,8 @@ public interface UsersDAO {
 	
 	/* 관리자 사용 */
 	public List<UsersVO> selectIndivUsersAll(SearchVO searchVo);
+	public List<UsersVO> selectWithdrawUsersAll(SearchVO searchVo);
 	public int totalUsers(SearchVO searchVo);
+	public int totalWithdrawUsers(SearchVO searchVo);
+	public int withdrawUsers(int userNo);
 }

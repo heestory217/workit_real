@@ -109,4 +109,19 @@ public class UsersServiceImpl implements UsersService{
 		return usersDao.totalUsers(searchVo);
 	}
 
+	@Override
+	public List<UsersVO> selectWithdrawUsersAll(SearchVO searchVo) {
+		return usersDao.selectWithdrawUsersAll(searchVo);
+	}
+
+	@Override
+	public int totalWithdrawUsers(SearchVO searchVo) {
+		return usersDao.totalWithdrawUsers(searchVo);
+	}
+
+	@Override
+	public int withdrawUsers(int userNo) {
+		return usersDao.withdrawUsers(userNo);
+	}
+
 }
