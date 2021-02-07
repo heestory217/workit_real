@@ -13,8 +13,8 @@ public class salesMngDAOMybatis implements salesMngDAO {
 	private String namespace = "com.mybatis.mapper.salesMng.";
 	
 	@Override
-	public List<Map<String, Object>> selectMonthSales() {
-		return sqlSession.selectList(namespace+"selectMonthSales");
+	public List<Map<String, Object>> selectMonthSales(salesDateVO vo) {
+		return sqlSession.selectList(namespace+"selectMonthSales", vo);
 	}
 	
 }

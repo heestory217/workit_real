@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface salesMngService {
 
-	List<Map<String, Object>> selectMonthSales();
+	List<Map<String, Object>> selectMonthSales(String year);
 
 }

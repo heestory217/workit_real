@@ -1,5 +1,6 @@
 package com.it.workit.admin.salesMngController;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.admin.salesMngModel.salesMngService;
 
@@ -26,8 +26,13 @@ public class SalesMngController {
 	
 	@RequestMapping("/totalSales.do")
 	public void totalSales(Model model) {
-
-		List<Map<String, Object>> totalList = salesService.selectMonthSales();
+		Calendar cal = Calendar.getInstance();
+		
+		int y = cal.get(Calendar.YEAR);
+		String year = Integer.toString(y);
+		
+		
+		List<Map<String, Object>> totalList = salesService.selectMonthSales(year);
 		model.addAttribute("totalList",totalList);
 	}
 }

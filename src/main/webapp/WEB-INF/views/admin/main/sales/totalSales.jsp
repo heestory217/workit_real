@@ -52,7 +52,6 @@
 
 <script type="text/javascript">
 
-
 var total=[${totalList[0].TOTAL}, ${totalList[1].TOTAL},${totalList[2].TOTAL},${totalList[3].TOTAL},${totalList[4].TOTAL},${totalList[5].TOTAL},${totalList[6].TOTAL},${totalList[7].TOTAL},${totalList[8].TOTAL},${totalList[9].TOTAL},${totalList[10].TOTAL},${totalList[11].TOTAL},${totalList[12].TOTAL}];
 for(var i=0; i<total.length; i++){
 	if(total[i]==null){
@@ -77,7 +76,7 @@ Highcharts.chart('container', {
     },
     yAxis: {
         title: {
-            text: '단위 : 만원'
+            text: '단위 : 원'
         }
     },
     plotOptions: {

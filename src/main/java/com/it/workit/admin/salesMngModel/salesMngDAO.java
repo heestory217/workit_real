@@ -5,6 +5,6 @@ import java.util.Map;
 
 public interface salesMngDAO {
 
-	List<Map<String, Object>> selectMonthSales();
+	List<Map<String, Object>> selectMonthSales(salesDateVO vo);
 
 }
