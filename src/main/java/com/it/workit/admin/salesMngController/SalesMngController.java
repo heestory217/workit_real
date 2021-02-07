@@ -20,8 +20,21 @@ public class SalesMngController {
 	private static final Logger logger = LoggerFactory.getLogger(SalesMngController.class);
 	
 	@RequestMapping("/serviceSales.do")
-	public void serviceSales() {
+	public void serviceSales(Model model) {
+		Calendar cal = Calendar.getInstance();
 		
+		int y = cal.get(Calendar.YEAR);
+		String year = Integer.toString(y);
+		
+		List<Map<String, Object>> reviewList = salesService.selectReviewSales(year);
+		List<Map<String, Object>> adList = salesService.selectAdSales(year);
+		List<Map<String, Object>> delList = salesService.selectDelSales(year);
+		List<Map<String, Object>> resumeList = salesService.selectResumeSales(year);
+		model.addAttribute("year",year);
+		model.addAttribute("reviewList",reviewList);
+		model.addAttribute("adList",adList);
+		model.addAttribute("delList",delList);
+		model.addAttribute("resumeList",resumeList);
 	}
 	
 	@RequestMapping("/totalSales.do")
@@ -30,7 +43,6 @@ public class SalesMngController {
 		
 		int y = cal.get(Calendar.YEAR);
 		String year = Integer.toString(y);
-		
 		
 		List<Map<String, Object>> totalList = salesService.selectMonthSales(year);
 		model.addAttribute("year",year);

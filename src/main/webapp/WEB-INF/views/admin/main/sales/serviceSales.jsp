@@ -39,6 +39,10 @@
     background: #f1f7ff;
 }
 </style>
+${reviewList }
+${adList }
+${delList }
+${resumeList }
 <div class="col-xl-12 col-lg-12 col-md-8 col-sm-12 col-12">
 	<div class="card">
 		<h5 class="card-header">서비스별 월간 매출</h5>
@@ -47,6 +51,8 @@
 		</figure>
 	</div>
 </div>
+
+<!-- 서비스별 상세 통계  -->
 <div class="influence-profile-content pills-regular">
     <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
         <li class="nav-item">
