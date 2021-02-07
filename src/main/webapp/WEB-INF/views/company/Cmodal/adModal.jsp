@@ -87,7 +87,8 @@
 							</tbody>
 						</table>
 					</div>
-					<button type="button" class="btn btn-default" data-dismiss="modal">등록한 채용공고 목록보기</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+						onclick="location.href='<c:url value='/recruit/recruitlist.do'/>'">등록한 채용공고 목록보기</button>
 				</div>
 			</div>
 		</div>

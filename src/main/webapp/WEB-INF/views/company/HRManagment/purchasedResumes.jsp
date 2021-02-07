@@ -122,7 +122,7 @@
 					                            <tr>
 					                                <td class="p-price" style="padding: 14px 0;">${map['USER_NAME']}</td>
 					                                <td class="cart-title" style="padding: 14px 0;">
-	                             	<a href="<c:url value="이력서 상세보기.do?resumeNo=${map['RESUME_NO']}"/>">
+	                             	<a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${map["RESUME_NO"]}'/>">
 	                             		${map['RESUME_TITLE']}
 	                          		</a>
 				                                	</td>
