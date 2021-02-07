@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.salesMng">
+	<select id="selectMonthSales" resultType="map">
+		SELECT TO_CHAR(b.dt, 'YYYY-MM') As MONTH, NVL(SUM(a.cnt), 0) qty , SUM(a.total) total
+		  FROM ( SELECT TO_CHAR(order_date, 'YYYY-MM-DD') AS order_date
+		              , COUNT(*) cnt , SUM(order_pay) as total
+		           FROM orders
+		          WHERE order_date BETWEEN TO_DATE('2021-01-01', 'YYYY-MM-DD')
+		                             AND TO_DATE('2021-12-31', 'YYYY-MM-DD') 
+		          GROUP BY to_char(order_date,'YYYY-MM-DD')
+		        ) a
+		      , ( SELECT TO_DATE('2021-01-01','YYYY-MM-DD') + LEVEL - 1 AS dt
+		            FROM dual 
+		            <![CDATA[
+		         CONNECT BY LEVEL <= (TO_DATE('2021-12-31','YYYY-MM-DD') 
+		                            - TO_DATE('2021-01-01','YYYY-MM-DD') + 1)
+		        ) b
+		        ]]>
+		  WHERE b.dt = a.order_date(+)
+		  GROUP BY TO_CHAR(b.dt, 'YYYY-MM')
+		  ORDER BY TO_CHAR(b.dt, 'YYYY-MM')
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+

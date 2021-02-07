@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style>
 .highcharts-figure, .highcharts-data-table table {
     min-width: 360px; 
@@ -48,7 +51,17 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 <script type="text/javascript">
-var salesMonth = [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6];
+
+
+var total=[${totalList[0].TOTAL}, ${totalList[1].TOTAL},${totalList[2].TOTAL},${totalList[3].TOTAL},${totalList[4].TOTAL},${totalList[5].TOTAL},${totalList[6].TOTAL},${totalList[7].TOTAL},${totalList[8].TOTAL},${totalList[9].TOTAL},${totalList[10].TOTAL},${totalList[11].TOTAL},${totalList[12].TOTAL}];
+for(var i=0; i<total.length; i++){
+	if(total[i]==null){
+		total[i]=0;
+	}
+	alert(total[i]);
+}
+
+var salesMonth = total;
 
 Highcharts.chart('container', {
     chart: {
