@@ -6,8 +6,9 @@
 <style>
 .highcharts-figure, .highcharts-data-table table {
     min-width: 360px; 
-    max-width: 600px;
-    margin: 1em auto;
+    width: 75%;
+    margin: 0 auto;
+    height:469px;
 }
 
 .highcharts-data-table table {
@@ -16,8 +17,12 @@
 	border: 1px solid #EBEBEB;
 	margin: 10px auto;
 	text-align: center;
-	width: 100%;
-	max-width: 500px;
+	width: 1200px;
+	max-width: 1200px;
+}
+.highcharts-container {
+	width:1200px;
+	
 }
 .highcharts-data-table caption {
     padding: 1em 0;
@@ -39,10 +44,42 @@
 }
 
 </style>
+	<div class="col-xl-9 col-lg-12 col-md-8 col-sm-12 col-12">
+		<div class="card">
+			<h5 class="card-header">사이트 전체 매출</h5>
+			<figure class="highcharts-figure">
+	    		<div id="container"></div>
+			</figure>
+	</div>
+</div>
 
-<figure class="highcharts-figure">
-    <div id="container"></div>
-</figure>
+
+<div class="col-xl-3 col-lg-12 col-md-4 col-sm-12 col-12">
+	<div class="card">
+		<table class="table">
+		<thead class="bg-light">
+		  <tr class="border-0">
+		    <th>월</th>
+		    <th>금액</th>
+		    <th>판매 수량</th>
+		  </tr>
+	  	</thead>
+		  <c:forEach var="item" items="${totalList}">
+			  <tr>
+			    <td>${item.MONTH }</td>
+			    <td>
+			    	<c:if test="${empty item.TOTAL }">0 원</c:if>
+			    	<c:if test="${!empty item.TOTAL }">
+				    	<fmt:formatNumber value="${item.TOTAL }" pattern="#,###"/> 원
+			    	</c:if>
+		    	</td>
+			    <td>${item.QTY } 건</td>
+			  </tr>
+		  </c:forEach>
+		</table>
+	</div>
+</div>
+
 
 <!-- highchart -->
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -58,6 +95,7 @@ for(var i=0; i<total.length; i++){
 		total[i]=0;
 	}
 }
+var year = ${year};
 
 var salesMonth = total;
 
@@ -66,10 +104,10 @@ Highcharts.chart('container', {
         type: 'line'
     },
     title: {
-        text: '사이트 전체 매출'
+        text: ''
     },
     subtitle: {
-        text: '2021년'
+        text: year+'년'
     },
     xAxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -88,7 +126,7 @@ Highcharts.chart('container', {
         }
     },
     series: [{
-        name: '월별 매출',
+        name: '월간 매출',
         data: salesMonth
     }]
 });

@@ -33,6 +33,7 @@ public class SalesMngController {
 		
 		
 		List<Map<String, Object>> totalList = salesService.selectMonthSales(year);
+		model.addAttribute("year",year);
 		model.addAttribute("totalList",totalList);
 	}
 }
