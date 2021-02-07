@@ -58,7 +58,6 @@ for(var i=0; i<total.length; i++){
 	if(total[i]==null){
 		total[i]=0;
 	}
-	alert(total[i]);
 }
 
 var salesMonth = total;
