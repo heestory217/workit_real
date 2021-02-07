@@ -101,6 +101,12 @@ public class OrdersServiceImpl implements OrdersService{
 	public Map<String, Object> selectOrderdetailsDelRVView(int orderNo) {
 		return ordersDao.selectOrderdetailsDelRVView(orderNo);
 	}
+	
+	//주문완료 - 광고
+	@Override
+	public Map<String, Object> selectOrderdetailsADView(int orderNo) {
+		return ordersDao.selectOrderdetailsADView(orderNo);
+	}
 
 	@Override
 	public OrdersVO selectOrdersByOrderNo(int orderNo) {

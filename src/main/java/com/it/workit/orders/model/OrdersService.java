@@ -27,6 +27,7 @@ public interface OrdersService {
 	//주문완료페이지
 	List<Map<String, Object>> selectOrderdetailsResumeView(int orderNo);
 	Map<String, Object> selectOrderdetailsDelRVView(int orderNo);
+	Map<String, Object> selectOrderdetailsADView(int orderNo);
 
 	OrdersVO selectOrdersByOrderNo(int orderNo);
 

@@ -43,8 +43,6 @@
 		values(#{orderNo},#{paidServiceNo}, #{recruitannounceNo})
 	</insert>
 	
-	
-	
 	<!-- 주문완료 후 상세내역 출력 [1] 이력서-->
 	<select id="selectOrderdetailsResumeView" parameterType="int" resultType="map">
 		select * from OrderdetailsResumeView
@@ -54,6 +52,12 @@
 	<!-- 주문완료 후 상세내역 출력 [2] 기업후기-->
 	<select id="selectOrderdetailsDelRVView" parameterType="int" resultType="map">
 		select * from OrderdetailsDelRVView
+		where order_no=#{orderNo}
+	</select>
+	
+	<!-- 주문완료 후 상세내역 출력 [3] 광고-->
+	<select id="selectOrderdetailsADView" parameterType="int" resultType="map">
+		select * from OrderdetailsADView
 		where order_no=#{orderNo}
 	</select>
 	

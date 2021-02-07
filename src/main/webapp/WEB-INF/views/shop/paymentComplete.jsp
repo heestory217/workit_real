@@ -54,7 +54,7 @@
 											<col style="width:20%;" />
 											<col style="width:10%;" />
 			                   			</c:if>
-			                   			<c:if test="${!empty ReviewMap}">
+			                   			<c:if test="${!empty ReviewMap or !empty AdMap}">
 											<col style="width:20%;" />
 											<col style="width:60%;" />
 											<col style="width:20%;" />
@@ -62,16 +62,21 @@
 									</colgroup>
 			                        <thead>
 			                            <tr>
-			                            	<c:if test="${empty ReviewMap}">
+			                            	<c:if test="${!empty list}">
 				                                <th scope="col">이름</th>
 				                                <th scope="col" class="p-name">이력서 제목</th>
 				                                <th scope="col">직무</th>
 				                                <th scope="col">경력</th>
 				                                <th scope="col">가격</th>
 			                                </c:if>
-				                   			<c:if test="${!empty ReviewMap}">
+				                   			<c:if test="${empty list and empty AdMap and !empty ReviewMap}">
 				                                <th scope="col">서비스명</th>
 				                                <th scope="col">이력서 한줄평</th>
+				                                <th scope="col">가격</th>
+				                   			</c:if>
+				                   			<c:if test="${empty list and empty ReviewMap and !empty AdMap}">
+				                                <th scope="col">서비스명</th>
+				                                <th scope="col">채용공고 제목</th>
 				                                <th scope="col">가격</th>
 				                   			</c:if>
 			                            </tr>
@@ -82,7 +87,7 @@
 										<c:set var="discount" value="0" />
 										<c:set var="totalPrice" value="0" />
 										
-				                        <c:if test="${empty list and empty ReviewMap}">
+				                        <c:if test="${empty list and empty ReviewMap and empty AdMap}">
 											<tr>
 												<td colspan="6" style="padding: 14px 0;">장바구니 내역이 없습니다.</td>
 											</tr>
@@ -110,13 +115,24 @@
 			                            	</c:forEach>
 			                            </c:if>
 			                            
-										<c:if test="${!empty ReviewMap}">
+										<c:if test="${empty list and !empty ReviewMap}">
 				                            <tr>
 				                                <td class="p-price" style="padding: 14px 0;">${ReviewMap['PAIDSERVICE_NAME']}</td>
 				                                <td style="padding: 14px 0;font-weight: unset;color:black;">${ReviewMap['CORPREVIEW_ONELINE']}</td>
 			                                	<td class="p-price" style="padding: 14px 0;">
 				                                	<fmt:formatNumber value="${ReviewMap['PAIDSERVICE_PRICE']}" pattern="#,###"/>원
 				                                	<c:set var="subTotalPrice" value="${subTotalPrice + ReviewMap['PAIDSERVICE_PRICE']}"/>
+                                				</td>
+				                            </tr>
+			                            </c:if>
+			                            
+										<c:if test="${empty list and !empty AdMap}">
+				                            <tr>
+				                                <td class="p-price" style="padding: 14px 0;">${AdMap['PAIDSERVICE_NAME']}</td>
+				                                <td style="padding: 14px 0;font-weight: unset;color:black;">${AdMap['RECRUITANNOUNCE_TITLE']}</td>
+			                                	<td class="p-price" style="padding: 14px 0;">
+				                                	<fmt:formatNumber value="${AdMap['PAIDSERVICE_PRICE']}" pattern="#,###"/>원
+				                                	<c:set var="subTotalPrice" value="${subTotalPrice + AdMap['PAIDSERVICE_PRICE']}"/>
                                 				</td>
 				                            </tr>
 			                            </c:if>
