@@ -50,20 +50,20 @@
 <div class="influence-profile-content pills-regular">
     <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link" id="pills-campaign-tab" data-toggle="pill" href="#pills-campaign" role="tab" aria-controls="pills-campaign" aria-selected="false">Campaign</a>
+            <a class="nav-link active show" id="pills-campaign-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-campaign" aria-selected="false">리뷰 열람</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active show" id="pills-packages-tab" data-toggle="pill" href="#pills-packages" role="tab" aria-controls="pills-packages" aria-selected="true">Packages</a>
+            <a class="nav-link" id="pills-packages-tab" data-toggle="pill" href="#pills-resume" role="tab" aria-controls="pills-packages" aria-selected="true">이력서 열람</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false">Reviews</a>
+            <a class="nav-link" id="pills-review-tab" data-toggle="pill" href="#pills-adv" role="tab" aria-controls="pills-review" aria-selected="false">채용공고 광고</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="pills-msg-tab" data-toggle="pill" href="#pills-msg" role="tab" aria-controls="pills-msg" aria-selected="false">Send Messages</a>
+            <a class="nav-link" id="pills-msg-tab" data-toggle="pill" href="#pills-del" role="tab" aria-controls="pills-msg" aria-selected="false">기업 리뷰 삭제</a>
         </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
-        <div class="tab-pane fade" id="pills-campaign" role="tabpanel" aria-labelledby="pills-campaign-tab">
+        <div class="tab-pane fade active show" id="pills-review" role="tabpanel" aria-labelledby="pills-campaign-tab">
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="section-block">
@@ -240,7 +240,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade active show" id="pills-packages" role="tabpanel" aria-labelledby="pills-packages-tab">
+        <div class="tab-pane fade" id="pills-resume" role="tabpanel" aria-labelledby="pills-packages-tab">
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="section-block">
@@ -317,7 +317,7 @@
                 </div>
             </div>
         </div>
-        <div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
+        <div class="tab-pane fade" id="pills-adv" role="tabpanel" aria-labelledby="pills-review-tab">
             <div class="card">
                 <h5 class="card-header">Campaign Reviews</h5>
                 <div class="card-body">
@@ -396,7 +396,7 @@
                 </ul>
             </nav>
         </div>
-        <div class="tab-pane fade" id="pills-msg" role="tabpanel" aria-labelledby="pills-msg-tab">
+        <div class="tab-pane fade" id="pills-del" role="tabpanel" aria-labelledby="pills-msg-tab">
             <div class="card">
                 <h5 class="card-header">Send Messages</h5>
                 <div class="card-body">
