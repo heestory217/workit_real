@@ -465,6 +465,12 @@ var obj3 = document.getElementById('chart2');
 var obj4 = document.getElementById('chart3');
 var obj5 = document.getElementById('chart4');
 
+var obj10 = document.getElementById('table'); 
+var obj20 = document.getElementById('chart');
+
+var obj10_height = obj10.offsetHeight;
+var obj20_height = obj20.offsetHeight;
+
 var obj1_height = obj1.offsetHeight;
 var obj2_height = obj2.offsetHeight;
 var obj3_height = obj3.offsetHeight;
@@ -480,11 +486,13 @@ function chartResize(){
 	else { obj1.style.height = obj4_height + 'px'; }
 	if(obj1_height > obj5_height) { obj5.style.height = obj1_height + 'px'; }
 	else { obj1.style.height = obj5_height + 'px'; }
+	if(obj10_height > obj20_height) { obj20.style.height = obj10_height + 'px'; }
+	else { obj10.style.height = obj20_height + 'px'; }
 }
 
 window.onload = function() {
 		chartResize();
-		//window.onresize = function(event) { console.log('Resizing...'), chartResize(); };
+		window.onresize = function(event) { console.log('Resizing...'), chartResize(); };
 	}
 </script>
 <!-- highchart -->

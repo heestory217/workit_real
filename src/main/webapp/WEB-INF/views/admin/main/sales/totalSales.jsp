@@ -135,21 +135,21 @@ Highcharts.chart('container', {
     }]
 });
 
+/*
+var obj10 = document.getElementById('table'); 
+var obj20 = document.getElementById('chart');
 
-var obj1 = document.getElementById('table'); 
-var obj2 = document.getElementById('chart');
-
-var obj1_height = obj1.offsetHeight;
-var obj2_height = obj2.offsetHeight;
+var obj10_height = obj10.offsetHeight;
+var obj20_height = obj20.offsetHeight;
 
 function chartResize(){
-	if(obj1_height > obj2_height) { obj2.style.height = obj1_height + 'px'; }
-	else { obj1.style.height = obj2_height + 'px'; }
+	if(obj10_height > obj20_height) { obj20.style.height = obj10_height + 'px'; }
+	else { obj10.style.height = obj20_height + 'px'; }
 }
 
 window.onload = function() {
 		chartResize();
-		//window.onresize = function(event) { console.log('Resizing...'), chartResize(); };
+		window.onresize = function(event) { console.log('Resizing...'), chartResize(); };
 	}
-
+*/
 </script>
