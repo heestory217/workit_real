@@ -169,4 +169,9 @@
 		]]>
 	</select>
 	
+	<select id="totalPay" resultType="int">
+		select sum(order_pay)
+		from orders
+	</select>
+	
 </mapper>
