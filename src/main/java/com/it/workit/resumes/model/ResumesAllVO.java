@@ -10,7 +10,16 @@ public class ResumesAllVO {
 	private String userExperience;
 	private List<LanguageListView> langList;
 	private List<AreaListView> areaList;
+	private int buyChk;
 	
+	public int getBuyChk() {
+		return buyChk;
+	}
+
+	public void setBuyChk(int buyChk) {
+		this.buyChk = buyChk;
+	}
+
 	public List<AreaListView> getAreaList() {
 		return areaList;
 	}
@@ -46,7 +55,7 @@ public class ResumesAllVO {
 	@Override
 	public String toString() {
 		return "ResumesAllVO [resumesVo=" + resumesVo + ", userExperience=" + userExperience + ", langList=" + langList
-				+ ", areaList=" + areaList + "]";
+				+ ", areaList=" + areaList + ", buyChk=" + buyChk + "]";
 	}
 	
 }

@@ -8,7 +8,7 @@
     min-width: 360px; 
     width: 75%;
     margin: 0 auto;
-    height:469px;
+    height:465px;
 }
 
 .highcharts-data-table table {
@@ -44,12 +44,12 @@
 }
 
 </style>
-	<div class="col-xl-9 col-lg-12 col-md-8 col-sm-12 col-12">
-		<div class="card">
-			<h5 class="card-header">사이트 전체 매출</h5>
-			<figure class="highcharts-figure">
-	    		<div id="container"></div>
-			</figure>
+<div class="col-xl-9 col-lg-12 col-md-8 col-sm-12 col-12">
+	<div class="card">
+		<h5 class="card-header">사이트 전체 매출</h5>
+		<figure class="highcharts-figure">
+    		<div id="container"></div>
+		</figure>
 	</div>
 </div>
 
@@ -57,23 +57,28 @@
 <div class="col-xl-3 col-lg-12 col-md-4 col-sm-12 col-12">
 	<div class="card">
 		<table class="table">
+			<colgroup>
+				<col width="20%">
+				<col width="30%">
+				<col width="50%">
+			</colgroup>
 		<thead class="bg-light">
 		  <tr class="border-0">
 		    <th>월</th>
-		    <th>금액</th>
 		    <th>판매 수량</th>
+		    <th>금액</th>
 		  </tr>
 	  	</thead>
 		  <c:forEach var="item" items="${totalList}">
 			  <tr>
 			    <td>${item.MONTH }</td>
+			    <td>${item.QTY } 건</td>
 			    <td>
 			    	<c:if test="${empty item.TOTAL }">0 원</c:if>
 			    	<c:if test="${!empty item.TOTAL }">
 				    	<fmt:formatNumber value="${item.TOTAL }" pattern="#,###"/> 원
 			    	</c:if>
 		    	</td>
-			    <td>${item.QTY } 건</td>
 			  </tr>
 		  </c:forEach>
 		</table>

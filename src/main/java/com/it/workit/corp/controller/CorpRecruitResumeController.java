@@ -21,6 +21,7 @@ import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.LanguageListView;
 import com.it.workit.corpsearch.model.CorpSearchService;
 import com.it.workit.corpsearch.model.MatchSearchVO;
+import com.it.workit.orders.model.OrdersService;
 import com.it.workit.recruit.model.RecruitannounceService;
 import com.it.workit.recruit.model.RecruitannounceVO;
 import com.it.workit.resumes.model.ResumesAllVO;
@@ -36,9 +37,9 @@ public class CorpRecruitResumeController {
 	
 	@Autowired private CorpService corpService;
 	@Autowired private RecruitannounceService reService;
-	@Autowired private CorpSearchService searchService;
 	@Autowired private ResumesService resumeService;
 	@Autowired private UsersService userSerivce;
+	@Autowired private OrdersService orderService;
 	
 	@RequestMapping("/CorpRecruitResume.do")
 	public String CorpRecruitResume(HttpSession session, Model model) {
@@ -85,6 +86,7 @@ public class CorpRecruitResumeController {
 		
 		List<MatchSearchVO> mList = new ArrayList<MatchSearchVO>();
 		
+		//채용공고의 조건을 찾음
 		for(RecruitannounceVO vo : rlist) {
 			MatchSearchVO mVo = new MatchSearchVO();
 			mVo.setAreaNo(vo.getArealistNo());
@@ -106,10 +108,25 @@ public class CorpRecruitResumeController {
 		
 		//매칭된 이력서 번호를 넣어서 해당 이력서의 상세 정보 
 		List<ResumesAllVO> resumeList=resumeService.searchResumeByNo(matchList);
+		
+		//구매한 이력서인지 체크
+		List<Map<String, Object>> buyingList = orderService.selectPurchasedResume(userNo);
+		logger.info("구매이력서 내역 size={}",buyingList.size());
+		
 		// 언어리스트+경력 검색
 		logger.info("이력서 번호로 조회한 이력서 리스트의 갯수 : {}",resumeList.size());
 		for(ResumesAllVO vo : resumeList) {
 			int resumeNo=vo.getResumesVo().getResumeNo();
+			
+			if(!buyingList.isEmpty()) {
+				for(int i=0; i<buyingList.size(); i++) {
+					int buyingNo=Integer.parseInt(String.valueOf(buyingList.get(i).get("RESUME_NO")));
+					if(buyingNo==resumeNo) {
+						vo.setBuyChk(1);
+					}
+				}
+			}
+			
 			List<LanguageListView> langList = corpService.selectLanguageList(resumeNo);
 			int userNoForResume=vo.getResumesVo().getUserNo();
 			UsersVO userVo = userSerivce.selectByUserNo(userNoForResume);

@@ -173,4 +173,31 @@
 		]]>
 	</select>
 	
+	<select id="selectPurchasedResumeByUserNo" parameterType="int" resultType="map">
+		select resume_no from OrderdetailsResumeView
+		where ORDER_NO in (select ORDER_NO from orders where user_no=#{userNo})
+		order by ORDER_NO desc
+	</select>
+	
+	<select id="selectPurchasedResumeCount" parameterType="ShoppingCartVO" resultType="int">
+		select count(*) from OrderdetailsResumeView
+		where ORDER_NO in (select ORDER_NO from orders where user_no=#{userNo} and resume_no=#{resumeNo})
+	</select>
+	
+	<select id="selectCompanyPaymentListByUserno" parameterType="int" resultType="ordersCorpPayVO">
+		select * from
+			(
+			    select A.*, rownum as RNUM
+			    from
+			    (
+			        select a.ORDER_NO, a.ORDER_PAY , (select b.PAIDSERVICE_NAME from PAIDSERVICE b 
+					where b.PAIDSERVICE_NO in (select c.PAIDSERVICE_NO from ORDERDETAILAD c where c.ORDER_NO in a.ORDER_NO) 
+					or b.PAIDSERVICE_NO in (select d.PAIDSERVICE_NO from ORDERDETAILRESUME d where d.ORDER_NO in a.ORDER_NO) 
+					or b.PAIDSERVICE_NO in (select e.PAIDSERVICE_NO from ORDERDETAILDELRV e where e.ORDER_NO in a.ORDER_NO)) as pay_name , a.ORDER_PAYKIND, a.ORDER_DATE from ORDERS a
+					where user_no=#{userNo}
+					order by a.ORDER_DATE desc
+			    )A
+			)
+	</select>
+	
 </mapper>
