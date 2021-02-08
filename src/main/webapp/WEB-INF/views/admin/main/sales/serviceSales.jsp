@@ -41,6 +41,15 @@
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
+
+.card table thead tr th, .card table tbody tr td{
+	text-align : center;
+}
+
+.card table tbody tr td:last-child{
+	text-align : right;
+}
+
 </style>
 <div class="col-xl-12 col-lg-12 col-md-8 col-sm-12 col-12">
 	<div class="card" >
