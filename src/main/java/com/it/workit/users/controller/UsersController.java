@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.language.model.LanguageVO;
+import com.it.workit.manage.model.ManageService;
 import com.it.workit.orders.model.OrdersService;
 import com.it.workit.users.model.UsersService;
 import com.it.workit.users.model.UsersVO;
@@ -36,6 +37,7 @@ public class UsersController {
 
 	@Autowired private UsersService usersService;
 	@Autowired private OrdersService ordersService;
+	@Autowired private ManageService manageService;
 
 	@RequestMapping("/register.do")
 	public String register() {
@@ -206,6 +208,9 @@ public class UsersController {
 		avx[0]=result2;
 
 		if(result==UsersService.LOGIN_OK) {
+			manageService.updateTotalCount();	//로그인 성공시 전체 방문자수 +1처리 (은별)
+			logger.info("전체 방문자수 업데이트");
+			
 			UsersVO vo = usersService.selectByUserId(userId);
 
 			int kind=usersService.userkindcheck(userId);
