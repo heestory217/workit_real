@@ -40,7 +40,7 @@
 		        		select a.*, r.RECRUITANNOUNCE_TITLE, r.RECRUITANNOUNCE_SWORKKIND, r.RECRUITANNOUNCE_SPAY
                         from APPLICANTLIST a join RECRUITANNOUNCE r
                         on a.RECRUITANNOUNCE_NO=r.RECRUITANNOUNCE_NO
-                        where APPLICANTLIST_PAPERCHECK=3 and a.USER_NO=${userNo}
+                        where APPLICANTLIST_PAPERCHECK=3 and a.USER_NO=#{userNo}
                         order by APPLICANTLIST_NO desc
 		    )A
 		)
@@ -69,7 +69,7 @@
 		        		select a.*, r.RECRUITANNOUNCE_TITLE, r.RECRUITANNOUNCE_SWORKKIND, r.RECRUITANNOUNCE_SPAY
                         from APPLICANTLIST a join RECRUITANNOUNCE r
                         on a.RECRUITANNOUNCE_NO=r.RECRUITANNOUNCE_NO
-                        where APPLICANTLIST_PAPERCHECK=1 and a.USER_NO=${userNo}
+                        where APPLICANTLIST_PAPERCHECK=1 and a.USER_NO=#{userNo}
                         order by APPLICANTLIST_NO desc
 		    )A
 		)
@@ -90,7 +90,7 @@
 		        		select a.*, r.RECRUITANNOUNCE_TITLE, r.RECRUITANNOUNCE_SWORKKIND, r.RECRUITANNOUNCE_SPAY
                         from APPLICANTLIST a join RECRUITANNOUNCE r
                         on a.RECRUITANNOUNCE_NO=r.RECRUITANNOUNCE_NO
-                        where APPLICANTLIST_PAPERCHECK=2 and a.USER_NO=${userNo}
+                        where APPLICANTLIST_PAPERCHECK=2 and a.USER_NO=#{userNo}
                         order by APPLICANTLIST_NO desc
 		    )A
 		)
@@ -98,5 +98,35 @@
 		where RNUM > #{firstRecordIndex} 
 		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 		]]>
+	</select>
+	
+	<!-- 기업회원이 올린 여러 채용공고 지원자 전체 목록 보기 -->
+	<select id="selectAllApplicantFromCorp" parameterType="int" resultType="applicantlistVo">
+		select * from applicantlist
+		where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo})
+		order by APPLICANTLIST_NO desc
+	</select>
+	
+	<!-- 기업회원이 올린 여러 채용공고 지원자 전체 목록 보기[2] : 페이지 보기 위해 VIEW 조회 -->
+	<select id="selectAllApplicantView" parameterType="int" resultType="map">
+		select r.RECRUITANNOUNCE_TITLE, r.RECRUITANNOUNCE_SWORKKIND, 
+		    a.*, (select RESUME_TITLE from RESUMES where RESUME_NO=a.RESUME_NO) AS RESUME_TITLE
+		from APPLICANTLIST a join RECRUITANNOUNCE r
+		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
+		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
+		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+		order by APPLICANTLIST_DATE desc
+	</select>
+	
+	<!-- 기업회원이 지원자 이력서 읽음 -->	
+	<update id="updateReadCount" parameterType="int">
+		update APPLICANTLIST
+		set RESUME_READFLAG=1
+		where APPLICANTLIST_NO=#{applicantlistNo}
+	</update>
+	
+	<!-- 개별 지원 레코드 보기 -->	
+	<select id="selectOneApplication" parameterType="int" resultType="applicantlistVo">
+		select * from APPLICANTLIST where APPLICANTLIST_NO=#{applicantlistNo}
 	</select>
 </mapper>
