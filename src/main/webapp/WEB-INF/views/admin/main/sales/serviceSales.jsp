@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style>
 .highcharts-figure, .highcharts-data-table table {
     min-width: 310px; 
@@ -39,10 +42,6 @@
     background: #f1f7ff;
 }
 </style>
-${reviewList }
-${adList }
-${delList }
-${resumeList }
 <div class="col-xl-12 col-lg-12 col-md-8 col-sm-12 col-12">
 	<div class="card">
 		<h5 class="card-header">서비스별 월간 매출</h5>
@@ -69,379 +68,198 @@ ${resumeList }
         </li>
     </ul>
     <div class="tab-content" id="pills-tabContent">
+	     <!-- 기업 리뷰 열람 서비스  -->
+	     <!-- 기업 리뷰 열람 서비스  -->
+	     <!-- 기업 리뷰 열람 서비스  -->
         <div class="tab-pane fade active show" id="pills-review" role="tabpanel" aria-labelledby="pills-campaign-tab">
             <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="section-block">
-                        <h3 class="section-title">My Campaign State</h3>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12 col-12">
                     <div class="card">
-                        <div class="card-body">
-                            <h1 class="mb-1">9</h1>
-                            <p>Campaign Invitations</p>
-                        </div>
+                        <h5 class="card-header">건별 매출</h5>
+							<figure class="highcharts-figure">
+					    		<div id="reviewContainer"></div>
+							</figure>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h1 class="mb-1">35</h1>
-                            <p>Finished Campaigns</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h1 class="mb-1">8</h1>
-                            <p>Accepted Campaigns</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h1 class="mb-1">1</h1>
-                            <p>Declined Campaigns</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="section-block">
-                <h3 class="section-title">Campaign List</h3>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="media influencer-profile-data d-flex align-items-center p-2">
-                                <div class="mr-4">
-                                    <img src="assets/images/slack.png" alt="User Avatar" class="user-avatar-lg">
-                                </div>
-                                <div class="media-body ">
-                                    <div class="influencer-profile-data">
-                                        <h3 class="m-b-10">Your Campaign Title Here</h3>
-                                        <p>
-                                            <span class="m-r-20 d-inline-block">Draft Due Date
-                                                <span class="m-l-10 text-primary">24 Jan 2018</span>
-                                            </span>
-                                            <span class="m-r-20 d-inline-block"> Publish Date
-                                                <span class="m-l-10 text-secondary">30 Feb 2018</span>
-                                            </span>
-                                                <span class="m-r-20 d-inline-block">Ends <span class="m-l-10  text-info">30 May, 2018</span>
-                                            </span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-top card-footer p-0">
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0">45k</h4>
-                        <p>Total Reach</p>
-                    </div>
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0">29k</h4>
-                        <p>Total Views</p>
-                    </div>
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0">5k</h4>
-                        <p>Total Click</p>
-                    </div>
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0">4k</h4>
-                        <p>Engagement</p>
-                    </div>
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0">2k</h4>
-                        <p>Conversion</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="media influencer-profile-data d-flex align-items-center p-2">
-                                <div class="mr-4">
-                                    <img src="assets/images/dribbble.png" alt="User Avatar" class="rounded-circle user-avatar-lg">
-                                </div>
-                                <div class="media-body">
-                                     <h3 class="m-b-10">Your Campaign Title Here</h3>
-                                    <p><span class="m-r-20 d-inline-block">Draft Due Date<span class="m-l-10 d-inline-block text-primary">28 Jan 2018</span></span><span class="m-r-20 d-inline-block"> Publish Date<span class="m-l-10 text-secondary">20 March 2018</span></span><span class="m-r-20">Ends<span class="m-l-10 text-info">10 July, 2018</span></span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-top card-footer p-0">
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0 ">35k</h4>
-                        <p>Total Reach</p>
-                    </div>
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0 ">45k</h4>
-                        <p>Total Views</p>
-                    </div>
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0">8k</h4>
-                        <p>Total Click</p>
-                    </div>
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0 ">10k</h4>
-                        <p>Engagement</p>
-                    </div>
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0">3k</h4>
-                        <p>Conversion</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="media influencer-profile-data d-flex align-items-center p-2">
-                                <div class="mr-4">
-                                    <img src="assets/images/dropbox.png" alt="User Avatar" class="user-avatar-lg">
-                                </div>
-                                <div class="media-body">
-                                      <h3 class="m-b-10">Your Campaign Title Here</h3>
-                                    <p><span class="m-r-20 d-inline-block">Draft Due Date
-                                        <span class="m-l-10 text-primary">05 Feb 2018</span></span>
-                                        <span class="m-r-20 d-inline-block"> Publish Date
-                                            <span class="m-l-10 text-secondary">14 May 2018</span></span><span class="m-r-20 d-inline-block">Ends<span class="m-l-10 text-info">16 Aug, 2018</span></span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="border-top card-footer p-0">
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0">40k</h4>
-                        <p>Total Reach</p>
-                    </div>
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0 ">35k</h4>
-                        <p>Total Views</p>
-                    </div>
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0">5k</h4>
-                        <p>Total Click</p>
-                    </div>
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0">15k</h4>
-                        <p>Engagement</p>
-                    </div>
-                    <div class="campaign-metrics d-xl-inline-block">
-                        <h4 class="mb-0">14k</h4>
-                        <p>Conversion</p>
-                    </div>
-                </div>
+                <div class="col-xl-3 col-lg-12 col-md-4 col-sm-12 col-12">
+					<div class="card">
+						<table class="table">
+							<colgroup>
+								<col width="20%">
+								<col width="30%">
+								<col width="50%">
+							</colgroup>
+							<thead class="bg-light">
+							  <tr class="border-0">
+							    <th>월</th>
+							    <th>판매 수량</th>
+							    <th>금액</th>
+							  </tr>
+						  	</thead>
+						  	<c:forEach var="reviews" items="${reviewList}">
+							  	<tr>
+							  		<td>${reviews.MONTH}</td>
+							  		<td>${reviews.QTY} 건</td>
+							  		<td><fmt:formatNumber value="${reviews.TOTAL}" pattern="#,###"/> 원</td>
+							  	</tr>
+						  	</c:forEach>
+                		</table>
+                	</div>
+             	</div>
             </div>
         </div>
+        
+        
+        <!-- 이력서 열람 서비스  -->
+        <!-- 이력서 열람 서비스  -->
+        <!-- 이력서 열람 서비스  -->
         <div class="tab-pane fade" id="pills-resume" role="tabpanel" aria-labelledby="pills-packages-tab">
             <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="section-block">
-                        <h2 class="section-title">My Packages</h2>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                  <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12 col-12">
                     <div class="card">
-                        <div class="card-header bg-primary text-center p-3 ">
-                            <h4 class="mb-0 text-white"> Basic</h4>
-                        </div>
-                        <div class="card-body text-center">
-                            <h1 class="mb-1">$150</h1>
-                            <p>Per Month Plateform</p>
-                        </div>
-                        <div class="card-body border-top">
-                            <ul class="list-unstyled bullet-check font-14">
-                                <li>Facebook, Instagram, Pinterest,Snapchat.</li>
-                                <li>Guaranteed follower growth for increas brand awareness.</li>
-                                <li>Daily updates on choose platforms</li>
-                                <li>Stronger customer service through daily interaction</li>
-                                <li>Monthly progress report</li>
-                                <li>1 Million Followers</li>
-                            </ul>
-                            <a href="#" class="btn btn-outline-secondary btn-block btn-lg">Get Started</a>
-                        </div>
+                        <h5 class="card-header">건별 매출</h5>
+							<figure class="highcharts-figure">
+					    		<div id="resumeContainer"></div>
+							</figure>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="card">
-                        <div class="card-header bg-info text-center p-3">
-                            <h4 class="mb-0 text-white"> Standard</h4>
-                        </div>
-                        <div class="card-body text-center">
-                            <h1 class="mb-1">$350</h1>
-                            <p>Per Month Plateform</p>
-                        </div>
-                        <div class="card-body border-top">
-                            <ul class="list-unstyled bullet-check font-14">
-                                <li>Facebook, Instagram, Pinterest,Snapchat.</li>
-                                <li>Guaranteed follower growth for increas brand awareness.</li>
-                                <li>Daily updates on choose platforms</li>
-                                <li>Stronger customer service through daily interaction</li>
-                                <li>Monthly progress report</li>
-                                <li>2 Blog Post &amp; 3 Social Post</li>
-                                <li>5 Millions Followers</li>
-                                <li>Growth Result</li>
-                            </ul>
-                            <a href="#" class="btn btn-secondary btn-block btn-lg">Get Started</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                    <div class="card">
-                        <div class="card-header bg-primary text-center p-3">
-                            <h4 class="mb-0 text-white">Premium</h4>
-                        </div>
-                        <div class="card-body text-center">
-                            <h1 class="mb-1">$550</h1>
-                            <p>Per Month Plateform</p>
-                        </div>
-                        <div class="card-body border-top">
-                            <ul class="list-unstyled bullet-check font-14">
-                                <li>Facebook, Instagram, Pinterest,Snapchat.</li>
-                                <li>Guaranteed follower growth for increas brand awareness.</li>
-                                <li>Daily updates on choose platforms</li>
-                                <li>Stronger customer service through daily interaction</li>
-                                <li>Monthly progress report &amp; Growth Result</li>
-                                <li>4 Blog Post &amp; 6 Social Post</li>
-                            </ul>
-                            <a href="#" class="btn btn-secondary btn-block btn-lg">Contact us</a>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-xl-3 col-lg-12 col-md-4 col-sm-12 col-12">
+					<div class="card">
+						<table class="table">
+							<colgroup>
+								<col width="20%">
+								<col width="30%">
+								<col width="50%">
+							</colgroup>
+							<thead class="bg-light">
+							  <tr class="border-0">
+							    <th>월</th>
+							    <th>판매 수량</th>
+							    <th>금액</th>
+							  </tr>
+						  	</thead>
+						  	<c:forEach var="resumes" items="${resumeList}">
+							  	<tr>
+							  		<td>${resumes.MONTH}</td>
+							  		<td>${resumes.QTY} 건</td>
+							  		<td><fmt:formatNumber value="${resumes.TOTAL}" pattern="#,###"/> 원</td>
+							  	</tr>
+						  	</c:forEach>
+                		</table>
+                	</div>
+             	</div>
             </div>
         </div>
+
+		<!-- 광고  서비스  -->
+		<!-- 광고  서비스  -->
+		<!-- 광고  서비스  -->
         <div class="tab-pane fade" id="pills-adv" role="tabpanel" aria-labelledby="pills-review-tab">
-            <div class="card">
-                <h5 class="card-header">Campaign Reviews</h5>
-                <div class="card-body">
-                    <div class="review-block">
-                        <p class="review-text font-italic m-0">“Quisque lobortis vestibulum elit, vel fermentum elit pretium et. Nullam id ultrices odio. Cras id nulla mollis, molestie diam eu, facilisis tortor. Mauris ultrices lectus laoreet commodo hendrerit. Nullam varius arcu sed aliquam imperdiet. Etiam ut luctus augue.”</p>
-                        <div class="rating-star mb-4">
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                        </div>
-                        <span class="text-dark font-weight-bold">Tabitha C. Campbell</span><small class="text-mute"> (Company name)</small>
+            <div class="row">
+                  <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">건별 매출</h5>
+							<figure class="highcharts-figure">
+					    		<div id="adContainer"></div>
+							</figure>
                     </div>
                 </div>
-                <div class="card-body border-top">
-                    <div class="review-block">
-                        <p class="review-text font-italic m-0">“Maecenas rutrum viverra augue. Nulla in eros vitae ante ullamcorper congue. Praesent tristique massa ac arcu dapibus tincidunt. Mauris arcu mi, lacinia et ipsum vel, sollicitudin laoreet risus.”</p>
-                        <div class="rating-star mb-4">
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                        </div>
-                        <span class="text-dark font-weight-bold">Luise M. Michet</span><small class="text-mute"> (Company name)</small>
-                    </div>
-                </div>
-                <div class="card-body border-top">
-                    <div class="review-block">
-                        <p class="review-text font-italic m-0">“ Cras non rutrum neque. Sed lacinia ex elit, vel viverra nisl faucibus eu. Aenean faucibus neque vestibulum condimentum maximus. In id porttitor nisi. Quisque sit amet commodo arcu, cursus pharetra elit. Nam tincidunt lobortis augueat euismod ante sodales non. ”</p>
-                        <div class="rating-star mb-4">
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                        </div>
-                        <span class="text-dark font-weight-bold">Gloria S. Castillo</span><small class="text-mute"> (Company name)</small>
-                    </div>
-                </div>
-                <div class="card-body border-top">
-                    <div class="review-block">
-                        <p class="review-text font-italic m-0">“Vestibulum cursus felis vel arcu convallis, viverra commodo felis bibendum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin non auctor est, sed lacinia velit. Orci varius natoque penatibus et magnis dis parturient montes nascetur ridiculus mus.”</p>
-                        <div class="rating-star mb-4">
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                        </div>
-                        <span class="text-dark font-weight-bold">Virgina G. Lightfoot</span><small class="text-mute"> (Company name)</small>
-                    </div>
-                </div>
-                <div class="card-body border-top">
-                    <div class="review-block">
-                        <p class="review-text font-italic m-0">“Integer pretium laoreet mi ultrices tincidunt. Suspendisse eget risus nec sapien malesuada ullamcorper eu ac sapien. Maecenas nulla orci, varius ac tincidunt non, ornare a sem. Aliquam sed massa volutpat, aliquet nibh sit amet, tincidunt ex. Donec interdum pharetra dignissim.”</p>
-                        <div class="rating-star mb-4">
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                            <i class="fa fa-fw fa-star"></i>
-                        </div>
-                        <span class="text-dark font-weight-bold">Ruby B. Matheny</span><small class="text-mute"> (Company name)</small>
-                    </div>
-                </div>
+                <div class="col-xl-3 col-lg-12 col-md-4 col-sm-12 col-12">
+					<div class="card">
+						<table class="table">
+							<colgroup>
+								<col width="20%">
+								<col width="50%">
+								<col width="30%">
+							</colgroup>
+							<thead class="bg-light">
+							  <tr class="border-0">
+							    <th>월</th>
+							    <th>금액</th>
+							    <th>판매 수량</th>
+							  </tr>
+						  	</thead>
+						  	<c:forEach var="ads" items="${adList}">
+							  	<tr>
+							  		<td>${ads.MONTH}</td>
+							  		<td>${ads.QTY} 건</td>
+							  		<td><fmt:formatNumber value="${ads.TOTAL}" pattern="#,###"/> 원</td>
+							  	</tr>
+						  	</c:forEach>
+                		</table>
+                	</div>
+             	</div>
             </div>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active"><a class="page-link " href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
         </div>
+        
+       	<!-- 리뷰 삭제  서비스  -->
+       	<!-- 리뷰 삭제  서비스  -->
+       	<!-- 리뷰 삭제  서비스  -->
         <div class="tab-pane fade" id="pills-del" role="tabpanel" aria-labelledby="pills-msg-tab">
-            <div class="card">
-                <h5 class="card-header">Send Messages</h5>
-                <div class="card-body">
-                    <form>
-                        <div class="row">
-                            <div class="offset-xl-3 col-xl-6 offset-lg-3 col-lg-3 col-md-12 col-sm-12 col-12 p-4">
-                                <div class="form-group">
-                                    <label for="name">Your Name</label>
-                                    <input type="text" class="form-control form-control-lg" id="name" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Your Email</label>
-                                    <input type="email" class="form-control form-control-lg" id="email" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                    <label for="subject">Subject</label>
-                                    <input type="text" class="form-control form-control-lg" id="subject" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                    <label for="messages">Messgaes</label>
-                                    <textarea class="form-control" id="messages" rows="3"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary float-right">Send Message</button>
-                            </div>
-                        </div>
-                    </form>
+			<div class="row">
+                  <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">건별 매출</h5>
+							<figure class="highcharts-figure">
+					    		<div id="delContainer"></div>
+							</figure>
+                    </div>
                 </div>
+                <div class="col-xl-3 col-lg-12 col-md-4 col-sm-12 col-12">
+					<div class="card">
+						<table class="table">
+							<colgroup>
+								<col width="20%">
+								<col width="50%">
+								<col width="30%">
+							</colgroup>
+							<thead class="bg-light">
+							  <tr class="border-0">
+							    <th>월</th>
+							    <th>금액</th>
+							    <th>판매 수량</th>
+							  </tr>
+						  	</thead>
+						  	<c:forEach var="dels" items="${delList}">
+							  	<tr>
+							  		<td>${dels.MONTH}</td>
+							  		<td>${dels.QTY} 건</td>
+							  		<td><fmt:formatNumber value="${dels.TOTAL}" pattern="#,###"/> 원</td>
+							  	</tr>
+						  	</c:forEach>
+                		</table>
+                	</div>
+             	</div>
             </div>
         </div>
+    
+    	<!-- 리뷰 삭제  서비스끝  -->
     </div>
 </div>
 
-
 <script type="text/javascript">
+var reviewTotal =[${reviewList[0].TOTAL},${reviewList[1].TOTAL},${reviewList[2].TOTAL},${reviewList[3].TOTAL},${reviewList[4].TOTAL},${reviewList[5].TOTAL},${reviewList[6].TOTAL},${reviewList[7].TOTAL},${reviewList[8].TOTAL},${reviewList[9].TOTAL},${reviewList[10].TOTAL},${reviewList[11].TOTAL},${reviewList[12].TOTAL} ];
+var adTotal = [${adList[0].TOTAL},${adList[1].TOTAL},${adList[2].TOTAL},${adList[3].TOTAL},${adList[4].TOTAL},${adList[5].TOTAL},${adList[6].TOTAL},${adList[7].TOTAL},${adList[8].TOTAL},${adList[9].TOTAL},${adList[10].TOTAL},${adList[11].TOTAL},${adList[12].TOTAL}];
+var delTotal = [${delList[0].TOTAL},${delList[1].TOTAL},${delList[2].TOTAL},${delList[3].TOTAL},${delList[4].TOTAL},${delList[5].TOTAL},${delList[6].TOTAL},${delList[7].TOTAL},${delList[8].TOTAL},${delList[9].TOTAL},${delList[10].TOTAL},${delList[11].TOTAL},${delList[12].TOTAL}];
+var resumeTotal = [${resumeList[0].TOTAL},${resumeList[1].TOTAL},${resumeList[2].TOTAL},${resumeList[3].TOTAL},${resumeList[4].TOTAL},${resumeList[5].TOTAL},${resumeList[6].TOTAL},${resumeList[7].TOTAL},${resumeList[8].TOTAL},${resumeList[9].TOTAL},${resumeList[10].TOTAL},${resumeList[11].TOTAL},${resumeList[12].TOTAL}];
 
-var reviewList = [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, null];
-var resumeList = [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3];
-var advList = [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2];
-var delList = [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1];
+var reviewQty =[${reviewList[0].QTY},${reviewList[1].QTY},${reviewList[2].QTY},${reviewList[3].QTY},${reviewList[4].QTY},${reviewList[5].QTY},${reviewList[6].QTY},${reviewList[7].QTY},${reviewList[8].QTY},${reviewList[9].QTY},${reviewList[10].QTY},${reviewList[11].QTY},${reviewList[12].QTY} ];
+var adQty = [${adList[0].QTY},${adList[1].QTY},${adList[2].QTY},${adList[3].QTY},${adList[4].QTY},${adList[5].QTY},${adList[6].QTY},${adList[7].QTY},${adList[8].QTY},${adList[9].QTY},${adList[10].QTY},${adList[11].QTY},${adList[12].QTY}];
+var delQty = [${delList[0].QTY},${delList[1].QTY},${delList[2].QTY},${delList[3].QTY},${delList[4].QTY},${delList[5].QTY},${delList[6].QTY},${delList[7].QTY},${delList[8].QTY},${delList[9].QTY},${delList[10].QTY},${delList[11].QTY},${delList[12].QTY}];
+var resumeQty = [${resumeList[0].QTY},${resumeList[1].QTY},${resumeList[2].QTY},${resumeList[3].QTY},${resumeList[4].QTY},${resumeList[5].QTY},${resumeList[6].QTY},${resumeList[7].QTY},${resumeList[8].QTY},${resumeList[9].QTY},${resumeList[10].QTY},${resumeList[11].QTY},${resumeList[12].QTY}];
+
+//
+/*
+var delTotal = new Array();
+for(var i=0; i<12; i++){
+	var delNum = ${delList[i].TOTAL};
+	if(delNum == null || delNum == 0){
+		delTotal.push(0);
+	}else{
+		delTotal.push('${delList[i].TOTAL}');
+	}
+}
+*/
 
 Highcharts.chart('serviceContainer', {
     chart: {
@@ -473,7 +291,7 @@ Highcharts.chart('serviceContainer', {
     yAxis: {
         min: 0,
         title: {
-            text: '단위 : 만원'
+            text: '단위 : 원'
         }
     },
     tooltip: {
@@ -492,20 +310,152 @@ Highcharts.chart('serviceContainer', {
     },
     series: [{
         name: '리뷰열람',
-        data: reviewList
+        data: reviewTotal
 
     }, {
         name: '이력서열람',
-        data: resumeList
+        data: resumeTotal
 
     }, {
         name: '채용공고광고',
-        data: advList
+        data: adTotal
 
     }, {
         name: '기업리뷰삭제',
-        data: delList
+        data: delTotal
 
+    }]
+});
+
+//이력서 열람 건수
+Highcharts.chart('resumeContainer', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: year+'년'
+    },
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
+        title: {
+            text: '단위 : 건'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
+    },
+    series: [{
+        name: '이력서 열람권 판매 건수',
+        data: resumeQty
+    }]
+});
+
+//기업 리뷰 열람
+Highcharts.chart('reviewContainer', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: year+'년'
+    },
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
+        title: {
+            text: '단위 : 건'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
+    },
+    series: [{
+        name: '기업 리뷰 열람 판매 건수',
+        data: reviewQty
+    }]
+});
+
+//기업 리뷰 삭제
+Highcharts.chart('delContainer', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: year+'년'
+    },
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
+        title: {
+            text: '단위 : 건'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
+    },
+    series: [{
+        name: '기업 리뷰 삭제 판매 건수',
+        data: delQty
+    }]
+});
+
+//광고
+Highcharts.chart('adContainer', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: year+'년'
+    },
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
+        title: {
+            text: '단위 : 건'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
+    },
+    series: [{
+        name: '채용공고 광고권 판매 건수',
+        data: adQty
     }]
 });
 </script>
