@@ -124,4 +124,24 @@ public class UsersServiceImpl implements UsersService{
 		return usersDao.withdrawUsers(userNo);
 	}
 
+	@Override
+	public int selectTotalIndivUsers() {
+		return usersDao.selectTotalIndivUsers();
+	}
+
+	@Override
+	public int selectTotalCorpUsers() {
+		return usersDao.selectTotalCorpUsers();
+	}
+
+	@Override
+	public int selectTotalIndivWithdrawUsers() {
+		return usersDao.selectTotalIndivWithdrawUsers();
+	}
+
+	@Override
+	public int selectTotalCorpWithdrawUsers() {
+		return usersDao.selectTotalCorpWithdrawUsers();
+	}
+
 }

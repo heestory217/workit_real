@@ -151,5 +151,33 @@
 		set user_enddate=sysdate
 		where user_no=#{userNo}
 	</update>
+	
+	<select id="selectTotalIndivUsers" resultType="int">
+		select count(user_no)
+		from users
+		where USER_CORPCHECK=1
+		and USER_ENDDATE is null
+	</select>
+	
+	<select id="selectTotalCorpUsers" resultType="int">
+		select count(user_no)
+		from users
+		where USER_CORPCHECK=2
+		and USER_ENDDATE is null
+	</select>
+	
+	<select id="selectTotalIndivWithdrawUsers" resultType="int">
+		select count(user_no)
+		from users
+		where USER_CORPCHECK=1
+		and USER_ENDDATE is not null
+	</select>
+	
+	<select id="selectTotalCorpWithdrawUsers" resultType="int">
+		select count(user_no)
+		from users
+		where USER_CORPCHECK=2
+		and USER_ENDDATE is not null
+	</select>
 
 </mapper>

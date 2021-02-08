@@ -52,7 +52,7 @@ public class OrdersDAOMybatis implements OrdersDAO{
 	public int insertOrderDetailDelReview(OrderDetailDelRvVO vo) {
 		return sqlSession.insert(namespace+"insertOrderDetailDelReview", vo);
 	}
-	
+
 	//채용공고 광고 주문상세 INSERT
 	@Override
 	public int insertOrderDetailAD(OrderDetailAdVO vo) {
@@ -70,7 +70,7 @@ public class OrdersDAOMybatis implements OrdersDAO{
 	public Map<String, Object> selectOrderdetailsDelRVView(int orderNo) {
 		return sqlSession.selectOne(namespace+"selectOrderdetailsDelRVView", orderNo);
 	}
-	
+
 	//주문완료페이지 - 광고
 	@Override
 	public Map<String, Object> selectOrderdetailsADView(int orderNo) {
@@ -121,6 +121,11 @@ public class OrdersDAOMybatis implements OrdersDAO{
 	@Override
 	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(int userNo) {
 		return sqlSession.selectList(namespace+"selectCompanyPaymentListByUserno",userNo);
+	}
+
+  @Override
+	public int totalPay() {
+			return sqlSession.selectOne(namespace+"totalPay");
 	}
 
 }

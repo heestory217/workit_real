@@ -117,5 +117,25 @@ public class UsersDAOMybatis implements UsersDAO {
 		return sqlSession.update(namespace+"withdrawUsers",userNo);
 	}
 
+	@Override
+	public int selectTotalIndivUsers() {
+		return sqlSession.selectOne(namespace+"selectTotalIndivUsers");
+	}
+
+	@Override
+	public int selectTotalCorpUsers() {
+		return sqlSession.selectOne(namespace+"selectTotalCorpUsers");
+	}
+
+	@Override
+	public int selectTotalIndivWithdrawUsers() {
+		return sqlSession.selectOne(namespace+"selectTotalIndivWithdrawUsers");
+	}
+
+	@Override
+	public int selectTotalCorpWithdrawUsers() {
+		return sqlSession.selectOne(namespace+"selectTotalCorpWithdrawUsers");
+	}
+
 
 }

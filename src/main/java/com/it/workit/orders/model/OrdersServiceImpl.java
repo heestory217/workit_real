@@ -70,7 +70,7 @@ public class OrdersServiceImpl implements OrdersService{
 		cnt = reDao.updateDeleteCheck(rvVo.getCorpreviewNo());	//결제하면 후기삭제 여부 업데이트
 		return cnt;
 	}
-	
+
 	//채용공고 광고 쿠폰
 	@Override
 	@Transactional
@@ -80,7 +80,7 @@ public class OrdersServiceImpl implements OrdersService{
 		cnt = ordersDao.insertOrderDetailAD(adVo);
 		return cnt;
 	}
-	
+
 	//채용공고 광고 쿠폰없음
 	@Override
 	@Transactional
@@ -102,7 +102,7 @@ public class OrdersServiceImpl implements OrdersService{
 	public Map<String, Object> selectOrderdetailsDelRVView(int orderNo) {
 		return ordersDao.selectOrderdetailsDelRVView(orderNo);
 	}
-	
+
 	//주문완료 - 광고
 	@Override
 	public Map<String, Object> selectOrderdetailsADView(int orderNo) {
@@ -152,6 +152,11 @@ public class OrdersServiceImpl implements OrdersService{
 	@Override
 	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(int userNo) {
 		return ordersDao.selectCompanyPaymentByUserno(userNo);
+	}
+
+	@Override
+	public int totalPay() {
+		return ordersDao.totalPay();
 	}
 
 

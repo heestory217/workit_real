@@ -11,7 +11,7 @@
 		insert into orders(ORDER_NO, USER_NO, ORDER_PAYKIND, COUPON_NO, ORDER_DISCOUNT, ORDER_PAY)
 		values(#{orderNo}, #{userNo}, #{orderPaykind}, #{couponNo}, #{orderDiscount}, #{orderPay})
 	</insert>
-	
+
 	<!-- 주문테이블 insert : 쿠폰 사용 없을 경우-->
 	<insert id="insertOrder" parameterType="ordersVo">
 		<selectKey keyProperty="orderNo" resultType="int" order="BEFORE">
@@ -20,51 +20,51 @@
 		insert into orders(ORDER_NO, USER_NO, ORDER_PAYKIND, ORDER_PAY)
 		values(#{orderNo}, #{userNo}, #{orderPaykind}, #{orderPay})
 	</insert>
-	
+
 	<!-- 주문상세[1] 이력서 : 트랜잭션 처리를 위해 update -->
 	<update id="insertOrderDetailResume" parameterType="ordersVo">
 		insert into ORDERDETAILRESUME
 		select #{orderNo} as ORDER_NO,
-		    (select PAIDSERVICE_NO from paidservice 
+		    (select PAIDSERVICE_NO from paidservice
 		        where PAIDSERVICE_NAME like '이력서') as PAIDSERVICE_NO, RESUME_NO
 		from shoppingCart
 		where user_no=#{userNo}
 	</update>
-	
+
 	<!-- 주문상세[2] 기업후기-->
 	<insert id="insertOrderDetailDelReview" parameterType="orderDetailDelRvVO">
 		insert into ORDERDETAILDELRV(ORDER_NO, PAIDSERVICE_NO, CORPREVIEW_NO)
 		values(#{orderNo},#{paidServiceNo}, #{corpreviewNo})
 	</insert>
-	
+
 	<!-- 주문상세[3] 광고결제-->
 	<insert id="insertOrderDetailAD" parameterType="orderDetailAdVO">
 		insert into ORDERDETAILAD(ORDER_NO, PAIDSERVICE_NO, RECRUITANNOUNCE_NO)
 		values(#{orderNo},#{paidServiceNo}, #{recruitannounceNo})
 	</insert>
-	
+
 	<!-- 주문완료 후 상세내역 출력 [1] 이력서-->
 	<select id="selectOrderdetailsResumeView" parameterType="int" resultType="map">
 		select * from OrderdetailsResumeView
 		where order_no=#{orderNo}
 	</select>
-	
+
 	<!-- 주문완료 후 상세내역 출력 [2] 기업후기-->
 	<select id="selectOrderdetailsDelRVView" parameterType="int" resultType="map">
 		select * from OrderdetailsDelRVView
 		where order_no=#{orderNo}
 	</select>
-	
+
 	<!-- 주문완료 후 상세내역 출력 [3] 광고-->
 	<select id="selectOrderdetailsADView" parameterType="int" resultType="map">
 		select * from OrderdetailsADView
 		where order_no=#{orderNo}
 	</select>
-	
+
 	<select id="selectOrdersByOrderNo" parameterType="int" resultType="ordersVo">
 		select * from orders where order_no=#{orderNo}
 	</select>
-	
+
 	<!-- 구매 이력서 검색처리를 위한 WHERE문 -->
 	<sql id="searchWhere">
 		<where>
@@ -79,7 +79,7 @@
 			</if>
 		</where>
 	</sql>
-	
+
 	<!-- 회원이 구입한 전체 이력서 정보 -->
 	<select id="selectPurchasedResume" parameterType="HrmResumePageVO" resultType="map">
 		select *
@@ -97,13 +97,13 @@
 		where RNUM > #{firstRecordIndex} and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 		]]>
 	</select>
-	
+
 	<!-- 이력서 구매 개수 -->
 	<select id="selectTotalResumeRecord" parameterType="HrmResumePageVO" resultType="int">
 		select count(*) from OrderdetailsResumeView
 		<include refid="searchWhere"></include>
 	</select>
-	
+
 	<!-- 개인 마이페이지 결제내역 사용 -->
 <!-- 	<select id="selectIndivPaymentByUserno" parameterType="int" resultType="ordersVo">
 		select a.*, b.PAIDSERVICE_STARTDATE, b.PAIDSERVICE_ENDDATE, c.PAIDSERVICE_NAME
@@ -114,7 +114,7 @@
 		where a.user_no=#{userNo}
 		order by a.ORDER_NO desc
 	</select> -->
-	
+
 	<select id="selectIndivPaymentByUserno" parameterType="indivpagingVo" resultType="ordersVo">
 		select *
 		from
@@ -132,72 +132,77 @@
 		    )A
 		)
 		<![CDATA[
-		where RNUM > #{firstRecordIndex} 
+		where RNUM > #{firstRecordIndex}
 		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 		]]>
 	</select>
-	
+
 	<select id="ordersGetTotalRecord" parameterType="indivpagingVo" resultType="int">
 		select count(*) from orders
 		where user_no=#{userNo}
 	</select>
-	
+
 	<!-- 사용자번호로 사용자가 주문한 후기열람권결제내역 불러오기 -->
 	<select id="selectorderscall" parameterType="int" resultType="Date">
 		select PAIDSERVICE_ENDDATE from ORDERDETAILSEERV where exists (select order_no from orders where user_no=#{userNo})
 	</select>
-	
+
 
 	<select id="ordersGetTotalRecords" parameterType="CompanypagingVO" resultType="int">
 		select count(*) from orders
 		where user_no=#{userNo}
 	</select>
-	
+
 	<select id="selectCompanyPaymentByUserno" parameterType="CompanypagingVO" resultType="OrdersCorpPayVO">
 				select * from
 		(
 		    select A.*, rownum as RNUM
 		    from
 		    (
-		        select a.ORDER_NO, a.ORDER_PAY , (select b.PAIDSERVICE_NAME from PAIDSERVICE b 
-				where b.PAIDSERVICE_NO in (select c.PAIDSERVICE_NO from ORDERDETAILAD c where c.ORDER_NO in a.ORDER_NO) 
-				or b.PAIDSERVICE_NO in (select d.PAIDSERVICE_NO from ORDERDETAILRESUME d where d.ORDER_NO in a.ORDER_NO) 
+		        select a.ORDER_NO, a.ORDER_PAY , (select b.PAIDSERVICE_NAME from PAIDSERVICE b
+				where b.PAIDSERVICE_NO in (select c.PAIDSERVICE_NO from ORDERDETAILAD c where c.ORDER_NO in a.ORDER_NO)
+				or b.PAIDSERVICE_NO in (select d.PAIDSERVICE_NO from ORDERDETAILRESUME d where d.ORDER_NO in a.ORDER_NO)
 				or b.PAIDSERVICE_NO in (select e.PAIDSERVICE_NO from ORDERDETAILDELRV e where e.ORDER_NO in a.ORDER_NO)) as pay_name , a.ORDER_PAYKIND, a.ORDER_DATE from ORDERS a
 				where user_no=#{userNo}
 				order by a.ORDER_DATE desc
 		    )A
 		)
 		<![CDATA[
-		where RNUM > #{firstRecordIndex} 
+		where RNUM > #{firstRecordIndex}
 		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 		]]>
 	</select>
-	
+
 	<select id="selectPurchasedResumeByUserNo" parameterType="int" resultType="map">
 		select resume_no from OrderdetailsResumeView
 		where ORDER_NO in (select ORDER_NO from orders where user_no=#{userNo})
 		order by ORDER_NO desc
 	</select>
-	
+
 	<select id="selectPurchasedResumeCount" parameterType="ShoppingCartVO" resultType="int">
 		select count(*) from OrderdetailsResumeView
 		where ORDER_NO in (select ORDER_NO from orders where user_no=#{userNo} and resume_no=#{resumeNo})
 	</select>
-	
+
 	<select id="selectCompanyPaymentListByUserno" parameterType="int" resultType="ordersCorpPayVO">
 		select * from
 			(
 			    select A.*, rownum as RNUM
 			    from
 			    (
-			        select a.ORDER_NO, a.ORDER_PAY , (select b.PAIDSERVICE_NAME from PAIDSERVICE b 
-					where b.PAIDSERVICE_NO in (select c.PAIDSERVICE_NO from ORDERDETAILAD c where c.ORDER_NO in a.ORDER_NO) 
-					or b.PAIDSERVICE_NO in (select d.PAIDSERVICE_NO from ORDERDETAILRESUME d where d.ORDER_NO in a.ORDER_NO) 
+			        select a.ORDER_NO, a.ORDER_PAY , (select b.PAIDSERVICE_NAME from PAIDSERVICE b
+					where b.PAIDSERVICE_NO in (select c.PAIDSERVICE_NO from ORDERDETAILAD c where c.ORDER_NO in a.ORDER_NO)
+					or b.PAIDSERVICE_NO in (select d.PAIDSERVICE_NO from ORDERDETAILRESUME d where d.ORDER_NO in a.ORDER_NO)
 					or b.PAIDSERVICE_NO in (select e.PAIDSERVICE_NO from ORDERDETAILDELRV e where e.ORDER_NO in a.ORDER_NO)) as pay_name , a.ORDER_PAYKIND, a.ORDER_DATE from ORDERS a
 					where user_no=#{userNo}
 					order by a.ORDER_DATE desc
 			    )A
 			)
 	</select>
-	
+
+	<select id="totalPay" resultType="int">
+		select sum(order_pay)
+		from orders
+	</select>
+
 </mapper>

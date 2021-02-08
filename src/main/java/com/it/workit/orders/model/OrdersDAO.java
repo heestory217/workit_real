@@ -17,7 +17,7 @@ public interface OrdersDAO {
 	//주문
 	int insertOrderWithCoupon(OrdersVO vo);
 	int insertOrder(OrdersVO vo);
-	
+
 	//주문상세 INSERT
 	int insertOrderDetailResume(OrdersVO vo);
 	int insertOrderDetailDelReview(OrderDetailDelRvVO vo);
@@ -42,7 +42,10 @@ public interface OrdersDAO {
 	//구매이력 userNo검색
 	public List<Map<String, Object>> selectPurchasedResume(int userNo);
 	public int selectPurchasedResumeCount(ShoppingCartVO vo);
-	
+
 	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(int userNo);
-	
+
+	//은별, 관리자이용-총결제금액
+	public int totalPay();
+
 }

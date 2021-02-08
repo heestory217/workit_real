@@ -45,5 +45,10 @@ public interface UsersService {
 	public List<UsersVO> selectWithdrawUsersAll(SearchVO searchVo);
 	public int totalWithdrawUsers(SearchVO searchVo);
 	public int withdrawUsers(int userNo);
+	//인원수(개인, 기업)
+	public int selectTotalIndivUsers();
+	public int selectTotalCorpUsers();
+	public int selectTotalIndivWithdrawUsers();
+	public int selectTotalCorpWithdrawUsers();
 	
 }
