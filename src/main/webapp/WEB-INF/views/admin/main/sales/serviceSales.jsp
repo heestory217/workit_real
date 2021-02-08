@@ -169,14 +169,14 @@
 						<table class="table">
 							<colgroup>
 								<col width="20%">
-								<col width="50%">
 								<col width="30%">
+								<col width="50%">
 							</colgroup>
 							<thead class="bg-light">
 							  <tr class="border-0">
 							    <th>월</th>
-							    <th>금액</th>
 							    <th>판매 수량</th>
+							    <th>금액</th>
 							  </tr>
 						  	</thead>
 						  	<c:forEach var="ads" items="${adList}">
@@ -210,14 +210,14 @@
 						<table class="table">
 							<colgroup>
 								<col width="20%">
-								<col width="50%">
 								<col width="30%">
+								<col width="50%">
 							</colgroup>
 							<thead class="bg-light">
 							  <tr class="border-0">
 							    <th>월</th>
-							    <th>금액</th>
 							    <th>판매 수량</th>
+							    <th>금액</th>
 							  </tr>
 						  	</thead>
 						  	<c:forEach var="dels" items="${delList}">
