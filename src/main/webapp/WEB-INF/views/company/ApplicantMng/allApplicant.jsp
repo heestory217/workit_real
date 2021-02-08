@@ -58,18 +58,21 @@
 							<tr>
 								<td class="cart-title">
 									<a href="#"><br><br>
-										<h2 class="center textColorblue">10</h2>
+										<h2 class="center textColorblue">${CountAllApplicant}</h2>
 										<p class="center">전체</p>
 									</a>
 								</td>
+								<c:set var="open" value="0"/>
 								<td class="cart-title"><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=1'/>"><br><br>
-									<h2 class="center textColorblue">6</h2>
+									<h2 class="center textColorblue">${open}</h2>
 									<p class="center">열람</p></a>
 								</td>
+								<c:set var="closed" value="${CountAllApplicant - open}"/>
 								<td class="cart-title"><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=2'/>"><br><br>
-									<h2 class="center textColorblue">4</h2>
+									<h2 class="center textColorblue">${closed}</h2>
 									<p class="center">미열람</p></a>
 								</td>
+								
 							</tr>
 						</table>
 						<table style="border-top: 0;background: whitesmoke;">
@@ -82,13 +85,19 @@
 							</colgroup>
 							<tr>
 								<td style="padding: 10px 0 10px 0;">
-									<p class="center" style="margin: 0 auto;">심사중 <span style="color:#4C50BB;font-weight: 800;">2</span></p>
+									<p class="center" style="margin: 0 auto;">심사중 
+										<span style="color:#4C50BB;font-weight: 800;">${wait}</span>
+									</p>
 								</td>
 								<td style="padding: 10px 0 10px 0;">
-									<p class="center" style="margin: 0 auto;">서류합격 <span style="color:#4C50BB;font-weight: 800;">2</span></p>
+									<p class="center" style="margin: 0 auto;">서류합격 
+										<span style="color:#4C50BB;font-weight: 800;">${pass}</span>
+									</p>
 								</td>
 								<td style="padding: 10px 0 10px 0;">
-									<p class="center" style="margin: 0 auto;">불합격 <span style="color:#4C50BB;font-weight: 800;">2</span></p>
+									<p class="center" style="margin: 0 auto;">불합격 
+										<span style="color:#4C50BB;font-weight: 800;">${fail}</span>
+									</p>
 								</td>
 								<td style="padding: 10px 0 10px 0;">
 									<p class="center" style="margin: 0 auto;">지원취소 <span style="color:#4C50BB;font-weight: 800;">2</span></p>
@@ -125,43 +134,41 @@
                                </tr>
                            </thead>
                            <tbody>
-								<c:if test="${empty list }">
+								<c:if test="${empty applist }">
 	                            	<tr>
 	                            		<td colspan="4"><br><br>
 	                            			<p>요청하신 결과가 없습니다.</p>
 	                            		</td>
 	                            	</tr>
                                </c:if>
-                               <c:if test="${!empty list }">
-	                               	<c:forEach var="vo" items="${list }">
-	                               		<c:forEach var="recruitvo" items="${recruitList }">
-											<tr>
-												<td class="cart-title padding-bottom0"><br>
-													<!-- 제목이 긴 경우 일부만 보여주기 -->
-													<a href="#">
-														<p class="center">
-															<c:if test="${fn:length(recruitvo.recruitannounceTitle)>=18}">
-																${fn:substring(recruitvo.recruitannounceTitle, 0,18) } ...
-															</c:if>
-															<c:if test="${fn:length(recruitvo.recruitannounceTitle)<18}">						
-																${vo.recruitannounceTitle }
-															</c:if>
-														</p>
-													</a>
-												</td>
-												<td class="cart-title padding-bottom0"><br>
-													<p class="center">${recruitvo.recruitannounceSworkkind }</p>
-												</td>
-												<td class="cart-title padding-bottom0"><br>
-													<p class="center">이력서제목넣기!</p>
-												</td>
-												<td class="cart-title padding-bottom0"><br>
+                               <c:if test="${!empty applist }">
+	                               	<c:forEach var="map" items="${applist }">
+										<tr>
+											<td class="cart-title padding-bottom0"><br>
+												<!-- 제목이 긴 경우 일부만 보여주기 -->
+												<a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${map["RESUME_NO"]}'/>">
 													<p class="center">
-														<fmt:formatDate value="${vo.applicantlistDate }" pattern="yyyy-MM-dd"/>
+														<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])>=18}">
+															${fn:substring(map['RECRUITANNOUNCE_TITLE'], 0,18) } ...
+														</c:if>
+														<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])<18}">						
+															${map['RECRUITANNOUNCE_TITLE']}
+														</c:if>
 													</p>
-												</td>
-											</tr>
-										</c:forEach>
+												</a>
+											</td>
+											<td class="cart-title padding-bottom0"><br>
+												<p class="center">${map['RECRUITANNOUNCE_SWORKKIND']}</p>
+											</td>
+											<td class="cart-title padding-bottom0"><br>
+												<p class="center">${map['RESUME_TITLE']}</p>
+											</td>
+											<td class="cart-title padding-bottom0"><br>
+												<p class="center">
+													<fmt:formatDate value="${map['APPLICANTLIST_DATE']}" pattern="yyyy-MM-dd"/>
+												</p>
+											</td>
+										</tr>
 									</c:forEach>
 								</c:if>
 							</tbody>

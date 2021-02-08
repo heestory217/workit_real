@@ -1,6 +1,7 @@
 package com.it.workit.applicant.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,5 +51,10 @@ public class ApplicantServiceImpl implements ApplicantService{
 	@Override
 	public List<ApplicantlistVO> selectAllApplicantFromCorp(int userNo) {
 		return applicantDao.selectAllApplicantFromCorp(userNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllApplicantView(int userNo) {
+		return applicantDao.selectAllApplicantView(userNo);
 	}
 }

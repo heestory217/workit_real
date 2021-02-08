@@ -1,6 +1,7 @@
 package com.it.workit.applicant.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,10 @@ public class ApplicantDAOMybatis implements ApplicantDAO{
 	@Override
 	public List<ApplicantlistVO> selectAllApplicantFromCorp(int userNo) {
 		return sqlSession.selectList(namespace+"selectAllApplicantFromCorp", userNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllApplicantView(int userNo) {
+		return sqlSession.selectList(namespace+"selectAllApplicantView", userNo);
 	}
 }

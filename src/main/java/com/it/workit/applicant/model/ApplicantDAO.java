@@ -1,6 +1,7 @@
 package com.it.workit.applicant.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.it.workit.indivMypage.model.IndivpagingVO;
 
@@ -16,5 +17,6 @@ public interface ApplicantDAO {
 	
 	//희정 - 기업 지원자관리
 	public List<ApplicantlistVO> selectAllApplicantFromCorp(int userNo);
+	public List<Map<String, Object>> selectAllApplicantView(int userNo);
 	
 }

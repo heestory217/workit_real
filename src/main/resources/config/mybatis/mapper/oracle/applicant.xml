@@ -106,4 +106,15 @@
 		where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo})
 		order by APPLICANTLIST_NO desc
 	</select>
+	
+	<!-- 기업회원이 올린 여러 채용공고 지원자 전체 목록 보기[2] : 페이지 보기 위해 VIEW 조회 -->
+	<select id="selectAllApplicantView" parameterType="int" resultType="map">
+		select r.RECRUITANNOUNCE_TITLE, r.RECRUITANNOUNCE_SWORKKIND, 
+		    a.*, (select RESUME_TITLE from RESUMES where RESUME_NO=a.RESUME_NO) AS RESUME_TITLE
+		from APPLICANTLIST a join RECRUITANNOUNCE r
+		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
+		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
+		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+		order by APPLICANTLIST_DATE desc
+	</select>
 </mapper>
