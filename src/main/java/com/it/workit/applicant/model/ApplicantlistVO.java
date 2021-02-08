@@ -10,6 +10,10 @@ public class ApplicantlistVO {
 	private Timestamp applicantlistDate;	//지원날짜
 	private int applicantlistPapercheck;	//서류통과여부 (1통과 2탈락 3대기)
 	
+	// 기업 지원자 목록 처리
+	private int applyFlag;	//지원여부 (1지원 2지원취소)
+	private int resumeReadflag;	//기업이 지원이력서 읽음 여부 (1열람 2미열람)
+	
 	//개인 마이페이지 - join 한 결과를 위한 변수 생성
 	private String recruitannounceTitle;
 	private String recruitannounceSworkkind;

@@ -117,4 +117,16 @@
 		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
 		order by APPLICANTLIST_DATE desc
 	</select>
+	
+	<!-- 기업회원이 지원자 이력서 읽음 -->	
+	<update id="updateReadCount" parameterType="int">
+		update APPLICANTLIST
+		set RESUME_READFLAG=1
+		where APPLICANTLIST_NO=#{applicantlistNo}
+	</update>
+	
+	<!-- 개별 지원 레코드 보기 -->	
+	<select id="selectOneApplication" parameterType="int" resultType="applicantlistVo">
+		select * from APPLICANTLIST where APPLICANTLIST_NO=#{applicantlistNo}
+	</select>
 </mapper>

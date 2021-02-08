@@ -61,4 +61,14 @@ public class ApplicantDAOMybatis implements ApplicantDAO{
 	public List<Map<String, Object>> selectAllApplicantView(int userNo) {
 		return sqlSession.selectList(namespace+"selectAllApplicantView", userNo);
 	}
+
+	@Override
+	public int updateReadCount(int applicantlistNo) {
+		return sqlSession.update(namespace+"updateReadCount", applicantlistNo);
+	}
+
+	@Override
+	public ApplicantlistVO selectOneApplication(int applicantlistNo) {
+		return sqlSession.selectOne(namespace+"selectOneApplication", applicantlistNo);
+	}
 }

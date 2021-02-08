@@ -57,4 +57,14 @@ public class ApplicantServiceImpl implements ApplicantService{
 	public List<Map<String, Object>> selectAllApplicantView(int userNo) {
 		return applicantDao.selectAllApplicantView(userNo);
 	}
+
+	@Override
+	public int updateReadCount(int applicantlistNo) {
+		return applicantDao.updateReadCount(applicantlistNo);
+	}
+
+	@Override
+	public ApplicantlistVO selectOneApplication(int applicantlistNo) {
+		return applicantDao.selectOneApplication(applicantlistNo);
+	}
 }

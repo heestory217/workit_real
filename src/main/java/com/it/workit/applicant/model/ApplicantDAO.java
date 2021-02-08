@@ -18,5 +18,7 @@ public interface ApplicantDAO {
 	//희정 - 기업 지원자관리
 	public List<ApplicantlistVO> selectAllApplicantFromCorp(int userNo);
 	public List<Map<String, Object>> selectAllApplicantView(int userNo);
+	int updateReadCount(int applicantlistNo);
+	ApplicantlistVO selectOneApplication(int applicantlistNo);
 	
 }

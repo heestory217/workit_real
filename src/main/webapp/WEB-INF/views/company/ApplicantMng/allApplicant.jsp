@@ -62,12 +62,10 @@
 										<p class="center">전체</p>
 									</a>
 								</td>
-								<c:set var="open" value="0"/>
 								<td class="cart-title"><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=1'/>"><br><br>
 									<h2 class="center textColorblue">${open}</h2>
 									<p class="center">열람</p></a>
 								</td>
-								<c:set var="closed" value="${CountAllApplicant - open}"/>
 								<td class="cart-title"><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=2'/>"><br><br>
 									<h2 class="center textColorblue">${closed}</h2>
 									<p class="center">미열람</p></a>
@@ -100,7 +98,9 @@
 									</p>
 								</td>
 								<td style="padding: 10px 0 10px 0;">
-									<p class="center" style="margin: 0 auto;">지원취소 <span style="color:#4C50BB;font-weight: 800;">2</span></p>
+									<p class="center" style="margin: 0 auto;">지원취소 
+										<span style="color:#4C50BB;font-weight: 800;">${cancel}</span>
+									</p>
 								</td>
 								<td style="padding: 10px 0 10px 0;">
 									<p class="center" style="margin: 0 auto;">입사제한 <span style="color:#4C50BB;font-weight: 800;">2</span></p>
@@ -146,7 +146,7 @@
 										<tr>
 											<td class="cart-title padding-bottom0"><br>
 												<!-- 제목이 긴 경우 일부만 보여주기 -->
-												<a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${map["RESUME_NO"]}'/>">
+												<a href="<c:url value='/company/ApplicantMng/countUpdate.do?applicantlistNo=${map["APPLICANTLIST_NO"]}'/>">
 													<p class="center">
 														<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])>=18}">
 															${fn:substring(map['RECRUITANNOUNCE_TITLE'], 0,18) } ...
