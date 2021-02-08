@@ -168,18 +168,30 @@ button.site-btn.register-btn {
 		                 </c:forEach>
 						</c:if>
                     </div>
-                    
-                    <c:if test="${map['USER_CORPCHECK']=='1'}">
-                    <div class="btWarp">
-                    	<div class="bt-float">
-						<button class="site-btn listBt" type="button"
-onclick="location.href='<c:url value="/resumes/resumesList.do"/>'">목록</button>
-						<button class="site-btn updateBt" type="button"
-onclick="location.href='<c:url value="/resumes/resumeUpdate.do?resumeNo=${map['RESUME_NO']}"/>'">수정</button>
-						<button class="site-btn delBt" type="button" 
-onclick="location.href='<c:url value="/resumes/deleteResumes.do?resumeNo=${map['RESUME_NO']}"/>'">삭제</button>
+                    <c:if test="${map['USER_CORPCHECK']=='1' and empty param.type}">
+	                    <div class="btWarp">
+	                    	<div class="bt-float">
+								<button class="site-btn listBt" type="button"
+		onclick="location.href='<c:url value="/resumes/resumesList.do"/>'">목록</button>
+								<button class="site-btn updateBt" type="button"
+		onclick="location.href='<c:url value="/resumes/resumeUpdate.do?resumeNo=${map['RESUME_NO']}"/>'">수정</button>
+								<button class="site-btn delBt" type="button" 
+		onclick="location.href='<c:url value="/resumes/deleteResumes.do?resumeNo=${map['RESUME_NO']}"/>'">삭제</button>
+							</div>
 						</div>
-					</div>
+					</c:if>
+					<!-- 채용공고에 지원한 이력서 일 때 -->
+                    <c:if test="${param.type=='Applied'}">
+	                    <div class="btWarp">
+	                    	<div class="bt-float">
+								<button class="site-btn listBt" type="button"
+		onclick="location.href='<c:url value="/company/ApplicantMng/pass.do?resumeNo=${map['RESUME_NO']}"/>'">합격</button>
+								<button class="site-btn updateBt" type="button"
+		onclick="location.href='<c:url value="/company/ApplicantMng/fail.do?resumeNo=${map['RESUME_NO']}"/>'">불합격</button>
+								<button class="site-btn delBt" type="button" 
+		onclick="location.href='<c:url value="/company/ApplicantMng/prohibit.do?resumeNo=${map['RESUME_NO']}"/>'">입사지원제한</button>
+							</div>
+						</div>
 					</c:if>
                 </div>
             </div>

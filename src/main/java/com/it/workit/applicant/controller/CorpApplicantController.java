@@ -99,12 +99,31 @@ public class CorpApplicantController {
 		
 		ApplicantlistVO vo = appService.selectOneApplication(applicantlistNo);
 		
-		return "redirect:/resumes/resumeDetail.do?resumeNo="+vo.getResumeNo()+"&type=Corp";
+		return "redirect:/resumes/resumeDetail.do?resumeNo="+vo.getResumeNo()+"&type=Applied&applicantlistNo="+applicantlistNo;
 	}
 	
 	@RequestMapping("/applicantByRecruit.do")
 	public void applicantByRecruit(){}
 	
+	
+	//합격처리
+	@RequestMapping("/pass.do")
+	public String pass(@RequestParam (defaultValue = "0") int resumeNo, @RequestParam (defaultValue = "0") int applicantlistNo){
+		
+		return "redirect:/resumes/resumeDetail.do?resumeNo="+resumeNo+"&type=Applied&applicantlistNo="+applicantlistNo;
+	}
+	
+	//불합격 처리
+	@RequestMapping("/fail.do")
+	public String fail(@RequestParam (defaultValue = "0") int resumeNo, @RequestParam (defaultValue = "0") int applicantlistNo){
+		
+		return "redirect:/resumes/resumeDetail.do?resumeNo="+resumeNo+"&type=Applied&applicantlistNo="+applicantlistNo;
+	}
+	
+	//입사지원제한자 등록처리
 	@RequestMapping("/prohibit.do")
-	public void prohibit(){}
+	public String prohibit(@RequestParam (defaultValue = "0") int resumeNo, @RequestParam (defaultValue = "0") int applicantlistNo){
+		//이력서 번호로 userNo 조회
+		return "redirect:/resumes/resumeDetail.do?resumeNo="+resumeNo+"&type=Applied&applicantlistNo="+applicantlistNo;
+	}
 }
