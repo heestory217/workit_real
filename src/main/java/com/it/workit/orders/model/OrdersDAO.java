@@ -36,4 +36,7 @@ public interface OrdersDAO {
 
 	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(CompanypagingVO vo);
 	public int ordersGetTotalRecords(CompanypagingVO vo);
+	
+	//은별, 관리자이용-총결제금액
+	public int totalPay();
 }

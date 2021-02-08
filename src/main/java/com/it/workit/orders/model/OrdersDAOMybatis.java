@@ -101,4 +101,9 @@ public class OrdersDAOMybatis implements OrdersDAO{
 		return sqlSession.selectOne(namespace+"ordersGetTotalRecords", vo);
 	}
 
+	@Override
+	public int totalPay() {
+		return sqlSession.selectOne(namespace+"totalPay");
+	}
+
 }

@@ -38,4 +38,5 @@ public interface OrdersService {
 	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(CompanypagingVO vo);
 	public int ordersGetTotalRecords(CompanypagingVO vo);
 	
+	public int totalPay();
 }

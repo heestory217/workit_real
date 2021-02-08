@@ -132,5 +132,10 @@ public class OrdersServiceImpl implements OrdersService{
 		return ordersDao.ordersGetTotalRecords(vo);
 	}
 
+	@Override
+	public int totalPay() {
+		return ordersDao.totalPay();
+	}
+
 
 }
