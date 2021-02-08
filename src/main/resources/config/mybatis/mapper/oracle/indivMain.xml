@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mybatis.mapper.indivMain">
+	
+	<!-- 채용 마감 임박순 -->
+	<select id="selectByDeadline" resultType="map">
+		SELECT *
+		FROM 
+		(
+		SELECT R.RECRUITANNOUNCE_NO, R.RECRUITANNOUNCE_STARTDATE,
+		R.RECRUITANNOUNCE_ENDDATE,R.RECRUITANNOUNCE_TITLE,C.CORP_NAME, C.CORP_IMGURL,
+		A.AREA_ADD1, A.AREA_ADD2
+		FROM RECRUITANNOUNCE R JOIN CORP C
+		ON R.USER_NO=C.USER_NO
+		JOIN AREALIST A
+		ON R.AREALIST_NO = A.AREA_NO
+		<![CDATA[
+		WHERE RECRUITANNOUNCE_ENDDATE>=SYSDATE
+		order by RECRUITANNOUNCE_ENDDATE
+		)
+		WHERE ROWNUM <=12
+		]]>
+	</select>
+	
+	<!-- 신규 채용 공고 -->
+	<select id="selectNesPost" resultType="map">
+		SELECT *
+		FROM 
+		(
+		select r.RECRUITANNOUNCE_NO, r.RECRUITANNOUNCE_startdate,
+		r.RECRUITANNOUNCE_enddate,r.RECRUITANNOUNCE_title,r.RECRUITANNOUNCE_SPAY,c.CORP_NAME, c.CORP_IMGURL,
+		a.AREA_ADD1, a.AREA_ADD2
+		from RECRUITANNOUNCE r right join CORP c
+		on r.user_no=c.user_no
+		left join AREALIST a
+		on r.AREALIST_NO = a.AREA_NO
+		<![CDATA[
+		WHERE RECRUITANNOUNCE_startdate>=SYSDATE
+		order by RECRUITANNOUNCE_startdate desc
+		)
+		WHERE ROWNUM <=12
+		]]>
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+

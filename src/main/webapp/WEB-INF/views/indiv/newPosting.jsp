@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script> 
-$('.carousel').carousel({ 
+/* $('.carousel').carousel({ 
 	interval: 4000  //기본 5초
-}) 
+})  */
 </script>
 <style>
 	#searchImg{
@@ -12,328 +12,121 @@ $('.carousel').carousel({
 	}
 </style>
 
-<div class="container containDiv"><H5 style="color:#4C4747;font-weight:600">신규 채용 회사</H5>
+<div class="container containDiv"><p style="font-size:24px;color:#4C4747;font-weight:600">신규 채용 회사</p>
 <div id="new" class="carousel slide" data-ride="carousel"> 
-	<div class="carousel-inner"> 
-		<!-- 슬라이드 쇼 --> 
-		<div class="carousel-item active"> 
-			<div class="row">
-			<!-- 첫번째  -->
-			<div class="col-lg-3 padding_5 d-inline-block w-25">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img id="searchImg" src="<c:url value='/pd_images/'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-						<div>
-							<div class="tag-list" style="padding:10px 5px 0 10px;margin-bottom:0px;overflow:hidden;">
-								<P style="color:#4C4747;float:left;font-size:16px;font-weight:bold;">
-									JAVA 개발자
-								</P>
-								<div class="tag-item" style="color:#4C4747;float:right;font-size:14px;padding-right:5px;">
-									<i class="fa fa-calendar-o" style="color:#4c50bb;"></i> 
-									D-19
-								</div>
+	<!-- 슬라이드 시작 -->
+	<c:if test="${!empty newPostList}">
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<div class="row">
+					<c:forEach var="map" items="${newPostList}" begin="0" end="3">
+						<div class="col-lg-3 padding_5 d-inline-block w-25">
+							<div class="single-latest-blog">
+								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
+									src="<c:url value='/pd_images/'/>"
+									onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
+									<div style="padding: 10px 5px 0 5px;">
+										<div class="tag-list"
+											style="margin-bottom: 0px; overflow: hidden;">
+											<span
+												style="color: #4C4747; font-size: 18px; font-weight: bold;">
+												${map['RECRUITANNOUNCE_TITLE'] }
+											</span><br>
+											<div class="tag-item" style="color: #4C4747; font-size:16px; font-weight:600;">
+												${map['CORP_NAME'] }
+											</div>
+										</div>
+										<p class="margin_bottom_0"
+											style="font-size: 13px; color: #989898;">
+											${map['AREA_ADD1'] } · ${map['AREA_ADD2'] }
+										</p>
+										<p class="margin_bottom_0"
+											style="font-size: 15px; color: #989898;">
+											${map['RECRUITANNOUNCE_SPAY']}
+										</p>
+									</div>
+								</a>
 							</div>
-							<p class="margin_bottom_0 gray" style="font-size:13px;color: #545454;">
-								<i class="fas fa-location-arrow"></i> 서울 · 한국
-							</p>
-							<p class="margin_bottom_0 gray" style="font-size:15px;color: #545454;">
-								<i class="fas fa-dollar-sign"></i> 1,000,000원
-							</p>
 						</div>
-					</a>
+					</c:forEach>
 				</div>
-			</div>
-			<!-- 두번째  -->
-			<div class="col-lg-3 padding_5 d-inline-block w-25">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img id="searchImg" src="<c:url value='/pd_images/'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-						<div>
-							<div class="tag-list" style="padding:10px 5px 0 10px;margin-bottom:0px;overflow:hidden;">
-								<P style="color:#4C4747;float:left;font-size:16px;font-weight:bold;">
-									JAVA 개발자
-								</P>
-								<div class="tag-item" style="color:#4C4747;float:right;font-size:14px;padding-right:5px;">
-									<i class="fa fa-calendar-o" style="color:#4c50bb;"></i> 
-									D-19
-								</div>
-							</div>
-							<p class="margin_bottom_0 gray" style="font-size:13px;color: #545454;">
-								<i class="fas fa-location-arrow"></i> 서울 · 한국
-							</p>
-							<p class="margin_bottom_0 gray" style="font-size:15px;color: #545454;">
-								<i class="fas fa-dollar-sign"></i> 1,000,000원
-							</p>
-						</div>
-					</a>
-				</div>
-			</div>
-			<!-- 네번째  -->
-			<div class="col-lg-3 padding_5 d-inline-block w-25">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img id="searchImg" src="<c:url value='/pd_images/'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-						<div>
-							<div class="tag-list" style="padding:10px 5px 0 10px;margin-bottom:0px;overflow:hidden;">
-								<P style="color:#4C4747;float:left;font-size:16px;font-weight:bold;">
-									JAVA 개발자
-								</P>
-								<div class="tag-item" style="color:#4C4747;float:right;font-size:14px;padding-right:5px;">
-									<i class="fa fa-calendar-o" style="color:#4c50bb;"></i> 
-									D-19
-								</div>
-							</div>
-							<p class="margin_bottom_0 gray" style="font-size:13px;color: #545454;">
-								<i class="fas fa-location-arrow"></i> 서울 · 한국
-							</p>
-							<p class="margin_bottom_0 gray" style="font-size:15px;color: #545454;">
-								<i class="fas fa-dollar-sign"></i> 1,000,000원
-							</p>
-						</div>
-					</a>
-				</div>
-			</div>
-			<!-- 네번째  -->
-			<div class="col-lg-3 padding_5 d-inline-block w-25">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img id="searchImg" src="<c:url value='/pd_images/'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-						<div>
-							<div class="tag-list" style="padding:10px 5px 0 10px;margin-bottom:0px;overflow:hidden;">
-								<P style="color:#4C4747;float:left;font-size:16px;font-weight:bold;">
-									JAVA 개발자
-								</P>
-								<div class="tag-item" style="color:#4C4747;float:right;font-size:14px;padding-right:5px;">
-									<i class="fa fa-calendar-o" style="color:#4c50bb;"></i> 
-									D-19
-								</div>
-							</div>
-							<p class="margin_bottom_0 gray" style="font-size:13px;color: #545454;">
-								<i class="fas fa-location-arrow"></i> 서울 · 한국
-							</p>
-							<p class="margin_bottom_0 gray" style="font-size:15px;color: #545454;">
-								<i class="fas fa-dollar-sign"></i> 1,000,000원
-							</p>
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>
-		</div> 
-		
-		<div class="carousel-item"> 
-			<div class="row">
-				<!-- 첫번째  -->
-				<div class="col-lg-3 padding_5 d-inline-block w-25">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img id="searchImg" src="<c:url value='/pd_images/'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-						<div>
-							<div class="tag-list" style="padding:10px 5px 0 10px;margin-bottom:0px;overflow:hidden;">
-								<P style="color:#4C4747;float:left;font-size:16px;font-weight:bold;">
-									JAVA 개발자
-								</P>
-								<div class="tag-item" style="color:#4C4747;float:right;font-size:14px;padding-right:5px;">
-									<i class="fa fa-calendar-o" style="color:#4c50bb;"></i> 
-									D-19
-								</div>
-							</div>
-							<p class="margin_bottom_0 gray" style="font-size:13px;color: #545454;">
-								<i class="fas fa-location-arrow"></i> 서울 · 한국
-							</p>
-							<p class="margin_bottom_0 gray" style="font-size:15px;color: #545454;">
-								<i class="fas fa-dollar-sign"></i> 1,000,000원
-							</p>
-						</div>
-					</a>
-				</div>
-			</div>
-				<!-- 두번째  -->
-				<div class="col-lg-3 padding_5 d-inline-block w-25">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img id="searchImg" src="<c:url value='/pd_images/'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-						<div>
-							<div class="tag-list" style="padding:10px 5px 0 10px;margin-bottom:0px;overflow:hidden;">
-								<P style="color:#4C4747;float:left;font-size:16px;font-weight:bold;">
-									JAVA 개발자
-								</P>
-								<div class="tag-item" style="color:#4C4747;float:right;font-size:14px;padding-right:5px;">
-									<i class="fa fa-calendar-o" style="color:#4c50bb;"></i> 
-									D-19
-								</div>
-							</div>
-							<p class="margin_bottom_0 gray" style="font-size:13px;color: #545454;">
-								<i class="fas fa-location-arrow"></i> 서울 · 한국
-							</p>
-							<p class="margin_bottom_0 gray" style="font-size:15px;color: #545454;">
-								<i class="fas fa-dollar-sign"></i> 1,000,000원
-							</p>
-						</div>
-					</a>
-				</div>
-			</div>
-				<!-- 네번째  -->
-				<div class="col-lg-3 padding_5 d-inline-block w-25">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img id="searchImg" src="<c:url value='/pd_images/'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-						<div>
-							<div class="tag-list" style="padding:10px 5px 0 10px;margin-bottom:0px;overflow:hidden;">
-								<P style="color:#4C4747;float:left;font-size:16px;font-weight:bold;">
-									JAVA 개발자
-								</P>
-								<div class="tag-item" style="color:#4C4747;float:right;font-size:14px;padding-right:5px;">
-									<i class="fa fa-calendar-o" style="color:#4c50bb;"></i> 
-									D-19
-								</div>
-							</div>
-							<p class="margin_bottom_0 gray" style="font-size:13px;color: #545454;">
-								<i class="fas fa-location-arrow"></i> 서울 · 한국
-							</p>
-							<p class="margin_bottom_0 gray" style="font-size:15px;color: #545454;">
-								<i class="fas fa-dollar-sign"></i> 1,000,000원
-							</p>
-						</div>
-					</a>
-				</div>
-			</div>
-				<!-- 네번째  -->
-				<div class="col-lg-3 padding_5 d-inline-block w-25">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img id="searchImg" src="<c:url value='/pd_images/'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-						<div>
-							<div class="tag-list" style="padding:10px 5px 0 10px;margin-bottom:0px;overflow:hidden;">
-								<P style="color:#4C4747;float:left;font-size:16px;font-weight:bold;">
-									JAVA 개발자
-								</P>
-								<div class="tag-item" style="color:#4C4747;float:right;font-size:14px;padding-right:5px;">
-									<i class="fa fa-calendar-o" style="color:#4c50bb;"></i> 
-									D-19
-								</div>
-							</div>
-							<p class="margin_bottom_0 gray" style="font-size:13px;color: #545454;">
-								<i class="fas fa-location-arrow"></i> 서울 · 한국
-							</p>
-							<p class="margin_bottom_0 gray" style="font-size:15px;color: #545454;">
-								<i class="fas fa-dollar-sign"></i> 1,000,000원
-							</p>
-						</div>
-					</a>
-				</div>
-			</div>
 			</div>
 		
-		</div> 
-		<div class="carousel-item"> 
-			<div class="row">
-			<!-- 첫번째  -->
-			<div class="col-lg-3 padding_5 d-inline-block w-25">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img id="searchImg" src="<c:url value='/pd_images/'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-						<div>
-							<div class="tag-list" style="padding:10px 5px 0 10px;margin-bottom:0px;overflow:hidden;">
-								<P style="color:#4C4747;float:left;font-size:16px;font-weight:bold;">
-									JAVA 개발자
-								</P>
-								<div class="tag-item" style="color:#4C4747;float:right;font-size:14px;padding-right:5px;">
-									<i class="fa fa-calendar-o" style="color:#4c50bb;"></i> 
-									D-19
-								</div>
+		
+			<div class="carousel-item">
+				<div class="row">
+					<c:forEach var="map" items="${newPostList}" begin="4" end="7">
+						<div class="col-lg-3 padding_5 d-inline-block w-25">
+							<div class="single-latest-blog">
+								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
+									src="<c:url value='/pd_images/'/>"
+									onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
+									<div style="padding: 10px 5px 0 5px;">
+										<div class="tag-list"
+											style="margin-bottom: 0px; overflow: hidden;">
+											<span
+												style="color: #4C4747; font-size: 18px; font-weight: bold;">
+												${map['RECRUITANNOUNCE_TITLE'] }
+											</span><br>
+											<div class="tag-item" style="color: #4C4747; font-size:16px; font-weight:600;">
+												${map['CORP_NAME'] }
+											</div>
+										</div>
+										<p class="margin_bottom_0"
+											style="font-size: 13px; color: #989898;">
+											${map['AREA_ADD1'] } · ${map['AREA_ADD2'] }
+										</p>
+										<p class="margin_bottom_0"
+											style="font-size: 15px; color: #989898;">
+											${map['RECRUITANNOUNCE_SPAY']}
+										</p>
+									</div>
+								</a>
 							</div>
-							<p class="margin_bottom_0 gray" style="font-size:13px;color: #545454;">
-								<i class="fas fa-location-arrow"></i> 서울 · 한국
-							</p>
-							<p class="margin_bottom_0 gray" style="font-size:15px;color: #545454;">
-								<i class="fas fa-dollar-sign"></i> 1,000,000원
-							</p>
 						</div>
-					</a>
+					</c:forEach>
 				</div>
 			</div>
-			<!-- 두번째  -->
-			<div class="col-lg-3 padding_5 d-inline-block w-25">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img id="searchImg" src="<c:url value='/pd_images/'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-						<div>
-							<div class="tag-list" style="padding:10px 5px 0 10px;margin-bottom:0px;overflow:hidden;">
-								<P style="color:#4C4747;float:left;font-size:16px;font-weight:bold;">
-									JAVA 개발자
-								</P>
-								<div class="tag-item" style="color:#4C4747;float:right;font-size:14px;padding-right:5px;">
-									<i class="fa fa-calendar-o" style="color:#4c50bb;"></i> 
-									D-19
-								</div>
+		
+		
+			<div class="carousel-item">
+				<div class="row">
+					<c:forEach var="map" items="${newPostList}" begin="8" end="11">
+						<div class="col-lg-3 padding_5 d-inline-block w-25">
+							<div class="single-latest-blog">
+								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
+									src="<c:url value='/pd_images/'/>"
+									onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
+									<div style="padding: 10px 5px 0 5px;">
+										<div class="tag-list"
+											style="margin-bottom: 0px; overflow: hidden;">
+											<span
+												style="color: #4C4747; font-size: 18px; font-weight: bold;">
+												${map['RECRUITANNOUNCE_TITLE'] }
+											</span><br>
+											<div class="tag-item" style="color: #4C4747; font-size:16px; font-weight:600;">
+												${map['CORP_NAME'] }
+											</div>
+										</div>
+										<p class="margin_bottom_0"
+											style="font-size: 13px; color: #989898;">
+											${map['AREA_ADD1'] } · ${map['AREA_ADD2'] }
+										</p>
+										<p class="margin_bottom_0"
+											style="font-size: 15px; color: #989898;">
+											${map['RECRUITANNOUNCE_SPAY']}
+										</p>
+									</div>
+								</a>
 							</div>
-							<p class="margin_bottom_0 gray" style="font-size:13px;color: #545454;">
-								<i class="fas fa-location-arrow"></i> 서울 · 한국
-							</p>
-							<p class="margin_bottom_0 gray" style="font-size:15px;color: #545454;">
-								<i class="fas fa-dollar-sign"></i> 1,000,000원
-							</p>
 						</div>
-					</a>
+					</c:forEach>
 				</div>
 			</div>
-			<!-- 네번째  -->
-			<div class="col-lg-3 padding_5 d-inline-block w-25">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img id="searchImg" src="<c:url value='/pd_images/'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-						<div>
-							<div class="tag-list" style="padding:10px 5px 0 10px;margin-bottom:0px;overflow:hidden;">
-								<P style="color:#4C4747;float:left;font-size:16px;font-weight:bold;">
-									JAVA 개발자
-								</P>
-								<div class="tag-item" style="color:#4C4747;float:right;font-size:14px;padding-right:5px;">
-									<i class="fa fa-calendar-o" style="color:#4c50bb;"></i> 
-									D-19
-								</div>
-							</div>
-							<p class="margin_bottom_0 gray" style="font-size:13px;color: #545454;">
-								<i class="fas fa-location-arrow"></i> 서울 · 한국
-							</p>
-							<p class="margin_bottom_0 gray" style="font-size:15px;color: #545454;">
-								<i class="fas fa-dollar-sign"></i> 1,000,000원
-							</p>
-						</div>
-					</a>
-				</div>
-			</div>
-			<!-- 네번째  -->
-			<div class="col-lg-3 padding_5 d-inline-block w-25">
-				<div class="single-latest-blog">
-					<a href="<c:url value='/index.do'/>"> 
-						<img id="searchImg" src="<c:url value='/pd_images/'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-						<div>
-							<div class="tag-list" style="padding:10px 5px 0 10px;margin-bottom:0px;overflow:hidden;">
-								<P style="color:#4C4747;float:left;font-size:16px;font-weight:bold;">
-									JAVA 개발자
-								</P>
-								<div class="tag-item" style="color:#4C4747;float:right;font-size:14px;padding-right:5px;">
-									<i class="fa fa-calendar-o" style="color:#4c50bb;"></i> 
-									D-19
-								</div>
-							</div>
-							<p class="margin_bottom_0 gray" style="font-size:13px;color: #545454;">
-								<i class="fas fa-location-arrow"></i> 서울 · 한국
-							</p>
-							<p class="margin_bottom_0 gray" style="font-size:15px;color: #545454;">
-								<i class="fas fa-dollar-sign"></i> 1,000,000원
-							</p>
-						</div>
-					</a>
-				</div>
-			</div>
-			
-			
-		</div>
-		</div> 
 	</div>
-	<!-- / 슬라이드 쇼 끝 -->
+</c:if>
+	
+	<!-- 슬라이드 끝 -->
 	
 	
 	<!-- previous/next button --> 
