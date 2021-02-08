@@ -27,4 +27,8 @@ public interface UsersDAO {
 	public int totalUsers(SearchVO searchVo);
 	public int totalWithdrawUsers(SearchVO searchVo);
 	public int withdrawUsers(int userNo);
+	public int selectTotalIndivUsers();
+	public int selectTotalCorpUsers();
+	public int selectTotalIndivWithdrawUsers();
+	public int selectTotalCorpWithdrawUsers();
 }
