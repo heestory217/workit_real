@@ -4,6 +4,13 @@
 
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/indivMypage.css'/>" />
 
+<style>
+section:nth-child(3) div div div div table tbody tr td a p:hover {
+	color: #4C50BB;
+	font-weight:  600;
+}
+</style>
+
 <!-- 상단 바  -->
 <div class="breacrumb-section">
     <div class="container">
