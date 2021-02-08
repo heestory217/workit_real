@@ -102,8 +102,14 @@ h3.resumeName {
 													<fmt:formatDate value="${resumeVo.resumeDate}" pattern="YYYY-MM-dd"/> 
 												</p>
 												<p class="openOnOff">
-													<c:if test="${resumeResumeopencheck == '1'}">
+													<c:if test="${resumeVo.resumeResumeopencheck eq '1'}">
 													임시저장
+													</c:if>
+													<c:if test="${resumeVo.resumeResumeopencheck eq '2'}">
+													이력서 열람
+													</c:if>
+													<c:if test="${resumeVo.resumeResumeopencheck eq '3'}">
+													반려
 													</c:if>
 												</p>
 											</div>
