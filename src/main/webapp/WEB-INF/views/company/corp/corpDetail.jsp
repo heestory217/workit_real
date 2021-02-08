@@ -9,12 +9,29 @@
 }
 .blog-details-inner .blog-quote p span{
 	font-size: 20px;
-}
+	}
 
 .card-text {
  margin-bottom: 35px;
-}
-   
+	}
+
+#mask {
+      position:absolute;
+      z-index:9000;
+      background-color:#000;
+      display:none;
+      left:0;
+      top:0;
+    }
+    
+.window{
+  display: none;
+  position:absolute;
+  left:100px;
+  top:100px;
+  z-index:10000;
+	}
+	
 </style>
 <section class="blog-details spad">
     <div class="container">
@@ -92,7 +109,9 @@
                         <c:if test="${!empty imgList}">
                         	<c:forEach var="imgList" items="${imgList }" begin="1" end="3">
 	                        	<div class="col-sm-4">
+	                        	 <a href="#" class="openMask">
 	                                <img src="<c:url value='/pd_images/${imgList.corpimgUrl}'/>">
+                              	</a>
 	                            </div>
                         	</c:forEach>
                         </c:if>
@@ -136,7 +155,62 @@
             </c:if>
         </div>
     </div>
+    <div id="mask"></div>
+    <div class="window">
+    	<div class="center" id="center">
+        	<input type="button" href="#" class="close" value="X"/>
+        </div>
+    </div>
+   
 </section>
 <!-- 기업 상세 Section End -->
+<script type="text/javascript">
+function wrapWindowByMask(){
+    //화면의 높이와 너비를 구한다.
+    var maskHeight = $(document).height();
+    var maskWidth = $(window).width();  
+
+    //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+    $('#mask').css({'width':maskWidth,'height':maskHeight});  
+
+    //애니메이션 효과 - 일단 1초동안 까맣게 됐다가 80% 불투명도로 간다.
+    $('#mask').fadeIn(300);
+    $('#mask').fadeTo("fast",0.7);    
+
+    //윈도우를 띄운다.
+    $('.window').show();
+}
+
+$(document).ready(function(){
+    //검은 막 띄우기
+    $('.openMask').click(function(e){
+        e.preventDefault();
+        var imgUrl = jQuery($(this).find('img')).attr("src");
+        var windowWidth = $(window).width();  
+        $('.center').append("<img src='"+imgUrl+"' id='bigImg'>");
+        $('.center').css({"width":"1000px","position":'absolute',
+        				"top":(($(window).height()-$('.center').outerHeight())/2+$(window).scrollTop())-500+"px",
+        				"left":(windowWidth)/5+"px"
+        				});
+        wrapWindowByMask();
+    });
+
+    //닫기 버튼을 눌렀을 때
+    $('.window .close').click(function (e) {
+        //링크 기본동작은 작동하지 않도록 한다.
+        $('#bigImg').remove();
+        $('#mask, .window').hide();
+        e.preventDefault();
+    });       
+
+    //검은 막을 눌렀을 때
+    $('#mask').click(function () {
+        $(this).hide();
+        $('#bigImg').remove();
+        $('.window').hide();
+    });
+});
+
+</script>
 
 <%@ include file="../../inc/bottom.jsp"%>
