@@ -33,6 +33,7 @@ public class ResumesServiceImpl implements ResumesService{
 		return resumesDao.insertResume(resumeVo);
 	}
 
+	//여러개 인서트
 	@Override
 	@Transactional
 	public int insertResumesMulti(ResumeListVO resumlist) {
@@ -40,24 +41,59 @@ public class ResumesServiceImpl implements ResumesService{
 
 		//		ResumesVO resumesVo = resumlist.getResumesVo();
 		//		cnt = resumesDao.insertResume(resumesVo);
-
-		for (AwardVO aVo : resumlist.getAwardVOList()) {
-			cnt = resumesDao.insertAward(aVo);
+		
+		if (resumlist.getAwardVOList() != null) {
+			for (AwardVO aVo : resumlist.getAwardVOList()) {
+				cnt = resumesDao.insertAward(aVo);
+			}
+		}else if (resumlist.getLicenVOList() != null) {
+			for (LicencseVO licenVo : resumlist.getLicenVOList()) {
+				cnt = resumesDao.insertLicen(licenVo);
+			}
+		} else if (resumlist.getCarrerVOList() != null) {
+			for (CarrerVO carrVo : resumlist.getCarrerVOList()) {
+				cnt = resumesDao.insertCarrer(carrVo);
+			}
+		} else if (resumlist.getForeignskillVO() != null) {
+			for (ForeignlanguageskillVO foreignVo : resumlist.getForeignskillVO()) {
+				cnt = resumesDao.insertForeignskill(foreignVo);
+			}
 		}
-		for (LicencseVO licenVo : resumlist.getLicenVOList()) {
-			cnt = resumesDao.insertLicen(licenVo);
-		}
-		for (CarrerVO carrVo : resumlist.getCarrerVOList()) {
-			cnt = resumesDao.insertCarrer(carrVo);
-		}
-		for (ForeignlanguageskillVO foreignVo : resumlist.getForeignskillVO()) {
-			cnt = resumesDao.insertForeignskill(foreignVo);
-		}
+		
+//		for (AwardVO aVo : resumlist.getAwardVOList()) {
+//			cnt = resumesDao.insertAward(aVo);
+//		}
+//		for (LicencseVO licenVo : resumlist.getLicenVOList()) {
+//			cnt = resumesDao.insertLicen(licenVo);
+//		}
+//		for (CarrerVO carrVo : resumlist.getCarrerVOList()) {
+//			cnt = resumesDao.insertCarrer(carrVo);
+//		}
+//		for (ForeignlanguageskillVO foreignVo : resumlist.getForeignskillVO()) {
+//			cnt = resumesDao.insertForeignskill(foreignVo);
+//		}
+		
 		return cnt;
 
 	}//
 
-
+	//개별 insert
+	@Override
+	public int insertAward(AwardVO aVo) {
+		return resumesDao.insertAward(aVo);
+	}
+	@Override
+	public int insertCarrer(CarrerVO carrVo) {
+		return resumesDao.insertCarrer(carrVo);
+	}
+	@Override
+	public int insertLicen(LicencseVO licenVo) {
+		return resumesDao.insertLicen(licenVo);
+	}
+	@Override
+	public int insertForeignskill(ForeignlanguageskillVO foreignVo) {
+		return resumesDao.insertForeignskill(foreignVo);
+	}
 	@Override
 	public List<ResumesVO> selectResumeByNo(int userNo) {
 		return resumesDao.selectResumeByNo(userNo);
@@ -84,7 +120,6 @@ public class ResumesServiceImpl implements ResumesService{
 	public List<ForeignlanguageskillVO> selectFlsByNo(int resumeNo) {
 		return resumesDao.selectFlsByNo(resumeNo);
 	}
-
 	
 	//선택 삭제
 	@Override
@@ -106,5 +141,69 @@ public class ResumesServiceImpl implements ResumesService{
 		
 		return cnt;
 	}
+
+	//수정
+	@Override
+	public int updateResume(ResumesVO resumeVo) {
+		return resumesDao.updateResume(resumeVo);
+	}
+	@Override
+	public int updateAwd(AwardVO awardVo) {
+		return resumesDao.updateAwd(awardVo);
+	}
+	@Override
+	public int updateCarrer(CarrerVO carrerVo) {
+		return resumesDao.updateCarrer(carrerVo);
+	}
+	@Override
+	public int updateLicen(LicencseVO licenVo) {
+		return resumesDao.updateLicen(licenVo);
+	}
+	@Override
+	public int updateFskill(ForeignlanguageskillVO fskillVo) {
+		return resumesDao.updateFskill(fskillVo);
+	}
+
+	//리스트에서 꺼낼때 마다 update
+//	@Override
+//	@Transactional
+//	public int updateMulti(ResumeListVO resumlist) {
+//		int cnt =0;
+//		
+//		for (AwardVO aVo : resumlist.getAwardVOList()) {
+//			cnt = resumesDao.updateAwd(aVo);
+//		} 
+//		for (LicencseVO licenVo : resumlist.getLicenVOList()) {
+//			cnt = resumesDao.updateLicen(licenVo);
+//		}
+//		for (CarrerVO carrVo : resumlist.getCarrerVOList()) {
+//			cnt = resumesDao.updateCarrer(carrVo);
+//		}
+//		for (ForeignlanguageskillVO fskillVo : resumlist.getForeignskillVO()) {
+//			cnt = resumesDao.updateFskill(fskillVo);
+//		}
+//		
+//		return cnt;
+//	}
+
+	@Override
+	@Transactional
+	public int selectDel(ResumeEtcVO resumeEtcVo) {
+		int cnt=0;
+		
+		if (cnt == resumeEtcVo.getAwardVo().getAwardNo()) {
+			resumesDao.selDelAwd(resumeEtcVo.getAwardVo().getAwardNo());
+		} else if (cnt == resumeEtcVo.getCarrVo().getCarrerNo()) {
+			resumesDao.selDelCarrer(resumeEtcVo.getCarrVo().getCarrerNo());
+		} else if (cnt == resumeEtcVo.getLicenVo().getLicencseNo()) {
+			resumesDao.selDelLicen(resumeEtcVo.getLicenVo().getLicencseNo());
+		} else if (cnt == resumeEtcVo.getFskillVo().getForeignlanguageskillNo()) {
+			resumesDao.selDelFskill(resumeEtcVo.getFskillVo().getForeignlanguageskillNo());
+		} 
+		
+		return cnt;
+	}
+
+
 	
 }

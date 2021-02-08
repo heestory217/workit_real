@@ -35,7 +35,7 @@ textarea#resumeSelfintro {
     margin-bottom: 30px;
 }
 .colWarp2 {
-    margin: 30px 0;
+    margin: 30px 0 50px;
 }
 .labelWarp {
     border-bottom: 1px solid #ddd;
@@ -76,6 +76,7 @@ button.site-btn.register-btn {
 .bt-float {
     float: right;
 }
+
 </style>
 <div class="container">
     <form class="checkout-form" method="POST" name="resumefrm"
@@ -171,10 +172,12 @@ button.site-btn.register-btn {
                     <c:if test="${map['USER_CORPCHECK']=='1'}">
                     <div class="btWarp">
                     	<div class="bt-float">
-						<button class="site-btn listBt" type="submit">목록</button>
-						<button class="site-btn updateBt" type="submit">수정</button>
+						<button class="site-btn listBt" type="button"
+onclick="location.href='<c:url value="/resumes/resumesList.do"/>'">목록</button>
+						<button class="site-btn updateBt" type="button"
+onclick="location.href='<c:url value="/resumes/resumeUpdate.do?resumeNo=${map['RESUME_NO']}"/>'">수정</button>
 						<button class="site-btn delBt" type="button" 
-onclick="location.href='<c:url value="/resumes/deleteResumes.do?resumeNo=${map['RESUME_NO']}&userNo=${map['USER_NO'] }"/>'">삭제</button>
+onclick="location.href='<c:url value="/resumes/deleteResumes.do?resumeNo=${map['RESUME_NO']}"/>'">삭제</button>
 						</div>
 					</div>
 					</c:if>
