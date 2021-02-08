@@ -71,4 +71,14 @@ public class ApplicantDAOMybatis implements ApplicantDAO{
 	public ApplicantlistVO selectOneApplication(int applicantlistNo) {
 		return sqlSession.selectOne(namespace+"selectOneApplication", applicantlistNo);
 	}
+
+	@Override
+	public int updaeApplyPass(int applicantlistNo) {
+		return sqlSession.update(namespace+"updaeApplyPass", applicantlistNo);
+	}
+
+	@Override
+	public int updaeApplyFail(int applicantlistNo) {
+		return sqlSession.update(namespace+"updaeApplyFail", applicantlistNo);
+	}
 }

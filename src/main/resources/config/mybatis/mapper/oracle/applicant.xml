@@ -129,4 +129,19 @@
 	<select id="selectOneApplication" parameterType="int" resultType="applicantlistVo">
 		select * from APPLICANTLIST where APPLICANTLIST_NO=#{applicantlistNo}
 	</select>
+	
+	<!-- 합격처리 -->
+	<update id="updaeApplyPass" parameterType="int">
+		update APPLICANTLIST
+		set APPLICANTLIST_PAPERCHECK=1
+		where APPLICANTLIST_NO=#{applicantlistNo}
+	</update>
+	
+	<!-- 불합격처리 -->
+	<update id="updaeApplyFail" parameterType="int">
+		update APPLICANTLIST
+		set APPLICANTLIST_PAPERCHECK=2
+		where APPLICANTLIST_NO=#{applicantlistNo}
+	</update>
+	
 </mapper>

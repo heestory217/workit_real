@@ -67,4 +67,14 @@ public class ApplicantServiceImpl implements ApplicantService{
 	public ApplicantlistVO selectOneApplication(int applicantlistNo) {
 		return applicantDao.selectOneApplication(applicantlistNo);
 	}
+
+	@Override
+	public int updaeApplyPass(int applicantlistNo) {
+		return applicantDao.updaeApplyPass(applicantlistNo);
+	}
+
+	@Override
+	public int updaeApplyFail(int applicantlistNo) {
+		return applicantDao.updaeApplyFail(applicantlistNo);
+	}
 }

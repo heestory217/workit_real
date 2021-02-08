@@ -20,5 +20,7 @@ public interface ApplicantDAO {
 	public List<Map<String, Object>> selectAllApplicantView(int userNo);
 	int updateReadCount(int applicantlistNo);
 	ApplicantlistVO selectOneApplication(int applicantlistNo);
-	
+	//합격여부 처리
+	int updaeApplyPass(int applicantlistNo);
+	int updaeApplyFail(int applicantlistNo);
 }

@@ -108,16 +108,48 @@ public class CorpApplicantController {
 	
 	//합격처리
 	@RequestMapping("/pass.do")
-	public String pass(@RequestParam (defaultValue = "0") int resumeNo, @RequestParam (defaultValue = "0") int applicantlistNo){
+	public String pass(@RequestParam (defaultValue = "0") int resumeNo, 
+			@RequestParam (defaultValue = "0") int applicantlistNo, Model model){
+		logger.info("지원 이력서 합격 처리, resumeNo={}, applicantlistNo={}", resumeNo, applicantlistNo);
 		
-		return "redirect:/resumes/resumeDetail.do?resumeNo="+resumeNo+"&type=Applied&applicantlistNo="+applicantlistNo;
+		if(applicantlistNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/index.do");
+			return "common/message";
+		}
+		
+		int cnt = appService.updaeApplyPass(applicantlistNo);
+		logger.info("합격처리 결과 cnt={}", cnt);
+
+		if(cnt>0) {
+			model.addAttribute("msg", "해당 지원 이력서가 합격 처리되었습니다.");
+			model.addAttribute("url", "/resumes/resumeDetail.do?resumeNo="+resumeNo+"&type=Applied&applicantlistNo="+applicantlistNo);
+		}
+		
+		return "common/message";
 	}
 	
 	//불합격 처리
 	@RequestMapping("/fail.do")
-	public String fail(@RequestParam (defaultValue = "0") int resumeNo, @RequestParam (defaultValue = "0") int applicantlistNo){
+	public String fail(@RequestParam (defaultValue = "0") int resumeNo, 
+			@RequestParam (defaultValue = "0") int applicantlistNo, Model model){
+		logger.info("지원 이력서 불합격 처리, resumeNo={}, applicantlistNo={}", resumeNo, applicantlistNo);
 		
-		return "redirect:/resumes/resumeDetail.do?resumeNo="+resumeNo+"&type=Applied&applicantlistNo="+applicantlistNo;
+		if(applicantlistNo==0) {
+			model.addAttribute("msg", "잘못된 url입니다.");
+			model.addAttribute("url", "/index.do");
+			return "common/message";
+		}
+		
+		int cnt = appService.updaeApplyFail(applicantlistNo);
+		logger.info("불합격 처리 결과 cnt={}", cnt);
+		
+		if(cnt>0) {
+			model.addAttribute("msg", "해당 지원 이력서가 불합격 처리되었습니다.");
+			model.addAttribute("url", "/resumes/resumeDetail.do?resumeNo="+resumeNo+"&type=Applied&applicantlistNo="+applicantlistNo);
+		}
+		
+		return "common/message";
 	}
 	
 	//입사지원제한자 등록처리
