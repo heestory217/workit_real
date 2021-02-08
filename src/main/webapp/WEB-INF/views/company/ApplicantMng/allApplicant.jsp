@@ -69,11 +69,11 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 										<p class="center">전체</p>
 									</a>
 								</td>
-								<td class="cart-title"><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=1'/>"><br><br>
+								<td class="cart-title"><a href="#"><br><br>
 									<h2 class="center textColorblue">${open}</h2>
 									<p class="center">열람</p></a>
 								</td>
-								<td class="cart-title"><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=2'/>"><br><br>
+								<td class="cart-title"><a href="#"><br><br>
 									<h2 class="center textColorblue">${closed}</h2>
 									<p class="center">미열람</p></a>
 								</td>
@@ -82,11 +82,10 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 						</table>
 						<table style="border-top: 0;background: whitesmoke;">
 							<colgroup>
-								<col width="20%">
-								<col width="20%">
-								<col width="20%">
-								<col width="20%">
-								<col width="20%">
+								<col width="25%">
+								<col width="25%">
+								<col width="25%">
+								<col width="25%">
 							</colgroup>
 							<tr>
 								<td style="padding: 10px 0 10px 0;">
@@ -104,13 +103,17 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 										<span style="color:#4C50BB;font-weight: 800;">${fail}</span>
 									</p>
 								</td>
+								<!--  
 								<td style="padding: 10px 0 10px 0;">
 									<p class="center" style="margin: 0 auto;">지원취소 
 										<span style="color:#4C50BB;font-weight: 800;">${cancel}</span>
 									</p>
 								</td>
+								-->
 								<td style="padding: 10px 0 10px 0;">
-									<p class="center" style="margin: 0 auto;">입사제한 <span style="color:#4C50BB;font-weight: 800;">2</span></p>
+									<p class="center" style="margin: 0 auto;">입사제한 
+										<span style="color:#4C50BB;font-weight: 800;">${prohibited}</span>
+									</p>
 								</td>
 							</tr>
 						</table>
@@ -145,7 +148,7 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
                            <tbody>
 								<c:if test="${empty applist }">
 	                            	<tr>
-	                            		<td colspan="4"><br><br>
+	                            		<td colspan="5"><br><br>
 	                            			<p>요청하신 결과가 없습니다.</p>
 	                            		</td>
 	                            	</tr>

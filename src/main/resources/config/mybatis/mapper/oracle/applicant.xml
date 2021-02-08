@@ -144,4 +144,18 @@
 		where APPLICANTLIST_NO=#{applicantlistNo}
 	</update>
 	
+	<!-- 입사지원제한자 등록 -->
+	<insert id="insertProhibit" parameterType="prohibitJoinVO">
+		<selectKey keyProperty="prohibitjoinNo" resultType="int" order="BEFORE">
+			select prohibitjoin_seq.nextval from dual
+		</selectKey>
+		insert into PROHIBITJOIN(PROHIBITJOIN_NO,USER_PESONAL_NO,USER_CORP_NO)
+		values(#{prohibitjoinNo}, #{userPersonalNo}, #{userCorpNo})
+	</insert>
+	
+	<!-- 입사지원자 여부 판단 -->
+	<select id="selectIfProhibited" parameterType="int" resultType="int">
+		select count(*) from PROHIBITJOIN where USER_PESONAL_NO=#{userPersonalNo}
+	</select>
+	
 </mapper>

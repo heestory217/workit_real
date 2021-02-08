@@ -197,7 +197,7 @@ div.btWarp > div > a:nth-child(1) {
 								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/allApplicant.do"/>" style="float: left;">목록</a>
 								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/pass.do?resumeNo=${map['RESUME_NO']}&applicantlistNo=${param.applicantlistNo}"/>">합격</a>
 								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/fail.do?resumeNo=${map['RESUME_NO']}&applicantlistNo=${param.applicantlistNo}"/>">불합격</a>
-								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/prohibit.do?resumeNo=${map['RESUME_NO']}&applicantlistNo=${param.applicantlistNo}"/>">지원제한</a>
+								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/prohibit.do?userNo=${map['USER_NO']}"/>">지원제한</a>
 							</div>
 						</div>
 					</c:if>
