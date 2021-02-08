@@ -127,13 +127,15 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 					<div class="cart-table">
 						<table>
 							<colgroup>
-								<col width="35%">
+								<col width="10%">
+								<col width="30%">
 								<col width="20%">
-								<col width="25%">
+								<col width="20%">
 								<col width="20%">
 							</colgroup>
 							<thead>
                                <tr>
+                                   <th>분류</th>
                                    <th>채용 공고</th>
                                    <th>고용 형태</th>
                                    <th>이력서</th>
@@ -150,32 +152,69 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
                                </c:if>
                                <c:if test="${!empty applist }">
 	                               	<c:forEach var="map" items="${applist }">
-										<tr>
-											<td class="cart-title padding-bottom0"><br>
-												<!-- 제목이 긴 경우 일부만 보여주기 -->
-												<a href="<c:url value='/company/ApplicantMng/countUpdate.do?applicantlistNo=${map["APPLICANTLIST_NO"]}'/>">
+										<c:if test="${map['APPLY_FLAG']==1}">
+											<tr>
+												<td class="cart-title padding-bottom0"><br>
 													<p class="center">
-														<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])>=18}">
-															${fn:substring(map['RECRUITANNOUNCE_TITLE'], 0,18) } ...
+														<c:if test="${map['APPLICANTLIST_PAPERCHECK']==1}">
+															<button type="button" class="btn btn-outline-success btn-sm" style="cursor: Default;">
+																서류합격
+															</button>
 														</c:if>
-														<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])<18}">						
-															${map['RECRUITANNOUNCE_TITLE']}
+														<c:if test="${map['APPLICANTLIST_PAPERCHECK']==2}">
+															<button type="button" class="btn btn-outline-danger btn-sm" style="cursor: Default;">
+																불합격
+															</button>
 														</c:if>
+														<c:if test="${map['APPLICANTLIST_PAPERCHECK']==3}">
+															<button type="button" class="btn btn-outline-warning btn-sm" style="cursor: Default;">
+																심사중
+															</button>
+														</c:if>
+														<!--  
+														<c:if test="${map['APPLY_FLAG']==2}">
+															<button type="button" class="btn btn-outline-secondary btn-sm" style="cursor: Default;">
+																지원취소
+															</button>
+															<c:if test="${map['APPLICANTLIST_PAPERCHECK']==1}">
+																<button type="button" class="btn btn-success btn-sm" style="cursor: Default;padding: 10px 2px;"> </button>
+															</c:if>
+															<c:if test="${map['APPLICANTLIST_PAPERCHECK']==2}">
+																<button type="button" class="btn btn-danger btn-sm" style="cursor: Default;padding: 10px 2px;"> </button>
+															</c:if>
+															<c:if test="${map['APPLICANTLIST_PAPERCHECK']==3}">
+																<button type="button" class="btn btn-warning btn-sm" style="cursor: Default;padding: 10px 2px;"> </button>
+															</c:if>
+														</c:if>
+														-->
 													</p>
-												</a>
-											</td>
-											<td class="cart-title padding-bottom0"><br>
-												<p class="center">${map['RECRUITANNOUNCE_SWORKKIND']}</p>
-											</td>
-											<td class="cart-title padding-bottom0"><br>
-												<p class="center">${map['RESUME_TITLE']}</p>
-											</td>
-											<td class="cart-title padding-bottom0"><br>
-												<p class="center">
-													<fmt:formatDate value="${map['APPLICANTLIST_DATE']}" pattern="yyyy-MM-dd"/>
-												</p>
-											</td>
-										</tr>
+												</td>
+												<td class="cart-title padding-bottom0"><br>
+													<!-- 제목이 긴 경우 일부만 보여주기 -->
+													<a href="<c:url value='/company/ApplicantMng/countUpdate.do?applicantlistNo=${map["APPLICANTLIST_NO"]}'/>">
+														<p class="center">
+															<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])>=18}">
+																${fn:substring(map['RECRUITANNOUNCE_TITLE'], 0,18) } ...
+															</c:if>
+															<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])<18}">						
+																${map['RECRUITANNOUNCE_TITLE']}
+															</c:if>
+														</p>
+													</a>
+												</td>
+												<td class="cart-title padding-bottom0"><br>
+													<p class="center">${map['RECRUITANNOUNCE_SWORKKIND']}</p>
+												</td>
+												<td class="cart-title padding-bottom0"><br>
+													<p class="center">${map['RESUME_TITLE']}</p>
+												</td>
+												<td class="cart-title padding-bottom0"><br>
+													<p class="center">
+														<fmt:formatDate value="${map['APPLICANTLIST_DATE']}" pattern="yyyy-MM-dd"/>
+													</p>
+												</td>
+											</tr>
+										</c:if>
 									</c:forEach>
 								</c:if>
 							</tbody>
