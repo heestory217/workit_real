@@ -10,16 +10,22 @@
 	#searchImg{
 		border-radius: 7px;
 	}
+	
+	.userName{
+		color:#8566fa;
+	}
 </style>
 
-<div class="container containDiv"><p style="font-size:22px;color:#4C4747;font-weight:600">신규 채용 회사</p>
+<div class="container containDiv"><p style="font-size:22px;color:#4C4747;font-weight:600">
+	<span class="userName">${sessionScope.userName}</span>님을 위한 맞춤 채용 공고
+</p>
 <div id="new" class="carousel slide" data-ride="carousel"> 
 	<!-- 슬라이드 시작 -->
-	<c:if test="${!empty newPostList}">
+	<c:if test="${!empty customList}">
 		<div class="carousel-inner">
 			<div class="carousel-item active">
 				<div class="row">
-					<c:forEach var="map" items="${newPostList}" begin="0" end="3">
+					<c:forEach var="map" items="${customList}" begin="0" end="3">
 						<div class="col-lg-3 padding_5 d-inline-block w-25">
 							<div class="single-latest-blog">
 								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
@@ -42,7 +48,7 @@
 										</p>
 										<p class="margin_bottom_0"
 											style="font-size: 15px; color: #989898;">
-											${map['RECRUITANNOUNCE_SPAY']}원
+											${map['RECRUITANNOUNCE_SPAY']}
 										</p>
 									</div>
 								</a>
@@ -55,7 +61,7 @@
 		
 			<div class="carousel-item">
 				<div class="row">
-					<c:forEach var="map" items="${newPostList}" begin="4" end="7">
+					<c:forEach var="map" items="${customList}" begin="4" end="7">
 						<div class="col-lg-3 padding_5 d-inline-block w-25">
 							<div class="single-latest-blog">
 								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
@@ -78,7 +84,7 @@
 										</p>
 										<p class="margin_bottom_0"
 											style="font-size: 15px; color: #989898;">
-											${map['RECRUITANNOUNCE_SPAY']}원
+											${map['RECRUITANNOUNCE_SPAY']}
 										</p>
 									</div>
 								</a>
@@ -91,7 +97,7 @@
 		
 			<div class="carousel-item">
 				<div class="row">
-					<c:forEach var="map" items="${newPostList}" begin="8" end="11">
+					<c:forEach var="map" items="${customList}" begin="8" end="11">
 						<div class="col-lg-3 padding_5 d-inline-block w-25">
 							<div class="single-latest-blog">
 								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
@@ -114,7 +120,7 @@
 										</p>
 										<p class="margin_bottom_0"
 											style="font-size: 15px; color: #989898;">
-											${map['RECRUITANNOUNCE_SPAY']}원
+											${map['RECRUITANNOUNCE_SPAY']}
 										</p>
 									</div>
 								</a>
@@ -125,9 +131,7 @@
 			</div>
 	</div>
 </c:if>
-	
 	<!-- 슬라이드 끝 -->
-	
 	
 	<!-- previous/next button --> 
 	<a class="carousel-control-prev" href="#new" data-slide="prev" style="margin-bottom: 125px;margin-left: -50px;"> 

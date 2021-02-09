@@ -8,15 +8,26 @@
 </script>
 <style>
 	#rcmdImg{
-		border-radius: 7px;
+		border-radius:7px;
 		height:300px;
 		width:100%;
 	}
 	
-	 
+	#bgColor{
+		background: #8181ff14;
+		height:520px;
+	}
+	
+	.bannerContainer{
+		padding:50px;
+	}
+	
+	.rcmdBx{
+		padding:50px 10px;
+	}
 </style>
-
-<div class="container containDiv"><p style="font-size:24px;color:#4C4747;font-weight:600">오늘의 추천</p>
+<div id="bgColor">
+<div class="container rcmdBx"><p style="font-size:22px;color:#4C4747;font-weight:600">오늘의 추천</p>
 <div id="rcmd" class="carousel slide" data-ride="carousel"> 
 	<div class="carousel-inner"> 
 		<!-- 슬라이드 쇼 -->
@@ -205,5 +216,6 @@
 	<a class="carousel-control-next" href="#rcmd" data-slide="next" style="margin-bottom: 95px;margin-right: -50px;"> 
 		<span class="carousel-control-next-icon" aria-hidden="true"></span> 
 	</a> 
+</div>
 </div>
 </div>
