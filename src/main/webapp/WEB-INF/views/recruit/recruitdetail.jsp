@@ -44,7 +44,7 @@ a#corpinfo {
 		    	event.preventDefault();
 		    }
 		});
-		
+
 		$('#deleteclick').click(function(){
 			var confirm_test = confirm("채용공고 삭제는 추가적인 관리자 승인없이 바로 삭제됩니다. 정말로 채용공고를 삭제하게시겠습니까?");
 			if ( confirm_test == true ) {
@@ -53,19 +53,19 @@ a#corpinfo {
 		    	event.preventDefault();
 		    }
 		});
-		
+
 		$('adclick').click(function(){
 			window.location.href = 'http://localhost:9090/workit/index.do';
 		});
-		
+
 		$('#corpinfo').click(function(){
 			window.location.href = 'http://localhost:9090/workit/company/corp/corpDetail.do?corpNo=${CorpVO.corpNo}';
 		});
-		
+
 		$('#applicant').click(function(){
 			window.location.href = 'http://localhost:9090/workit/index.do';
 		});
-		
+
 	});
 </script>
     <!-- Blog Details Section Begin -->
@@ -97,11 +97,11 @@ a#corpinfo {
                            		<c:if test="${d<0}">
                           			 &nbsp; 채용 마감
                            		</c:if>
-                           		
+
                          	</p>
                         </div>
                         <!-- <div class="blog-detail-title"> -->
-                        
+
                        <c:forEach var="imgList" items="${imgList }" begin="0" end="0">
 			                    <div class="blog-large-pic">
 			                        <img src="<c:url value='/pd_images/${imgList.corpimgUrl}'/>">
@@ -129,7 +129,7 @@ a#corpinfo {
 		                        </p>
                             </div>
                         </div>
-                        
+
                         <div class="product-tab"style="padding-top: 40px;">
                         <div class="tab-item">
                             <ul class="nav" role="tablist">
@@ -177,7 +177,7 @@ a#corpinfo {
 		                                            <h5><i class="fa fa-comments" aria-hidden="true"></i> 채용 과정</h5>
 		                                            	<p>${RecruitannounceVO.recruitannounceHirestep}</p>
 	                                           	</div>
-                                           	
+
 	                                           	<div class="half">
 		                                            <h5><i class="fa fa-calendar" aria-hidden="true"></i> 채용 마감일</h5>
 			                          					<p><fmt:formatDate value="${RecruitannounceVO.recruitannounceEnddate}" pattern="yyyy년 MM월 dd일"/>

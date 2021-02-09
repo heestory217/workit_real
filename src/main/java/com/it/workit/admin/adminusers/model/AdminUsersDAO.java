@@ -1,5 +1,5 @@
 package com.it.workit.admin.adminusers.model;
 
-public class AdminUsersDAO {
+public interface AdminUsersDAO {
 
 }
