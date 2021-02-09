@@ -7,9 +7,48 @@
 <style>
 section:nth-child(3) div div div div table tbody tr td a p:hover {
 	color: #4C50BB;
-	font-weight:  600;
+	font-weight: 600;
+}
+
+.product__pagination a, .blog__pagination a, #currentPage {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #b2b2b2;
+	font-size: 14px;
+	color: #b2b2b2;
+	font-weight: 700;
+	line-height: 28px;
+	text-align: center;
+	margin-right: 16px;
+	-webkit-transition: all, 0.3s;
+	-moz-transition: all, 0.3s;
+	-ms-transition: all, 0.3s;
+	-o-transition: all, 0.3s;
+	transition: all, 0.3s;
+}
+
+.product__pagination a:hover, .blog__pagination a:hover, #currentPage {
+	background: #4C50BB;
+	border-color: #4C50BB;
+	color: #ffffff;
+}
+
+.product__pagination a:last-child, .blog__pagination a:last-child {
+	margin-right: 0;
 }
 </style>
+
+<script type="text/javascript">
+    function pageFunc(curPage){
+    	$('input[name=currentPage]').val(curPage);
+    	$('form[name=frmPRPage]').submit();
+    }
+</script>
+
+<form action="<c:url value='/company/ApplicantMng/allApplicant.do'/>" name="frmPRPage" method="post">
+	<input type="hidden" name="currentPage">
+</form>      
 
 <!-- 상단 바  -->
 <div class="breacrumb-section">
@@ -51,6 +90,15 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 	</div>
 	<!-- 제목 끝 -->
 	
+	<!-- 변수선언  -->
+	<c:set var="all" value="${CountAllApplicant}" />
+	<c:set var="open" value="${open}" />
+	<c:set var="closed" value="${CountAllApplicant-open}" />
+	<c:set var="wait" value="${wait}" />
+	<c:set var="pass" value="${pass}" />
+	<c:set var="fail" value="${fail}" />
+	<c:set var="prohibited" value="${prohibited}" />
+	
 	<section class="shopping-cart spad">
 		<div class="container">
 			<div class="row">
@@ -65,7 +113,7 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 							<tr>
 								<td class="cart-title">
 									<a href="#"><br><br>
-										<h2 class="center textColorblue">${CountAllApplicant}</h2>
+										<h2 class="center textColorblue">${all}</h2>
 										<p class="center">전체</p>
 									</a>
 								</td>
@@ -103,13 +151,6 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 										<span style="color:#4C50BB;font-weight: 800;">${fail}</span>
 									</p>
 								</td>
-								<!--  
-								<td style="padding: 10px 0 10px 0;">
-									<p class="center" style="margin: 0 auto;">지원취소 
-										<span style="color:#4C50BB;font-weight: 800;">${cancel}</span>
-									</p>
-								</td>
-								-->
 								<td style="padding: 10px 0 10px 0;">
 									<p class="center" style="margin: 0 auto;">입사제한 
 										<span style="color:#4C50BB;font-weight: 800;">${prohibited}</span>
@@ -154,70 +195,52 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 	                            	</tr>
                                </c:if>
                                <c:if test="${!empty applist }">
-	                               	<c:forEach var="map" items="${applist }">
-										<c:if test="${map['APPLY_FLAG']==1}">
-											<tr>
-												<td class="cart-title padding-bottom0"><br>
+	                               	<c:forEach var="map" items="${applist}">
+										<tr>
+											<td class="cart-title padding-bottom0"><br>
+												<p class="center">
+													<c:if test="${map['APPLICANTLIST_PAPERCHECK']==1}">
+														<button type="button" class="btn btn-outline-success btn-sm" style="cursor: Default;">
+															서류합격
+														</button>
+													</c:if>
+													<c:if test="${map['APPLICANTLIST_PAPERCHECK']==2}">
+														<button type="button" class="btn btn-outline-danger btn-sm" style="cursor: Default;">
+															불합격
+														</button>
+													</c:if>
+													<c:if test="${map['APPLICANTLIST_PAPERCHECK']==3}">
+														<button type="button" class="btn btn-outline-warning btn-sm" style="cursor: Default;">
+															심사중
+														</button>
+													</c:if>
+												</p>
+											</td>
+											<td class="cart-title padding-bottom0"><br>
+												<!-- 제목이 긴 경우 일부만 보여주기 -->
+												<a href="<c:url value='/company/ApplicantMng/countUpdate.do?applicantlistNo=${map["APPLICANTLIST_NO"]}'/>">
 													<p class="center">
-														<c:if test="${map['APPLICANTLIST_PAPERCHECK']==1}">
-															<button type="button" class="btn btn-outline-success btn-sm" style="cursor: Default;">
-																서류합격
-															</button>
+														<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])>=18}">
+															${fn:substring(map['RECRUITANNOUNCE_TITLE'], 0,18) } ...
 														</c:if>
-														<c:if test="${map['APPLICANTLIST_PAPERCHECK']==2}">
-															<button type="button" class="btn btn-outline-danger btn-sm" style="cursor: Default;">
-																불합격
-															</button>
+														<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])<18}">						
+															${map['RECRUITANNOUNCE_TITLE']}
 														</c:if>
-														<c:if test="${map['APPLICANTLIST_PAPERCHECK']==3}">
-															<button type="button" class="btn btn-outline-warning btn-sm" style="cursor: Default;">
-																심사중
-															</button>
-														</c:if>
-														<!--  
-														<c:if test="${map['APPLY_FLAG']==2}">
-															<button type="button" class="btn btn-outline-secondary btn-sm" style="cursor: Default;">
-																지원취소
-															</button>
-															<c:if test="${map['APPLICANTLIST_PAPERCHECK']==1}">
-																<button type="button" class="btn btn-success btn-sm" style="cursor: Default;padding: 10px 2px;"> </button>
-															</c:if>
-															<c:if test="${map['APPLICANTLIST_PAPERCHECK']==2}">
-																<button type="button" class="btn btn-danger btn-sm" style="cursor: Default;padding: 10px 2px;"> </button>
-															</c:if>
-															<c:if test="${map['APPLICANTLIST_PAPERCHECK']==3}">
-																<button type="button" class="btn btn-warning btn-sm" style="cursor: Default;padding: 10px 2px;"> </button>
-															</c:if>
-														</c:if>
-														-->
 													</p>
-												</td>
-												<td class="cart-title padding-bottom0"><br>
-													<!-- 제목이 긴 경우 일부만 보여주기 -->
-													<a href="<c:url value='/company/ApplicantMng/countUpdate.do?applicantlistNo=${map["APPLICANTLIST_NO"]}'/>">
-														<p class="center">
-															<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])>=18}">
-																${fn:substring(map['RECRUITANNOUNCE_TITLE'], 0,18) } ...
-															</c:if>
-															<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])<18}">						
-																${map['RECRUITANNOUNCE_TITLE']}
-															</c:if>
-														</p>
-													</a>
-												</td>
-												<td class="cart-title padding-bottom0"><br>
-													<p class="center">${map['RECRUITANNOUNCE_SWORKKIND']}</p>
-												</td>
-												<td class="cart-title padding-bottom0"><br>
-													<p class="center">${map['RESUME_TITLE']}</p>
-												</td>
-												<td class="cart-title padding-bottom0"><br>
-													<p class="center">
-														<fmt:formatDate value="${map['APPLICANTLIST_DATE']}" pattern="yyyy-MM-dd"/>
-													</p>
-												</td>
-											</tr>
-										</c:if>
+												</a>
+											</td>
+											<td class="cart-title padding-bottom0"><br>
+												<p class="center">${map['RECRUITANNOUNCE_SWORKKIND']}</p>
+											</td>
+											<td class="cart-title padding-bottom0"><br>
+												<p class="center">${map['RESUME_TITLE']}</p>
+											</td>
+											<td class="cart-title padding-bottom0"><br>
+												<p class="center">
+													<fmt:formatDate value="${map['APPLICANTLIST_DATE']}" pattern="yyyy-MM-dd"/>
+												</p>
+											</td>
+										</tr>
 									</c:forEach>
 								</c:if>
 							</tbody>
@@ -226,36 +249,33 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 				</div>
 			</div>
 		</div>
-		<!-- 페이징 처리 -->
-		<c:if test="${i>0}">
-			<div class="paging col-lg-12 center">
-				<!-- 이전블럭 -->	
-				<div class="product__pagination blog__pagination">
-				 	<c:if test="${pagingInfo.firstPage>1 }">	
-						<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
-							<i class="fa fa-long-arrow-left"></i>
-						</a>
+		
+		<!-- 페이징 -->
+		<div class="col-lg-12" style="text-align: center;">
+			<div class="product__pagination blog__pagination">
+			 	<c:if test="${pagingInfo.firstPage>1 }">
+					<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
+						<i class="fa fa-long-arrow-left"></i>
+					</a>
+				</c:if>
+				<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
+					<c:if test="${i==pagingInfo.currentPage }">
+						<span id="currentPage" >${i}</span>
 					</c:if>
-					<!-- 블럭 -->
-					<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
-						<c:if test="${i==pagingInfo.currentPage }">
-							<span id="currentPage" >
-								${i}</span>			
-						</c:if>
-						<c:if test="${i!=pagingInfo.currentPage }">
-							<a href="#" onclick="pageFunc(${i})">
-								${i}</a>			
-						</c:if>
-					</c:forEach>
-					<!-- 다음블럭 -->	
-					<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">	
-						<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
-							<i class="fa fa-long-arrow-right"></i>
-						</a>
+					<c:if test="${i!=pagingInfo.currentPage }">
+						<a href="#" onclick="pageFunc(${i})">
+							${i}</a>
 					</c:if>
-			    </div>
+				</c:forEach>
+				<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+					<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
+						<i class="fa fa-long-arrow-right"></i>
+					</a>
+				</c:if>
 			</div>
-	    </c:if>
+		</div>
+		<!-- 페이징 -->
+	    
 	</section>
 </div>
 <%@ include file="../../inc/bottom.jsp"%>

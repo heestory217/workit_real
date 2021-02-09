@@ -54,8 +54,8 @@ public class ApplicantServiceImpl implements ApplicantService{
 	}
 
 	@Override
-	public List<Map<String, Object>> selectAllApplicantView(int userNo) {
-		return applicantDao.selectAllApplicantView(userNo);
+	public List<Map<String, Object>> selectAllApplicantView(CorpApplicantPagingVO vo) {
+		return applicantDao.selectAllApplicantView(vo);
 	}
 
 	@Override
@@ -76,5 +76,10 @@ public class ApplicantServiceImpl implements ApplicantService{
 	@Override
 	public int updaeApplyFail(int applicantlistNo) {
 		return applicantDao.updaeApplyFail(applicantlistNo);
+	}
+
+	@Override
+	public int selectAllAppliedCount(int userNo) {
+		return applicantDao.selectAllAppliedCount(userNo);
 	}
 }
