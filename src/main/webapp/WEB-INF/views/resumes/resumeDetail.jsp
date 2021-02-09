@@ -77,6 +77,16 @@ button.site-btn.register-btn {
     float: right;
 }
 
+div.btWarp > div > a:nth-child(1) {
+	padding: 10px 30px 10px;
+	background: white;
+    border: 1px solid #4C50BB;
+    color: #4C50BB;
+}
+.btWarp .filter-widget a {
+	padding: 10px 30px 10px;
+}
+
 </style>
 <div class="container">
     <form class="checkout-form" method="POST" name="resumefrm"
@@ -168,18 +178,28 @@ button.site-btn.register-btn {
 		                 </c:forEach>
 						</c:if>
                     </div>
-                    
-                    <c:if test="${map['USER_CORPCHECK']=='1'}">
-                    <div class="btWarp">
-                    	<div class="bt-float">
-						<button class="site-btn listBt" type="button"
-onclick="location.href='<c:url value="/resumes/resumesList.do"/>'">목록</button>
-						<button class="site-btn updateBt" type="button"
-onclick="location.href='<c:url value="/resumes/resumeUpdate.do?resumeNo=${map['RESUME_NO']}"/>'">수정</button>
-						<button class="site-btn delBt" type="button" 
-onclick="location.href='<c:url value="/resumes/deleteResumes.do?resumeNo=${map['RESUME_NO']}"/>'">삭제</button>
+                    <c:if test="${map['USER_CORPCHECK']=='1' and empty param.type}">
+	                    <div class="btWarp">
+	                    	<div class="bt-float">
+								<button class="site-btn listBt" type="button"
+		onclick="location.href='<c:url value="/resumes/resumesList.do"/>'">목록</button>
+								<button class="site-btn updateBt" type="button"
+		onclick="location.href='<c:url value="/resumes/resumeUpdate.do?resumeNo=${map['RESUME_NO']}"/>'">수정</button>
+								<button class="site-btn delBt" type="button" 
+		onclick="location.href='<c:url value="/resumes/deleteResumes.do?resumeNo=${map['RESUME_NO']}"/>'">삭제</button>
+							</div>
 						</div>
-					</div>
+					</c:if>
+					<!-- 채용공고에 지원한 이력서 일 때 -->
+                    <c:if test="${param.type=='Applied' and !empty param.applicantlistNo}">
+	                    <div class="btWarp">
+	                    	<div class="filter-widget" style="text-align: right;">
+								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/allApplicant.do"/>" style="float: left;">목록</a>
+								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/pass.do?resumeNo=${map['RESUME_NO']}&applicantlistNo=${param.applicantlistNo}"/>">합격</a>
+								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/fail.do?resumeNo=${map['RESUME_NO']}&applicantlistNo=${param.applicantlistNo}"/>">불합격</a>
+								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/prohibit.do?userNo=${map['USER_NO']}"/>">지원제한</a>
+							</div>
+						</div>
 					</c:if>
                 </div>
             </div>

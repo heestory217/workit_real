@@ -58,8 +58,8 @@ public class ApplicantDAOMybatis implements ApplicantDAO{
 	}
 
 	@Override
-	public List<Map<String, Object>> selectAllApplicantView(int userNo) {
-		return sqlSession.selectList(namespace+"selectAllApplicantView", userNo);
+	public List<Map<String, Object>> selectAllApplicantView(CorpApplicantPagingVO vo) {
+		return sqlSession.selectList(namespace+"selectAllApplicantView", vo);
 	}
 
 	@Override
@@ -70,5 +70,20 @@ public class ApplicantDAOMybatis implements ApplicantDAO{
 	@Override
 	public ApplicantlistVO selectOneApplication(int applicantlistNo) {
 		return sqlSession.selectOne(namespace+"selectOneApplication", applicantlistNo);
+	}
+
+	@Override
+	public int updaeApplyPass(int applicantlistNo) {
+		return sqlSession.update(namespace+"updaeApplyPass", applicantlistNo);
+	}
+
+	@Override
+	public int updaeApplyFail(int applicantlistNo) {
+		return sqlSession.update(namespace+"updaeApplyFail", applicantlistNo);
+	}
+
+	@Override
+	public int selectAllAppliedCount(int userNo) {
+		return sqlSession.selectOne(namespace+"selectAllAppliedCount", userNo);
 	}
 }
