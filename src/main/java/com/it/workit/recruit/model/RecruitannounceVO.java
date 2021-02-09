@@ -25,6 +25,17 @@ public class RecruitannounceVO {
 	private int recruitannounceEndcheck;//RECRUITANNOUNCE_ENDCHECK	NUMBER	NOT NULL
 	private String recruitannounceLink;//RECRUITANNOUNCE_LINK	VARCHAR2(200)	NULL
 	
+	
+	
+	
+	public Date getRecruitannounceEnddate() {
+		return recruitannounceEnddate;
+	}
+	public void setRecruitannounceEnddate(Date recruitannounceEnddate) {
+		this.recruitannounceEnddate = recruitannounceEnddate;
+	}
+	
+	
 	public int getRecruitannounceNo() {
 		return recruitannounceNo;
 	}
@@ -66,12 +77,6 @@ public class RecruitannounceVO {
 	}
 	public void setRecruitannounceStartdate(Date recruitannounceStartdate) {
 		this.recruitannounceStartdate = recruitannounceStartdate;
-	}
-	public Date getRecruitannounceEnddate() {
-		return recruitannounceEnddate;
-	}
-	public void setRecruitannounceEnddate(Date recruitannounceEnddate) {
-		this.recruitannounceEnddate = recruitannounceEnddate;
 	}
 	public String getRecruitannounceScarrer() {
 		return recruitannounceScarrer;
