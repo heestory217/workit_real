@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.it.workit.common.DateSearchVO;
 import com.it.workit.common.SearchVO;
 
 @Repository
@@ -135,6 +136,26 @@ public class UsersDAOMybatis implements UsersDAO {
 	@Override
 	public int selectTotalCorpWithdrawUsers() {
 		return sqlSession.selectOne(namespace+"selectTotalCorpWithdrawUsers");
+	}
+
+	@Override
+	public int selectTotalUserByDate(DateSearchVO dateSearchVo) {
+		return sqlSession.selectOne(namespace+"selectTotalUserByDate",dateSearchVo);
+	}
+
+	@Override
+	public int selectTotalCorpByDate(DateSearchVO dateSearchVo) {
+		return sqlSession.selectOne(namespace+"selectTotalCorpByDate",dateSearchVo);
+	}
+
+	@Override
+	public int selectTotalWithdrawUsersByDate(DateSearchVO dateSearchVo) {
+		return sqlSession.selectOne(namespace+"selectTotalWithdrawUsersByDate",dateSearchVo);
+	}
+
+	@Override
+	public int selectTotalWithdrawCorpByDate(DateSearchVO dateSearchVo) {
+		return sqlSession.selectOne(namespace+"selectTotalWithdrawCorpByDate",dateSearchVo);
 	}
 
 
