@@ -21,6 +21,7 @@ import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.CorpVO;
+import com.it.workit.corp.model.CorpimgVO;
 import com.it.workit.language.model.LanguageVO;
 import com.it.workit.recruit.model.AdvertisingVO;
 import com.it.workit.recruit.model.RecruitannounceService;
@@ -61,8 +62,11 @@ public class RecruitController {
 		Date time = new Date();
 		long d= ((recvo.getRecruitannounceEnddate()).getTime() - time.getTime())/(24*60*60*1000);
 		
+		List<CorpimgVO> imgList = corpservice.corpImgList(num);
+		
 		//3
 		model.addAttribute("RecruitannounceVO", recvo);
+		model.addAttribute("imgList", imgList);
 		model.addAttribute("CorpVO", cvo);
 		model.addAttribute("cwvo", cwvo);
 		model.addAttribute("cwa", cwa);
