@@ -101,9 +101,5 @@ public class ApplicantDAOMybatis implements ApplicantDAO{
 	public int selectReadCount(CorpApplicantPagingVO vo) {
 		return sqlSession.selectOne(namespace+"selectReadCount", vo);
 	}
-	
-	@Override
-	public int selectProhibitCount(CorpApplicantPagingVO vo) {
-		return sqlSession.selectOne(namespace+"selectProhibitCount", vo);
-	}
+
 }

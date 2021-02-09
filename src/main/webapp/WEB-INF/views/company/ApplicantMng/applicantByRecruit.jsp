@@ -55,11 +55,11 @@ select {
 <script type="text/javascript">
     function pageFunc(curPage){
     	$('input[name=currentPage]').val(curPage);
-    	$('form[name=frmPRPage]').submit();
+    	$('form[name=frmPage]').submit();
     }
 </script>
 
-<form action="<c:url value='/company/ApplicantMng/applicantByRecruit.do'/>" name="frmPRPage" method="post">
+<form action="<c:url value='/company/ApplicantMng/applicantByRecruit.do'/>" name="frmPage" method="post">
 	<input type="hidden" name="currentPage">
 </form>      
 
@@ -70,7 +70,7 @@ select {
             <div class="col-lg-12">
                 <div class="breadcrumb-text product-more">
                     <a href="<c:url value='/index.do'/>"><i class="fa fa-home"></i> Home</a>
-                    <a href="#">Applicant Management</a>
+                    <a href="<c:url value='/company/ApplicantMng/applicantByRecruit.do'/>">Applicant Management</a>
                     <span>
 	                    <c:if test="${empty param.recruitannounceNo}">
 	                    	All Applicant

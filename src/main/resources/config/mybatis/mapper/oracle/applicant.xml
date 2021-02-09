@@ -235,9 +235,39 @@
 		values(#{prohibitjoinNo}, #{userIndivNo}, #{userCorpNo})
 	</insert>
 	
-	<!-- 입사지원자 여부 판단 -->
+	<!-- 입사지원제한자 여부 판단 -->
 	<select id="selectIfProhibited" parameterType="int" resultType="int">
 		select count(*) from PROHIBITJOIN where USER_INDIV_NO=#{userIndivNo}
 	</select>
 	
+	<!-- 입사지원제한자 명부  -->
+	<select id="selectProhibitedList" parameterType="ProhibitJoinPagingVO" resultType="map">
+		select *
+		from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+				select p.*, 
+				    (select USER_NAME from users where USER_NO=USER_INDIV_NO) AS USER_NAME,
+				    (select RESUME_TITLE from resumes where USER_NO=USER_INDIV_NO) AS RESUME_TITLE
+				from PROHIBITJOIN p
+				where USER_CORP_NO=#{userCorpNo}
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<!-- 입사지원제한 취소 -->
+	<delete id="deleteFromProhibit" parameterType="int" >
+		delete from PROHIBITJOIN where PROHIBITJOIN_NO=#{prohibitjoinNo}
+	</delete>
+	
+	<!-- 입사지원제한자 수 -->
+	<select id="selectProhibitTotal" parameterType="int" resultType="int">
+		select count(*) from PROHIBITJOIN where USER_CORP_NO=#{userCorpNo}
+	</select>
 </mapper>

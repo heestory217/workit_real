@@ -19,6 +19,7 @@ import com.it.workit.applicant.model.ApplicantlistVO;
 import com.it.workit.applicant.model.CorpApplicantPagingVO;
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
+import com.it.workit.prohibit.model.ProhibitJoinPagingVO;
 import com.it.workit.prohibit.model.ProhibitJoinService;
 import com.it.workit.prohibit.model.ProhibitJoinVO;
 import com.it.workit.recruit.model.RecruitannounceService;
@@ -35,7 +36,7 @@ public class CorpApplicantController {
 	
 	@RequestMapping("/applicantByRecruit.do")
 	public void applicantByRecruit(@ModelAttribute CorpApplicantPagingVO searchVo, HttpSession session, Model model){
-		logger.info("공고별 지원자 목록 보여주기");
+		logger.info("지원자 목록 보여주기 (전체/공고별)");
 		int userNo = (Integer) session.getAttribute("userNo");
 		List<RecruitannounceVO> list = recruitService.selectRecruitList(userNo);
 		model.addAttribute("list", list);
@@ -62,7 +63,7 @@ public class CorpApplicantController {
 		int pass = appService.selectPassCount(searchVo);
 		int fail = appService.selectFailCount(searchVo);
 		int open = appService.selectReadCount(searchVo);
-		int prohibited = appService.selectProhibitCount(searchVo);
+		int prohibited = prohibitService.selectProhibitCount(searchVo);
 		
 		model.addAttribute("applist", applist);	//5개씩 출력됨
 		model.addAttribute("pagingInfo", pagingInfo);
@@ -140,9 +141,28 @@ public class CorpApplicantController {
 	}
 	
 	@RequestMapping("/prohibit.do")
-	public String prohibit_post(HttpSession session, @RequestParam (defaultValue = "0") int userNo, Model model){
+	public String prohibit(@ModelAttribute ProhibitJoinPagingVO searchVo, HttpSession session, 
+			@RequestParam (defaultValue = "0") int userNo, Model model){
+		logger.info("입사지원제한자 페이지 보여주기");
+		int userCorpNo = (Integer) session.getAttribute("userNo");
+		searchVo.setUserCorpNo(userCorpNo);
+		
+		//페이징
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(5);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		
+		searchVo.setRecordCountPerPage(5);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		//전체 지원자 목록
+		int totalRecord=prohibitService.selectProhibitTotal(userCorpNo);
+		logger.info("전체 입사제한자 수 totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+				
+		List<Map<String, Object>> list = prohibitService.selectProhibitedList(searchVo);
 		if(userNo!=0) {
-			int userCorpNo = (Integer) session.getAttribute("userNo");
 			logger.info("입사지원제한자 등록처리, userNo={}", userNo);
 
 			ProhibitJoinVO vo = new ProhibitJoinVO();
@@ -152,10 +172,26 @@ public class CorpApplicantController {
 			
 			if(cnt>0) {
 				model.addAttribute("msg", "해당 지원자가 입사지원제한자로 등록되었습니다.");
-				model.addAttribute("url", "/company/ApplicantMng/allApplicant.do");
+				model.addAttribute("url", "/company/ApplicantMng/applicantByRecruit.do");
 				return "common/message";
 			}
 		}
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
 		return "/company/ApplicantMng/prohibit";
+	}
+	
+	@RequestMapping("/prohibitCancel.do")
+	public String prohibitCancel(@RequestParam (defaultValue = "0") int prohibitjoinNo, Model model){
+		logger.info("입사지원취소 prohibitjoinNo={}", prohibitjoinNo);
+
+		if(prohibitjoinNo!=0) {
+			int cnt = prohibitService.deleteFromProhibit(prohibitjoinNo);
+			logger.info("입사지원제한자 취소 처리 결과 cnt={}", cnt);
+		}
+		
+		return "redirect:/company/ApplicantMng/prohibit.do";
 	}
 }

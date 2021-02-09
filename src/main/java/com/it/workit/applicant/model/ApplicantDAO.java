@@ -22,7 +22,6 @@ public interface ApplicantDAO {
 	int selectPassCount(CorpApplicantPagingVO vo);
 	int selectFailCount(CorpApplicantPagingVO vo);
 	int selectReadCount(CorpApplicantPagingVO vo);
-	int selectProhibitCount(CorpApplicantPagingVO vo);
 	
 	int updateReadCount(int applicantlistNo);
 	ApplicantlistVO selectOneApplication(int applicantlistNo);
@@ -30,4 +29,5 @@ public interface ApplicantDAO {
 	//합격여부 처리
 	int updaeApplyPass(int applicantlistNo);
 	int updaeApplyFail(int applicantlistNo);
+	
 }

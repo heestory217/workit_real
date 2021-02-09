@@ -97,9 +97,5 @@ public class ApplicantServiceImpl implements ApplicantService{
 	public int selectReadCount(CorpApplicantPagingVO vo) {
 		return applicantDao.selectReadCount(vo);
 	}
-	
-	@Override
-	public int selectProhibitCount(CorpApplicantPagingVO vo) {
-		return applicantDao.selectProhibitCount(vo);
-	}
+
 }
