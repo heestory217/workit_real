@@ -7,7 +7,6 @@
 <%@ include file="inc/sideMenu.jsp" %>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/adminMain.css'/>" />
 
-<div class="container-fluid  dashboard-content"">
 <!-- 사이트 방문자, 회원 통계 -->
 	<div class="row margin_view">
 		<!-- 총 유저 수 -->
@@ -82,7 +81,7 @@
 <!-- 월간 총 수익 -->
 
 <!-- ============================================================== -->
-<%-- <c:import url="/admin/main/userCount/newUsers.do"/> --%>
+ <c:import url="/admin/main/userCount/userStats.do"/>
 <!-- ============================================================== -->
 
 <div style="border-bottom: 1px solid #ddd;" class="container-fluid  dashboard-content"">
