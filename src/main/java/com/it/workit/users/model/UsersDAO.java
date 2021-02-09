@@ -3,6 +3,7 @@ package com.it.workit.users.model;
 import java.util.List;
 import java.util.Map;
 
+import com.it.workit.common.DateSearchVO;
 import com.it.workit.common.SearchVO;
 
 public interface UsersDAO {
@@ -31,4 +32,8 @@ public interface UsersDAO {
 	public int selectTotalCorpUsers();
 	public int selectTotalIndivWithdrawUsers();
 	public int selectTotalCorpWithdrawUsers();
+	public int selectTotalUserByDate(DateSearchVO dateSearchVo);
+	public int selectTotalCorpByDate(DateSearchVO dateSearchVo);
+	public int selectTotalWithdrawUsersByDate(DateSearchVO dateSearchVo);
+	public int selectTotalWithdrawCorpByDate(DateSearchVO dateSearchVo);
 }

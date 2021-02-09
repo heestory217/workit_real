@@ -3,6 +3,7 @@ package com.it.workit.users.model;
 import java.util.List;
 import java.util.Map;
 
+import com.it.workit.common.DateSearchVO;
 import com.it.workit.common.SearchVO;
 
 public interface UsersService {
@@ -50,5 +51,10 @@ public interface UsersService {
 	public int selectTotalCorpUsers();
 	public int selectTotalIndivWithdrawUsers();
 	public int selectTotalCorpWithdrawUsers();
+	//차트 사용
+	public int selectTotalUserByDate(DateSearchVO dateSearchVo);
+	public int selectTotalCorpByDate(DateSearchVO dateSearchVo);
+	public int selectTotalWithdrawUsersByDate(DateSearchVO dateSearchVo);
+	public int selectTotalWithdrawCorpByDate(DateSearchVO dateSearchVo);
 	
 }
