@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.applicant.model.ApplicantService;
@@ -139,28 +140,24 @@ public class CorpApplicantController {
 		return "common/message";
 	}
 	
-	//입사지원제한자 등록처리
 	@RequestMapping("/prohibit.do")
-	public String prohibit(HttpSession session, @RequestParam (defaultValue = "0") int userNo, Model model){
-		logger.info("입사지원제한자 등록처리, userNo={}", userNo);
-		int userCorpNo = (Integer) session.getAttribute("userNo");
-		
-		if(userNo==0 || userCorpNo==0) {
-			model.addAttribute("msg", "잘못된 url입니다.");
-			model.addAttribute("url", "/company/ApplicantMng/allApplicant.do");
-			return "common/message";
+	public String prohibit_post(HttpSession session, @RequestParam (defaultValue = "0") int userNo, Model model){
+		if(userNo!=0) {
+			int userCorpNo = (Integer) session.getAttribute("userNo");
+			logger.info("입사지원제한자 등록처리, userNo={}", userNo);
+
+			ProhibitJoinVO vo = new ProhibitJoinVO();
+			vo.setUserCorpNo(userCorpNo);
+			vo.setUserIndivNo(userNo);
+			int cnt = prohibitService.insertProhibit(vo);
+			
+			if(cnt>0) {
+				model.addAttribute("msg", "해당 지원자가 입사지원제한자로 등록되었습니다.");
+				model.addAttribute("url", "/company/ApplicantMng/allApplicant.do");
+				return "common/message";
+			}
 		}
 		
-		ProhibitJoinVO vo = new ProhibitJoinVO();
-		vo.setUserCorpNo(userCorpNo);
-		vo.setUserPersonalNo(userNo);
-		int cnt = prohibitService.insertProhibit(vo);
-		
-		if(cnt>0) {
-			model.addAttribute("msg", "해당 지원자가 입사지원제한자로 등록되었습니다.");
-			model.addAttribute("url", "/company/ApplicantMng/allApplicant.do");
-		}
-		
-		return "common/message";
+		return "/company/ApplicantMng/prohibit";
 	}
 }

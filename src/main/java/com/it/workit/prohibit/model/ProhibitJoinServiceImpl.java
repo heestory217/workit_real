@@ -13,8 +13,8 @@ public class ProhibitJoinServiceImpl implements ProhibitJoinService {
 	}
 
 	@Override
-	public int selectIfProhibited(int userPersonalNo) {
-		return prohibitDao.selectIfProhibited(userPersonalNo);
+	public int selectIfProhibited(int userIndivNo) {
+		return prohibitDao.selectIfProhibited(userIndivNo);
 	}
 	
 }

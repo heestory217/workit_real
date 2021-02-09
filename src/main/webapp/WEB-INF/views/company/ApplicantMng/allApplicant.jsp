@@ -10,6 +10,11 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 	font-weight: 600;
 }
 
+table:nth-child(2)>tbody>tr>td:nth-child(4)>a>p:hover {
+	color: #4C50BB;
+	font-weight: 600;
+}
+
 .product__pagination a, .blog__pagination a, #currentPage {
 	display: inline-block;
 	width: 30px;
@@ -79,8 +84,8 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 		<h2>전체 지원자</h2>
 		<div class="container">
 			<div class="col-lg-12" style="background: #f4f4ff;padding: 15px;">
-				<h6> - 이력서는 지원일로부터 
-					<span style="color: red;" >90일 동안 열람 가능</span>합니다.
+				<h6> - 이력서명을 클릭하면 지원한 이력서 상세내용을 확인할 수 있습니다. </h6>
+				<h6 style="margin-top:15px;"> - <span style="color: red;">합격/불합격 여부</span>는  이력서 상세보기 하단에서 처리 가능합니다.
 				</h6>
 				<h6 style="margin-top:15px;">
 					- 개인회원이 탈퇴하거나 이력서를 삭제한 경우 더 이상 이력서 확인이 불가능합니다.
@@ -111,21 +116,18 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 								<col width="33%">
 							</colgroup>
 							<tr>
-								<td class="cart-title">
-									<a href="#"><br><br>
-										<h2 class="center textColorblue">${all}</h2>
-										<p class="center">전체</p>
-									</a>
+								<td class="cart-title" style="padding-top: 34px;">
+									<h2 class="center textColorblue">${all}</h2>
+									<p class="center" style="margin: 0 auto;">전체</p>
 								</td>
-								<td class="cart-title"><a href="#"><br><br>
+								<td class="cart-title" style="padding-top: 34px;">
 									<h2 class="center textColorblue">${open}</h2>
-									<p class="center">열람</p></a>
+									<p class="center" style="margin: 0 auto;">열람</p>
 								</td>
-								<td class="cart-title"><a href="#"><br><br>
+								<td class="cart-title" style="padding-top: 34px;">
 									<h2 class="center textColorblue">${closed}</h2>
-									<p class="center">미열람</p></a>
+									<p class="center" style="margin: 0 auto;">미열람</p>
 								</td>
-								
 							</tr>
 						</table>
 						<table style="border-top: 0;background: whitesmoke;">
@@ -152,9 +154,11 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 									</p>
 								</td>
 								<td style="padding: 10px 0 10px 0;">
-									<p class="center" style="margin: 0 auto;">입사제한 
-										<span style="color:#4C50BB;font-weight: 800;">${prohibited}</span>
-									</p>
+									<a href="<c:url value='/company/ApplicantMng/prohibit.do'/>">
+										<p class="center" style="margin: 0 auto;">입사제한 
+											<span style="color:#4C50BB;font-weight: 800;">${prohibited}</span>
+										</p>
+									</a>
 								</td>
 							</tr>
 						</table>
@@ -218,22 +222,22 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<!-- 제목이 긴 경우 일부만 보여주기 -->
-												<a href="<c:url value='/company/ApplicantMng/countUpdate.do?applicantlistNo=${map["APPLICANTLIST_NO"]}'/>">
-													<p class="center">
-														<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])>=18}">
-															${fn:substring(map['RECRUITANNOUNCE_TITLE'], 0,18) } ...
-														</c:if>
-														<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])<18}">						
-															${map['RECRUITANNOUNCE_TITLE']}
-														</c:if>
-													</p>
-												</a>
+												<p class="center">
+													<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])>=18}">
+														${fn:substring(map['RECRUITANNOUNCE_TITLE'], 0,18) } ...
+													</c:if>
+													<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])<18}">						
+														${map['RECRUITANNOUNCE_TITLE']}
+													</c:if>
+												</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">${map['RECRUITANNOUNCE_SWORKKIND']}</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
-												<p class="center">${map['RESUME_TITLE']}</p>
+												<a href="<c:url value='/company/ApplicantMng/countUpdate.do?applicantlistNo=${map["APPLICANTLIST_NO"]}'/>">
+													<p class="center">${map['RESUME_TITLE']}</p>
+												</a>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">
@@ -251,31 +255,33 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 		</div>
 		
 		<!-- 페이징 -->
-		<div class="col-lg-12" style="text-align: center;">
-			<div class="product__pagination blog__pagination">
-			 	<c:if test="${pagingInfo.firstPage>1 }">
-					<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
-						<i class="fa fa-long-arrow-left"></i>
-					</a>
-				</c:if>
-				<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
-					<c:if test="${i==pagingInfo.currentPage }">
-						<span id="currentPage" >${i}</span>
+		<c:if test="${i>0}">
+			<div class="col-lg-12" style="text-align: center;">
+				<div class="product__pagination blog__pagination">
+				 	<c:if test="${pagingInfo.firstPage>1 }">
+						<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
+							<i class="fa fa-long-arrow-left"></i>
+						</a>
 					</c:if>
-					<c:if test="${i!=pagingInfo.currentPage }">
-						<a href="#" onclick="pageFunc(${i})">
-							${i}</a>
+					<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
+						<c:if test="${i==pagingInfo.currentPage }">
+							<span id="currentPage" >${i}</span>
+						</c:if>
+						<c:if test="${i!=pagingInfo.currentPage }">
+							<a href="#" onclick="pageFunc(${i})">${i}</a>
+						</c:if>
+					</c:forEach>
+					<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+						<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
+							<i class="fa fa-long-arrow-right"></i>
+						</a>
 					</c:if>
-				</c:forEach>
-				<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
-					<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
-						<i class="fa fa-long-arrow-right"></i>
-					</a>
-				</c:if>
+				</div>
 			</div>
-		</div>
+		</c:if>
 		<!-- 페이징 -->
 	    
 	</section>
 </div>
+
 <%@ include file="../../inc/bottom.jsp"%>
