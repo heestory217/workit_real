@@ -69,7 +69,7 @@
                         </div>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <div>
-                        <h3 class="col-lg-7">채용 형태</h3>
+                        <h3 class="col-lg-7">모집 요강</h3>
                         &nbsp;&nbsp;
                         <p>${RecruitannounceVO.recruitannounceWorkkind}</p>
                         </div>
