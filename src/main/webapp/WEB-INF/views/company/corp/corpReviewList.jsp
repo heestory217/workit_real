@@ -113,12 +113,13 @@
         <h6 style="font-weight: 600; color: #333;">경영진에게 바라는 점</h6>
         <p class="card-text pt-3" style="margin-bottom: 40px;">${reVo.corpreviewWant}</p>
        	<!-- c:if 이 회사의 userNo가 로그인한 userNo와 같은경우 삭제버튼 보여줌 -->
+       	<c:if test="${userChk eq 1}">
 	        <hr style="margin-top: 20px;">
 	  		<a href="<c:url value='/shop/checkOut.do?corpreviewNo=${reVo.corpreviewNo}'/>" class="btn" style="border-left-width: 0px;padding-left: 0px;padding-right: 0px;color: #999;">
 	  			리뷰 삭제
   			</a>
+		</c:if>
       </div>
-
     </div>
   </div>
  </c:forEach>

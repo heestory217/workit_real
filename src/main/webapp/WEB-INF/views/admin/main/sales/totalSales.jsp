@@ -7,8 +7,7 @@
 .highcharts-figure, .highcharts-data-table table {
     min-width: 360px; 
     width: 75%;
-    margin: 0 auto;
-    height:465px;
+    margin: auto;
 }
 
 .highcharts-data-table table {
@@ -45,7 +44,7 @@
 
 </style>
 <div class="col-xl-9 col-lg-12 col-md-8 col-sm-12 col-12">
-	<div class="card">
+	<div class="card" id="chart">
 		<h5 class="card-header">사이트 전체 매출</h5>
 		<figure class="highcharts-figure">
     		<div id="container"></div>
@@ -55,7 +54,7 @@
 
 
 <div class="col-xl-3 col-lg-12 col-md-4 col-sm-12 col-12">
-	<div class="card">
+	<div class="card" id="table">
 		<table class="table">
 			<colgroup>
 				<col width="20%">
@@ -136,4 +135,21 @@ Highcharts.chart('container', {
     }]
 });
 
+/*
+var obj10 = document.getElementById('table'); 
+var obj20 = document.getElementById('chart');
+
+var obj10_height = obj10.offsetHeight;
+var obj20_height = obj20.offsetHeight;
+
+function chartResize(){
+	if(obj10_height > obj20_height) { obj20.style.height = obj10_height + 'px'; }
+	else { obj10.style.height = obj20_height + 'px'; }
+}
+
+window.onload = function() {
+		chartResize();
+		window.onresize = function(event) { console.log('Resizing...'), chartResize(); };
+	}
+*/
 </script>

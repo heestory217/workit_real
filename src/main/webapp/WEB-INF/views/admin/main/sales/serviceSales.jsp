@@ -7,7 +7,7 @@
 .highcharts-figure, .highcharts-data-table table {
     min-width: 310px; 
     max-width: 1600px;
-    margin: 1em auto;
+    margin: auto;
 }
 
 #container {
@@ -41,9 +41,18 @@
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
+
+.card table thead tr th, .card table tbody tr td{
+	text-align : center;
+}
+
+.card table tbody tr td:last-child{
+	text-align : right;
+}
+
 </style>
 <div class="col-xl-12 col-lg-12 col-md-8 col-sm-12 col-12">
-	<div class="card">
+	<div class="card" >
 		<h5 class="card-header">서비스별 월간 매출</h5>
 		<figure class="highcharts-figure">
 		    <div id="serviceContainer"></div>
@@ -74,7 +83,7 @@
         <div class="tab-pane fade active show" id="pills-review" role="tabpanel" aria-labelledby="pills-campaign-tab">
             <div class="row">
                 <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12 col-12">
-                    <div class="card">
+                    <div class="card" id="chart1">
                         <h5 class="card-header">건별 매출</h5>
 							<figure class="highcharts-figure">
 					    		<div id="reviewContainer"></div>
@@ -83,7 +92,7 @@
                 </div>
                 <div class="col-xl-3 col-lg-12 col-md-4 col-sm-12 col-12">
 					<div class="card">
-						<table class="table">
+						<table class="table" id="table1">
 							<colgroup>
 								<col width="20%">
 								<col width="30%">
@@ -116,7 +125,7 @@
         <div class="tab-pane fade" id="pills-resume" role="tabpanel" aria-labelledby="pills-packages-tab">
             <div class="row">
                   <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12 col-12">
-                    <div class="card">
+                    <div class="card" id="chart2">
                         <h5 class="card-header">건별 매출</h5>
 							<figure class="highcharts-figure">
 					    		<div id="resumeContainer"></div>
@@ -157,7 +166,7 @@
         <div class="tab-pane fade" id="pills-adv" role="tabpanel" aria-labelledby="pills-review-tab">
             <div class="row">
                   <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12 col-12">
-                    <div class="card">
+                    <div class="card" id="chart3">
                         <h5 class="card-header">건별 매출</h5>
 							<figure class="highcharts-figure">
 					    		<div id="adContainer"></div>
@@ -198,7 +207,7 @@
         <div class="tab-pane fade" id="pills-del" role="tabpanel" aria-labelledby="pills-msg-tab">
 			<div class="row">
                   <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12 col-12">
-                    <div class="card">
+                    <div class="card" id="chart4">
                         <h5 class="card-header">건별 매출</h5>
 							<figure class="highcharts-figure">
 					    		<div id="delContainer"></div>
@@ -458,6 +467,42 @@ Highcharts.chart('adContainer', {
         data: adQty
     }]
 });
+
+var obj1 = document.getElementById('table1');
+var obj2 = document.getElementById('chart1');
+var obj3 = document.getElementById('chart2');
+var obj4 = document.getElementById('chart3');
+var obj5 = document.getElementById('chart4');
+
+var obj10 = document.getElementById('table'); 
+var obj20 = document.getElementById('chart');
+
+var obj10_height = obj10.offsetHeight;
+var obj20_height = obj20.offsetHeight;
+
+var obj1_height = obj1.offsetHeight;
+var obj2_height = obj2.offsetHeight;
+var obj3_height = obj3.offsetHeight;
+var obj4_height = obj4.offsetHeight;
+var obj5_height = obj5.offsetHeight;
+
+function chartResize(){
+	if(obj1_height > obj2_height) { obj2.style.height = obj1_height + 'px'; }
+	else { obj1.style.height = obj2_height + 'px'; }
+	if(obj1_height > obj3_height) { obj3.style.height = obj1_height + 'px'; }
+	else { obj1.style.height = obj3_height + 'px'; }
+	if(obj1_height > obj4_height) { obj4.style.height = obj1_height + 'px'; }
+	else { obj1.style.height = obj4_height + 'px'; }
+	if(obj1_height > obj5_height) { obj5.style.height = obj1_height + 'px'; }
+	else { obj1.style.height = obj5_height + 'px'; }
+	if(obj10_height > obj20_height) { obj20.style.height = obj10_height + 'px'; }
+	else { obj10.style.height = obj20_height + 'px'; }
+}
+
+window.onload = function() {
+		chartResize();
+		window.onresize = function(event) { console.log('Resizing...'), chartResize(); };
+	}
 </script>
 <!-- highchart -->
 <script src="https://code.highcharts.com/highcharts.js"></script>

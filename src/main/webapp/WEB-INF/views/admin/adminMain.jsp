@@ -86,8 +86,8 @@
 <!-- ============================================================== -->
 
 <div style="border-bottom: 1px solid #ddd;" class="container-fluid  dashboard-content"">
-	<div class="row">
-				<c:import url="/admin/main/sales/totalSales.do"/>
+	<div class="row" style="border-bottom: 1px solid #ddd; margin-bottom: 30px;">
+		<c:import url="/admin/main/sales/totalSales.do"/>
 	</div>
 <!-- 서비스별 월간 총 수익 -->
 	<div>
