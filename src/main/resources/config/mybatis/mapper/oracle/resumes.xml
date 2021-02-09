@@ -154,6 +154,12 @@
 		delete from FOREIGNLANGUAGESKILL 
 		where RECRUITANNOUNCEBOOKMARK_NO=#{foreignlanguageskillNo}
 	</delete>
+	
+	<update id="resumeOpen" parameterType="int">
+		update resumes 
+		set RESUME_RESUMEOPENCHECK=3
+		where resume_no = #{resumeNo}
+	</update>
 </mapper>
 
 

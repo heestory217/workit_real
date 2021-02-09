@@ -360,5 +360,12 @@ public class ResumesController {
 		
 		return "common/message";
 	}
+	
+	
+	//지원하기
+	@RequestMapping("/resumeApply.do")
+	public void resumeApply() {
+		logger.info("지원하기");
+	}
 
 }//컨트롤러
