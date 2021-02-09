@@ -120,6 +120,7 @@
 				on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
 				where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
 				    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+			    and a.USER_NO not in (select USER_PESONAL_NO from PROHIBITJOIN)
 				order by APPLICANTLIST_DATE desc
 		    )A
 		)
@@ -135,6 +136,50 @@
 		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
 		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
 		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+	    and a.USER_NO not in (select USER_PESONAL_NO from PROHIBITJOIN)
+	</select>
+	
+	<!-- 합격 수 -->
+	<select id="selectPassCount" parameterType="int" resultType="int">
+		select count(*) 
+		from APPLICANTLIST a join RECRUITANNOUNCE r
+		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
+		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
+		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+	    and a.USER_NO not in (select USER_PESONAL_NO from PROHIBITJOIN)
+	    and a.APPLICANTLIST_PAPERCHECK=1
+	</select>
+	
+	<!-- 불합격 수 -->
+	<select id="selectFailCount" parameterType="int" resultType="int">
+		select count(*) 
+		from APPLICANTLIST a join RECRUITANNOUNCE r
+		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
+		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
+		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+	    and a.USER_NO not in (select USER_PESONAL_NO from PROHIBITJOIN)
+	    and a.APPLICANTLIST_PAPERCHECK=2
+	</select>
+	
+	<!-- 이력서 읽음 -->
+	<select id="selectReadCount" parameterType="int" resultType="int">
+		select count(*) 
+		from APPLICANTLIST a join RECRUITANNOUNCE r
+		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
+		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
+		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+	    and a.USER_NO not in (select USER_PESONAL_NO from PROHIBITJOIN)
+		and a.RESUME_READFLAG=1
+	</select>
+	
+	<!-- 입사제한자 수음 -->
+	<select id="selectProhibitCount" parameterType="int" resultType="int">
+		select count(*) 
+		from APPLICANTLIST a join RECRUITANNOUNCE r
+		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
+		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
+		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+		and a.USER_NO in (select USER_PESONAL_NO from PROHIBITJOIN)
 	</select>
 	
 	<!-- 기업회원이 지원자 이력서 읽음 -->	

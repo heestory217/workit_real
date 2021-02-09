@@ -94,9 +94,9 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 	<c:set var="all" value="${CountAllApplicant}" />
 	<c:set var="open" value="${open}" />
 	<c:set var="closed" value="${CountAllApplicant-open}" />
-	<c:set var="wait" value="${wait}" />
 	<c:set var="pass" value="${pass}" />
 	<c:set var="fail" value="${fail}" />
+	<c:set var="wait" value="${CountAllApplicant-pass-fail}" />
 	<c:set var="prohibited" value="${prohibited}" />
 	
 	<section class="shopping-cart spad">

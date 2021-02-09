@@ -19,6 +19,11 @@ public interface ApplicantDAO {
 	public List<ApplicantlistVO> selectAllApplicantFromCorp(int userNo);
 	public List<Map<String, Object>> selectAllApplicantView(CorpApplicantPagingVO vo);
 	int selectAllAppliedCount(int userNo);
+	int selectPassCount(int userNo);
+	int selectFailCount(int userNo);
+	int selectReadCount(int userNo);
+	int selectProhibitCount(int userNo);
+	
 	int updateReadCount(int applicantlistNo);
 	ApplicantlistVO selectOneApplication(int applicantlistNo);
 	

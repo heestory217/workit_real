@@ -20,7 +20,6 @@ import com.it.workit.applicant.model.ApplicantlistVO;
 import com.it.workit.applicant.model.CorpApplicantPagingVO;
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
-import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.prohibit.model.ProhibitJoinService;
 import com.it.workit.prohibit.model.ProhibitJoinVO;
 
@@ -56,26 +55,18 @@ public class CorpApplicantController {
 		logger.info("전체 지원자 수 totalRecord={}", totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
 		
-		int prohibited = 0;
-		Iterator<Map<String, Object>> iter = applist.iterator();
-		while (iter.hasNext()) {
-			Map<String, Object> map = iter.next();
-			
-			//java.lang.ClassCastException: java.math.BigDecimal cannot be cast to java.lang.Integer
-			//지원제한자 여부
-			int userPersonalNo = Integer.parseInt(String.valueOf(map.get("USER_NO")));
-			if(userPersonalNo!=0) {
-				int cnt = prohibitService.selectIfProhibited(userPersonalNo);
-				if (cnt>0) {
-					prohibited += 1;
-					iter.remove();	//입사지원자 목록에서 제외
-					break;
-				}
-			}
-		}
+		int pass = appService.selectPassCount(userNo);
+		int fail = appService.selectFailCount(userNo);
+		int open = appService.selectReadCount(userNo);
+		int prohibited = appService.selectProhibitCount(userNo);
+		
 		model.addAttribute("applist", applist);	//5개씩 출력됨
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("CountAllApplicant", totalRecord);
+		
+		model.addAttribute("pass", pass);
+		model.addAttribute("fail", fail);
+		model.addAttribute("open", open);
 		model.addAttribute("prohibited", prohibited);
 	}
 	
