@@ -44,6 +44,28 @@
 		]]>
 	</select>
 
+	<!-- 회원 맞춤 채용 공고 -->
+	<select id="selectCustomPost" resultType="map" parameterType="int">
+		SELECT *
+		FROM 
+		(
+		select r.RECRUITANNOUNCE_NO, r.RECRUITANNOUNCE_startdate, r.user_no,W.WORKKIND_NAME,
+		r.RECRUITANNOUNCE_enddate,r.RECRUITANNOUNCE_title,r.RECRUITANNOUNCE_SPAY,c.CORP_NAME, c.CORP_IMGURL,
+		a.AREA_ADD1, a.AREA_ADD2
+		from RECRUITANNOUNCE r right join CORP c
+		on r.user_no=c.user_no
+		left join AREALIST a
+		on r.AREALIST_NO = a.AREA_NO
+		join WORKKIND W
+		ON W.WORKKIND_NO = r.WORKKIND_NO
+		<![CDATA[
+		WHERE RECRUITANNOUNCE_enddate>=SYSDATE
+		AND R.WORKKIND_NO IN (SELECT U.WORKKIND_NO FROM USERS U WHERE USER_NO=#{userNo})
+		)
+		WHERE ROWNUM <=12
+		]]>
+	</select>
+
 </mapper>
 
 

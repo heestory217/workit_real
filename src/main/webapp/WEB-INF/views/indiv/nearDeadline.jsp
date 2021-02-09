@@ -17,7 +17,7 @@
 	
 </style>
 
-<div class="container containDiv"><p style="font-size:24px;color:#4C4747;font-weight:600">채용 마감 임박</p>
+<div class="container containDiv"><p style="font-size:22px;color:#4C4747;font-weight:600">채용 마감 임박</p>
 <div id="demo" class="carousel slide" data-ride="carousel"> 
 	<div class="carousel-inner">
 	<!-- 슬라이드 쇼 -->

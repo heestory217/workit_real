@@ -18,10 +18,17 @@ public class IndivMainDAOMybatis implements IndivMainDAO{
 	public List<Map<String, Object>> selectByDeadline() {
 		return sqlSession.selectList(namespace+"selectByDeadline");
 	}
-
+	
+	//신규 채용 공고
 	@Override
 	public List<Map<String, Object>> selectNesPost() {
 		return sqlSession.selectList(namespace+"selectNesPost");
+	}
+
+	//회원 맞춤 채용 공고
+	@Override
+	public List<Map<String, Object>> selectCustomPost(int userNo) {
+		return sqlSession.selectList(namespace+"selectCustomPost", userNo);
 	}
 	
 }

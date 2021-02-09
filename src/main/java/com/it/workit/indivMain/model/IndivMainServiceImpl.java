@@ -22,5 +22,11 @@ public class IndivMainServiceImpl implements IndivMainService{
 		return indivMainDao.selectNesPost();
 	}
 	
+	//회원 맞춤 채용 공고
+	@Override
+	public List<Map<String, Object>> selectCustomPost(int userNo) {
+		return indivMainDao.selectCustomPost(userNo);
+	}
+	
 	
 }

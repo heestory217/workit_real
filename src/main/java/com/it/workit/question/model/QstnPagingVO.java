@@ -1,7 +1,5 @@
 package com.it.workit.question.model;
 
-import java.util.List;
-
 import com.it.workit.common.SearchVO;
 
 public class QstnPagingVO extends SearchVO{

@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/indivSearch.css'/>" />    
-<link rel="stylesheet" href="<c:url value="/resources/css/corpbootstrap.min.css"/>" type="text/css">
-<link rel="stylesheet" href="<c:url value="/resources/css/corpstyle.css"/>" type="text/css">
-<link rel="stylesheet" href="<c:url value="/resources/css/modal.css"/>" type="text/css">
 
 <style>
 	#showReview{
@@ -22,9 +19,9 @@
 	#resumeEditBx{
 		width:100%;
 		height:90px;
-		border:1px solid #4c50bb;
+		border:1px solid #6e41f7;
 		background:white;
-		color:#4c50bb;
+		color:#6e41f7;
 		overflow: hidden;
 		padding:20px 30px;
 		border-radius: 11px;
@@ -82,6 +79,7 @@
 	  overflow: hidden;
 	}
 	
+	
 	.firstImg img,.secondImg img,.thirdImg img{
 	  max-height:initial;
 	  margin-top:-15%;
@@ -101,6 +99,7 @@
 		text-align: left;
 	}
 	
+	
 	.moveDetailBx hr{
 		margin:0px;
 	}
@@ -111,7 +110,6 @@
 		height:35%;
 		font-weight:600;
 	}
-	
 	
 	
 	.corpName{
@@ -128,9 +126,74 @@
 		font-weight: 600;
 	}
 	
+	#exploreRecruit{
+		width: 100%;
+	    height: 150px;
+	    border: 1px solid #7a19fb;
+	    background: white;
+	    color: gray;
+	    font-weight: 600;
+	    overflow: hidden;
+	    padding: 30px 60px;
+	    border-radius: 11px;
+	    margin: 20px 0;
+	}
+	
+	#exploreRecruit a{
+	    padding: 13px 30px 10px 160px;
+	    font-size: 20px;
+	    font-weight: inherit;
+	    color: #4C4747;
+	}
+	
+	#exploreImg{
+       /*  width: 308px;
+	    height: 150px;
+	    position: relative;
+	    left: 260px;
+   	    top: -20px; */
+   	    
+   	    width: 400px;
+	    height: 200px;
+	    position: absolute;
+	    left: 700px;
+	    top: -44px;
+	}
+	
+	#exploreBtn{
+	  /*   border: 1px solid #7a19fb;
+	    border-radius: 8px;
+	    color: #7a19fb;
+	    width: 200px;
+	    height: 50px;
+	    position: absolute;
+	    text-align: center;
+	    padding: 13px;
+	    left: 380px;
+	    margin-top: 5px; */
+    
+        border: 1px solid #7a19fb;
+	    border-radius: 8px;
+	    color: #7a19fb;
+	    width: 200px;
+	    height: 48px;
+	    position: absolute;
+	    text-align: center;
+	    padding: 11px;
+	    /* float: right; */
+	    left: 513px;
+	    margin-top: 12px;
+	}
+	
+	#exploreBx{
+		position:relative;
+		margin-top:100px;
+		margin-bottom:100px;
+		cursor: pointer;
+	}
 </style>
 
-<!-- 슬라이드 배너 (광고 등록한 회사 보여주기) -->
+<!-- 슬라이드 배너 (광고 1급 서비스) -->
 <div id="banner" class="carousel slide" data-ride="carousel">
 	<div class="carousel-inner">
 		<!-- 슬라이드 쇼 -->
@@ -195,8 +258,8 @@
 			<li data-target="#demo" data-slide-to="2"></li>
 		</ul>
 	</div>
-	
-	<!-- 배너 끝 -->
+</div>	
+<!-- 배너 끝 -->
 	
 
 	<!-- 리뷰 보러가기 -->
@@ -221,18 +284,37 @@
 		</div>
 	</c:if>
 	
-	<!-- 오늘의 추천 -->
-	<c:import url="/indiv/todayRcmd.do"/>	
-
+	
 	<!-- 회원 가입시 등록한 직무에 해당하는 채용 공고-->
 	<c:if test="${!empty sessionScope.userNo }">
-		
+		<c:import url="/indiv/customPosting.do"/>	
 	</c:if>
 
 	<!-- 채용 마감 임박순 -->
 	<c:import url="/indiv/nearDeadline.do"/>	
+	
 	<!-- 신규 채용 회사 -->
 	<c:import url="/indiv/newPosting.do"/>	
 
+	<!-- 오늘의 추천(광고 2급 서비스) -->
+	<c:import url="/indiv/todayRcmd.do"/>	
 
+	
+	<!-- 직군별 탐색 바로가기 -->
+	<div class="container" id="exploreBx" >
+		<img id="exploreImg"
+			alt="" src="<c:url value='/resources/img/indivMainImg/undraw_searching_p5ux.svg'/>">
+		<div id="exploreRecruit">
+			<a>아직 잘 모르시겠나요? 전체 공고를 살펴 보는 건 어때요?</a><br>
+			<div id="exploreBtn">채용공고 탐색 하러가기</div>
+		</div>
+	</div>
+	
+<script>
+	$(function(){
+		$('#exploreBx').click(function(){
+			location.href="<c:url value='/indivSearch/indivExplore.do'/>"
+		});
+	});
 
+</script>	
