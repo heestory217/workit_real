@@ -178,7 +178,7 @@ button.btnRemove {
                         	</i>&nbsp;기업에게 보여지는 이름입니다</p>
                     </div>
                     <div class="myWarp">
-						<p>${resumesmap.userName}</p>
+						<p>${userVo.userName}</p>
 						<p>${userVo.userEmail1}@${userVo.userEmail2 }</p>
 						<p>${userVo.userHp1}-${userVo.userHp2}-${userVo.userHp3 }</p>
                     </div>

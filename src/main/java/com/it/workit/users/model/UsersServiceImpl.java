@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.it.workit.common.DateSearchVO;
 import com.it.workit.common.SearchVO;
 
 @Service
@@ -122,6 +123,46 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public int withdrawUsers(int userNo) {
 		return usersDao.withdrawUsers(userNo);
+	}
+
+	@Override
+	public int selectTotalIndivUsers() {
+		return usersDao.selectTotalIndivUsers();
+	}
+
+	@Override
+	public int selectTotalCorpUsers() {
+		return usersDao.selectTotalCorpUsers();
+	}
+
+	@Override
+	public int selectTotalIndivWithdrawUsers() {
+		return usersDao.selectTotalIndivWithdrawUsers();
+	}
+
+	@Override
+	public int selectTotalCorpWithdrawUsers() {
+		return usersDao.selectTotalCorpWithdrawUsers();
+	}
+
+	@Override
+	public int selectTotalUserByDate(DateSearchVO dateSearchVo) {
+		return usersDao.selectTotalUserByDate(dateSearchVo);
+	}
+
+	@Override
+	public int selectTotalCorpByDate(DateSearchVO dateSearchVo) {
+		return usersDao.selectTotalCorpByDate(dateSearchVo);
+	}
+
+	@Override
+	public int selectTotalWithdrawUsersByDate(DateSearchVO dateSearchVo) {
+		return usersDao.selectTotalWithdrawUsersByDate(dateSearchVo);
+	}
+
+	@Override
+	public int selectTotalWithdrawCorpByDate(DateSearchVO dateSearchVo) {
+		return usersDao.selectTotalWithdrawCorpByDate(dateSearchVo);
 	}
 
 }

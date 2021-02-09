@@ -23,6 +23,98 @@
 		  GROUP BY TO_CHAR(b.dt, 'YYYY-MM')
 		  ORDER BY TO_CHAR(b.dt, 'YYYY-MM')
 	</select>
+	
+	<select id="selectReviewSales" parameterType="salesDateVO" resultType="map">
+	SELECT TO_CHAR(b.dt, 'YYYY-MM') As MONTH, NVL(SUM(a.cnt), 0) qty,  NVL(SUM(a.total), 0) total
+		  FROM ( SELECT TO_CHAR(order_date, 'YYYY-MM-DD') AS order_date
+		              ,COUNT(*) cnt, SUM(order_pay) as total
+		           FROM orders o, ORDERDETAILSEERV r
+		          WHERE o.ORDER_NO = r.ORDER_NO
+		                AND o.order_date BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD')
+		                AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+		                             
+		          GROUP BY to_char(order_date,'YYYY-MM-DD')
+		        ) a
+		      , ( SELECT TO_DATE(#{startDate},'YYYY-MM-DD') + LEVEL - 1 AS dt
+		            FROM dual 
+             	<![CDATA[
+		         CONNECT BY LEVEL <= (TO_DATE(#{endDate},'YYYY-MM-DD') 
+		                            - TO_DATE(#{startDate},'YYYY-MM-DD') + 1)
+		        ) b
+		        ]]>
+		  WHERE b.dt = a.order_date(+)
+		  GROUP BY TO_CHAR(b.dt, 'YYYY-MM')
+		  ORDER BY TO_CHAR(b.dt, 'YYYY-MM')
+	</select>
+	
+	<select id="selectAdSales" parameterType="salesDateVO" resultType="map">
+		SELECT TO_CHAR(b.dt, 'YYYY-MM') As MONTH, NVL(SUM(a.cnt), 0) qty,  NVL(SUM(a.total), 0) total
+		  FROM ( SELECT TO_CHAR(order_date, 'YYYY-MM-DD') AS order_date
+		              ,COUNT(*) cnt, SUM(order_pay) as total
+		           FROM orders o, ORDERDETAILAD r
+		          WHERE o.ORDER_NO = r.ORDER_NO
+		                AND o.order_date BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD')
+		                AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+		                             
+		          GROUP BY to_char(order_date,'YYYY-MM-DD')
+		        ) a
+		      , ( SELECT TO_DATE(#{startDate},'YYYY-MM-DD') + LEVEL - 1 AS dt
+		            FROM dual 
+             	<![CDATA[
+		         CONNECT BY LEVEL <= (TO_DATE(#{endDate},'YYYY-MM-DD') 
+		                            - TO_DATE(#{startDate},'YYYY-MM-DD') + 1)
+		        ) b
+		        ]]>
+		  WHERE b.dt = a.order_date(+)
+		  GROUP BY TO_CHAR(b.dt, 'YYYY-MM')
+		  ORDER BY TO_CHAR(b.dt, 'YYYY-MM')
+	</select>
+	
+	<select id="selectDelSales" parameterType="salesDateVO" resultType="map">
+		SELECT TO_CHAR(b.dt, 'YYYY-MM') As MONTH, NVL(SUM(a.cnt), 0) qty,  NVL(SUM(a.total), 0) total
+		  FROM ( SELECT TO_CHAR(order_date, 'YYYY-MM-DD') AS order_date
+		              ,COUNT(*) cnt, SUM(order_pay) as total
+		           FROM orders o, ORDERDETAILDELRV r
+		          WHERE o.ORDER_NO = r.ORDER_NO
+		                AND o.order_date BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD')
+		                AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+		                             
+		          GROUP BY to_char(order_date,'YYYY-MM-DD')
+		        ) a
+		      , ( SELECT TO_DATE(#{startDate},'YYYY-MM-DD') + LEVEL - 1 AS dt
+		            FROM dual 
+             	<![CDATA[
+		         CONNECT BY LEVEL <= (TO_DATE(#{endDate},'YYYY-MM-DD') 
+		                            - TO_DATE(#{startDate},'YYYY-MM-DD') + 1)
+		        ) b
+		        ]]>
+		  WHERE b.dt = a.order_date(+)
+		  GROUP BY TO_CHAR(b.dt, 'YYYY-MM')
+		  ORDER BY TO_CHAR(b.dt, 'YYYY-MM')
+	</select>
+	
+	<select id="selectResumeSales" parameterType="salesDateVO" resultType="map">
+		SELECT TO_CHAR(b.dt, 'YYYY-MM') As MONTH, NVL(SUM(a.cnt), 0) qty,  NVL(SUM(a.total), 0) total
+		  FROM ( SELECT TO_CHAR(order_date, 'YYYY-MM-DD') AS order_date
+		              ,COUNT(*) cnt, SUM(order_pay) as total
+		           FROM orders o, orderdetailresume r
+		          WHERE o.ORDER_NO = r.ORDER_NO
+		                AND o.order_date BETWEEN TO_DATE(#{startDate}, 'YYYY-MM-DD')
+		                AND TO_DATE(#{endDate}, 'YYYY-MM-DD')
+		                             
+		          GROUP BY to_char(order_date,'YYYY-MM-DD')
+		        ) a
+		      , ( SELECT TO_DATE(#{startDate},'YYYY-MM-DD') + LEVEL - 1 AS dt
+		            FROM dual 
+             	<![CDATA[
+		         CONNECT BY LEVEL <= (TO_DATE(#{endDate},'YYYY-MM-DD') 
+		                            - TO_DATE(#{startDate},'YYYY-MM-DD') + 1)
+		        ) b
+		        ]]>
+		  WHERE b.dt = a.order_date(+)
+		  GROUP BY TO_CHAR(b.dt, 'YYYY-MM')
+		  ORDER BY TO_CHAR(b.dt, 'YYYY-MM')
+	</select>
 </mapper>
 
 

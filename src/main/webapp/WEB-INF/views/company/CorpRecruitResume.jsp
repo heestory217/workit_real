@@ -90,13 +90,16 @@
 	<script type="text/javascript">
 	$(function(){
 		var firstRnum = $('.rList:first').find("input").val();
-		$('.rList').filter(':first').attr("class","active");
 		if (firstRnum!=null) {
 			send2(firstRnum	);
 		};
 		
 		//클릭하면 다른 이력서 보여주기
 		$('.rList').each(function(index,item){
+			var i = index;
+			if(i==0){
+				$(this).attr("class","active");
+			}
 			$(this).click(function(){
 				$(this).siblings('li').removeClass('active');
 				$(this).attr("class","active");

@@ -1,6 +1,7 @@
 package com.it.workit.applicant.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,5 +50,40 @@ public class ApplicantDAOMybatis implements ApplicantDAO{
 	@Override
 	public List<ApplicantlistVO> selectFailAllByUserNo(IndivpagingVO vo) {
 		return sqlSession.selectList(namespace+"selectFailAllByUserNo",vo);
+	}
+
+	@Override
+	public List<ApplicantlistVO> selectAllApplicantFromCorp(int userNo) {
+		return sqlSession.selectList(namespace+"selectAllApplicantFromCorp", userNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllApplicantView(CorpApplicantPagingVO vo) {
+		return sqlSession.selectList(namespace+"selectAllApplicantView", vo);
+	}
+
+	@Override
+	public int updateReadCount(int applicantlistNo) {
+		return sqlSession.update(namespace+"updateReadCount", applicantlistNo);
+	}
+
+	@Override
+	public ApplicantlistVO selectOneApplication(int applicantlistNo) {
+		return sqlSession.selectOne(namespace+"selectOneApplication", applicantlistNo);
+	}
+
+	@Override
+	public int updaeApplyPass(int applicantlistNo) {
+		return sqlSession.update(namespace+"updaeApplyPass", applicantlistNo);
+	}
+
+	@Override
+	public int updaeApplyFail(int applicantlistNo) {
+		return sqlSession.update(namespace+"updaeApplyFail", applicantlistNo);
+	}
+
+	@Override
+	public int selectAllAppliedCount(int userNo) {
+		return sqlSession.selectOne(namespace+"selectAllAppliedCount", userNo);
 	}
 }

@@ -151,5 +151,69 @@
 		set user_enddate=sysdate
 		where user_no=#{userNo}
 	</update>
+	
+	<select id="selectTotalIndivUsers" resultType="int">
+		select count(user_no)
+		from users
+		where USER_CORPCHECK=1
+		and USER_ENDDATE is null
+	</select>
+	
+	<select id="selectTotalCorpUsers" resultType="int">
+		select count(user_no)
+		from users
+		where USER_CORPCHECK=2
+		and USER_ENDDATE is null
+	</select>
+	
+	<select id="selectTotalIndivWithdrawUsers" resultType="int">
+		select count(user_no)
+		from users
+		where USER_CORPCHECK=1
+		and USER_ENDDATE is not null
+	</select>
+	
+	<select id="selectTotalCorpWithdrawUsers" resultType="int">
+		select count(user_no)
+		from users
+		where USER_CORPCHECK=2
+		and USER_ENDDATE is not null
+	</select>
+	
+	<select id="selectTotalUserByDate" parameterType="dateSearchVo" resultType="int">
+		select count(*) from users
+		where user_regdate >= #{startDay} and
+		<![CDATA[
+		user_regdate< to_date(#{endDay})+1
+		]]>
+		and user_corpcheck=1
+	</select>
+	
+	<select id="selectTotalCorpByDate" parameterType="dateSearchVo" resultType="int">
+		select count(*) from users
+		where user_regdate >= #{startDay} and
+		<![CDATA[
+		user_regdate< to_date(#{endDay})+1
+		]]>
+		and user_corpcheck=2
+	</select>
+	
+	<select id="selectTotalWithdrawUsersByDate" parameterType="dateSearchVo" resultType="int">
+		select count(*) from users
+		where user_enddate >= #{startDay} and
+		<![CDATA[
+		user_enddate< to_date(#{endDay})+1
+		]]>
+		and user_corpcheck=1
+	</select>
+	
+	<select id="selectTotalWithdrawCorpByDate" parameterType="dateSearchVo" resultType="int">
+		select count(*) from users
+		where user_enddate >= #{startDay} and
+		<![CDATA[
+		user_enddate< to_date(#{endDay})+1
+		]]>
+		and user_corpcheck=2
+	</select>
 
 </mapper>

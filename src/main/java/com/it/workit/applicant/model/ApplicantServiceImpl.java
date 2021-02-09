@@ -1,6 +1,7 @@
 package com.it.workit.applicant.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,40 @@ public class ApplicantServiceImpl implements ApplicantService{
 	@Override
 	public List<ApplicantlistVO> selectFailAllByUserNo(IndivpagingVO vo) {
 		return applicantDao.selectFailAllByUserNo(vo);
+	}
+
+	@Override
+	public List<ApplicantlistVO> selectAllApplicantFromCorp(int userNo) {
+		return applicantDao.selectAllApplicantFromCorp(userNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectAllApplicantView(CorpApplicantPagingVO vo) {
+		return applicantDao.selectAllApplicantView(vo);
+	}
+
+	@Override
+	public int updateReadCount(int applicantlistNo) {
+		return applicantDao.updateReadCount(applicantlistNo);
+	}
+
+	@Override
+	public ApplicantlistVO selectOneApplication(int applicantlistNo) {
+		return applicantDao.selectOneApplication(applicantlistNo);
+	}
+
+	@Override
+	public int updaeApplyPass(int applicantlistNo) {
+		return applicantDao.updaeApplyPass(applicantlistNo);
+	}
+
+	@Override
+	public int updaeApplyFail(int applicantlistNo) {
+		return applicantDao.updaeApplyFail(applicantlistNo);
+	}
+
+	@Override
+	public int selectAllAppliedCount(int userNo) {
+		return applicantDao.selectAllAppliedCount(userNo);
 	}
 }

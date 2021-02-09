@@ -1,10 +1,15 @@
 package com.it.workit.corpsearch.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +25,7 @@ import com.it.workit.corpsearch.model.CorpSearchkeywordConvertor;
 import com.it.workit.indivsearch.model.IndivSearchService;
 import com.it.workit.language.model.LanguageService;
 import com.it.workit.language.model.LanguageVO;
+import com.it.workit.orders.model.OrdersService;
 import com.it.workit.resumes.model.ResumesAllVO;
 import com.it.workit.users.model.UsersService;
 import com.it.workit.users.model.UsersVO;
@@ -35,10 +41,12 @@ public class CorpSearchController {
 	@Autowired private CorpSearchkeywordConvertor CSKConvertor;
 	@Autowired private LanguageService langService;
 	@Autowired private IndivSearchService indivSearchServie;
+	@Autowired private OrdersService orderService;
 	
 	@RequestMapping("/corpSearch.do")
-	public String searchMain(@ModelAttribute CorpReSearchAllVO searchVo, Model model) {
-		logger.info("검색 화면에 들어온 SearchVO = {}", searchVo);
+	public String searchMain(@ModelAttribute CorpReSearchAllVO searchVo, HttpSession session, Model model) {
+		int userNo = (Integer) session.getAttribute("userNo");
+		logger.info("검색 화면에 들어온 SearchVO = {}, userNo{}", searchVo,userNo);
 		
 		PaginationInfo pagingInfo = new PaginationInfo();
 		pagingInfo.setBlockSize(5);
@@ -53,9 +61,19 @@ public class CorpSearchController {
 		searchVo.setSearchKeyword(searchKeyword);
 		
 		List<ResumesAllVO> resumeList = searchService.searchDefault(searchVo);
+		List<Map<String, Object>> buyingList = orderService.selectPurchasedResume(userNo);
+		logger.info("구매이력서 내역 size={}",buyingList.size());
 		
 		for(ResumesAllVO vo:resumeList) {
 			int resumeNo = vo.getResumesVo().getResumeNo();
+			if(!buyingList.isEmpty()) {
+				for(int i=0; i<buyingList.size(); i++) {
+					int buyingNo=Integer.parseInt(String.valueOf(buyingList.get(i).get("RESUME_NO")));
+					if(buyingNo==resumeNo) {
+						vo.setBuyChk(1);
+					}
+				}
+			}
 			List<LanguageListView> langList = corpService.selectLanguageList(resumeNo);
 			List<AreaListView> areaList = corpService.selectAreaList(resumeNo);
 			int userNoForResume = vo.getResumesVo().getUserNo();

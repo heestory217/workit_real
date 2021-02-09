@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <style>
 .highcharts-figure, .highcharts-data-table table {
     min-width: 310px; 
     max-width: 1600px;
-    margin: 1em auto;
+    margin: auto;
 }
 
 #container {
@@ -38,27 +41,241 @@
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
+
+.card table thead tr th, .card table tbody tr td{
+	text-align : center;
+}
+
+.card table tbody tr td:last-child{
+	text-align : right;
+}
+
 </style>
+<div class="col-xl-12 col-lg-12 col-md-8 col-sm-12 col-12">
+	<div class="card" >
+		<h5 class="card-header">서비스별 월간 매출</h5>
+		<figure class="highcharts-figure">
+		    <div id="serviceContainer"></div>
+		</figure>
+	</div>
+</div>
 
-<figure class="highcharts-figure">
-    <div id="serviceContainer"></div>
-</figure>
+<!-- 서비스별 상세 통계  -->
+<div class="influence-profile-content pills-regular">
+    <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active show" id="pills-campaign-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-campaign" aria-selected="false">리뷰 열람</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-packages-tab" data-toggle="pill" href="#pills-resume" role="tab" aria-controls="pills-packages" aria-selected="true">이력서 열람</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-review-tab" data-toggle="pill" href="#pills-adv" role="tab" aria-controls="pills-review" aria-selected="false">채용공고 광고</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="pills-msg-tab" data-toggle="pill" href="#pills-del" role="tab" aria-controls="pills-msg" aria-selected="false">기업 리뷰 삭제</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+	     <!-- 기업 리뷰 열람 서비스  -->
+	     <!-- 기업 리뷰 열람 서비스  -->
+	     <!-- 기업 리뷰 열람 서비스  -->
+        <div class="tab-pane fade active show" id="pills-review" role="tabpanel" aria-labelledby="pills-campaign-tab">
+            <div class="row">
+                <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card" id="chart1">
+                        <h5 class="card-header">건별 매출</h5>
+							<figure class="highcharts-figure">
+					    		<div id="reviewContainer"></div>
+							</figure>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-12 col-md-4 col-sm-12 col-12">
+					<div class="card">
+						<table class="table" id="table1">
+							<colgroup>
+								<col width="20%">
+								<col width="30%">
+								<col width="50%">
+							</colgroup>
+							<thead class="bg-light">
+							  <tr class="border-0">
+							    <th>월</th>
+							    <th>판매 수량</th>
+							    <th>금액</th>
+							  </tr>
+						  	</thead>
+						  	<c:forEach var="reviews" items="${reviewList}">
+							  	<tr>
+							  		<td>${reviews.MONTH}</td>
+							  		<td>${reviews.QTY} 건</td>
+							  		<td><fmt:formatNumber value="${reviews.TOTAL}" pattern="#,###"/> 원</td>
+							  	</tr>
+						  	</c:forEach>
+                		</table>
+                	</div>
+             	</div>
+            </div>
+        </div>
+        
+        
+        <!-- 이력서 열람 서비스  -->
+        <!-- 이력서 열람 서비스  -->
+        <!-- 이력서 열람 서비스  -->
+        <div class="tab-pane fade" id="pills-resume" role="tabpanel" aria-labelledby="pills-packages-tab">
+            <div class="row">
+                  <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card" id="chart2">
+                        <h5 class="card-header">건별 매출</h5>
+							<figure class="highcharts-figure">
+					    		<div id="resumeContainer"></div>
+							</figure>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-12 col-md-4 col-sm-12 col-12">
+					<div class="card">
+						<table class="table">
+							<colgroup>
+								<col width="20%">
+								<col width="30%">
+								<col width="50%">
+							</colgroup>
+							<thead class="bg-light">
+							  <tr class="border-0">
+							    <th>월</th>
+							    <th>판매 수량</th>
+							    <th>금액</th>
+							  </tr>
+						  	</thead>
+						  	<c:forEach var="resumes" items="${resumeList}">
+							  	<tr>
+							  		<td>${resumes.MONTH}</td>
+							  		<td>${resumes.QTY} 건</td>
+							  		<td><fmt:formatNumber value="${resumes.TOTAL}" pattern="#,###"/> 원</td>
+							  	</tr>
+						  	</c:forEach>
+                		</table>
+                	</div>
+             	</div>
+            </div>
+        </div>
 
-
+		<!-- 광고  서비스  -->
+		<!-- 광고  서비스  -->
+		<!-- 광고  서비스  -->
+        <div class="tab-pane fade" id="pills-adv" role="tabpanel" aria-labelledby="pills-review-tab">
+            <div class="row">
+                  <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card" id="chart3">
+                        <h5 class="card-header">건별 매출</h5>
+							<figure class="highcharts-figure">
+					    		<div id="adContainer"></div>
+							</figure>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-12 col-md-4 col-sm-12 col-12">
+					<div class="card">
+						<table class="table">
+							<colgroup>
+								<col width="20%">
+								<col width="30%">
+								<col width="50%">
+							</colgroup>
+							<thead class="bg-light">
+							  <tr class="border-0">
+							    <th>월</th>
+							    <th>판매 수량</th>
+							    <th>금액</th>
+							  </tr>
+						  	</thead>
+						  	<c:forEach var="ads" items="${adList}">
+							  	<tr>
+							  		<td>${ads.MONTH}</td>
+							  		<td>${ads.QTY} 건</td>
+							  		<td><fmt:formatNumber value="${ads.TOTAL}" pattern="#,###"/> 원</td>
+							  	</tr>
+						  	</c:forEach>
+                		</table>
+                	</div>
+             	</div>
+            </div>
+        </div>
+        
+       	<!-- 리뷰 삭제  서비스  -->
+       	<!-- 리뷰 삭제  서비스  -->
+       	<!-- 리뷰 삭제  서비스  -->
+        <div class="tab-pane fade" id="pills-del" role="tabpanel" aria-labelledby="pills-msg-tab">
+			<div class="row">
+                  <div class="col-xl-9 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card" id="chart4">
+                        <h5 class="card-header">건별 매출</h5>
+							<figure class="highcharts-figure">
+					    		<div id="delContainer"></div>
+							</figure>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-12 col-md-4 col-sm-12 col-12">
+					<div class="card">
+						<table class="table">
+							<colgroup>
+								<col width="20%">
+								<col width="30%">
+								<col width="50%">
+							</colgroup>
+							<thead class="bg-light">
+							  <tr class="border-0">
+							    <th>월</th>
+							    <th>판매 수량</th>
+							    <th>금액</th>
+							  </tr>
+						  	</thead>
+						  	<c:forEach var="dels" items="${delList}">
+							  	<tr>
+							  		<td>${dels.MONTH}</td>
+							  		<td>${dels.QTY} 건</td>
+							  		<td><fmt:formatNumber value="${dels.TOTAL}" pattern="#,###"/> 원</td>
+							  	</tr>
+						  	</c:forEach>
+                		</table>
+                	</div>
+             	</div>
+            </div>
+        </div>
+    
+    	<!-- 리뷰 삭제  서비스끝  -->
+    </div>
+</div>
 
 <script type="text/javascript">
+var reviewTotal =[${reviewList[0].TOTAL},${reviewList[1].TOTAL},${reviewList[2].TOTAL},${reviewList[3].TOTAL},${reviewList[4].TOTAL},${reviewList[5].TOTAL},${reviewList[6].TOTAL},${reviewList[7].TOTAL},${reviewList[8].TOTAL},${reviewList[9].TOTAL},${reviewList[10].TOTAL},${reviewList[11].TOTAL},${reviewList[12].TOTAL} ];
+var adTotal = [${adList[0].TOTAL},${adList[1].TOTAL},${adList[2].TOTAL},${adList[3].TOTAL},${adList[4].TOTAL},${adList[5].TOTAL},${adList[6].TOTAL},${adList[7].TOTAL},${adList[8].TOTAL},${adList[9].TOTAL},${adList[10].TOTAL},${adList[11].TOTAL},${adList[12].TOTAL}];
+var delTotal = [${delList[0].TOTAL},${delList[1].TOTAL},${delList[2].TOTAL},${delList[3].TOTAL},${delList[4].TOTAL},${delList[5].TOTAL},${delList[6].TOTAL},${delList[7].TOTAL},${delList[8].TOTAL},${delList[9].TOTAL},${delList[10].TOTAL},${delList[11].TOTAL},${delList[12].TOTAL}];
+var resumeTotal = [${resumeList[0].TOTAL},${resumeList[1].TOTAL},${resumeList[2].TOTAL},${resumeList[3].TOTAL},${resumeList[4].TOTAL},${resumeList[5].TOTAL},${resumeList[6].TOTAL},${resumeList[7].TOTAL},${resumeList[8].TOTAL},${resumeList[9].TOTAL},${resumeList[10].TOTAL},${resumeList[11].TOTAL},${resumeList[12].TOTAL}];
 
-var reviewList = [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, null];
-var resumeList = [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3];
-var advList = [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2];
-var delList = [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1];
+var reviewQty =[${reviewList[0].QTY},${reviewList[1].QTY},${reviewList[2].QTY},${reviewList[3].QTY},${reviewList[4].QTY},${reviewList[5].QTY},${reviewList[6].QTY},${reviewList[7].QTY},${reviewList[8].QTY},${reviewList[9].QTY},${reviewList[10].QTY},${reviewList[11].QTY},${reviewList[12].QTY} ];
+var adQty = [${adList[0].QTY},${adList[1].QTY},${adList[2].QTY},${adList[3].QTY},${adList[4].QTY},${adList[5].QTY},${adList[6].QTY},${adList[7].QTY},${adList[8].QTY},${adList[9].QTY},${adList[10].QTY},${adList[11].QTY},${adList[12].QTY}];
+var delQty = [${delList[0].QTY},${delList[1].QTY},${delList[2].QTY},${delList[3].QTY},${delList[4].QTY},${delList[5].QTY},${delList[6].QTY},${delList[7].QTY},${delList[8].QTY},${delList[9].QTY},${delList[10].QTY},${delList[11].QTY},${delList[12].QTY}];
+var resumeQty = [${resumeList[0].QTY},${resumeList[1].QTY},${resumeList[2].QTY},${resumeList[3].QTY},${resumeList[4].QTY},${resumeList[5].QTY},${resumeList[6].QTY},${resumeList[7].QTY},${resumeList[8].QTY},${resumeList[9].QTY},${resumeList[10].QTY},${resumeList[11].QTY},${resumeList[12].QTY}];
+
+//
+/*
+var delTotal = new Array();
+for(var i=0; i<12; i++){
+	var delNum = ${delList[i].TOTAL};
+	if(delNum == null || delNum == 0){
+		delTotal.push(0);
+	}else{
+		delTotal.push('${delList[i].TOTAL}');
+	}
+}
+*/
 
 Highcharts.chart('serviceContainer', {
     chart: {
         type: 'column'
     },
     title: {
-        text: '서비스별 월간 매출'
+        text: ''
     },
     subtitle: {
         text: '2021년'
@@ -83,7 +300,7 @@ Highcharts.chart('serviceContainer', {
     yAxis: {
         min: 0,
         title: {
-            text: '단위 : 만원'
+            text: '단위 : 원'
         }
     },
     tooltip: {
@@ -102,22 +319,190 @@ Highcharts.chart('serviceContainer', {
     },
     series: [{
         name: '리뷰열람',
-        data: reviewList
+        data: reviewTotal
 
     }, {
         name: '이력서열람',
-        data: resumeList
+        data: resumeTotal
 
     }, {
         name: '채용공고광고',
-        data: advList
+        data: adTotal
 
     }, {
         name: '기업리뷰삭제',
-        data: delList
+        data: delTotal
 
     }]
 });
+
+//이력서 열람 건수
+Highcharts.chart('resumeContainer', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: year+'년'
+    },
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
+        title: {
+            text: '단위 : 건'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
+    },
+    series: [{
+        name: '이력서 열람권 판매 건수',
+        data: resumeQty
+    }]
+});
+
+//기업 리뷰 열람
+Highcharts.chart('reviewContainer', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: year+'년'
+    },
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
+        title: {
+            text: '단위 : 건'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
+    },
+    series: [{
+        name: '기업 리뷰 열람 판매 건수',
+        data: reviewQty
+    }]
+});
+
+//기업 리뷰 삭제
+Highcharts.chart('delContainer', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: year+'년'
+    },
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
+        title: {
+            text: '단위 : 건'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
+    },
+    series: [{
+        name: '기업 리뷰 삭제 판매 건수',
+        data: delQty
+    }]
+});
+
+//광고
+Highcharts.chart('adContainer', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: ''
+    },
+    subtitle: {
+        text: year+'년'
+    },
+    xAxis: {
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    yAxis: {
+        title: {
+            text: '단위 : 건'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
+    },
+    series: [{
+        name: '채용공고 광고권 판매 건수',
+        data: adQty
+    }]
+});
+
+var obj1 = document.getElementById('table1');
+var obj2 = document.getElementById('chart1');
+var obj3 = document.getElementById('chart2');
+var obj4 = document.getElementById('chart3');
+var obj5 = document.getElementById('chart4');
+
+var obj10 = document.getElementById('table'); 
+var obj20 = document.getElementById('chart');
+
+var obj10_height = obj10.offsetHeight;
+var obj20_height = obj20.offsetHeight;
+
+var obj1_height = obj1.offsetHeight;
+var obj2_height = obj2.offsetHeight;
+var obj3_height = obj3.offsetHeight;
+var obj4_height = obj4.offsetHeight;
+var obj5_height = obj5.offsetHeight;
+
+function chartResize(){
+	if(obj1_height > obj2_height) { obj2.style.height = obj1_height + 'px'; }
+	else { obj1.style.height = obj2_height + 'px'; }
+	if(obj1_height > obj3_height) { obj3.style.height = obj1_height + 'px'; }
+	else { obj1.style.height = obj3_height + 'px'; }
+	if(obj1_height > obj4_height) { obj4.style.height = obj1_height + 'px'; }
+	else { obj1.style.height = obj4_height + 'px'; }
+	if(obj1_height > obj5_height) { obj5.style.height = obj1_height + 'px'; }
+	else { obj1.style.height = obj5_height + 'px'; }
+	if(obj10_height > obj20_height) { obj20.style.height = obj10_height + 'px'; }
+	else { obj10.style.height = obj20_height + 'px'; }
+}
+
+window.onload = function() {
+		chartResize();
+		window.onresize = function(event) { console.log('Resizing...'), chartResize(); };
+	}
 </script>
 <!-- highchart -->
 <script src="https://code.highcharts.com/highcharts.js"></script>

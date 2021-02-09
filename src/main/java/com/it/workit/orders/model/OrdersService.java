@@ -7,6 +7,7 @@ import java.util.Map;
 import com.it.workit.companyMypage.model.CompanypagingVO;
 import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
+import com.it.workit.shoppingCart.model.ShoppingCartVO;
 
 public interface OrdersService {
 	public List<OrdersVO> selectIndivPaymentByUserno(IndivpagingVO vo);
@@ -19,7 +20,7 @@ public interface OrdersService {
 	//주문  - 기업후기삭제
 	int insertOrderWithCoupon(OrdersVO vo, OrderDetailDelRvVO rvVo);
 	int insertOrder(OrdersVO vo, OrderDetailDelRvVO rvVo);
-	
+
 	//주문  - 채용공고 광고
 	int insertOrderWithCoupon(OrdersVO vo, OrderDetailAdVO adVo);
 	int insertOrder(OrdersVO vo, OrderDetailAdVO adVo);
@@ -38,5 +39,13 @@ public interface OrdersService {
 
 	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(CompanypagingVO vo);
 	public int ordersGetTotalRecords(CompanypagingVO vo);
-	
+
+	//구매한 이력서 리스트
+	List<Map<String, Object>> selectPurchasedResume(int userNo);
+	public int selectPurchasedResumeCount(ShoppingCartVO vo);
+
+	//어드민 구매내역 조회
+	public List<OrdersCorpPayVO> selectCompanyPaymentByUserno(int userNo);
+
+	public int totalPay();
 }

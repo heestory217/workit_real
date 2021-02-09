@@ -21,7 +21,7 @@ public class CorpSearchServiceImpl implements CorpSearchService{
 				searchVo.setLang(n);
 			}
 		}else {
-			System.out.println("langList는 널이다.");
+			System.out.println("langList is null");
 		}
 		
 		return searchDao.searchDefault(searchVo);

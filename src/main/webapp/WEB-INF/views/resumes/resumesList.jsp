@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
-<style>
+<link rel="stylesheet" href="<c:url value="/resources/css/modal.css"/>" type="text/css">
+<%@ include file="rsopenModal.jsp" %>
+<style type="text/css">
 button.newresumeBt,
 .uploderesumeBt {
     border: none;
@@ -44,7 +46,31 @@ h3.resumeName {
 	font-weight: bolder;
 }
 
+.delBt{
+	background: none;
+	border: none;
+}
+
 </style>
+
+<script type="text/javascript">
+
+$(function(){
+	$('.delBt').click(function(){
+		var del = confirm('삭제하시겠습니까?');
+		
+		if (del) {
+			alert('삭제되었습니다');
+			location.href="<c:url value='/resumes/deleteResumes.do?resumeNo='/>"+$(this).attr('value');
+		} else{
+			 alert('삭제가 취소되었습니다.');
+			 return;
+		}
+	});
+	
+});
+
+</script>
 
 <!-- Product Shop Section Begin -->
 <section class="product-shop spad">
@@ -102,16 +128,25 @@ h3.resumeName {
 													<fmt:formatDate value="${resumeVo.resumeDate}" pattern="YYYY-MM-dd"/> 
 												</p>
 												<p class="openOnOff">
-													<c:if test="${resumeResumeopencheck == '1'}">
+													<c:if test="${resumeVo.resumeResumeopencheck eq '1'}">
 													임시저장
+													</c:if>
+													<c:if test="${resumeVo.resumeResumeopencheck eq '2'}">
+													이력서 열람
+													</c:if>
+													<c:if test="${resumeVo.resumeResumeopencheck eq '3'}">
+													반려
 													</c:if>
 												</p>
 											</div>
 											<div class="icon" title="삭제">
-												<a href="#"> <i class="fa fa-times" aria-hidden="true"></i></a>
+												<button type="button" class="delBt" value="${resumeVo.resumeNo}">
+													<i class="fa fa-times" aria-hidden="true"></i>
+												</button>
 											</div>
 											<ul>
-												<li class="w-icon active"><a href="#" title="공개여부">
+												<li class="w-icon active">
+												<a data-toggle='modal' href="#rsOpen" title="공개여부">
 													<i class="fa fa-external-link" aria-hidden="true"></i>
 												</a></li>
 												<li class="w-icon active"><a href="#" title="다운로드">

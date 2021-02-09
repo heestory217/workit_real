@@ -28,7 +28,6 @@
 		from APPLICANTLIST
 		where APPLICANTLIST_PAPERCHECK=2 and USER_NO=#{userNo}
 	</select>
-
 	
 	<select id="selectApplyAllByUserNo" parameterType="indivpagingVo" resultType="applicantlistVo">
 		select *
@@ -40,7 +39,7 @@
 		        		select a.*, r.RECRUITANNOUNCE_TITLE, r.RECRUITANNOUNCE_SWORKKIND, r.RECRUITANNOUNCE_SPAY
                         from APPLICANTLIST a join RECRUITANNOUNCE r
                         on a.RECRUITANNOUNCE_NO=r.RECRUITANNOUNCE_NO
-                        where APPLICANTLIST_PAPERCHECK=3 and a.USER_NO=${userNo}
+                        where APPLICANTLIST_PAPERCHECK=3 and a.USER_NO=#{userNo}
                         order by APPLICANTLIST_NO desc
 		    )A
 		)
@@ -69,7 +68,7 @@
 		        		select a.*, r.RECRUITANNOUNCE_TITLE, r.RECRUITANNOUNCE_SWORKKIND, r.RECRUITANNOUNCE_SPAY
                         from APPLICANTLIST a join RECRUITANNOUNCE r
                         on a.RECRUITANNOUNCE_NO=r.RECRUITANNOUNCE_NO
-                        where APPLICANTLIST_PAPERCHECK=1 and a.USER_NO=${userNo}
+                        where APPLICANTLIST_PAPERCHECK=1 and a.USER_NO=#{userNo}
                         order by APPLICANTLIST_NO desc
 		    )A
 		)
@@ -90,7 +89,7 @@
 		        		select a.*, r.RECRUITANNOUNCE_TITLE, r.RECRUITANNOUNCE_SWORKKIND, r.RECRUITANNOUNCE_SPAY
                         from APPLICANTLIST a join RECRUITANNOUNCE r
                         on a.RECRUITANNOUNCE_NO=r.RECRUITANNOUNCE_NO
-                        where APPLICANTLIST_PAPERCHECK=2 and a.USER_NO=${userNo}
+                        where APPLICANTLIST_PAPERCHECK=2 and a.USER_NO=#{userNo}
                         order by APPLICANTLIST_NO desc
 		    )A
 		)
@@ -99,4 +98,83 @@
 		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 		]]>
 	</select>
+	
+	<!-- 기업회원이 올린 여러 채용공고 지원자 전체 목록 보기 -->
+	<select id="selectAllApplicantFromCorp" parameterType="int" resultType="applicantlistVo">
+		select * from applicantlist
+		where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo})
+		order by APPLICANTLIST_NO desc
+	</select>
+	
+	<!-- 기업회원이 올린 여러 채용공고 지원자 전체 목록 보기[2] : 페이지 보기 위해 VIEW 조회 -->
+	<select id="selectAllApplicantView" parameterType="CorpApplicantPagingVO" resultType="map">
+		select *
+		from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+				select r.RECRUITANNOUNCE_TITLE, r.RECRUITANNOUNCE_SWORKKIND, 
+				    a.*, (select RESUME_TITLE from RESUMES where RESUME_NO=a.RESUME_NO) AS RESUME_TITLE
+				from APPLICANTLIST a join RECRUITANNOUNCE r
+				on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
+				where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
+				    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+				order by APPLICANTLIST_DATE desc
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+		
+	<select id="selectAllAppliedCount" parameterType="int" resultType="int">
+		select count(*) 
+		from APPLICANTLIST a join RECRUITANNOUNCE r
+		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
+		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
+		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+	</select>
+	
+	<!-- 기업회원이 지원자 이력서 읽음 -->	
+	<update id="updateReadCount" parameterType="int">
+		update APPLICANTLIST
+		set RESUME_READFLAG=1
+		where APPLICANTLIST_NO=#{applicantlistNo}
+	</update>
+	
+	<!-- 개별 지원 레코드 보기 -->	
+	<select id="selectOneApplication" parameterType="int" resultType="applicantlistVo">
+		select * from APPLICANTLIST where APPLICANTLIST_NO=#{applicantlistNo}
+	</select>
+	
+	<!-- 합격처리 -->
+	<update id="updaeApplyPass" parameterType="int">
+		update APPLICANTLIST
+		set APPLICANTLIST_PAPERCHECK=1
+		where APPLICANTLIST_NO=#{applicantlistNo}
+	</update>
+	
+	<!-- 불합격처리 -->
+	<update id="updaeApplyFail" parameterType="int">
+		update APPLICANTLIST
+		set APPLICANTLIST_PAPERCHECK=2
+		where APPLICANTLIST_NO=#{applicantlistNo}
+	</update>
+	
+	<!-- 입사지원제한자 등록 -->
+	<insert id="insertProhibit" parameterType="prohibitJoinVO">
+		<selectKey keyProperty="prohibitjoinNo" resultType="int" order="BEFORE">
+			select prohibitjoin_seq.nextval from dual
+		</selectKey>
+		insert into PROHIBITJOIN(PROHIBITJOIN_NO,USER_PESONAL_NO,USER_CORP_NO)
+		values(#{prohibitjoinNo}, #{userPersonalNo}, #{userCorpNo})
+	</insert>
+	
+	<!-- 입사지원자 여부 판단 -->
+	<select id="selectIfProhibited" parameterType="int" resultType="int">
+		select count(*) from PROHIBITJOIN where USER_PESONAL_NO=#{userPersonalNo}
+	</select>
+	
 </mapper>

@@ -79,70 +79,89 @@ public class ResumesController {
 	@RequestMapping(value ="/resumeWrite.do", method = RequestMethod.POST)
 	public String resumeWrite_post(@ModelAttribute ResumesVO resumeVo,
 			@ModelAttribute ResumeListVO relistVo,HttpSession session,Model model) {
-		logger.info("한방에 들어오니? relistVo={}", relistVo);
+		logger.info("이력서 한번에 받아오기 relistVo={}", relistVo);
 		logger.info("이력서 resumeVo={}", resumeVo);
 
+		//이력서 넣기
 		int resumResult = rsService.insertResume(resumeVo);
 		logger.info("이력서 resumResult={}",resumResult);
 		int resumeNo = resumeVo.getResumeNo();	// 등록된 이력서에서 번호 추출
 		logger.info("resumNo={}",resumeNo);
 
 		//이력서 리스트 브이오의 각 멤버변수에 이력서번호 세팅
-		//relistVo.setResumeNo(resumNo);
-
 		List<AwardVO> awlist = relistVo.getAwardVOList();
-		for(AwardVO vo : awlist) {
-			vo.setResumeNo(resumeNo);
+		if (awlist != null) {
+			for(AwardVO vo : awlist) {
+				vo.setResumeNo(resumeNo);
+			}
 		}
 
 		List<CarrerVO> carrlist = relistVo.getCarrerVOList();
-		for (CarrerVO vo : carrlist) {
-			vo.setResumeNo(resumeNo);
+		if (carrlist != null) {
+			for (CarrerVO vo : carrlist) {
+				vo.setResumeNo(resumeNo);
+			}
 		}
-
+		
 		List<ForeignlanguageskillVO> flslist = relistVo.getForeignskillVO();
-		for (ForeignlanguageskillVO vo : flslist) {
-			vo.setResumeNo(resumeNo);
+		if (flslist != null) {
+			for (ForeignlanguageskillVO vo : flslist) {
+				vo.setResumeNo(resumeNo);
+			}
 		}
-
+		
 		List<LicencseVO> licelist = relistVo.getLicenVOList();
-		for (LicencseVO vo : licelist) {
-			vo.setResumeNo(resumeNo);
+		if (licelist != null) {
+			for (LicencseVO vo : licelist) {
+				vo.setResumeNo(resumeNo);
+			}
 		}
 
 		relistVo.setAwardVOList(awlist);
+		relistVo.setCarrerVOList(carrlist);
+		relistVo.setForeignskillVO(flslist);
+		relistVo.setLicenVOList(licelist);
 
 		logger.info("awlist={}",awlist);
 		logger.info("carrlist={}",carrlist);
 		logger.info("flslist={}",flslist);
 		logger.info("licelist={}",licelist);
 
-
-		String msg="등록 실패하였습니다", url="/resumes/resumeWrite.do";
+		//이력서가 등록되면 다른것들도 넣어라
+		String msg="등록 성공하였습니다", url="/resumes/resumeDetail.do?resumeNo="+resumeVo.getResumeNo();
 		if (resumResult>0) {
-			int cnt = rsService.insertResumesMulti(relistVo);
-			logger.info("등록결과 cnt={}", cnt);
-
-			if (cnt>0) {
-				msg="등록 성공하였습니다";
-				url="/resumes/resumesList.do";
-				for (int i = 0; i < awlist.size(); i++) {
-					AwardVO aVo = awlist.get(i);
-					logger.info("aVo={}",aVo);
+				if (awlist != null) {
+					for (int i = 0; i < awlist.size(); i++) {
+						AwardVO aVo = awlist.get(i);
+						logger.info("aVo={}",aVo);
+						
+						rsService.insertAward(aVo);
+					}
 				}
-				for (int i = 0; i < carrlist.size(); i++) {
-					CarrerVO cVo = carrlist.get(i);
-					logger.info("cVo={}",cVo);
+				if (carrlist != null) {
+					for (int i = 0; i < carrlist.size(); i++) {
+						CarrerVO cVo = carrlist.get(i);
+						logger.info("cVo={}",cVo);
+						
+						rsService.insertCarrer(cVo);
+					}
 				}
-				for (int i = 0; i < flslist.size(); i++) {
-					ForeignlanguageskillVO fVo = flslist.get(i);
-					logger.info("fVo={}",fVo);
+				if (flslist != null) {
+					for (int i = 0; i < flslist.size(); i++) {
+						ForeignlanguageskillVO fVo = flslist.get(i);
+						logger.info("fVo={}",fVo);
+						
+						rsService.insertForeignskill(fVo);
+					}
 				}
-				for (int i = 0; i < licelist.size(); i++) {
-					LicencseVO lVo = licelist.get(i);
-					logger.info("lVo={}",lVo);
+				if (licelist != null) {
+					for (int i = 0; i < licelist.size(); i++) {
+						LicencseVO lVo = licelist.get(i);
+						logger.info("lVo={}",lVo);
+						
+						rsService.insertLicen(lVo);
+					}
 				}
-			}
 		}
 		model.addAttribute("msg",msg);
 		model.addAttribute("url",url);
@@ -179,10 +198,9 @@ public class ResumesController {
 	//삭제
 	@RequestMapping("/deleteResumes.do")
 	public String deleteResumes(@RequestParam(defaultValue = "0") int resumeNo,
-			@RequestParam(defaultValue = "0") int userNo,
 			Model model) {
 		//1
-		logger.info("삭제 파라미터 resumeNo={} userNo={}",resumeNo,userNo);
+		logger.info("삭제 파라미터 resumeNo={}",resumeNo);
 		//2
 		int cnt = rsService.deleteResumes(resumeNo);
 		logger.info("삭제 처리 cnt={}",cnt);
@@ -199,5 +217,155 @@ public class ResumesController {
 		return "common/message";
 	}
 	
+	
+	//수정
+	@RequestMapping(value = "/resumeUpdate.do", method = RequestMethod.GET)
+	public void updateResume_get(@RequestParam(defaultValue = "0") int resumeNo,
+			HttpSession session, Model model) {
+		logger.info("디테일페이지 보여주기");
+		
+		
+		Map<String, Object> map=rsService.selectByRsUser(resumeNo);
+		List<AwardVO> aList=rsService.selectAwdByNo(resumeNo);
+		List<CarrerVO> cList = rsService.selectCarByNo(resumeNo);
+		List<ForeignlanguageskillVO> fList=rsService.selectFlsByNo(resumeNo);
+		List<LicencseVO> lcList=rsService.selectLicenByNo(resumeNo);
+		
+		model.addAttribute("map",map);
+		model.addAttribute("aList",aList);
+		model.addAttribute("cList",cList);
+		model.addAttribute("fList",fList);
+		model.addAttribute("lcList",lcList);
+	}
+	
+	@RequestMapping(value = "/resumeUpdate.do", method = RequestMethod.POST)
+	public String updateResume_post(@ModelAttribute ResumesVO resumeVo,
+			@ModelAttribute ResumeListVO relistVo, Model model) {
+		logger.info("이력서 수정처리 진행");
+		logger.info("이력서 한번에 받아오기 relistVo={}", relistVo);
+		logger.info("이력서 resumeVo={}", resumeVo);
+		
+		/* resumeVo 업데이트 처리 */
+		int cntupdate = rsService.updateResume(resumeVo);
+		logger.info("resumeVo업데이트 cntupdate={}",cntupdate);
+		
+		/* 4개 테이블 이력서 번호 세팅하기*/
+		int resumeNo = resumeVo.getResumeNo();
+		logger.info("resumeNo={}",resumeNo);
+		
+		List<AwardVO> awlist = relistVo.getAwardVOList();
+		if (awlist != null) {
+			for(AwardVO vo : awlist) {
+				vo.setResumeNo(resumeNo);
+			}
+			//relistVo.setAwardVOList(awlist);
+		}
+		List<CarrerVO> carrlist = relistVo.getCarrerVOList();
+		if (carrlist != null) {
+			for (CarrerVO vo : carrlist) {
+				vo.setResumeNo(resumeNo);
+			}
+			//relistVo.setCarrerVOList(carrlist);
+		}
+		List<ForeignlanguageskillVO> flslist = relistVo.getForeignskillVO();
+		if (flslist != null) {
+			for (ForeignlanguageskillVO vo : flslist) {
+				vo.setResumeNo(resumeNo);
+			}
+			//relistVo.setForeignskillVO(flslist);
+		}
+		List<LicencseVO> licelist = relistVo.getLicenVOList();
+		if (licelist != null) {
+			for (LicencseVO vo : licelist) {
+				vo.setResumeNo(resumeNo);
+			}
+			//relistVo.setLicenVOList(licelist);
+		}
+		
+		relistVo.setAwardVOList(awlist);
+		relistVo.setCarrerVOList(carrlist);
+		relistVo.setForeignskillVO(flslist);
+		relistVo.setLicenVOList(licelist);
+
+		logger.info("awlist={}",awlist);
+		logger.info("carrlist={}",carrlist);
+		logger.info("flslist={}",flslist);
+		logger.info("licelist={}",licelist);
+		
+		//리스트 각 번호에 접근
+		//int awardNo = awlist.get(0).getAwardNo();
+		//logger.info("awardNo={}",awardNo);
+		
+		//수상
+		for (int i = 0; i < awlist.size(); i++) {
+			int awardNo = awlist.get(i).getAwardNo();
+
+			AwardVO aVo = awlist.get(i);
+			logger.info("aVo={}",aVo);
+			
+			if (awardNo==0) {
+				rsService.insertAward(aVo);
+			} else {
+				rsService.updateAwd(aVo);
+			}
+		}
+
+		//경력
+		for (int i = 0; i < carrlist.size(); i++) {
+			int carrerNo = carrlist.get(i).getCarrerNo();
+
+			CarrerVO cVo = carrlist.get(i);
+			logger.info("cVo={}",cVo);
+			
+			if (carrerNo==0) {
+				rsService.insertCarrer(cVo);
+			} else {
+				rsService.updateCarrer(cVo);
+			}
+		}
+		
+		//자격증
+		for (int i = 0; i < licelist.size(); i++) {
+			int licencseNo = licelist.get(i).getLicencseNo();
+			
+			LicencseVO lVo = licelist.get(i);
+			logger.info("lVo={}",lVo);
+			
+			if (licencseNo==0) {
+				rsService.insertLicen(lVo);
+			} else {
+				rsService.updateLicen(lVo);
+			}
+		}
+		
+		//외국어
+		for (int i = 0; i < flslist.size(); i++) {
+			int foreignlanguageskillNo = flslist.get(i).getForeignlanguageskillNo();
+			
+			ForeignlanguageskillVO fVo = flslist.get(i);
+			logger.info("fVo={}",fVo);
+			
+			if (foreignlanguageskillNo==0) {
+				rsService.insertForeignskill(fVo);
+			} else {
+				rsService.updateFskill(fVo);
+			}
+		}
+		
+		String msg="등록 성공하였습니다", url="/resumes/resumeDetail.do?resumeNo="+resumeNo;
+
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+
+		
+		return "common/message";
+	}
+	
+	
+	//지원하기
+	@RequestMapping("/resumeApply.do")
+	public void resumeApply() {
+		logger.info("지원하기");
+	}
 
 }//컨트롤러

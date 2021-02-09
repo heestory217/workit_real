@@ -96,7 +96,7 @@
 		select * from FOREIGNLANGUAGESKILL where RESUME_NO=#{resumeNo}
 	</select>
 	
-	<!-- delete -->
+	<!-- Alldelete -->
 	<delete id="delResume" parameterType="int">
 		delete from resumeUsers where RESUME_NO=#{resumeNo}
 	</delete>
@@ -114,8 +114,52 @@
 	</delete>
 	
 	<!-- update -->
+	<update id="updateResume" parameterType="resumesVO">
+		update resumes
+		set RESUME_TITLE=#{resumeTitle}, RESUME_FINALEDUCATION=#{resumeFinaleducation}, RESUME_SELFINTRO=#{resumeSelfintro}
+		where RESUME_NO=#{resumeNo}
+	</update>
+	<update id="updateAwd" parameterType="awardVO">
+		update award
+		set AWARD_ABOUT = #{awardAbout}, AWARD_DATE=#{awardDate}
+		where RESUME_NO=#{resumeNo} and AWARD_NO=#{awardNo}
+	</update>
+	<update id="updateCarrer" parameterType="carrerVO">
+		update CARRER
+		set CARRER_CORP=#{carrerCorp}, CARRER_STARTDATE=#{carrerStartdate}, CARRER_ENDDATE=#{carrerEnddate},CARRER_WORK=#{carrerWork}
+		where RESUME_NO=#{resumeNo} and CARRER_NO=#{carrerNo}
+	</update>
+	<update id="updateLicen" parameterType="licencseVO">
+		update LICENCSE
+		set LICENCSE_NAME=#{licencseName},LICENCSE_ISSUEPLACE=#{licencseIssueplace}
+		where RESUME_NO=#{resumeNo} and LICENCSE_NO=#{licencseNo}
+	</update>
+	<update id="updateFskill" parameterType="foreignlanguageskillVO">
+		update FOREIGNLANGUAGESKILL
+		set FOREIGNLANGUAGESKILL_LANG=#{foreignlanguageskillLang},FOREIGNLANGUAGESKILL_EXPERT=#{foreignlanguageskillExpert}
+		where RESUME_NO=#{resumeNo} and FOREIGNLANGUAGESKILL_NO=#{foreignlanguageskillNo}
+	</update>
 	
+	<!-- select delete -->
+	<delete id="selDelAwd" parameterType="int">
+		delete from award where AWARD_NO=#{awardNo}
+	</delete>
+	<delete id="selDelCarrer" parameterType="int">
+		delete from CARRER where CARRER_NO=#{carrerNo}
+	</delete>
+	<delete id="selDelLicen" parameterType="int">
+		delete from LICENCSE where LICENCSE_NO=#{licencseNo}
+	</delete>
+	<delete id="selDelFskill" parameterType="int">
+		delete from FOREIGNLANGUAGESKILL 
+		where RECRUITANNOUNCEBOOKMARK_NO=#{foreignlanguageskillNo}
+	</delete>
 	
+	<update id="resumeOpen" parameterType="int">
+		update resumes 
+		set RESUME_RESUMEOPENCHECK=3
+		where resume_no = #{resumeNo}
+	</update>
 </mapper>
 
 

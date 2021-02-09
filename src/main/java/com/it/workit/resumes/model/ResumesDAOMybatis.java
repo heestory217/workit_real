@@ -61,6 +61,8 @@ public class ResumesDAOMybatis implements ResumesDAO{
 	public List<ForeignlanguageskillVO> selectFlsByNo(int resumeNo) {
 		return sqlSession.selectList(namespace+"selectFlsByNo",resumeNo);
 	}
+	
+	//삭제
 	@Override
 	public int delResume(int resumeNo) {
 		return sqlSession.delete(namespace+"delResume",resumeNo);
@@ -81,6 +83,64 @@ public class ResumesDAOMybatis implements ResumesDAO{
 	public int delFskill(int resumeNo) {
 		return sqlSession.delete(namespace+"delFskill",resumeNo);
 	}
+	
+	//수정
+	@Override
+	public int updateResume(ResumesVO resumeVo) {
+		return sqlSession.update(namespace+"updateResume",resumeVo);
+	}
+	@Override
+	public int updateAwd(AwardVO awardVo) {
+		return sqlSession.update(namespace+"updateAwd",awardVo);
+	}
+	@Override
+	public int updateCarrer(CarrerVO carrerVo) {
+		return sqlSession.update(namespace+"updateCarrer",carrerVo);
+	}
+	@Override
+	public int updateFskill(ForeignlanguageskillVO fskillVo) {
+		return sqlSession.update(namespace+"updateFskill",fskillVo);
+	}
+	@Override
+	public int updateLicen(LicencseVO licenVo) {
+		return sqlSession.update(namespace+"updateLicen",licenVo);
+	}
+	
+//	@Override
+//	public int updateAwd(List<AwardVO> aList) {
+//		return sqlSession.update(namespace+"updateAwd",aList);
+//	}
+//	@Override
+//	public int updateCarrer(List<CarrerVO> cList) {
+//		return sqlSession.update(namespace+"updateCarrer",cList);
+//	}
+//	@Override
+//	public int updateLicen(List<LicencseVO> lList) {
+//		return sqlSession.update(namespace+"updateLicen",lList);
+//	}
+//	@Override
+//	public int updateFskill(List<ForeignlanguageskillVO> fList) {
+//		return sqlSession.update(namespace+"updateFskill",fList);
+//	}
+	
+	//선택 삭제
+	@Override
+	public int selDelAwd(int awardNo) {
+		return sqlSession.delete(namespace+"selDelAwd", awardNo);
+	}
+	@Override
+	public int selDelCarrer(int carrerNo) {
+		return sqlSession.delete(namespace+"selDelCarrer",carrerNo);
+	}
+	@Override
+	public int selDelLicen(int licencseNo) {
+		return sqlSession.delete(namespace+"selDelLicen",licencseNo);
+	}
+	@Override
+	public int selDelFskill(int foreignlanguageskillNo) {
+		return sqlSession.delete(namespace+"selDelFskill",foreignlanguageskillNo);
+	}
+	
 	
 	
 }

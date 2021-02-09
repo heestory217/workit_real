@@ -55,17 +55,17 @@
 			<div class="pb-pic">
 			<img src="<c:url value='/pd_images/${crVo.corpImgurl }'/>" style="width: 60px;">
 			</div>
-			
-			<div class="pb-text">
-			<a href="#">
-			    <h5>${crVo.recruitannounceTitle }</h5>
-			</a>
-			<p>
-			   연봉 : ${crVo.recruitannounceSpay }원 &nbsp;&nbsp;&nbsp;
-			   언어 : ${crVo.recruitannounceSkill } &nbsp;&nbsp;&nbsp;
-			   지원자격 : ${crVo.recruitannounceWantedcarrer }년 이상
-			</p>
+				<div class="pb-text">
+			<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${crVo.recruitannounceNo }'/>">
+				    <h5>${crVo.recruitannounceTitle }</h5>
+			 </a>
+				<p>
+				   연봉 : ${crVo.recruitannounceSpay }원 &nbsp;&nbsp;&nbsp;
+				   언어 : ${crVo.recruitannounceSkill } &nbsp;&nbsp;&nbsp;
+				   지원자격 : ${crVo.recruitannounceWantedcarrer }년 이상
+				</p>
 			 </div>
+			</div>
 			</div>
 		</c:forEach>
 	</c:if>

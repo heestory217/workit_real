@@ -4,6 +4,52 @@
 
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/indivMypage.css'/>" />
 
+<style>
+section:nth-child(3) div div div div table tbody tr td a p:hover {
+	color: #4C50BB;
+	font-weight: 600;
+}
+
+.product__pagination a, .blog__pagination a, #currentPage {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	border: 1px solid #b2b2b2;
+	font-size: 14px;
+	color: #b2b2b2;
+	font-weight: 700;
+	line-height: 28px;
+	text-align: center;
+	margin-right: 16px;
+	-webkit-transition: all, 0.3s;
+	-moz-transition: all, 0.3s;
+	-ms-transition: all, 0.3s;
+	-o-transition: all, 0.3s;
+	transition: all, 0.3s;
+}
+
+.product__pagination a:hover, .blog__pagination a:hover, #currentPage {
+	background: #4C50BB;
+	border-color: #4C50BB;
+	color: #ffffff;
+}
+
+.product__pagination a:last-child, .blog__pagination a:last-child {
+	margin-right: 0;
+}
+</style>
+
+<script type="text/javascript">
+    function pageFunc(curPage){
+    	$('input[name=currentPage]').val(curPage);
+    	$('form[name=frmPRPage]').submit();
+    }
+</script>
+
+<form action="<c:url value='/company/ApplicantMng/allApplicant.do'/>" name="frmPRPage" method="post">
+	<input type="hidden" name="currentPage">
+</form>      
+
 <!-- 상단 바  -->
 <div class="breacrumb-section">
     <div class="container">
@@ -44,6 +90,15 @@
 	</div>
 	<!-- 제목 끝 -->
 	
+	<!-- 변수선언  -->
+	<c:set var="all" value="${CountAllApplicant}" />
+	<c:set var="open" value="${open}" />
+	<c:set var="closed" value="${CountAllApplicant-open}" />
+	<c:set var="wait" value="${wait}" />
+	<c:set var="pass" value="${pass}" />
+	<c:set var="fail" value="${fail}" />
+	<c:set var="prohibited" value="${prohibited}" />
+	
 	<section class="shopping-cart spad">
 		<div class="container">
 			<div class="row">
@@ -58,43 +113,48 @@
 							<tr>
 								<td class="cart-title">
 									<a href="#"><br><br>
-										<h2 class="center textColorblue">10</h2>
+										<h2 class="center textColorblue">${all}</h2>
 										<p class="center">전체</p>
 									</a>
 								</td>
-								<td class="cart-title"><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=1'/>"><br><br>
-									<h2 class="center textColorblue">6</h2>
+								<td class="cart-title"><a href="#"><br><br>
+									<h2 class="center textColorblue">${open}</h2>
 									<p class="center">열람</p></a>
 								</td>
-								<td class="cart-title"><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=2'/>"><br><br>
-									<h2 class="center textColorblue">4</h2>
+								<td class="cart-title"><a href="#"><br><br>
+									<h2 class="center textColorblue">${closed}</h2>
 									<p class="center">미열람</p></a>
 								</td>
+								
 							</tr>
 						</table>
 						<table style="border-top: 0;background: whitesmoke;">
 							<colgroup>
-								<col width="20%">
-								<col width="20%">
-								<col width="20%">
-								<col width="20%">
-								<col width="20%">
+								<col width="25%">
+								<col width="25%">
+								<col width="25%">
+								<col width="25%">
 							</colgroup>
 							<tr>
 								<td style="padding: 10px 0 10px 0;">
-									<p class="center" style="margin: 0 auto;">심사중 <span style="color:#4C50BB;font-weight: 800;">2</span></p>
+									<p class="center" style="margin: 0 auto;">심사중 
+										<span style="color:#4C50BB;font-weight: 800;">${wait}</span>
+									</p>
 								</td>
 								<td style="padding: 10px 0 10px 0;">
-									<p class="center" style="margin: 0 auto;">서류합격 <span style="color:#4C50BB;font-weight: 800;">2</span></p>
+									<p class="center" style="margin: 0 auto;">서류합격 
+										<span style="color:#4C50BB;font-weight: 800;">${pass}</span>
+									</p>
 								</td>
 								<td style="padding: 10px 0 10px 0;">
-									<p class="center" style="margin: 0 auto;">불합격 <span style="color:#4C50BB;font-weight: 800;">2</span></p>
+									<p class="center" style="margin: 0 auto;">불합격 
+										<span style="color:#4C50BB;font-weight: 800;">${fail}</span>
+									</p>
 								</td>
 								<td style="padding: 10px 0 10px 0;">
-									<p class="center" style="margin: 0 auto;">지원취소 <span style="color:#4C50BB;font-weight: 800;">2</span></p>
-								</td>
-								<td style="padding: 10px 0 10px 0;">
-									<p class="center" style="margin: 0 auto;">입사제한 <span style="color:#4C50BB;font-weight: 800;">2</span></p>
+									<p class="center" style="margin: 0 auto;">입사제한 
+										<span style="color:#4C50BB;font-weight: 800;">${prohibited}</span>
+									</p>
 								</td>
 							</tr>
 						</table>
@@ -111,13 +171,15 @@
 					<div class="cart-table">
 						<table>
 							<colgroup>
-								<col width="35%">
+								<col width="10%">
+								<col width="30%">
 								<col width="20%">
-								<col width="25%">
+								<col width="20%">
 								<col width="20%">
 							</colgroup>
 							<thead>
                                <tr>
+                                   <th>분류</th>
                                    <th>채용 공고</th>
                                    <th>고용 형태</th>
                                    <th>이력서</th>
@@ -125,38 +187,57 @@
                                </tr>
                            </thead>
                            <tbody>
-								<c:if test="${empty list }">
+								<c:if test="${empty applist }">
 	                            	<tr>
-	                            		<td colspan="4"><br><br>
+	                            		<td colspan="5"><br><br>
 	                            			<p>요청하신 결과가 없습니다.</p>
 	                            		</td>
 	                            	</tr>
                                </c:if>
-                               <c:if test="${!empty list }">
-	                               	<c:forEach var="vo" items="${list }">
+                               <c:if test="${!empty applist }">
+	                               	<c:forEach var="map" items="${applist}">
 										<tr>
 											<td class="cart-title padding-bottom0"><br>
+												<p class="center">
+													<c:if test="${map['APPLICANTLIST_PAPERCHECK']==1}">
+														<button type="button" class="btn btn-outline-success btn-sm" style="cursor: Default;">
+															서류합격
+														</button>
+													</c:if>
+													<c:if test="${map['APPLICANTLIST_PAPERCHECK']==2}">
+														<button type="button" class="btn btn-outline-danger btn-sm" style="cursor: Default;">
+															불합격
+														</button>
+													</c:if>
+													<c:if test="${map['APPLICANTLIST_PAPERCHECK']==3}">
+														<button type="button" class="btn btn-outline-warning btn-sm" style="cursor: Default;">
+															심사중
+														</button>
+													</c:if>
+												</p>
+											</td>
+											<td class="cart-title padding-bottom0"><br>
 												<!-- 제목이 긴 경우 일부만 보여주기 -->
-												<a href="#">
+												<a href="<c:url value='/company/ApplicantMng/countUpdate.do?applicantlistNo=${map["APPLICANTLIST_NO"]}'/>">
 													<p class="center">
-														<c:if test="${fn:length(vo.recruitannounceTitle)>=18}">
-															${fn:substring(vo.recruitannounceTitle, 0,18) } ...
+														<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])>=18}">
+															${fn:substring(map['RECRUITANNOUNCE_TITLE'], 0,18) } ...
 														</c:if>
-														<c:if test="${fn:length(vo.recruitannounceTitle)<18}">						
-															${vo.recruitannounceTitle }
+														<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])<18}">						
+															${map['RECRUITANNOUNCE_TITLE']}
 														</c:if>
 													</p>
 												</a>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
-												<p class="center">${vo.recruitannounceSworkkind }</p>
+												<p class="center">${map['RECRUITANNOUNCE_SWORKKIND']}</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
-												<p class="center">이력서제목넣기!</p>
+												<p class="center">${map['RESUME_TITLE']}</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">
-													<fmt:formatDate value="${vo.applicantlistDate }" pattern="yyyy-MM-dd"/>
+													<fmt:formatDate value="${map['APPLICANTLIST_DATE']}" pattern="yyyy-MM-dd"/>
 												</p>
 											</td>
 										</tr>
@@ -168,36 +249,33 @@
 				</div>
 			</div>
 		</div>
-		<!-- 페이징 처리 -->
-		<c:if test="${i>0}">
-			<div class="paging col-lg-12 center">
-				<!-- 이전블럭 -->	
-				<div class="product__pagination blog__pagination">
-				 	<c:if test="${pagingInfo.firstPage>1 }">	
-						<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
-							<i class="fa fa-long-arrow-left"></i>
-						</a>
+		
+		<!-- 페이징 -->
+		<div class="col-lg-12" style="text-align: center;">
+			<div class="product__pagination blog__pagination">
+			 	<c:if test="${pagingInfo.firstPage>1 }">
+					<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
+						<i class="fa fa-long-arrow-left"></i>
+					</a>
+				</c:if>
+				<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
+					<c:if test="${i==pagingInfo.currentPage }">
+						<span id="currentPage" >${i}</span>
 					</c:if>
-					<!-- 블럭 -->
-					<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
-						<c:if test="${i==pagingInfo.currentPage }">
-							<span id="currentPage" >
-								${i}</span>			
-						</c:if>
-						<c:if test="${i!=pagingInfo.currentPage }">
-							<a href="#" onclick="pageFunc(${i})">
-								${i}</a>			
-						</c:if>
-					</c:forEach>
-					<!-- 다음블럭 -->	
-					<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">	
-						<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
-							<i class="fa fa-long-arrow-right"></i>
-						</a>
+					<c:if test="${i!=pagingInfo.currentPage }">
+						<a href="#" onclick="pageFunc(${i})">
+							${i}</a>
 					</c:if>
-			    </div>
+				</c:forEach>
+				<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+					<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
+						<i class="fa fa-long-arrow-right"></i>
+					</a>
+				</c:if>
 			</div>
-	    </c:if>
+		</div>
+		<!-- 페이징 -->
+	    
 	</section>
 </div>
 <%@ include file="../../inc/bottom.jsp"%>
