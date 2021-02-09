@@ -21,6 +21,8 @@ import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
 import com.it.workit.prohibit.model.ProhibitJoinService;
 import com.it.workit.prohibit.model.ProhibitJoinVO;
+import com.it.workit.recruit.model.RecruitannounceService;
+import com.it.workit.recruit.model.RecruitannounceVO;
 
 @Controller
 @RequestMapping("/company/ApplicantMng")
@@ -29,14 +31,17 @@ public class CorpApplicantController {
 	private static final Logger logger = LoggerFactory.getLogger(CorpApplicantController.class);
 	@Autowired private ApplicantService appService;
 	@Autowired private ProhibitJoinService prohibitService;
+	@Autowired private RecruitannounceService recruitService;
 	
-	@RequestMapping("/allApplicant.do")
-	public void allApplicant(@ModelAttribute CorpApplicantPagingVO searchVo, HttpSession session, Model model){
-		logger.info("전체 지원자 목록 보여주기");
-
+	@RequestMapping("/applicantByRecruit.do")
+	public void applicantByRecruit(@ModelAttribute CorpApplicantPagingVO searchVo, HttpSession session, Model model){
+		logger.info("공고별 지원자 목록 보여주기");
 		int userNo = (Integer) session.getAttribute("userNo");
+		List<RecruitannounceVO> list = recruitService.selectRecruitList(userNo);
+		model.addAttribute("list", list);
+		
 		searchVo.setUserNo(userNo);
-
+		
 		//페이징
 		PaginationInfo pagingInfo=new PaginationInfo();
 		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
@@ -50,14 +55,14 @@ public class CorpApplicantController {
 		List<Map<String, Object>> applist = appService.selectAllApplicantView(searchVo);
 		logger.info("전체 지원자 수 = {}", applist.size());
 		
-		int totalRecord=appService.selectAllAppliedCount(userNo);
+		int totalRecord=appService.selectAllAppliedCount(searchVo);
 		logger.info("전체 지원자 수 totalRecord={}", totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
 		
-		int pass = appService.selectPassCount(userNo);
-		int fail = appService.selectFailCount(userNo);
-		int open = appService.selectReadCount(userNo);
-		int prohibited = appService.selectProhibitCount(userNo);
+		int pass = appService.selectPassCount(searchVo);
+		int fail = appService.selectFailCount(searchVo);
+		int open = appService.selectReadCount(searchVo);
+		int prohibited = appService.selectProhibitCount(searchVo);
 		
 		model.addAttribute("applist", applist);	//5개씩 출력됨
 		model.addAttribute("pagingInfo", pagingInfo);
@@ -87,10 +92,6 @@ public class CorpApplicantController {
 		
 		return "redirect:/resumes/resumeDetail.do?resumeNo="+vo.getResumeNo()+"&type=Applied&applicantlistNo="+applicantlistNo;
 	}
-	
-	@RequestMapping("/applicantByRecruit.do")
-	public void applicantByRecruit(){}
-	
 	
 	//합격처리
 	@RequestMapping("/pass.do")
@@ -155,7 +156,6 @@ public class CorpApplicantController {
 				return "common/message";
 			}
 		}
-		
 		return "/company/ApplicantMng/prohibit";
 	}
 }

@@ -10,7 +10,7 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 	font-weight: 600;
 }
 
-table:nth-child(2)>tbody>tr>td:nth-child(4)>a>p:hover {
+tr td:nth-child(4) a p:hover {
 	color: #4C50BB;
 	font-weight: 600;
 }
@@ -42,6 +42,14 @@ table:nth-child(2)>tbody>tr>td:nth-child(4)>a>p:hover {
 .product__pagination a:last-child, .blog__pagination a:last-child {
 	margin-right: 0;
 }
+
+select {
+   text-align-last: center;
+   text-align: center;
+   -ms-text-align-last: center;
+   -moz-text-align-last: center;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -51,7 +59,7 @@ table:nth-child(2)>tbody>tr>td:nth-child(4)>a>p:hover {
     }
 </script>
 
-<form action="<c:url value='/company/ApplicantMng/allApplicant.do'/>" name="frmPRPage" method="post">
+<form action="<c:url value='/company/ApplicantMng/applicantByRecruit.do'/>" name="frmPRPage" method="post">
 	<input type="hidden" name="currentPage">
 </form>      
 
@@ -63,25 +71,56 @@ table:nth-child(2)>tbody>tr>td:nth-child(4)>a>p:hover {
                 <div class="breadcrumb-text product-more">
                     <a href="<c:url value='/index.do'/>"><i class="fa fa-home"></i> Home</a>
                     <a href="#">Applicant Management</a>
-                    <span>Applicant By Recruit</span>
+                    <span>
+	                    <c:if test="${empty param.recruitannounceNo}">
+	                    	All Applicant
+	                    </c:if>
+	                    <c:if test="${!empty param.recruitannounceNo}">
+		                    Applicant By Recruit
+	                    </c:if>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- 상단 바 -->
-
-<!-- 페이징처리 폼 -->
-<form action="<c:url value='/company/ApplicantMng/allApplicant.do'/>" name="frmPage" method="post">
-	<input type="hidden" name="currentPage">
-</form>
-<!-- 페이징처리 폼 -->
-
+                        
+<!-- 본문 시작 -->
 <div style="padding: 80px 0 80px 0;">
+
+	<!-- 페이징처리 폼 -->
+	<form action="<c:url value='/company/ApplicantMng/applicantByRecruit.do'/>" name="frmPage" method="post">
+		<input type="hidden" name="currentPage">
+	</form>
+	<!-- 페이징처리 폼 -->
 	
 	<!-- 제목 -->
 	<div class="section-title" style="width: 100%;">
-		<h2>채용공고별 지원자</h2>
+		<form action="<c:url value='/company/ApplicantMng/applicantByRecruit.do'/>" name="frmChose" method="post">
+		    <div class="container">
+		        <div class="row">
+					<div class="col-lg-12" style="margin-bottom: 40px;">
+	                    <select class="sorting" name="recruitannounceNo"
+	                    		style="height: 48px; width: 40%; border: 1px solid #ebebeb;font-size: 24px;font-weight: 700;">
+	                        <option value="0" style="font-size:16px;">전체 공고</option>
+	                        <c:forEach var="vo" items="${list}">
+	                        	<option value="${vo.recruitannounceNo}" style="font-size:16px;"
+	                        		<c:if test="${param.recruitannounceNo==vo.recruitannounceNo}">
+	                        			selected
+	                        		</c:if>
+	                        	>${vo.recruitannounceTitle}
+                        		</option>
+	                        </c:forEach>
+	                    </select>
+	                    <button type="submit" class="site-btn" style="font-size: 16px; padding: 10px 16px 10px;">
+	                    	<i class="ti-search"></i>
+                    	</button>
+		    		</div>
+		    	</div>
+		    </div>
+		</form>
+		
 		<div class="container">
 			<div class="col-lg-12" style="background: #f4f4ff;padding: 15px;">
 				<h6> - 이력서명을 클릭하면 지원한 이력서 상세내용을 확인할 수 있습니다. </h6>
@@ -117,11 +156,17 @@ table:nth-child(2)>tbody>tr>td:nth-child(4)>a>p:hover {
 							</colgroup>
 							<tr>
 								<td class="cart-title" style="padding-top: 34px;">
-									<h2 class="center textColorblue">${all}</h2>
+									<h2 class="center textColorblue">
+										<c:if test="${empty CountAllApplicant}">0</c:if>
+										<c:if test="${!empty CountAllApplicant}">${all}</c:if>
+									</h2>
 									<p class="center" style="margin: 0 auto;">전체</p>
 								</td>
 								<td class="cart-title" style="padding-top: 34px;">
-									<h2 class="center textColorblue">${open}</h2>
+									<h2 class="center textColorblue">
+										<c:if test="${empty open}">0</c:if>
+										<c:if test="${!empty open}">${open}</c:if>
+									</h2>
 									<p class="center" style="margin: 0 auto;">열람</p>
 								</td>
 								<td class="cart-title" style="padding-top: 34px;">
@@ -145,18 +190,27 @@ table:nth-child(2)>tbody>tr>td:nth-child(4)>a>p:hover {
 								</td>
 								<td style="padding: 10px 0 10px 0;">
 									<p class="center" style="margin: 0 auto;">서류합격 
-										<span style="color:#4C50BB;font-weight: 800;">${pass}</span>
+										<span style="color:#4C50BB;font-weight: 800;">
+											<c:if test="${empty pass}">0</c:if>
+											<c:if test="${!empty pass}">${pass}</c:if>
+										</span>
 									</p>
 								</td>
 								<td style="padding: 10px 0 10px 0;">
 									<p class="center" style="margin: 0 auto;">불합격 
-										<span style="color:#4C50BB;font-weight: 800;">${fail}</span>
+										<span style="color:#4C50BB;font-weight: 800;">
+											<c:if test="${empty fail}">0</c:if>
+											<c:if test="${!empty fail}">${fail}</c:if>
+										</span>
 									</p>
 								</td>
 								<td style="padding: 10px 0 10px 0;">
 									<a href="<c:url value='/company/ApplicantMng/prohibit.do'/>">
 										<p class="center" style="margin: 0 auto;">입사제한 
-											<span style="color:#4C50BB;font-weight: 800;">${prohibited}</span>
+											<span style="color:#4C50BB;font-weight: 800;">
+												<c:if test="${empty prohibited}">0</c:if>
+												<c:if test="${!empty prohibited}">${prohibited}</c:if>
+											</span>
 										</p>
 									</a>
 								</td>
@@ -280,8 +334,9 @@ table:nth-child(2)>tbody>tr>td:nth-child(4)>a>p:hover {
 			</div>
 		</c:if>
 		<!-- 페이징 -->
-	    
+		
 	</section>
 </div>
+<!-- 본문 끝 -->
 
 <%@ include file="../../inc/bottom.jsp"%>

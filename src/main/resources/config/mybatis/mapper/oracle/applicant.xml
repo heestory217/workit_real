@@ -121,6 +121,9 @@
 				where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
 				    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
 			    and a.USER_NO not in (select USER_INDIV_NO from PROHIBITJOIN)
+			   	<if test="recruitannounceNo!=0">
+			   		and r.RECRUITANNOUNCE_NO=#{recruitannounceNo}
+			   	</if>
 				order by APPLICANTLIST_DATE desc
 		    )A
 		)
@@ -130,17 +133,20 @@
 		]]>
 	</select>
 		
-	<select id="selectAllAppliedCount" parameterType="int" resultType="int">
+	<select id="selectAllAppliedCount" parameterType="CorpApplicantPagingVO" resultType="int">
 		select count(*) 
 		from APPLICANTLIST a join RECRUITANNOUNCE r
 		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
 		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
 		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
 	    and a.USER_NO not in (select USER_INDIV_NO from PROHIBITJOIN)
+	    <if test="recruitannounceNo!=0">
+	   		and r.RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	   	</if>
 	</select>
 	
 	<!-- 합격 수 -->
-	<select id="selectPassCount" parameterType="int" resultType="int">
+	<select id="selectPassCount" parameterType="CorpApplicantPagingVO" resultType="int">
 		select count(*) 
 		from APPLICANTLIST a join RECRUITANNOUNCE r
 		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
@@ -148,10 +154,13 @@
 		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
 	    and a.USER_NO not in (select USER_INDIV_NO from PROHIBITJOIN)
 	    and a.APPLICANTLIST_PAPERCHECK=1
+	    <if test="recruitannounceNo!=0">
+	   		and r.RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	   	</if>
 	</select>
 	
 	<!-- 불합격 수 -->
-	<select id="selectFailCount" parameterType="int" resultType="int">
+	<select id="selectFailCount" parameterType="CorpApplicantPagingVO" resultType="int">
 		select count(*) 
 		from APPLICANTLIST a join RECRUITANNOUNCE r
 		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
@@ -159,10 +168,13 @@
 		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
 	    and a.USER_NO not in (select USER_INDIV_NO from PROHIBITJOIN)
 	    and a.APPLICANTLIST_PAPERCHECK=2
+   	    <if test="recruitannounceNo!=0">
+	   		and r.RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	   	</if>
 	</select>
 	
 	<!-- 이력서 읽음 -->
-	<select id="selectReadCount" parameterType="int" resultType="int">
+	<select id="selectReadCount" parameterType="CorpApplicantPagingVO" resultType="int">
 		select count(*) 
 		from APPLICANTLIST a join RECRUITANNOUNCE r
 		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
@@ -170,16 +182,22 @@
 		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
 	    and a.USER_NO not in (select USER_INDIV_NO from PROHIBITJOIN)
 		and a.RESUME_READFLAG=1
+   	    <if test="recruitannounceNo!=0">
+	   		and r.RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	   	</if>
 	</select>
 	
 	<!-- 입사제한자 수음 -->
-	<select id="selectProhibitCount" parameterType="int" resultType="int">
+	<select id="selectProhibitCount" parameterType="CorpApplicantPagingVO" resultType="int">
 		select count(*) 
 		from APPLICANTLIST a join RECRUITANNOUNCE r
 		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
 		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
 		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
 		and a.USER_NO in (select USER_INDIV_NO from PROHIBITJOIN)
+   	    <if test="recruitannounceNo!=0">
+	   		and r.RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	   	</if>
 	</select>
 	
 	<!-- 기업회원이 지원자 이력서 읽음 -->	

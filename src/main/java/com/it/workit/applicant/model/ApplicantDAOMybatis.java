@@ -83,27 +83,27 @@ public class ApplicantDAOMybatis implements ApplicantDAO{
 	}
 
 	@Override
-	public int selectAllAppliedCount(int userNo) {
-		return sqlSession.selectOne(namespace+"selectAllAppliedCount", userNo);
+	public int selectAllAppliedCount(CorpApplicantPagingVO vo) {
+		return sqlSession.selectOne(namespace+"selectAllAppliedCount", vo);
 	}
 
 	@Override
-	public int selectPassCount(int userNo) {
-		return sqlSession.selectOne(namespace+"selectPassCount", userNo);
+	public int selectPassCount(CorpApplicantPagingVO vo) {
+		return sqlSession.selectOne(namespace+"selectPassCount", vo);
 	}
 
 	@Override
-	public int selectFailCount(int userNo) {
-		return sqlSession.selectOne(namespace+"selectFailCount", userNo);
+	public int selectFailCount(CorpApplicantPagingVO vo) {
+		return sqlSession.selectOne(namespace+"selectFailCount", vo);
 	}
 
 	@Override
-	public int selectReadCount(int userNo) {
-		return sqlSession.selectOne(namespace+"selectReadCount", userNo);
+	public int selectReadCount(CorpApplicantPagingVO vo) {
+		return sqlSession.selectOne(namespace+"selectReadCount", vo);
 	}
 	
 	@Override
-	public int selectProhibitCount(int userNo) {
-		return sqlSession.selectOne(namespace+"selectProhibitCount", userNo);
+	public int selectProhibitCount(CorpApplicantPagingVO vo) {
+		return sqlSession.selectOne(namespace+"selectProhibitCount", vo);
 	}
 }

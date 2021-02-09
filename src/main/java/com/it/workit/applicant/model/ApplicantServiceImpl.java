@@ -79,27 +79,27 @@ public class ApplicantServiceImpl implements ApplicantService{
 	}
 
 	@Override
-	public int selectAllAppliedCount(int userNo) {
-		return applicantDao.selectAllAppliedCount(userNo);
+	public int selectAllAppliedCount(CorpApplicantPagingVO vo) {
+		return applicantDao.selectAllAppliedCount(vo);
 	}
 
 	@Override
-	public int selectPassCount(int userNo) {
-		return applicantDao.selectPassCount(userNo);
+	public int selectPassCount(CorpApplicantPagingVO vo) {
+		return applicantDao.selectPassCount(vo);
 	}
 
 	@Override
-	public int selectFailCount(int userNo) {
-		return applicantDao.selectFailCount(userNo);
+	public int selectFailCount(CorpApplicantPagingVO vo) {
+		return applicantDao.selectFailCount(vo);
 	}
 
 	@Override
-	public int selectReadCount(int userNo) {
-		return applicantDao.selectReadCount(userNo);
+	public int selectReadCount(CorpApplicantPagingVO vo) {
+		return applicantDao.selectReadCount(vo);
 	}
 	
 	@Override
-	public int selectProhibitCount(int userNo) {
-		return applicantDao.selectProhibitCount(userNo);
+	public int selectProhibitCount(CorpApplicantPagingVO vo) {
+		return applicantDao.selectProhibitCount(vo);
 	}
 }

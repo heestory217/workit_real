@@ -10,7 +10,7 @@ section:nth-child(3) div div div div table tbody tr td a p:hover {
 	font-weight: 600;
 }
 
-table:nth-child(2)>tbody>tr>td:nth-child(4)>a>p:hover {
+section:nth-child(4) div.container div div div table tbody tr td:nth-child(4) a > p:hover {
 	color: #4C50BB;
 	font-weight: 600;
 }
