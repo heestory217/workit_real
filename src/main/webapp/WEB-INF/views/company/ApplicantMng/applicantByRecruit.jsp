@@ -255,7 +255,7 @@ table:nth-child(2)>tbody>tr>td:nth-child(4)>a>p:hover {
 		</div>
 		
 		<!-- 페이징 -->
-		<c:if test="${i!=0}">
+		<c:if test="${!empty applist }">
 			<div class="col-lg-12" style="text-align: center;">
 				<div class="product__pagination blog__pagination">
 				 	<c:if test="${pagingInfo.firstPage>1 }">
