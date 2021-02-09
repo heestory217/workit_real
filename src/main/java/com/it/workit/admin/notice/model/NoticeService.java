@@ -9,4 +9,8 @@ public interface NoticeService {
 	List<ClassificationsVO> selectClassifications();	//공지사항 카테고리 조회
 	List<Map<String, Object>> selectNoticeAll(SearchVO vo);	//공지사항 전체 조회
 	int getTotalRecord(SearchVO vo);	//공지사항 전체 레코드 수
+	int deleteNotice(int noticeNo);		//공지사항 삭제
+	
+	//트랜잭션 처리 - 하나라도 실패하면 전체 롤백되도록
+	int multiDelNotice(List<NoticeVO> noticeList);	//공지사항 선택 삭제
 }

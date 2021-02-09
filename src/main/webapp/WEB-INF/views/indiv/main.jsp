@@ -202,7 +202,7 @@
 				src="<c:url value='/resources/img/indivMainImg/woman-3190829_1920.jpg'/>"
 				alt="First slide">
 			<div class="carousel-caption d-none d-md-block">
-				<div class="moveDetailBx" style="margin-right:150px;float:right">
+				<div class="moveDetailBx" style="margin-right:150px;float:right;object-fit:cover;">
 				<div class="corpName">
 					<h5>[오늘의 집]</h5>
 					<h6>JAVA 프로그래머 채용</h6>

@@ -4,14 +4,11 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/css/adminIndivUsers.css'/>" />
 <%@ include file="../inc/sideMenu.jsp"%>
+
+
 <style>
 	.categoryBx{
-		float:left;
-		height:33.09px;
-	}
-	
-	.searchKwrdBx{
-		float:right;
+		height:34px;
 	}
 	
 	.card{
@@ -23,12 +20,61 @@
 	    color: #3d405c;
     	font-family:'Circular Std Medium';
 	}
-</style>
-<script type="text/javascript">
-	function pageFunc(curPage){
-		$('input[name=currentPage]').val(curPage);
-		$('form[name=frmPage]').submit();
+	
+	.notcie-Btn{
+	    width: 80px;
+	    height: 34px;
+	    color: white;
+	    background: #4C50BB;
+	    border: 1px solid silver;
+	    outline:none;
+	    cursor: pointer;
 	}
+	
+	.input-group{
+		outline: none;
+	}
+	
+	.float_right{
+		float:right;
+	}
+</style>
+
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
+<script type="text/javascript">
+function pageFunc(curPage){
+	$('input[name=currentPage]').val(curPage);
+	$('form[name=frmPage]').submit();
+}
+
+$(function(){
+	$('input[name=chkAll]').click(function(){
+		$('table tbody tr td').find('input[type=checkbox]')
+			.prop('checked', this.checked);
+		
+	});
+	
+	$('#delBtn').click(function(){
+		 var len	
+		 	=$('table tbody tr td').find('input[type=checkbox]:checked').length;
+		 if(len==0){
+			 alert('[선택삭제]를 클릭하기 전에\n삭제할 공지를 먼저 선택하세요.');
+			 return false;
+		 }
+		
+		 $('form[name=frmList]').prop('action','<c:url value="/admin/notice/multiDel.do"/>');
+		 $('form[name=frmList]').submit();
+	});
+	
+	var contextPath="/workit";
+	$('#writeBtn').click(function(){
+		/*js이므로 url태그 사용 불가, 4라인에서 변수처리한 contextPath를 사용하여 절대참조로 변경*/
+		open(contextPath+"/admin/notice/noticeWrite.do","write",
+ 			"width=600, height=500, left=800, top=600, location=no, resizable=no");
+	});
+		
+});
+	
 </script>
 
 <div class="col-lg-12">
@@ -43,30 +89,23 @@
 			value="${param.searchCondition }">
 		<input type="hidden" name="searchKeyword"
 			value="${param.searchKeyword }">
-		<%-- <input type="hidden" name="searchKeyword"
-			value="${param.classificationNo }">
-			 --%>
 	</form> 
-	
 
 	<form action="<c:url value='/admin/notice/noticeList.do'/>"
-		name="frmSearch" method="post">
-		<div class="input-group input-search inputSearchbox categoryBx">
+		name="frmList" method="post">
+		<input type="button" id="delBtn" value="선택 삭제" class="notcie-Btn float_left margin_right_5">
+		<div class="input-group input-search inputSearchbox categoryBx float_left">
 			<c:if test="${!empty cateList }">
 				<select name="classificationNo" class="margin_right_5" id="cate">
 					<option value="">분류</option>
-					<c:forEach var="cateVo" items="${cateList }" >
-			            <option value="${cateVo.classificationNo}">${cateVo.classificationName}</option>
+					<c:forEach var="cateVo" items="${cateList }">
+			            <option value="${cateVo.classificationNo}">
+			            ${cateVo.classificationName}</option>
 					</c:forEach>
 		        </select>
 			</c:if>	        
-			<c:if test="${!empty param.searchKeyword }">
-				<p class="float_left textMyColor" style="padding:8px;">
-					검색어 : ${param.searchKeyword}, ${pagingInfo.totalRecord }  건 검색되었습니다.</p>
-			</c:if> 
 		</div>
-		
-		<div class="input-group input-search inputSearchbox searchKwrdBx">
+		<div class="input-group input-search inputSearchbox float_right">
 			<select name="searchCondition" class="margin_right_5">
 	            <option value="NOTICE_TITLE"
 	             <c:if test="${param.searchCondition == 'NOTICE_TITLE'}">
@@ -89,14 +128,19 @@
     			<span class="input-group-btn">
     		<button class="btn myColor textWhite" type="submit"><i class="fas fa-search"></i></button></span>
     	</div>
-    </form><br><br>
-    
+   		<c:if test="${!empty param.searchKeyword }">
+		<span class="float_right textMyColor" style="padding:8px;margin-bottom:0px;">
+			검색어 : ${param.searchKeyword}, ${pagingInfo.totalRecord }  건 검색되었습니다.</span>
+		</c:if> 
+  	 <br><br>
+
+	<!-- table -->
 	<div class="card">
 		<table class="table table-hover">
 		<colgroup>
 			<col width="5%">
-			<col width="15%">
-			<col width="45%">
+			<col width="10%">
+			<col width="50%">
 			<col width="15%">
 			<col width="10%">
 			<col width="10%">
@@ -122,24 +166,29 @@
 	            <c:if test="${!empty noticeList }">
 	            
 	            	<!-- 글이 있는 경우 반복 시작-->
+	            	<c:set var="n" value="0"/>
 	            	<c:forEach var="map" items="${noticeList }">
 	            		<tr class="center">
-	            			<td><input type="checkbox" name="checkbox" 
+	            			<td><input type="checkbox" name="noticeList[${n}].noticeNo" 
 								value="${map['NOTICE_NO'] }" id="chkbox">
 							</td>
 	            			<td class="font">${map['CLASSIFICATION_NAME'] }</td>
-	            			<td class="font">${map['NOTICE_TITLE'] }</td>
+	            			<td class="font" style="text-align:left">${map['NOTICE_TITLE'] }</td>
 	            			<td class="font"><fmt:formatDate value="${map['NOTICE_DATE'] }" pattern="yyyy-MM-dd"/></td>
 	            			<td><a href="#" class="hoverColor"><i class="fa fa-check"></i> 수정</a></td>
-	            			<td><a href="#" class="hoverColor"><i class="fa fa-check"></i> 삭제</a></td>
+	            			<td><a class="hoverColor" href
+	            	="<c:url value='/admin/notice/noticeDelete.do?noticeNo=${map["NOTICE_NO"]}'/>"
+	            			onClick="if(!confirm('정말 삭제하시겠습니까?')){return false;}"><i class="fa fa-check"></i> 삭제</a></td>
 	            		</tr>
+	            		<c:set var="n" value="${n+1}"/>	
 	            	</c:forEach>
             	<!-- 반복 끝 -->	
 	            </c:if>
 			</tbody>
 		</table>
 	</div> <!-- table -->
-
+</form>
+<input type="button" id="writeBtn" value="공지등록" class="float_right notcie-Btn margin_right_5">
 
 	<!-- 페이징 처리 -->
 	<div>

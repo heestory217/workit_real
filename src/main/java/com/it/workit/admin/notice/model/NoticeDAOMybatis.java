@@ -32,5 +32,11 @@ public class NoticeDAOMybatis implements NoticeDAO{
 		return sqlSession.selectOne(namespace+"getTotalRecord", vo);
 	}
 	
+	//공지사항 삭제
+	@Override
+	public int deleteNotice(int noticeNo) {
+		return sqlSession.delete(namespace+"deleteNotice", noticeNo);
+	}
+	
 	
 }

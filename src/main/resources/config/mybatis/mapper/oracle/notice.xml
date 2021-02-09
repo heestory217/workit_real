@@ -44,6 +44,11 @@
 			WHERE ${searchCondition} LIKE '%' || #{searchKeyword} || '%'
 		</if>
 	</select>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice" parameterType="int">
+		DELETE FROM NOTICE WHERE NOTICE_NO=#{noticeNo}
+	</delete>
 </mapper>
 
 
