@@ -68,7 +68,7 @@
             </div>
         </div>
     </section>
-    <!--채용 공고별 추천 이력서 끝-->
+    <!--채용 공고별 이력서 끝-->
    </c:if>
     
     <!-- Js Plugins -->
@@ -136,6 +136,7 @@
 	                  str+="<div class='col-lg-3'>";
 	                  str+="<div class='product-item'>";
 	                  str+="<div class='pi-pic'>";
+	                  str+="<ul><li class='quick-view'><a href='/workit/resumes/resumeDetail.do?resumeNo="+this.appReUsView.resumeNo+"&type=Applied&applicantlistNo="+this.appReUsView.applicantlistNo+"'>+ View</a></li></ul>"
                       str+="</div>";
                       str+="<div class='pi-text'>";
                       str+="<div class='catagory-name'>"+this.appReUsView.userExperience+"년</div>";
