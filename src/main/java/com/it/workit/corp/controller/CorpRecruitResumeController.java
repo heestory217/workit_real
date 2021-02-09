@@ -88,6 +88,7 @@ public class CorpRecruitResumeController {
 		
 		//채용공고의 조건을 찾음
 		for(RecruitannounceVO vo : rlist) {
+			System.out.println("채용조건 VO"+vo);
 			MatchSearchVO mVo = new MatchSearchVO();
 			mVo.setAreaNo(vo.getArealistNo());
 			mVo.setLangNo(vo.getLanguageNo());
