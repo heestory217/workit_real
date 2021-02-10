@@ -23,6 +23,12 @@ public class IndivMainController {
 	
 	@Autowired private IndivMainService indivmainService;
 	
+	   //유료서비스 페이지 
+	   @RequestMapping("/serviceIntro.do")
+	   public void serviceIntro() {
+	      logger.info("서비스 설명 페이지 보여주기");
+	   }
+	   
 	@RequestMapping("/main.do")
 	public void main() {
 		logger.info("개인 메인 화면");
