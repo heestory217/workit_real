@@ -1,0 +1,184 @@
+@charset "UTF-8";
+
+#showReview {
+	width: 100%;
+	height: 140px;
+	background: linear-gradient(45deg, #8965f9, #656AFA, #787bdc, #9765f9);
+	color: white;
+	overflow: hidden;
+	padding: 20px 30px 20px;
+}
+
+#reviewIcon {
+	float: left;
+	font-size: 30px;
+	padding: 5px 0px 5px 10px;
+}
+
+.membership_config_grid {
+	padding-top: 64px;
+	padding-bottom: 44px;
+}
+
+.membership_sec_desc {
+	margin-top: 20px;
+	font-size: 20px;
+	line-height: 32px;
+}
+
+.membership_card {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: 317px;
+	padding: 32px 32px 72px;
+	border: 1px solid #c5c7cc;
+	border-radius: 3px;
+	box-sizing: border-box;
+	background-color: #fff;
+	box-shadow: 0 3px 8px 0 rgb(50 52 56/ 15%);
+	text-align: left;
+	overflow: visible;
+}
+
+.membership_card .wrap {
+	height: 100%;
+}
+
+.membership_card_title {
+	vertical-align: middle;
+	margin-bottom: 8px;
+	line-height: 32px;
+}
+
+.membership_card_title .title {
+	font-size: 24px;
+	line-height: 32px;
+	color: #323438;
+	vertical-align: middle;
+}
+
+dl, ul, ol, menu, li {
+	list-style: none;
+}
+
+.hide, .hidden {
+	display: none !important;
+}
+
+.membership_card .price_by_month {
+	display: inline-block;
+	color: #323438;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.membership_card .card_header {
+	overflow: hidden;
+	display: block;
+	height: 137px;
+	padding: 0 8px;
+	word-break: break-all;
+	word-wrap: normal;
+}
+
+.membership_card .card_header .membership_tag {
+	vertical-align: middle;
+	margin-left: 8px;
+}
+
+.membership_tag.tag_red {
+	background-color: #fee8e8;
+	color: #ff5757;
+}
+
+.membership_tag {
+	overflow: hidden;
+	display: inline-block;
+	width: auto;
+	height: 24px;
+	padding-left: 5px;
+	padding-right: 5px;
+	border-radius: 3px;
+	font-weight: 600;
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 24px;
+	color: #fff;
+	vertical-align: top;
+}
+
+.membership_card .percent {
+	display: inline-block;
+	color: #f44336;
+	font-size: 28px;
+	font-weight: bold;
+	line-height: 41px;
+}
+
+.membership_card .percent+.price_by_month {
+	margin-left: 12px;
+}
+
+.membership_card .original_price {
+	font-size: 16px;
+	color: #85878c;
+	line-height: 25px;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+.membership_card .discount_price {
+	font-size: 16px;
+	color: #323438;
+	line-height: 25px;
+}
+
+.membership_card .card_content {
+	padding: 0 8px;
+	margin-bottom: 24px;
+}
+
+.membership_card .card_bottom {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	display: block;
+	width: 100%;
+	padding: 0 32px 24px;
+	box-sizing: border-box;
+}
+
+.membership_card .btn_membership_purple {
+	width: 100%;
+}
+
+.btn_membership_purple {
+	overflow: hidden;
+	display: inline-block;
+	min-width: 203px;
+	height: 48px;
+	padding: 15px 25px;
+	box-sizing: border-box;
+	background-color: #4C50BB;
+	border-radius: 3px;
+	font-weight: 600;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 20px;
+	color: #fff;
+	text-align: center;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+}
+
+.membership_section.sec_bg_darkgray {
+	margin-top: 40px;
+	padding-top: 56px;
+	padding-bottom: 56px;
+	font-size: 16px;
+	line-height: 1.56;
+	color: #85878c;
+}
