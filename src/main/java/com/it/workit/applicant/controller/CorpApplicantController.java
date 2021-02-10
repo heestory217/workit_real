@@ -1,6 +1,5 @@
 package com.it.workit.applicant.controller;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,9 +19,11 @@ import com.it.workit.applicant.model.ApplicantlistVO;
 import com.it.workit.applicant.model.CorpApplicantPagingVO;
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
-import com.it.workit.hrm.model.HrmResumePageVO;
+import com.it.workit.prohibit.model.ProhibitJoinPagingVO;
 import com.it.workit.prohibit.model.ProhibitJoinService;
 import com.it.workit.prohibit.model.ProhibitJoinVO;
+import com.it.workit.recruit.model.RecruitannounceService;
+import com.it.workit.recruit.model.RecruitannounceVO;
 
 @Controller
 @RequestMapping("/company/ApplicantMng")
@@ -31,14 +32,17 @@ public class CorpApplicantController {
 	private static final Logger logger = LoggerFactory.getLogger(CorpApplicantController.class);
 	@Autowired private ApplicantService appService;
 	@Autowired private ProhibitJoinService prohibitService;
+	@Autowired private RecruitannounceService recruitService;
 	
-	@RequestMapping("/allApplicant.do")
-	public void allApplicant(@ModelAttribute CorpApplicantPagingVO searchVo, HttpSession session, Model model){
-		logger.info("전체 지원자 목록 보여주기");
-
+	@RequestMapping("/applicantByRecruit.do")
+	public void applicantByRecruit(@ModelAttribute CorpApplicantPagingVO searchVo, HttpSession session, Model model){
+		logger.info("지원자 목록 보여주기 (전체/공고별)");
 		int userNo = (Integer) session.getAttribute("userNo");
+		List<RecruitannounceVO> list = recruitService.selectRecruitList(userNo);
+		model.addAttribute("list", list);
+		
 		searchVo.setUserNo(userNo);
-
+		
 		//페이징
 		PaginationInfo pagingInfo=new PaginationInfo();
 		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
@@ -52,30 +56,22 @@ public class CorpApplicantController {
 		List<Map<String, Object>> applist = appService.selectAllApplicantView(searchVo);
 		logger.info("전체 지원자 수 = {}", applist.size());
 		
-		int totalRecord=appService.selectAllAppliedCount(userNo);
+		int totalRecord=appService.selectAllAppliedCount(searchVo);
 		logger.info("전체 지원자 수 totalRecord={}", totalRecord);
 		pagingInfo.setTotalRecord(totalRecord);
 		
-		int prohibited = 0;
-		Iterator<Map<String, Object>> iter = applist.iterator();
-		while (iter.hasNext()) {
-			Map<String, Object> map = iter.next();
-			
-			//java.lang.ClassCastException: java.math.BigDecimal cannot be cast to java.lang.Integer
-			//지원제한자 여부
-			int userPersonalNo = Integer.parseInt(String.valueOf(map.get("USER_NO")));
-			if(userPersonalNo!=0) {
-				int cnt = prohibitService.selectIfProhibited(userPersonalNo);
-				if (cnt>0) {
-					prohibited += 1;
-					iter.remove();	//입사지원자 목록에서 제외
-					break;
-				}
-			}
-		}
+		int pass = appService.selectPassCount(searchVo);
+		int fail = appService.selectFailCount(searchVo);
+		int open = appService.selectReadCount(searchVo);
+		int prohibited = prohibitService.selectProhibitCount(searchVo);
+		
 		model.addAttribute("applist", applist);	//5개씩 출력됨
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("CountAllApplicant", totalRecord);
+		
+		model.addAttribute("pass", pass);
+		model.addAttribute("fail", fail);
+		model.addAttribute("open", open);
 		model.addAttribute("prohibited", prohibited);
 	}
 	
@@ -97,10 +93,6 @@ public class CorpApplicantController {
 		
 		return "redirect:/resumes/resumeDetail.do?resumeNo="+vo.getResumeNo()+"&type=Applied&applicantlistNo="+applicantlistNo;
 	}
-	
-	@RequestMapping("/applicantByRecruit.do")
-	public void applicantByRecruit(){}
-	
 	
 	//합격처리
 	@RequestMapping("/pass.do")
@@ -148,28 +140,58 @@ public class CorpApplicantController {
 		return "common/message";
 	}
 	
-	//입사지원제한자 등록처리
 	@RequestMapping("/prohibit.do")
-	public String prohibit(HttpSession session, @RequestParam (defaultValue = "0") int userNo, Model model){
-		logger.info("입사지원제한자 등록처리, userNo={}", userNo);
+	public String prohibit(@ModelAttribute ProhibitJoinPagingVO searchVo, HttpSession session, 
+			@RequestParam (defaultValue = "0") int userNo, Model model){
+		logger.info("입사지원제한자 페이지 보여주기");
 		int userCorpNo = (Integer) session.getAttribute("userNo");
+		searchVo.setUserCorpNo(userCorpNo);
 		
-		if(userNo==0 || userCorpNo==0) {
-			model.addAttribute("msg", "잘못된 url입니다.");
-			model.addAttribute("url", "/company/ApplicantMng/allApplicant.do");
-			return "common/message";
+		//페이징
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setRecordCountPerPage(5);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		
+		searchVo.setRecordCountPerPage(5);
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		
+		//전체 지원자 목록
+		int totalRecord=prohibitService.selectProhibitTotal(userCorpNo);
+		logger.info("전체 입사제한자 수 totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+				
+		List<Map<String, Object>> list = prohibitService.selectProhibitedList(searchVo);
+		if(userNo!=0) {
+			logger.info("입사지원제한자 등록처리, userNo={}", userNo);
+
+			ProhibitJoinVO vo = new ProhibitJoinVO();
+			vo.setUserCorpNo(userCorpNo);
+			vo.setUserIndivNo(userNo);
+			int cnt = prohibitService.insertProhibit(vo);
+			
+			if(cnt>0) {
+				model.addAttribute("msg", "해당 지원자가 입사지원제한자로 등록되었습니다.");
+				model.addAttribute("url", "/company/ApplicantMng/applicantByRecruit.do");
+				return "common/message";
+			}
 		}
 		
-		ProhibitJoinVO vo = new ProhibitJoinVO();
-		vo.setUserCorpNo(userCorpNo);
-		vo.setUserPersonalNo(userNo);
-		int cnt = prohibitService.insertProhibit(vo);
+		model.addAttribute("list", list);
+		model.addAttribute("pagingInfo", pagingInfo);
 		
-		if(cnt>0) {
-			model.addAttribute("msg", "해당 지원자가 입사지원제한자로 등록되었습니다.");
-			model.addAttribute("url", "/company/ApplicantMng/allApplicant.do");
+		return "/company/ApplicantMng/prohibit";
+	}
+	
+	@RequestMapping("/prohibitCancel.do")
+	public String prohibitCancel(@RequestParam (defaultValue = "0") int prohibitjoinNo, Model model){
+		logger.info("입사지원취소 prohibitjoinNo={}", prohibitjoinNo);
+
+		if(prohibitjoinNo!=0) {
+			int cnt = prohibitService.deleteFromProhibit(prohibitjoinNo);
+			logger.info("입사지원제한자 취소 처리 결과 cnt={}", cnt);
 		}
 		
-		return "common/message";
+		return "redirect:/company/ApplicantMng/prohibit.do";
 	}
 }

@@ -64,7 +64,7 @@
 		select *
 		from	(select r.RECRUITANNOUNCE_NO, r.RECRUITANNOUNCE_TITLE
 		from users u, RECRUITANNOUNCE r
-		where u.USER_NO = r.USER_NO and u.user_no=5 and r.user_no=#{userNo} order by RECRUITANNOUNCE_NO desc)
+		where u.USER_NO = r.USER_NO and u.user_no=#{userNo} and r.user_no=#{userNo} order by RECRUITANNOUNCE_NO desc)
 		<![CDATA[
 		where rownum<4
 		]]>
@@ -162,7 +162,7 @@
 			or area_no=244
 		</if>
 		and language_no=#{langNo}
-	  	and USER_EXPERIENCE>=#{year}
+	  	and USER_EXPERIENCE=#{year}
    </select>
 	
 	<insert id="insertCorpReview" parameterType="corpreviewVo">

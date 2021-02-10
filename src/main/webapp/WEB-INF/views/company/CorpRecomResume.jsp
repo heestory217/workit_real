@@ -19,6 +19,8 @@
 	
 </style>
 	<!-- 맞춤 이력서 추천 : 기업이 등록한 채용공고의 경력, 지역, 언어로 매칭함 : 추천할 이력서가 있을때만 보여줌 -->
+ <c:if test="${empty matchingList}">
+ </c:if>
  <c:if test="${!empty matchingList}">
     <section class="man-banner spad">
         <div class="container-fluid">
