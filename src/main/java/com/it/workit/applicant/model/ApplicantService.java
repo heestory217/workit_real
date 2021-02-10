@@ -17,11 +17,16 @@ public interface ApplicantService {
 	//희정 기업 지원자 관리
 	public List<ApplicantlistVO> selectAllApplicantFromCorp(int userNo);
 	public List<Map<String, Object>> selectAllApplicantView(CorpApplicantPagingVO vo);
-	int selectAllAppliedCount(int userNo);
+	int selectAllAppliedCount(CorpApplicantPagingVO vo);
+	int selectPassCount(CorpApplicantPagingVO vo);
+	int selectFailCount(CorpApplicantPagingVO vo);
+	int selectReadCount(CorpApplicantPagingVO vo);
+	
 	int updateReadCount(int applicantlistNo);
 	ApplicantlistVO selectOneApplication(int applicantlistNo);
 	
 	//합격여부 처리
 	int updaeApplyPass(int applicantlistNo);
 	int updaeApplyFail(int applicantlistNo);
+	
 }

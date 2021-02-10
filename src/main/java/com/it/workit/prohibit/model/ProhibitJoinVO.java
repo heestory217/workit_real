@@ -2,7 +2,7 @@ package com.it.workit.prohibit.model;
 
 public class ProhibitJoinVO {
 	private int prohibitjoinNo;
-	private int userPersonalNo;
+	private int userIndivNo;
 	private int userCorpNo;
 	
 	public int getProhibitjoinNo() {
@@ -11,11 +11,11 @@ public class ProhibitJoinVO {
 	public void setProhibitjoinNo(int prohibitjoinNo) {
 		this.prohibitjoinNo = prohibitjoinNo;
 	}
-	public int getUserPersonalNo() {
-		return userPersonalNo;
+	public int getUserIndivNo() {
+		return userIndivNo;
 	}
-	public void setUserPersonalNo(int userPersonalNo) {
-		this.userPersonalNo = userPersonalNo;
+	public void setUserIndivNo(int userIndivNo) {
+		this.userIndivNo = userIndivNo;
 	}
 	public int getUserCorpNo() {
 		return userCorpNo;
@@ -26,8 +26,8 @@ public class ProhibitJoinVO {
 	
 	@Override
 	public String toString() {
-		return "ProhibitJoinVO [prohibitjoinNo=" + prohibitjoinNo + ", userPersonalNo=" + userPersonalNo
-				+ ", userCorpNo=" + userCorpNo + "]";
+		return "ProhibitJoinVO [prohibitjoinNo=" + prohibitjoinNo + ", userIndivNo=" + userIndivNo + ", userCorpNo="
+				+ userCorpNo + "]";
 	}
-	
+
 }

@@ -194,7 +194,7 @@ div.btWarp > div > a:nth-child(1) {
                     <c:if test="${param.type=='Applied' and !empty param.applicantlistNo}">
 	                    <div class="btWarp">
 	                    	<div class="filter-widget" style="text-align: right;">
-								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/allApplicant.do"/>" style="float: left;">목록</a>
+								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/applicantByRecruit.do"/>" style="float: left;">목록</a>
 								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/pass.do?resumeNo=${map['RESUME_NO']}&applicantlistNo=${param.applicantlistNo}"/>">합격</a>
 								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/fail.do?resumeNo=${map['RESUME_NO']}&applicantlistNo=${param.applicantlistNo}"/>">불합격</a>
 								<a class="filter-btn" href="<c:url value="/company/ApplicantMng/prohibit.do?userNo=${map['USER_NO']}"/>">지원제한</a>
