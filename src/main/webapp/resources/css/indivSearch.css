@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+#searchImg{
+	width:100px;
+	height:200px;
+}
+
 .margin_left_right_150{
 	margin-left: 150px;
 	margin-right: 150px;
