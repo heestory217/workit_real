@@ -224,7 +224,7 @@ a#corpinfo {
                                        		<c:if test="${sessionScope.user_corpcheck==2}">
                                        		 	<div class="emptyImg" style="border: 1px solid #bbb; margin: 60px 0px; border-style: dashed; border-radius: 20px; text-align: center;">
 												 	<img src='<c:url value='/resources/img/empty2.jpg'/>' style="width: 10%;margin-top: 60px;">
-												 	<h6 style="font-weight: 600; color: #666; margin-top: 40px; margin-bottom: 20px;">지원자 목록 바로가기</h6>
+												 	<a href="<c:url value='/company/ApplicantMng/applicantByRecruit.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo }'/>"><h6 style="font-weight: 600; color: #666; margin-top: 40px; margin-bottom: 20px;">지원자 목록 바로가기</h6></a>
 											 	</div>
                                        		</c:if>
                                         </div>
