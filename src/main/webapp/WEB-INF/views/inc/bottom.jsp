@@ -31,7 +31,7 @@
                     <div class="footer-widget">
                         <h5>My Account</h5>
                         <ul>
-                            <li><a href="#">회원 정보 수정</a></li>
+                            <li><a href="<c:url value='/indivMypage/indivMypageEdit.do'/>">회원 정보 수정</a></li>
                             <li>
 	                            <c:if test="${empty sessionScope.userId || sessionScope.user_corpcheck==1}">
 	                            	<a href="<c:url value='/indivMypage/indivPayment.do'/>">유료 결제 내역</a>
