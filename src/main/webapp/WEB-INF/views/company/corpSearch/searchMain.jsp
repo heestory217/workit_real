@@ -388,9 +388,9 @@
 	
 	function resumePurchase(resumeNo){
 		open(
-					"/workit/resumes/resumePurchase.do?resumeNo="
-							+ resumeNo, "chk",
-					"width=771,height=819,left=0,top=0,location=yes,resizable=yes");
+			"/workit/resumes/resumePurchase.do?resumeNo="
+					+ resumeNo, "chk",
+			"width=650,height=400,left=0,top=0,location=yes,resizable=yes");
 	}
 	
 	//[3]결과 내 재검색 - 지역 필터 ajax
