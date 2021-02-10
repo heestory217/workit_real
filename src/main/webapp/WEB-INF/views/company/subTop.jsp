@@ -85,9 +85,8 @@
                                 <li><a href="<c:url value='/recruit/recruitlist.do'/>">채용 공고 관리</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">지원자 관리</a>
+                        <li><a href="<c:url value='/company/ApplicantMng/applicantByRecruit.do'/>">지원자 관리</a>
                             <ul class="dropdown">
-                                <li><a href="<c:url value='/company/ApplicantMng/allApplicant.do'/>">전체지원자</a></li>
                                 <li><a href="<c:url value='/company/ApplicantMng/applicantByRecruit.do'/>">공고별지원자</a></li>
                                 <li><a href="<c:url value='/company/ApplicantMng/prohibit.do'/>">입사지원제한</a></li>
                             </ul>

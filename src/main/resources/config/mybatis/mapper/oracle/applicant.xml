@@ -120,6 +120,10 @@
 				on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
 				where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
 				    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+			    and a.USER_NO not in (select USER_INDIV_NO from PROHIBITJOIN)
+			   	<if test="recruitannounceNo!=0">
+			   		and r.RECRUITANNOUNCE_NO=#{recruitannounceNo}
+			   	</if>
 				order by APPLICANTLIST_DATE desc
 		    )A
 		)
@@ -129,12 +133,71 @@
 		]]>
 	</select>
 		
-	<select id="selectAllAppliedCount" parameterType="int" resultType="int">
+	<select id="selectAllAppliedCount" parameterType="CorpApplicantPagingVO" resultType="int">
 		select count(*) 
 		from APPLICANTLIST a join RECRUITANNOUNCE r
 		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
 		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
 		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+	    and a.USER_NO not in (select USER_INDIV_NO from PROHIBITJOIN)
+	    <if test="recruitannounceNo!=0">
+	   		and r.RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	   	</if>
+	</select>
+	
+	<!-- 합격 수 -->
+	<select id="selectPassCount" parameterType="CorpApplicantPagingVO" resultType="int">
+		select count(*) 
+		from APPLICANTLIST a join RECRUITANNOUNCE r
+		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
+		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
+		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+	    and a.USER_NO not in (select USER_INDIV_NO from PROHIBITJOIN)
+	    and a.APPLICANTLIST_PAPERCHECK=1
+	    <if test="recruitannounceNo!=0">
+	   		and r.RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	   	</if>
+	</select>
+	
+	<!-- 불합격 수 -->
+	<select id="selectFailCount" parameterType="CorpApplicantPagingVO" resultType="int">
+		select count(*) 
+		from APPLICANTLIST a join RECRUITANNOUNCE r
+		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
+		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
+		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+	    and a.USER_NO not in (select USER_INDIV_NO from PROHIBITJOIN)
+	    and a.APPLICANTLIST_PAPERCHECK=2
+   	    <if test="recruitannounceNo!=0">
+	   		and r.RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	   	</if>
+	</select>
+	
+	<!-- 이력서 읽음 -->
+	<select id="selectReadCount" parameterType="CorpApplicantPagingVO" resultType="int">
+		select count(*) 
+		from APPLICANTLIST a join RECRUITANNOUNCE r
+		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
+		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
+		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+	    and a.USER_NO not in (select USER_INDIV_NO from PROHIBITJOIN)
+		and a.RESUME_READFLAG=1
+   	    <if test="recruitannounceNo!=0">
+	   		and r.RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	   	</if>
+	</select>
+	
+	<!-- 입사제한자 수음 -->
+	<select id="selectProhibitCount" parameterType="CorpApplicantPagingVO" resultType="int">
+		select count(*) 
+		from APPLICANTLIST a join RECRUITANNOUNCE r
+		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
+		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
+		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
+		and a.USER_NO in (select USER_INDIV_NO from PROHIBITJOIN)
+   	    <if test="recruitannounceNo!=0">
+	   		and r.RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	   	</if>
 	</select>
 	
 	<!-- 기업회원이 지원자 이력서 읽음 -->	
@@ -168,13 +231,43 @@
 		<selectKey keyProperty="prohibitjoinNo" resultType="int" order="BEFORE">
 			select prohibitjoin_seq.nextval from dual
 		</selectKey>
-		insert into PROHIBITJOIN(PROHIBITJOIN_NO,USER_PESONAL_NO,USER_CORP_NO)
-		values(#{prohibitjoinNo}, #{userPersonalNo}, #{userCorpNo})
+		insert into PROHIBITJOIN(PROHIBITJOIN_NO,USER_INDIV_NO,USER_CORP_NO)
+		values(#{prohibitjoinNo}, #{userIndivNo}, #{userCorpNo})
 	</insert>
 	
-	<!-- 입사지원자 여부 판단 -->
+	<!-- 입사지원제한자 여부 판단 -->
 	<select id="selectIfProhibited" parameterType="int" resultType="int">
-		select count(*) from PROHIBITJOIN where USER_PESONAL_NO=#{userPersonalNo}
+		select count(*) from PROHIBITJOIN where USER_INDIV_NO=#{userIndivNo}
 	</select>
 	
+	<!-- 입사지원제한자 명부  -->
+	<select id="selectProhibitedList" parameterType="ProhibitJoinPagingVO" resultType="map">
+		select *
+		from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+				select p.*, 
+				    (select USER_NAME from users where USER_NO=USER_INDIV_NO) AS USER_NAME,
+				    (select RESUME_TITLE from resumes where USER_NO=USER_INDIV_NO) AS RESUME_TITLE
+				from PROHIBITJOIN p
+				where USER_CORP_NO=#{userCorpNo}
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<!-- 입사지원제한 취소 -->
+	<delete id="deleteFromProhibit" parameterType="int" >
+		delete from PROHIBITJOIN where PROHIBITJOIN_NO=#{prohibitjoinNo}
+	</delete>
+	
+	<!-- 입사지원제한자 수 -->
+	<select id="selectProhibitTotal" parameterType="int" resultType="int">
+		select count(*) from PROHIBITJOIN where USER_CORP_NO=#{userCorpNo}
+	</select>
 </mapper>
