@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.it.workit.common.SearchVO;
 
@@ -28,6 +30,39 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public int getTotalRecord(SearchVO vo) {
 		return noticeDao.getTotalRecord(vo);
+	}
+	
+	//공지사항 삭제
+	@Override
+	public int deleteNotice(int noticeNo) {
+		return noticeDao.deleteNotice(noticeNo);
+	}
+	
+	//공지사항 선택 삭제
+	@Override
+	@Transactional
+	public int multiDelNotice(List<NoticeVO> noticeList) {
+		
+		int cnt=0;
+		try {
+			for(NoticeVO vo : noticeList) {
+				int noticeNo=vo.getNoticeNo();
+				if(noticeNo!=0) {
+					cnt=noticeDao.deleteNotice(noticeNo);
+				}
+			}
+		}catch(RuntimeException e) {
+			e.printStackTrace();
+			cnt=-1;
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+		}
+		return cnt;
+	}
+	
+	//공지사항 등록
+	@Override
+	public int insertNotice(NoticeVO vo) {
+		return noticeDao.insertNotice(vo);
 	}
 	
 	

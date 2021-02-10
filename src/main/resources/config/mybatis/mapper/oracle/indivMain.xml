@@ -37,7 +37,7 @@
 		left join AREALIST a
 		on r.AREALIST_NO = a.AREA_NO
 		<![CDATA[
-		WHERE RECRUITANNOUNCE_startdate>=SYSDATE
+		WHERE RECRUITANNOUNCE_startdate<=SYSDATE
 		order by RECRUITANNOUNCE_startdate desc
 		)
 		WHERE ROWNUM <=12

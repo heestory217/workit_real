@@ -4,7 +4,7 @@ import com.it.workit.common.SearchVO;
 
 public class NoticeSearchVO extends SearchVO{
 	private int classificationNo;
-
+	
 	public int getClassificationNo() {
 		return classificationNo;
 	}

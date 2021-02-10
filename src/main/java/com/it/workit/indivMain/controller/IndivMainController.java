@@ -80,5 +80,11 @@ public class IndivMainController {
 		 * return "indiv/todayRcmd";
 		 */
 	}
+	
+   //유료서비스 페이지 
+   @RequestMapping("/serviceIntro.do")
+   public void serviceIntro() {
+      logger.info("서비스 설명 페이지 보여주기");
+   }
 
 }

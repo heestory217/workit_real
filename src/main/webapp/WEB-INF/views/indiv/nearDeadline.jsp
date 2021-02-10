@@ -45,7 +45,7 @@
 											<c:set var="today" value="<%=new java.util.Date()%>"/>
 										 	<fmt:formatDate var="today" value="${today }" pattern="yyyyMMdd" />
 									        <fmt:formatDate var="enddate" value="${map['RECRUITANNOUNCE_ENDDATE'] }" pattern="yyyyMMdd" />
-									        D-${enddate-today }
+									       <%--  D-${enddate-today } 수정하기 --%>
 										</div>
 									</div>
 								</div>
