@@ -201,8 +201,8 @@
 	</select>
 
 	<select id="totalPay" resultType="int">
-		select sum(order_pay)
-		from orders
+		select nvl2(sum(order_pay),sum(order_pay),0)
+      	from orders
 	</select>
 
 </mapper>
