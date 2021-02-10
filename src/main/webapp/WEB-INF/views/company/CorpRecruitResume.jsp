@@ -44,7 +44,7 @@
                 <div class="col-lg-12">
                     <div class="product-large set-bg" style="background-color: #4750d6;">
                         <h2>채용 공고별 지원자 현황</h2>
-                        <a href="#">More</a>
+                        <a href="<c:url value='/company/ApplicantMng/applicantByRecruit.do'/>">More</a>
                     </div>
                 </div>
                 <div class="col-lg-12">
@@ -67,8 +67,9 @@
                 	
             </div>
         </div>
+       </div>
     </section>
-    <!--채용 공고별 추천 이력서 끝-->
+    <!--채용 공고별 이력서 끝-->
    </c:if>
     
     <!-- Js Plugins -->
@@ -109,6 +110,14 @@
 		});
 	});
 	
+	function career(year){
+		if(year==0){
+			return "신입";
+		}else{
+			return year+"년";
+		}
+	}
+	
 	function send2(no){
 		var data = 'recruitannounceNo='+no;
 	      var str="";
@@ -127,19 +136,20 @@
 	            */
 	            $('#resume').html("");
 	            if(res.length>0){
-	               str+="<p style='text-align: center; font-size: 17px; margin-bottom: 10px;'>총 <bold style='font-weight: 800; color: #4750D6;'>"+res.length+"</bold>명의 지원자가 이력서를 제출했습니다</p>";
+	                str+="<p style='text-align: center; font-size: 17px; margin-bottom: 10px;'>총 <bold style='font-weight: 800; color: #4750D6;'>"+res.length+"</bold>명의 지원자가 이력서를 제출했습니다</p>";
 	            	str+="<div style='border-bottom: 2px solid #4750d6;width: 8%;margin: auto;margin-bottom: 40px;'>"
-	               str+="<p style='text-align: center;margin-bottom: 2px;'><a href=# id='goResumesAll' style='text-align:center;'>전체 보기</a></p>";
-	               str+="</div>"
+	                str+="<p style='text-align: center;margin-bottom: 2px;'><a href='/workit/company/ApplicantMng/applicantByRecruit.do?recruitannounceNo="+res[0].appReUsView.recruitannounceNo+"' id='goResumesAll' style='text-align:center;'>전체 보기</a></p>";
+	                str+="</div>"
 	               $(res).each(function(){
 	                  //str+="이력서 번호 : "+this.appReUsView.resumeNo+"<br>";
 	                  str+="<div class='col-lg-3'>";
 	                  str+="<div class='product-item'>";
 	                  str+="<div class='pi-pic'>";
+	                  str+="<ul><li class='quick-view' style='background: #4750d6;' ><a style='color: white;' href='/workit/resumes/resumeDetail.do?resumeNo="+this.appReUsView.resumeNo+"&type=Applied&applicantlistNo="+this.appReUsView.applicantlistNo+"'>+ View</a></li></ul>"
                       str+="</div>";
                       str+="<div class='pi-text'>";
-                      str+="<div class='catagory-name'>"+this.appReUsView.userExperience+"년</div>";
-                      str+="<a href='#'><h5>"+this.appReUsView.resumeTitle+"</h5></a><div class='product-price'>";
+                      str+="<div class='catagory-name'>"+career(this.appReUsView.userExperience)+"</div>";
+                      str+="<a href='/workit/resumes/resumeDetail.do?resumeNo="+this.appReUsView.resumeNo+"&type=Applied&applicantlistNo="+this.appReUsView.applicantlistNo+"'><h5>"+this.appReUsView.resumeTitle+"</h5></a><div class='product-price'>";
                       $(this.languageList).each(function(){
                          str+=this.languageName+"&nbsp;&nbsp;&nbsp;";
                       });

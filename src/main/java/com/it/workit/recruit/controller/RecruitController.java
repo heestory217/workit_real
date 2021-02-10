@@ -79,39 +79,16 @@ public class RecruitController {
 	
 	
 	@RequestMapping(value="/recruitwrite.do", method=RequestMethod.POST)
-	public String recruitwritesee(@ModelAttribute RecruitannounceVO vo, Model model, @RequestParam String year,
-			@RequestParam String month, @RequestParam String day) {
-		logger.info("채용정보 화면처리 {}", vo);
-
+	public String recruitwritesee(@ModelAttribute RecruitannounceVO vo, @RequestParam String endDate,
+									Model model) {
 		String msg="공고등록에 실패했습니다", url="/index.do";
 		
-		String ddate;
-		
-		int to = Integer.parseInt(month);
-		int to2 = Integer.parseInt(day);
-	
-		if(to<10) {
-			month="0"+month;
-		}
-		if(to2<10) {
-			day="0"+day;
-		}
-
-		ddate="20"+year+"-"+month+"-"+day;
-		logger.info("날짜 {}", ddate);
-		
 		Date tox=new Date();
+		tox = java.sql.Date.valueOf(endDate);
 		
-		
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-			try {
-				tox = transFormat.parse(ddate);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		
-		logger.info("날짜 {}", ddate);
+		logger.info("날짜 :  {}", endDate);
 		vo.setRecruitannounceEnddate(tox);
+		logger.info("채용정보 등록 : {}", vo);
 		
 		if(vo.getRecruitannounceWorkkind()==null || vo.getRecruitannounceWorkkind().isEmpty()) {
 			vo.setRecruitannounceSworkkind("");
@@ -152,6 +129,7 @@ public class RecruitController {
 
 		//4
 		return "common/message";
+		
 	}
 	
 	
@@ -184,39 +162,17 @@ public class RecruitController {
 	}
 	
 	@RequestMapping(value="/recruitedit.do", method=RequestMethod.POST)
-	public String recruiteditwrite(@ModelAttribute RecruitannounceVO vo, Model model, @RequestParam String year,
-			@RequestParam String month, @RequestParam String day) {
+	public String recruitEditPost(@ModelAttribute RecruitannounceVO vo, @RequestParam String endDate, Model model) {
 		logger.info("채용정보 화면처리 {}", vo);
 
 		String msg="공고수정에 실패했습니다", url="/index.do";
 		
-		String ddate;
-		
-		int to = Integer.parseInt(month);
-		int to2 = Integer.parseInt(day);
-	
-		if(to<10) {
-			month="0"+month;
-		}
-		if(to2<10) {
-			day="0"+day;
-		}
-
-		ddate="20"+year+"-"+month+"-"+day;
-		logger.info("날짜 {}", ddate);
-		
 		Date tox=new Date();
+		tox = java.sql.Date.valueOf(endDate);
 		
-		
-		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
-			try {
-				tox = transFormat.parse(ddate);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		
-		logger.info("날짜 {}", ddate);
+		logger.info("입력 날짜 ={}", endDate);
 		vo.setRecruitannounceEnddate(tox);
+		logger.info("채용정보 수정 VO ={}", vo);
 		
 		if(vo.getRecruitannounceWorkkind()==null || vo.getRecruitannounceWorkkind().isEmpty()) {
 			vo.setRecruitannounceSworkkind("");
@@ -267,7 +223,7 @@ public class RecruitController {
 		int cnt = recruitannounceService.recruitdelete(recruitannounceNo);
 		logger.info("채용정보 화면처리 {}",cnt);
 		
-		msg="공고가 등록되었습니다.";
+		msg="공고가 삭제 되었습니다.";
 		url="/index.do";
 		
 		//3

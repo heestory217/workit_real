@@ -43,7 +43,13 @@
 	                                    		<i class="icon_bag_alt"></i>
                                     		</a>
                                    		</li>
-	                                    <li class="quick-view"><a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${matchVo.resumesVo.resumeNo }'/>">+ View</a></li>
+                                   		
+                                   		<c:if test="${resume.buyChk eq 1 }">
+                                            	<li class="quick-view"><a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${resume.resumesVo.resumeNo }&type=Bought'/>">+ View</a></li>
+                                            </c:if>
+                                       <c:if test="${resume.buyChk != 1 }">
+                                       		<li class="quick-view"><a href="#">+ View</a></li>
+                                       </c:if>
 	                                </ul>
 	                            </div>
 	                            <div class="pi-text">

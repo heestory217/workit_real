@@ -49,7 +49,7 @@
 	<insert id="recruitannouncewrite" parameterType="RecruitannounceVO">
 		insert into recruitannounce 
 		values(recruitannounce_seq.nextval,#{userNo},#{workkindNo},#{arealistNo},#{languageNo},#{recruitannounceTitle},
-			sysdate,#{recruitannounceEnddate},#{recruitannounceScarrer},#{recruitannounceSworkkind},#{recruitannounceSpay},#{recruitannounceSkill},
+			sysdate,#{recruitannounceEnddate},#{recruitannounceSworkkind},#{recruitannounceSpay},#{recruitannounceSkill},
 			#{recruitannounceWorkkind},#{recruitannounceWork},#{recruitannounceWantedcarrer},#{recruitannounceUpcheckcarrer},#{recruitannounceHirestep},
 			#{recruitannounceElse},1,1,#{recruitannounceLink})
 	</insert>
@@ -57,15 +57,14 @@
 	<update id="recruitannounceedit" parameterType="RecruitannounceVO">
 		update recruitannounce 
 		set WORKKIND_NO=#{workkindNo}, AREALIST_NO=#{arealistNo}, LANGUAGE_NO=#{languageNo}, RECRUITANNOUNCE_TITLE=#{recruitannounceTitle},
-		 RECRUITANNOUNCE_ENDDATE=#{recruitannounceEnddate}, RECRUITANNOUNCE_SCARRER=#{recruitannounceScarrer}, RECRUITANNOUNCE_SWORKKIND=#{recruitannounceSworkkind}, 
-		 RECRUITANNOUNCE_SPAY=#{recruitannounceSpay}, RECRUITANNOUNCE_SKILL=#{recruitannounceSkill}, RECRUITANNOUNCE_WORKKIND=#{recruitannounceWorkkind},
+		 RECRUITANNOUNCE_ENDDATE=#{recruitannounceEnddate}, RECRUITANNOUNCE_SWORKKIND=#{recruitannounceSworkkind}, 
+		 RECRUITANNOUNCE_SPAY=#{recruitannounceSpay}, RECRUITANNOUNCE_SKILL=#{recruitannounceSkill},
+		 RECRUITANNOUNCE_WORKKIND=#{recruitannounceWorkkind},
 		 RECRUITANNOUNCE_WORK=#{recruitannounceWork}, RECRUITANNOUNCE_WANTEDCARRER=#{recruitannounceWantedcarrer}, RECRUITANNOUNCE_UPCHECKCARRER=#{recruitannounceUpcheckcarrer}, 
 		 RECRUITANNOUNCE_HIRESTEP=#{recruitannounceHirestep},RECRUITANNOUNCE_ELSE=#{recruitannounceElse},
 		 RECRUITANNOUNCE_LINK=#{recruitannounceLink}, RECRUITANNOUNCE_UPCHECK=4 
 		 where RECRUITANNOUNCE_NO=#{recruitannounceNo}
 	</update>
-	
-	
 	
 	<select id="selectRecruitadList" parameterType="int" resultType="AdvertisingVO">
 				select * from
