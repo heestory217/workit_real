@@ -75,7 +75,7 @@
 										<tr>
 											<td class="cart-title padding-bottom0"><br>
 												<!-- 제목이 긴 경우 일부만 보여주기 -->
-												<a href="#"><p class="center">
+												<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${vo.recruitannounceNo }'/>"><p class="center">
 												<c:if test="${fn:length(vo.recruitannounceTitle)>=18}">
 													${fn:substring(vo.recruitannounceTitle, 0,18) } ...
 												</c:if>

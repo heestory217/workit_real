@@ -49,7 +49,7 @@
 										<tr>
 											<td class="cart-title padding-bottom0"><br>
 												<!-- 제목이 긴 경우 일부만 보여주기 -->
-												<a href="#"><p class="center">
+												<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${vo.recruitannounceNo }'/>"><p class="center">
 												<c:if test="${fn:length(vo.recruitannounceTitle)>=15}">
 													${fn:substring(vo.recruitannounceTitle, 0,15) } ...
 												</c:if>
@@ -70,7 +70,14 @@
 													pattern="yyyy-MM-dd"/></p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
-												<p class="center">${vo.recruitannounceScarrer }</p>
+												<p class="center">
+													<c:if test="${vo.recruitannounceWantedcarrer ==0}">
+														신입
+													</c:if>
+													<c:if test="${vo.recruitannounceWantedcarrer >0}">
+														${vo.recruitannounceWantedcarrer }년 이상
+													</c:if>
+												</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">${vo.recruitannounceSworkkind }</p>

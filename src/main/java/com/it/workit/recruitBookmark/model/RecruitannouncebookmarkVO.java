@@ -11,10 +11,9 @@ public class RecruitannouncebookmarkVO {
 	private String recruitannounceTitle;
 	private Timestamp recruitannounceStartdate;
 	private Timestamp recruitannounceEnddate;
-	private String recruitannounceScarrer;
+	private String recruitannounceWantedcarrer;
 	private String recruitannounceSworkkind;
 	private String recruitannounceSpay;
-	
 	public int getRecruitannouncebookmarkNo() {
 		return recruitannouncebookmarkNo;
 	}
@@ -33,7 +32,6 @@ public class RecruitannouncebookmarkVO {
 	public void setRecruitannounceNo(int recruitannounceNo) {
 		this.recruitannounceNo = recruitannounceNo;
 	}
-	
 	public String getRecruitannounceTitle() {
 		return recruitannounceTitle;
 	}
@@ -52,11 +50,11 @@ public class RecruitannouncebookmarkVO {
 	public void setRecruitannounceEnddate(Timestamp recruitannounceEnddate) {
 		this.recruitannounceEnddate = recruitannounceEnddate;
 	}
-	public String getRecruitannounceScarrer() {
-		return recruitannounceScarrer;
+	public String getRecruitannounceWantedcarrer() {
+		return recruitannounceWantedcarrer;
 	}
-	public void setRecruitannounceScarrer(String recruitannounceScarrer) {
-		this.recruitannounceScarrer = recruitannounceScarrer;
+	public void setRecruitannounceWantedcarrer(String recruitannounceWantedcarrer) {
+		this.recruitannounceWantedcarrer = recruitannounceWantedcarrer;
 	}
 	public String getRecruitannounceSworkkind() {
 		return recruitannounceSworkkind;
@@ -70,16 +68,17 @@ public class RecruitannouncebookmarkVO {
 	public void setRecruitannounceSpay(String recruitannounceSpay) {
 		this.recruitannounceSpay = recruitannounceSpay;
 	}
-	
 	@Override
 	public String toString() {
 		return "RecruitannouncebookmarkVO [recruitannouncebookmarkNo=" + recruitannouncebookmarkNo + ", userNo="
 				+ userNo + ", recruitannounceNo=" + recruitannounceNo + ", recruitannounceTitle=" + recruitannounceTitle
 				+ ", recruitannounceStartdate=" + recruitannounceStartdate + ", recruitannounceEnddate="
-				+ recruitannounceEnddate + ", recruitannounceScarrer=" + recruitannounceScarrer
+				+ recruitannounceEnddate + ", recruitannounceWantedcarrer=" + recruitannounceWantedcarrer
 				+ ", recruitannounceSworkkind=" + recruitannounceSworkkind + ", recruitannounceSpay="
 				+ recruitannounceSpay + "]";
 	}
+	
+	
 	
 	
 }

@@ -26,8 +26,8 @@
 				<c:forEach var="vo" items="${list }">
 					<div class="col-lg-4 col-md-6 padding_20">
 						<div class="single-latest-blog">
-							<a href="<c:url value='/index.do'/>"> 
-								<img src="<c:url value='/pd_images/${vo.corpImgurl }'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
+							<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${vo.recruitannounceNo }'/>"> 
+								<img id="searchImg" src="<c:url value='/pd_images/${vo.corpImgurl }'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
 								<div class="latest-text">
 									<div class="tag-list">
 										<div class="tag-item">
