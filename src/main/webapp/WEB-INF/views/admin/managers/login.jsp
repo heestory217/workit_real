@@ -41,11 +41,7 @@
 			$('.infobox').each(function(idx, item){
 				if($("#userId").val().length<1){
 					$("#call").text("      아이디를 입력하세요");
-				}else{
-					$("#call").text("");
-				}
-				
-				if($("#password").val().length<1){
+				}else if($("#password").val().length<1){
 					$("#call").text("      비밀번호를 입력하세요");
 				}else{
 					$("#call").text("");
@@ -57,7 +53,6 @@
 			var htp1=true;
 			var htp2=true;
 			
-			$("#call").text("");
 			$("#call").text("");
 			$('.infobox').each(function(idx, item){
 				if($("#userId").val().length<1){
@@ -74,17 +69,17 @@
 			$("input[name='savepass']:checked").each(function(i) {
 				savepass=$(this).val();
 		    })
-			/*
+			
 			if(htp1 && htp2){
 				$.ajax({
 		            type : "get",
-		            url:"<c:url value='/users/loginajax.do'/>",
+		            url:"<c:url value='/admin/managers/loginajax.do'/>",
 		            data: {userId:userId, password:password, savepass:savepass},
 		            success: function(core) {
 		            	var data=core[0]*1;
 		            	
 		                if(data == 1){
-		                	location.href="/workit/index.do";
+		                	location.href="/workit/admin/adminMain.do";
 		                	alert(core[1]+"님, 로그인되었습니다.");
 		                }else if(data == 2){
 		                	$("#call").text("      "+$(this).prev().text() +"잘못된 비밀번호입니다");
@@ -94,7 +89,7 @@
 		            }
 				});
 			}
-			*/
+			
 			if(!(htp1 || htp2)){
 				alert("아이디, 비밀번호를 입력하세요.");
 			}

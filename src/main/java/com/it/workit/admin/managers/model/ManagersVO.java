@@ -1,6 +1,6 @@
-package com.it.workit.admin.adminusers.model;
+package com.it.workit.admin.managers.model;
 
-public class AdminUsersVO {
+public class ManagersVO {
 	private int managerNo;
 	private String managerName;
 	private String managerId;

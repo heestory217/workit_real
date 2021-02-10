@@ -1,7 +1,6 @@
-package com.it.workit.admin.adminusers.model;
+package com.it.workit.admin.managers.model;
 
-
-public interface AdminUsersService {
+public interface ManagersService {
 	public static final int EXIST_ID=1;  //아이디가 이미 존재하는 경우
 	public static final int NON_EXIST_ID=2; //존재하지 않는 경우
 
@@ -11,5 +10,5 @@ public interface AdminUsersService {
 	public static final int ID_NONE=3;//아이디오류
 	
 	public int loginCheck(String userid, String password);
-	//public AdminUsersVO selectByUserId(String userid);
+	public ManagersVO selectByManagersId(String managersid);
 }
