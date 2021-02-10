@@ -59,6 +59,7 @@ public class OrdersController {
 		PaidServiceVO paidServVo = null;
 		ReviewVO reviewVo = null;
 		RecruitannounceVO recruitVo= null;
+		
 		if(corpreviewNo!=0) {
 			logger.info("기업후기 삭제, corpreviewNo={}", corpreviewNo);
 			paidServVo = paidService.selectPaidServByServiceNo(6);
@@ -173,9 +174,11 @@ public class OrdersController {
 		
 		//기업후기 삭제
 		Map<String, Object> ReviewMap = ordersService.selectOrderdetailsDelRVView(orderNo);
+		logger.info("주문 내역 ReviewMap={}", ReviewMap);
 		
 		//광고
 		Map<String, Object> AdMap = ordersService.selectOrderdetailsADView(orderNo);
+		logger.info("주문 내역 AdMap={}", AdMap);
 		
 		OrdersVO ordersVo = ordersService.selectOrdersByOrderNo(orderNo);
 		logger.info("주문 ordersVo={}", ordersVo);
