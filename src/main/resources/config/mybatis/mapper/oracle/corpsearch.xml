@@ -69,5 +69,11 @@
 			group by resume_no,resume_title,user_experience,workkind_name order by resume_no desc
 			)
 	</select>
+	
+	<select id="searchResumeOne" parameterType="int" resultMap="searchResume">
+		select resume_no, resume_title, user_NO from RecruitListview
+		where resume_no=#{resumeNo}
+		group by resume_no, resume_title, user_NO order by resume_no desc
+	</select>
 </mapper>
 

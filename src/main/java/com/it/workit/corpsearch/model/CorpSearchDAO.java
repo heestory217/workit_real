@@ -11,4 +11,6 @@ public interface CorpSearchDAO {
 
 	int selectTotalRecord(SearchVO searchVo);
 
+	ResumesAllVO searchDefault(int resumeNO);
+
 }

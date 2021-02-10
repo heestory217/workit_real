@@ -32,5 +32,9 @@ public class CorpSearchServiceImpl implements CorpSearchService{
 		return searchDao.selectTotalRecord(searchVo);
 	}
 
+	@Override
+	public ResumesAllVO searchDefault(int resumeNO) {
+		return searchDao.searchDefault(resumeNO);
+	}
 
 }

@@ -15,11 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.it.workit.corp.model.AreaListView;
+import com.it.workit.corp.model.CorpService;
+import com.it.workit.corp.model.LanguageListView;
+import com.it.workit.corpsearch.model.CorpSearchService;
 import com.it.workit.resumes.model.AwardVO;
 import com.it.workit.resumes.model.CarrerVO;
 import com.it.workit.resumes.model.ForeignlanguageskillVO;
 import com.it.workit.resumes.model.LicencseVO;
 import com.it.workit.resumes.model.ResumeListVO;
+import com.it.workit.resumes.model.ResumesAllVO;
 import com.it.workit.resumes.model.ResumesService;
 import com.it.workit.resumes.model.ResumesVO;
 import com.it.workit.users.model.UsersService;
@@ -34,6 +39,8 @@ public class ResumesController {
 
 	@Autowired private ResumesService rsService;
 	@Autowired private UsersService userService;
+	@Autowired private CorpSearchService cosService;
+	@Autowired private CorpService corpService;
 
 	@RequestMapping(value = "/resumesList.do", method = RequestMethod.GET)
 	public String resumeList(HttpSession session, Model model) {
@@ -376,8 +383,19 @@ public class ResumesController {
 	public void resumePurchase(@RequestParam int resumeNo, HttpSession session, Model model) {
 		int userNo = (Integer)session.getAttribute("userNo");
 		logger.info("userNo={}, resumeNo={}",userNo,resumeNo);
+		ResumesAllVO vo = cosService.searchDefault(resumeNo);
 		
-		//model.addAttribute(attributeValue)
+		List<LanguageListView> langList = corpService.selectLanguageList(resumeNo);
+		List<AreaListView> areaList = corpService.selectAreaList(resumeNo);
+		int userNoForResume = vo.getResumesVo().getUserNo();
+		UsersVO userVo = userService.selectByUserNo(userNoForResume);
+		String userExp = userVo.getUserExperience();
+		vo.setAreaList(areaList);
+		vo.setLangList(langList);
+		vo.setUserExperience(userExp);
+		
+		logger.info("ResumesAllVO={}",vo);
+		model.addAttribute("resumeVo", vo);
 	}
 
 }//컨트롤러
