@@ -33,6 +33,10 @@
 		]]>
 	</select>
 	
+	<select id="selectAllRecruitList" parameterType="int" resultType="RecruitannounceVO">
+		select * from recruitAnnounce where user_no=#{userNo} order by RECRUITANNOUNCE_NO desc
+	</select>
+	
 	<delete id="recruitdelete" parameterType="int">
 		delete from RECRUITANNOUNCE 
 		where RECRUITANNOUNCE_NO=#{recruitannounceNo}
