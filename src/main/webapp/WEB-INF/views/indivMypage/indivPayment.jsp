@@ -44,14 +44,14 @@
                                 	<c:forEach var="vo" items="${list }">
 										<tr>
 											<td class="cart-title padding-bottom0"><br>
-												<a href="#"><p class="center">
+												<p class="center">
 												<c:if test="${fn:length(vo.paidserviceName)>=10}">
 													${fn:substring(vo.paidserviceName, 0,10) } ...
 												</c:if>
 												<c:if test="${fn:length(vo.paidserviceName)<10}">						
 													${vo.paidserviceName }
 												</c:if>
-												</p></a>
+												</p>
 												<%-- <p class="center">${vo.paidserviceName }</p> --%>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
