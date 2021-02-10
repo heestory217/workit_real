@@ -1,7 +1,4 @@
-package com.it.workit.admin.adminusers.controller;
-
-import java.util.Date;
-import java.util.List;
+package com.it.workit.admin.managers.controller;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,46 +13,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.it.workit.admin.adminusers.model.AdminUsersService;
-import com.it.workit.admin.adminusers.model.AdminUsersVO;
+import com.it.workit.admin.managers.model.ManagersService;
+import com.it.workit.admin.managers.model.ManagersVO;
 
 @Controller
-@RequestMapping("/admin/adminusers")
-public class AdminUsersController {
-	private static final Logger logger = LoggerFactory.getLogger( AdminUsersController.class);
+@RequestMapping("/admin/managers")
+public class ManagersController {
+	private static final Logger logger = LoggerFactory.getLogger( ManagersController.class);
 	
-	//@Autowired private AdminUsersService adminusersService;
+	@Autowired private ManagersService managersService;
 	
 	@RequestMapping("/login.do")
 	public String login() {
 		logger.info("로그인화면");//로그인화면 출력
-		return "admin/adminusers/login";
+		return "admin/managers/login";
 	}
 	
-	/*
+	
 	@ResponseBody
 	@RequestMapping("/loginajax.do")
 	public String[] loginajax(@RequestParam("userId") String userId, @RequestParam("password") String password, HttpServletRequest request,
 			@RequestParam(required = false) String savepass, HttpServletResponse response) {
 		logger.info("로그인 채크 userId = {}, password= {}", userId, password);
 
-		int result=adminusersService.loginCheck(userId, password);
+		int result=managersService.loginCheck(userId, password);
 		logger.info("로그인 처리 결과, result={}", result);
 
 		String result2=Integer.toString(result);
 		String[] avx = new String[2];
 		avx[0]=result2;
 
-		if(result==AdminUsersService.LOGIN_OK) {
-			AdminUsersVO vo = adminusersService.selectByUserId(userId);
+		if(result==ManagersService.LOGIN_OK) {
+			ManagersVO vo = managersService.selectByManagersId(userId);
 
 			//[1] session
 			HttpSession session=request.getSession();
-			session.setAttribute("userId", vo.getManagerId());
-			session.setAttribute("userNo", vo.getManagerNo());
-			session.setAttribute("userName", vo.getManagerName());
-
-
+			session.setAttribute("managerId", vo.getManagerId());
+			session.setAttribute("managerNo", vo.getManagerNo());
+			session.setAttribute("mangerName", vo.getManagerName());
+			
+			logger.info("관리자로그인={}", vo);
+			
 			avx[1]=vo.getManagerName();
 		}
 
@@ -72,5 +70,16 @@ public class AdminUsersController {
 		//4
 		return avx;
 	}
-	*/
+	
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		String userid=(String) session.getAttribute("managerId");
+		logger.info("로그아웃 처리, 파라미터 userid={}", userid);
+
+		session.removeAttribute("managerId");
+		session.removeAttribute("managerNo");
+		session.removeAttribute("managerName");
+
+		return "redirect:/admin/managers/login.do";
+	}
 }
