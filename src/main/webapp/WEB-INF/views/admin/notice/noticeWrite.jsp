@@ -22,6 +22,8 @@
 	input[type=text]{
 		border:none;
 		outline:none;
+	    width: 95%;
+	    padding-left:10px;
 	}
 	
 	th,td{
@@ -76,6 +78,7 @@
 	    height: 100%;
 	    border: none;
 	    outline: none;
+	    padding-left:5px;
 	}
 	
 	.notcie-Btn{
@@ -108,10 +111,29 @@
 			}
 			self.close();
 		});
+		
+		$('#writeFrm').submit(function(){
+			$.ajax({
+				url:'<c:url value="/admin/notice/noticeRegister.do"/>',
+				type:'post',
+				data:$(this).serializeArray(),
+				dataType:'json',
+				success:function(res){
+					if(res==1){
+						alert('공지사항이 정상적으로 등록되었습니다.');
+						opener.document.location.reload();
+						self.close();
+					}
+					
+				},error:function(xhr, status, error){
+					alert('공지사항 등록에 실패하였습니다.\n다시 등록하세요.');
+				}
+			});
+			event.preventDefault();
+		});
 	});
 </script>
 <title>공지사항 등록</title>
-
 </head>
 <body>
 
@@ -119,10 +141,9 @@
 <!-- Register Section Begin -->
 <div class="spad">
 	<div class="container">
-
-	<h3>공지사항 등록</h3>
-		<form name="noticeFrm" method="post" id="noticeFrm" 
-			action="<c:url value='/admin/notice/noticeWrite.do'/>">
+	<h3 class="section-title float_left">공지사항 등록</h3>
+	</div><br>
+		<form name="writeFrm" id="writeFrm">
 			<table>
 				<tbody>
 					<tr>
@@ -143,7 +164,7 @@
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td><input type="text" name="noticeTitle"></td>
+						<td><input type="text" name="managerNo" value="3"></td>
 					</tr>
 					<tr class="content">
 						<th>내용</th>

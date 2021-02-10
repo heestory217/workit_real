@@ -47,7 +47,7 @@
 	
 	<!-- 공지사항 등록 -->
 	<insert id="insertNotice" parameterType="noticeVo">
-		<selectKey>
+		<selectKey keyProperty="noticeNo" resultType="int" order="BEFORE">
 			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO NOTICE(NOTICE_NO,NOTICE_TITLE,NOTICE_ABOUT,CLASSIFICATION_NO,MANAGER_NO)

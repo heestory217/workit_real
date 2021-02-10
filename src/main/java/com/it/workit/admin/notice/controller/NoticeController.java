@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.admin.notice.model.ClassificationsVO;
 import com.it.workit.admin.notice.model.NoticeListVO;
@@ -67,11 +68,12 @@ public class NoticeController {
 	}
 	
 	//공지사항 등록 화면
-	@RequestMapping(value="/noticeWrite.do", method = RequestMethod.GET)
+	@RequestMapping("/noticeWrite.do")
 	public void write(@ModelAttribute NoticeVO vo, Model model) {
 		logger.info("공지사항 등록 화면");
 	}
 	
+	/*
 	//공지사항 등록 처리
 	@RequestMapping(value="/noticeWrite.do", method = RequestMethod.POST)
 	public String write_post(@ModelAttribute NoticeVO vo, Model model) {
@@ -91,6 +93,19 @@ public class NoticeController {
 		
 		return "common/message";
 		
+	}
+	*/
+	
+	//공지사항 등록 처리
+	@ResponseBody
+	@RequestMapping("/noticeRegister.do")
+	public int write_post(@ModelAttribute NoticeVO vo) {
+		logger.info("공지사항 등록 처리, 파라미터 vo={},",vo);
+		
+		int cnt = noticeService.insertNotice(vo);
+		logger.info("공지사항 등록 처리 결과,cnt={}",cnt);
+		
+		return cnt;
 	}
 	
 	//공지사항 삭제
