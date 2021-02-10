@@ -233,54 +233,58 @@
                         <c:if test="${empty resumeList}">
                         </c:if>
                         <c:if test="${!empty resumeList}">
-                        	<c:forEach var="resume" items="${resumeList}">
-                            <div class="col-lg-4 col-sm-6">
-                                <div class="product-item">
-                                    <div class="pi-pic">
-                                    	<c:if test="${resume.buyChk eq 1 }">
-                                        	<div class="sale pp-sale">구매한 이력서</div>
-                                        </c:if>
-                                        <ul>
-                                        	<li class="w-icon active" onclick="insertCart('${resume.resumesVo.resumeNo }')">
-	                                            <a href="#"><i class="icon_bag_alt"></i></a>
-                                            </li>
-                                            <c:if test="${resume.buyChk eq 1 }">
-                                            	<li class="quick-view"><a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${resume.resumesVo.resumeNo }&type=Bought'/>">+ View</a></li>
-                                            </c:if>
-                                            <c:if test="${resume.buyChk != 1 }">
-                                            	<li class="quick-view"><a href="#">+ View</a></li>
-                                            </c:if>
-                                        </ul>
-                                    </div>
-                                    <div class="pi-text">
-	                                    <c:if test="${resume.userExperience==0}">
-			                            	<div class="catagory-name">신입</div>
-			                            </c:if>
-			                            <c:if test="${resume.userExperience!=0}">
-			                                <div class="catagory-name">${resume.userExperience}년</div>
-			                            </c:if>
-			                                <a href="#">
-			                                    <h5>${resume.resumesVo.resumeTitle }</h5>
-			                                </a>
-		                                <!-- 언어 리스트 -->
-		                                <div class="product-price">
-							                <c:forEach var="lang" items="${resume.langList}" >
-				                                ${lang.languageName} 
-											</c:forEach>
-		                                </div>
-		                                <!-- 희망 근무 지역 리스트 -->
-		                                <div class="areaList">
-		                                	<c:forEach var="area" items="${resume.areaList}">
-		                                	<h5 class="wantedArea">${area.areaAdd1} ${area.areaAdd2}</h5>
-		                 		    	</c:forEach>
-		                                </div>
-                                    </div>
-                                </div>
-                            </div>
-						    </c:forEach>
+		                        	<c:forEach var="resume" items="${resumeList}">
+			                            <div class="col-lg-4 col-sm-6">
+			                                <div class="product-item">
+			                                    <div class="pi-pic">
+			                                    	<c:if test="${resume.buyChk eq 1 }">
+			                                        	<div class="sale pp-sale">구매한 이력서</div>
+			                                        </c:if>
+			                                        <ul>
+			                                        	<li class="w-icon active" onclick="insertCart('${resume.resumesVo.resumeNo }')">
+				                                            <a href="#"><i class="icon_bag_alt"></i></a>
+			                                            </li>
+			                                            
+			                                            <c:if test="${resume.buyChk eq 1 }">
+			                                            	<li class="quick-view"><a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${resume.resumesVo.resumeNo }&type=Bought'/>">+ View</a></li>
+			                                            </c:if>
+			                                            <c:if test="${resume.buyChk eq 0 }">
+			                                            	<li class="quick-view" onclick="resumePurchase('${resume.resumesVo.resumeNo }')">
+			                                            		<a href="#" id="purchase">+ View</a>
+			                                            	</li>
+			                                            </c:if>
+			                                            
+			                                        </ul>
+			                                    </div>
+			                                    <div class="pi-text">
+				                                    <c:if test="${resume.userExperience==0}">
+						                            	<div class="catagory-name">신입</div>
+						                            </c:if>
+						                            <c:if test="${resume.userExperience!=0}">
+						                                <div class="catagory-name">${resume.userExperience}년</div>
+						                            </c:if>
+						                                <a href="#">
+						                                    <h5>${resume.resumesVo.resumeTitle }</h5>
+						                                </a>
+					                                <!-- 언어 리스트 -->
+					                                <div class="product-price">
+										                <c:forEach var="lang" items="${resume.langList}" >
+							                                ${lang.languageName} 
+														</c:forEach>
+					                                </div>
+					                                <!-- 희망 근무 지역 리스트 -->
+					                                <div class="areaList">
+					                                	<c:forEach var="area" items="${resume.areaList}">
+					                                	<h5 class="wantedArea">${area.areaAdd1} ${area.areaAdd2}</h5>
+					                 		    		</c:forEach>
+					                                </div>
+			                                    </div>
+			                                </div>
+			                            </div>
+								    </c:forEach>
                         </c:if>
-                        </div>
-                    </div>
+                     </div>
+                   </div>
                     <!-- 페이징처리 -->
                      <div class="col-lg-12">
 						 <div class="product__pagination blog__pagination">
@@ -367,8 +371,8 @@
 		 $('input[name=area2]').val(area2);
 		 $('form[name=frmPage]').submit();
 	}
-	
-	//[3]결과 내 재검색 - 지역 필터 selector
+
+	//[3]결과 내 재검색 - 지역 필터 selector //[4] 장바구니 담을때 미결제 이력서시 체크
 	$(function(){
 		var areaAdd=$('#areaAdd1 option:selected').val();
 		ajaxSend(areaAdd);//페이지 들어왔을때도 실행되게 설정
@@ -377,7 +381,17 @@
 			var areaAdd1=$('#areaAdd1 option:selected').val();
 			ajaxSend(areaAdd1);
 		});//change
+		
+		
+		
 	});//jQuery
+	
+	function resumePurchase(resumeNo){
+		open(
+					"/workit/resumes/resumePurchase.do?resumeNo="
+							+ resumeNo, "chk",
+					"width=771,height=819,left=0,top=0,location=yes,resizable=yes");
+	}
 	
 	//[3]결과 내 재검색 - 지역 필터 ajax
 	function ajaxSend(areaAdd1){

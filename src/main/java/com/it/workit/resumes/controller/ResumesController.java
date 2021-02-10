@@ -367,5 +367,17 @@ public class ResumesController {
 	public void resumeApply() {
 		logger.info("지원하기");
 	}
+	
+	
+	
+	
+	//[수하]이력서 열람시 미구매자 팝업창 :머지할때 겹치면 제일 하단에 놔주세요//
+	@RequestMapping("/resumePurchase.do")
+	public void resumePurchase(@RequestParam int resumeNo, HttpSession session, Model model) {
+		int userNo = (Integer)session.getAttribute("userNo");
+		logger.info("userNo={}, resumeNo={}",userNo,resumeNo);
+		
+		//model.addAttribute(attributeValue)
+	}
 
 }//컨트롤러
