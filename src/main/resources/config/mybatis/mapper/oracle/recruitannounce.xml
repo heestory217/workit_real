@@ -58,14 +58,13 @@
 		update recruitannounce 
 		set WORKKIND_NO=#{workkindNo}, AREALIST_NO=#{arealistNo}, LANGUAGE_NO=#{languageNo}, RECRUITANNOUNCE_TITLE=#{recruitannounceTitle},
 		 RECRUITANNOUNCE_ENDDATE=#{recruitannounceEnddate}, RECRUITANNOUNCE_SWORKKIND=#{recruitannounceSworkkind}, 
-		 RECRUITANNOUNCE_SPAY=#{recruitannounceSpay}, RECRUITANNOUNCE_SKILL=#{recruitannounceSkill}, RECRUITANNOUNCE_WORKKIND=#{recruitannounceWorkkind},
+		 RECRUITANNOUNCE_SPAY=#{recruitannounceSpay}, RECRUITANNOUNCE_SKILL=#{recruitannounceSkill},
+		 RECRUITANNOUNCE_WORKKIND=#{recruitannounceWorkkind},
 		 RECRUITANNOUNCE_WORK=#{recruitannounceWork}, RECRUITANNOUNCE_WANTEDCARRER=#{recruitannounceWantedcarrer}, RECRUITANNOUNCE_UPCHECKCARRER=#{recruitannounceUpcheckcarrer}, 
 		 RECRUITANNOUNCE_HIRESTEP=#{recruitannounceHirestep},RECRUITANNOUNCE_ELSE=#{recruitannounceElse},
 		 RECRUITANNOUNCE_LINK=#{recruitannounceLink}, RECRUITANNOUNCE_UPCHECK=4 
 		 where RECRUITANNOUNCE_NO=#{recruitannounceNo}
 	</update>
-	
-	
 	
 	<select id="selectRecruitadList" parameterType="int" resultType="AdvertisingVO">
 				select * from

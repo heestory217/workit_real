@@ -47,7 +47,7 @@ ${RecruitannounceVO}
 
 	<div class="register-login-section spad">
         <div class="container">
-          <form class="checkout-form" action="<c:url value='/recruit/recruitwrite.do'/>" method="POST">
+          <form class="checkout-form" action="<c:url value='/recruit/recruitedit.do'/>" method="POST">
             <div class="row">
                 <div class="col-lg-10 offset-lg-1">
                 	<div class="section-title">
@@ -268,7 +268,7 @@ ${RecruitannounceVO}
 								</script>
                    			</div>
 
-                            <input type="hidden" id="userNo" name="userNo" value="${sessionScope.userNo}">
+                            <input type="text" id="recruitannounceNo" name="recruitannounceNo" value="${RecruitannounceVO.recruitannounceNo}">
                             <span class="call" id="finalcheck" name="finalcheck" style="cursor:hand;color:red"></span>
                             <button type="submit" class="site-btn register-btn" id='recruitask' name='recruitask'>공고등록 요청</button>
                     	</div>
