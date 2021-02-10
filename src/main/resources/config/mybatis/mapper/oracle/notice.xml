@@ -32,7 +32,7 @@
 		AND RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 		]]>
 	</select>
-
+	
 	<!-- 공지 전체 레코드 수 -->
 	<select id="getTotalRecord" resultType="int" parameterType="searchVo"> 
 		SELECT COUNT(*)
@@ -53,6 +53,28 @@
 		INSERT INTO NOTICE(NOTICE_NO,NOTICE_TITLE,NOTICE_ABOUT,CLASSIFICATION_NO,MANAGER_NO)
 		VALUES(#{noticeNo},#{noticeTitle},#{noticeAbout},#{classificationNo},#{managerNo})
 	</insert>
+	
+	<!-- 공지사항 조회 -->
+	<resultMap type="map" id="noticeAbout">
+		<result property="NOTICE_ABOUT" column="NOTICE_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	<select id="selectNoticeByNo" parameterType="int" resultType="map"
+	resultMap="noticeAbout">
+		SELECT N.*, C.CLASSIFICATION_NAME,M.MANAGER_NAME
+		FROM NOTICE N JOIN CLASSIFICATIONS C
+		ON N.CLASSIFICATION_NO = C.CLASSIFICATION_NO
+		JOIN MANAGERS M
+		ON M.MANAGER_NO = N.MANAGER_NO
+		WHERE N.NOTICE_NO=#{noticeNo}
+	</select>
+	
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="noticeVo">
+		UPDATE NOTICE
+		SET NOTICE_TITLE=#{noticeTitle}, NOTICE_ABOUT=#{noticeAbout},
+		    NOTICE_DATE=SYSDATE, CLASSIFICATION_NO=#{classificationNo}
+		WHERE NOTICE_NO=#{noticeNo}
+	</update>
 	
 	<!-- 공지사항 삭제 -->
 	<delete id="deleteNotice" parameterType="int">

@@ -38,6 +38,20 @@
 	.float_right{
 		float:right;
 	}
+	
+	#category select{
+	    margin-right: 5px;
+	    border: none;
+	    outline: none;
+	    height: 43px;
+	    padding: 10px 5px;
+	    margin-left: 18px;
+	}
+	
+	#category{
+		padding:0px;
+	}
+	
 </style>
 
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
@@ -46,6 +60,7 @@ function pageFunc(curPage){
 	$('input[name=currentPage]').val(curPage);
 	$('form[name=frmPage]').submit();
 }
+
 
 $(function(){
 	$('input[name=chkAll]').click(function(){
@@ -67,14 +82,20 @@ $(function(){
 	});
 	
 	var contextPath="/workit";
+	//공지 등록창
 	$('#writeBtn').click(function(){
-		/*js이므로 url태그 사용 불가, 4라인에서 변수처리한 contextPath를 사용하여 절대참조로 변경*/
 		open(contextPath+"/admin/notice/noticeWrite.do","write",
  			"width=700, height=700, left=500, top=30, location=no, resizable=no");
 	});
-		
-});
 	
+});
+
+//공지사항 수정창
+function editFunc(noticeNo){
+	open("/workit/admin/notice/noticeEdit.do?noticeNo="+noticeNo,"edit",
+		"width=700, height=700, left=500, top=30, location=no, resizable=no");
+}
+
 </script>
 
 <div class="col-lg-12">
@@ -94,17 +115,6 @@ $(function(){
 	<form action="<c:url value='/admin/notice/noticeList.do'/>"
 		name="frmList" method="post">
 		<input type="button" id="delBtn" value="선택 삭제" class="notcie-Btn float_left margin_right_5">
-		<div class="input-group input-search inputSearchbox categoryBx float_left">
-			<c:if test="${!empty cateList }">
-				<select name="classificationNo" class="margin_right_5" id="cate">
-					<option value="">분류</option>
-					<c:forEach var="cateVo" items="${cateList }">
-			            <option value="${cateVo.classificationNo}">
-			            ${cateVo.classificationName}</option>
-					</c:forEach>
-		        </select>
-			</c:if>	        
-		</div>
 		<div class="input-group input-search inputSearchbox float_right">
 			<select name="searchCondition" class="margin_right_5">
 	            <option value="NOTICE_TITLE"
@@ -148,7 +158,16 @@ $(function(){
 			<thead>
 				<tr class="center">
 					<th scope="col"><input type="checkbox" name="chkAll"></th>
-					<th scope="col">분류</th>
+					<th scope="col" id="category">
+					<select name="classificationNo" class="margin_right_5" id="cate">
+						<option>분류</option>
+						<c:forEach var="cateVo" items="${cateList }">
+				            <option value="${cateVo.classificationNo}">
+				            ${cateVo.classificationName}</option>
+						</c:forEach>
+			        </select>
+					
+					</th>
 					<th scope="col">제목</th>
 					<th scope="col">등록일</th>
 					<th scope="col">수정</th>
@@ -175,7 +194,9 @@ $(function(){
 	            			<td class="font">${map['CLASSIFICATION_NAME'] }</td>
 	            			<td class="font" style="text-align:left">${map['NOTICE_TITLE'] }</td>
 	            			<td class="font"><fmt:formatDate value="${map['NOTICE_DATE'] }" pattern="yyyy-MM-dd"/></td>
-	            			<td><a href="#" class="hoverColor"><i class="fa fa-check"></i> 수정</a></td>
+	            			<td><a class="hoverColor" href="#" id="editBtn"
+	            			onClick="editFunc(${map['NOTICE_NO']})"
+	            			><i class="fa fa-check"></i> 수정</a></td>
 	            			<td><a class="hoverColor" href
 	            	="<c:url value='/admin/notice/noticeDelete.do?noticeNo=${map["NOTICE_NO"]}'/>"
 	            			onClick="if(!confirm('정말 삭제하시겠습니까?')){return false;}"><i class="fa fa-check"></i> 삭제</a></td>

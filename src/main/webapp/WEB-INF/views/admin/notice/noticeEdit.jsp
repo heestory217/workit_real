@@ -106,34 +106,34 @@
 <script type="text/javascript">
 	$(function(){
 		$('#cancelBtn').click(function(){
-			if(!confirm('글을 등록하지 않고 나가시겠습니까?')){
+			if(!confirm('글을 수정하지 않고 나가시겠습니까?')){
 				return false;
 			}
 			self.close();
 		});
 		
-		$('#writeFrm').submit(function(){
+		$('#editFrm').submit(function(){
 			$.ajax({
-				url:'<c:url value="/admin/notice/noticeRegister.do"/>',
+				url:'<c:url value="/admin/notice/editNotice.do"/>',
 				type:'post',
 				data:$(this).serializeArray(),
 				dataType:'json',
 				success:function(res){
 					if(res==1){
-						alert('공지사항이 정상적으로 등록되었습니다.');
+						alert('공지사항이 정상적으로 수정되었습니다.');
 						opener.document.location.reload();
 						self.close();
 					}
 					
 				},error:function(xhr, status, error){
-					alert('공지사항 등록에 실패하였습니다.\n다시 등록하세요.');
+					alert('공지사항 수정에 실패하였습니다.\n다시 등록하세요.');
 				}
 			});
 			event.preventDefault();
 		});
 	});
 </script>
-<title>공지사항 등록</title>
+<title>공지사항 수정</title>
 </head>
 <body>
 
@@ -141,44 +141,63 @@
 <!-- Register Section Begin -->
 <div class="spad">
 <div class="container">
-<h3 class="section-title float_left">공지사항 등록</h3>
+<h3 class="section-title float_left">공지사항 수정</h3>
 </div><br>
-	<form name="writeFrm" id="writeFrm">
+	<form name="editFrm" id="editFrm">
+		<input type="hidden" name="noticeNo" value="${param.noticeNo }">
+		<input type="hidden" name="noticeNo" value="${noticeOne['NOTICE_DATE'] }">
 		<table>
 			<tbody>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" name="noticeTitle"></td>
+					<td><input type="text" name="noticeTitle" value="${noticeOne['NOTICE_TITLE']}"></td>
 				</tr>
 				<tr>
 					<th>분류</th>
 					<td>
 						<select name="classificationNo">
 							<option>분류</option>
-							<option value="1">공지</option>
-							<option value="2">이벤트</option>
-							<option value="3">안내</option>
-							<option value="4">기타</option>
+							<option value="1"
+								<c:if test="${noticeOne['CLASSIFICATION_NO']=='1'}">
+									selected="selected"
+								</c:if>
+							>공지</option>
+							<option value="2"
+								<c:if test="${noticeOne['CLASSIFICATION_NO']=='2'}">
+									selected="selected"
+								</c:if>
+							>이벤트</option>
+							<option value="3"
+								<c:if test="${noticeOne['CLASSIFICATION_NO']=='3'}">
+									selected="selected"
+								</c:if>
+							>안내</option>
+							<option value="4"
+								<c:if test="${noticeOne['CLASSIFICATION_NO']=='4'}">
+									selected="selected"
+								</c:if>
+							>기타</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" name="managerNo" value="3"></td>
+					<td><input type="text" name="managerNo" value="${noticeOne['MANAGER_NO'] }"></td>
 				</tr>
 				<tr class="content">
 					<th>내용</th>
-					<td><textarea name="noticeAbout"></textarea></td>
+					<td><textarea name="noticeAbout">${noticeOne['NOTICE_ABOUT']}</textarea></td>
 				</tr>
 			</tbody>
 		</table>	
 		<div class="center">
-			<input type="submit" id="writeBtn" value="등록하기" class="notcie-Btn margin_right_5">
+			<input type="submit" id="editBtn" value="수정하기" class="notcie-Btn margin_right_5">
 			<input type="button" id="cancelBtn" value="취소" class="notcie-Btn margin_right_5">
 		</div>
 	</form>
-
+	
 </div>
+
 
 
 

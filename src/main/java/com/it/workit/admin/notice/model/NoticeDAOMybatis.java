@@ -44,5 +44,17 @@ public class NoticeDAOMybatis implements NoticeDAO{
 		return sqlSession.insert(namespace+"insertNotice", vo);
 	}
 	
+	//공지사항 조회
+	@Override
+	public Map<String, Object> selectNoticeByNo(int noticeNo) {
+		return sqlSession.selectOne(namespace+"selectNoticeByNo",noticeNo);
+	}
+	
+	//공지사항 수정
+	@Override
+	public int updateNotice(NoticeVO vo) {
+		return sqlSession.update(namespace+"updateNotice", vo);
+	}
+	
 	
 }

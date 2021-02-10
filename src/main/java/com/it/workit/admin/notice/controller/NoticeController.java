@@ -3,8 +3,6 @@ package com.it.workit.admin.notice.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -69,32 +66,10 @@ public class NoticeController {
 	
 	//공지사항 등록 화면
 	@RequestMapping("/noticeWrite.do")
-	public void write(@ModelAttribute NoticeVO vo, Model model) {
+	public void write() {
 		logger.info("공지사항 등록 화면");
 	}
 	
-	/*
-	//공지사항 등록 처리
-	@RequestMapping(value="/noticeWrite.do", method = RequestMethod.POST)
-	public String write_post(@ModelAttribute NoticeVO vo, Model model) {
-		logger.info("공지사항 등록 처리, 파라미터 vo={},",vo);
-		
-		int cnt = noticeService.insertNotice(vo);
-		logger.info("공지사항 등록 처리 결과,cnt={}",cnt);
-		String msg="공지사항 등록에 실패하였습니다.\\n다시 등록해주세요.",
-				url="/admin/notice/noticeWrite.do";
-		if(cnt>=0) {
-			msg="공지사항이 정상적으로 등록되었습니다.";
-			url="/admin/notice/noticeList.do";
-		}
-		
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-		
-		return "common/message";
-		
-	}
-	*/
 	
 	//공지사항 등록 처리
 	@ResponseBody
@@ -104,6 +79,32 @@ public class NoticeController {
 		
 		int cnt = noticeService.insertNotice(vo);
 		logger.info("공지사항 등록 처리 결과,cnt={}",cnt);
+		
+		return cnt;
+	}
+	
+	//공지사항 수정 화면
+	@RequestMapping("/noticeEdit.do")
+	public String edit(@RequestParam int noticeNo, Model model) {
+		logger.info("공지사항 수정 화면");
+		
+		Map<String, Object> noticeOne = noticeService.selectNoticeByNo(noticeNo);
+		logger.info("공지사항 수정 화면 조회 결과, noticeOne={}", noticeOne);
+		
+		model.addAttribute("noticeOne", noticeOne);
+		
+		return "admin/notice/noticeEdit";
+	}
+	
+	//공지사항 수정
+	@ResponseBody
+	@RequestMapping("/editNotice.do")
+	public int eidt_post(@ModelAttribute NoticeVO vo) {
+		logger.info("공지사항 수정 처리, 파라미터 vo={}", vo);
+		
+		vo.setManagerNo(3);
+		int cnt=noticeService.updateNotice(vo);
+		logger.info("공지사항 수정 결과, cnt={}", cnt);
 		
 		return cnt;
 	}
@@ -129,7 +130,7 @@ public class NoticeController {
 	@RequestMapping("/multiDel.do")
 	public String delMulti(@ModelAttribute NoticeListVO noticeListVo, Model model) {
 		//여러개의 vo가 list로 묶여서 넘어옴(여러개의 상품을 선택하여 삭제해야하기 때문)
-		logger.info("선택 삭제 처리, 파라미터 noticeListVo={}", noticeListVo);
+		logger.info("선택 삭제 처리, 파라미터 ");
 		
 		//파라미터 넘어온 것이 어떻게 처리되는지 살펴보기 위함
 		List<NoticeVO> noticeList=noticeListVo.getNoticeList();

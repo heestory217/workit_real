@@ -64,6 +64,18 @@ public class NoticeServiceImpl implements NoticeService{
 	public int insertNotice(NoticeVO vo) {
 		return noticeDao.insertNotice(vo);
 	}
+
+	//공지사항 조회
+	@Override
+	public Map<String, Object> selectNoticeByNo(int noticeNo) {
+		return noticeDao.selectNoticeByNo(noticeNo);
+	}
+	
+	//공지사항 수정
+	@Override
+	public int updateNotice(NoticeVO vo) {
+		return noticeDao.updateNotice(vo);
+	}
 	
 	
 }
