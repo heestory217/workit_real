@@ -35,7 +35,7 @@
 	});
 </script>
 <style>
-	select {
+	.col-lg-6 select, .col-lg-12 select {
 	    width: 100%;
 	    height: 44px;
 	    border: 2px solid #ebebeb;
