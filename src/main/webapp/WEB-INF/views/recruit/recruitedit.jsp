@@ -250,7 +250,7 @@
                                 <input type="text" id="recruitannounceHirestep" name="recruitannounceHirestep" value="${RecruitannounceVO.recruitannounceHirestep}">
                             </div>
                             
-                            <div class="col-lg-12">
+                            <div class="col-lg-12" style="margin-bottom: 30px;">
 		                    	<label for="corpIntro">상세 요강<span class="red">*</span></label>
 		                    	<textarea id="recruitannounceWorkkind" name="recruitannounceWorkkind">${RecruitannounceVO.recruitannounceWorkkind}</textarea>
 								<script type="text/javascript">
@@ -258,7 +258,7 @@
 								</script>
                    			</div>
                    			
-                            <div class="col-lg-12">
+                            <div class="col-lg-12" style="margin-bottom: 40px;">
 		                    	<label for="corpIntro">주요업무</label>
 		                    	<textarea id="recruitannounceWork" name="recruitannounceWork">${RecruitannounceVO.recruitannounceWork}</textarea>
 								<script type="text/javascript">

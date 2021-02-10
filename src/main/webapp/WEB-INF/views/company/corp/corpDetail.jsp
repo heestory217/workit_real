@@ -190,7 +190,7 @@ $(document).ready(function(){
         $('.center').append("<img src='"+imgUrl+"' id='bigImg'>");
         $('.center').css({"width":"1000px","position":'absolute',
         				"top":(($(window).height()-$('.center').outerHeight())/2+$(window).scrollTop())-500+"px",
-        				"left":(windowWidth)/5+"px"
+        				"left":(windowWidth)/7+"px"
         				});
         wrapWindowByMask();
     });
