@@ -3,6 +3,8 @@ package com.it.workit.admin.notice.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.admin.notice.model.ClassificationsVO;
@@ -63,9 +66,31 @@ public class NoticeController {
 		
 	}
 	
-	@RequestMapping("/noticeWrite.do")
-	public void write() {
-		logger.info("공지사항 등록");
+	//공지사항 등록 화면
+	@RequestMapping(value="/noticeWrite.do", method = RequestMethod.GET)
+	public void write(@ModelAttribute NoticeVO vo, Model model) {
+		logger.info("공지사항 등록 화면");
+	}
+	
+	//공지사항 등록 처리
+	@RequestMapping(value="/noticeWrite.do", method = RequestMethod.POST)
+	public String write_post(@ModelAttribute NoticeVO vo, Model model) {
+		logger.info("공지사항 등록 처리, 파라미터 vo={},",vo);
+		
+		int cnt = noticeService.insertNotice(vo);
+		logger.info("공지사항 등록 처리 결과,cnt={}",cnt);
+		String msg="공지사항 등록에 실패하였습니다.\\n다시 등록해주세요.",
+				url="/admin/notice/noticeWrite.do";
+		if(cnt>=0) {
+			msg="공지사항이 정상적으로 등록되었습니다.";
+			url="/admin/notice/noticeList.do";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+		
 	}
 	
 	//공지사항 삭제

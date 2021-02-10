@@ -70,7 +70,7 @@ $(function(){
 	$('#writeBtn').click(function(){
 		/*js이므로 url태그 사용 불가, 4라인에서 변수처리한 contextPath를 사용하여 절대참조로 변경*/
 		open(contextPath+"/admin/notice/noticeWrite.do","write",
- 			"width=600, height=500, left=800, top=600, location=no, resizable=no");
+ 			"width=700, height=700, left=500, top=30, location=no, resizable=no");
 	});
 		
 });

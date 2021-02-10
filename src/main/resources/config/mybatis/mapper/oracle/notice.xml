@@ -45,6 +45,15 @@
 		</if>
 	</select>
 	
+	<!-- 공지사항 등록 -->
+	<insert id="insertNotice" parameterType="noticeVo">
+		<selectKey>
+			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO NOTICE(NOTICE_NO,NOTICE_TITLE,NOTICE_ABOUT,CLASSIFICATION_NO,MANAGER_NO)
+		VALUES(#{noticeNo},#{noticeTitle},#{noticeAbout},#{classificationNo},#{managerNo})
+	</insert>
+	
 	<!-- 공지사항 삭제 -->
 	<delete id="deleteNotice" parameterType="int">
 		DELETE FROM NOTICE WHERE NOTICE_NO=#{noticeNo}
