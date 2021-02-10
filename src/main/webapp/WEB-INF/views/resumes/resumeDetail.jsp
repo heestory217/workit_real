@@ -201,6 +201,15 @@ div.btWarp > div > a:nth-child(1) {
 							</div>
 						</div>
 					</c:if>
+					<!-- 구매한 이력서 일 때 -->
+                    <c:if test="${param.type=='Bought'}">
+	                    <div class="btWarp">
+	                    	<div class="filter-widget" style="text-align: right;">
+								<a class="filter-btn" href="<c:url value="/company/HRManagment/purchasedResumes.do"/>" style="float: left;">목록</a>
+								<a class="filter-btn" href="<c:url value="/company/HRManagment/positionWrite.do?userId=${map['USER_ID']}"/>">포지션제안</a>
+							</div>
+						</div>
+					</c:if>
                 </div>
             </div>
         </div>

@@ -122,9 +122,9 @@
 					                            <tr>
 					                                <td class="p-price" style="padding: 14px 0;">${map['USER_NAME']}</td>
 					                                <td class="cart-title" style="padding: 14px 0;">
-	                             	<a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${map["RESUME_NO"]}'/>">
-	                             		${map['RESUME_TITLE']}
-	                          		</a>
+                           	<a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${map["RESUME_NO"]}&type=Bought'/>">
+                           		${map['RESUME_TITLE']}
+                        		</a>
 				                                	</td>
 					                                <td class="cart-pic" style="padding: 14px 0;">${map['WORKKIND_NAME']}</td>
 					                                <td class="cart-pic" style="padding: 14px 0;">
@@ -155,30 +155,32 @@
 			<!-- 본문 끝 -->
 			
 			<!-- 페이징 -->
-			<div class="col-lg-12" style="text-align: center;">
-				<div class="product__pagination blog__pagination">
-				 	<c:if test="${pagingInfo.firstPage>1 }">
-						<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
-							<i class="fa fa-long-arrow-left"></i>
-						</a>
-					</c:if>
-					<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
-						<c:if test="${i==pagingInfo.currentPage }">
-							<span id="currentPage" >
-								${i}</span>
+			<c:if test="${!empty resumeList}">
+				<div class="col-lg-12" style="text-align: center;">
+					<div class="product__pagination blog__pagination">
+					 	<c:if test="${pagingInfo.firstPage>1 }">
+							<a href="#" onclick="pageFunc(${pagingInfo.firstPage-1})">
+								<i class="fa fa-long-arrow-left"></i>
+							</a>
 						</c:if>
-						<c:if test="${i!=pagingInfo.currentPage }">
-							<a href="#" onclick="pageFunc(${i})">
-								${i}</a>
+						<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
+							<c:if test="${i==pagingInfo.currentPage }">
+								<span id="currentPage" >
+									${i}</span>
+							</c:if>
+							<c:if test="${i!=pagingInfo.currentPage }">
+								<a href="#" onclick="pageFunc(${i})">
+									${i}</a>
+							</c:if>
+						</c:forEach>
+						<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+							<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
+								<i class="fa fa-long-arrow-right"></i>
+							</a>
 						</c:if>
-					</c:forEach>
-					<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
-						<a href="#" onclick="pageFunc(${pagingInfo.lastPage+1})">
-							<i class="fa fa-long-arrow-right"></i>
-						</a>
-					</c:if>
+					</div>
 				</div>
-			</div>
+			</c:if>
 			<!-- 페이징 -->
 
 		</div>
