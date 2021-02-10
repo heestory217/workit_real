@@ -6,19 +6,30 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-<link rel="stylesheet" type="text/css" 
-	href="<c:url value='/resources/js/jquery-ui.min.css'/>">
-<script type="text/javascript" 
-	src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
-
-
 <style>
-	#containerUsers {
+.mybtn{
+	background: #4C50BB;
+    color: white;
+    border: 1px solid #4C50BB;
+    width: 60px;
+}
+
+.center{
+	text-align: center;
+}
+
+.btnGray{
+	background: #F2F2F2;
+	border: 1px solid #F2F2F2;
+	width: 60px;
+}
+
+#containerUsers {
     height: 400px; 
 }
 
 .highcharts-figure, .highcharts-data-table table {
-    min-width: 310px; 
+    min-width: 700px; 
     max-width: 800px;
     margin: 1em auto;
 }
@@ -50,12 +61,11 @@
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
-	
 </style>
 
 <script type="text/javascript">
 	$(function(){
-		$('form[name=frm1]').submit(function(){
+		$('form[name=frmDate]').submit(function(){
 			if($('#startDay').val().length<1){
 				alert('시작일을 입력하세요');
 				$('#startDay').focus();
@@ -66,30 +76,40 @@
 				event.preventDefault();
 			}
 		});
-		/* $('#submit').click(){
-			location.href="<c:url value='/admin/main/userCount/userStats.do'/>";
-		} */
 	});
 </script>
 
 
-<form name="frm1" method="post" >
+<%-- <form name="frm1" method="post" >
 	<!-- 조회기간 include -->
 	<%@include file="../../inc/dateTerm.jsp" %>	
 		
 	<input type="submit" value="조회" >
 </form>
-
-<p>test중 확인용(미완) </p>
-<p>${dateSearchVO.startDay } ~ ${dateSearchVO.endDay }까지의 현황입니다.</p>
-<p>신규 개인 가입자 : ${totalNewUsers }</p>
-<p>신규 기업 가입자 : ${totalNewCorps }</p>
-<p>탈퇴 개인 : ${totalWithdrawUsers }</p>
-<p>탈퇴 기업 : ${totalWithdrawCorps }</p>
-
-<figure class="highcharts-figure">
-    <div id="containerUsers"></div>
-</figure>
+ --%>
+<p>test중 확인용(미완) / 
+${dateSearchVO.startDay } ~ ${dateSearchVO.endDay }까지의 현황입니다.</p>
+<p>신규 개인 가입자 : ${totalNewUsers }/
+신규 기업 가입자 : ${totalNewCorps }/
+탈퇴 개인 : ${totalWithdrawUsers }/
+탈퇴 기업 : ${totalWithdrawCorps }</p>
+<div class="col-xl-12 col-lg-12 col-md-8 col-sm-12 col-12">
+	<div class="card">
+		<h5 class="card-header">
+			<form name="frmDate" method="post">
+				<!-- 조회기간 include -->
+				<div class="center">
+					<%@include file="../../inc/dateTerm.jsp"%>
+	
+					<input type="submit" value="조회" class="mybtn">
+				</div>
+			</form>
+		</h5>
+		<figure class="highcharts-figure">
+			<div id="containerUsers"></div>
+		</figure>
+	</div>
+</div>
 
 <script type="text/javascript">
 
@@ -151,6 +171,7 @@ Highcharts.chart('containerUsers', {
         data: [${totalNewCorps }, ${totalWithdrawCorps }]
     }]
 });
+
 
 </script> 
 

@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<link rel="stylesheet" type="text/css" 
+	href="<c:url value='/resources/js/jquery-ui.min.css'/>">
+<script type="text/javascript" 
+	src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
 
 <script type="text/javascript">
 	$(function(){
+		alert("date Term alert test");
+
 		$('#startDay').datepicker({
 			dateFormat:'yy-mm-dd',
 			changeYear:true,
@@ -59,10 +66,9 @@
 	
 </script>
 
-    <span>조회기간</span>
-	<input type="button" value="1주일" id="btWeek">
-	<input type="button" value="1개월" id="btMonth1">
-	<input type="button" value="3개월" id="btMonth3">
+	<input type="button" value="1주일" id="btWeek" class="btnGray">
+	<input type="button" value="1개월" id="btMonth1" class="btnGray">
+	<input type="button" value="3개월" id="btMonth3" class="btnGray">
 		
 	<input type="text" name="startDay" id="startDay" 
 		value="${dateSearchVO.startDay }"> 
