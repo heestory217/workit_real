@@ -34,17 +34,17 @@
 				<div class="cart-table">
 					<table>
 					<colgroup>
-						<col width="18%">
-						<col width="14%">
-						<col width="18%">
-						<col width="18%">
-						<col width="18%">
-						<col width="14%">
+						<col width="10%">
+						<col width="35%">
+						<col width="13%">
+						<col width="13%">
+						<col width="15%">
+						<col width="13%">
 					</colgroup>
 						<thead>
                                 <tr>
-                                	<th>공고명/승인여부</th>
-                                	<th>공고링크</th>
+                                	<th>분류</th>
+                                	<th>공고명</th>
                                     <th>마감일</th>
                                     <th>광고상품/승인여부</th>
                                     <th>광고마감일</th>
@@ -62,29 +62,40 @@
                                 <c:if test="${!empty list }">
                                 	<c:forEach var="vo" items="${list }">
 										<tr>
-											<td class="cart-title padding-bottom0"><br>
-												<p class="center">
-												<c:if test="${fn:length(vo.recruitannounceTitle)>=10}">
-													${fn:substring(vo.recruitannounceTitle, 0,10) } ...
-												</c:if>
-												<c:if test="${fn:length(vo.recruitannounceTitle)<10}">						
-													${vo.recruitannounceTitle }
-												</c:if>
-												<br>
+											<td style="padding-top: 10px; padding-bottom: 10px;">
 												<c:if test="${vo.recruitannounceUpcheck==1 }">
-													[심사중]
+													<button type="button" class="btn btn-outline-warning btn-sm" style="cursor: Default;">
+														심사중
+													</button>
 												</c:if>
 												<c:if test="${vo.recruitannounceUpcheck==3 }">
-													[거절]
+													<button type="button" class="btn btn-outline-danger btn-sm" style="cursor: Default;">
+														반려
+													</button>
 												</c:if>
 												<c:if test="${vo.recruitannounceUpcheck==2 }">
-													[통과]
+													<button type="button" class="btn btn-outline-success btn-sm" style="cursor: Default;">
+														통과
+													</button>
 												</c:if>
-												</p>
+												<c:if test="${vo.recruitannounceUpcheck==4 }">
+													<button type="button" class="btn btn-outline-warning btn-sm" style="cursor: Default;">
+														심사중
+													</button>
+												</c:if>
 											</td>
-											<td class="cart-title padding-bottom0"><br>
+											<td class="cart-title padding-bottom0">
+												<p class="center">
+												<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${vo.recruitannounceNo}'/>" class="or-login">
+												<c:if test="${fn:length(vo.recruitannounceTitle)>=25}">
+													${fn:substring(vo.recruitannounceTitle, 0,25) } ...
+												</c:if>
+												<c:if test="${fn:length(vo.recruitannounceTitle)<25}">						
+													${vo.recruitannounceTitle }
+												</c:if>
+												</a>
 												
-												<p class="center"><a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${vo.recruitannounceNo}'/>" class="or-login">[자세히보기]</a></p>
+												</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">
