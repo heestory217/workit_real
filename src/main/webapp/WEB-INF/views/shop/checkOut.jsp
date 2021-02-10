@@ -247,6 +247,18 @@ IMP.init("imp52828174");
 		                                    	</li>
 			                               		<c:set var="subTotalPrice" value="${subTotalPrice+paidServVo.paidServicePrice}"/>
 	                                    	</c:if>
+	                                    	
+	                        			<!-- 후기 열람권 결제-->
+											<c:if test="${param.paidserviceNo>=2 and param.paidserviceNo<=5}">
+			                                    <li class="fw-normal" style="color: #4C50BB;">
+			                                    	[<p id="paidServiceName">${paidServVo.paidServiceName}</p>]  
+		                                    		<span style="margin-left: 5px;">원</span>
+			                                    	<span>
+			                                    		<fmt:formatNumber value="${paidServVo.paidServicePrice}" pattern="#,###"/>
+			                                    	</span>
+		                                    	</li>
+			                               		<c:set var="subTotalPrice" value="${subTotalPrice+paidServVo.paidServicePrice}"/>
+	                                    	</c:if>
 		                                
 	                                    <li class="fw-normal" style="margin-top:50px;">주문금액 
 	                                    	<span style="margin-left: 5px;">원</span>
@@ -284,9 +296,12 @@ IMP.init("imp52828174");
 	                         	<c:if test="${!empty param.couponName}">
 	                         		value="${param.couponName}"
 	                         	</c:if>
+	                         	<c:if test="${!empty couponName}">
+	                         		value="${couponName}"
+	                         	</c:if>
 	                         >
 	                       <!-- 쿠폰이름 그 전에 설정한거 있으면 자동세팅 -->
-                         	<c:if test="${!empty param.couponName}">
+                         	<c:if test="${!empty param.couponName or !empty couponName}">
 	                         	<script type="text/javascript">
 									$(function(){
 										$("#couponSubmit").trigger("click");

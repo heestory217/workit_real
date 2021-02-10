@@ -42,9 +42,11 @@
 										<dd class="price_by_month">3,900원</dd>
 									</dl>
 								</div>
-								<div class="card_bottom">
-									<span class="btn_membership_purple false">구매하기</span>
-								</div>
+								<a href="<c:url value='/shop/checkOut.do?paidserviceNo=2'/>">
+									<div class="card_bottom">
+										<span class="btn_membership_purple false">구매하기</span>
+									</div>
+								</a>
 							</div>
 						</button>
 					</div>
@@ -62,9 +64,11 @@
 										<dd class="price_by_month">10,900원</dd>
 									</dl>
 								</div>
-								<div class="card_bottom">
-									<span class="btn_membership_purple false">구매하기</span>
-								</div>
+								<a href="<c:url value='/shop/checkOut.do?paidserviceNo=3'/>">
+									<div class="card_bottom">
+										<span class="btn_membership_purple false">구매하기</span>
+									</div>
+								</a>
 							</div>
 						</button>
 	                </div>
@@ -94,9 +98,11 @@
 										<dd class="discount_price">총 15,900원</dd>
 									</dl>
 								</div>
-								<div class="card_bottom">
-									<span class="btn_membership_purple false">구매하기</span>
-								</div>
+								<a href="<c:url value='/shop/checkOut.do?paidserviceNo=4'/>">
+									<div class="card_bottom">
+										<span class="btn_membership_purple false">구매하기</span>
+									</div>
+								</a>
 							</div>
 						</button>
 					</div>
@@ -131,9 +137,11 @@
 										<dd class="discount_price">총 21,000원</dd>
 									</dl>
 								</div>
-								<div class="card_bottom">
-									<span class="btn_membership_purple false">구매하기</span>
-								</div>
+								<a href="<c:url value='/shop/checkOut.do?paidserviceNo=5'/>">
+									<div class="card_bottom">
+										<span class="btn_membership_purple false">구매하기</span>
+									</div>
+								</a>
 							</div>
 						</button>
 					</div>
@@ -150,6 +158,7 @@
 	<div class="container containDiv">
 		[이용 안내]<br>
 		* 표시된 금액은 부가가치세(VAT) 포함 금액입니다.<br>
+		* 결제 시 표기된 서비스 금액의 총 결제금액으로 결제됩니다. (예 : 90일 열람권 15,900원 결제)<br>
 		* 구매 기간동안 무제한으로 콘텐츠 열람이 가능합니다.<br>
 		* 이용 기간 중 PC, 모바일웹에서 이용 가능합니다. (단, 일부서비스는 PC에서만 가능)<br>
 		* 구매 내역 및 정기권은 "My Account/마이페이지-유료 결제 내역"에서 확인할 수 있습니다.<br>

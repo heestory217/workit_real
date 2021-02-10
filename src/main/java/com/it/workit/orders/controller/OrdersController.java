@@ -60,6 +60,9 @@ public class OrdersController {
 		ReviewVO reviewVo = null;
 		RecruitannounceVO recruitVo= null;
 		
+		//3. 후기열람권일 때, couponName과 paidserviceNo 받아옴
+		String couponName = "";
+		
 		if(corpreviewNo!=0) {
 			logger.info("기업후기 삭제, corpreviewNo={}", corpreviewNo);
 			paidServVo = paidService.selectPaidServByServiceNo(6);
@@ -68,6 +71,14 @@ public class OrdersController {
 			logger.info("광고결제, paidserviceNo={}", paidserviceNo);
 			paidServVo = paidService.selectPaidServByServiceNo(paidserviceNo);
 			recruitVo= recruitService.recruitannounceselectByNo(recruitannounceNo);
+		}else if(paidserviceNo>=2 && paidserviceNo<=5) {
+			logger.info("후기 열람권 결제, paidserviceNo={}", paidserviceNo);
+			paidServVo = paidService.selectPaidServByServiceNo(paidserviceNo);
+			if(paidserviceNo==4) {
+				couponName = "S5190";
+			}else if(paidserviceNo==5) {
+				couponName = "S68365";
+			}
 		}else{
 			//이력서일때 => 1번
 			paidServVo = paidService.selectPaidServByServiceNo(1);
@@ -95,6 +106,8 @@ public class OrdersController {
 		model.addAttribute("userName", userName);
 		model.addAttribute("userHp", userHp);
 		model.addAttribute("userEmail", userEmail);
+
+		model.addAttribute("couponName", couponName);
 	}
 	
 	@ResponseBody
