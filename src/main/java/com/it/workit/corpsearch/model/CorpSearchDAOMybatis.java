@@ -24,5 +24,10 @@ public class CorpSearchDAOMybatis implements CorpSearchDAO {
 	public int selectTotalRecord(SearchVO searchVo) {
 		return sqlSession.selectOne(namespace+"selectTotalRecord", searchVo);
 	}
+
+	@Override
+	public ResumesAllVO searchDefault(int resumeNO) {
+		return sqlSession.selectOne(namespace+"searchResumeOne", resumeNO);
+	}
 	
 }
