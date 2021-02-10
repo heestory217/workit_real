@@ -124,7 +124,11 @@ $(function() {
 			<div class="row">
 				<div class="col-lg-6">
 					<span class="error"></span>
-					<input type="text" name="userId" id="userId" placeholder="받는 회원 아이디를 입력하세요" >
+					<input type="text" name="userId" id="userId" placeholder="받는 회원 아이디를 입력하세요" 
+						<c:if test="${!empty param.userId}">
+							value="${param.userId}"
+						</c:if>
+					>
 					<input type="hidden" name="userNo" value="${sessionScope.userNo}">
 				</div>
 				<div class="col-lg-6">
