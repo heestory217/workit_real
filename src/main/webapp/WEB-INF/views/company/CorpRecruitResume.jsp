@@ -110,7 +110,13 @@
 		});
 	});
 	
-	
+	function career(year){
+		if(year==0){
+			return "신입";
+		}else{
+			return year+"년";
+		}
+	}
 	
 	function send2(no){
 		var data = 'recruitannounceNo='+no;
@@ -142,7 +148,7 @@
 	                  str+="<ul><li class='quick-view' style='background: #4750d6;' ><a style='color: white;' href='/workit/resumes/resumeDetail.do?resumeNo="+this.appReUsView.resumeNo+"&type=Applied&applicantlistNo="+this.appReUsView.applicantlistNo+"'>+ View</a></li></ul>"
                       str+="</div>";
                       str+="<div class='pi-text'>";
-                      str+="<div class='catagory-name'>"+this.appReUsView.userExperience+"년</div>";
+                      str+="<div class='catagory-name'>"+career(this.appReUsView.userExperience)+"</div>";
                       str+="<a href='/workit/resumes/resumeDetail.do?resumeNo="+this.appReUsView.resumeNo+"&type=Applied&applicantlistNo="+this.appReUsView.applicantlistNo+"'><h5>"+this.appReUsView.resumeTitle+"</h5></a><div class='product-price'>";
                       $(this.languageList).each(function(){
                          str+=this.languageName+"&nbsp;&nbsp;&nbsp;";
