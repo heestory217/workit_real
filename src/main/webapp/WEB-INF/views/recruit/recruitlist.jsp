@@ -23,7 +23,6 @@
 		</div>
 	</div>
 	<!-- Breadcrumb Section Begin -->
-<br><br><br><br>
 <div class="filter-widget">
 	<h4 class="fw-title center">채용 공고 목록</h4>
 </div>

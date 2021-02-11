@@ -396,6 +396,7 @@ public class ResumesController {
 		
 		logger.info("ResumesAllVO={}",vo);
 		model.addAttribute("resumeVo", vo);
+		model.addAttribute("userNo", userNo);
 	}
 
 }//컨트롤러

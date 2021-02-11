@@ -67,6 +67,11 @@ a#corpinfo {
 		});
 
 	});
+	
+	function insertBookmark(reNo){
+		alert("북마크 저장 "+reNo);
+	};
+	
 </script>
     <!-- Blog Details Section Begin -->
     <section class="blog-details spad">
@@ -80,7 +85,7 @@ a#corpinfo {
                         	<img src="<c:url value='/pd_images/${CorpVO.corpImgurl }'/>" style="width: 50px;margin-bottom: 20px;margin-left: 65px;">
                         	<!-- 기업 로고 이미지 -->
                         	<div class="icons">
-	                        	<i class="fa fa-bookmark-o" aria-hidden="true" style="margin-right: 20px;"></i>
+	                        	<i class="fa fa-bookmark-o" aria-hidden="true" style="margin-right: 20px;" onclick="insertBookmark('${RecruitannounceVO.recruitannounceNo}')"></i>
 	                        	<i class="fa fa-share-alt" aria-hidden="true"></i>
                         	</div>
                             <h2>
@@ -220,6 +225,7 @@ a#corpinfo {
                                        <div class="col-lg-12">
                                        		<c:if test="${sessionScope.user_corpcheck==1}">
                                        		<!-- 지원하기 페이지 임포트 -->
+                                       			<c:import url="/resumes/resumeApply.do"/>
                                        		</c:if>
                                        		<c:if test="${sessionScope.user_corpcheck==2}">
                                        		 	<div class="emptyImg" style="border: 1px solid #bbb; margin: 60px 0px; border-style: dashed; border-radius: 20px; text-align: center;">

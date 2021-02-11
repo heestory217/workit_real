@@ -130,7 +130,7 @@ $(function(){
  -->
 
 <body>
-	<section class="checkout-section spad" id="warp2">
+	<section class="checkout-section spad" id="warp2" style="padding-left: 14%;padding-right: 13%;">
 		<div class="container">
 			<form action="#" class="checkout-form">
 				<div class="row">
