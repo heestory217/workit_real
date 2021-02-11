@@ -8,6 +8,7 @@ import com.it.workit.resumes.model.ResumesAllVO;
 public interface CorpSearchService {
 
 	List<ResumesAllVO> searchDefault(CorpReSearchAllVO searchVo);
+	ResumesAllVO searchDefault(int resumeNO);
 
 	int selectTotalRecord(SearchVO searchVo);
 
