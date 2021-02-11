@@ -59,6 +59,12 @@ public class OrdersDAOMybatis implements OrdersDAO{
 		return sqlSession.insert(namespace+"insertOrderDetailAD", vo);
 	}
 
+	//후기 열람권 주문상세 INSERT
+	@Override
+	public int insertOrderDetailSeeRV(OrderDetailSeeVO vo) {
+		return sqlSession.insert(namespace+"insertOrderDetailSeeRV", vo);
+	}
+
 	//주문완료페이지 - 이력서
 	@Override
 	public List<Map<String, Object>> selectOrderdetailsResumeView(int orderNo) {
@@ -75,6 +81,12 @@ public class OrdersDAOMybatis implements OrdersDAO{
 	@Override
 	public Map<String, Object> selectOrderdetailsADView(int orderNo) {
 		return sqlSession.selectOne(namespace+"selectOrderdetailsADView", orderNo);
+	}
+	
+	//주문완료페이지 - 후기열람권
+	@Override
+	public Map<String, Object> selectOrderdetailsSeeView(int orderNo) {
+		return sqlSession.selectOne(namespace+"selectOrderdetailsSeeView", orderNo);
 	}
 
 	@Override

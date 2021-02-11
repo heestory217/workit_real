@@ -1,5 +1,7 @@
 package com.it.workit.orders.controller;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ import com.it.workit.coupon.model.CouponService;
 import com.it.workit.coupon.model.CouponVO;
 import com.it.workit.orders.model.OrderDetailAdVO;
 import com.it.workit.orders.model.OrderDetailDelRvVO;
+import com.it.workit.orders.model.OrderDetailSeeVO;
 import com.it.workit.orders.model.OrdersService;
 import com.it.workit.orders.model.OrdersVO;
 import com.it.workit.paidService.model.PaidServiceService;
@@ -27,7 +30,6 @@ import com.it.workit.recruit.model.RecruitannounceService;
 import com.it.workit.recruit.model.RecruitannounceVO;
 import com.it.workit.resumes.model.ResumesAllVO;
 import com.it.workit.resumes.model.ResumesService;
-import com.it.workit.resumes.model.ResumesVO;
 import com.it.workit.review.model.ReviewService;
 import com.it.workit.review.model.ReviewVO;
 import com.it.workit.shoppingCart.model.CartViewVO;
@@ -50,12 +52,18 @@ public class OrdersController {
 	@Autowired private RecruitannounceService recruitService; 
 	
 	@RequestMapping("/checkOut.do")
-	public void checkOut(HttpSession session, 
+	public String checkOut(HttpSession session, 
 		@RequestParam (defaultValue = "0") int resumeNo,
 		@RequestParam (defaultValue = "0") int corpreviewNo,
 		@RequestParam (defaultValue = "0") int paidserviceNo,
 		@RequestParam (defaultValue = "0") int recruitannounceNo, Model model) {
 		
+		if(session.getAttribute("userNo")==null) {
+			model.addAttribute("msg", "로그인 후 이용가능합니다.");
+			model.addAttribute("url", "/users/login.do");
+			return "common/message";
+		}
+
 		int userNo = (Integer) session.getAttribute("userNo");
 
 		//1-1. 이력서 일 때 장바구니
@@ -96,7 +104,7 @@ public class OrdersController {
 			if(paidserviceNo==4) {
 				couponName = "S5190";
 			}else if(paidserviceNo==5) {
-				couponName = "S68365";
+				couponName = "S36365";
 			}
 		}else{
 			//장바구니에 담긴 이력서일때 => 1번
@@ -128,6 +136,8 @@ public class OrdersController {
 		model.addAttribute("userEmail", userEmail);
 
 		model.addAttribute("couponName", couponName);
+		
+		return "shop/checkOut";
 	}
 	
 	@ResponseBody
@@ -159,6 +169,31 @@ public class OrdersController {
 			adVo.setPaidServiceNo(paidServiceNo);
 		}
 		
+		//후기 열람권
+		OrderDetailSeeVO seeVo = new OrderDetailSeeVO();
+		if(paidServiceNo>=2 && paidServiceNo<=5) {
+			
+			Calendar today = Calendar.getInstance(); 
+			if(paidServiceNo==2) {
+				today.add(Calendar.DATE, 7);
+			}else if(paidServiceNo==3) {
+				today.add(Calendar.DATE, 30);
+			}else if(paidServiceNo==4) {
+				today.add(Calendar.DATE, 90);
+			}else if(paidServiceNo==5) {
+				today.add(Calendar.YEAR, 1);
+			} 
+			
+			logger.info("today={}", today);
+			java.sql.Date endDate = new java.sql.Date(today.getTime().getTime()); 
+			
+			Timestamp paidserviceEnddate = new Timestamp(endDate.getTime());  
+			logger.info("paidserviceEnddate={}", paidserviceEnddate);
+			
+			seeVo.setPaidServiceNo(paidServiceNo);
+			seeVo.setPaidserviceEnddate(paidserviceEnddate);
+		}
+		
 		//[1] 주문 테이블 insert
 		int cnt=0;
 		//[1-1] 쿠폰 여부 조회하기
@@ -173,6 +208,8 @@ public class OrdersController {
 				cnt = ordersService.insertOrderWithCoupon(vo, rvVo);
 			}else if(recruitannounceNo!=0){	//광고
 				cnt = ordersService.insertOrderWithCoupon(vo, adVo);
+			}else if(paidServiceNo>=2 && paidServiceNo<=5) {	//후기열람권 구매
+				cnt = ordersService.insertOrderWithCoupon(vo, seeVo);
 			}else {	//이력서 구매
 				cnt = ordersService.insertOrderWithCoupon(vo);
 			}
@@ -182,7 +219,9 @@ public class OrdersController {
 				cnt = ordersService.insertOrder(vo, rvVo);
 			}else if(recruitannounceNo!=0){	//광고
 				cnt = ordersService.insertOrder(vo, adVo);
-			}else {	//이력서 구매
+			}else if(paidServiceNo>=2 && paidServiceNo<=5) {	
+				cnt = ordersService.insertOrder(vo, seeVo);	//후기열람권 구매
+			} else {	//이력서 구매
 				cnt = ordersService.insertOrder(vo);
 			}
 		}
@@ -213,12 +252,17 @@ public class OrdersController {
 		Map<String, Object> AdMap = ordersService.selectOrderdetailsADView(orderNo);
 		logger.info("주문 내역 AdMap={}", AdMap);
 		
+		//후기 열람권 
+		Map<String, Object> SeeMap = ordersService.selectOrderdetailsSeeView(orderNo);
+		logger.info("주문 내역 SeeMap={}", SeeMap);
+		
 		OrdersVO ordersVo = ordersService.selectOrdersByOrderNo(orderNo);
 		logger.info("주문 ordersVo={}", ordersVo);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("ReviewMap", ReviewMap);
 		model.addAttribute("AdMap", AdMap);
+		model.addAttribute("SeeMap", SeeMap);
 		model.addAttribute("ordersVo", ordersVo);
 		
 		return "shop/paymentComplete";

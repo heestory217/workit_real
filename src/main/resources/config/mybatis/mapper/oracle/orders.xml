@@ -42,6 +42,12 @@
 		insert into ORDERDETAILAD(ORDER_NO, PAIDSERVICE_NO, RECRUITANNOUNCE_NO)
 		values(#{orderNo},#{paidServiceNo}, #{recruitannounceNo})
 	</insert>
+	
+	<!-- 주문상세[4] 후기 열람권-->
+	<insert id="insertOrderDetailSeeRV" parameterType="orderDetailSeeVO">
+		insert into ORDERDETAILSEERV(ORDER_NO, PAIDSERVICE_NO, PAIDSERVICE_ENDDATE)
+		values(#{orderNo},#{paidServiceNo}, #{paidserviceEnddate})
+	</insert>
 
 	<!-- 주문완료 후 상세내역 출력 [1] 이력서-->
 	<select id="selectOrderdetailsResumeView" parameterType="int" resultType="map">
@@ -58,6 +64,12 @@
 	<!-- 주문완료 후 상세내역 출력 [3] 광고-->
 	<select id="selectOrderdetailsADView" parameterType="int" resultType="map">
 		select * from OrderdetailsADView
+		where order_no=#{orderNo}
+	</select>
+	
+	<!-- 주문완료 후 상세내역 출력 [4] 후기 열람권-->
+	<select id="selectOrderdetailsSeeView" parameterType="int" resultType="map">
+		select * from OrderdetailsSeeRVView
 		where order_no=#{orderNo}
 	</select>
 

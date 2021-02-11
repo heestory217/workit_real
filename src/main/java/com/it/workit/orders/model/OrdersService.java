@@ -13,7 +13,7 @@ public interface OrdersService {
 	public List<OrdersVO> selectIndivPaymentByUserno(IndivpagingVO vo);
 	public int ordersGetTotalRecord(IndivpagingVO vo);
 
-	//주문
+	//주문 - 이력서
 	int insertOrderWithCoupon(OrdersVO vo);
 	int insertOrder(OrdersVO vo);
 
@@ -24,11 +24,16 @@ public interface OrdersService {
 	//주문  - 채용공고 광고
 	int insertOrderWithCoupon(OrdersVO vo, OrderDetailAdVO adVo);
 	int insertOrder(OrdersVO vo, OrderDetailAdVO adVo);
+	
+	//주문  - 후기 열람권
+	int insertOrderWithCoupon(OrdersVO vo, OrderDetailSeeVO seeVo);
+	int insertOrder(OrdersVO vo, OrderDetailSeeVO seeVo);
 
 	//주문완료페이지
 	List<Map<String, Object>> selectOrderdetailsResumeView(int orderNo);
 	Map<String, Object> selectOrderdetailsDelRVView(int orderNo);
 	Map<String, Object> selectOrderdetailsADView(int orderNo);
+	Map<String, Object> selectOrderdetailsSeeView(int orderNo);
 
 	OrdersVO selectOrdersByOrderNo(int orderNo);
 

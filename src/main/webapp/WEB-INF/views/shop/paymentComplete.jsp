@@ -46,7 +46,7 @@
 			                <div class="cart-table">
 			                    <table>
 			                   		<colgroup>
-			                   			<c:if test="${!empty list and empty ReviewMap and empty AdMap}">
+			                   			<c:if test="${!empty list and empty ReviewMap and empty AdMap and empty SeeMap}">
 											<col style="width:10%;" />
 											<col style="width:30%;" />
 											<col style="width:15%;" />
@@ -58,6 +58,12 @@
 											<col style="width:20%;" />
 											<col style="width:60%;" />
 											<col style="width:20%;" />
+			                   			</c:if>
+			                   			<c:if test="${!empty SeeMap}">
+											<col style="width:25%;" />
+											<col style="width:25%;" />
+											<col style="width:25%;" />
+											<col style="width:25%;" />
 			                   			</c:if>
 									</colgroup>
 			                        <thead>
@@ -79,6 +85,12 @@
 				                                <th scope="col">채용공고 제목</th>
 				                                <th scope="col">가격</th>
 				                   			</c:if>
+				                   			<c:if test="${!empty SeeMap}">
+				                                <th scope="col">서비스명</th>
+				                                <th scope="col">서비스 시작일</th>
+				                                <th scope="col">서비스 종료일</th>
+				                                <th scope="col">가격</th>
+				                   			</c:if>
 			                            </tr>
 			                        </thead>
 			                        <tbody>
@@ -87,13 +99,13 @@
 										<c:set var="discount" value="0" />
 										<c:set var="totalPrice" value="0" />
 										
-				                        <c:if test="${empty list and empty ReviewMap and empty AdMap}">
+				                        <c:if test="${empty list and empty ReviewMap and empty AdMap and empty SeeMap}">
 											<tr>
 												<td colspan="6" style="padding: 14px 0;">장바구니 내역이 없습니다.</td>
 											</tr>
 										</c:if>
 										
-										<c:if test="${!empty list and empty ReviewMap and empty AdMap}">
+										<c:if test="${!empty list and empty ReviewMap and empty AdMap and empty SeeMap}">
 			                        		<c:forEach var="map" items="${list}">
 					                            <tr>
 					                                <td class="p-price" style="padding: 14px 0;">${map['USER_NAME']}</td>
@@ -133,6 +145,22 @@
 			                                	<td class="p-price" style="padding: 14px 0;">
 				                                	<fmt:formatNumber value="${AdMap['PAIDSERVICE_PRICE']}" pattern="#,###"/>원
 				                                	<c:set var="subTotalPrice" value="${subTotalPrice + AdMap['PAIDSERVICE_PRICE']}"/>
+                                				</td>
+				                            </tr>
+			                            </c:if>
+			                            
+										<c:if test="${!empty SeeMap}">
+				                            <tr>
+				                                <td class="p-price" style="padding: 14px 0;">${SeeMap['PAIDSERVICE_NAME']}</td>
+				                                <td style="padding: 14px 0;font-weight: unset;color:black;">
+				                                	<fmt:formatDate value="${SeeMap['PAIDSERVICE_STARTDATE']}" type="both"/>
+				                                </td>
+				                                <td style="padding: 14px 0;font-weight: unset;color:black;">
+				                                	<fmt:formatDate value="${SeeMap['PAIDSERVICE_ENDDATE']}" type="both"/>
+			                                	</td>
+			                                	<td class="p-price" style="padding: 14px 0;">
+				                                	<fmt:formatNumber value="${SeeMap['PAIDSERVICE_PRICE']}" pattern="#,###"/>원
+				                                	<c:set var="subTotalPrice" value="${subTotalPrice + SeeMap['PAIDSERVICE_PRICE']}"/>
                                 				</td>
 				                            </tr>
 			                            </c:if>
