@@ -22,13 +22,13 @@ public class NoticeDAOMybatis implements NoticeDAO{
 	
 	//공지사항 전체 조회
 	@Override
-	public List<Map<String, Object>> selectNoticeAll(SearchVO vo) {
+	public List<Map<String, Object>> selectNoticeAll(NoticeSearchVO vo) {
 		return sqlSession.selectList(namespace+"selectNoticeAll", vo);
 	}
 	
 	//공지사항 전체 레코드 수
 	@Override
-	public int getTotalRecord(SearchVO vo) {
+	public int getTotalRecord(NoticeSearchVO vo) {
 		return sqlSession.selectOne(namespace+"getTotalRecord", vo);
 	}
 	
@@ -42,6 +42,18 @@ public class NoticeDAOMybatis implements NoticeDAO{
 	@Override
 	public int insertNotice(NoticeVO vo) {
 		return sqlSession.insert(namespace+"insertNotice", vo);
+	}
+	
+	//공지사항 조회
+	@Override
+	public Map<String, Object> selectNoticeByNo(int noticeNo) {
+		return sqlSession.selectOne(namespace+"selectNoticeByNo",noticeNo);
+	}
+	
+	//공지사항 수정
+	@Override
+	public int updateNotice(NoticeVO vo) {
+		return sqlSession.update(namespace+"updateNotice", vo);
 	}
 	
 	

@@ -22,13 +22,13 @@ public class NoticeServiceImpl implements NoticeService{
 
 	//공지사항 전체 조회
 	@Override
-	public List<Map<String, Object>> selectNoticeAll(SearchVO vo) {
+	public List<Map<String, Object>> selectNoticeAll(NoticeSearchVO vo) {
 		return noticeDao.selectNoticeAll(vo);
 	}
 	
 	//공지사항 전체 레코드 수
 	@Override
-	public int getTotalRecord(SearchVO vo) {
+	public int getTotalRecord(NoticeSearchVO vo) {
 		return noticeDao.getTotalRecord(vo);
 	}
 	
@@ -63,6 +63,18 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public int insertNotice(NoticeVO vo) {
 		return noticeDao.insertNotice(vo);
+	}
+
+	//공지사항 조회
+	@Override
+	public Map<String, Object> selectNoticeByNo(int noticeNo) {
+		return noticeDao.selectNoticeByNo(noticeNo);
+	}
+	
+	//공지사항 수정
+	@Override
+	public int updateNotice(NoticeVO vo) {
+		return noticeDao.updateNotice(vo);
 	}
 	
 	

@@ -117,7 +117,7 @@
                                             <a class="nav-link" href="pages/data-tables.html">Q&A 조회</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/data-tables.html">공지사항 조회</a>
+                                            <a class="nav-link" href="<c:url value='/admin/notice/noticeList.do?type=0'/>">공지사항 조회</a>
                                         </li>
                                     </ul>
                                 </div>

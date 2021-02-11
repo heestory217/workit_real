@@ -9,7 +9,7 @@ public class NoticeVO {
     private Timestamp noticeDate;         
     private int noticeView;
     private String noticeFilename;
-    private String noticeFilesize;
+    private long noticeFilesize;
     private String noticeOriginalname;
     private int classificationNo;
     private int managerNo;
@@ -58,11 +58,11 @@ public class NoticeVO {
 	public void setNoticeFilename(String noticeFilename) {
 		this.noticeFilename = noticeFilename;
 	}
-	public String getNoticeFilesize() {
+	public long getNoticeFilesize() {
 		return noticeFilesize;
 	}
-	public void setNoticeFilesize(String noticeFilesize) {
-		this.noticeFilesize = noticeFilesize;
+	public void setNoticeFilesize(long fileSize) {
+		this.noticeFilesize = fileSize;
 	}
 	public String getNoticeOriginalname() {
 		return noticeOriginalname;
