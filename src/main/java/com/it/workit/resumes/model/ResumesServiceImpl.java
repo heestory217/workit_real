@@ -13,6 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class ResumesServiceImpl implements ResumesService{
 	@Autowired private ResumesDAO resumesDao;
 
+	//이력서 단일 레코드 확인 
+	@Override
+	public ResumesAllVO searchResumeByNo(int resumeNo) {
+		return resumesDao.searchResumeByNo(resumeNo);
+	}
+	
 	@Override
 	public List<ResumesAllVO> searchResumeByNo(List<Integer> matchList) {
 		List<ResumesAllVO> resumeList = new ArrayList<ResumesAllVO>();
@@ -203,7 +209,6 @@ public class ResumesServiceImpl implements ResumesService{
 		
 		return cnt;
 	}
-
 
 	
 }

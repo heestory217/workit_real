@@ -25,6 +25,9 @@ import com.it.workit.paidService.model.PaidServiceService;
 import com.it.workit.paidService.model.PaidServiceVO;
 import com.it.workit.recruit.model.RecruitannounceService;
 import com.it.workit.recruit.model.RecruitannounceVO;
+import com.it.workit.resumes.model.ResumesAllVO;
+import com.it.workit.resumes.model.ResumesService;
+import com.it.workit.resumes.model.ResumesVO;
 import com.it.workit.review.model.ReviewService;
 import com.it.workit.review.model.ReviewVO;
 import com.it.workit.shoppingCart.model.CartViewVO;
@@ -42,18 +45,28 @@ public class OrdersController {
 	@Autowired private CouponService couponService;
 	@Autowired private OrdersService ordersService;
 	@Autowired private PaidServiceService paidService; 
+	@Autowired private ResumesService resumeService; 
 	@Autowired private ReviewService reviewService; 
 	@Autowired private RecruitannounceService recruitService; 
 	
 	@RequestMapping("/checkOut.do")
-	public void checkOut(HttpSession session, @RequestParam (defaultValue = "0") int corpreviewNo,
+	public void checkOut(HttpSession session, 
+		@RequestParam (defaultValue = "0") int resumeNo,
+		@RequestParam (defaultValue = "0") int corpreviewNo,
 		@RequestParam (defaultValue = "0") int paidserviceNo,
 		@RequestParam (defaultValue = "0") int recruitannounceNo, Model model) {
 		
-		//1. 이력서 일 때 장바구니
 		int userNo = (Integer) session.getAttribute("userNo");
-		logger.info("장바구니 내역 보여주기 userNo={}", userNo);
-		List<CartViewVO> cartList = cartService.selectCartList(userNo);
+
+		//1-1. 이력서 일 때 장바구니
+		List<CartViewVO> cartList = null;
+		if(resumeNo==0) {
+			logger.info("장바구니 내역 보여주기 userNo={}", userNo);
+			cartList = cartService.selectCartList(userNo);
+		}
+		//1-2. 이력서 단품일 때
+		String resumeTitle="";
+		ResumesAllVO resumeVo = null;
 		
 		//2.기업후기 삭제일때 => 6번
 		PaidServiceVO paidServVo = null;
@@ -63,7 +76,13 @@ public class OrdersController {
 		//3. 후기열람권일 때, couponName과 paidserviceNo 받아옴
 		String couponName = "";
 		
-		if(corpreviewNo!=0) {
+		if(resumeNo!=0) {
+			//이력서 단품 구매
+			resumeVo = resumeService.searchResumeByNo(resumeNo);
+			resumeTitle = resumeVo.getResumesVo().getResumeTitle();
+			logger.info("resumeNo={} resumeTitle={}", resumeNo, resumeTitle);
+			paidServVo = paidService.selectPaidServByServiceNo(1);
+		}else if(corpreviewNo!=0) {
 			logger.info("기업후기 삭제, corpreviewNo={}", corpreviewNo);
 			paidServVo = paidService.selectPaidServByServiceNo(6);
 			reviewVo = reviewService.selectByReviewNo(corpreviewNo);
@@ -80,10 +99,10 @@ public class OrdersController {
 				couponName = "S68365";
 			}
 		}else{
-			//이력서일때 => 1번
+			//장바구니에 담긴 이력서일때 => 1번
 			paidServVo = paidService.selectPaidServByServiceNo(1);
 		}
-
+		
 		//결제처리를 위한 기업회원 정보 전달
 		UsersVO usersVo = usersService.selectByUserNo(userNo);
 		//이름
@@ -98,8 +117,9 @@ public class OrdersController {
 		String email2 = usersVo.getUserEmail2();
 		String userEmail = email1+"@"+email2;
 
-		model.addAttribute("cartList", cartList);
 		model.addAttribute("paidServVo", paidServVo);
+		model.addAttribute("resumeTitle", resumeTitle);
+		model.addAttribute("cartList", cartList);
 		model.addAttribute("reviewVo", reviewVo);
 		model.addAttribute("recruitVo", recruitVo);
 
