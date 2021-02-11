@@ -138,7 +138,13 @@ input#carrerWork {
 #foreignlanguageskillLang {
     width: 300px;
 }
-#awardAbout, #licencseIssuerLace,
+#awardAbout{
+    width: 580px;
+}
+#awardDate{
+    margin: 0 20px;
+}
+#licencseIssuerLace,
 #foreignlanguageskillExpert{
     width: 580px;
     margin: 0 20px;
@@ -154,6 +160,9 @@ button.btnRemove {
     background: #fff;
     border: none;
     color: #4C50BB;
+}
+p#info {
+    margin: 25px 0 0 10px;
 }
 </style>
 <div class="container">
@@ -181,6 +190,8 @@ button.btnRemove {
 						<p>${userVo.userName}</p>
 						<p>${userVo.userEmail1}@${userVo.userEmail2 }</p>
 						<p>${userVo.userHp1}-${userVo.userHp2}-${userVo.userHp3 }</p>
+						<p id='info'><i class="fa fa-lightbulb-o" aria-hidden="true">
+                        	</i>&nbsp;가입시 기입한 기본정보가 등록됩니다</p>
                     </div>
                     <div class="col-lg-12 colWarp">
                     	<div class="labelWarp">

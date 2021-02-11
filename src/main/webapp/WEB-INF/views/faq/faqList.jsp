@@ -55,7 +55,7 @@ span#listEmpth {
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-6 offset-lg-3">
-								<div class="register-form">
+								<div class="register-form section-title">
 									<h2>FAQ 목록</h2>
 								</div>
 							</div>

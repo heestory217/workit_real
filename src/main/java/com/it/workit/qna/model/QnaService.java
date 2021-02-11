@@ -16,4 +16,6 @@ public interface QnaService {
 	public int qaUpdate(QnaUsersVO qauVo);
 	
 	public String chkPassword(int qaNo);
+	
+	public int qaReply(QnaUsersVO qauVo);
 }

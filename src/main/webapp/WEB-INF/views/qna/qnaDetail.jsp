@@ -109,6 +109,7 @@ $(function(){
 			<form class="checkout-form" name="frm1" method="post">
 					<input type="hidden" id="qaNo" name="qaNo" value="${qaVo.qaNo}">
 					<input type="hidden" name="qaWriter" value="${sessionScope.userId }">
+					
 					<div class="place-order">
 						<div class="order-total">
 							<ul class="order-table">
@@ -128,13 +129,16 @@ $(function(){
 								name="userPassword" placeholder="회원비밀번호를 입력하세요">
 						</div>
 						<div class="order-btn faqBtWarp">
+						<c:if test="${!empty sessionScope.userId }">
 							<button type="button" class="site-btn place-btn qaBt">수정</button>
 <!-- 							<button type="button" class="site-btn place-btn qaBt" -->
 <%-- 					onclick="<c:url value='/qna/qnaUpdate.do?qaNo=${qaVo.qaNo}&userPassword=${qaVo.userPassword }'/>">수정</button> --%>
 							<button type="submit" class="site-btn place-btn qaDelBt">삭제</button>
-							
+						</c:if>
+						<c:if test="${empty sessionScope.userId }">
 							<!-- 매니저 답변 달기 버튼 -->
 							<button type="button" class="site-btn place-btn qaRpyBt">답변</button>
+						</c:if>
 						</div>
 					</div>
 					

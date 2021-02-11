@@ -33,10 +33,6 @@ public interface ResumesDAO {
 	public int updateCarrer(CarrerVO carrerVo);
 	public int updateFskill(ForeignlanguageskillVO fskillVo);
 	public int updateLicen(LicencseVO licenVo);
-//	public int updateAwd(List<AwardVO> aList);
-//	public int updateCarrer(List<CarrerVO> cList);
-//	public int updateLicen(List<LicencseVO> lList);
-//	public int updateFskill(List<ForeignlanguageskillVO> fList);
 	
 	//선택 삭제
 	public int selDelAwd(int awardNo);
@@ -44,4 +40,14 @@ public interface ResumesDAO {
 	public int selDelLicen(int licencseNo);
 	public int selDelFskill(int foreignlanguageskillNo);
 
+	//언어 인서트
+	public int insertUserlang(CorpuselanguageVO userlangVo);
+	
+	//지역번호 구하기
+	public int selectAreaNo(AreaVO areaVo);
+	
+	//지역 인서트
+	public int insertUserArea(UserwantedworkareaVO userAreaVo);
+	
+	
 }

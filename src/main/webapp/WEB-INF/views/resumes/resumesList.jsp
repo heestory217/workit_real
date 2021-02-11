@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
 <link rel="stylesheet" href="<c:url value="/resources/css/modal.css"/>" type="text/css">
-<%@ include file="rsopenModal.jsp" %>
 <style type="text/css">
 button.newresumeBt,
 .uploderesumeBt {
@@ -121,7 +120,8 @@ $(function(){
 											<div class="preview">
 												<h3 class="resumeName">
 													<a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${resumeVo.resumeNo}'/>"> 
-													${resumeVo.resumeTitle} </a>
+													 ${resumeVo.resumeTitle}
+													</a>
 												</h3>
 												<p class="resumeDate">
 													<i class="fa fa-calendar" aria-hidden="true"></i>
@@ -129,13 +129,13 @@ $(function(){
 												</p>
 												<p class="openOnOff">
 													<c:if test="${resumeVo.resumeResumeopencheck eq '1'}">
-													임시저장
+														임시저장
 													</c:if>
 													<c:if test="${resumeVo.resumeResumeopencheck eq '2'}">
-													이력서 열람
+														포시션 제안 받기
 													</c:if>
 													<c:if test="${resumeVo.resumeResumeopencheck eq '3'}">
-													반려
+														승인 대기
 													</c:if>
 												</p>
 											</div>
@@ -148,6 +148,7 @@ $(function(){
 												<li class="w-icon active">
 												<a data-toggle='modal' href="#rsOpen" title="공개여부">
 													<i class="fa fa-external-link" aria-hidden="true"></i>
+													<%@ include file="rsopenModal.jsp" %>
 												</a></li>
 												<li class="w-icon active"><a href="#" title="다운로드">
 													<i class="fa fa-arrow-down" aria-hidden="true"></i>
@@ -160,9 +161,9 @@ $(function(){
 						</c:if>
 					</div>
 				</div>
-				<div class="loading-more">
-					<i class="icon_loading"></i> <a href="#"> Loading More </a>
-				</div>
+<!-- 				<div class="loading-more"> -->
+<!-- 					<i class="icon_loading"></i> <a href="#"> Loading More </a> -->
+<!-- 				</div> -->
 			</div>
 		</div>
 	</div>

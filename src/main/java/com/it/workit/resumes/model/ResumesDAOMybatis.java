@@ -106,23 +106,6 @@ public class ResumesDAOMybatis implements ResumesDAO{
 		return sqlSession.update(namespace+"updateLicen",licenVo);
 	}
 	
-//	@Override
-//	public int updateAwd(List<AwardVO> aList) {
-//		return sqlSession.update(namespace+"updateAwd",aList);
-//	}
-//	@Override
-//	public int updateCarrer(List<CarrerVO> cList) {
-//		return sqlSession.update(namespace+"updateCarrer",cList);
-//	}
-//	@Override
-//	public int updateLicen(List<LicencseVO> lList) {
-//		return sqlSession.update(namespace+"updateLicen",lList);
-//	}
-//	@Override
-//	public int updateFskill(List<ForeignlanguageskillVO> fList) {
-//		return sqlSession.update(namespace+"updateFskill",fList);
-//	}
-	
 	//선택 삭제
 	@Override
 	public int selDelAwd(int awardNo) {
@@ -139,6 +122,20 @@ public class ResumesDAOMybatis implements ResumesDAO{
 	@Override
 	public int selDelFskill(int foreignlanguageskillNo) {
 		return sqlSession.delete(namespace+"selDelFskill",foreignlanguageskillNo);
+	}
+	
+	
+	@Override
+	public int insertUserlang(CorpuselanguageVO userlangVo) {
+		return sqlSession.insert(namespace+"insertUserlang",userlangVo);
+	}
+	@Override
+	public int selectAreaNo(AreaVO areaVo) {
+		return sqlSession.selectOne(namespace+"selectAreaNo",areaVo);
+	}
+	@Override
+	public int insertUserArea(UserwantedworkareaVO userAreaVo) {
+		return sqlSession.insert(namespace+"insertUserArea",userAreaVo);
 	}
 	
 	

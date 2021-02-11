@@ -60,19 +60,6 @@ public class ResumesServiceImpl implements ResumesService{
 			}
 		}
 		
-//		for (AwardVO aVo : resumlist.getAwardVOList()) {
-//			cnt = resumesDao.insertAward(aVo);
-//		}
-//		for (LicencseVO licenVo : resumlist.getLicenVOList()) {
-//			cnt = resumesDao.insertLicen(licenVo);
-//		}
-//		for (CarrerVO carrVo : resumlist.getCarrerVOList()) {
-//			cnt = resumesDao.insertCarrer(carrVo);
-//		}
-//		for (ForeignlanguageskillVO foreignVo : resumlist.getForeignskillVO()) {
-//			cnt = resumesDao.insertForeignskill(foreignVo);
-//		}
-		
 		return cnt;
 
 	}//
@@ -164,28 +151,6 @@ public class ResumesServiceImpl implements ResumesService{
 		return resumesDao.updateFskill(fskillVo);
 	}
 
-	//리스트에서 꺼낼때 마다 update
-//	@Override
-//	@Transactional
-//	public int updateMulti(ResumeListVO resumlist) {
-//		int cnt =0;
-//		
-//		for (AwardVO aVo : resumlist.getAwardVOList()) {
-//			cnt = resumesDao.updateAwd(aVo);
-//		} 
-//		for (LicencseVO licenVo : resumlist.getLicenVOList()) {
-//			cnt = resumesDao.updateLicen(licenVo);
-//		}
-//		for (CarrerVO carrVo : resumlist.getCarrerVOList()) {
-//			cnt = resumesDao.updateCarrer(carrVo);
-//		}
-//		for (ForeignlanguageskillVO fskillVo : resumlist.getForeignskillVO()) {
-//			cnt = resumesDao.updateFskill(fskillVo);
-//		}
-//		
-//		return cnt;
-//	}
-
 	@Override
 	@Transactional
 	public int selectDel(ResumeEtcVO resumeEtcVo) {
@@ -202,6 +167,23 @@ public class ResumesServiceImpl implements ResumesService{
 		} 
 		
 		return cnt;
+	}
+
+
+	@Override
+	public int insertUserlang(CorpuselanguageVO userlangVo) {
+		return resumesDao.insertUserlang(userlangVo);
+	}
+	
+
+	@Override
+	public int selectAreaNo(AreaVO areaVo) {
+		return resumesDao.selectAreaNo(areaVo);
+	}
+
+	@Override
+	public int insertUserArea(UserwantedworkareaVO userAreaVo) {
+		return resumesDao.insertUserArea(userAreaVo);
 	}
 
 

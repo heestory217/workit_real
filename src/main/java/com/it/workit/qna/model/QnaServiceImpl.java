@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.it.workit.common.SearchVO;
 
@@ -50,6 +51,15 @@ public class QnaServiceImpl implements QnaService{
 	@Override
 	public String chkPassword(int qaNo) {
 		return qaDao.chkPassword(qaNo);
+	}
+
+	@Override
+	@Transactional
+	public int qaReply(QnaUsersVO qauVo) {
+		int cnt = qaDao.updateSortno(qauVo);
+		cnt = qaDao.insertReply(qauVo);
+		
+		return cnt;
 	}
 
 
