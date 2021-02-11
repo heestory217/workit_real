@@ -52,6 +52,37 @@
 		padding:0px;
 	}
 	
+	.active:not(li){
+		display: none;
+	}
+	
+	
+	.active > td:hover{
+		background-color: white;
+	}
+	
+	[name=noticeAbout]{
+	    width: 100%;
+	    resize: none;
+	    outline: none;
+	    border: none;
+	    height: 350px;
+	    padding:10px;
+	}
+
+	[name=noticeAbout]::-webkit-scrollbar {
+	  width:8px;
+	}
+	
+	[name=noticeAbout]::-webkit-scrollbar-thumb {
+	  border-radius: 5px;
+	  background-color: silver;
+	}
+	
+	.titColor{
+		background-color: #efeff6;
+	}
+	
 </style>
 
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
@@ -63,6 +94,7 @@ function pageFunc(curPage){
 
 
 $(function(){
+
 	$('input[name=chkAll]').click(function(){
 		$('table tbody tr td').find('input[type=checkbox]')
 			.prop('checked', this.checked);
@@ -103,12 +135,21 @@ $(function(){
 		}
 	});
 	
+	var no="${map['NOTICE_NO'] }"; 
+	$('#record'+no).click(function(){
+		$(this).addClass('.titColor');
+	});
+	
 });
 
 //공지사항 수정창
 function editFunc(noticeNo){
 	open("/workit/admin/notice/noticeEdit.do?noticeNo="+noticeNo,"edit",
 		"width=700, height=700, left=500, top=30, location=no, resizable=no");
+}
+
+function showCont(noticeNo){
+	$('#'+noticeNo).toggle();
 }
 
 </script>
@@ -161,6 +202,7 @@ function editFunc(noticeNo){
 
 	<!-- table -->
 	<div class="card">
+		<div id="test"></div>
 		<table class="table table-hover">
 		<colgroup>
 			<col width="5%">
@@ -180,9 +222,7 @@ function editFunc(noticeNo){
 								<c:if test="${param.type=='1'}">
 									selected="selected"
 								</c:if>
-							><a onclick="<c:url value='/admin/notice/noticeList.do?type=1'/>">
-							
-							</a>공지</option>
+							>공지</option>
 							<option value="2"
 								<c:if test="${param.type=='2'}">
 									selected="selected"
@@ -225,7 +265,9 @@ function editFunc(noticeNo){
 								value="${map['NOTICE_NO'] }" id="chkbox">
 							</td>
 	            			<td class="font">${map['CLASSIFICATION_NAME'] }</td>
-	            			<td class="font" style="text-align:left">${map['NOTICE_TITLE'] }</td>
+	            			<td class="font ${map['NOTICE_NO']}" style="text-align:left">
+	            			<a onClick="showCont(${map['NOTICE_NO'] })" href="#" 
+	            			>${map['NOTICE_TITLE'] }</a></td>
 	            			<td class="font"><fmt:formatDate value="${map['NOTICE_DATE'] }" pattern="yyyy-MM-dd"/></td>
 	            			<td><a class="hoverColor" href="#" id="editBtn"
 	            			onClick="editFunc(${map['NOTICE_NO']})"
@@ -233,6 +275,11 @@ function editFunc(noticeNo){
 	            			<td><a class="hoverColor" href
 	            	="<c:url value='/admin/notice/noticeDelete.do?noticeNo=${map["NOTICE_NO"]}'/>"
 	            			onClick="if(!confirm('정말 삭제하시겠습니까?')){return false;}"><i class="fa fa-check"></i> 삭제</a></td>
+	            		</tr>
+	            		<tr class="active" id="${map['NOTICE_NO'] }">
+	            			<td colspan="6">
+	            				<textarea name="noticeAbout" readonly="readonly">${map['NOTICE_ABOUT']}</textarea>
+	            			</td>
 	            		</tr>
 	            		<c:set var="n" value="${n+1}"/>	
 	            	</c:forEach>

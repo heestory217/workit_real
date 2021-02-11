@@ -135,6 +135,10 @@
 			});
 			event.preventDefault();
 		});
+		
+		$(window).blur(function(){
+			self.close();
+		});
 	});
 </script>
 <title>공지사항 등록</title>
@@ -168,7 +172,7 @@
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<c:set var="managerName" value="${sessionScope.mangerName}"/>
+					<c:set var="managerName" value="${sessionScope.managerName}"/>
 					<td><input type="text" name="managerName" value="${managerName}"></td>
 				</tr>
 				<tr class="content">
@@ -177,7 +181,7 @@
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td><input type="file" id="upfile" name="upfile"/><span>(최대 2M)</span></td>
+					<td><input type="file" id="UPFILE" name="upfile"/><span>(최대 2M)</span></td>
 				</tr>
 			</tbody>
 		</table>
