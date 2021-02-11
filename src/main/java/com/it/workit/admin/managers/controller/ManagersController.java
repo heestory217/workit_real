@@ -50,7 +50,7 @@ public class ManagersController {
 			HttpSession session=request.getSession();
 			session.setAttribute("managerId", vo.getManagerId());
 			session.setAttribute("managerNo", vo.getManagerNo());
-			session.setAttribute("mangerName", vo.getManagerName());
+			session.setAttribute("managerName", vo.getManagerName());
 			
 			logger.info("관리자로그인={}", vo);
 			
