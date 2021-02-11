@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class ResumesServiceImpl implements ResumesService{
 	@Autowired private ResumesDAO resumesDao;
 
-	//이력서 단일 레코드 확인 
+	//이력서 단일 레코드 확인
 	@Override
 	public ResumesAllVO searchResumeByNo(int resumeNo) {
 		return resumesDao.searchResumeByNo(resumeNo);
 	}
-	
+
 	@Override
 	public List<ResumesAllVO> searchResumeByNo(List<Integer> matchList) {
 		List<ResumesAllVO> resumeList = new ArrayList<ResumesAllVO>();
@@ -47,7 +47,7 @@ public class ResumesServiceImpl implements ResumesService{
 
 		//		ResumesVO resumesVo = resumlist.getResumesVo();
 		//		cnt = resumesDao.insertResume(resumesVo);
-		
+
 		if (resumlist.getAwardVOList() != null) {
 			for (AwardVO aVo : resumlist.getAwardVOList()) {
 				cnt = resumesDao.insertAward(aVo);
@@ -65,7 +65,7 @@ public class ResumesServiceImpl implements ResumesService{
 				cnt = resumesDao.insertForeignskill(foreignVo);
 			}
 		}
-		
+
 		return cnt;
 
 	}//
@@ -113,13 +113,13 @@ public class ResumesServiceImpl implements ResumesService{
 	public List<ForeignlanguageskillVO> selectFlsByNo(int resumeNo) {
 		return resumesDao.selectFlsByNo(resumeNo);
 	}
-	
+
 	//선택 삭제
 	@Override
 	@Transactional
 	public int deleteResumes(int resumeNo) {
 		int cnt=0;
-		
+
 		if (resumeNo!=0) {
 			cnt = resumesDao.delResume(resumeNo);
 		}else if (resumeNo!=0) {
@@ -131,7 +131,7 @@ public class ResumesServiceImpl implements ResumesService{
 		}else if (resumeNo!=0) {
 			cnt = resumesDao.delLicen(resumeNo);
 		}
-		
+
 		return cnt;
 	}
 
@@ -161,7 +161,7 @@ public class ResumesServiceImpl implements ResumesService{
 	@Transactional
 	public int selectDel(ResumeEtcVO resumeEtcVo) {
 		int cnt=0;
-		
+
 		if (cnt == resumeEtcVo.getAwardVo().getAwardNo()) {
 			resumesDao.selDelAwd(resumeEtcVo.getAwardVo().getAwardNo());
 		} else if (cnt == resumeEtcVo.getCarrVo().getCarrerNo()) {
@@ -170,16 +170,17 @@ public class ResumesServiceImpl implements ResumesService{
 			resumesDao.selDelLicen(resumeEtcVo.getLicenVo().getLicencseNo());
 		} else if (cnt == resumeEtcVo.getFskillVo().getForeignlanguageskillNo()) {
 			resumesDao.selDelFskill(resumeEtcVo.getFskillVo().getForeignlanguageskillNo());
-		} 
-		
+		}
+
 		return cnt;
 	}
+
 
 	@Override
 	public int insertUserlang(CorpuselanguageVO userlangVo) {
 		return resumesDao.insertUserlang(userlangVo);
 	}
-	
+
 
 	@Override
 	public int selectAreaNo(AreaVO areaVo) {
@@ -192,5 +193,5 @@ public class ResumesServiceImpl implements ResumesService{
 	}
 
 
-	
+
 }
