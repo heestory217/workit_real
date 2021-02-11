@@ -4,8 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface ResumesService {
+	//이력서 단일 레코드 확인 (희정)
+	ResumesAllVO searchResumeByNo(int resumeNo);
 	
-
 	List<ResumesAllVO> searchResumeByNo(List<Integer> matchList);
 	
 	int insertResume(ResumesVO resumeVo);

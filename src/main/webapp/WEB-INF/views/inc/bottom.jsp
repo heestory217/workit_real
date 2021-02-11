@@ -52,7 +52,9 @@
                             <li><a href="#">회사 소개</a></li>
                             <li><a href="#">이용약관</a></li>
                             <li><a href="#">개인정보처리방침</a></li>
-                            <li><a href="#">서비스 소개</a></li>
+                            <c:if test="${empty sessionScope.userId || sessionScope.user_corpcheck==1}">
+                            	<li><a href="<c:url value='/indiv/serviceIntro.do'/>">서비스 안내</a></li>
+                            </c:if>
                         </ul>
                     </div>
                 </div>
