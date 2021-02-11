@@ -26,21 +26,21 @@
     .product__pagination a,
 	.blog__pagination a,
 	#currentPage {
-	display: inline-block;
-	width: 30px;
-	height: 30px;
-	border: 1px solid #b2b2b2;
-	font-size: 14px;
-	color: #b2b2b2;
-	font-weight: 700;
-	line-height: 28px;
-	text-align: center;
-	margin-right: 16px;
-	-webkit-transition: all, 0.3s;
-	-moz-transition: all, 0.3s;
-	-ms-transition: all, 0.3s;
-	-o-transition: all, 0.3s;
-	transition: all, 0.3s;
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		border: 1px solid #b2b2b2;
+		font-size: 14px;
+		color: #b2b2b2;
+		font-weight: 700;
+		line-height: 28px;
+		text-align: center;
+		margin-right: 16px;
+		-webkit-transition: all, 0.3s;
+		-moz-transition: all, 0.3s;
+		-ms-transition: all, 0.3s;
+		-o-transition: all, 0.3s;
+		transition: all, 0.3s;
 	}
 	
 	.product__pagination a:hover,
@@ -390,7 +390,7 @@
 		open(
 			"/workit/resumes/resumePurchase.do?resumeNo="
 					+ resumeNo, "chk",
-			"width=650,height=400,left=0,top=0,location=yes,resizable=yes");
+			"width=650,height=518,left=0,top=0,location=yes");
 	}
 	
 	//[3]결과 내 재검색 - 지역 필터 ajax

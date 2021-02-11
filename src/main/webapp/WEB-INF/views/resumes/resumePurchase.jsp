@@ -110,7 +110,11 @@
 	
 	</style>
 <body>
-<h4 style="text-align: center; margin-top: 40px; color: #fff; font-weight: 600; margin-bottom:20px;">
+<div style="text-align: center;">
+	<img src="<c:url value='/resources/img/noun_cash_1002252.png'/>" style="height: 100px; margin-top: 40px;">
+</div>
+
+<h4 style="text-align: center; color: #fff; font-weight: 600; margin:20px;">
 해당 이력서를 열람하기 위해서는<br>
 이력서를 구매해야 합니다.
 </h4>
@@ -187,8 +191,7 @@ function insertCart(resumeNo){
 }
 
 function purchase(resumeNo){
-	insertResume(resumeNo);
-	window.opener.location.href="/workit/shop/checkOut.do";
+	window.opener.location.href="/workit/shop/checkOut.do?resumeNo="+resumeNo;
 	window.close();
 }
 		
