@@ -1,7 +1,5 @@
 package com.it.workit.recruit.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -253,12 +251,6 @@ public class RecruitController {
 			//[2]searchVo
 			vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 			vo.setRecordCountPerPage(Utility.RECORD_COUNT);
-			
-			/*
-			int totalRecord=recruitannounceService.ordersGetTotalRecruit(vo);
-			logger.info("총 레코드 수, totalRecord={}", totalRecord);
-			pagingInfo.setTotalRecord(totalRecord);
-			*/
 			
 			List<AdvertisingVO> list=recruitannounceService.selectRecruitadList(vo);
 			int totalRecord=list.size();

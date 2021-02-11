@@ -24,7 +24,7 @@
 	</div>
 	<!-- Breadcrumb Section Begin -->
 <div class="filter-widget">
-	<h4 class="fw-title center">채용 공고 목록</h4>
+	<h4 class="fw-title center" style="margin-top: 30px;">채용 공고 목록</h4>
 </div>
 <section class="shopping-cart spad">
 	<div class="container">

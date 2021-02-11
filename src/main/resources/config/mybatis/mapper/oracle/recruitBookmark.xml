@@ -44,4 +44,13 @@
 		where RECRUITANNOUNCEBOOKMARK_NO=#{recruitannouncebookmarkNo}
 	</delete>
 	
+	<insert id="insertBookmark" parameterType="hashMap">
+		insert into RECRUITANNOUNCEBOOKMARK(RECRUITANNOUNCEBOOKMARK_NO, user_no, recruitannounce_no)
+		values(RECRUITANNOUNCEBOOKMARK_seq.nextval, #{userNo}, #{recruitannounceNo})
+	</insert>
+	
+	<select id="selectRecruitBookmarkDupChk" parameterType="hashMap" resultType="int">
+		select count(*) from RECRUITANNOUNCEBOOKMARK
+		where user_no=#{userNo} and recruitannounce_no=#{recruitannounceNo}
+	</select>
 </mapper>
