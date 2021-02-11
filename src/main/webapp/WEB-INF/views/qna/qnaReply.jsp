@@ -36,33 +36,18 @@ input#ckbox {
 <script type="text/javascript">
 	$(function() {
 		$('#qaTitle').focus();
-		
 
-
-		$('#submit_qna').click(function() {
+		$('#qnareply').click(function() {
 			if ($('#qaTitle').val().length < 1) {
 				alert('제목을 입력하세요');
 				$('#qaTitle').focus();
 				event.preventDefault();
-			} else if ($('#qaSecret').val()=='Y' && $('#password').val().length < 1) {
-				alert('비밀번호를 입력하세요');
-				$('#password').focus();
-				event.preventDefault();
-			} else if ($('#qaAbout').val().length < 1) {
+			}  else if ($('#qaAbout').val().length < 1) {
 				write_go();
 				event.preventDefault();
 			}
 			
 		});
-
-		$('input[name=ckbox]').click(function() {
-			if ($('#ckbox').is(':checked')) {
-				$('#qaSecret').val('Y');
-			} else {
-				$('#qaSecret').val('N');
-			}
-		});
-
 	});
 
 	function write_go() {
@@ -112,16 +97,30 @@ input#ckbox {
 					</div>
 				</div>
 
-				<form class="checkout-form" name="qnaWrite" method="POST"
+				<form class="checkout-form" name="qnareply" method="POST"
 					action="<c:url value='/qna/qnaReply.do'/>">
+					<!-- 답변용 매개변수 -->
+					<input type="text" name="qaGroupno" value="${qauVo.qaGroupno }"/>
+					<input type="text" name="qaOrderno" value="${qauVo.qaOrderno}"/>
+					<input type="text" name="qaSortno" value="${qauVo.qaSortno }"/>
+					<input type="hidden" name="ManagerNo" value="1">
+<%-- 					<input type="hidden" name="ManagerNo" value="${sessionScope.managerNo }"> --%>
+					
 <%-- 					<input type="hidden" name="qaWriter" value="${sessionScope.userId }"> --%>
-<%-- 					<input type="hidden" name="userNo" value="${sessionScope.userNo }"> --%>
+					<input type="hidden" name="qaWriter" value="${sessionScope.userId }">
+					<input type="hidden" name="userNo" value="${sessionScope.userNo }">
 					<div class="col-lg-12">
+						<!-- 답글 앞에 화살표 -->
+						<c:if test="${qauVo.qaOrderno > 0}">
+							<c:forEach var="k" begin="1" end="${qauVo.qaOrderno }">
+								&nbsp;
+							</c:forEach>
+						</c:if>
 						<label for="qaTitle">제목<span>*</span></label> 
-						<input type="text" id="qaTitle" name="qaTitle">
+						<input type="text" id="qaTitle" name="qaTitle" value="re: ${qauVo.qaTitle }">
 					</div>
 					<div class="col-lg-12">
-						<label for="qaAbout">글쓰기<span>*</span></label>
+						<label for="qaAbout">답변하기<span>*</span></label>
 						<textarea class="content" id="qaAbout" name="qaAbout"></textarea>
 						<br><br>
 						<script type="text/javascript">
@@ -133,15 +132,13 @@ input#ckbox {
 					
 					<div class="group-input gi-check col-lg-12 pwWarp" style="clear: both;">
 						<div class="gi-more pwBox">
-							<input type="hidden" id="qaSecret" name="qaSecret" value="N"> 
-							<span id="qaspan">비밀글로 설정하시겠습니까? </span>
-							<input type="checkbox" id="ckbox" name="ckbox"> 
-							<input type="text" id="password" name="qaPassword" placeholder="숫자만 입력하세요">
+							<input type="text" id="qaSecret" name="qaSecret" value="${qauVo.qaSecret }">
+							<input type="text" id="qaSecret" name="qaPassword" value="${qauVo.qaPassword }">
 						</div>
 						<input type="button" value="목록"
 							class="faqBt btn btn-primary site-btn"
 							onclick="location.href='<c:url value="/qna/qnaList.do"/>'" /> 
-						<input type="submit" value="등록" id="submit_qna" class="faqBt btn btn-primary site-btn" />
+						<input type="submit" value="등록" id="qnareply" class="faqBt btn btn-primary site-btn" />
 					</div>
 				</form>
 			</div>

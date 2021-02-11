@@ -121,6 +121,5 @@
 		order by RECRUITANNOUNCE_ENDDATE
 	</select>
 	
-	
 
 </mapper>

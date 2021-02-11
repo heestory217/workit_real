@@ -43,10 +43,13 @@ h1 {
 
 </style>
 
-<script type="text/javascript" 
-	src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
+<script type="text/javascript" src="../resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
-	
+	$(function(){
+		$('#closeBt').click(function(){
+			location.href="<c:url value='/qna/qnaList.do'/>";
+		});
+	});
 </script>
 
 </head>
@@ -59,11 +62,11 @@ h1 {
 			<br>
 			<form action="<c:url value="/qna/passwordCheck.do"/>" method="post">
 				<input type="text" name="qaPassword" id="qaPassword"> 
-				<input type="text" name="qaNo" id="qaNo" value="${param.qaNo }">
+				<input type="hidden" name="qaNo" id="qaNo" value="${param.qaNo }">
 				
 				<div class="psck_btWrap" style="text-align: center;">
 					<button type="submit" class="btn btn-default" id="okBt">확인</button>
-					<button type="button" class="btn btn-default close" onclick="history.back(-1);">닫기</button>
+					<button type="button" class="btn btn-default" id="closeBt">닫기</button>
 				</div>
 			</form>
 		</div>

@@ -132,7 +132,7 @@ select.qaSelete {
             	<!-- list출력 -->
                 <div class="col-lg-9 order-1 order-lg-2">
 					<div class="container">
-						<div class="register-form">
+						<div class="register-form section-title">
 							<h2>Q&A 목록</h2>
 						</div>
 					</div>

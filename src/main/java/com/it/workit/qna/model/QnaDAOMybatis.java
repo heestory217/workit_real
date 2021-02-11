@@ -56,6 +56,16 @@ public class QnaDAOMybatis implements QnaDAO{
 		return sqlSession.selectOne(namespace+"chkPassword",qaNo);
 	}
 
+	@Override
+	public int updateSortno(QnaUsersVO qauVo) {
+		return sqlSession.update(namespace+"updateSortno",qauVo);
+	}
+
+	@Override
+	public int insertReply(QnaUsersVO qauVo) {
+		return sqlSession.insert(namespace+"insertReply", qauVo);
+	}
+
 	
 	
 }

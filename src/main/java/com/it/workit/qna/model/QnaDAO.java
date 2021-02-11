@@ -16,4 +16,8 @@ public interface QnaDAO {
 	public int qaUpdate(QnaUsersVO qauVo);
 	
 	public String chkPassword(int qaNo);
+	
+	//답변
+	public int updateSortno(QnaUsersVO qauVo);
+	public int insertReply(QnaUsersVO qauVo);
 }
