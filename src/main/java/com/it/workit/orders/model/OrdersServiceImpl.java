@@ -90,6 +90,26 @@ public class OrdersServiceImpl implements OrdersService{
 		cnt = ordersDao.insertOrderDetailAD(adVo);
 		return cnt;
 	}
+	
+	//후기열람권 쿠폰
+	@Override
+	@Transactional
+	public int insertOrderWithCoupon(OrdersVO vo, OrderDetailSeeVO seeVo) {
+		int cnt = ordersDao.insertOrderWithCoupon(vo);
+		seeVo.setOrderNo(vo.getOrderNo());
+		cnt = ordersDao.insertOrderDetailSeeRV(seeVo);
+		return cnt;
+	}
+	
+	//후기열람권 쿠폰없음
+	@Override
+	@Transactional
+	public int insertOrder(OrdersVO vo, OrderDetailSeeVO seeVo) {
+		int cnt = ordersDao.insertOrder(vo);
+		seeVo.setOrderNo(vo.getOrderNo());
+		cnt = ordersDao.insertOrderDetailSeeRV(seeVo);
+		return cnt;
+	}
 
 	//주문완료 - 이력서
 	@Override
@@ -107,6 +127,12 @@ public class OrdersServiceImpl implements OrdersService{
 	@Override
 	public Map<String, Object> selectOrderdetailsADView(int orderNo) {
 		return ordersDao.selectOrderdetailsADView(orderNo);
+	}
+	
+	//주문완료 - 후기 열람권
+	@Override
+	public Map<String, Object> selectOrderdetailsSeeView(int orderNo) {
+		return ordersDao.selectOrderdetailsSeeView(orderNo);
 	}
 
 	@Override

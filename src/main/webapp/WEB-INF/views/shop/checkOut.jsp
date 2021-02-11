@@ -39,9 +39,9 @@ IMP.init("imp52828174");
 					//성공하면 할인률 입력
 					if(res!=0){
 						var subtotal = removeComma($('#subtotal').html());	//콤마제거
-						var discountAmount = subtotal*res/100;
+						var discountAmount = Math.round(subtotal*res/10000)*100;
 						var totalPrice = subtotal-discountAmount;
-						
+						 
 						//콤마추가
 						discountAmount = numberWithCommas(discountAmount);
 						totalPrice = numberWithCommas(totalPrice);
@@ -193,12 +193,12 @@ IMP.init("imp52828174");
 							</div>
 							<!-- 제목 끝 -->
                         
-                         	<c:if test="${empty cartList and empty resumeTitle and empty param.corpreviewNo and empty param.recruitannounceNo}">
+                         	<c:if test="${empty cartList and empty resumeTitle and empty param.corpreviewNo and empty param.recruitannounceNo and empty param.paidserviceNo}">
 	                            <div class="order-total" style="padding-bottom: 22px">
                                    <p style="text-align: center;margin: 0 0 0 0;">주문 요청 내역이 없습니다.</p>
 	                            </div>
 							</c:if>
-							<c:if test="${!empty cartList or !empty resumeTitle or !empty param.corpreviewNo or !empty param.recruitannounceNo}">
+							<c:if test="${!empty cartList or !empty resumeTitle or !empty param.corpreviewNo or !empty param.recruitannounceNo or !empty param.paidserviceNo}">
 	                            <div class="order-total">
 	                            
 	                                <!-- 가격 계산을 위한 변수 설정 -->

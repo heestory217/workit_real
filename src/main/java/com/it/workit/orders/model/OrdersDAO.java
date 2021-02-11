@@ -22,11 +22,13 @@ public interface OrdersDAO {
 	int insertOrderDetailResume(OrdersVO vo);
 	int insertOrderDetailDelReview(OrderDetailDelRvVO vo);
 	int insertOrderDetailAD(OrderDetailAdVO vo);
+	int insertOrderDetailSeeRV(OrderDetailSeeVO vo);
 
 	//주문완료 페이지
 	List<Map<String, Object>> selectOrderdetailsResumeView(int orderNo);
 	Map<String, Object> selectOrderdetailsDelRVView(int orderNo);
 	Map<String, Object> selectOrderdetailsADView(int orderNo);
+	Map<String, Object> selectOrderdetailsSeeView(int orderNo);
 
 	OrdersVO selectOrdersByOrderNo(int orderNo);
 

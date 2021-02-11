@@ -85,7 +85,7 @@
 									<dl class="price_info clearfix">
 										<dt class="hide">가격</dt>
 										<dd class="percent">-51%</dd>
-										<dd class="price_by_month">월 5,300원</dd>
+										<dd class="price_by_month">월 5,330원</dd>
 									</dl>
 								</div>
 								<div class="card_content">
@@ -95,7 +95,7 @@
 											<del>32,700원</del>
 										</dd>
 										<dt class="hide">할인가</dt>
-										<dd class="discount_price">총 15,900원</dd>
+										<dd class="discount_price">총 16,000원</dd>
 									</dl>
 								</div>
 								<a href="<c:url value='/shop/checkOut.do?paidserviceNo=4'/>">
@@ -123,7 +123,7 @@
 									</div>
 									<dl class="price_info clearfix">
 										<dt class="hide">가격</dt>
-										<dd class="percent">-68%</dd>
+										<dd class="percent">-36%</dd>
 										<dd class="price_by_month">월 3,500원</dd>
 									</dl>
 								</div>
@@ -134,7 +134,7 @@
 											<del>65,400원</del>
 										</dd>
 										<dt class="hide">할인가</dt>
-										<dd class="discount_price">총 21,000원</dd>
+										<dd class="discount_price">총 41,900원</dd>
 									</dl>
 								</div>
 								<a href="<c:url value='/shop/checkOut.do?paidserviceNo=5'/>">
