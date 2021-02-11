@@ -6,7 +6,8 @@ import java.util.Map;
 import com.it.workit.users.model.arealistVO;
 
 public interface ResumesService {
-
+	//이력서 단일 레코드 확인 (희정)
+	ResumesAllVO searchResumeByNo(int resumeNo);
 
 	List<ResumesAllVO> searchResumeByNo(List<Integer> matchList);
 
