@@ -84,8 +84,23 @@ $(function(){
 	var contextPath="/workit";
 	//공지 등록창
 	$('#writeBtn').click(function(){
-		open(contextPath+"/admin/notice/noticeWrite.do","write",
+		open(contextPath+"/admin/notice/noticeWrite.do?manager=${sessionScope.managerNo}","write",
  			"width=700, height=700, left=500, top=30, location=no, resizable=no");
+	});
+	
+	$('#cate').change(function(){
+		var type=$(this).find('option:selected').val();
+		if(type==0){
+			location.href="<c:url value='/admin/notice/noticeList.do?type=0'/>";
+		}else if(type==1){
+			location.href="<c:url value='/admin/notice/noticeList.do?type=1'/>";
+		}else if(type==2){
+			location.href="<c:url value='/admin/notice/noticeList.do?type=2'/>";
+		}else if(type==3){
+			location.href="<c:url value='/admin/notice/noticeList.do?type=3'/>";
+		}else if(type==4){
+			location.href="<c:url value='/admin/notice/noticeList.do?type=4'/>";
+		}
 	});
 	
 });
@@ -160,11 +175,29 @@ function editFunc(noticeNo){
 					<th scope="col"><input type="checkbox" name="chkAll"></th>
 					<th scope="col" id="category">
 					<select name="classificationNo" class="margin_right_5" id="cate">
-						<option>분류</option>
-						<c:forEach var="cateVo" items="${cateList }">
-				            <option value="${cateVo.classificationNo}">
-				            ${cateVo.classificationName}</option>
-						</c:forEach>
+							<option value="0">분류</option>
+							<option value="1"
+								<c:if test="${param.type=='1'}">
+									selected="selected"
+								</c:if>
+							><a onclick="<c:url value='/admin/notice/noticeList.do?type=1'/>">
+							
+							</a>공지</option>
+							<option value="2"
+								<c:if test="${param.type=='2'}">
+									selected="selected"
+								</c:if>
+							>이벤트</option>
+							<option value="3"
+								<c:if test="${param.type=='3'}">
+									selected="selected"
+								</c:if>
+							>안내</option>
+							<option value="4"
+								<c:if test="${param.type=='4'}">
+									selected="selected"
+								</c:if>
+							>기타</option>
 			        </select>
 					
 					</th>

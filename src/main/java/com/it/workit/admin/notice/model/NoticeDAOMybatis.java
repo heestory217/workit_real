@@ -22,13 +22,13 @@ public class NoticeDAOMybatis implements NoticeDAO{
 	
 	//공지사항 전체 조회
 	@Override
-	public List<Map<String, Object>> selectNoticeAll(SearchVO vo) {
+	public List<Map<String, Object>> selectNoticeAll(NoticeSearchVO vo) {
 		return sqlSession.selectList(namespace+"selectNoticeAll", vo);
 	}
 	
 	//공지사항 전체 레코드 수
 	@Override
-	public int getTotalRecord(SearchVO vo) {
+	public int getTotalRecord(NoticeSearchVO vo) {
 		return sqlSession.selectOne(namespace+"getTotalRecord", vo);
 	}
 	

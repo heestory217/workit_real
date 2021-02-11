@@ -3,6 +3,8 @@ package com.it.workit.admin.notice.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.admin.notice.model.ClassificationsVO;
 import com.it.workit.admin.notice.model.NoticeListVO;
+import com.it.workit.admin.notice.model.NoticeSearchVO;
 import com.it.workit.admin.notice.model.NoticeService;
 import com.it.workit.admin.notice.model.NoticeVO;
+import com.it.workit.common.FileUploadUtil;
 import com.it.workit.common.PaginationInfo;
-import com.it.workit.common.SearchVO;
 
 @Controller
 @RequestMapping("/admin/notice")
@@ -28,16 +31,39 @@ public class NoticeController {
 	
 	@Autowired private NoticeService noticeService;
 	
-	
+	@Autowired private FileUploadUtil fileUtil;
 	
 	//공지사항 목록 조회
 	@RequestMapping("/noticeList.do")
-	public String noticeList(@ModelAttribute SearchVO searchVo ,Model model) {
+	public String noticeList(@ModelAttribute NoticeSearchVO searchVo ,
+			@RequestParam(defaultValue = "0") int type, Model model) {
 		logger.info("관리자 - 공지사항 목록 조회");
 
 		List<ClassificationsVO> cateList = noticeService.selectClassifications();
 		logger.info("관리자 - 공지사항 카테고리 조회 결과, cateList.size={}", cateList.size());
 		
+		int all=0,notice=0,event=0,guide=0,etc=0;
+		if(type==0) {
+			searchVo.setClassificationNo(0);
+			all=noticeService.getTotalRecord(searchVo);
+			logger.info("공지사항 총 레코드 수, all={}", all);
+		}else if(type==1) {
+			searchVo.setClassificationNo(1);
+			notice=noticeService.getTotalRecord(searchVo);
+			logger.info("공지사항 총 레코드 수 - 공지, notice={}", notice);
+		}else if(type==2) {
+			searchVo.setClassificationNo(2);
+			event=noticeService.getTotalRecord(searchVo);
+			logger.info("공지사항 총 레코드 수 - 이벤트, notice={}", notice);
+		}else if(type==3) {
+			searchVo.setClassificationNo(3);
+			guide=noticeService.getTotalRecord(searchVo);
+			logger.info("공지사항 총 레코드 수 - 안내, notice={}", notice);
+		}else if(type==4) {
+			searchVo.setClassificationNo(4);
+			etc=noticeService.getTotalRecord(searchVo);
+			logger.info("공지사항 총 레코드 수 - 기타, notice={}", notice);
+		}
 		
 		//[1]pagingInfo
 		PaginationInfo pagingInfo=new PaginationInfo();
@@ -49,12 +75,36 @@ public class NoticeController {
 		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		searchVo.setRecordCountPerPage(10);
 		
-		int totalRecord=noticeService.getTotalRecord(searchVo);
-		logger.info("공지사항 총 레코드 수, totalRecord={}", totalRecord);
-		pagingInfo.setTotalRecord(totalRecord);
+		int totalRecord=0;
+		List<Map<String, Object>> noticeList = null;
+		if(type==0) {
+			searchVo.setClassificationNo(0);
+			noticeList = noticeService.selectNoticeAll(searchVo);
+			logger.info("공지사항 전체 조회 결과, noticeList.size={}", noticeList.size());
+			totalRecord=all;
+		}else if(type==1) {
+			searchVo.setClassificationNo(1);
+			noticeList = noticeService.selectNoticeAll(searchVo);
+			logger.info("공지사항 조회 결과-공지, noticeList.size={}", noticeList.size());
+			totalRecord=notice;
+		}else if(type==2) {
+			searchVo.setClassificationNo(2);
+			noticeList = noticeService.selectNoticeAll(searchVo);
+			logger.info("공지사항 조회 결과-이벤트, noticeList.size={}", noticeList.size());
+			totalRecord=event;
+		}else if(type==3) {
+			searchVo.setClassificationNo(3);
+			noticeList = noticeService.selectNoticeAll(searchVo);
+			logger.info("공지사항 조회 결과-안내, noticeList.size={}", noticeList.size());
+			totalRecord=guide;
+		}else if(type==4) {
+			searchVo.setClassificationNo(4);
+			noticeList = noticeService.selectNoticeAll(searchVo);
+			logger.info("공지사항 조회 결과-기타, noticeList.size={}", noticeList.size());
+			totalRecord=etc;
+		}
 		
-		List<Map<String, Object>> noticeList = noticeService.selectNoticeAll(searchVo);
-		logger.info("공지사항 전체 조회 결과, noticeList.size={}", noticeList.size());
+		pagingInfo.setTotalRecord(totalRecord);
 		
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("pagingInfo", pagingInfo);
@@ -70,18 +120,21 @@ public class NoticeController {
 		logger.info("공지사항 등록 화면");
 	}
 	
-	
 	//공지사항 등록 처리
 	@ResponseBody
 	@RequestMapping("/noticeRegister.do")
-	public int write_post(@ModelAttribute NoticeVO vo) {
+	public int write_post(@ModelAttribute NoticeVO vo, HttpSession session) {
+		int managerNo=(Integer) session.getAttribute("managerNo");
+		vo.setManagerNo(managerNo);
 		logger.info("공지사항 등록 처리, 파라미터 vo={},",vo);
 		
 		int cnt = noticeService.insertNotice(vo);
 		logger.info("공지사항 등록 처리 결과,cnt={}",cnt);
-		
+
 		return cnt;
 	}
+	
+	
 	
 	//공지사항 수정 화면
 	@RequestMapping("/noticeEdit.do")

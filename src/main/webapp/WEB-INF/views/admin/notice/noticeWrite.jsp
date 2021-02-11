@@ -101,6 +101,10 @@
 		border: 1px solid silver;
 	}
 	
+	#upfile{
+	
+	}
+	
 </style>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
 <script type="text/javascript">
@@ -143,7 +147,7 @@
 <div class="container">
 <h3 class="section-title float_left">공지사항 등록</h3>
 </div><br>
-	<form name="writeFrm" id="writeFrm">
+	<form name="writeFrm" id="writeFrm" enctype="multipart/form-data">
 		<table>
 			<tbody>
 				<tr>
@@ -164,14 +168,19 @@
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" name="managerNo" value="3"></td>
+					<c:set var="managerName" value="${sessionScope.mangerName}"/>
+					<td><input type="text" name="managerName" value="${managerName}"></td>
 				</tr>
 				<tr class="content">
 					<th>내용</th>
 					<td><textarea name="noticeAbout"></textarea></td>
 				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td><input type="file" id="upfile" name="upfile"/><span>(최대 2M)</span></td>
+				</tr>
 			</tbody>
-		</table>	
+		</table>
 		<div class="center">
 			<input type="submit" id="writeBtn" value="등록하기" class="notcie-Btn margin_right_5">
 			<input type="button" id="cancelBtn" value="취소" class="notcie-Btn margin_right_5">

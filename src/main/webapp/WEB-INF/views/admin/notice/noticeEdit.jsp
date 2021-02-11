@@ -182,7 +182,7 @@
 				</tr>
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" name="managerNo" value="${noticeOne['MANAGER_NO'] }"></td>
+					<td><input type="text" name="managerName" value="${noticeOne['MANAGER_NAME'] }"></td>
 				</tr>
 				<tr class="content">
 					<th>내용</th>
@@ -190,6 +190,7 @@
 				</tr>
 			</tbody>
 		</table>	
+		<input type="hidden" name="managerNo" value="${sessionScope.managerNo}">
 		<div class="center">
 			<input type="submit" id="editBtn" value="수정하기" class="notcie-Btn margin_right_5">
 			<input type="button" id="cancelBtn" value="취소" class="notcie-Btn margin_right_5">
