@@ -38,7 +38,7 @@
          </li>
          <!-- 북마크 -->
          <li class="heart-icon">
-             <a href="#">
+             <a href="<c:url value='/indivMypage/indivBookmark.do'/>">
                  <i class="fa fa-bookmark-o" aria-hidden="true"></i>
              </a>
          </li>

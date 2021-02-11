@@ -14,14 +14,25 @@
     width: 60px;
 }
 
+#startDay, #endDay{
+	border: 1px solid #EFEFF6;
+	padding-left: 15px;
+	color: #4C4747;
+}
+
+#startDay{
+	margin-left: 50px;
+}
+
 .center{
 	text-align: center;
 }
 
 .btnGray{
-	background: #F2F2F2;
-	border: 1px solid #F2F2F2;
+	background: #FAFAFF;
+	border: 1px solid #EFEFF6;
 	width: 60px;
+	color: #7979B2;
 }
 
 #containerUsers {
@@ -87,27 +98,23 @@
 	<input type="submit" value="조회" >
 </form>
  --%>
-<p>test중 확인용(미완) / 
-${dateSearchVO.startDay } ~ ${dateSearchVO.endDay }까지의 현황입니다.</p>
-<p>신규 개인 가입자 : ${totalNewUsers }/
-신규 기업 가입자 : ${totalNewCorps }/
-탈퇴 개인 : ${totalWithdrawUsers }/
-탈퇴 기업 : ${totalWithdrawCorps }</p>
-<div class="col-xl-12 col-lg-12 col-md-8 col-sm-12 col-12">
-	<div class="card">
-		<h5 class="card-header">
-			<form name="frmDate" method="post">
-				<!-- 조회기간 include -->
-				<div class="center">
-					<%@include file="../../inc/dateTerm.jsp"%>
-	
-					<input type="submit" value="조회" class="mybtn">
-				</div>
-			</form>
-		</h5>
-		<figure class="highcharts-figure">
-			<div id="containerUsers"></div>
-		</figure>
+<div class="margin_view">
+	<div class="col-xl-12 col-lg-12 col-md-8 col-sm-12 col-12">
+		<div class="card">
+			<h5 class="card-header">
+				<form name="frmDate" method="post">
+					<!-- 조회기간 include -->
+					<div class="center">
+						<%@include file="../../inc/dateTerm.jsp"%>
+		
+						<input type="submit" value="조회" class="mybtn">
+					</div>
+				</form>
+			</h5>
+			<figure class="highcharts-figure">
+				<div id="containerUsers"></div>
+			</figure>
+		</div>
 	</div>
 </div>
 
