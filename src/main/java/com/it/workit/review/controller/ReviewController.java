@@ -64,6 +64,8 @@ public class ReviewController {
 			userChk=1;
 		};
 		
+		//session.getAttribute("seervcheck");
+		
 		model.addAttribute("pagingInfo", pagingInfo);
 		model.addAttribute("reList",list);
 		model.addAttribute("userChk",userChk);

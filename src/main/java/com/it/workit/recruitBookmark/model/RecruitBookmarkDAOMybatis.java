@@ -1,6 +1,7 @@
 package com.it.workit.recruitBookmark.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,15 @@ public class RecruitBookmarkDAOMybatis implements RecruitBookmarkDAO{
 	@Override
 	public int rBookMarkGetTotalRecord(IndivpagingVO vo) {
 		return sqlSession.selectOne(namespace+"rBookMarkGetTotalRecord",vo);
+	}
+
+	@Override
+	public int insertBookmark(Map<String, Object> bookmarkInfo) {
+		return sqlSession.insert(namespace+"insertBookmark",bookmarkInfo);
+	}
+
+	@Override
+	public int selectRecruitBookmarkDupChk(Map<String, Object> bookmarkInfo) {
+		return sqlSession.selectOne(namespace+"selectRecruitBookmarkDupChk", bookmarkInfo);
 	}
 }

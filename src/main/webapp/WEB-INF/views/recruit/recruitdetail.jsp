@@ -54,23 +54,14 @@ a#corpinfo {
 		    }
 		});
 
-		$('adclick').click(function(){
-			window.location.href = 'http://localhost:9090/workit/index.do';
-		});
 
 		$('#corpinfo').click(function(){
-			window.location.href = 'http://localhost:9090/workit/company/corp/corpDetail.do?corpNo=${CorpVO.corpNo}';
+			window.location.href = '/workit/company/corp/corpDetail.do?corpNo=${CorpVO.corpNo}';
 		});
 
-		$('#applicant').click(function(){
-			window.location.href = 'http://localhost:9090/workit/index.do';
-		});
 
 	});
 	
-	function insertBookmark(reNo){
-		alert("북마크 저장 "+reNo);
-	};
 	
 </script>
     <!-- Blog Details Section Begin -->
@@ -85,7 +76,7 @@ a#corpinfo {
                         	<img src="<c:url value='/pd_images/${CorpVO.corpImgurl }'/>" style="width: 50px;margin-bottom: 20px;margin-left: 65px;">
                         	<!-- 기업 로고 이미지 -->
                         	<div class="icons">
-	                        	<i class="fa fa-bookmark-o" aria-hidden="true" style="margin-right: 20px;" onclick="insertBookmark('${RecruitannounceVO.recruitannounceNo}')"></i>
+	                        	<a href="<c:url value='/recruitBookmark/insertBookmark.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo}'/>"><i class="fa fa-bookmark-o" aria-hidden="true" style="margin-right: 20px;"></i></a>
 	                        	<i class="fa fa-share-alt" aria-hidden="true"></i>
                         	</div>
                             <h2>

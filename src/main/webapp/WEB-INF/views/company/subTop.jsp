@@ -30,7 +30,7 @@
                  <div class="select-items">
                      <table>
                          <tbody id="miniCart">
-                         <!-- 장바구니에 담은 이력서 최대 3개 반복 ajax -->
+                         <!-- 장바구니에 담은 이력서 ajax -->
                          
                          <!-- 장바구니에 담은 이력서 반복끝 -->
                          </tbody>

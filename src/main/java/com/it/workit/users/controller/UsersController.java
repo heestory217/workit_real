@@ -234,7 +234,7 @@ public class UsersController {
 					for(int i=0; i<t; i++) {
 						int compare=d.compareTo(seervcheck.get(i));
 						if(compare<0) {
-							logger.info("이용권존재함");
+							logger.info("이용권존재함 {}", seervcheck.get(i));
 							session.setAttribute("seervcheck", seervcheck.get(i));
 							break;
 						}
