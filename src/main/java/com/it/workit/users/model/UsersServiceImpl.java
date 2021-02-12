@@ -165,4 +165,9 @@ public class UsersServiceImpl implements UsersService{
 		return usersDao.selectTotalWithdrawCorpByDate(dateSearchVo);
 	}
 
+	@Override
+	public int updateCorpUsers(UsersVO vo) {
+		return usersDao.updateCorpUsers(vo);
+	}
+
 }

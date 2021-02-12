@@ -32,6 +32,7 @@ public interface UsersService {
 	public UsersVO selectByUserId(String userId);
 	
 	public int updateUsers(UsersVO vo);
+	public int updateCorpUsers(UsersVO vo);
 	
 	//수하 이메일로 아이디 , 비번찾기 , 비번 재설정
 	public String findId(Map<String, Object> eMailMap);
