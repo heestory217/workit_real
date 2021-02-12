@@ -11,6 +11,8 @@ public interface RecruitannounceService {
 	public String recruitcorpwantedarea(int recruitannounceNo);
 	public String recruitcorpwantedlang(int recruitannounceNo);
 	public List<RecruitannounceVO> selectRecruitList(int userNo);
+	public List<RecruitannounceVO> selectAllRecruitList(int userNo);
+	
 	public int recruitdelete(int recruitannounceNo);
 	public List<LanguageVO> selectcwlanguage();
 	public List<arealistVO> selectcwplace();

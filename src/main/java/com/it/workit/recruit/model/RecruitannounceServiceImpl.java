@@ -35,6 +35,11 @@ public class RecruitannounceServiceImpl implements RecruitannounceService {
 	}
 	
 	@Override
+	public List<RecruitannounceVO> selectAllRecruitList(int userNo) {
+		return RecruitannounceDao.selectAllRecruitList(userNo);
+	}
+	
+	@Override
 	public String recruitcorpwantedlang(int recruitannounceNo) {
 		return RecruitannounceDao.recruitcorpwantedlang(recruitannounceNo);
 	}

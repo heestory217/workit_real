@@ -10,7 +10,9 @@ public interface RecruitannounceDAO {
 	public String recruitcorpwantwork(int recruitannounceNo);
 	public String recruitcorpwantedarea(int recruitannounceNo);
 	public String recruitcorpwantedlang(int recruitannounceNo);
-	public List<RecruitannounceVO> selectRecruitList(int userNo);
+	public List<RecruitannounceVO> selectRecruitList(int userNo);	//메인 최근기준 3개 한정
+	public List<RecruitannounceVO> selectAllRecruitList(int userNo);	//전체 리스트
+	
 	public int recruitdelete(int recruitannounceNo);
 	public List<LanguageVO> selectcwlanguage();
 	public List<arealistVO> selectcwplace();

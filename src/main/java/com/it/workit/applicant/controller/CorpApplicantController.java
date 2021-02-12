@@ -38,7 +38,7 @@ public class CorpApplicantController {
 	public void applicantByRecruit(@ModelAttribute CorpApplicantPagingVO searchVo, HttpSession session, Model model){
 		logger.info("지원자 목록 보여주기 (전체/공고별)");
 		int userNo = (Integer) session.getAttribute("userNo");
-		List<RecruitannounceVO> list = recruitService.selectRecruitList(userNo);
+		List<RecruitannounceVO> list = recruitService.selectAllRecruitList(userNo);
 		model.addAttribute("list", list);
 		
 		searchVo.setUserNo(userNo);
@@ -85,7 +85,6 @@ public class CorpApplicantController {
 			model.addAttribute("url", "/company/ApplicantMng/allApplicant.do");
 			return "common/message";
 		}
-
 		int cnt= appService.updateReadCount(applicantlistNo);
 		logger.info("지원 이력서 읽음처리 결과, cnt={}", cnt);
 		
