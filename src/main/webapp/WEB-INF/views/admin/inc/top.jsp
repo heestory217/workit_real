@@ -47,14 +47,13 @@
                             <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                                 <div class="nav-user-info">
                                 	<c:if test="${!empty sessionScope.managerId }">
-					                	<h5 class="mb-0 text-white nav-user-name">${sessionScope.mangerName } 관리자 </h5>
-					                	<a class="dropdown-item" href="<c:url value='/admin/managers/logout.do'/>"><i class="fas fa-power-off mr-2"></i>Logout</a>
+					                	<h5 class="mb-0 text-white nav-user-name">${sessionScope.managerName } 관리자 </h5>
 					                </c:if>
 					                <c:if test="${empty sessionScope.managerId }">
 					                	<h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
-					                	<a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
 					                </c:if>
                                 </div>
+                                <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
                     </ul>

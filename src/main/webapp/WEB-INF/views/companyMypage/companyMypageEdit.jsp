@@ -65,6 +65,7 @@
                     	<h4 class="fw-title center">회원 정보 수정</h4>
                     </div>
                         <form method="post" action="<c:url value='/companyMypage/companyMypageEdit.do'/>">
+                        <input type="hidden" id="userno" name="userNo" value="${vo.userNo}">
                             <div class="group-input">
                                 <label for="username">이름 *</label>
                                 <input type="text" id="username" class="col-lg-12" name="userName" 
