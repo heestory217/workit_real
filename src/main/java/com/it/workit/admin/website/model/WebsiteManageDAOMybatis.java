@@ -1,14 +1,13 @@
-package com.it.workit.manage.model;
+package com.it.workit.admin.website.model;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ManageDAOMybatis implements ManageDAO{
-	
+public class WebsiteManageDAOMybatis implements WebsiteManageDAO{
 	@Autowired private SqlSessionTemplate sqlSession;
-	String namespace="config.mybatis.mapper.oracle.manage.";
+	private String namespace="com.mybatis.mapper.website.";
 	
 	@Override
 	public int updateTotalCount() {
@@ -19,5 +18,4 @@ public class ManageDAOMybatis implements ManageDAO{
 	public int selectTotalVisitor() {
 		return sqlSession.selectOne(namespace+"selectTotalVisitor");
 	}
-	
 }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.it.workit.manage.model.ManageService;
+import com.it.workit.admin.website.model.WebsiteManageService;
 import com.it.workit.orders.model.OrdersService;
 import com.it.workit.users.model.UsersService;
 
@@ -16,7 +16,7 @@ import com.it.workit.users.model.UsersService;
 public class AdminMainController {
 	private Logger logger = LoggerFactory.getLogger(AdminMainController.class);
 	
-	@Autowired private ManageService manageService;
+	@Autowired private WebsiteManageService manageService;
 	@Autowired private UsersService usersService;
 	@Autowired private OrdersService ordersService;
 	
