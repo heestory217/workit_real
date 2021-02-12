@@ -36,7 +36,6 @@ public class IndivMainController {
 		List<Map<String, Object>> list=indivmainService.selectByDeadline();
 		logger.info("채용 마감 임박 조회 결과, list.size={}",list.size());
 		
-		
 		model.addAttribute("list", list);
 		
 		return "indiv/nearDeadline";

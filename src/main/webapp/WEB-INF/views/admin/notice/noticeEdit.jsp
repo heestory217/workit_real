@@ -131,6 +131,10 @@
 			});
 			event.preventDefault();
 		});
+		
+		$(window).blur(function(){
+			self.close();
+		});
 	});
 </script>
 <title>공지사항 수정</title>
