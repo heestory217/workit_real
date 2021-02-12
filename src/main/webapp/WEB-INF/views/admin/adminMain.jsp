@@ -6,7 +6,6 @@
 <%@ include file="inc/top.jsp" %>
 <%@ include file="inc/sideMenu.jsp" %>
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/adminMain.css'/>" />
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
 <!-- 사이트 방문자, 회원 통계 -->
 	<div class="row margin_view">
 		<!-- 총 유저 수 -->
