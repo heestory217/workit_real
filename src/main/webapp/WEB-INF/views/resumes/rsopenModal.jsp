@@ -16,13 +16,13 @@
                <h1>이력서를 공개하시겠습니까?</h1>
                <h2>이력서 공개는 관리자 확인후 이루어집니다<br>
                		(공개여부 결과까지 1~2일 소요됩니다)</h2>
+               		${resumeVo.resumeNo}
                <br>
             </div>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal" style="padding: 5px 10px !important;"
-            	onclick="location.href='<c:url value="/resumes/resumeExplore.do?resumeNo=${resumeVo.resumeNo}"/>'"
-            >확인</button>
+            <button type="button" class="btn opBtn" data-dismiss="modal" style="padding: 5px 10px !important;"
+            	value="${resumeVo.resumeNo}">확인</button>
             <button type="button" class="btn btn-default" data-dismiss="modal" style="padding: 5px 10px !important;">닫기</button>
          </div>
       </div>

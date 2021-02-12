@@ -155,10 +155,17 @@
 		where RECRUITANNOUNCEBOOKMARK_NO=#{foreignlanguageskillNo}
 	</delete>
 	
-	<!-- 관리자로 넘기기 -->
+	<!-- 승인대기 -->
 	<update id="resumeOpen" parameterType="int">
 		update resumes 
 		set RESUME_RESUMEOPENCHECK=3
+		where resume_no = #{resumeNo}
+	</update>
+	
+	<!-- 승인 -->
+	<update id="resumreAck" parameterType="int">
+		update resumes 
+		set RESUME_RESUMEOPENCHECK=2
 		where resume_no = #{resumeNo}
 	</update>
 	
@@ -172,16 +179,13 @@
 	</insert>
 	
 	<!-- 지역 번호 구하기 -->
-<!-- 	<select id="selectAreaNo" resultType="int" parameterType="areaVO"> -->
-<!-- 		select area_no from AREALIST where area_add1=#{areaAdd1} and area_add2 =#{areaAdd2} -->
-<!-- 	</select> -->
-	<select id="selectAreaNo" resultType="int" parameterType="areaVO">
+	<select id="selectAreaNo" parameterType="String" resultType="areaVO">
 		select area_no, area_add1 from AREALIST where area_add2 =#{areaAdd2}
 	</select>
 	
 	<!-- 지역 인서트 -->
 	<insert id="insertUserArea" parameterType="userwantedworkareaVO">
-		<selectKey keyProperty="userwantedworkarea" resultType="int" order="BEFORE">
+		<selectKey keyProperty="userwantedworkareaNo" resultType="int" order="BEFORE">
 			select USERWANTEDWORKAREA_SEQ.nextval from dual
 		</selectKey>
 		insert into USERWANTEDWORKAREA(USERWANTEDWORKAREA_NO,RESUME_NO,AREA_NO)

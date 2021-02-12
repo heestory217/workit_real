@@ -416,36 +416,7 @@ public class ResumesController {
 		return "resumes/resumeExplore";
 	}
 
-	//지역, 언어 받기 기능
-//	@RequestMapping(value = "/resumeExplore.do", method = RequestMethod.POST)
-//	public String indivExplore_post(@RequestParam(defaultValue = "0") int resumeNo,
-//			@ModelAttribute ResumeOpenVO openVo,
-//			//@ModelAttribute UserwantedworkareaVO areaVo, @ModelAttribute CorpuselanguageVO langVo,
-//			Model model) {
-//			//logger.info("areaVo={}",areaVo);
-//			//logger.info("langVo={}",langVo);
-//
-//			logger.info("openVo={}",openVo);
-//
-//
-//
-//			//List<CorpuselanguageVO> langlist = langVo.getUserLanguage();
-//
-//			//이력서 번호 셋팅
-//			List<CorpuselanguageVO> langlist2 = openVo.getUserLanguage();
-//			for (CorpuselanguageVO vo : langlist2) {
-//				vo.setResumeNo(resumeNo);
-//				logger.info("langlist={}",langlist2);
-//			}
-//
-//
-//			//logger.info("arealist={}",arealist);
-//
-//
-//			return "";
-//	}
-
-	//지역, 언어 받기 기능
+	//지역, 언어 받기 기능 & 이력서 승인대기
 	@RequestMapping(value = "/resumeExplore.do", method = RequestMethod.POST)
 	public String indivExplore_post(@RequestParam(defaultValue = "0") int resumeNo,
 			@ModelAttribute ResumeOpen2VO openVo,
@@ -487,27 +458,55 @@ public class ResumesController {
 			logger.info("areaList2={}",areaList2);
 
 			List<UserwantedworkareaVO> listUWA = new ArrayList<UserwantedworkareaVO>();
-			for (int i = 0; i < areaList2.size(); i++) {
-				logger.info("{}번째 : {}",i,areaList2.get(i));
-				String al1 = areaList2.get(i);
+	         List<AreaVO> alist = new ArrayList<AreaVO>();
+	         for (int i = 0; i < areaList2.size(); i++) {
+	            logger.info("{}번째 : {}",i,areaList2.get(i));
+	            String al1 = areaList2.get(i);
 
-				logger.info("al1={}",al1);
+	            logger.info("al1={}",al1);
 
-				AreaVO aVo = new AreaVO();
-
-				//개별 브이오 세팅
-				aVo.setAreaAdd2(areaList2.get(i));
-				logger.info("aVo={}",aVo);
-
-				//리스트 브이오에 더하기
-				//listCLVo.add(vo);
-
-				//int cnt = rsService.insertUserlang(vo);
-				//logger.info("언어 등록 cnt={}",cnt);
-			}
-
+	            AreaVO aVo = new AreaVO();
+	            
+	            //개별 브이오 세팅
+	            aVo.setAreaAdd2(areaList2.get(i));
+	            logger.info("aVo={}",aVo);
+	            
+	            //리스트에 더하기
+	            alist.add(aVo);
+	            logger.info("alist={}",alist);
+	            
+	            
+	            String area1 ="";
+	            int areaNo=0;
+	            for (int j = 0; j < alist.size(); j++) {
+	               alist = rsService.selectAreaNo(areaList2.get(i));
+	               area1 = alist.get(j).getAreaAdd1();
+	               areaNo = alist.get(j).getAreaNo();
+	               
+	               logger.info("area1={}",area1);
+	               logger.info("areaNo={}",areaNo);
+	            }
+	            if (!alist.isEmpty()) {
+	               //브이오 셋팅
+	               UserwantedworkareaVO uaVo = new UserwantedworkareaVO();
+	               //리스트에 추가
+	               uaVo.setAreaNo(areaNo);
+	               uaVo.setResumeNo(resumeNo);
+	               
+	               listUWA.add(uaVo);
+	               
+	               int cnt = rsService.insertUserArea(uaVo);
+	               logger.info("지역 등록 cnt={}", cnt);
+	            }
+	            
+	            
+	         }
+			
+			int open = rsService.resumeOpen(resumeNo);
+			logger.info("이력서 승인대기 open={}",open);
+			
 			logger.info("listUWA={}", listUWA);
-
+			
 
 			return "resumes/resumesList";
 	}
