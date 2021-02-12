@@ -181,15 +181,19 @@ public class ResumesServiceImpl implements ResumesService{
 		return resumesDao.insertUserlang(userlangVo);
 	}
 
-
-	@Override
-	public int selectAreaNo(AreaVO areaVo) {
-		return resumesDao.selectAreaNo(areaVo);
-	}
-
 	@Override
 	public int insertUserArea(UserwantedworkareaVO userAreaVo) {
 		return resumesDao.insertUserArea(userAreaVo);
+	}
+
+	@Override
+	public List<AreaVO> selectAreaNo(String areaAdd2) {
+		return resumesDao.selectAreaNo(areaAdd2);
+	}
+
+	@Override
+	public int resumeOpen(int resumeNo) {
+		return resumesDao.resumeOpen(resumeNo);
 	}
 
 

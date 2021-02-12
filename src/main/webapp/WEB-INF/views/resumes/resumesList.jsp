@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
-<link rel="stylesheet" href="<c:url value="/resources/css/modal.css"/>" type="text/css">
+
 <style type="text/css">
 button.newresumeBt,
 .uploderesumeBt {
@@ -67,6 +67,14 @@ $(function(){
 		}
 	});
 	
+	$('.newresumeBt').click(function(){
+		var newRs = confirm('새 이력서를 작성하시겠습니까?');
+		
+		if (newRs) {
+			location.href='<c:url value="/resumes/resumeWrite.do"/>';
+		} 
+	});
+	
 });
 
 </script>
@@ -89,8 +97,8 @@ $(function(){
 						<div class="col-lg-3 col-sm-6">
 							<div class="product-item">
 								<div class="pi-pic">
-									<button class="newresumeBt"
-										onclick="location.href='<c:url value="/resumes/resumeWrite.do"/>'">
+									<button class="newresumeBt">
+<%-- 										onclick="location.href='<c:url value="/resumes/resumeWrite.do"/>'"> --%>
 										<i class="fa fa-files-o" aria-hidden="true"></i>
 										<h5 id="newresumeSpan">새 이력서 작성</h5>
 									</button>
@@ -146,9 +154,9 @@ $(function(){
 											</div>
 											<ul>
 												<li class="w-icon active">
-												<a data-toggle='modal' href="#rsOpen" title="공개여부">
+								<a href='<c:url value="/resumes/resumeExplore.do?resumeNo=${resumeVo.resumeNo}"/>' 
+									title="공개여부" onclick="return confirm('선택한 이력서를 기업에게 공개하시겠습니까?');">
 													<i class="fa fa-external-link" aria-hidden="true"></i>
-													<%@ include file="rsopenModal.jsp" %>
 												</a></li>
 												<li class="w-icon active"><a href="#" title="다운로드">
 													<i class="fa fa-arrow-down" aria-hidden="true"></i>

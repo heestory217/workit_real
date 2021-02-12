@@ -130,12 +130,17 @@ public class ResumesDAOMybatis implements ResumesDAO{
 		return sqlSession.insert(namespace+"insertUserlang",userlangVo);
 	}
 	@Override
-	public int selectAreaNo(AreaVO areaVo) {
-		return sqlSession.selectOne(namespace+"selectAreaNo",areaVo);
+	public List<AreaVO> selectAreaNo(String areaAdd2) {
+		return sqlSession.selectList(namespace+"selectAreaNo",areaAdd2);
 	}
 	@Override
 	public int insertUserArea(UserwantedworkareaVO userAreaVo) {
 		return sqlSession.insert(namespace+"insertUserArea",userAreaVo);
+	}
+	//이력서 승인대기로 업데이트
+	@Override
+	public int resumeOpen(int resumeNo) {
+		return sqlSession.update(namespace+"resumeOpen",resumeNo);
 	}
 	
 	

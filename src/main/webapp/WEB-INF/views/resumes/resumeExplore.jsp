@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../inc/top.jsp"%>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/indivSearch.css'/>" />
+<!-- <link rel="stylesheet" type="text/css" -->
+<%-- 	href="<c:url value='/resources/css/indivSearch.css'/>" /> --%>
 	
 <script type="text/javascript">
 	$(function(){
@@ -32,16 +32,6 @@
 		});//change
 		
 		
-		//$('#container').html($('#languageNo option:selected').val());
-// 		$('#languageNo').change(function(){
-// 			$('#container').html($('#languageNo option:selected').val());
-// 		});
-		
-		$('#languageNo').change(function(){
-			$('#container').html($('#languageNo option:selected').text());
-		});
-		
-		
 		$('#ExploreBtn').click(function(){
 			if($('#areaAdd1 option:selected').val()=="X"){
 				alert('지역을 선택하세요.');
@@ -65,13 +55,11 @@
 		$('#exploreBtn').click(function(){
 			var len = $('#languageNo').val();
 			
-			//var obj=myform.languageNo.options;
 		    for (var i=0; i<len.length; i++) {
 		        if(len[i].selected){
 		            arr.push(len[i].value);
 		         }
 		     }
-			//$('#languageNo > option:selected').val();
 		});
 		
 	});
@@ -79,19 +67,53 @@
 	
 </script>
 <style>
+.sectionWarp {
+    margin: 0 auto;
+}
+form.center {
+    width: 1080px;
+    margin: 0 auto;
+}
 .searchSelectbox {
     border: 1px solid #ebebeb;
     height: 500px;
+    width: 250px;
+}
+p#arealb {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 102px;
+}
+p#langlb {
+    font-size: 20px;
+    font-weight: bold;
+}
+div#areaWarp {
+    width: 600px;
+    float: left;
+    margin-left: 75px;
+}
+select#areaAdd1 {
+    margin-left: 91px;
+}
+div#btWarp {
+    width: 200px;
+    margin: 50px auto;
+    text-align: center;
+}
+p#info {
+    padding: 45px 0 0 160px;
 }
 </style>
 <!-- Latest Blog Section Begin -->
-<section class="latest-blog spad margin_left_right_150">
+<section class="latest-blog spad margin_left_right_150 sectionWarp">
 	<div class="section-title">
 		<h2>지역/언어 선택</h2>
 	</div>
 	
 	<form method="post" action="<c:url value='/resumes/resumeExplore.do'/>" class="center">
-		<label for="areaAdd1">지역 *</label>
+		<div id="areaWarp">
+		<p id="arealb"><i class="fa fa-map-marker" aria-hidden="true">&nbsp;</i>지역</p>
 		<select name="areaAdd1" id="areaAdd1" class="col-lg-4 searchSelectbox" multiple>
 			<option disabled selected value="X">지역을 선택하세요</option>
 			<c:if test="${!empty Alist }">
@@ -115,10 +137,12 @@
 					>${A2vo.areaAdd2 }</option>
 				</c:forEach>
 			</c:if>
-		</select><br><br>
+		</select>
+		</div>
 		
-		<label for="userLanguage">언어 *</label>
-		<select name="userLanguage" id="userLanguage" class="col-lg-3 searchSelectbox" multiple onch>
+		<div id="langWarp">
+		<p id="langlb"><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;언어</p>
+		<select name="userLanguage" id="userLanguage" class="col-lg-3 searchSelectbox" multiple>
 			<option disabled selected value="X">사용언어를 선택하세요</option>
 			<c:if test="${!empty Llist }">
 				<c:forEach var="Lvo" items="${Llist }">
@@ -130,8 +154,14 @@
 				</c:forEach>
 			</c:if>
 		</select>
+		</div>
+		
 		<input type="text" name="resumeNo" value="${param.resumeNo }">
-		<input type="submit" value="전송" id="exploreBtn">
+		<p id="info"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>
+		이력서를 공개하시기 위해 근무 가능 지역과 사용할 수 있는 개발언어를 선택하셔야합니다(다중 선택 가능)</p>
+		<div id="btWarp">
+			<input class="site-btn" type="submit" value="등록" id="exploreBtn">
+		</div>
 	</form>
 	
 	<div class="container" id="container">

@@ -44,10 +44,12 @@ public interface ResumesDAO {
 	public int insertUserlang(CorpuselanguageVO userlangVo);
 	
 	//지역번호 구하기
-	public int selectAreaNo(AreaVO areaVo);
+	public List<AreaVO> selectAreaNo(String areaAdd2);
 	
 	//지역 인서트
 	public int insertUserArea(UserwantedworkareaVO userAreaVo);
 	
+	//이력서 승인대기로 업데이트
+	public int resumeOpen(int resumeNo);
 	
 }
