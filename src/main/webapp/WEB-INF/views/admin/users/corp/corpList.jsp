@@ -90,6 +90,7 @@
 			                        <c:if test="${corpVo.corpOkcheck eq 2}">
 			                        	<a href="<c:url value='/admin/users/corp/corpJudge.do?corpNo=${corpVo.corpNo }&type=W'/>" class="dropdown-item">등록 반려 취소</a>
 			                        	<a href="<c:url value='/admin/users/corp/corpJudge.do?corpNo=${corpVo.corpNo }&type=Y'/>" class="dropdown-item">기업 등록 승인</a>
+			                        	<a href="#" class="dropdown-item" onclick="sendMessage('${corpVo.corpName}','${corpVo.userNo}')">반려 사유 쪽지 전송</a>
 			                        </c:if>
                                     
                                     <!-- item-->
@@ -237,6 +238,7 @@
         <!-- ============================================================== -->
     </div>
 </div>
+<script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
 <script type="text/javascript">
 	function searching(curPage){
 		$('input[name=currentPage]').val(curPage);
@@ -251,5 +253,12 @@
 			moreInfo.style.display='none';
 		}
 	}
+	
+	function sendMessage(corpName,userNo){
+		open(
+				"/workit/admin/message/sendMessage.do?corpName="
+						+corpName+"&userNo="+userNo, "chk",
+				"width=650,height=518,left=0,top=0,location=yes");
+		}
 </script>
 <%@ include file="../../inc/bottom.jsp" %>
