@@ -316,7 +316,7 @@ public class CorpController {
 		
 		logger.info("수정 성공 여부 결과 cnt={}",cnt);
 		logger.info("이미지파일 수정 성공 여부 결과 cnt={}",imgCnt);
-		String msg="수정 성공", url="/index.do";
+		String msg="기업정보 수정이 성공했습니다. 수정된 정보를 바탕으로 심사를 거쳐 최대한 빠른시간 안에 다시 공개하겠습니다.", url="/index.do";
 		model.addAttribute("msg",msg);
 		model.addAttribute("url",url);
 		return "common/message";
