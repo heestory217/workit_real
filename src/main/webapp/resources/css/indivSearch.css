@@ -1,8 +1,7 @@
 @charset "UTF-8";
 
 #searchImg{
-	width:100px;
-	height:200px;
+	min-width: 50%;
 }
 
 .margin_left_right_150{
