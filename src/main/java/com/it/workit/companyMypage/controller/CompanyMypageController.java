@@ -69,7 +69,6 @@ public class CompanyMypageController {
 	
 	@RequestMapping(value = "/companyMypageEdit.do", method = RequestMethod.POST)
 	public String companyMypageEdit(@ModelAttribute UsersVO vo, ModelMap model) {
-		logger.info("개인 마이페이지 - 회원정보 수정 파라미터 vo={}", vo);
 		
 		String hp1=vo.getUserHp1();
 		String hp2=vo.getUserHp2();
@@ -85,6 +84,7 @@ public class CompanyMypageController {
 		vo.setUserHp2(hp2);
 		vo.setUserHp3(hp3);
 		
+		logger.info("개인 마이페이지 - 회원정보 수정 파라미터 vo={}", vo);
 		
 		String msg="회원정보 수정에 실패했습니다.", url="/companyMypage/companyMypageEdit.do";
 		int cnt=userService.updateCorpUsers(vo);
