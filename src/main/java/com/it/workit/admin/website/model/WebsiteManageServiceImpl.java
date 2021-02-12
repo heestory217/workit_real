@@ -1,4 +1,4 @@
-package com.it.workit.admin.website;
+package com.it.workit.admin.website.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

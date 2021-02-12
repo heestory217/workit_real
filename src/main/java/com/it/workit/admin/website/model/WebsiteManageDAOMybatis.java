@@ -1,4 +1,4 @@
-package com.it.workit.admin.website;
+package com.it.workit.admin.website.model;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

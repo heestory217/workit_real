@@ -1,4 +1,4 @@
-package com.it.workit.admin.website;
+package com.it.workit.admin.website.model;
 
 public interface WebsiteManageDAO {
 	//전체 방문자수 update

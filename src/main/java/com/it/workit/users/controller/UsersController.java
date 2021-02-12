@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.it.workit.admin.website.WebsiteManageService;
+import com.it.workit.admin.website.model.WebsiteManageService;
 import com.it.workit.orders.model.OrdersService;
 import com.it.workit.users.model.UsersService;
 import com.it.workit.users.model.UsersVO;

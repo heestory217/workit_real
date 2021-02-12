@@ -1,4 +1,4 @@
-package com.it.workit.admin.website;
+package com.it.workit.admin.website.model;
 
 import java.sql.Timestamp;
 
