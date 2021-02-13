@@ -39,7 +39,7 @@
 
 	<!-- 주문상세[3] 광고결제-->
 	<insert id="insertOrderDetailAD" parameterType="orderDetailAdVO">
-		insert into ORDERDETAILAD(ORDER_NO, PAIDSERVICE_NO
+		insert into ORDERDETAILAD(ORDER_NO, PAIDSERVICE_NO, RECRUITANNOUNCE_NO)
 		values(#{orderNo},#{paidServiceNo}, #{recruitannounceNo})
 	</insert>
 	
