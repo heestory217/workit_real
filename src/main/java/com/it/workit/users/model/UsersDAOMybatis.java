@@ -163,5 +163,10 @@ public class UsersDAOMybatis implements UsersDAO {
 		return sqlSession.selectOne(namespace+"selectTotalWithdrawCorpByDate",dateSearchVo);
 	}
 
+	@Override
+	public List<UsersVO> usersAll() {
+		return sqlSession.selectList(namespace+"usersAll");
+	}
+
 
 }

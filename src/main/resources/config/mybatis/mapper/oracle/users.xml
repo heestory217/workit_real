@@ -224,5 +224,10 @@
 		]]>
 		and user_corpcheck=2
 	</select>
+	
+	<select id="usersAll" resultType="usersVo">
+		select * from users
+		order by user_name
+	</select>
 
 </mapper>
