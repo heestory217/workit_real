@@ -8,4 +8,5 @@ public interface WebsiteManageService {
 	
 	//사이트소개
 	Map<String, Object> selectSiteIntro();
+	int updateSiteIntro (WebsiteManageVO vo);
 }

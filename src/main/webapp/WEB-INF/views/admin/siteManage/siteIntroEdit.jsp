@@ -45,7 +45,8 @@
 			<jsp:useBean id="now" class="java.util.Date" />
 			<fmt:formatDate value="${now}" type="both" pattern="yyyy-MM-dd [E] a hh:mm:ss"/>
 		</div>
-	   <div class="title">작성자 : <span>${managerName}</span></div>
+		<input type="hidden" name="managerNo" value="${managerNo}">
+	    <div class="title">작성자 : <span>${managerName}</span></div>
 	</div>
 
 	<div style="float: right;">

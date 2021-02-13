@@ -27,6 +27,12 @@
 		where WEBSITEMANAGE_KIND='I'
 	</select>
 	
+	<update id="updateSiteIntro" parameterType="websiteManageVO">
+		update website_manage
+		set WEBSITEMANAGE_ABOUT=#{websitemanageAbout}, MANAGER_NO=#{managerNo}
+		where WEBSITEMANAGE_KIND='I'
+	</update>
+	
 </mapper>
 
 

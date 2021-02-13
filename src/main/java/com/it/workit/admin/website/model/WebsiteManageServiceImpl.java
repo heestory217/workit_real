@@ -23,4 +23,9 @@ public class WebsiteManageServiceImpl implements WebsiteManageService{
 	public Map<String, Object> selectSiteIntro() {
 		return websiteDao.selectSiteIntro();
 	}
+
+	@Override
+	public int updateSiteIntro(WebsiteManageVO vo) {
+		return websiteDao.updateSiteIntro(vo);
+	}
 }
