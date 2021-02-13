@@ -93,7 +93,7 @@
 	                        <c:if test="${cVo.corpAvrpay!=0}">
 	                        	의 1인당 평균연봉은 </span><fmt:formatNumber value="${cVo.corpAvrpay}" pattern="#,###,###"/> 만원, <br><br>
 	                        </c:if>
-	                        <c:if test="${cVo.corpPnumber!=1}">
+	                        <c:if test="${cVo.corpPnumber!=0}">
 	                        	<span>기업 근로자 수는</span> 총  ${cVo.corpPnumber}명
 	                        </c:if>
 	                        <c:if test="${!empty cVo.corpKind}">

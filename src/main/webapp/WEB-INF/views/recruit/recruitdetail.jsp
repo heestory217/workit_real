@@ -106,7 +106,7 @@ a#corpinfo {
 			                        <c:if test="${CorpVO.corpAvrpay!=0}">
 			                        	1인당 평균연봉은<fmt:formatNumber value="${CorpVO.corpAvrpay}" pattern="#,###,###"/> 만원,
 			                        </c:if>
-			                        <c:if test="${CorpVO.corpPnumber!=1}">
+			                        <c:if test="${CorpVO.corpPnumber!=0}">
 			                        	기업 근로자 수는 총  ${CorpVO.corpPnumber}명
 			                        </c:if>
 			                        <c:if test="${!empty CorpVO.corpKind}">
