@@ -57,7 +57,7 @@
 		<selectKey keyProperty="noticeNo" resultType="int" order="BEFORE">
 			SELECT NOTICE_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO NOTICE(NOTICE_NO,NOTICE_TITLE,NOTICE_ABOUT, CLASSIFICATION_NO,MANAGER_NO)
+		INSERT INTO NOTICE(NOTICE_NO,NOTICE_TITLE,NOTICE_ABOUT,CLASSIFICATION_NO,MANAGER_NO)
 		VALUES(#{noticeNo},#{noticeTitle},#{noticeAbout},#{classificationNo},#{managerNo})
 	</insert>
 	 

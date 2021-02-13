@@ -176,11 +176,6 @@
 									selected="selected"
 								</c:if>
 							>안내</option>
-							<option value="4"
-								<c:if test="${noticeOne['CLASSIFICATION_NO']=='4'}">
-									selected="selected"
-								</c:if>
-							>기타</option>
 						</select>
 					</td>
 				</tr>

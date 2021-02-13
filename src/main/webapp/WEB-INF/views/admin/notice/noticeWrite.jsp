@@ -136,9 +136,9 @@
 			event.preventDefault();
 		});
 		
-		$(window).blur(function(){
+		/* $(window).blur(function(){
 			self.close();
-		});
+		}); */
 	});
 </script>
 <title>공지사항 등록</title>
@@ -151,7 +151,7 @@
 <div class="container">
 <h3 class="section-title float_left">공지사항 등록</h3>
 </div><br>
-	<form name="writeFrm" id="writeFrm" enctype="multipart/form-data">
+	<form name="writeFrm" id="writeFrm" method="post" enctype="multipart/form-data">
 		<table>
 			<tbody>
 				<tr>
@@ -166,7 +166,6 @@
 							<option value="1">공지</option>
 							<option value="2">이벤트</option>
 							<option value="3">안내</option>
-							<option value="4">기타</option>
 						</select>
 					</td>
 				</tr>
@@ -181,7 +180,7 @@
 				</tr>
 				<tr>
 					<th>첨부파일</th>
-					<td><input type="file" id="UPFILE" name="upfile"/><span>(최대 2M)</span></td>
+					<td><input type="file" id="upfile" name="upfile"/><span>(최대 2M)</span></td>
 				</tr>
 			</tbody>
 		</table>

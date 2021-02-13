@@ -41,11 +41,16 @@
 										</div>
 										<div class="tag-item" style="color:#4C4747; font-size:14px;">
 											<i class="fa fa-calendar-o" style="color: #4c50bb;"></i>
-											<!-- d-day -->
+											<!-- d-day 계산 -->
 											<c:set var="today" value="<%=new java.util.Date()%>"/>
-										 	<fmt:formatDate var="today" value="${today }" pattern="yyyyMMdd" />
-									        <fmt:formatDate var="enddate" value="${map['RECRUITANNOUNCE_ENDDATE'] }" pattern="yyyyMMdd" />
-									        <!-- ////////////////// -->
+										 	<fmt:formatDate var="today" value="${today }" pattern="yyyy-MM-dd HH:mm:ss" />
+									        <c:set var="enddate" value="${map['RECRUITANNOUNCE_ENDDATE'] }"/>
+									        <fmt:parseDate value="${today }" var="today" pattern="yyyy-MM-dd"/>
+											<fmt:parseNumber value="${today.time / (1000*60*60*24)}" integerOnly="true" var="today"/>
+											<fmt:parseDate value="${enddate }" var="enddate" pattern="yyyy-MM-dd"/>
+											<fmt:parseNumber value="${enddate.time / (1000*60*60*24)}" integerOnly="true" var="enddate"/>
+											D-${enddate - today}
+											<!-- d-day 계산 끝 -->
 										</div>
 									</div>
 								</div>
