@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../../inc/top.jsp"%>
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/adminIndivUsers.css'/>" />
+	href="<c:url value='/resources/css/adminIndivUsers.css'/>" />222
 <%@ include file="../../inc/sideMenu.jsp"%>
 
 <script type="text/javascript">

@@ -79,7 +79,7 @@
 												</c:if>
 												<c:if test="${vo.recruitannounceUpcheck==4 }">
 													<button type="button" class="btn btn-outline-warning btn-sm" style="cursor: Default;">
-														심사중
+														수정중
 													</button>
 												</c:if>
 											</td>
@@ -114,10 +114,10 @@
 												[심사중]
 												</c:if>
 												<c:if test="${vo.adCheck==2 }" >
-												[거절]
+												[통과]
 												</c:if>
 												<c:if test="${vo.adCheck==3 }" >
-												[통과]
+												[거절]
 												</c:if>
 												</p>
 											</td>
