@@ -99,19 +99,21 @@ public class UsersNoticeController {
 	
 	//공지사항 게시글 조회수 업데이트 
 	@RequestMapping("/noticeViewCnt.do")
-	public String viewCount(@RequestParam(defaultValue = "0") int noticeNo) {
-		logger.info("공지사항 조회수 업데이트, 파라미터 noticeNo={}", noticeNo);
+	public String viewCount(@RequestParam(defaultValue = "0") int noticeNo, 
+			@RequestParam(defaultValue = "0") int sortNo) {
+		logger.info("공지사항 조회수 업데이트, 파라미터 noticeNo={}, sortNo={}", noticeNo, sortNo);
 		
 		int cnt=noticeService.viewUpdate(noticeNo);
 		logger.info("조회수 업데이트 결과, cnt={}", cnt);
 		
-		return "redirect:/notice/noticeDetail.do?noticeNo="+noticeNo;
+		return "redirect:/notice/noticeDetail.do?noticeNo="+noticeNo+"&sortNo="+sortNo;
 	}
 	
 	
 	@RequestMapping("/noticeDetail.do")
-	public String noticeDetail(@RequestParam(defaultValue = "0") int noticeNo,Model model) {
-		logger.info("공지사항 상세페이지 조회, 파라미터 noticeNo={}", noticeNo);
+	public String noticeDetail(@RequestParam(defaultValue = "0") int noticeNo,
+			@RequestParam(defaultValue = "0") int sortNo, Model model) {
+		logger.info("공지사항 상세페이지 조회, 파라미터 noticeNo={}, sortNo={}", noticeNo, sortNo);
 		
 		Map<String, Object> noticeOne = noticeService.selectNoticeOne(noticeNo);
 		logger.info("회원 사이트 - 공지사항 상세페이지 조회 결과, noticeOne={}", noticeOne);
@@ -130,7 +132,7 @@ public class UsersNoticeController {
 		model.addAttribute("prevNotice", prevNotice);
 		model.addAttribute("nextNotice", nextNotice);
 		model.addAttribute("totalR", totalR);
-		
+		model.addAttribute("sortNo", sortNo);
 		return "notice/noticeDetail";
 	}
 	

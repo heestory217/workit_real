@@ -4,10 +4,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
+
 .filter-catagories > li:nth-child(2) > a{
 	font-weight:bold;
 	color:#4c50bb;
-	font-size:18px;
+	font-size:19px;
 }
 .tableBx {
 	width: 100%;
@@ -201,7 +202,7 @@ form[name=frmList]{
 									</c:if>
 									<!-- 글이 있는 경우 반복 시작-->
 									<c:if test="${!empty noticeList }">
-										<c:forEach var="map" items="${noticeList }">
+										<c:forEach var="map" items="${noticeList }" varStatus="status">
 											<tr>
 												<td class="category"
 													<c:if test="${map['CLASSIFICATION_NAME'] =='공지'}">
@@ -209,7 +210,7 @@ form[name=frmList]{
 													</c:if>
 												>${map['CLASSIFICATION_NAME'] }</td>
 												<td><a href
-											="<c:url value='/notice/noticeViewCnt.do?noticeNo=${map["NOTICE_NO"] }'/>">
+											="<c:url value='/notice/noticeViewCnt.do?noticeNo=${map["NOTICE_NO"] }&sortNo=${status.count}'/>">
 												${map['NOTICE_TITLE'] }
 												</a></td>
 												<td><fmt:formatDate value="${map['NOTICE_DATE'] }"

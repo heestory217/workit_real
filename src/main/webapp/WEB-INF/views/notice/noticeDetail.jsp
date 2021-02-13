@@ -43,7 +43,7 @@
 .filter-catagories > li:nth-child(2) > a{
 	font-weight:bold;
 	color:#4c50bb;
-	font-size:18px;
+	font-size:19px;
 }
 
 .prev, .next{
@@ -144,13 +144,13 @@
 					<img id="logo" alt="work it 로고" src="<c:url value='/resources/img/logo_workit.PNG'/>">
 					<hr style="clear:both;">
 					<div class="prev">
-						<c:if test="${noticeOne['NOTICE_NO']=='1'}">
+						<c:if test="${sortNo=='1'}">
 							<a class="goPrev" align="absmiddle"><i class="fas fa-chevron-left"></i>
 								<span class="prevTit">&nbsp;이전 글이 없습니다.</span>
 							</a>
 						</c:if>
 						<c:set var="noticeNo" value="${noticeOne['NOTICE_NO']}"/>
-						<c:if test="${noticeOne['NOTICE_NO']!='1'}">
+						<c:if test="${sortNo!='1'}">
 							<a class="goPrev" align="absmiddle" href="<c:url value='/notice/noticeViewCnt.do?noticeNo=${noticeNo-1 }'/>"
 								><i class="fas fa-chevron-left"></i>&nbsp;
 								<span class="prevTit">
@@ -165,14 +165,14 @@
 						</c:if>
 					</div>
 					<div class="next">
-						<c:if test="${noticeOne['NOTICE_NO']==totalR}">
+						<c:if test="${sortNo==totalR}">
 							<a class="goNext" align="absmiddle">
 								<span class="nextTit">&nbsp;다음 글이 없습니다.</span>
 								<i class="fas fa-chevron-right"></i>
 							</a>
 						</c:if>
 						<c:set var="noticeNo" value="${noticeOne['NOTICE_NO']}"/>
-						<c:if test="${noticeOne['NOTICE_NO']!=totalR}">
+						<c:if test="${sortNo!=totalR}">
 							<a class="goNext" align="absmiddle" href="<c:url value='/notice/noticeViewCnt.do?noticeNo=${noticeNo+1 }'/>"
 								>&nbsp;
 								<span class="nextTit">

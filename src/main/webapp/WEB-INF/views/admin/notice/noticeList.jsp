@@ -138,6 +138,7 @@ $(function(){
 		$(this).addClass('.titColor');
 	});
 	
+	
 });
 
 //공지사항 수정창
