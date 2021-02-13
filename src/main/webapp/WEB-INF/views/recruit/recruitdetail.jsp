@@ -53,13 +53,6 @@ a#corpinfo {
 		    	event.preventDefault();
 		    }
 		});
-
-
-		$('#corpinfo').click(function(){
-			window.location.href = '/workit/company/corp/corpDetail.do?corpNo=${CorpVO.corpNo}';
-		});
-
-
 	});
 	
 	
@@ -105,10 +98,10 @@ a#corpinfo {
                        	</c:forEach>
                         <div class="posted-by" style="margin-top: 40px;">
                             <div class="pb-pic">
-                               <a href="#" id="corpinfo"><img src="<c:url value='/pd_images/${CorpVO.corpImgurl }'/>" alt="" style="width: 70px;"></a>
+                               <a href="<c:url value='/company/corp/corpDetail.do?corpNo=${CorpVO.corpNo}'/>" id="corpinfo"><img src="<c:url value='/pd_images/${CorpVO.corpImgurl }'/>" alt="" style="width: 70px;"></a>
                             </div>
                             <div class="pb-text">
-                                   <h5><a href="#" id="corpinfo">${CorpVO.corpName}</a> | ${CorpVO.corpIndustry }</h5>
+                                   <h5><a href="<c:url value='/company/corp/corpDetail.do?corpNo=${CorpVO.corpNo}'/>" id="corpinfo">${CorpVO.corpName}</a> | ${CorpVO.corpIndustry }</h5>
                                 <p style="margin-top: 20px;">
 			                        <c:if test="${CorpVO.corpAvrpay!=0}">
 			                        	1인당 평균연봉은<fmt:formatNumber value="${CorpVO.corpAvrpay}" pattern="#,###,###"/> 만원,
