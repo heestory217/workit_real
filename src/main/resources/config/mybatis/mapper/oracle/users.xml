@@ -54,7 +54,7 @@
 	
 	<update id="updateCorpUsers" parameterType="usersVo">
 		update users
-		set user_name=#{userName}, user_password=#{userPassword}, workkind_no=#{workkindNo}, 
+		set user_name=#{userName}, user_password=#{userPassword}, 
 		    user_hp1=#{userHp1}, user_hp2=#{userHp2}, 
 		    user_hp3=#{userHp3}, user_zipcode=#{userZipcode}, 
 		    user_address=#{userAddress}, user_addressdetail=#{userAddressdetail}

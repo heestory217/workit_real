@@ -19,7 +19,7 @@ public class AdminRecruitController {
 	@RequestMapping("/recruitList.do")
 	public String recruitList() {
 		logger.info("관리자 채용공고 목록");
-
+		
 		return "/admin/users/corp/recruitList";
 	}
 	
