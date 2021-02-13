@@ -77,13 +77,14 @@ $(function(){
 	                        	<p class="center">내용과 무관한 글, 상호 비방, 법적 책임을 동반할 수 있는 글은 제한됩니다.</p>
 	                        </div>
                             <button type="submit" class="site-btn register-btn" id="submit">REGISTER</button>
+                        	<!-- 별점 확인용 -->
+							<input type="hidden" id="corpreviewRate" name="corpreviewRate">
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<!-- 별점 확인용 -->
-<input type="hidden" id="corpreviewRate" name="corpreviewRate">
+
 
 <%@ include file="../../inc/bottom.jsp" %>
