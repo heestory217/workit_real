@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import com.it.workit.common.SearchVO;
-
 @Service
 public class NoticeServiceImpl implements NoticeService{
 	@Autowired private NoticeDAO noticeDao;
@@ -75,6 +73,18 @@ public class NoticeServiceImpl implements NoticeService{
 	@Override
 	public int updateNotice(NoticeVO vo) {
 		return noticeDao.updateNotice(vo);
+	}
+	
+	//공지사항 조회수 업데이트(회원)
+	@Override
+	public int viewUpdate(int noticeNo) {
+		return noticeDao.viewUpdate(noticeNo);
+	}
+
+	//공지사항 전체 조회(회원)
+	@Override
+	public List<Map<String, Object>> selectAllNotice(NoticeSearchVO vo) {
+		return noticeDao.selectAllNotice(vo);
 	}
 	
 	

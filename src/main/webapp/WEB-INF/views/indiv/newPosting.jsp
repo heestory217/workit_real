@@ -130,10 +130,10 @@
 	
 	
 	<!-- previous/next button --> 
-	<a class="carousel-control-prev" href="#new" data-slide="prev" style="margin-bottom: 125px;margin-left: -50px;"> 
+	<a class="carousel-control-prev" href="#new" data-slide="prev" style="margin-bottom: 160px;margin-left: -50px;"> 
 		<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
 	</a> 
-	<a class="carousel-control-next" href="#new" data-slide="next" style="margin-bottom: 125px;margin-right: -50px;"> 
+	<a class="carousel-control-next" href="#new" data-slide="next" style="margin-bottom: 160px;margin-right: -50px;"> 
 		<span class="carousel-control-next-icon" aria-hidden="true"></span> 
 	</a> 
 </div>

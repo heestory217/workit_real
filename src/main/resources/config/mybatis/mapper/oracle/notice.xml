@@ -88,6 +88,46 @@
 	<delete id="deleteNotice" parameterType="int">
 		DELETE FROM NOTICE WHERE NOTICE_NO=#{noticeNo}
 	</delete>
+	
+	
+	<!-- 공지 전체 조회(회원사이트) - 공지 카테고리 우선순위 -->
+	<select id="selectAllNotice" resultType="map" parameterType="noticeSearchVo"
+		resultMap="noticeAbout"> 
+		SELECT *
+		FROM
+		(
+		    SELECT A.*, ROWNUM AS RNUM
+		    FROM
+		    (
+		        SELECT N.*, C.CLASSIFICATION_NAME,M.MANAGER_NAME
+				FROM NOTICE N JOIN CLASSIFICATIONS C
+				ON N.CLASSIFICATION_NO = C.CLASSIFICATION_NO
+				JOIN MANAGERS M
+				ON M.MANAGER_NO = N.MANAGER_NO
+				<if test="searchKeyword != null and searchKeyword != ''">
+					WHERE ${searchCondition} LIKE '%' || #{searchKeyword} || '%'
+				</if>
+				<if test="classificationNo != '' and classificationNo != 0">
+					AND N.CLASSIFICATION_NO=#{classificationNo}
+				</if>
+				ORDER BY (
+				CASE CLASSIFICATION_NAME
+				WHEN '공지' THEN 1 ELSE 2 END), NOTICE_DATE DESC
+		    )A
+		)
+		<![CDATA[
+		WHERE RNUM > #{firstRecordIndex} 
+		AND RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	
+	<!-- 회원 사이트 - 공지사항 게시글 조회수 업데이트 -->
+	<update id="viewUpdate" parameterType="int">
+		UPDATE NOTICE 
+		SET NOTICE_VIEW=NOTICE_VIEW+1
+		WHERE NOTICE_NO=#{noticeNo}
+	</update>
 </mapper>
 
 
