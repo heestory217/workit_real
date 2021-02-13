@@ -15,7 +15,7 @@
       </a>
   </div>
                                  
-<form name="introFrm" action="<c:url value='/admin/siteManage/siteIntroEdit.do'/>">
+<form name="introFrm" action="<c:url value='/admin/siteManage/siteIntroEdit.do'/>" method="post">
    <div class="email-head">
        <div class="email-head-subject">
            <div class="title">
@@ -34,7 +34,7 @@
   		</textarea>
 		<script type="text/javascript">
 			CKEDITOR.replace('websitemanageAbout', {
-				height : 500
+				height : 450
 			});
 		</script>
    </div>

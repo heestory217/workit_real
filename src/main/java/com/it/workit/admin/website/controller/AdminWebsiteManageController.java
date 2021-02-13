@@ -45,7 +45,15 @@ public class AdminWebsiteManageController {
 		int cnt = websiteService.updateSiteIntro(vo);
 		logger.info("사이트소개 수정 결과 cnt={}", cnt);
 		
-		return "redirect:/admin/siteManage/siteIntro.do";
+		String msg = "사이트소개 수정 실패하였습니다", url="redirect:/admin/siteManage/siteIntro.do";
+		if(cnt>0) {
+			msg="성공적으로 수정 반영되었습니다";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
 	}
 			
 	@RequestMapping("/termsOfService.do")
