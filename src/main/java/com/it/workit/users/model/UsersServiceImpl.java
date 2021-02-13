@@ -170,4 +170,9 @@ public class UsersServiceImpl implements UsersService{
 		return usersDao.updateCorpUsers(vo);
 	}
 
+	@Override
+	public List<UsersVO> usersAll() {
+		return usersDao.usersAll();
+	}
+
 }

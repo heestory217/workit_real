@@ -37,4 +37,5 @@ public interface UsersDAO {
 	public int selectTotalCorpByDate(DateSearchVO dateSearchVo);
 	public int selectTotalWithdrawUsersByDate(DateSearchVO dateSearchVo);
 	public int selectTotalWithdrawCorpByDate(DateSearchVO dateSearchVo);
+	public List<UsersVO> usersAll();
 }
