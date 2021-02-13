@@ -201,7 +201,13 @@
 										<i class="fas fa-building"></i> ${vo.areaAdd1 } · ${vo.areaAdd2 }
 									</p>
 									<p class="margin_bottom_0 gray">
-										<i class="fas fa-pencil-alt"></i> ${vo.languageName } · ${vo.recruitannounceScarrer }
+										<i class="fas fa-pencil-alt"></i> ${vo.languageName } · 
+										<c:if test="${vo.recruitannounceWantedcarrer ==0}">
+											신입
+										</c:if>
+										<c:if test="${vo.recruitannounceWantedcarrer !=0}">
+											${vo.recruitannounceWantedcarrer }년 이상
+										</c:if>
 									</p>
 									<p class="margin_bottom_0 gray">
 										<i class="fas fa-dollar-sign"></i> ${vo.recruitannounceSpay }
