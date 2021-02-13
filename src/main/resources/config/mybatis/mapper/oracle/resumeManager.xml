@@ -3,7 +3,47 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="config.mybatis.mapper.oracle.resumeManager">
+	<sql id="searchWhere">
+		<where>
+			not resume_resumeopencheck in ('1')
+			<if test="searchKeyword != null and searchKeyword != ''">
+				and ${searchCondition} like '%'||#{searchKeyword} ||'%' 
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 전체 select -->
+	<select id="resumeByOpenNo" parameterType="searchVo" resultType="map">
+		select * 
+		from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        select * from resumeUsers 
+		        <include refid="searchWhere"/>
+		    )A
+		)
+		<![CDATA[
+		where RNUM > #{firstRecordIndex} 
+		and RNUM<= #{firstRecordIndex}+#{recordCountPerPage}
+		]]>
+	</select>
+	
+	<!-- 전체 카운트 -->
+	<select id="rsOpenTotal" parameterType="searchVo" resultType="int">
+		select count(*) from resumeUsers
+		<include refid="searchWhere"/>
+	</select>
 
+	<!--승인-->
+	<update id="resumreAck" parameterType="int">
+		update resumes 
+		set RESUME_RESUMEOPENCHECK=2
+		where resume_no = #{resumeNo}
+	</update>
+	
+	<!--반려 -->
 	
 </mapper>
 

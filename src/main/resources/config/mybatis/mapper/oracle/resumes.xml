@@ -162,13 +162,6 @@
 		where resume_no = #{resumeNo}
 	</update>
 	
-	<!-- 승인 -->
-	<update id="resumreAck" parameterType="int">
-		update resumes 
-		set RESUME_RESUMEOPENCHECK=2
-		where resume_no = #{resumeNo}
-	</update>
-	
 	<!-- 언어 인서트 -->
 	<insert id="insertUserlang" parameterType="corpuselanguageVO">
 		<selectKey keyProperty="corpuselanguageNo" resultType="int" order="BEFORE">

@@ -98,7 +98,6 @@ $(function(){
 							<div class="product-item">
 								<div class="pi-pic">
 									<button class="newresumeBt">
-<%-- 										onclick="location.href='<c:url value="/resumes/resumeWrite.do"/>'"> --%>
 										<i class="fa fa-files-o" aria-hidden="true"></i>
 										<h5 id="newresumeSpan">새 이력서 작성</h5>
 									</button>
