@@ -374,6 +374,7 @@ public class CorpController {
 		vo.setCorpNo(corpno);
 		
 		logger.info("기업 회사 리뷰작성 insert / userno={}",userNo);
+		logger.info("vo={}",vo);
 		
 		int cnt=corpService.insertCorpReview(vo);
 		
