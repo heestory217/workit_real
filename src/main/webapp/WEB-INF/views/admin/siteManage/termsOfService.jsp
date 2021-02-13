@@ -12,7 +12,7 @@
                 	<a class="active" href="#">
                 		<span class="icon"><i class="fas fa-flag"></i></span>
                		</a> 
-               		<span style="font-size: 1.4rem; font-weight: bold;">사이트 소개</span>
+               		<span style="font-size: 1.4rem; font-weight: bold;">이용약관</span>
                 </div>
             </div>
             
