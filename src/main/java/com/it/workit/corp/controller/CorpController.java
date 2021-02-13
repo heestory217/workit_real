@@ -129,16 +129,16 @@ public class CorpController {
 	}
 	
 	@RequestMapping("/corpRecruitList.do")
-	public String corpRecuritList(@RequestParam(defaultValue = "0") int userNo, Model model) {
-		logger.info("기업별 채용공고 보기 해당 기업의 userNo={}",userNo);
-		if(userNo==0) {
+	public String corpRecuritList(@RequestParam(defaultValue = "0") int corpNo, Model model) {
+		logger.info("기업별 채용공고 보기 해당 기업의 userNo={}",corpNo);
+		if(corpNo==0) {
 			String msg="잘못된 URL입니다.",url="/index.do";
 			model.addAttribute("msg", msg);
 			model.addAttribute("url", url);
 			return "common/message";
 		}
 		
-		List<CorpRecruitViewVO> crVoList = corpService.selectRecruit(userNo);
+		List<CorpRecruitViewVO> crVoList = corpService.selectRecruit(corpNo);
 		logger.info("기업별 채용공고 리스트 사이즈 ={}",crVoList.size());
 		for(CorpRecruitViewVO vo:crVoList) {
 			System.out.println("채용공고 vo : "+vo);

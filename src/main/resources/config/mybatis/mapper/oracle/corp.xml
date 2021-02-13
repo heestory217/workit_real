@@ -30,7 +30,7 @@
 	
 	<select id="selectRecruit" parameterType="int" resultType="corpRecruitViewVO">
 		select * from CorpRecruitview
-		where RECRUITANNOUNCE_UPCHECK=1 and user_no=#{userNo}
+		where RECRUITANNOUNCE_UPCHECK=2 and corp_no=#{corpNo}
 	</select>
 	
 	<update id="editCorp" parameterType="corpVo">

@@ -141,7 +141,7 @@
 					
 					<!-- 채용중인 포지션 리스트 -->
                     <c:import url="/company/corp/corpRecruitList.do">
-                    	<c:param name="userNo" value="${cVo.userNo}"></c:param>
+                    	<c:param name="corpNo" value="${cVo.corpNo}"></c:param>
                     </c:import>
 					<!-- 채용중인 포지션 리스트 끝-->
                     <hr>
