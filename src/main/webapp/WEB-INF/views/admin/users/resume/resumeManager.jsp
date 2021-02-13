@@ -6,18 +6,15 @@
 <%@ include file="../../inc/sideMenu.jsp"%>
 
 <script type="text/javascript">
-	function pageFunc(curPage){
-		$('input[name=currentPage]').val(curPage);
-		$('form[name=frmPage]').submit();
-	}
+
 </script>
 
 <div class="col-lg-12">
 	<br><div class="section-block">
-		<h3 class="section-title center">이력서 조회</h3>
+		<h3 class="section-title center">이력서 승인</h3>
 	</div><br>
 
-	<form action="<c:url value='/admin/users/indiv/selectIndivUsers.do'/>"
+	<form action="<c:url value='/admin/users/indiv/resume/resumeManager.do'/>"
 		name="frmPage" method="post">
 		<input type="hidden" name="currentPage">
 		<input type="hidden" name="searchCondition" 
@@ -29,7 +26,7 @@
 		<p class="float_left textMyColor">
 			검색어 : ${param.searchKeyword}, ${pagingInfo.totalRecord }  건 검색되었습니다.</p>
 	</c:if>
-	<form action="<c:url value='/admin/users/indiv/selectIndivUsers.do'/>"
+	<form action="<c:url value='/admin/users/resume/resumeManager.do'/>"
 		name="frmSearch" method="post">
 		<div class="input-group input-search inputSearchbox">
 			
@@ -57,58 +54,61 @@
 		<colgroup>
 			<col width="10%">
 			<col width="10%">
-			<col width="20%">
+			<col width="40%">
 			<col width="15%">
-			<col width="30%">
+			<col width="15%">
 			<col width="10%">
-			<col width="5%">
 		</colgroup>
 			<thead>
 				<tr class="center">
-					<th scope="col">이름</th>
-					<th scope="col">아이디</th>
-					<th scope="col">이메일</th>
-					<th scope="col">전화번호</th>
-					<th scope="col">주소</th>
-					<th scope="col">가입일</th>
-					<th scope="col"></th>
+					<th scope="col">승인 여부</th>
+					<th scope="col">이력서 번호</th>
+					<th scope="col">이력서 제목</th>
+					<th scope="col">회원 이름</th>
+					<th scope="col">회원 아이디</th>
+					<th scope="col">승인 버튼</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:if test="${empty list }">
+				<c:if test="${empty rsList }">
 		            <tr class="center">
-			            <td colspan="7"><br><br>
+			            <td colspan="6"><br><br>
 			            	<p>요청하신 결과가 없습니다.</p><br>
 			            </td>
 		            </tr>
 	            </c:if>
-	            <c:if test="${!empty list }">
-	            	<c:forEach var="vo" items="${list }">
+	            <c:if test="${!empty rsList }">
+	            	<c:forEach var="map" items="${rsList }">
 	            		<tr>
 	            			<th class="center">
-	            				${vo.userName }
-	            			</th>
-	            			<th class="center">
-	            				${vo.userId }
-	            			</th>
-	            			<th>
-	            				${vo.userEmail1 }@${vo.userEmail2 }
-	            			</th>
-	            			<th>
-	            				${vo.userHp1 } - ${vo.userHp2 } - ${vo.userHp3 }
-	            			</th>
-	            			<th>
-	            				<c:if test="${!empty vo.userZipcode }">
-		            				(${vo.userZipcode }) ${vo.userAddress } ${vo.userAddressdetail }
+	            				<c:if test="${map['RESUME_RESUMEOPENCHECK']==2 }">
+	            					승인
+	            				</c:if>
+	            				<c:if test="${map['RESUME_RESUMEOPENCHECK']==3 }">
+	            					승인대기
+	            				</c:if>
+	            				<c:if test="${map['RESUME_RESUMEOPENCHECK']==4 }">
+	            					반려
 	            				</c:if>
 	            			</th>
 	            			<th class="center">
-	            				<fmt:formatDate value="${vo.userRegdate }"
-	            					pattern="yyyy-MM-dd"/>
+	            				${map['RESUME_NO'] }
 	            			</th>
-	            			<th class="center"><a href="<c:url value='/admin/users/indiv/withdrawUsers.do?userNo=${vo.userNo }'/>"
-	            				onclick="if(!confirm('탈퇴 처리 하시겠습니까?')){return false;}" class="hoverColor">탈퇴</a></th>
-	            		</tr>
+	            			<th>
+	            				<a href='<c:url value="/admin/users/resume/resumeCheck.do?resumeNo=${map['RESUME_NO'] }"/>' 
+	            					id="reCheckBt" onclick="if(!confirm('선택한 이력서를 확인 하시겠습니까?')){return false;}">
+	            					${map['RESUME_TITLE'] }
+	            				</a>
+	            			</th>
+	            			<th class="center">
+	            				${map['USER_NAME'] }
+	            			</th>
+	            			<th class="center">
+	            				${map['USER_ID'] }
+	            			</th>
+	            			<th class="center"><a href='<c:url value="/admin/users/resume/resumreAck.do?resumeNo=${map['RESUME_NO'] }"/>'
+	            				onclick="if(!confirm('승인 하시겠습니까?')){return false;}" class="hoverColor">승인</a></th>
+	            			</tr>
 	            	</c:forEach>
 	            </c:if>
 			</tbody>

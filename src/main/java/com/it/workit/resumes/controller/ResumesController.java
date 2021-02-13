@@ -195,7 +195,7 @@ public class ResumesController {
 	//디테일 페이지
 	@RequestMapping("/resumeDetail.do")
 	public void resumeDetail(@RequestParam(defaultValue = "0") int resumeNo,
-			HttpSession session, Model model) {
+		HttpSession session, Model model) {
 		logger.info("디테일페이지 보여주기");
 
 		String userId = (String) session.getAttribute("userId");
@@ -508,7 +508,7 @@ public class ResumesController {
 			logger.info("listUWA={}", listUWA);
 			
 
-			return "resumes/resumesList";
+			return "redirect:/resumes/resumesList.do";
 	}
 
 

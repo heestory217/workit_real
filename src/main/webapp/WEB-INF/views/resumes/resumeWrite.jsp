@@ -153,8 +153,7 @@ input#carrerWork {
 .myWarp {
     width: 100%;
     margin: 14px;
-    padding: 25px 0 40px 0;
-    border-top: 1px solid #ddd;
+    padding: 0 0 40px 0;
 }
 button.btnRemove {
     background: #fff;
@@ -186,7 +185,10 @@ p#info {
                         <p>&nbsp;&nbsp;<i class="fa fa-lightbulb-o" aria-hidden="true">
                         	</i>&nbsp;기업에게 보여지는 이름입니다</p>
                     </div>
-                    <div class="myWarp">
+                    <div class="myWarp colWarp">
+                    	<div class="labelWarp">
+                        <label id="resume-colName" for="resumeTitle">기본 정보</label>
+                        </div>
 						<p>${userVo.userName}</p>
 						<p>${userVo.userEmail1}@${userVo.userEmail2 }</p>
 						<p>${userVo.userHp1}-${userVo.userHp2}-${userVo.userHp3 }</p>
