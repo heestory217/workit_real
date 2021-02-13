@@ -12,19 +12,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Work IT | 개발자를 위한 취업 사이트</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
-    <!-- Css Styles -->
-    <link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>" type="text/css">
-    <link rel="stylesheet" href="<c:url value="/resources/css/font-awesome.min.css"/>" type="text/css">
-    <link rel="stylesheet" href="<c:url value="/resources/css/themify-icons.css"/>" type="text/css">
-    <link rel="stylesheet" href="<c:url value="/resources/css/elegant-icons.css"/>" type="text/css">
-    <link rel="stylesheet" href="<c:url value="/resources/css/owl.carousel.min.css"/>" type="text/css">
-    <link rel="stylesheet" href="<c:url value="/resources/css/nice-select.css"/>" type="text/css">
-    <link rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.min.css"/>" type="text/css">
-    <link rel="stylesheet" href="<c:url value="/resources/css/slicknav.min.css"/>" type="text/css">
-    <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>" type="text/css">
 
     <!-- Js Plugins -->
     <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
@@ -82,7 +69,10 @@
     </script>
 </head>
 <!-- 기업 리뷰 리스트 반복 시작 -->
+
 <body>
+
+
 <form action="<c:url value='/company/corp/corpDetail.do?corpNo=${param.corpNo}'/>" name="frmPage" method="post">
 	<input type="hidden" name="currentPage">
 	<input type="hidden" name="corpNo" value="${param.corpNo}">
@@ -154,8 +144,10 @@
     </div>
 </div>
 <!-- user가 일반회원일때만 보여줘야함 -->
+
 <c:if test="${sessionScope.user_corpcheck eq 1 }">
 	<a href="<c:url value="/company/corp/corpReviewWrite.do?corpno=${param.corpNo }"/>"><button style="float: right;" class="site-btn">기업 리뷰 작성</button></a>
 </c:if>
+
 </body>
 </html>

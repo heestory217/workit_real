@@ -45,11 +45,12 @@
                                    		</li>
                                    		
                                    		<c:if test="${resume.buyChk eq 1 }">
-                                            	<li class="quick-view"><a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${resume.resumesVo.resumeNo }&type=Bought'/>">+ View</a></li>
-                                            </c:if>
+                                            	<li class="quick-view"><a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${matchVo.resumesVo.resumeNo  }&type=Bought'/>">+ View</a></li>
+                                       </c:if>
                                        <c:if test="${resume.buyChk != 1 }">
                                        		<li class="quick-view">
-                                       			<a href="#" onclick="resumePurchase('${resume.resumesVo.resumeNo }')">+ View</a></li>
+                                       			<a href="#" onclick="resumePurchase('${matchVo.resumesVo.resumeNo  }')">+ View</a>
+                                 			</li>
                                        </c:if>
 	                                </ul>
 	                            </div>
@@ -65,8 +66,8 @@
 	                                </a>
 	                                <!-- 언어 리스트 -->
 	                                <div class="product-price">
-						                <c:forEach var="lang" items="${matchVo.langList}" >
-			                                    ${lang.languageName} 
+						                <c:forEach var="lang" items="${matchVo.langList}" varStatus="status">
+			                                    ${lang.languageName}<c:if test="${status.last eq false}">, </c:if>
 										</c:forEach>
 	                                </div>
 									

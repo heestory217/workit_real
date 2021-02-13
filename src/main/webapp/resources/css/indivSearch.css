@@ -1,9 +1,14 @@
 @charset "UTF-8";
 
-#searchImg{
-	min-width: 50%;
+.single-latest-blog img{
+	min-width : 30%;
+	max-width : 90%;
+	border-radius : 20px;
 }
 
+.imgDiv{
+	text-align : center;
+}
 .margin_left_right_150{
 	margin-left: 150px;
 	margin-right: 150px;

@@ -89,6 +89,10 @@
 	    display :block;
 	}
 	
+	.product-item .pi-pic {
+			height: 385px;
+	}
+	
 	</style>
     <!-- Breadcrumb Section Begin -->
     <div class="breacrumb-section" >
@@ -268,8 +272,8 @@
 						                                </a>
 					                                <!-- 언어 리스트 -->
 					                                <div class="product-price">
-										                <c:forEach var="lang" items="${resume.langList}" >
-							                                ${lang.languageName} 
+										                <c:forEach var="lang" items="${resume.langList}" varStatus="status">
+							                                ${lang.languageName}<c:if test="${status.last eq false}">, </c:if>
 														</c:forEach>
 					                                </div>
 					                                <!-- 희망 근무 지역 리스트 -->

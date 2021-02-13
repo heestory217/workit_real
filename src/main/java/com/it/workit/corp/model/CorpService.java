@@ -10,7 +10,7 @@ public interface CorpService {
 	int insertCorp(CorpVO vo, List<CorpimgVO> imgList);
 	CorpVO selectCorp(int corpNo);
 	List<CorpimgVO> corpImgList (int corpNo);
-	List<CorpRecruitViewVO> selectRecruit(int userNo);
+	List<CorpRecruitViewVO> selectRecruit(int corpNo);
 	int editCorp(CorpVO vo);
 	int editCorpImg(List<CorpimgVO> imgList);
 	int selectCorpNo(int userNo);

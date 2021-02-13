@@ -47,8 +47,8 @@ public class CorpServiceImpl implements CorpService {
 	}
 
 	@Override
-	public List<CorpRecruitViewVO> selectRecruit(int userNo) {
-		return corpDao.selectRecruit(userNo);
+	public List<CorpRecruitViewVO> selectRecruit(int corpNo) {
+		return corpDao.selectRecruit(corpNo);
 	}
 
 	@Override

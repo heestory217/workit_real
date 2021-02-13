@@ -222,20 +222,21 @@ public class UsersController {
 			logger.info("회원종류={}", kind);
 			session.setAttribute("user_corpcheck", kind);
 
+			int check = 0;
+			session.setAttribute("user_seervcheck", check);
 
 			if(vo.getUserCorpcheck()==1){
 				List<Date> seervcheck=ordersService.selectorderscall(vo.getUserNo());
 				logger.info("로그인 처리 결과, 회원권 구매결과={}", seervcheck);
-				logger.info("갯수 {}", seervcheck.size());
 				int t =seervcheck.size();
 				Date d = new Date();
-
 				if(t>0) {
 					for(int i=0; i<t; i++) {
 						int compare=d.compareTo(seervcheck.get(i));
 						if(compare<0) {
-							logger.info("이용권존재함 {}", seervcheck.get(i));
-							session.setAttribute("seervcheck", seervcheck.get(i));
+							logger.info("이용권 종료일={}, compare={}", seervcheck.get(i), compare);
+							check = 1;
+							session.setAttribute("user_seervcheck", check);
 							break;
 						}
 					}
