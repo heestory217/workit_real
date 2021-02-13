@@ -90,6 +90,7 @@
 			                        <c:if test="${corpVo.corpOkcheck eq 2}">
 			                        	<a href="<c:url value='/admin/users/corp/corpJudge.do?corpNo=${corpVo.corpNo }&type=W'/>" class="dropdown-item">등록 반려 취소</a>
 			                        	<a href="<c:url value='/admin/users/corp/corpJudge.do?corpNo=${corpVo.corpNo }&type=Y'/>" class="dropdown-item">기업 등록 승인</a>
+			                        	<a href="#" class="dropdown-item" onclick="sendMessage('${corpVo.corpName}','${corpVo.userNo}')">반려 사유 쪽지 전송</a>
 			                        </c:if>
                                     
                                     <!-- item-->
@@ -152,9 +153,6 @@
 	</div>
 </div>
 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom: 60px;">
-    <!-- ============================================================== -->
-    <!-- card influencer one -->
-    <!-- ============================================================== -->
     <c:if test="${empty corpWaitingList }">
     	심사 대기중인 기업이 없습니다.
     </c:if>
@@ -185,7 +183,7 @@
 	                    </div>
 	                    <div class="col-xl-3 col-lg-12 col-md-12 col-sm-12 col-12">
 	                        <div class="float-xl-right float-none mt-xl-0 mt-4">
-	                            <a href="<c:url value='/admin/users/corp/corpJudge.do?corpNo=${wCo.corpVo.corpNo }&type=N'/>" class="btn btn-outline-secondary">기업 등록 반려</a>
+	                            <a href="<c:url value='/admin/users/corp/corpJudge.do?corpNo=${wCo.corpVo.corpNo }&type=N'/>" class="btn btn-outline-secondary" onclick="sendMessage('${wCo.corpVo.corpName}','${wCo.corpVo.userNo}')">기업 등록 반려</a>
 	                            <a href="<c:url value='/admin/users/corp/corpJudge.do?corpNo=${wCo.corpVo.corpNo }&type=Y'/>" class="btn btn-outline-primary">기업 등록 승인</a>
 	                        </div>
 	                    </div>
@@ -227,16 +225,9 @@
 	        </div>
         </c:forEach>
         </c:if>
-        <!-- ============================================================== -->
-        <!-- end card influencer one -->
-        <!-- ============================================================== -->
-
-
-        <!-- ============================================================== -->
-        <!-- end content -->
-        <!-- ============================================================== -->
     </div>
 </div>
+<script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
 <script type="text/javascript">
 	function searching(curPage){
 		$('input[name=currentPage]').val(curPage);
@@ -251,5 +242,14 @@
 			moreInfo.style.display='none';
 		}
 	}
+	
+	function sendMessage(corpName,userNo){
+		open(
+				"/workit/admin/message/sendMessage.do?corpName="
+						+corpName+"&userNo="+userNo, "chk",
+				"width=650,height=550,left=0,top=0,location=yes");
+		}
+	
+
 </script>
 <%@ include file="../../inc/bottom.jsp" %>

@@ -48,7 +48,8 @@
                                             	<li class="quick-view"><a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${resume.resumesVo.resumeNo }&type=Bought'/>">+ View</a></li>
                                             </c:if>
                                        <c:if test="${resume.buyChk != 1 }">
-                                       		<li class="quick-view"><a href="#">+ View</a></li>
+                                       		<li class="quick-view">
+                                       			<a href="#" onclick="resumePurchase('${resume.resumesVo.resumeNo }')">+ View</a></li>
                                        </c:if>
 	                                </ul>
 	                            </div>
@@ -108,6 +109,13 @@
 		insertResume(no);
 		event.preventDefault();
 	}
+ 
+function resumePurchase(resumeNo){
+	open(
+		"/workit/resumes/resumePurchase.do?resumeNo="
+				+ resumeNo, "chk",
+		"width=650,height=518,left=0,top=0,location=yes");
+}
 	
     //[1] 아작스 요청
    function insertResume(no){

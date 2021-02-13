@@ -6,6 +6,7 @@
 <%@ include file="../../inc/top.jsp" %>
 <%@ include file="../../inc/sideMenu.jsp" %>
 
+
 <link rel="stylesheet" href="<c:url value="/resources/admin/assets/libs/css/detail.css"/>" type="text/css">
 <style>
  table tbody tr td p{
