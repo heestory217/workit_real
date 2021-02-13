@@ -6,9 +6,6 @@
 <%@ include file="../inc/top.jsp" %>
 <%@ include file="../inc/sideMenu.jsp" %>
 
- 		<!-- ============================================================== -->
-        <!-- wrapper  -->
-        <!-- ============================================================== -->
         <div class="email-head">
             <div class="email-head-subject">
                 <div class="title">
@@ -22,7 +19,7 @@
         </div>
         
         <div class="email-body">
-            <p>${map['WEBSITEMANAGE_ABOUT']}</p>
+            <p>${map['websitemanageAbout']}</p>
         </div>
             
         <div class="email-attachments">
@@ -31,22 +28,10 @@
         	</div>
             <div class="title">작성자 : <span>${map['MANAGER_NAME']}</span></div>
         </div>
-        
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>실제 사이트에 적용된 사이트 소개문입니다.</strong>
-            <a href="#" class="close" data-dismiss="alert" aria-label="Close">
-               <span aria-hidden="true">×</span>
-            </a>
-        </div>
 
         <div style="float: right;">
-		    <a href="#" class="btn btn-primary" style="margin-right: 1rem;">수정하기</a>
+		    <a href="<c:url value='siteIntroEdit.do'/>" class="btn btn-primary" style="margin: 1rem 1rem 0 0;">수정하기</a>
         </div>
-	                    
-                                            
-   <!-- ============================================================== -->
-    <!-- end main wrapper -->
-    <!-- ============================================================== -->
 
 <script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
 <script type="text/javascript"> </script>

@@ -25,6 +25,15 @@ public class AdminWebsiteManageController {
 		 
 		return "admin/siteManage/siteIntro";
 	}
+	
+	@RequestMapping("/siteIntroEdit.do")
+	public String siteIntroEdit(Model model) {
+		logger.info("사이트소개 수정 페이지 보여주기");
+		Map<String, Object> map = websiteService.selectSiteIntro();
+		model.addAttribute("map", map);
+		
+		return "admin/siteManage/siteIntroEdit";
+	}
 			
 	@RequestMapping("/termsOfService.do")
 	public void termsOfService() {
