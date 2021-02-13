@@ -95,13 +95,13 @@
                                 <div id="submenu-5" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/general-table.html">사이트 소개</a>
+                                            <a class="nav-link" href="<c:url value='/admin/siteManage/siteIntro.do'/>">사이트 소개</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/data-tables.html">이용 약관</a>
+                                            <a class="nav-link" href="<c:url value='/admin/siteManage/termsOfService.do'/>">이용 약관</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/data-tables.html">개인정보 처리 방침</a>
+                                            <a class="nav-link" href="<c:url value='/admin/siteManage/privacyPolicy.do'/>">개인정보 처리 방침</a>
                                         </li>
                                     </ul>
                                 </div>
