@@ -130,8 +130,6 @@ $(function(){
 			location.href="<c:url value='/admin/notice/noticeList.do?type=2'/>";
 		}else if(type==3){
 			location.href="<c:url value='/admin/notice/noticeList.do?type=3'/>";
-		}else if(type==4){
-			location.href="<c:url value='/admin/notice/noticeList.do?type=4'/>";
 		}
 	});
 	
@@ -233,11 +231,6 @@ function showCont(noticeNo){
 									selected="selected"
 								</c:if>
 							>안내</option>
-							<option value="4"
-								<c:if test="${param.type=='4'}">
-									selected="selected"
-								</c:if>
-							>기타</option>
 			        </select>
 					
 					</th>

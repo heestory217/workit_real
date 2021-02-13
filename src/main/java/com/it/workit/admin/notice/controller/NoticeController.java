@@ -3,6 +3,7 @@ package com.it.workit.admin.notice.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,7 +32,6 @@ public class NoticeController {
 		=LoggerFactory.getLogger(NoticeController.class);
 	
 	@Autowired private NoticeService noticeService;
-	
 	@Autowired private FileUploadUtil fileUtil;
 	
 	//공지사항 목록 조회
@@ -59,10 +60,6 @@ public class NoticeController {
 			searchVo.setClassificationNo(3);
 			guide=noticeService.getTotalRecord(searchVo);
 			logger.info("공지사항 총 레코드 수 - 안내, notice={}", notice);
-		}else if(type==4) {
-			searchVo.setClassificationNo(4);
-			etc=noticeService.getTotalRecord(searchVo);
-			logger.info("공지사항 총 레코드 수 - 기타, notice={}", notice);
 		}
 		
 		//[1]pagingInfo
@@ -97,11 +94,6 @@ public class NoticeController {
 			noticeList = noticeService.selectNoticeAll(searchVo);
 			logger.info("공지사항 조회 결과-안내, noticeList.size={}", noticeList.size());
 			totalRecord=guide;
-		}else if(type==4) {
-			searchVo.setClassificationNo(4);
-			noticeList = noticeService.selectNoticeAll(searchVo);
-			logger.info("공지사항 조회 결과-기타, noticeList.size={}", noticeList.size());
-			totalRecord=etc;
 		}
 		
 		pagingInfo.setTotalRecord(totalRecord);
@@ -122,15 +114,16 @@ public class NoticeController {
 	
 	//공지사항 등록 처리
 	@ResponseBody
-	@RequestMapping("/noticeRegister.do")
+	@RequestMapping(value="/noticeRegister.do",method=RequestMethod.POST)
 	public int write_post(@ModelAttribute NoticeVO vo, HttpSession session) {
 		int managerNo=(Integer) session.getAttribute("managerNo");
 		vo.setManagerNo(managerNo);
+				
 		logger.info("공지사항 등록 처리, 파라미터 vo={},",vo);
 		
 		int cnt = noticeService.insertNotice(vo);
 		logger.info("공지사항 등록 처리 결과,cnt={}",cnt);
-
+		
 		return cnt;
 	}
 	
