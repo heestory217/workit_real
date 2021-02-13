@@ -108,9 +108,28 @@ public class UsersNoticeController {
 		return "redirect:/notice/noticeDetail.do?noticeNo="+noticeNo;
 	}
 	
+	
 	@RequestMapping("/noticeDetail.do")
-	public String noticeDetail(@RequestParam(defaultValue = "0") int noticeNo) {
+	public String noticeDetail(@RequestParam(defaultValue = "0") int noticeNo,Model model) {
 		logger.info("공지사항 상세페이지 조회, 파라미터 noticeNo={}", noticeNo);
+		
+		Map<String, Object> noticeOne = noticeService.selectNoticeOne(noticeNo);
+		logger.info("회원 사이트 - 공지사항 상세페이지 조회 결과, noticeOne={}", noticeOne);
+		
+		int prevNo=noticeNo-1;
+		Map<String, Object> prevNotice = noticeService.selectNoticeOne(prevNo);
+		logger.info("공지사항 수정 화면 조회 결과, noticeOne={}", noticeOne);
+		
+		int nextNo=noticeNo+1;
+		Map<String, Object> nextNotice = noticeService.selectNoticeOne(nextNo);
+		logger.info("공지사항 수정 화면 조회 결과, noticeOne={}", noticeOne);
+		
+		int totalR = noticeService.getRecordCount();
+		
+		model.addAttribute("noticeOne", noticeOne);
+		model.addAttribute("prevNotice", prevNotice);
+		model.addAttribute("nextNotice", nextNotice);
+		model.addAttribute("totalR", totalR);
 		
 		return "notice/noticeDetail";
 	}

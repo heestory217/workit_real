@@ -65,6 +65,18 @@ public class NoticeDAOMybatis implements NoticeDAO{
 	public int viewUpdate(int noticeNo) {
 		return sqlSession.update(namespace+"viewUpdate", noticeNo);
 	}
+	
+	//공지사항 상세조회(회원)
+	@Override
+	public Map<String, Object> selectNoticeOne(int noticeNo) {
+		return sqlSession.selectOne(namespace+"selectNoticeOne", noticeNo);
+	}
+	
+	//전체 레코드수
+	@Override
+	public int getRecordCount() {
+		return sqlSession.selectOne(namespace+"getRecordCount");
+	}
 
 	
 }

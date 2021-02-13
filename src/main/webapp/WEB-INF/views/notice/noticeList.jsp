@@ -4,7 +4,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
-
+.filter-catagories > li:nth-child(2) > a{
+	font-weight:bold;
+	color:#4c50bb;
+	font-size:18px;
+}
 .tableBx {
 	width: 100%;
 	height: auto;
@@ -78,7 +82,7 @@ select[name=searchCondition]{
 }
 
 form[name=frmList]{
-	 margin-top:50px;
+    margin-top: 35px; 
 }
 </style>
 
@@ -91,9 +95,6 @@ form[name=frmList]{
 		value="${param.searchKeyword }">
 </form> 
 
-
-
-<!-- Breadcrumb Section Begin -->
 <div class="breacrumb-section">
 	<div class="container">
 		<div class="row">
@@ -107,7 +108,6 @@ form[name=frmList]{
 </div>
 
 
-<!-- Faq Section Begin -->
 <div class="faq-section spad">
 	<div class="container">
 		<div class="row">

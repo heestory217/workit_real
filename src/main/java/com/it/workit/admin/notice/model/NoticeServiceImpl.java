@@ -87,5 +87,17 @@ public class NoticeServiceImpl implements NoticeService{
 		return noticeDao.selectAllNotice(vo);
 	}
 	
+	//공지사항 상세조회(회원)
+	@Override
+	public Map<String, Object> selectNoticeOne(int noticeNo) {
+		return noticeDao.selectNoticeOne(noticeNo);
+	}
+
+	//전체 레코드수
+	@Override
+	public int getRecordCount() {
+		return noticeDao.getRecordCount();
+	}
+	
 	
 }

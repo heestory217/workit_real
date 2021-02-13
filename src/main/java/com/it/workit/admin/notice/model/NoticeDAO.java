@@ -13,4 +13,6 @@ public interface NoticeDAO {
 	int deleteNotice(int noticeNo);		//공지사항 삭제
 	List<Map<String, Object>> selectAllNotice(NoticeSearchVO vo);	//공지사항 전체 조회(회원사이트)
 	int viewUpdate(int noticeNo);	//회원 사이트 공지사항 조회수 업데이트
+	Map<String, Object> selectNoticeOne(int noticeNo);	//공지사항 상세조회(회원)
+	int getRecordCount();	//전체 레코드수
 }

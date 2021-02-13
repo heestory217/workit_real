@@ -122,12 +122,28 @@
 	</select>
 	
 	
-	<!-- 회원 사이트 - 공지사항 게시글 조회수 업데이트 -->
+	<!-- 공지사항 게시글 조회수 업데이트(회원) -->
 	<update id="viewUpdate" parameterType="int">
 		UPDATE NOTICE 
 		SET NOTICE_VIEW=NOTICE_VIEW+1
 		WHERE NOTICE_NO=#{noticeNo}
 	</update>
+	
+	<!-- 공지사항 상세조회(회원) -->
+	<select id="selectNoticeOne" parameterType="int" resultType="map"
+		resultMap="noticeAbout">
+		SELECT N.*, C.CLASSIFICATION_NAME,M.MANAGER_NAME
+		FROM NOTICE N JOIN CLASSIFICATIONS C
+		ON N.CLASSIFICATION_NO = C.CLASSIFICATION_NO
+		JOIN MANAGERS M
+		ON M.MANAGER_NO = N.MANAGER_NO
+		WHERE NOTICE_NO=#{noticeNo}
+	</select>
+	
+	<!-- 전체 레코드 수 -->
+	<select id="getRecordCount" resultType="int">
+		SELECT COUNT(*) FROM NOTICE
+	</select>
 </mapper>
 
 
