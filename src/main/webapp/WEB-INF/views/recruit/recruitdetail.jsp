@@ -98,7 +98,7 @@ a#corpinfo {
                        	</c:forEach>
                         <div class="posted-by" style="margin-top: 40px;">
                             <div class="pb-pic">
-                               <a href="<c:url value='/company/corp/corpDetail.do?corpNo=${CorpVO.corpNo}'/>" id="corpinfo"><img src="<c:url value='/pd_images/${CorpVO.corpImgurl }'/>" alt="" style="width: 70px;"></a>
+                               <a href="<c:url value='/company/corp/corpDetail.do?corpNo=${CorpVO.corpNo}'/>" id="corpinfo"><img src="<c:url value='/pd_images/${CorpVO.corpImgurl }'/>" alt="" style="width: 65px;"></a>
                             </div>
                             <div class="pb-text">
                                    <h5><a href="<c:url value='/company/corp/corpDetail.do?corpNo=${CorpVO.corpNo}'/>" id="corpinfo">${CorpVO.corpName}</a> | ${CorpVO.corpIndustry }</h5>
