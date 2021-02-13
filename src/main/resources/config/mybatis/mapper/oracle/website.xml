@@ -16,6 +16,17 @@
 		where WEBSITEMANAGE_KIND = 'V'
 	</select>
 	
+	<resultMap type="HashMap" id="introMap">
+   		<result property="websitemanageAbout" column="WEBSITEMANAGE_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	
+	<select id="selectSiteIntro" resultMap="introMap">
+		select w.*, m.manager_name
+		from website_manage w join MANAGERS m
+		on w.MANAGER_NO = m.MANAGER_NO
+		where WEBSITEMANAGE_KIND='I'
+	</select>
+	
 </mapper>
 
 
