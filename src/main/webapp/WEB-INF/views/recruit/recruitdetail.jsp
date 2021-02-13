@@ -73,7 +73,7 @@ a#corpinfo {
                         <div class="blog-detail-title">
                         <input type="hidden" id="recruitannounceNo" name="recruitannounceNo" value="${RecruitannounceVO.recruitannounceNo}">
                         	<!-- 기업 로고 이미지 -->
-                        	<img src="<c:url value='/pd_images/${CorpVO.corpImgurl }'/>" style="width: 50px;margin-bottom: 20px;margin-left: 65px;">
+                        	<img src="<c:url value='/pd_images/${CorpVO.corpImgurl }'/>" style="width: 50px; margin-bottom: 20px;margin-left: 65px;">
                         	<!-- 기업 로고 이미지 -->
                         	<div class="icons">
 	                        	<a href="<c:url value='/recruitBookmark/insertBookmark.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo}'/>"><i class="fa fa-bookmark-o" aria-hidden="true" style="margin-right: 20px;"></i></a>
@@ -105,7 +105,7 @@ a#corpinfo {
                        	</c:forEach>
                         <div class="posted-by" style="margin-top: 40px;">
                             <div class="pb-pic">
-                               <a href="#" id="corpinfo"><img src="<c:url value='/pd_images/${CorpVO.corpImgurl }'/>" alt="" style="width: 50%;"></a>
+                               <a href="#" id="corpinfo"><img src="<c:url value='/pd_images/${CorpVO.corpImgurl }'/>" alt="" style="width: 70px;"></a>
                             </div>
                             <div class="pb-text">
                                    <h5><a href="#" id="corpinfo">${CorpVO.corpName}</a> | ${CorpVO.corpIndustry }</h5>
