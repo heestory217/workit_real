@@ -150,9 +150,12 @@
                       str+="<div class='pi-text'>";
                       str+="<div class='catagory-name'>"+career(this.appReUsView.userExperience)+"</div>";
                       str+="<a href='/workit/resumes/resumeDetail.do?resumeNo="+this.appReUsView.resumeNo+"&type=Applied&applicantlistNo="+this.appReUsView.applicantlistNo+"'><h5>"+this.appReUsView.resumeTitle+"</h5></a><div class='product-price'>";
+                      var langList=""
                       $(this.languageList).each(function(){
-                         str+=this.languageName+"&nbsp;&nbsp;&nbsp;";
+                    	  langList += this.languageName+", ";
                       });
+                      langList = langList.substr(0, str.length -1);
+                      str+=langList;
                       str+="</div></div></div></div></div>";
 	               })
 	               str+="</div>";
