@@ -156,7 +156,14 @@
 
 	<!-- 사용자번호로 사용자가 주문한 후기열람권결제내역 불러오기 -->
 	<select id="selectorderscall" parameterType="int" resultType="Date">
-		select PAIDSERVICE_ENDDATE from ORDERDETAILSEERV where exists (select order_no from orders where user_no=#{userNo})
+		select A.*
+		from
+		(
+		    select PAIDSERVICE_ENDDATE from ORDERDETAILSEERV 
+		    where order_no in (select order_no from orders where user_no=#{userNo})
+		    order by order_no desc
+		)A
+		WHERE rownum=1
 	</select>
 
 

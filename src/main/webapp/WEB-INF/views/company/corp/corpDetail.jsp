@@ -146,9 +146,16 @@
 					<!-- 채용중인 포지션 리스트 끝-->
                     <hr>
 					<!-- 기업 리뷰 리스트 -->
-					<c:import url="/company/corp/corpReviewList.do">
-                    	<c:param name="corpNo" value="${cVo.corpNo}"></c:param>
-                    </c:import>
+					<!-- 비로그인, 미결제 회원 -->
+					<c:if test="${sessionScope.user_seervcheck != 1 || sessionScope.user_seervcheck == null}">
+					<p>aaaaaaaaaaaa</p>
+					</c:if>
+					<!-- 결제 회원 -->
+					<c:if test="${sessionScope.user_seervcheck eq 1 }">
+						<c:import url="/company/corp/corpReviewList.do">
+	                    	<c:param name="corpNo" value="${cVo.corpNo}"></c:param>
+	                    </c:import>
+                    </c:if>
 					<!-- 기업 리뷰 끝 -->
                 </div>
             </div>
