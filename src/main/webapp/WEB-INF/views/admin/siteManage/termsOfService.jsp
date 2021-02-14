@@ -30,8 +30,8 @@
         </div>
 
         <div style="float: right;">
-         	<a href="<c:url value='termsOfServiceEdit.do?type=N'/>" class="btn btn-secondary" style="margin: 1rem 1rem 0 0;">신규 등록</a>
-		    <a href="<c:url value='termsOfServiceEdit.do?type=E'/>" class="btn btn-primary" style="margin: 1rem 1rem 0 0;">수정하기</a>
+         	<a href="<c:url value='/admin/siteManage/websiteEdit.do?kind=T&type=N'/>" class="btn btn-secondary" style="margin: 1rem 1rem 0 0;">신규 등록</a>
+		    <a href="<c:url value='/admin/siteManage/websiteEdit.do?kind=T&type=E'/>" class="btn btn-primary" style="margin: 1rem 1rem 0 0;">수정하기</a>
         </div>
 
 <script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>

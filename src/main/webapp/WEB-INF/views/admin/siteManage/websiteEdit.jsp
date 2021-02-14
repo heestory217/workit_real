@@ -8,17 +8,7 @@
 
 <script src="<c:url value='/resources/js/ckeditor/ckeditor.js'/>"></script>
 <script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
-<script type="text/javascript"> 
- $(function(){
-	 $('form[name=siteFrm]').submit(function(){
-		 var kind = $('#kind').html();
-		 alert(kind);
-	 });
- });
-</script>
 
-<p id="kind">${map['WEBSITEMANAGE_KIND']}</p>
-                                        
 <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin: 0 auto;padding-top: 1.5rem;">
     <c:if test="${param.type == 'N'}">
      <strong>등록하기 버튼 클릭 시, 실제 사이트에 즉시 반영됩니다.</strong>
@@ -31,14 +21,22 @@
     </a>
 </div>
                                  
-<form name="siteFrm" action="<c:url value='/admin/siteManage/siteIntroEdit.do'/>" method="post">
+<form name="siteFrm" action="<c:url value='/admin/siteManage/websiteEdit.do'/>" method="post">
    <div class="email-head">
        <div class="email-head-subject">
            <div class="title">
            	<a class="active" href="#">
            		<span class="icon"><i class="fas fa-flag"></i></span>
           		</a> 
-          		<span style="font-size: 1.4rem; font-weight: bold;">사이트 소개</span>
+          		<c:if test="${param.kind=='I'}">
+	          		<span style="font-size: 1.4rem; font-weight: bold;">사이트 소개</span>
+          		</c:if>
+          		<c:if test="${param.kind=='T'}">
+	          		<span style="font-size: 1.4rem; font-weight: bold;">이용약관</span>
+          		</c:if>
+          		<c:if test="${param.kind=='P'}">
+	          		<span style="font-size: 1.4rem; font-weight: bold;">개인정보처리방침</span>
+          		</c:if>
            </div>
        </div>
        
@@ -61,6 +59,7 @@
 			<jsp:useBean id="now" class="java.util.Date" />
 			<fmt:formatDate value="${now}" type="both" pattern="yyyy-MM-dd [E] a hh:mm:ss"/>
 		</div>
+		<input type="hidden" name="websitemanageKind" value="${param.kind}">
 		<input type="hidden" name="type" value="${param.type}">
 		<input type="hidden" name="managerNo" value="${managerNo}">
 	    <div class="title">작성자 : <span>${managerName}</span></div>
