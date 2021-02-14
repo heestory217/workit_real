@@ -157,8 +157,8 @@ a#corpinfo {
 		                          					<p>${RecruitannounceVO.recruitannounceSworkkind}</p>
 	                          					</div>
 	                          					<div class="inside">
-	                                            <h5><i class="fa fa-money" aria-hidden="true"></i> 급여</h5>
-	                           						<p>${RecruitannounceVO.recruitannounceSpay}원</p>
+	                                            <h5><i class="fa fa-money" aria-hidden="true"></i> 연봉</h5>
+	                           						<p><fmt:formatNumber value="${RecruitannounceVO.recruitannounceSpay}" pattern="#,###,###"/>원</p>
                            						</div>
                            						<div class="inside">
 	                                            <h5><i class="fa fa-map-marker" aria-hidden="true"></i> 근무지</h5>
