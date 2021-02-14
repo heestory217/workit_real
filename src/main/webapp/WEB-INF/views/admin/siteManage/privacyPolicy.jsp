@@ -30,6 +30,7 @@
         </div>
 
         <div style="float: right;">
+		    <a href="<c:url value='siteIntroNew.do'/>" class="btn btn-secondary" style="margin: 1rem 1rem 0 0;">신규 등록</a>
 		    <a href="<c:url value='siteIntroEdit.do'/>" class="btn btn-primary" style="margin: 1rem 1rem 0 0;">수정하기</a>
         </div>
 

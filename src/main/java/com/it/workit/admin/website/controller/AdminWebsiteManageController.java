@@ -31,23 +31,48 @@ public class AdminWebsiteManageController {
 	}
 	
 	@RequestMapping(value="/siteIntroEdit.do", method = RequestMethod.GET)
-	public String siteIntroEdit(Model model) {
-		logger.info("사이트소개 수정 페이지 보여주기");
-		Map<String, Object> map = websiteService.selectSiteIntro();
-		model.addAttribute("map", map);
-		
+	public String siteIntroEdit(@RequestParam String type, Model model) {
+		if(type.equals("N")) { //신규등록
+			logger.info("사이트소개 등록 페이지 보여주기");
+		}else if(type.equals("E")) {	//수정
+			logger.info("사이트소개 수정 페이지 보여주기");
+			Map<String, Object> map = websiteService.selectSiteIntro();
+			model.addAttribute("map", map);
+		}
 		return "admin/siteManage/siteIntroEdit";
 	}
 	
 	@RequestMapping(value="/siteIntroEdit.do", method = RequestMethod.POST)
-	public String siteIntroEdit_post(@ModelAttribute WebsiteManageVO vo, Model model) {
-		logger.info("사이트소개 수정 처리 WebsiteManageVO={}", vo);
-		int cnt = websiteService.updateSiteIntro(vo);
-		logger.info("사이트소개 수정 결과 cnt={}", cnt);
+	public String siteIntroEdit_post(@ModelAttribute WebsiteManageVO vo, @RequestParam String type, Model model) {
+		String msg="", url="/admin/siteManage/siteIntroEdit.do";
+		logger.info("사이트소개 vo={}", vo);
 		
-		String msg = "사이트소개 수정 실패하였습니다", url="/admin/siteManage/siteIntro.do";
-		if(cnt>0) {
-			msg="성공적으로 수정 반영되었습니다";
+		if(type.equals("N")) { //신규등록
+			logger.info("사이트소개 등록 처리 WebsiteManageVO={}", vo);
+			
+			vo.setWebsitemanageKind("I");
+			vo.setWebsitemanageTitle("사이트소개 ");
+
+			int cnt = websiteService.insertWebsiteManage(vo);
+			logger.info("사이트소개 등록 결과 cnt={}", cnt);
+			msg = "사이트소개 등록 실패하였습니다";
+			
+			if(cnt>0) {
+				msg="성공적으로 등록되었습니다";
+				url = "/admin/siteManage/siteIntro.do";
+			}
+		}else if(type.equals("E")) {	//수정
+			logger.info("사이트소개 수정 처리 WebsiteManageVO={}", vo);
+			
+			int cnt = websiteService.updateSiteIntro(vo);
+			
+			logger.info("사이트소개 수정 결과 cnt={}", cnt);
+			msg = "사이트소개 수정 실패하였습니다";
+			
+			if(cnt>0) {
+				msg="성공적으로 수정 반영되었습니다";
+				url = "/admin/siteManage/siteIntro.do";
+			}
 		}
 		
 		model.addAttribute("msg", msg);

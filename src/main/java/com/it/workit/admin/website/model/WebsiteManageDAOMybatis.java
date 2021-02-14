@@ -20,6 +20,11 @@ public class WebsiteManageDAOMybatis implements WebsiteManageDAO{
 	public int selectTotalVisitor() {
 		return sqlSession.selectOne(namespace+"selectTotalVisitor");
 	}
+	
+	@Override
+	public int insertWebsiteManage(WebsiteManageVO vo) {
+		return sqlSession.insert(namespace+"insertWebsiteManage", vo);
+	}
 
 	@Override
 	public Map<String, Object> selectSiteIntro() {

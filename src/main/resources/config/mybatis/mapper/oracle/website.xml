@@ -21,12 +21,27 @@
 	</resultMap>
 	
 	<select id="selectSiteIntro" resultMap="introMap">
-		select w.*, m.manager_name
-		from website_manage w join MANAGERS m
-		on w.MANAGER_NO = m.MANAGER_NO
-		where WEBSITEMANAGE_KIND='I'
+		select A.*
+		from
+		(
+		    select w.*, m.manager_name
+		    from website_manage w join MANAGERS m
+		    on w.MANAGER_NO = m.MANAGER_NO
+		    where WEBSITEMANAGE_KIND='I'
+		    order by WEBSITEMANAGE_DATE desc
+		)A
+		where rownum=1
 	</select>
 	
+	<insert id="insertWebsiteManage" parameterType="websiteManageVO">
+		<selectKey keyProperty="websitemanageNo" resultType="int" order="BEFORE">
+			select WEBSITEMANAGE_SEQ.nextval from dual
+		</selectKey>
+		insert into website_manage(WEBSITEMANAGE_NO,MANAGER_NO,WEBSITEMANAGE_KIND,
+		    WEBSITEMANAGE_TITLE,WEBSITEMANAGE_ABOUT)
+		values(#{websitemanageNo}, #{managerNo}, #{websitemanageKind}, #{websitemanageTitle},#{websitemanageAbout})
+	</insert>
+
 	<update id="updateSiteIntro" parameterType="websiteManageVO">
 		update website_manage
 		set WEBSITEMANAGE_ABOUT=#{websitemanageAbout}, MANAGER_NO=#{managerNo}

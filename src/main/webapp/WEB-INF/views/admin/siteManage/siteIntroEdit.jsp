@@ -9,7 +9,12 @@
 <script src="<c:url value='/resources/js/ckeditor/ckeditor.js'/>"></script>
                                         
   <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin: 0 auto;padding-top: 1.5rem;">
-      <strong>수정하기 버튼 클릭 시, 실제 사이트에 즉시 반영됩니다.</strong>
+      <c:if test="${param.type == 'N'}">
+	      <strong>등록하기 버튼 클릭 시, 실제 사이트에 즉시 반영됩니다.</strong>
+      </c:if>
+      <c:if test="${param.type == 'E'}">
+	      <strong>수정하기 버튼 클릭 시, 실제 사이트에 즉시 반영됩니다.</strong>
+      </c:if>
       <a href="#" class="close" data-dismiss="alert" aria-label="Close" style="padding-top: 1.2rem;">
          <span aria-hidden="true">×</span>
       </a>
@@ -45,12 +50,18 @@
 			<jsp:useBean id="now" class="java.util.Date" />
 			<fmt:formatDate value="${now}" type="both" pattern="yyyy-MM-dd [E] a hh:mm:ss"/>
 		</div>
+		<input type="hidden" name="type" value="${param.type}">
 		<input type="hidden" name="managerNo" value="${managerNo}">
 	    <div class="title">작성자 : <span>${managerName}</span></div>
 	</div>
 
 	<div style="float: right;">
-		<input type="submit" class="btn btn-primary" style="margin: 1rem 1rem 0 0;" value="수정하기">
+		<c:if test="${param.type == 'N'}">
+			<input type="submit" class="btn btn-primary" style="margin: 1rem 1rem 0 0;" value="등록하기">
+		</c:if>
+		<c:if test="${param.type == 'E'}">
+			<input type="submit" class="btn btn-primary" style="margin: 1rem 1rem 0 0;" value="수정하기">
+		</c:if>
 	</div>
 
 </form>
