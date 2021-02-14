@@ -49,10 +49,7 @@
                                                         <a class="nav-link" href="<c:url value='/admin/users/corp/corpList.do'/>">기업 회원 조회</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="influencer-profile.html">채용 공고 조회</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="influencer-profile.html">채용 공고 심사</a>
+                                                        <a class="nav-link" href="<c:url value='/admin/users/corp/recruitList.do'/>">채용 공고 조회</a>
                                                     </li>
                                                 </ul>
                                             </div>

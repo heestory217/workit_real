@@ -94,10 +94,29 @@
 				select count(*) from ORDERDETAILAD where RECRUITANNOUNCE_NO=#{recruitannounceNo} 
 	</select>
 	
-	<select id="selectadverinfo" parameterType="int" resultType="AdvertisingVO">
-		        select  a.*, b.PAIDSERVICE_ENDDATE as adver_Enddate, (select PAIDSERVICE_NAME from PAIDSERVICE x where x.paidservice_no=b.paidservice_no) as productName  from RECRUITANNOUNCE a
-				left outer join ORDERDETAILAD b on a.RECRUITANNOUNCE_NO=b.RECRUITANNOUNCE_NO
-				where a.RECRUITANNOUNCE_NO=#{userNo} 
-				order by PAIDSERVICE_ENDDATE desc
+	<select id="recruitannouncecount" parameterType="SearchVO" resultType="int">
+		select count(*) from recruitannounce <if test="searchKeyword !=null and searchKeyword != ''">
+				recruit like '%' || #{searchKeyword} || '%'
+			</if>
 	</select>
+	
+	<select id="recruitannounceall" parameterType="SearchVO" resultType="RecruitannounceVO">
+		        select * from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        select * from recruitannounce
+		        <if test="searchKeyword !=null and searchKeyword != ''">
+				recruit like '%' || #{searchKeyword} || '%'
+			</if>
+		        order by RECRUITANNOUNCE_NO desc
+		    )A
+		)
+		<![CDATA[
+			where RNUM >= #{firstRecordIndex}
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+
 </mapper>

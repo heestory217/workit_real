@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.it.workit.common.SearchVO;
 import com.it.workit.language.model.LanguageVO;
 import com.it.workit.users.model.arealistVO;
 
@@ -83,6 +84,15 @@ public class RecruitannounceServiceImpl implements RecruitannounceService {
 	public AdvertisingVO selectadverinfo(int recruitannounceNo) {
 		return RecruitannounceDao.selectadverinfo(recruitannounceNo);
 	}
+	
+	@Override
+	public int recruitannouncecount(SearchVO searchVo) {
+		return RecruitannounceDao.recruitannouncecount(searchVo);
+	}
 
+	@Override
+	public List<RecruitannounceVO> recruitannounceall(SearchVO searchVo) {
+		return RecruitannounceDao.recruitannounceall(searchVo);
+	}
 	
 }
