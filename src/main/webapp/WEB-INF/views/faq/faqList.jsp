@@ -79,7 +79,14 @@ span#listEmpth {
 						<button class="accordion">${vo.faqTitle }</button>
 						<div class="text">
 							<a href="<c:url value='/faq/faqDetail.do?faqNo=${vo.faqNo }'/>">
-								<p>${vo.faqAbout }</p>
+								<p style="padding: 10px 10px;">
+									<c:if test="${fn:length(vo.faqAbout)>=170}">
+										${fn:substring(vo.faqAbout, 0, 170) } ... [더보기]
+									</c:if>
+									<c:if test="${fn:length(vo.faqAbout)<170}">						
+										${vo.faqAbout}
+									</c:if>
+								</p>
 							</a>
 						</div>
 					</c:forEach>

@@ -11,7 +11,7 @@
 
 	<h4 class="fw-title">고객센터</h4>
 	<ul class="filter-catagories">
-		<li><a href="#">Q&A</a></li>
+		<li><a href="<c:url value='/qna/qnaList.do'/>">Q&A</a></li>
 		<li><a href="<c:url value='/notice/noticeList.do'/>">공지사항</a></li>
 		<li><a href="<c:url value='/faq/faqList.do'/>">FAQ</a></li>
 	</ul>
