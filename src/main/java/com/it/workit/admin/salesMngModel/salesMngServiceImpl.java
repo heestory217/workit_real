@@ -1,6 +1,5 @@
 package com.it.workit.admin.salesMngModel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ public class salesMngServiceImpl implements salesMngService {
 		salesDateVO vo = new salesDateVO();
 		vo.setStartDate(year+"0101");
 		vo.setEndDate(year+"1231");
-		
+		System.out.println("salesDateVO="+vo);
 		return salesDao.selectMonthSales(vo);
 	}
 
