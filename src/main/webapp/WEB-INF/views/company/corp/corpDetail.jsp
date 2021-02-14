@@ -155,12 +155,15 @@
 					 	<a href="<c:url value='/indiv/serviceIntro.do'/>"><button class="site-btn" style="margin-bottom:60px;">멤버십 소개</button></a>
 				 	</div>
 					</c:if>
-					<!-- 결제 회원 -->
-					<c:if test="${sessionScope.user_seervcheck eq 1 }">
-						<c:import url="/company/corp/corpReviewList.do">
-	                    	<c:param name="corpNo" value="${cVo.corpNo}"></c:param>
-	                    </c:import>
-                    </c:if>
+					<!-- 비로그인, 미결제 회원 -->
+					<c:if test="${(sessionScope.user_seervcheck != 1 || sessionScope.user_seervcheck == null) && sessionScope.user_corpcheck != 2 }">
+					<div style="border: 1px solid #bbb; margin-top: 60px; border-style: dashed; border-radius: 20px; text-align: center;">
+					 	<img src='<c:url value='/resources/img/empty2.jpg'/>' style="width: 10%;margin-top: 60px;">
+					 	<h2 style="font-weight: 600; color: #666; margin-top: 40px; margin-bottom: 20px;">해당 기업의 솔직하고 생생한 리뷰를 보고 싶으신가요?</h2>
+					 	<p style="margin-bottom: 20px;">Work IT 멤버십 가입을 통해 기업의 리뷰, 연봉, 면접후기를 확인하세요!</p>
+					 	<a href="<c:url value='/indiv/serviceIntro.do'/>"><button class="site-btn" style="margin-bottom:60px;">멤버십 소개</button></a>
+				 	</div>
+					</c:if>
 					<!-- 기업 리뷰 끝 -->
                 </div>
             </div>
