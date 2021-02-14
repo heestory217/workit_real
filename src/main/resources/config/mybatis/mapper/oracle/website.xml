@@ -16,18 +16,18 @@
 		where WEBSITEMANAGE_KIND = 'V'
 	</select>
 	
-	<resultMap type="HashMap" id="introMap">
+	<resultMap type="HashMap" id="websiteMap">
    		<result property="websitemanageAbout" column="WEBSITEMANAGE_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
 	</resultMap>
 	
-	<select id="selectSiteIntro" resultMap="introMap">
+	<select id="selectWebsiteManage" resultMap="websiteMap" parameterType="string">
 		select A.*
 		from
 		(
 		    select w.*, m.manager_name
 		    from website_manage w join MANAGERS m
 		    on w.MANAGER_NO = m.MANAGER_NO
-		    where WEBSITEMANAGE_KIND='I'
+		    where WEBSITEMANAGE_KIND=#{websitemanageKind}
 		    order by WEBSITEMANAGE_DATE desc
 		)A
 		where rownum=1
@@ -42,10 +42,10 @@
 		values(#{websitemanageNo}, #{managerNo}, #{websitemanageKind}, #{websitemanageTitle},#{websitemanageAbout})
 	</insert>
 
-	<update id="updateSiteIntro" parameterType="websiteManageVO">
+	<update id="updateWebsiteManage" parameterType="websiteManageVO">
 		update website_manage
 		set WEBSITEMANAGE_ABOUT=#{websitemanageAbout}, MANAGER_NO=#{managerNo}
-		where WEBSITEMANAGE_KIND='I'
+		where WEBSITEMANAGE_KIND=#{websitemanageKind}
 	</update>
 	
 </mapper>

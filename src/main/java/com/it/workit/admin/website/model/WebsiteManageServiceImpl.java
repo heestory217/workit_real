@@ -25,12 +25,12 @@ public class WebsiteManageServiceImpl implements WebsiteManageService{
 	}
 
 	@Override
-	public Map<String, Object> selectSiteIntro() {
-		return websiteDao.selectSiteIntro();
+	public Map<String, Object> selectWebsiteManage(String websitemanageKind) {
+		return websiteDao.selectWebsiteManage(websitemanageKind);
 	}
 
 	@Override
-	public int updateSiteIntro(WebsiteManageVO vo) {
-		return websiteDao.updateSiteIntro(vo);
+	public int updateWebsiteManage(WebsiteManageVO vo) {
+		return websiteDao.updateWebsiteManage(vo);
 	}
 }
