@@ -8,7 +8,13 @@
 </script>
 <style>
 	#searchImg{
-		border-radius: 7px;
+		border-radius:10px;
+		width:270px;
+		height:180px;
+	}
+	
+	#divBx{
+		width:290px;
 	}
 </style>
 
@@ -20,8 +26,8 @@
 			<div class="carousel-item active">
 				<div class="row">
 					<c:forEach var="map" items="${newPostList}" begin="0" end="3">
-						<div class="col-lg-3 padding_5 d-inline-block w-25">
-							<div class="single-latest-blog">
+						<div class="col-lg-3 d-inline-block w-25">
+							<div class="single-latest-blog" id="divBx">
 								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
 									src="<c:url value='/pd_images/'/>"
 									onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
@@ -42,7 +48,7 @@
 										</p>
 										<p class="margin_bottom_0"
 											style="font-size: 15px; color: #989898;">
-											${map['RECRUITANNOUNCE_SPAY']}원
+											${map['RECRUITANNOUNCE_SPAY']}
 										</p>
 									</div>
 								</a>
@@ -56,8 +62,8 @@
 			<div class="carousel-item">
 				<div class="row">
 					<c:forEach var="map" items="${newPostList}" begin="4" end="7">
-						<div class="col-lg-3 padding_5 d-inline-block w-25">
-							<div class="single-latest-blog">
+						<div class="col-lg-3 d-inline-block w-25">
+							<div class="single-latest-blog" id="divBx">
 								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
 									src="<c:url value='/pd_images/'/>"
 									onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
@@ -92,8 +98,8 @@
 			<div class="carousel-item">
 				<div class="row">
 					<c:forEach var="map" items="${newPostList}" begin="8" end="11">
-						<div class="col-lg-3 padding_5 d-inline-block w-25">
-							<div class="single-latest-blog">
+						<div class="col-lg-3 d-inline-block w-25" >
+							<div class="single-latest-blog" id="divBx">
 								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
 									src="<c:url value='/pd_images/'/>"
 									onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">

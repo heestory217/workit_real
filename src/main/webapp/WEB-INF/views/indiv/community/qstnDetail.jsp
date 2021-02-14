@@ -307,7 +307,7 @@ textarea::placeholder {
 						
 						<!-- 질문 내용 -->
 						<%
-							pageContext.setAttribute("newLine", "\r\n");
+							pageContext.setAttribute("newLine", "\n");
 						%>
 						<c:set var="questionAbout" 
 							value="${fn:replace(qstnMap['questionAbout'], newLine, '<br>') }" />

@@ -42,7 +42,7 @@
 	}
 	
 	.content td{
-		padding:10px;
+		padding:10px; 
 	}
 	
 	[name=noticeAbout]{
@@ -136,9 +136,9 @@
 			event.preventDefault();
 		});
 		
-		$(window).blur(function(){
+		/* $(window).blur(function(){
 			self.close();
-		});
+		}); */
 	});
 </script>
 <title>공지사항 등록</title>
@@ -150,7 +150,7 @@
 <div class="spad">
 <div class="container">
 <h3 class="section-title float_left">공지사항 등록</h3>
-</div><br>
+</div><br><br><br>
 	<form name="writeFrm" id="writeFrm" method="post" enctype="multipart/form-data">
 		<table>
 			<tbody>
@@ -176,7 +176,8 @@
 				</tr>
 				<tr class="content">
 					<th>내용</th>
-					<td><textarea name="noticeAbout"></textarea></td>
+					<td><textarea name="noticeAbout" id="noticeAbout"></textarea>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -187,8 +188,6 @@
 	</form>
 
 </div>
-
-
 
 
 </body>

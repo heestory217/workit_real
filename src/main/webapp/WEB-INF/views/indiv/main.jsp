@@ -14,6 +14,7 @@
 		padding:20px 30px;
 		border-radius: 11px;
 		margin:20px 0;
+		cursor: pointer;
 	}
 
 	#resumeEditBx{
@@ -38,6 +39,7 @@
 	    padding: 13px;
 	    font-weight: 600;
         border-radius: 8px;
+        cursor: pointer;
 	}
 	
 	#resumeIcon{
@@ -47,11 +49,12 @@
 	}	
 	
 	
-	#reviewLink{
+	a#reviewLink{
 	    float: left;
 	    padding:13px 30px 13px 10px;
 	    font-size: 20px;
 		font-weight:lighter;
+	    color: white;
 	}
 	
 	#reviewBtn{
@@ -272,8 +275,10 @@
 		<div id="showReview">
 			<i id="reviewIcon" class="fas fa-user-circle fa-stack-2px"></i> <i
 				id="reviewIcon" class="fas fa-book fa-stack-1px"
-				style="padding-left: 10px;"></i> <a id="reviewLink"> 다른 회원들이 작성한
-				회사 리뷰를 열람해보세요 </a>
+				style="padding-left: 10px;"></i>
+				<a href="<c:url value='/indiv/serviceIntro.do'/>" 
+				id="reviewLink"> 리뷰 열람권을 구매하시고 기업의 리뷰, 연봉, 면접후기를 확인해보세요! 
+				 </a>
 			<div id="reviewBtn">리뷰 보러가기</div>
 		</div>
 	</div>
@@ -318,7 +323,11 @@
 <script>
 	$(function(){
 		$('#exploreBx').click(function(){
-			location.href="<c:url value='/indivSearch/indivExplore.do'/>"
+			location.href="<c:url value='/indivSearch/indivExplore.do'/>";
+		});
+		
+		$('#reviewBtn').click(function(){
+			location.href="<c:url value='/indiv/serviceIntro.do'/>";
 		});
 	});
 
