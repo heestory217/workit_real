@@ -117,7 +117,7 @@ $(function(){
 	//공지 등록창
 	$('#writeBtn').click(function(){
 		open(contextPath+"/admin/notice/noticeWrite.do?manager=${sessionScope.managerNo}","write",
- 			"width=700, height=700, left=500, top=30, location=no, resizable=no");
+				"width=700, height=520, left=500, top=140, location=no, resizable=no");
 	});
 	
 	$('#cate').change(function(){
@@ -144,7 +144,7 @@ $(function(){
 //공지사항 수정창
 function editFunc(noticeNo){
 	open("/workit/admin/notice/noticeEdit.do?noticeNo="+noticeNo,"edit",
-		"width=700, height=700, left=500, top=30, location=no, resizable=no");
+		"width=700, height=520, left=500, top=140, location=no, resizable=no");
 }
 
 function showCont(noticeNo){

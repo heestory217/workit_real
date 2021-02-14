@@ -136,9 +136,9 @@
 			event.preventDefault();
 		});
 		
-		/* $(window).blur(function(){
+		$(window).blur(function(){
 			self.close();
-		}); */
+		});
 	});
 </script>
 <title>공지사항 등록</title>
@@ -177,10 +177,6 @@
 				<tr class="content">
 					<th>내용</th>
 					<td><textarea name="noticeAbout"></textarea></td>
-				</tr>
-				<tr>
-					<th>첨부파일</th>
-					<td><input type="file" id="upfile" name="upfile"/><span>(최대 2M)</span></td>
 				</tr>
 			</tbody>
 		</table>
