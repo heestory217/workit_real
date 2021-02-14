@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.it.workit.admin.notice.model.ClassificationsVO;
 import com.it.workit.admin.notice.model.NoticeSearchVO;
 import com.it.workit.admin.notice.model.NoticeService;
-import com.it.workit.admin.notice.model.NoticeVO;
 import com.it.workit.common.PaginationInfo;
 
 @Controller
@@ -98,28 +97,28 @@ public class UsersNoticeController {
 	
 	//공지사항 게시글 조회수 업데이트 
 	@RequestMapping("/noticeViewCnt.do")
-	public String viewCount(@RequestParam(defaultValue = "0") int noticeNo) {
-		logger.info("공지사항 조회수 업데이트, 파라미터 noticeNo={}", noticeNo);
-		int cnt=noticeService.viewUpdate(noticeNo);
+	public String viewCount(@RequestParam(defaultValue = "0") int rnum) {
+		logger.info("공지사항 조회수 업데이트, 파라미터 rnum={}", rnum);
+		int cnt=noticeService.viewUpdate(rnum);
 		logger.info("조회수 업데이트 결과, cnt={}", cnt);
 		
-		return "redirect:/notice/noticeDetail.do?noticeNo="+noticeNo;
+		return "redirect:/notice/noticeDetail.do?rnum="+rnum;
 	}
 	
 	
 	@RequestMapping("/noticeDetail.do")
-	public String noticeDetail(@RequestParam(defaultValue = "0") int noticeNo,Model model) {
-		logger.info("공지사항 상세페이지 조회, 파라미터 noticeNo={}", noticeNo);
+	public String noticeDetail(@RequestParam(defaultValue = "0") int rnum,Model model) {
+		logger.info("공지사항 상세페이지 조회, 파라미터 noticeNo={}", rnum);
 		
-		Map<String, Object> noticeOne = noticeService.selectNoticeOne(noticeNo);
+		Map<String, Object> noticeOne = noticeService.selectNoticeOne(rnum);
 		logger.info("회원 사이트 - 공지사항 상세페이지 조회 결과, noticeOne={}", noticeOne);
 		
-		int prevNo=noticeNo-1;
+		int prevNo=rnum+1;
 		Map<String, Object> prevNotice = noticeService.selectNoticeOne(prevNo);
 		logger.info("공지사항 이전 글, noticeOne={}", noticeOne);
 		
 		
-		int nextNo=noticeNo+1;
+		int nextNo=rnum-1;
 		Map<String, Object> nextNotice = noticeService.selectNoticeOne(nextNo);
 		logger.info("공지사항 다음 글, noticeOne={}", noticeOne);
 		

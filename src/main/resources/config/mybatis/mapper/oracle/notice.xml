@@ -95,19 +95,19 @@
 		resultMap="noticeAbout"> 
 		SELECT *
 		FROM
-		(
-		    SELECT A.*, ROWNUM AS RNUM,
-		    LEAD(A.NOTICE_NO, 1) OVER (ORDER BY A.NOTICE_NO DESC) AS NEXT_NO,
-	        LEAD(A.NOTICE_TITLE, 1, '다음글이 없습니다') OVER (ORDER BY A.NOTICE_NO DESC) AS NEXT_TITLE,
-	        LAG(A.NOTICE_NO, 1) OVER (ORDER BY A.NOTICE_NO DESC) AS PRE_NO,
-	        LAG(A.NOTICE_TITLE, 1, '이전글이 없습니다') OVER (ORDER BY A.NOTICE_NO DESC) AS PRE_TITLE
-		    FROM
 		    (
-		        SELECT N.*, C.CLASSIFICATION_NAME,M.MANAGER_NAME
-		        FROM NOTICE N JOIN CLASSIFICATIONS C
-		        ON N.CLASSIFICATION_NO = C.CLASSIFICATION_NO
-		        JOIN MANAGERS M
-		        ON M.MANAGER_NO = N.MANAGER_NO
+		      SELECT A.*, ROWNUM AS RNUM,
+		        LEAD(ROWNUM, 1) OVER (ORDER BY ROWNUM DESC) AS NEXT_NO,
+		        LEAD(A.NOTICE_TITLE, 1, '다음글이 없습니다') OVER (ORDER BY ROWNUM DESC) AS NEXT_TITLE,
+		        LAG(ROWNUM, 1) OVER (ORDER BY ROWNUM DESC) AS PRE_NO,
+		        LAG(A.NOTICE_TITLE, 1, '이전글이 없습니다') OVER (ORDER BY ROWNUM DESC) AS PRE_TITLE
+		        FROM
+		        (
+		            SELECT N.*, C.CLASSIFICATION_NAME,M.MANAGER_NAME
+		            FROM NOTICE N JOIN CLASSIFICATIONS C
+		            ON N.CLASSIFICATION_NO = C.CLASSIFICATION_NO
+		            JOIN MANAGERS M
+		            ON M.MANAGER_NO = N.MANAGER_NO
 				<if test="searchKeyword != null and searchKeyword != ''">
 					WHERE ${searchCondition} LIKE '%' || #{searchKeyword} || '%'
 				</if>
@@ -116,7 +116,7 @@
 				</if>
 				ORDER BY (
 				CASE CLASSIFICATION_NAME
-				WHEN '공지' THEN 1 ELSE 2 END), NOTICE_DATE DESC
+       	        WHEN '공지' THEN 1 ELSE 2 END) DESC, NOTICE_DATE	
 		    )A
 		)
 		<![CDATA[
@@ -136,12 +136,26 @@
 	<!-- 공지사항 상세조회(회원) -->
 	<select id="selectNoticeOne" parameterType="int" resultType="map"
 		resultMap="noticeAbout">
-		SELECT N.*, C.CLASSIFICATION_NAME,M.MANAGER_NAME
-		FROM NOTICE N JOIN CLASSIFICATIONS C
-		ON N.CLASSIFICATION_NO = C.CLASSIFICATION_NO
-		JOIN MANAGERS M
-		ON M.MANAGER_NO = N.MANAGER_NO
-		WHERE NOTICE_NO=#{noticeNo}
+		SELECT *
+		FROM
+	    (
+	      SELECT A.*, ROWNUM AS RNUM,
+	        LEAD(ROWNUM, 1) OVER (ORDER BY ROWNUM DESC) AS NEXT_NO,
+	        LEAD(A.NOTICE_TITLE, 1, '다음글이 없습니다') OVER (ORDER BY ROWNUM DESC) AS NEXT_TITLE,
+	        LAG(ROWNUM, 1) OVER (ORDER BY ROWNUM DESC) AS PRE_NO,
+	        LAG(A.NOTICE_TITLE, 1, '이전글이 없습니다') OVER (ORDER BY ROWNUM DESC) AS PRE_TITLE
+	        FROM
+	        (
+	            SELECT N.*, C.CLASSIFICATION_NAME,M.MANAGER_NAME
+	            FROM NOTICE N JOIN CLASSIFICATIONS C
+	            ON N.CLASSIFICATION_NO = C.CLASSIFICATION_NO
+	            JOIN MANAGERS M
+	            ON M.MANAGER_NO = N.MANAGER_NO
+	            ORDER BY (
+	            CASE CLASSIFICATION_NAME
+           		WHEN '공지' THEN 1 ELSE 2 END) DESC, NOTICE_DATE
+	    )A  
+	) WHERE RNUM=#{rnum}
 	</select>
 	
 	<!-- 전체 레코드 수 -->

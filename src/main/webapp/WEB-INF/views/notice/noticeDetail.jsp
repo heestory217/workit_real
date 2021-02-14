@@ -50,7 +50,7 @@
     border: 1px solid #ecefff;
     width: 50%;
     height: 80px;
-    padding: 20px 20px;
+    padding: 23px 20px 18px 20px;
 }
 
 
@@ -144,14 +144,15 @@
 					<img id="logo" alt="work it 로고" src="<c:url value='/resources/img/logo_workit.PNG'/>">
 					<hr style="clear:both;">
 					<div class="prev">
-						<c:set var="noticeNo" value="${noticeOne['NOTICE_NO']}"/>
-						<c:if test="${noticeNo==1}">
+						<c:set var="rnum" value="${noticeOne['RNUM']}"/>
+						<c:set var="totalRecord" value="${totalR }"/>
+						<c:if test="${rnum==totalR}">
 							<a class="goPrev" align="absmiddle"><i class="fas fa-chevron-left"></i>
 								<span class="prevTit">&nbsp;이전 글이 없습니다.</span>
 							</a>
 						</c:if>
-						<c:if test="${noticeNo>1}">
-							<a class="goPrev" align="absmiddle" href="<c:url value='/notice/noticeViewCnt.do?noticeNo=${prevNotice["NOTICE_NO"]}'/>"
+						<c:if test="${rnum<totalR}">
+							<a class="goPrev" align="absmiddle" href="<c:url value='/notice/noticeViewCnt.do?rnum=${prevNotice["RNUM"]}'/>"
 								><i class="fas fa-chevron-left"></i>&nbsp;
 								<span class="prevTit">
 								<c:if test="${fn:length(prevNotice['NOTICE_TITLE'])>=25}">
@@ -165,15 +166,14 @@
 						</c:if>
 					</div>
 					<div class="next">
-						<c:set var="totalRecord" value="${totalR }"/>
-						<c:if test="${noticeNo==totalRecord}">
+						<c:if test="${rnum==1}">
 							<a class="goNext" align="absmiddle">
 								<span class="nextTit">&nbsp;다음 글이 없습니다.</span>
 								<i class="fas fa-chevron-right"></i>
 							</a>
 						</c:if>
-						<c:if test="${noticeNo!=totalRecord}">
-							<a class="goNext" align="absmiddle" href="<c:url value='/notice/noticeViewCnt.do?noticeNo=${nextNotice["NOTICE_NO"]}'/>"
+						<c:if test="${rnum>1}">
+							<a class="goNext" align="absmiddle" href="<c:url value='/notice/noticeViewCnt.do?rnum=${nextNotice["RNUM"]}'/>"
 								>&nbsp;
 								<span class="nextTit">
 								<c:if test="${fn:length(nextNotice['NOTICE_TITLE'])>=25}">

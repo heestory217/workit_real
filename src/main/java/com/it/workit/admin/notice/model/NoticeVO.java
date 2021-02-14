@@ -13,7 +13,19 @@ public class NoticeVO {
     private String noticeOriginalname;
     private int classificationNo;
     private int managerNo;
+    private int rnum;
   
+    
+    
+    
+	public int getRnum() {
+		return rnum;
+	}
+	public void setRnum(int rnum) {
+		this.rnum = rnum;
+	}
+	
+	
 	public int getManagerNo() {
 		return managerNo;
 	}

@@ -213,7 +213,7 @@ form[name=frmList]{
 													</c:if>
 												>${map['CLASSIFICATION_NAME'] }</td>
 												<td><a href
-						="<c:url value='/notice/noticeViewCnt.do?noticeNo=${map["NOTICE_NO"] }'/>">
+						="<c:url value='/notice/noticeViewCnt.do?rnum=${map["RNUM"] }'/>">
 												${map['NOTICE_TITLE'] }
 												</a></td>
 												<td><fmt:formatDate value="${map['NOTICE_DATE'] }"
