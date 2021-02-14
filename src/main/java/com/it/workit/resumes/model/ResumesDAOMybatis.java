@@ -83,6 +83,14 @@ public class ResumesDAOMybatis implements ResumesDAO{
 	public int delFskill(int resumeNo) {
 		return sqlSession.delete(namespace+"delFskill",resumeNo);
 	}
+	@Override
+	public int delUlang(int resumeNo) {
+		return sqlSession.delete(namespace+"delUlang",resumeNo);
+	}
+	@Override
+	public int delUarea(int resumeNo) {
+		return sqlSession.delete(namespace+"delUarea",resumeNo);
+	}
 	
 	//수정
 	@Override
@@ -142,6 +150,12 @@ public class ResumesDAOMybatis implements ResumesDAO{
 	public int resumeOpen(int resumeNo) {
 		return sqlSession.update(namespace+"resumeOpen",resumeNo);
 	}
+	//이력서 임시로 다시 업데이트
+	@Override
+	public int upadteImsi(int resumeNo) {
+		return sqlSession.update(namespace+"upadteImsi",resumeNo);
+	}
+	
 	
 	
 	

@@ -112,6 +112,12 @@
 	<delete id="delFskill" parameterType="int">
 		delete from FOREIGNLANGUAGESKILL where RESUME_NO=#{resumeNo}
 	</delete>
+	<delete id="delUlang" parameterType="int">
+		delete from CORPUSELANGUAGE where RESUME_NO=#{resumeNo};
+	</delete>
+	<delete id="delUarea" parameterType="int">
+		delete from USERWANTEDWORKAREA where RESUME_NO=#{resumeNo};
+	</delete>
 	
 	<!-- update -->
 	<update id="updateResume" parameterType="resumesVO">
@@ -138,6 +144,12 @@
 		update FOREIGNLANGUAGESKILL
 		set FOREIGNLANGUAGESKILL_LANG=#{foreignlanguageskillLang},FOREIGNLANGUAGESKILL_EXPERT=#{foreignlanguageskillExpert}
 		where RESUME_NO=#{resumeNo} and FOREIGNLANGUAGESKILL_NO=#{foreignlanguageskillNo}
+	</update>
+	<!-- 이력서 반려 뒤 수정하면 다시 임시저장으로 업데이트 -->
+	<update id="upadteImsi" parameterType="int">
+		update resumes 
+		set RESUME_RESUMEOPENCHECK=1
+		where resume_no = #{resumeNo} 
 	</update>
 	
 	<!-- select delete -->
@@ -184,6 +196,7 @@
 		insert into USERWANTEDWORKAREA(USERWANTEDWORKAREA_NO,RESUME_NO,AREA_NO)
 		values(#{userwantedworkareaNo},#{resumeNo},#{areaNo})
 	</insert>
+	
 </mapper>
 
 

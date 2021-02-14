@@ -114,7 +114,7 @@ public class ResumesServiceImpl implements ResumesService{
 		return resumesDao.selectFlsByNo(resumeNo);
 	}
 
-	//선택 삭제
+	//전체 삭제
 	@Override
 	@Transactional
 	public int deleteResumes(int resumeNo) {
@@ -130,6 +130,10 @@ public class ResumesServiceImpl implements ResumesService{
 			cnt = resumesDao.delFskill(resumeNo);
 		}else if (resumeNo!=0) {
 			cnt = resumesDao.delLicen(resumeNo);
+		}else if (resumeNo!=0) {
+			cnt = resumesDao.delUlang(resumeNo);
+		}else if (resumeNo!=0) {
+			cnt = resumesDao.delUarea(resumeNo);
 		}
 
 		return cnt;
@@ -196,6 +200,10 @@ public class ResumesServiceImpl implements ResumesService{
 		return resumesDao.resumeOpen(resumeNo);
 	}
 
-
+	//임시로 다시 업데이트
+	@Override
+	public int upadteImsi(int resumeNo) {
+		return resumesDao.upadteImsi(resumeNo);
+	}
 
 }

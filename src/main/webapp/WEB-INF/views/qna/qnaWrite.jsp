@@ -119,7 +119,7 @@ input#ckbox {
 					<input type="hidden" name="userNo" value="${sessionScope.userNo }">
 					<div class="col-lg-12">
 						<label for="qaTitle">제목<span>*</span></label> 
-						<input type="text" id="qaTitle" name="qaTitle" value="">
+						<input type="text" id="qaTitle" name="qaTitle" value="" maxlength="80">
 					</div>
 					<div class="col-lg-12">
 						<label for="qaAbout">글쓰기<span>*</span></label>
