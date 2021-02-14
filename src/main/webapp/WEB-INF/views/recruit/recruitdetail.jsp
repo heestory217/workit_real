@@ -69,7 +69,11 @@ a#corpinfo {
                         	<img src="<c:url value='/pd_images/${CorpVO.corpImgurl }'/>" style="width: 50px; margin-bottom: 20px;margin-left: 65px;">
                         	<!-- 기업 로고 이미지 -->
                         	<div class="icons">
-	                        	<a href="<c:url value='/recruitBookmark/insertBookmark.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo}'/>"><i class="fa fa-bookmark-o" aria-hidden="true" style="margin-right: 20px;"></i></a>
+                        		<!-- 북마크 -->
+	                        	<c:if test="${sessionScope.user_corpcheck eq 1 }">
+		                        	<a href="<c:url value='/recruitBookmark/insertBookmark.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo}'/>"><i class="fa fa-bookmark-o" aria-hidden="true" style="margin-right: 20px;"></i></a>
+	                        	</c:if>
+	                        	<!-- 공유하기 -->
 	                        	<i class="fa fa-share-alt" aria-hidden="true"></i>
                         	</div>
                             <h2>
