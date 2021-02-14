@@ -88,7 +88,9 @@
 												<p class="center">${vo.recruitannounceSworkkind }</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
-												<p class="center">${vo.recruitannounceSpay }</p>
+												<p class="center">
+													<fmt:formatNumber value="${vo.recruitannounceSpay }" pattern="#,###"></fmt:formatNumber>
+												</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">

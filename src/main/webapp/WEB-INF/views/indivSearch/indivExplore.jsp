@@ -211,7 +211,7 @@
 										</c:if>
 									</p>
 									<p class="margin_bottom_0 gray">
-										<i class="fas fa-dollar-sign"></i> ${vo.recruitannounceSpay }
+										<i class="fas fa-dollar-sign"></i> <fmt:formatNumber value="${vo.recruitannounceSpay }" pattern="#,###"></fmt:formatNumber>
 									</p>
 								</div>
 							</a>
