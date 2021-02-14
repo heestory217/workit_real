@@ -202,7 +202,10 @@ form[name=frmList]{
 									</c:if>
 									<!-- 글이 있는 경우 반복 시작-->
 									<c:if test="${!empty noticeList }">
+										<c:set var="sortNo" value="1"/>
 										<c:forEach var="map" items="${noticeList }" varStatus="status">
+											<input type="hidden" name="nextNo" value="${map['NEXT_NO']}">
+											<input type="hidden" name="preNo" value="${map['PRE_NO']}">
 											<tr>
 												<td class="category"
 													<c:if test="${map['CLASSIFICATION_NAME'] =='공지'}">
@@ -210,7 +213,7 @@ form[name=frmList]{
 													</c:if>
 												>${map['CLASSIFICATION_NAME'] }</td>
 												<td><a href
-											="<c:url value='/notice/noticeViewCnt.do?noticeNo=${map["NOTICE_NO"] }&sortNo=${status.count}'/>">
+						="<c:url value='/notice/noticeViewCnt.do?noticeNo=${map["NOTICE_NO"] }'/>">
 												${map['NOTICE_TITLE'] }
 												</a></td>
 												<td><fmt:formatDate value="${map['NOTICE_DATE'] }"

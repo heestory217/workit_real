@@ -14,8 +14,6 @@ public class NoticeVO {
     private int classificationNo;
     private int managerNo;
     
-    
-    
 	public int getManagerNo() {
 		return managerNo;
 	}

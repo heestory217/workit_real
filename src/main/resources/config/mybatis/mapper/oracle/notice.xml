@@ -96,7 +96,11 @@
 		SELECT *
 		FROM
 		(
-		    SELECT A.*, ROWNUM AS RNUM
+		    SELECT A.*, ROWNUM AS RNUM,
+		    LEAD(A.NOTICE_NO, 1) OVER (ORDER BY A.NOTICE_NO DESC) AS NEXT_NO,
+		    LEAD(A.NOTICE_TITLE, 1, '다음글이 없습니다') OVER (ORDER BY A.NOTICE_NO DESC) AS NEXT_TITLE,
+		    LAG(A.NOTICE_NO, 1) OVER (ORDER BY A.NOTICE_NO DESC) AS PRE_NO,
+		    LAG(A.NOTICE_TITLE, 1, '이전글이 없습니다') OVER (ORDER BY A.NOTICE_NO DESC) AS PRE_TITLE
 		    FROM
 		    (
 		        SELECT N.*, C.CLASSIFICATION_NAME,M.MANAGER_NAME
@@ -114,6 +118,7 @@
 				CASE CLASSIFICATION_NAME
 				WHEN '공지' THEN 1 ELSE 2 END), NOTICE_DATE DESC
 		    )A
+		    ORDER BY NOTICE_NO
 		)
 		<![CDATA[
 		WHERE RNUM > #{firstRecordIndex} 
@@ -144,6 +149,9 @@
 	<select id="getRecordCount" resultType="int">
 		SELECT COUNT(*) FROM NOTICE
 	</select>
+	
+	
+	
 </mapper>
 
 
