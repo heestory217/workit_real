@@ -49,7 +49,6 @@
                     <div class="footer-widget">
                         <h5>사이트 소개</h5>
                         <ul>
-                            <li><a href="<c:url value='/website/siteIntro.do'/>">회사 소개</a></li>
                             <li><a href="<c:url value='/website/termsOfService.do'/>">이용약관</a></li>
                             <li><a href="<c:url value='/website/privacyPolicy.do'/>">개인정보처리방침</a></li>
                             <c:if test="${empty sessionScope.userId || sessionScope.user_corpcheck==1}">

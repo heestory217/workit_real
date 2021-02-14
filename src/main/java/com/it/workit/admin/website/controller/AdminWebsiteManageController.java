@@ -21,33 +21,88 @@ public class AdminWebsiteManageController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminWebsiteManageController.class);
 	@Autowired private WebsiteManageService websiteService;
 	
-	@RequestMapping("/siteIntro.do")
-	public String siteIntro(Model model) {
-		logger.info("사이트소개 페이지 보여주기");
-		Map<String, Object> map = websiteService.selectSiteIntro();
+	@RequestMapping("/termsOfService.do")
+		public void termsOfService(Model model) {
+		logger.info("이용약관 페이지 보여주기");
+		Map<String, Object> map = websiteService.selectWebsiteManage("T");
 		model.addAttribute("map", map);
-		 
-		return "admin/siteManage/siteIntro";
 	}
 	
-	@RequestMapping(value="/siteIntroEdit.do", method = RequestMethod.GET)
-	public String siteIntroEdit(Model model) {
-		logger.info("사이트소개 수정 페이지 보여주기");
-		Map<String, Object> map = websiteService.selectSiteIntro();
+	@RequestMapping("/privacyPolicy.do")
+	public void privacyPolicy(Model model) {
+		logger.info("개인정보처리방침 페이지 보여주기");
+		Map<String, Object> map = websiteService.selectWebsiteManage("P");
 		model.addAttribute("map", map);
-		
-		return "admin/siteManage/siteIntroEdit";
 	}
 	
-	@RequestMapping(value="/siteIntroEdit.do", method = RequestMethod.POST)
-	public String siteIntroEdit_post(@ModelAttribute WebsiteManageVO vo, Model model) {
-		logger.info("사이트소개 수정 처리 WebsiteManageVO={}", vo);
-		int cnt = websiteService.updateSiteIntro(vo);
-		logger.info("사이트소개 수정 결과 cnt={}", cnt);
+	@RequestMapping(value="/websiteEdit.do", method = RequestMethod.GET)
+	public String siteIntroEdit(@RequestParam String kind, @RequestParam String type, Model model) {
+		if(type.equals("N")) { //신규등록
+			if(kind.equals("T")) {
+				logger.info("이용약관 등록 페이지 보여주기");
+			}else if(kind.equals("P")) {
+				logger.info("개인정보처리방침 등록 페이지 보여주기");
+			}
+		}else if(type.equals("E")) {	//수정
+			Map<String, Object> map = null;
+			if(kind.equals("T")) {
+				logger.info("이용약관 수정 페이지 보여주기");
+				map = websiteService.selectWebsiteManage("T");
+			}else if(kind.equals("P")) {
+				logger.info("개인정보처리방침 수정 페이지 보여주기");
+				map = websiteService.selectWebsiteManage("P");
+			}
+			model.addAttribute("map", map);
+		}
+		return "admin/siteManage/websiteEdit";
+	}
+	
+	@RequestMapping(value="/websiteEdit.do", method = RequestMethod.POST)
+	public String siteIntroEdit_post(@ModelAttribute WebsiteManageVO vo, @RequestParam String type, Model model) {
+		logger.info("웹사이트관리 종류 ={}", vo.getWebsitemanageTitle());
 		
-		String msg = "사이트소개 수정 실패하였습니다", url="/admin/siteManage/siteIntro.do";
+		String kind = vo.getWebsitemanageKind();
+		String msg="", url="admin/siteManage/websiteEdit.do?kind="+kind+"&type="+type;
+		
+		if(kind.equals("T")) {
+			vo.setWebsitemanageKind("T");
+			vo.setWebsitemanageTitle("이용약관");
+		}else if(kind.equals("P")) {
+			vo.setWebsitemanageKind("P");
+			vo.setWebsitemanageTitle("개인정보처리방침");
+		}
+		
+		int cnt = 0;
+		if(type.equals("N")) { //신규등록
+			logger.info(vo.getWebsitemanageTitle()+"등록 처리 WebsiteManageVO={}", vo);
+
+			cnt = websiteService.insertWebsiteManage(vo);
+			logger.info(vo.getWebsitemanageTitle()+" 등록 결과 cnt={}", cnt);
+			msg = vo.getWebsitemanageTitle()+" 등록 실패하였습니다";
+			
+			if(cnt>0) {
+				msg="성공적으로 등록되었습니다";
+			}
+
+		}else if(type.equals("E")) {	//수정
+			logger.info(vo.getWebsitemanageTitle()+"수정 처리 WebsiteManageVO={}", vo);
+			
+			cnt = websiteService.updateWebsiteManage(vo);
+			logger.info(vo.getWebsitemanageTitle()+" 수정 결과 cnt={}", cnt);
+			msg = vo.getWebsitemanageTitle()+" 수정 실패하였습니다";
+			
+			if(cnt>0) {
+				msg="성공적으로 수정되었습니다";
+			}
+
+		}
+		
 		if(cnt>0) {
-			msg="성공적으로 수정 반영되었습니다";
+			if(kind.equals("T")) {
+				url = "/admin/siteManage/termsOfService.do";
+			}else if(kind.equals("P")) {
+				url = "/admin/siteManage/privacyPolicy.do";
+			}
 		}
 		
 		model.addAttribute("msg", msg);
@@ -56,15 +111,4 @@ public class AdminWebsiteManageController {
 		return "common/message";
 	}
 			
-	@RequestMapping("/termsOfService.do")
-	public void termsOfService() {
-		logger.info("이용약관 페이지 보여주기");
-		
-	}
-	
-	@RequestMapping("/privacyPolicy.do")
-	public void privacyPolicy() {
-		logger.info("개인정보처리방침 페이지 보여주기");
-		
-	}
 }

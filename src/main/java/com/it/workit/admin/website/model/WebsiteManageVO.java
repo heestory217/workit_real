@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class WebsiteManageVO {
 	private int websitemanageNo;	//웹사이트관리번호
 	private int managerNo;	//관리자번호 FK
-	private String websitemanageKind;	//페이지종류 CHECK IN ('I','T','P','V')
+	private String websitemanageKind;	//페이지종류 CHECK IN ('T','P','V')
 	private String websitemanageTitle;	//제목
 	private String websitemanageAbout;	//내용
 	private Timestamp websitemanageDate;	//작성일	DEFAULT=SYSDATE
