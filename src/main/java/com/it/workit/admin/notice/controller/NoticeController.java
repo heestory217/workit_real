@@ -3,7 +3,6 @@ package com.it.workit.admin.notice.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -34,6 +33,8 @@ public class NoticeController {
 	@Autowired private NoticeService noticeService;
 	@Autowired private FileUploadUtil fileUtil;
 	
+	
+	
 	//공지사항 목록 조회
 	@RequestMapping("/noticeList.do")
 	public String noticeList(@ModelAttribute NoticeSearchVO searchVo ,
@@ -43,7 +44,7 @@ public class NoticeController {
 		List<ClassificationsVO> cateList = noticeService.selectClassifications();
 		logger.info("관리자 - 공지사항 카테고리 조회 결과, cateList.size={}", cateList.size());
 		
-		int all=0,notice=0,event=0,guide=0,etc=0;
+		int all=0,notice=0,event=0,guide=0;
 		if(type==0) {
 			searchVo.setClassificationNo(0);
 			all=noticeService.getTotalRecord(searchVo);

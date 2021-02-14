@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.it.workit.applicant.model.ApplicantService;
+import com.it.workit.applicant.model.ApplicantlistVO;
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
 import com.it.workit.corp.model.CorpService;
@@ -34,7 +36,7 @@ public class RecruitController {
 	
 	@Autowired private RecruitannounceService recruitannounceService;
 	@Autowired private CorpService corpservice;
-	
+	@Autowired private ApplicantService appliService;
 	
 	
 	@RequestMapping("/recruitdetail.do")
@@ -287,6 +289,29 @@ public class RecruitController {
 	public String adverwritego(@RequestParam int recruitannounceNo, Model model) {
 		
 		return "recruit/advertisingwrite";
+	}
+	
+	
+	@RequestMapping(value = "/recruitdetail.do", method = RequestMethod.POST)
+	public String resumeApply_post(@ModelAttribute ApplicantlistVO applVo,Model model) {
+		//1
+		logger.info("지원하기 파라미터 applVo={}",applVo);
+		//2
+		int cnt = appliService.insertApplican(applVo);
+		
+		int recruitannounceNo=applVo.getApplicantlistNo();
+		logger.info("채용공고 번호 recruitannounceNo={}",recruitannounceNo);
+		
+		String msg="지원실패 했습니다",url="/recruit/recruitdetail.do?recruitannounceNo="+recruitannounceNo;
+		if (cnt>0) {
+			msg="지원 했습니다";
+			url="/recruit/recruitdetail.do?recruitannounceNo="+recruitannounceNo;
+		}
+		//3
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		//4
+		return "common/message";
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.it.workit.recruit.model;
 
 import java.util.List;
 
+import com.it.workit.common.SearchVO;
 import com.it.workit.language.model.LanguageVO;
 import com.it.workit.users.model.arealistVO;
 
@@ -22,4 +23,8 @@ public interface RecruitannounceService {
 	public List<AdvertisingVO> selectRecruitadList(AdvertisingVO vo);
 	public int selectadvercount(int recruitannounceNo);
 	public AdvertisingVO selectadverinfo(int recruitannounceNo);
+	
+	//관리자
+	public int recruitannouncecount(SearchVO searchVo);
+	public List<RecruitannounceVO> recruitannounceall(SearchVO searchVo);
 }

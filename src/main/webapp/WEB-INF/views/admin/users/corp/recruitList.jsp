@@ -18,41 +18,109 @@
 	<div class="card">
 		<div class="card-body">
 			<div class="table-responsive">
-				<table class="table table-striped table-bordered first">
+				<table class="table table-bordered first">
+				<colgroup>
+					<col width="15%">
+					<col width="25%">
+					<col width="15%">
+					<col width="15%">
+					<col width="15%">
+					<col width="15%">
+				</colgroup>
 					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Position</th>
-							<th>Office</th>
-							<th>Age</th>
-							<th>Start date</th>
-							<th>Salary</th>
+						<tr class="center">
+							<th>회사명</th>
+							<th>제목</th>
+							<th>등록일</th>
+							<th>마감일</th>
+							<th>승인 여부</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Tiger Nixon</td>
-							<td>System Architect</td>
-							<td>Edinburgh</td>
-							<td>61</td>
-							<td>2011/04/25</td>
-							<td>$320,800</td>
-						</tr>
+					<c:if test="${empty list }">
+			            <tr class="center">
+					            <td colspan="7">
+					            <br><br>
+					            	<p>요청하신 결과가 없습니다.</p>
+					            <br>
+					            </td>
+			            </tr>
+	            	</c:if>
+	            	<c:if test="${!empty list }">
+	            		<c:forEach var="vo" items="${list }">
+	            			<tr class="center">
+					            <td>${vo.userNo }</td>
+								<td>
+									<c:if test="${fn:length(vo.recruitannounceTitle)>=25}">
+										${fn:substring(vo.recruitannounceTitle, 0,25) } ...
+									</c:if>
+									<c:if test="${fn:length(vo.recruitannounceTitle)<25}">						
+										${vo.recruitannounceTitle }
+									</c:if>
+								</td>
+								<td><fmt:formatDate value="${vo.recruitannounceStartdate }" pattern="yyyy-MM-dd"/></td>
+								<td><fmt:formatDate value="${vo.recruitannounceEnddate }" pattern="yyyy-MM-dd"/></td>
+								<td>
+									<c:if test="${vo.recruitannounceUpcheck==1 }">
+										[대기중]
+									</c:if>
+									<c:if test="${vo.recruitannounceUpcheck==2 }">
+										[통과]
+									</c:if>
+									<c:if test="${vo.recruitannounceUpcheck==3 }">
+										[반려]
+									</c:if>
+									<c:if test="${vo.recruitannounceUpcheck==4 }">
+										[수정 대기중]
+									</c:if>
+									</td>
+								<td></td>
+			            </tr>
+	            		</c:forEach>
+	            	</c:if>
 					</tbody>
-					<tfoot>
-						<tr>
-							<th>Name</th>
-							<th>Position</th>
-							<th>Office</th>
-							<th>Age</th>
-							<th>Start date</th>
-							<th>Salary</th>
-						</tr>
-					</tfoot>
 				</table>
 			</div>
 		</div>
 	</div>
 </div>
+
+	<div>
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<c:if test="${pagingInfo.firstPage>1 }">
+					<li class="page-item">
+						<a class="page-link" href="#" aria-label="Previous"
+							onclick="pageFunc(${pagingInfo.firstPage-1})">
+						<span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span>
+						</a>
+					</li>
+				</c:if>
+				<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
+					<c:if test="${i==pagingInfo.currentPage }">
+						<li class="page-item active">
+							<a class="page-link" href="#">
+							<span id="currentPage"> ${i}</span>
+							</a>
+						</li>
+					</c:if>
+					<c:if test="${i!=pagingInfo.currentPage }">
+						<li class="page-item">
+							<a class="page-link" href="#" onclick="pageFunc(${i})"> ${i}</a>
+						</li>
+					</c:if>
+				</c:forEach>
+				<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
+					<li class="page-item">
+						<a class="page-link" href="#" aria-label="Next" 
+							onclick="pageFunc(${pagingInfo.lastPage+1})">
+							<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>
+						</a>
+					</li>
+				</c:if>
+			</ul>
+		</nav> 
+	</div>
                  
 <%@ include file="../../inc/bottom.jsp" %>

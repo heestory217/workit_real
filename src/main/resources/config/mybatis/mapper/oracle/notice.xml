@@ -88,6 +88,69 @@
 	<delete id="deleteNotice" parameterType="int">
 		DELETE FROM NOTICE WHERE NOTICE_NO=#{noticeNo}
 	</delete>
+	
+	
+	<!-- 공지 전체 조회(회원사이트) - 공지 카테고리 우선순위 -->
+	<select id="selectAllNotice" resultType="map" parameterType="noticeSearchVo"
+		resultMap="noticeAbout"> 
+		SELECT *
+		FROM
+		(
+		    SELECT A.*, ROWNUM AS RNUM,
+		    LEAD(A.NOTICE_NO, 1) OVER (ORDER BY A.NOTICE_NO DESC) AS NEXT_NO,
+	        LEAD(A.NOTICE_TITLE, 1, '다음글이 없습니다') OVER (ORDER BY A.NOTICE_NO DESC) AS NEXT_TITLE,
+	        LAG(A.NOTICE_NO, 1) OVER (ORDER BY A.NOTICE_NO DESC) AS PRE_NO,
+	        LAG(A.NOTICE_TITLE, 1, '이전글이 없습니다') OVER (ORDER BY A.NOTICE_NO DESC) AS PRE_TITLE
+		    FROM
+		    (
+		        SELECT N.*, C.CLASSIFICATION_NAME,M.MANAGER_NAME
+		        FROM NOTICE N JOIN CLASSIFICATIONS C
+		        ON N.CLASSIFICATION_NO = C.CLASSIFICATION_NO
+		        JOIN MANAGERS M
+		        ON M.MANAGER_NO = N.MANAGER_NO
+				<if test="searchKeyword != null and searchKeyword != ''">
+					WHERE ${searchCondition} LIKE '%' || #{searchKeyword} || '%'
+				</if>
+				<if test="classificationNo != '' and classificationNo != 0">
+					AND N.CLASSIFICATION_NO=#{classificationNo}
+				</if>
+				ORDER BY (
+				CASE CLASSIFICATION_NAME
+				WHEN '공지' THEN 1 ELSE 2 END), NOTICE_DATE DESC
+		    )A
+		)
+		<![CDATA[
+		WHERE RNUM > #{firstRecordIndex} 
+		AND RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	
+	<!-- 공지사항 게시글 조회수 업데이트(회원) -->
+	<update id="viewUpdate" parameterType="int">
+		UPDATE NOTICE 
+		SET NOTICE_VIEW=NOTICE_VIEW+1
+		WHERE NOTICE_NO=#{noticeNo}
+	</update>
+	
+	<!-- 공지사항 상세조회(회원) -->
+	<select id="selectNoticeOne" parameterType="int" resultType="map"
+		resultMap="noticeAbout">
+		SELECT N.*, C.CLASSIFICATION_NAME,M.MANAGER_NAME
+		FROM NOTICE N JOIN CLASSIFICATIONS C
+		ON N.CLASSIFICATION_NO = C.CLASSIFICATION_NO
+		JOIN MANAGERS M
+		ON M.MANAGER_NO = N.MANAGER_NO
+		WHERE NOTICE_NO=#{noticeNo}
+	</select>
+	
+	<!-- 전체 레코드 수 -->
+	<select id="getRecordCount" resultType="int">
+		SELECT COUNT(*) FROM NOTICE
+	</select>
+	
+	
+	
 </mapper>
 
 

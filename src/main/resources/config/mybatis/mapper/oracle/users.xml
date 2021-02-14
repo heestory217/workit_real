@@ -227,7 +227,9 @@
 	
 	<select id="usersAll" resultType="usersVo">
 		select * from users
-		order by user_name
+		where user_corpcheck=1
+		AND user_enddate is null
+		order by user_no
 	</select>
 
 </mapper>

@@ -17,6 +17,7 @@ h2 {
 textarea#resumeSelfintro {
     width: 100%;
     border: none;
+    height: 100%;
 }
 
 .resumeBt {
@@ -114,7 +115,7 @@ div.btWarp > div > a:nth-child(1) {
                     	<div class="labelWarp">
                     	<label id="resume-colName" for="resumeSelfintro">자기 소개</label>
                     	</div>
-                    	<textarea class="content" id="resumeSelfintro" 
+                    	<textarea class="content" id="resumeSelfintro" readonly="readonly"
                     	name="resumeSelfintro">${map['resumeSelfintro'] }</textarea><br><br>
                     </div>
 					<div class="col-lg-12">

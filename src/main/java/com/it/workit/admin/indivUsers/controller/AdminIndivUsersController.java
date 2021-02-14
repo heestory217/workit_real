@@ -142,14 +142,14 @@ public class AdminIndivUsersController {
 	    // 테이블 헤더용 스타일
 	    CellStyle headStyle = wb.createCellStyle();
 
-	    // 가는 경계선
+	    //가는 경계선
 	    headStyle.setBorderTop(BorderStyle.THIN);
 	    headStyle.setBorderBottom(BorderStyle.THIN);
 	    headStyle.setBorderLeft(BorderStyle.THIN);
 	    headStyle.setBorderRight(BorderStyle.THIN);
 
-	    // 배경색은 노란색
-	    headStyle.setFillForegroundColor(HSSFColorPredefined.YELLOW.getIndex());
+	    // 배경색 회색
+	    headStyle.setFillForegroundColor(HSSFColorPredefined.GREY_25_PERCENT.getIndex());
 	    headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
 	    // 데이터는 가운데 정렬
@@ -172,7 +172,27 @@ public class AdminIndivUsersController {
 	    cell.setCellValue("이름");
 	    cell = row.createCell(2);
 	    cell.setCellStyle(headStyle);
-	    cell.setCellValue("가입");
+	    cell.setCellValue("아이디");
+	    cell = row.createCell(3);
+	    cell.setCellStyle(headStyle);
+	    cell.setCellValue("전화번호");
+	    cell = row.createCell(4);
+	    cell.setCellStyle(headStyle);
+	    cell.setCellValue("이메일");
+	    cell = row.createCell(5);
+	    cell.setCellStyle(headStyle);
+	    cell.setCellValue("우편번호");
+	    cell = row.createCell(6);
+	    cell.setCellStyle(headStyle);
+	    cell.setCellValue("주소");
+	    cell = row.createCell(7);
+	    cell.setCellStyle(headStyle);
+	    cell.setCellValue("상세 주소");
+		/*
+		 * cell = row.createCell(8); cell.setCellStyle(headStyle);
+		 * cell.setCellValue("가입일");
+		 */
+	    
 
 	    // 데이터 부분 생성
 	    for(UsersVO vo : list) {
@@ -187,12 +207,44 @@ public class AdminIndivUsersController {
 
 	        cell = row.createCell(2);
 	        cell.setCellStyle(bodyStyle);
-	        cell.setCellValue(vo.getUserRegdate());
+	        cell.setCellValue(vo.getUserId());
+	        
+	        cell = row.createCell(3);
+	        cell.setCellStyle(bodyStyle);
+	        cell.setCellValue(vo.getUserHp1()+"-"+vo.getUserHp2()+"-"+vo.getUserHp3());
+	        
+	        cell = row.createCell(4);
+	        cell.setCellStyle(bodyStyle);
+	        cell.setCellValue(vo.getUserEmail1()+"@"+vo.getUserEmail2());
+	        
+	        cell = row.createCell(5);
+	        cell.setCellStyle(bodyStyle);
+	        cell.setCellValue(vo.getUserZipcode());
+	        
+	        cell = row.createCell(6);
+	        cell.setCellStyle(bodyStyle);
+	        cell.setCellValue(vo.getUserAddress());
+	        
+	        cell = row.createCell(7);
+	        cell.setCellStyle(bodyStyle);
+	        cell.setCellValue(vo.getUserAddressdetail());
+	        
+			/*
+			 * cell = row.createCell(8); cell.setCellStyle(bodyStyle);
+			 * cell.setCellValue(vo.getUserRegdate());
+			 */
+	    }
+	    
+	    //셀 크기 변경
+	    for (int i=0;i<rowNo;i++)  
+	    {
+	        sheet.autoSizeColumn(i);
+	        sheet.setColumnWidth(i, (sheet.getColumnWidth(i))+2048 );
 	    }
 
 	    // 컨텐츠 타입과 파일명 지정
 	    response.setContentType("ms-vnd/excel");
-	    response.setHeader("Content-Disposition", "attachment;filename=회원정보.xls");
+	    response.setHeader("Content-Disposition", "attachment;filename=member.xls");
 
 	    // 엑셀 출력
 	    wb.write(response.getOutputStream());

@@ -1,14 +1,11 @@
 package com.it.workit.resumes.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-import javax.sound.midi.MidiDevice.Info;
 
-import org.apache.commons.collections4.Get;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.corp.model.AreaListView;
 import com.it.workit.corp.model.CorpService;
@@ -34,9 +30,8 @@ import com.it.workit.resumes.model.CorpuselanguageVO;
 import com.it.workit.resumes.model.ForeignlanguageskillVO;
 import com.it.workit.resumes.model.LicencseVO;
 import com.it.workit.resumes.model.ResumeListVO;
-import com.it.workit.resumes.model.ResumesAllVO;
 import com.it.workit.resumes.model.ResumeOpen2VO;
-import com.it.workit.resumes.model.ResumeOpenVO;
+import com.it.workit.resumes.model.ResumesAllVO;
 import com.it.workit.resumes.model.ResumesService;
 import com.it.workit.resumes.model.ResumesVO;
 import com.it.workit.resumes.model.UserwantedworkareaVO;
@@ -373,6 +368,11 @@ public class ResumesController {
 				rsService.updateFskill(fVo);
 			}
 		}
+		
+		//임시로 다시 업데이트
+		if (resumeVo.getResumeResumeopencheck()==4) {
+			rsService.upadteImsi(resumeNo);
+		}
 
 		String msg="등록 성공하였습니다", url="/resumes/resumeDetail.do?resumeNo="+resumeNo;
 
@@ -383,13 +383,7 @@ public class ResumesController {
 		return "common/message";
 	}
 
-
-	//지원하기
-	@RequestMapping("/resumeApply.do")
-	public void resumeApply(@RequestParam(defaultValue = "0") int resumeNo) {
-		logger.info("지원하기 화면");
-	}
-
+	
 	//지역, 언어 받기 화면
 	@RequestMapping(value = "/resumeExplore.do", method = RequestMethod.GET)
 	public String indivExplore_get(@RequestParam(defaultValue = "0") int resumeNo,
@@ -512,7 +506,23 @@ public class ResumesController {
 	}
 
 
+	//지원하기
+	@RequestMapping(value="/resumeApply.do", method = RequestMethod.GET)
+	public void resumeApply(HttpSession session,Model model) {
+		logger.info("지원하기 화면");
+		//2
+		int userNo = (Integer)session.getAttribute("userNo");
+		logger.info("유저 번호 userNo={}",userNo);
 
+		UsersVO userVo = userService.selectByUserNo(userNo);
+		List<ResumesVO> rlist= rsService.selectResumeByNo(userNo); 
+		
+		//3
+		model.addAttribute("userVo",userVo);
+		model.addAttribute("rlist",rlist);
+		
+	}
+	
 
 	//[수하]이력서 열람시 미구매자 팝업창 :머지할때 겹치면 제일 하단에 놔주세요//
 	@RequestMapping("/resumePurchase.do")

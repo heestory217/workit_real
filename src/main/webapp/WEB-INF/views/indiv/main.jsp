@@ -191,6 +191,11 @@
 		margin-bottom:100px;
 		cursor: pointer;
 	}
+	
+	.carousel{
+	    height: 341px;
+	}
+	
 </style>
 
 <!-- 슬라이드 배너 (광고 1급 서비스) -->
