@@ -13,9 +13,7 @@ public class NoticeVO {
     private String noticeOriginalname;
     private int classificationNo;
     private int managerNo;
-    
-    
-    
+  
 	public int getManagerNo() {
 		return managerNo;
 	}

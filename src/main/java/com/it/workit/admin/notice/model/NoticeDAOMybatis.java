@@ -7,8 +7,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.it.workit.common.SearchVO;
-
 @Repository
 public class NoticeDAOMybatis implements NoticeDAO{
 	@Autowired private SqlSessionTemplate sqlSession;
@@ -56,5 +54,29 @@ public class NoticeDAOMybatis implements NoticeDAO{
 		return sqlSession.update(namespace+"updateNotice", vo);
 	}
 	
+	//공지사항 전체 조회(회원)
+	@Override
+	public List<Map<String, Object>> selectAllNotice(NoticeSearchVO vo) {
+		return sqlSession.selectList(namespace+"selectAllNotice", vo);
+	}
+	
+	//공지사항 조회수 업데이트(회원)
+	@Override
+	public int viewUpdate(int noticeNo) {
+		return sqlSession.update(namespace+"viewUpdate", noticeNo);
+	}
+	
+	//공지사항 상세조회(회원)
+	@Override
+	public Map<String, Object> selectNoticeOne(int noticeNo) {
+		return sqlSession.selectOne(namespace+"selectNoticeOne", noticeNo);
+	}
+	
+	//전체 레코드수
+	@Override
+	public int getRecordCount() {
+		return sqlSession.selectOne(namespace+"getRecordCount");
+	}
+
 	
 }

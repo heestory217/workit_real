@@ -135,10 +135,10 @@
 	<!--  슬라이드 쇼 끝 -->
 	
 	<!-- previous/next button --> 
-	<a class="carousel-control-prev" href="#demo" data-slide="prev" style="margin-bottom: 95px;margin-left: -50px;"> 
+	<a class="carousel-control-prev" href="#demo" data-slide="prev" style="margin-bottom: 160px;margin-left: -50px;"> 
 		<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
 	</a> 
-	<a class="carousel-control-next" href="#demo" data-slide="next" style="margin-bottom: 95px;margin-right: -50px;"> 
+	<a class="carousel-control-next" href="#demo" data-slide="next" style="margin-bottom: 160px;margin-right: -50px;"> 
 		<span class="carousel-control-next-icon" aria-hidden="true"></span> 
 	</a> 
 </div>

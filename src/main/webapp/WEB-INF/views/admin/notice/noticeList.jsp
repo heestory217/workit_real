@@ -117,7 +117,7 @@ $(function(){
 	//공지 등록창
 	$('#writeBtn').click(function(){
 		open(contextPath+"/admin/notice/noticeWrite.do?manager=${sessionScope.managerNo}","write",
- 			"width=700, height=700, left=500, top=30, location=no, resizable=no");
+				"width=700, height=520, left=500, top=140, location=no, resizable=no");
 	});
 	
 	$('#cate').change(function(){
@@ -138,12 +138,13 @@ $(function(){
 		$(this).addClass('.titColor');
 	});
 	
+	
 });
 
 //공지사항 수정창
 function editFunc(noticeNo){
 	open("/workit/admin/notice/noticeEdit.do?noticeNo="+noticeNo,"edit",
-		"width=700, height=700, left=500, top=30, location=no, resizable=no");
+		"width=700, height=520, left=500, top=140, location=no, resizable=no");
 }
 
 function showCont(noticeNo){
@@ -327,7 +328,6 @@ function showCont(noticeNo){
 		</nav> 
 	</div>
 	<!-- 페이징 처리 끝 -->
-	
 	
 </div>
 <%@ include file="../inc/bottom.jsp"%>
