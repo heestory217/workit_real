@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.it.workit.common.SearchVO;
 import com.it.workit.language.model.LanguageVO;
 import com.it.workit.users.model.arealistVO;
 
@@ -89,6 +90,16 @@ public class RecruitannounceDAOMybatis implements RecruitannounceDAO {
 	@Override
 	public AdvertisingVO selectadverinfo(int recruitannounceNo) {
 		return sqlSession.selectOne(namespace+"selectadverinfo", recruitannounceNo);
+	}
+
+	@Override
+	public int recruitannouncecount(SearchVO searchVo) {
+		return sqlSession.selectOne(namespace+"recruitannouncecount", searchVo);
+	}
+
+	@Override
+	public List<RecruitannounceVO> recruitannounceall(SearchVO searchVo) {
+		return sqlSession.selectList(namespace+"recruitannounceall", searchVo);
 	}
 
 }
