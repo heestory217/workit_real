@@ -40,6 +40,8 @@ public interface ResumesService {
 	public int updateCarrer(CarrerVO carrerVo);
 	public int updateLicen(LicencseVO licenVo);
 	public int updateFskill(ForeignlanguageskillVO fskillVo);
+	//임시로 다시 업데이트
+	public int upadteImsi(int resumeNo);
 
 	//선택 삭제
 	public int selectDel(ResumeEtcVO resumeEtcVo);

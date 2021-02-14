@@ -102,4 +102,9 @@ public class ApplicantDAOMybatis implements ApplicantDAO{
 		return sqlSession.selectOne(namespace+"selectReadCount", vo);
 	}
 
+	@Override
+	public int insertApplican(ApplicantlistVO appliVo) {
+		return sqlSession.insert(namespace+"insertApplican",appliVo);
+	}
+
 }

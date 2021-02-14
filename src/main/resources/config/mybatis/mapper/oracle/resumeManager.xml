@@ -22,6 +22,7 @@
 		    (
 		        select * from resumeUsers 
 		        <include refid="searchWhere"/>
+		        order by resume_no desc
 		    )A
 		)
 		<![CDATA[

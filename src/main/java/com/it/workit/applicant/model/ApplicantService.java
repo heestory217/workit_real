@@ -29,4 +29,6 @@ public interface ApplicantService {
 	int updaeApplyPass(int applicantlistNo);
 	int updaeApplyFail(int applicantlistNo);
 	
+	//소정 - 지원
+	public int insertApplican(ApplicantlistVO appliVo);
 }

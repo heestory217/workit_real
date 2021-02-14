@@ -27,12 +27,16 @@ public interface ResumesDAO {
 	public int delCarrer(int resumeNo);
 	public int delLicen(int resumeNo);
 	public int delFskill(int resumeNo);
+	public int delUlang(int resumeNo);
+	public int delUarea(int resumeNo);
 	
 	public int updateResume(ResumesVO resumeVo);
 	public int updateAwd(AwardVO awardVo);
 	public int updateCarrer(CarrerVO carrerVo);
 	public int updateFskill(ForeignlanguageskillVO fskillVo);
 	public int updateLicen(LicencseVO licenVo);
+	//임시로 다시 업데이트
+	public int upadteImsi(int resumeNo);
 	
 	//선택 삭제
 	public int selDelAwd(int awardNo);

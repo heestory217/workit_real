@@ -270,4 +270,14 @@
 	<select id="selectProhibitTotal" parameterType="int" resultType="int">
 		select count(*) from PROHIBITJOIN where USER_CORP_NO=#{userCorpNo}
 	</select>
+	
+	<!-- 입사지원 -->
+	<insert id="insertApplican" parameterType="applicantlistVO">
+		<selectKey keyProperty="applicantlistNo" resultType="int" order="BEFORE">
+			select APPLICANTLIST_SEQ.nextval from dual
+		</selectKey>
+		insert into APPLICANTLIST (APPLICANTLIST_NO,USER_NO,RESUME_NO,RECRUITANNOUNCE_NO)
+		values (#{applicantlistNo},#{userNo},#{resumeNo},#{recruitannounceNo})
+	</insert>
+	
 </mapper>
