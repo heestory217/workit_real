@@ -21,15 +21,6 @@ public class AdminWebsiteManageController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminWebsiteManageController.class);
 	@Autowired private WebsiteManageService websiteService;
 	
-	@RequestMapping("/siteIntro.do")
-	public String siteIntro(Model model) {
-		logger.info("사이트소개 페이지 보여주기");
-		Map<String, Object> map = websiteService.selectWebsiteManage("I");
-		model.addAttribute("map", map);
-		 
-		return "admin/siteManage/siteIntro";
-	}
-	
 	@RequestMapping("/termsOfService.do")
 		public void termsOfService(Model model) {
 		logger.info("이용약관 페이지 보여주기");
@@ -47,19 +38,14 @@ public class AdminWebsiteManageController {
 	@RequestMapping(value="/websiteEdit.do", method = RequestMethod.GET)
 	public String siteIntroEdit(@RequestParam String kind, @RequestParam String type, Model model) {
 		if(type.equals("N")) { //신규등록
-			if(kind.equals("I")) {
-				logger.info("사이트소개 등록 페이지 보여주기");
-			}else if(kind.equals("T")) {
+			if(kind.equals("T")) {
 				logger.info("이용약관 등록 페이지 보여주기");
 			}else if(kind.equals("P")) {
 				logger.info("개인정보처리방침 등록 페이지 보여주기");
 			}
 		}else if(type.equals("E")) {	//수정
 			Map<String, Object> map = null;
-			if(kind.equals("I")) {
-				logger.info("사이트소개 수정 페이지 보여주기");
-				map = websiteService.selectWebsiteManage("I");
-			}else if(kind.equals("T")) {
+			if(kind.equals("T")) {
 				logger.info("이용약관 수정 페이지 보여주기");
 				map = websiteService.selectWebsiteManage("T");
 			}else if(kind.equals("P")) {
@@ -78,11 +64,7 @@ public class AdminWebsiteManageController {
 		String kind = vo.getWebsitemanageKind();
 		String msg="", url="admin/siteManage/websiteEdit.do?kind="+kind+"&type="+type;
 		
-		if(kind.equals("I")) {
-			vo.setWebsitemanageKind("I");
-			vo.setWebsitemanageTitle("사이트소개");
-			url = "";
-		}else if(kind.equals("T")) {
+		if(kind.equals("T")) {
 			vo.setWebsitemanageKind("T");
 			vo.setWebsitemanageTitle("이용약관");
 		}else if(kind.equals("P")) {
@@ -116,9 +98,7 @@ public class AdminWebsiteManageController {
 		}
 		
 		if(cnt>0) {
-			if(kind.equals("I")) {
-				url = "/admin/siteManage/siteIntro.do";
-			}else if(kind.equals("T")) {
+			if(kind.equals("T")) {
 				url = "/admin/siteManage/termsOfService.do";
 			}else if(kind.equals("P")) {
 				url = "/admin/siteManage/privacyPolicy.do";

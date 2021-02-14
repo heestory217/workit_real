@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class WebsiteManageController {
 	private static final Logger logger = LoggerFactory.getLogger(WebsiteManageController.class);
 	
-	@RequestMapping("/siteIntro.do")
-	public void siteIntro() {
-		logger.info("사이트소개 페이지 보여주기");
-	}
-			
 	@RequestMapping("/termsOfService.do")
 	public void termsOfService() {
 		logger.info("이용약관 페이지 보여주기");

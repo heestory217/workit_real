@@ -92,9 +92,6 @@
                                 <div id="submenu-5" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<c:url value='/admin/siteManage/siteIntro.do'/>">사이트 소개</a>
-                                        </li>
-                                        <li class="nav-item">
                                             <a class="nav-link" href="<c:url value='/admin/siteManage/termsOfService.do'/>">이용 약관</a>
                                         </li>
                                         <li class="nav-item">
