@@ -57,6 +57,14 @@
 	    color: white;
 	}
 	
+	a#resumLink{
+	    float: left;
+	    padding:13px 30px 13px 10px;
+	    font-size: 20px;
+		font-weight:lighter;
+	    color: #6e41f7;
+	}
+	
 	#reviewBtn{
 	    float: right;
 	    background-color: white;
@@ -288,7 +296,7 @@
 		<div class="container containDiv">
 			<div id="resumeEditBx">
 				<i id="resumeIcon" class="far fa-edit"
-					style="padding-left: 10px;"></i> <a id="reviewLink"> 이력서를 추가·수정하고, 인사담당자에게 직접 면접 제안 받으세요 </a>
+					style="padding-left: 10px;"></i> <a id="resumLink"> 이력서를 추가·수정하고, 인사담당자에게 직접 면접 제안 받으세요 </a>
 				<div id="resumeBtn">이력서 강화하기</div>
 			</div>
 		</div>
