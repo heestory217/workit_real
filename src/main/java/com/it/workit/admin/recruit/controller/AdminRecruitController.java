@@ -57,7 +57,7 @@ public class AdminRecruitController {
 	
 	@RequestMapping("/recruitcheck.do")
 	public String corpJudge(@RequestParam int recruitannounceNo, @RequestParam int check, Model model) {
-		logger.info("채용공고 등록", recruitannounceNo, check);
+		logger.info("채용공고 등록 {}, {}", recruitannounceNo, check);
 		String url="/admin/users/corp/recruitList.do", msg="";
 		
 		if(check==1) {
