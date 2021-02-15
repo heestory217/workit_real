@@ -31,7 +31,7 @@
 					<c:if test="${!empty imgList}">
 						<c:forEach var="imgList" items="${imgList }" begin="0" end="0">
 							<div class="blog-large-pic">
-								<img src="<c:url value='/pd_images/${imgList.corpimgUrl}'/>">
+								<img src="<c:url value='/pd_images/${imgList.corpimgUrl}'/>" style="width: 1110px;">
 							</div>
 						</c:forEach>
 					</c:if>

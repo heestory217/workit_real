@@ -104,7 +104,7 @@
 	                            
                             <div class="col-lg-12">
                                 <label for="pass">연봉<span class="red">*</span></label>
-                                <input type="text" id="recruitannounceSpay" name="recruitannounceSpay" placeholder="예시)3500">
+                                <input type="text" id="recruitannounceSpay" name="recruitannounceSpay" placeholder="예시)35000000 숫자만 입력 가능합니다.">
                             </div>
                             
                             <div class="col-lg-12">

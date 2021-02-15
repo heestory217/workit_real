@@ -69,7 +69,11 @@ a#corpinfo {
                         	<img src="<c:url value='/pd_images/${CorpVO.corpImgurl }'/>" style="width: 50px; margin-bottom: 20px;margin-left: 65px;">
                         	<!-- 기업 로고 이미지 -->
                         	<div class="icons">
-	                        	<a href="<c:url value='/recruitBookmark/insertBookmark.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo}'/>"><i class="fa fa-bookmark-o" aria-hidden="true" style="margin-right: 20px;"></i></a>
+                        		<!-- 북마크 -->
+	                        	<c:if test="${sessionScope.user_corpcheck eq 1 }">
+		                        	<a href="<c:url value='/recruitBookmark/insertBookmark.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo}'/>"><i class="fa fa-bookmark-o" aria-hidden="true" style="margin-right: 20px;"></i></a>
+	                        	</c:if>
+	                        	<!-- 공유하기 -->
 	                        	<i class="fa fa-share-alt" aria-hidden="true"></i>
                         	</div>
                             <h2>
@@ -153,8 +157,8 @@ a#corpinfo {
 		                          					<p>${RecruitannounceVO.recruitannounceSworkkind}</p>
 	                          					</div>
 	                          					<div class="inside">
-	                                            <h5><i class="fa fa-money" aria-hidden="true"></i> 급여</h5>
-	                           						<p>${RecruitannounceVO.recruitannounceSpay}원</p>
+	                                            <h5><i class="fa fa-money" aria-hidden="true"></i> 연봉</h5>
+	                           						<p><fmt:formatNumber value="${RecruitannounceVO.recruitannounceSpay}" pattern="#,###,###"/>원</p>
                            						</div>
                            						<div class="inside">
 	                                            <h5><i class="fa fa-map-marker" aria-hidden="true"></i> 근무지</h5>
@@ -214,7 +218,16 @@ a#corpinfo {
                                        		<c:if test="${sessionScope.user_corpcheck==2}">
                                        		 	<div class="emptyImg" style="border: 1px solid #bbb; margin: 60px 0px; border-style: dashed; border-radius: 20px; text-align: center;">
 												 	<img src='<c:url value='/resources/img/empty2.jpg'/>' style="width: 10%;margin-top: 60px;">
-												 	<a href="<c:url value='/company/ApplicantMng/applicantByRecruit.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo }'/>"><h6 style="font-weight: 600; color: #666; margin-top: 40px; margin-bottom: 20px;">지원자 목록 바로가기</h6></a>
+												 	<a href="<c:url value='/company/ApplicantMng/applicantByRecruit.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo }'/>">
+												 	<h6 style="font-weight: 600; color: #666; margin-top: 40px; margin-bottom: 20px;">지원자 목록 바로가기</h6></a>
+											 	</div>
+                                       		</c:if>
+                                       		<c:if test="${empty sessionScope.user_corpcheck}">
+                                       		 	<div class="emptyImg" style="border: 1px solid #bbb; margin: 60px 0px; border-style: dashed; border-radius: 20px; text-align: center;">
+												 	<img src='<c:url value='/resources/img/empty2.jpg'/>' style="width: 10%; margin-top: 60px;">
+												 	<a href="<c:url value='/company/ApplicantMng/applicantByRecruit.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo }'/>">
+												 	<h6 style="font-weight: 600; color: #666; margin-top: 40px; margin-bottom: 20px;">지금 바로 Work IT에 가입해 지원해보세요!</h6></a>
+												 	<a href="<c:url value='/users/login.do'/>"><button class="site-btn" style="margin-bottom:60px;">로그인/회원가입</button></a>
 											 	</div>
                                        		</c:if>
                                         </div>

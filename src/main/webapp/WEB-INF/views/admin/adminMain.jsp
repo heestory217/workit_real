@@ -82,10 +82,12 @@
 <!-- ============================================================== -->
 
 <div style="border-bottom: 1px solid #ddd;" class="container-fluid  dashboard-content"">
+	<!-- 사이트 전체 총수익 -->
 	<div class="row" style="border-bottom: 1px solid #ddd; margin-bottom: 30px;">
 		<c:import url="/admin/main/sales/totalSales.do"/>
 	</div>
-<!-- 서비스별 월간 총 수익 -->
+	
+	<!-- 서비스별 월간 총 수익 -->
 	<div>
 		<c:import url="/admin/main/sales/serviceSales.do"/>
 	</div>
@@ -110,8 +112,5 @@
     <script src="<c:url value='/resources/admin/assets/vendor/charts/c3charts/C3chartjs.js'/>"></script>
     <script src="<c:url value='/resources/admin/assets/libs/js/dashboard-ecommerce.js'/>"></script>
 
-</div>
-</div>
 </body>
- 
 </html>

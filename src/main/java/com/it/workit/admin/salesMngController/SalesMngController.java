@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.admin.salesMngModel.salesMngService;
 
@@ -20,11 +21,15 @@ public class SalesMngController {
 	private static final Logger logger = LoggerFactory.getLogger(SalesMngController.class);
 	
 	@RequestMapping("/serviceSales.do")
-	public void serviceSales(Model model) {
+	public void serviceSales(@RequestParam(defaultValue = "0") int years, Model model) {
 		Calendar cal = Calendar.getInstance();
+		logger.info("들어온 years = {}",years);
 		
-		int y = cal.get(Calendar.YEAR);
-		String year = Integer.toString(y);
+		String year = "";
+		if(years==0) {
+			int y = cal.get(Calendar.YEAR);
+			year = Integer.toString(y);
+		}
 		
 		List<Map<String, Object>> reviewList = salesService.selectReviewSales(year);
 		List<Map<String, Object>> adList = salesService.selectAdSales(year);
@@ -38,11 +43,18 @@ public class SalesMngController {
 	}
 	
 	@RequestMapping("/totalSales.do")
-	public void totalSales(Model model) {
+	public void totalSales(@RequestParam(defaultValue = "0") int years, Model model) {
 		Calendar cal = Calendar.getInstance();
 		
-		int y = cal.get(Calendar.YEAR);
-		String year = Integer.toString(y);
+		logger.info("들어온 years = {}",years);
+		
+		String year = "";
+		if(years==0) {
+			int y = cal.get(Calendar.YEAR);
+			year = Integer.toString(y);
+		}else {
+			year = Integer.toString(years);
+		}
 		
 		List<Map<String, Object>> totalList = salesService.selectMonthSales(year);
 		model.addAttribute("year",year);

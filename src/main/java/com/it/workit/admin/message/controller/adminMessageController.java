@@ -33,7 +33,7 @@ public class adminMessageController {
 	@ResponseBody
 	@RequestMapping("/message/sendMessageAjax.do")
 	public int sendMsg(@ModelAttribute MessageVO vo) {
-		vo.setUserNo(0);
+		vo.setUserNo(999);
 		int cnt = messageService.insertMessage(vo);
 		logger.info("MessageVO={}", vo);
 		

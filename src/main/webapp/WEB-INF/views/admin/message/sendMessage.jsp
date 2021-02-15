@@ -28,25 +28,30 @@
 	}
 	
 	function send(){
-		var params = $("#msgSendFrm").serialize();
-		$.ajax(
-		{
-			url :"<c:url value='/admin/message/sendMessageAjax.do'/>",
-			type:"POST",
-			data : params,
-			async: false,
-			success : function(res)
-					{
-						if(res==1){
-							alert("반려사유 쪽지가 전송되었습니다.");
-							window.close();
-						}else{
-							alert("반려사유 쪽지 전송에 실패했습니다.");
-							window.close();
+		if(!$('#contents').val()){
+			alert('반려 사유를 입력해주세요.');
+			event.preventDefault();
+		}else{
+			var params = $("#msgSendFrm").serialize();
+			$.ajax(
+			{
+				url :"<c:url value='/admin/message/sendMessageAjax.do'/>",
+				type:"POST",
+				data : params,
+				async: false,
+				success : function(res)
+						{
+							if(res==1){
+								alert("반려사유 쪽지가 전송되었습니다.");
+								window.close();
+							}else{
+								alert("반려사유 쪽지 전송에 실패했습니다.");
+								window.close();
+							}
 						}
-					}
-		});
-		event.preventDefault();	
+			});
+			event.preventDefault();
+		}
 	}
 </script>
 
@@ -75,9 +80,9 @@
 	                                <input id="corpName" type="text" class="form-control" value="${corpName}" readonly>
 	                                <input id="corpNo" type="hidden" class="form-control" value="${userNo}" name="getMessageNo">
 	                                <label for="msgTitle" class="col-form-label">제목</label>
-	                                <input id="msgTitle" type="text" class="form-control" name="messageTitle" maxlength="30">
+	                                <input id="msgTitle" type="text" class="form-control" name="messageTitle" maxlength="30" style="margin-bottom: 10px;" value="${corpName}의 기업 등록이 반려 되었습니다." readonly >
                                     <label for="exampleFormControlTextarea1">반려 사유</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" maxlength="1000" name="messageContent"></textarea>
+                                    <textarea class="form-control" id="contents" rows="5" maxlength="1000" name="messageContent"></textarea>
                                 </div>
 	                                <a href="#" class="btn btn-outline-primary" onclick="cancle()">취소</a>
 	                                <a href="#" class="btn btn-primary" onclick="send()">전송</a>
