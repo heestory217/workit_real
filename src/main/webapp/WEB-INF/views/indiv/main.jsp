@@ -349,7 +349,7 @@
 				<i id="resumeIcon" class="far fa-edit"
 					style="padding-left: 10px;"></i> 
 					<a href="<c:url value='/resumes/resumesList.do'/>" 
-					id="resumLink"> 이력서를 작성, 수정하고 인사담당자에게 직접 면접 제안 받으세요 </a>
+					id="resumLink"> 이력서를 추가하고 인사담당자에게 직접 면접 제안 받으세요 </a>
 				<div id="resumeBtn">이력서 강화하기</div>
 			</div>
 		</div>

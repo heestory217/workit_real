@@ -16,7 +16,7 @@
 		border:1px solid #efefef;
 		width:100%;
 		height:auto;
-		padding:20px;
+		padding:25px 20px;
 		font-size:10px;
 		color:gray;
 		margin-bottom:20px;
