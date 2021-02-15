@@ -15,6 +15,11 @@ public class CouponDAOMybatis implements CouponDAO{
 	public CouponVO selectCoupon(String couponName) {
 		return sqlSession.selectOne(namespace+"selectCoupon", couponName);
 	}
+	
+	@Override
+	public CouponVO selectCouponByNo(int couponNo) {
+		return sqlSession.selectOne(namespace+"selectCouponByNo", couponNo);
+	}
 
 	@Override
 	public List<CouponVO> selectAll() {

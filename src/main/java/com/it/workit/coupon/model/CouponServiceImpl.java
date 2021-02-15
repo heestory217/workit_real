@@ -15,6 +15,11 @@ public class CouponServiceImpl implements CouponService{
 	}
 
 	@Override
+	public CouponVO selectCouponByNo(int couponNo) {
+		return couponDao.selectCouponByNo(couponNo);
+	}
+
+	@Override
 	public List<CouponVO> selectAll() {
 		return couponDao.selectAll();
 	}

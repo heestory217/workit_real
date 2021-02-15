@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface CouponService {
 	CouponVO selectCoupon(String couponName);
+	CouponVO selectCouponByNo(int couponNo);
 	
 	List<CouponVO> selectAll();
 	int insertCoupon (CouponVO vo);

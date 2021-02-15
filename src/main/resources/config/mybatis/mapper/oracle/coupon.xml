@@ -7,6 +7,10 @@
 		select * from coupon where COUPON_NAME=#{couponName}
 	</select>
 	
+	<select id="selectCouponByNo" parameterType="int" resultType="couponVo">
+		select * from coupon where COUPON_NO=#{couponNo}
+	</select>
+	
 	<select id="selectAll" resultType="couponVo">	
 		select * from coupon order by coupon_no
 	</select>
