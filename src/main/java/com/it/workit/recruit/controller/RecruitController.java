@@ -255,7 +255,7 @@ public class RecruitController {
 			vo.setRecordCountPerPage(Utility.RECORD_COUNT);
 			
 			List<AdvertisingVO> list=recruitannounceService.selectRecruitadList(vo);
-			int totalRecord=list.size();
+			int totalRecord=recruitannounceService.recruitGetTotalRecord(vo);
 			logger.info("총 레코드 수, totalRecord={}", totalRecord);
 			pagingInfo.setTotalRecord(totalRecord);
 			

@@ -23,8 +23,13 @@ public interface RecruitannounceService {
 	public List<AdvertisingVO> selectRecruitadList(AdvertisingVO vo);
 	public int selectadvercount(int recruitannounceNo);
 	public AdvertisingVO selectadverinfo(int recruitannounceNo);
+	public int recruitGetTotalRecord(AdvertisingVO vo);
 	
 	//관리자
 	public int recruitannouncecount(SearchVO searchVo);
 	public List<RecruitannounceVO> recruitannounceall(SearchVO searchVo);
+	
+	public int recruitannouncerollback(int recruitannounceNo);
+	public int recruitannounceallowed(int recruitannounceNo);
+	public int recruitannouncedeny(int recruitannounceNo);
 }

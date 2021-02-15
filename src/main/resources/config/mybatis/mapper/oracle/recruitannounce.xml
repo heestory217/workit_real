@@ -129,5 +129,28 @@
 			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
 		]]>
 	</select>
-
+	
+	<select id="recruitGetTotalRecord" parameterType="AdvertisingVO" resultType="int">
+		select count(*) from recruitannounce where user_No=#{userNo}
+	</select>
+	
+	
+	<update id="recruitannouncerollback" parameterType="int">
+		update recruitannounce 
+		set RECRUITANNOUNCE_UPCHECK=1
+		where RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	</update>
+	
+	<update id="recruitannounceallowed" parameterType="int">
+		update recruitannounce 
+		set RECRUITANNOUNCE_UPCHECK=2
+		where RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	</update>
+	
+	<update id="recruitannouncedeny" parameterType="int">
+		update recruitannounce 
+		set RECRUITANNOUNCE_UPCHECK=3
+		where RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	</update>
+	
 </mapper>

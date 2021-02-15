@@ -3,6 +3,12 @@
 <%@ include file="../../inc/top.jsp" %>
 <%@ include file="../../inc/sideMenu.jsp" %>
 
+<script type="text/javascript">
+	function pageFunc(curPage){
+		$('input[name=currentPage]').val(curPage);
+		$('form[name=frmPage]').submit();
+	}
+</script>
 
 <style>
 .center{
@@ -14,7 +20,31 @@
 <div class="col-lg-12">
 	<br><br><br><div class="section-block">
 		<h3 class="section-title center">채용공고 조회</h3>
-	</div><br><br><br>
+	</div><br>
+	
+	<form action="<c:url value='/admin/users/corp/recruitList.do'/>"
+		name="frmSearch" method="post">
+		<div class="input-group input-search inputSearchbox">
+			
+			<select name="searchCondition" class="margin_right_5">
+	            <option value="user_name" 
+	            	<c:if test="${param.searchCondition == 'user_name'}">
+	            		selected="selected"
+	            	</c:if>
+	            >이름</option>
+	            <option value="user_id"
+	            	<c:if test="${param.searchCondition == 'user_id'}">
+	            		selected="selected"
+	            	</c:if>
+	            >아이디</option>
+	        </select>   
+    		<input class="form-control" type="text" placeholder="검색어를 입력해주세요."
+    			value="${param.searchKeyword}" name="searchKeyword">
+    			<span class="input-group-btn">
+    		<button class="btn myColor textWhite" type="submit"><i class="fas fa-search"></i></button></span>
+    	</div>
+    </form>
+	<br><br>
 	<div class="card">
 		<div class="card-body">
 			<div class="table-responsive">
@@ -75,7 +105,18 @@
 										[수정 대기중]
 									</c:if>
 									</td>
-								<td></td>
+								<td>
+									<c:if test="${vo.recruitannounceUpcheck==1 ||  vo.recruitannounceUpcheck==4}">
+									<a href="<c:url value='/admin/users/corp/recruitcheck.do?recruitannounceNo=${vo.recruitannounceNo }&check=2'/>" class="btn btn-outline-secondary"> 승인 </a>&nbsp;&nbsp;&nbsp;
+	                           		<a href="<c:url value='/admin/users/corp/recruitcheck.do?recruitannounceNo=${vo.recruitannounceNo }&check=3'/>" class="btn btn-outline-primary"> 반려 </a>
+									</c:if>
+									<c:if test="${vo.recruitannounceUpcheck==2 }">
+										<a href="<c:url value='/admin/users/corp/recruitcheck.do?recruitannounceNo=${vo.recruitannounceNo }&check=1'/>" class="btn btn-outline-primary"> 승인취소 </a>
+									</c:if>
+									<c:if test="${vo.recruitannounceUpcheck==3 }">
+										<a href="<c:url value='/admin/users/corp/recruitcheck.do?recruitannounceNo=${vo.recruitannounceNo }&check=1'/>" class="btn btn-outline-secondary"> 반려취소 </a>
+									</c:if>
+								</td>
 			            </tr>
 	            		</c:forEach>
 	            	</c:if>
@@ -89,6 +130,7 @@
 	<div>
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
+				<!-- 이전블럭 -->
 				<c:if test="${pagingInfo.firstPage>1 }">
 					<li class="page-item">
 						<a class="page-link" href="#" aria-label="Previous"
@@ -97,6 +139,8 @@
 						</a>
 					</li>
 				</c:if>
+				
+				<!-- 블럭 -->
 				<c:forEach var="i" begin="${pagingInfo.firstPage}" end="${pagingInfo.lastPage}">
 					<c:if test="${i==pagingInfo.currentPage }">
 						<li class="page-item active">
@@ -111,6 +155,8 @@
 						</li>
 					</c:if>
 				</c:forEach>
+				
+				<!-- 다음블럭 -->
 				<c:if test="${pagingInfo.lastPage < pagingInfo.totalPage }">
 					<li class="page-item">
 						<a class="page-link" href="#" aria-label="Next" 

@@ -94,5 +94,25 @@ public class RecruitannounceServiceImpl implements RecruitannounceService {
 	public List<RecruitannounceVO> recruitannounceall(SearchVO searchVo) {
 		return RecruitannounceDao.recruitannounceall(searchVo);
 	}
+
+	@Override
+	public int recruitGetTotalRecord(AdvertisingVO vo) {
+		return RecruitannounceDao.recruitGetTotalRecord(vo);
+	}
+
+	@Override
+	public int recruitannouncerollback(int recruitannounceNo) {
+		return RecruitannounceDao.recruitannouncerollback(recruitannounceNo);
+	}
+
+	@Override
+	public int recruitannounceallowed(int recruitannounceNo) {
+		return RecruitannounceDao.recruitannounceallowed(recruitannounceNo);
+	}
+
+	@Override
+	public int recruitannouncedeny(int recruitannounceNo) {
+		return RecruitannounceDao.recruitannouncedeny(recruitannounceNo);
+	}
 	
 }
