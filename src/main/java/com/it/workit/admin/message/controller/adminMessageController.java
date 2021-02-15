@@ -32,15 +32,15 @@ public class adminMessageController {
 	
 	@ResponseBody
 	@RequestMapping("/message/sendMessageAjax.do")
-	public int sendMsg(@ModelAttribute MessageVO vo) {
+	public int sendMsg(@ModelAttribute MessageVO vo, @RequestParam int getMessageNo) {
 		vo.setUserNo(999);
 		int cnt = messageService.insertMessage(vo);
-		logger.info("MessageVO={}", vo);
+		logger.info("MessageVO={}, getMessageNo={}", vo, getMessageNo);
 		
 		if(cnt>0) {
 			GetMessageVO gVo =  new GetMessageVO();
 			
-			gVo.setUserNo(vo.getUserNo());
+			gVo.setUserNo(getMessageNo);
 			gVo.setMessageNo(vo.getMessageNo());
 			logger.info("GetMessageVO={}", gVo);
 			cnt = getMessageService.insertGetMessage(gVo);
