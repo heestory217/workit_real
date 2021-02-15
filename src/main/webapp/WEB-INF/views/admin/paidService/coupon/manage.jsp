@@ -14,7 +14,8 @@
              <div class="page-breadcrumb">
                  <nav aria-label="breadcrumb">
                      <ol class="breadcrumb">
-                         <li class="breadcrumb-item" style="font-size: initial;">기존 쿠폰을 수정하려면 쿠폰 목록에서 쿠폰명을 클릭하세요.</li>
+                         <li class="breadcrumb-item" style="font-size: initial;">기존 쿠폰을 수정하려면 수정버튼을 클릭하세요.</li>
+                         <li class="breadcrumb-item" style="font-size: initial;">쿠폰 적용을 해제하고 싶을 경우, 수정기능을 이용하여 종료일을 오늘날짜보다 이전날짜로 설정하세요.</li>
                      </ol>
                  </nav>
              </div>
@@ -29,8 +30,9 @@
 						<col style="width:5%;" />
 						<col style="width:30%;" />
 						<col style="width:15%;" />
-						<col style="width:25%;" />
-						<col style="width:25%;" />		
+						<col style="width:20%;" />
+						<col style="width:20%;" />		
+						<col style="width:10%;" />		
 					</colgroup>
 	                <thead>
 	                    <tr>
@@ -39,6 +41,7 @@
 	                        <th scope="col" style="text-align: center;">할인률</th>
 	                        <th scope="col" style="text-align: center;">시작일</th>
 	                        <th scope="col" style="text-align: center;">종료일</th>
+	                        <th scope="col" style="text-align: center;">수정</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
@@ -50,11 +53,12 @@
 						<c:if test="${!empty list}">
 							<c:forEach var="vo" items="${list}">
 			                    <tr>
-			                        <td scope="row" style="font-weight: bold;">${vo.couponNo}</td>
-			                        <td><a href="#">${vo.couponName}</a></td>
+			                        <td scope="row" style="font-weight: bold;" id="no">${vo.couponNo}</td>
+			                        <td>${vo.couponName}</td>
 			                        <td align="center">${vo.couponRate} %</td>
 			                        <td align="center"><fmt:formatDate value="${vo.couponStartdate}" type="both" pattern="yyyy-MM-dd hh:mm:ss" /></td>
 			                        <td align="center"><fmt:formatDate value="${vo.couponEnddate}" type="both" pattern="yyyy-MM-dd hh:mm:ss"  /></td>
+			                        <td align="center"><a href="#" onclick="execForm(${vo.couponNo})" class="text-primary">수정</a></td>
 			                    </tr>
 							</c:forEach>
 						</c:if>
@@ -66,7 +70,7 @@
 		<div class="card" style="margin-top: 30px;">
 		    <h5 class="card-header">등록</h5>
 		    <div class="card-body">
-		        <form id="couponUpdateFrm" action="<c:url value='/admin/paidService/coupon/insert.do'/>" method="get">
+		        <form id="couponInsertFrm" action="<c:url value='/admin/paidService/coupon/insert.do'/>" method="post">
 		            <div class="form-group row">
 		                <label class="col-12 col-sm-3 col-form-label text-sm-right">쿠폰명</label>
 		                <div class="col-12 col-sm-8 col-lg-6">
@@ -106,10 +110,22 @@
 </div>
 
 <script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
- 
+
 <script type="text/javascript">
+
+function execForm(couponNo) {
+	var _width = '700';
+	var _height = '400';
+
+	var _left = Math.ceil((window.screen.width - _width) / 2);
+	var _top = Math.ceil((window.screen.height - _height) / 2);
+
+	window.open('<c:url value="/admin/paidService/coupon/updateForm.do?couponNo='+couponNo+'"/>', '쿠폰 수정', 
+			'width=' + _width + ', height=' + _height  + ', left=' + _left + ', top=' + _top);
+}
+
+/*
 	$(function(){
-		
 		$('tr td a').each(function(index, item){
 			$(this).click(function(){
 				$.ajax({
@@ -148,7 +164,7 @@
 	function addZero(data){
 	    return (data<10) ? "0" + data : data;
 	}
-	
+*/
 </script>
 
 <script src="<c:url value='/resources/admin/assets/vendor/bootstrap/js/bootstrap.bundle.js'/>"></script>
