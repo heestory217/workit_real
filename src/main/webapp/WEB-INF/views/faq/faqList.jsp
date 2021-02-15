@@ -14,12 +14,6 @@
 	padding: 0 0 15px 0;
 }
 
-.faqBt {
-	background: #4C50BB;
-	margin: 50px 0;
-	float: right;
-}
-
 span#listEmpth {
     display: block;
     text-align: center;
@@ -91,12 +85,7 @@ span#listEmpth {
 						</div>
 					</c:forEach>
 				</c:if>
-				<!-- 버튼 -->
-				<div>
-					<input type="button" value="글쓰기"
-						class="faqBt btn btn-primary site-btn"
-						onclick="location.href='<c:url value="/faq/faqWrite.do"/>'" />
-				</div>
+				
 			</div>
 		</div>
 	</div>

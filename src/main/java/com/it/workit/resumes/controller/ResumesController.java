@@ -515,6 +515,7 @@ public class ResumesController {
 		logger.info("유저 번호 userNo={}",userNo);
 
 		UsersVO userVo = userService.selectByUserNo(userNo);
+		
 		List<ResumesVO> rlist= rsService.selectResumeByNo(userNo); 
 		
 		//3

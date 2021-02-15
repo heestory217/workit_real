@@ -101,6 +101,27 @@ public class resumeManagerController {
 		//4
 		return "common/message";
 	}
+	
+	//반려
+	@RequestMapping("/resumreBack.do")
+	public String resumreBack(@RequestParam(defaultValue = "0") int resumeNo,
+			Model model) {
+		//1
+		logger.info("이력서 반려 resumeNo={}",resumeNo);
+		//2
+		int cnt = rsMngService.resumreBack(resumeNo);
+		String msg="반려 실패 했습니다", url="/admin/users/resume/resumeCheck.do?resumeNo="+resumeNo;
+		if (cnt>0) {
+			msg="반려 했습니다";
+			url="/admin/users/resume/resumeManager.do";
+		}
+		//3
+		model.addAttribute("msg",msg);
+		model.addAttribute("url",url);
+		
+		//4
+		return "common/message";
+	}
 }
 
 

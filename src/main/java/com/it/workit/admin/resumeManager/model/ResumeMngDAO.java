@@ -14,4 +14,7 @@ public interface ResumeMngDAO {
 	
 	//승인
 	public int resumreAck(int resumeNo);
+	
+	//반려
+	public int resumreBack(int resumeNo);
 }

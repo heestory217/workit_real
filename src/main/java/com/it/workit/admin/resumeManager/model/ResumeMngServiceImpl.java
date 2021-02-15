@@ -28,4 +28,9 @@ public class ResumeMngServiceImpl implements ResumeMngService{
 		return rsMngDao.resumreAck(resumeNo);
 	}
 
+	@Override
+	public int resumreBack(int resumeNo) {
+		return rsMngDao.resumreBack(resumeNo);
+	}
+
 }

@@ -45,6 +45,11 @@
 	</update>
 	
 	<!--반려 -->
+	<update id="resumreBack" parameterType="int">
+		update resumes 
+		set RESUME_RESUMEOPENCHECK=4
+		where resume_no = #{resumeNo}
+	</update>
 	
 </mapper>
 

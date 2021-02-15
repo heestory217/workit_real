@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.it.workit.common.SearchVO;
+
 @Repository
 public class FaqDAOMybatis implements FaqDAO{
 
@@ -36,8 +38,18 @@ public class FaqDAOMybatis implements FaqDAO{
 	}
 
 	@Override
-	public int faqdelete(FaqVO faqVo) {
-		return sqlSession.delete(namespace+"faqdelete", faqVo);
+	public int faqdelete(int faqNo) {
+		return sqlSession.delete(namespace+"faqdelete", faqNo);
+	}
+
+	@Override
+	public List<FaqVO> selectAllMng(SearchVO serchVo) {
+		return sqlSession.selectList(namespace+"selectAllMng",serchVo);
+	}
+
+	@Override
+	public int totalfa(SearchVO serchVo) {
+		return sqlSession.selectOne(namespace+"totalfa",serchVo);
 	}
 
 }

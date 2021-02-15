@@ -117,12 +117,6 @@ public class QnaController {
 		QnaUsersVO qauVo =qaService.qaSelectByNo(qaNo);
 		
 		String msg="비밀번호가 틀렸습니다", url="/qna/passwordCheck.do?qaNo="+qaNo;
-//		if (qauVo.getQaSecret().equals("Y")
-//				&& qauVo.getQaPassword().equals(qaPassword)) {
-//			qaService.qaViewCount(qaNo);
-//			msg="비밀번호가 일치합니다";
-//			url="/qna/qnaDetail.do?qaNo="+qaNo;
-//		} 
 		if (qauVo.getQaPassword().equals(qaPassword)) {
 			qaService.qaViewCount(qaNo);
 			msg="비밀번호가 일치합니다";
@@ -259,6 +253,8 @@ public class QnaController {
 		//1
 		logger.info("답변화면 처리 qaNo={}",qaNo);
 		//2
+		
+		
 		QnaUsersVO qauVo = qaService.qaSelectByNo(qaNo);
 		logger.info("답변화면 처리 파라미터 qauVo",qauVo);
 		//3
@@ -268,7 +264,7 @@ public class QnaController {
 	}
 	
 	@RequestMapping(value="/qnaReply.do", method = RequestMethod.POST)
-	public String qnaReply_post (@ModelAttribute QnaUsersVO qauVo) {
+	public String qnaReply_post (@ModelAttribute QnaUsersVO qauVo,HttpSession session) {
 		//1
 		logger.info("답변하기 qamVo={}", qauVo);
 		//2

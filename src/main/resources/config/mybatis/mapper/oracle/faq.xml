@@ -3,16 +3,45 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="config.mybatis.mapper.oracle.faq">
+	<sql id="searchWhere">
+		<where>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				${searchCondition} like '%'||#{searchKeyword} ||'%'
+			</if>
+		</where>
+	</sql>
+	
 	<select id="faqselectAll" resultType="FaqVo">
 		select * from faq order by faq_no desc
+	</select>
+	
+	<select id="selectAllMng" resultType="FaqVo" parameterType="searchVo">
+		select *
+	      from
+	      (
+	          select A.*, rownum as RNUM
+	          from
+	          (
+	             select * from faq 
+	             <include refid="searchWhere"/>
+	             order by faq_no desc
+	          )A
+	      )
+	      <![CDATA[
+	      where RNUM > #{firstRecordIndex} 
+	      and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+	      ]]>
+	</select>
+	
+	<select id="totalfa" resultType="int" parameterType="searchVo">
+		select count(*) from faq
+		<include refid="searchWhere"/>
 	</select>
 	
 	<insert id="faqinsert" parameterType="FaqVo">
 		<selectKey keyProperty="faqNo" resultType="int" order="BEFORE">
 			select FAQ_SEQ.nextval from dual
 		</selectKey>
-<!-- 		insert into faq(FAQ_NO,FAQ_TITLE,FAQ_ABOUT) -->
-<!-- 		values(#{faqNo},#{faqTitle},#{faqAbout}) -->
 		insert into faq(FAQ_NO,MANAGER_NO,FAQ_TITLE,FAQ_ABOUT)
 		values(#{faqNo},#{managerNo},#{faqTitle},#{faqAbout})
 	</insert>
@@ -27,7 +56,7 @@
 		where faq_no=#{faqNo}
 	</update>
 	
-	<delete id="faqdelete" parameterType="faqVo">
+	<delete id="faqdelete" parameterType="int">
 		delete faq where faq_no=#{faqNo}
 	</delete>
 	
