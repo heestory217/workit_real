@@ -133,24 +133,13 @@ input#rs-check {
 </style>
 <script type="text/javascript">
 $(function(){
-// 	$('form[name=rpfrm]').submit(function(){
-// 		if ($('#rs-check').is(":checked").length>1) {
-// 			alert('이력서는 하나만 선택하셔야합니다');
-// 			event.preventDefault();
-// 		} else if ($('#rs-check').is(":checked").length==0) {
-// 			alert('이력서를 선택하셔야합니다');
-// 			event.preventDefault();
-// 		}
-// 	});
-	
-	
 		$('form[name=rpfrm]').submit(function() {
 			var len =$('input:checkbox[id="rs-check"]:checked').length;
 
 			if (len > 1) {
 				alert('이력서는 하나만 선택하셔야합니다');
 				return false;
-			} else if (len == 0) {
+			} else if (len < 1) {
 				alert('이력서를 선택하셔야합니다');
 				return false;
 			} else{

@@ -144,6 +144,9 @@ $(function(){
 													<c:if test="${resumeVo.resumeResumeopencheck eq '3'}">
 														승인 대기
 													</c:if>
+													<c:if test="${resumeVo.resumeResumeopencheck eq '4'}">
+														반려
+													</c:if>
 												</p>
 											</div>
 											<div class="icon" title="삭제">

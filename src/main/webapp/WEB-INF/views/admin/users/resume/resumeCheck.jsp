@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ include file="../../inc/top.jsp"%>
 <%@ include file="../../inc/sideMenu.jsp"%>
 
@@ -81,18 +78,30 @@ textarea#resumeSelfintro {
     margin: 50px 0;
 }
 </style>
-<script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
+
+<script src="<c:url value="/resources/js/jquery-3.5.1.min.js"/>" type="text/javascript"></script>
 <script type="text/javascript">
 	$(function() {
-		$('.opBt').click(function(){
-			var op = confirm('승인하시겠습니까?');
+		//승인
+		$('#opBt').click(function(){
+			var op = confirm('선택하신 이력서를 승인하시겠습니까?');
 			
 			if (op) {
-location.href='<c:url value="/admin/users/resume/resumreAck.do?resumeNo="/>'+this.attr('value');
+	location.href="<c:url value='/admin/users/resume/resumreAck.do?resumeNo='/>"+$(this).attr('value');
+			}
+		});	
+		
+		//반려
+		$('#rsbackBt').click(function(){
+			var op = confirm('선택하신 이력서를 반려하시겠습니까?');
+			
+			if (op) {
+	location.href="<c:url value='/admin/users/resume/resumreBack.do?resumeNo='/>"+$(this).attr('value');
 			}
 		});	
 	});
 </script>
+
 <div class="container">
         <div class="row conWarp">
             <div class="col-lg-10 offset-lg-1">
@@ -186,8 +195,8 @@ location.href='<c:url value="/admin/users/resume/resumreAck.do?resumeNo="/>'+thi
                 </div>
                 
                 <div class="btWarp">
-                	<button type="button" class="site-btn opBt" value="${map['RESUME_NO'] }">승인</button>
-                	<button type="button" class="site-btn">반려</button>
+                	<button type="button" class="site-btn" id="opBt" value="${map['RESUME_NO'] }">승인</button>
+                	<button type="button" class="site-btn" id="rsbackBt" value="${map['RESUME_NO'] }">반려</button>
                 	<button type="button" class="site-btn" 
                 		onclick="location.href='<c:url value="/admin/users/resume/resumeManager.do"/>'">목록</button>
                 </div>

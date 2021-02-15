@@ -165,20 +165,48 @@ select.qaSelete {
 	                            	<c:forEach var="qaVo" items="${qalist }">
 	                                <tr>
 			                            <td class="cart-pic first-row">${qaVo.qaNo}</td>
+			                            
+									<!-- 삭제 글인 경우 처리 -->
+									<c:if test="${qaVo.qaDeletecheck!='N' }">
+										<span style="color:gray">삭제된 글입니다.</span>
+									</c:if>
+									
+									<!-- 삭제글 아닐떄 -->
+									<c:if test="${qaVo.qaDeletecheck=='N' }">
 			                            <td class="cart-title first-row">
+			                            	<!-- 답변글인 경우 re 이미지 보여주기 -->
+			                            	<c:if test="${qaVo.qaOrderno > 0 }">
+												<c:forEach var="k" begin="1" end="${qaVo.qaOrderno }">
+													&nbsp;
+												</c:forEach>
+												<i class="fas fa-reply fa-rotate-180"></i>
+<!-- 												<i class="fas fa-level-up-alt fa-rotate-90"></i> -->
+											</c:if>
+											
 			                            	<!-- 잠금버튼  -->
 			                            	<c:if test="${qaVo.qaSecret =='Y' }">
 												<span><i class="fa fa-lock" aria-hidden="true">&nbsp;</i></span>		                            	
 					                            <a class="pwck" href="<c:url value='/qna/passwordCheck.do?qaNo=${qaVo.qaNo }'/>">
-					                            	${qaVo.qaTitle }
+					                            	<c:if test="${fn:length(qaVo.qaTitle) > 13}">
+					                               		${fn:substring(qaVo.qaTitle, 0, 13) } ...
+					                            	</c:if>
+					                            	<c:if test="${fn:length(qaVo.qaTitle) <= 13}">
+					                            		${qaVo.qaTitle}
+					                            	</c:if>
 					                            </a>
 			                            	</c:if>
 			                            	<c:if test="${qaVo.qaSecret !='Y' }">
 					                            <a href="<c:url value='/qna/qnaCount.do?qaNo=${qaVo.qaNo }'/>">
-					                            	${qaVo.qaTitle }
+					                            	<c:if test="${fn:length(qaVo.qaTitle) > 13}">
+					                               		${fn:substring(qaVo.qaTitle, 0, 13) } ...
+					                            	</c:if>
+					                            	<c:if test="${fn:length(qaVo.qaTitle) <= 13}">
+					                            		${qaVo.qaTitle}
+					                            	</c:if>
 					                            </a>
 			                            	</c:if>
 			                            </td>
+			                        </c:if>
 			                            <td class="first-row">${qaVo.qaWriter}</td>
 			                            <td class="first-row">
 				                            <fmt:formatDate value="${qaVo.qaDate}" pattern="yyyy-MM-dd" />

@@ -20,7 +20,6 @@
 		    (
 		        select * from qa 
 		        <include refid="searchWhere"/>
-<!-- 		        order by qaGroupno desc, qaSortno -->
 				order by QA_GROUPNO desc, QA_SORTNO
 		    )A
 		)
@@ -80,10 +79,8 @@
 		<selectKey keyProperty="qaNo" resultType="int" order="BEFORE">
 			select qa_seq.nextval from dual
 		</selectKey>
-		insert into qa (qa_no,QA_WRITENO,QA_WRITER,qa_title, qa_about,
-			qa_secret,qa_password,qa_groupno,QA_ORDERNO,QA_SORTNO, manager_no)
-		values(#{qaNo},#{managerNo},#{qaWriter},#{qaTitle},#{qaAbout},#{qaSecret},
-			#{qaPassword},#{qaGroupno},#{qaOrderno}+1,#{qaSortno}+1,#{managerNo})
+		insert into qa (qa_no,QA_WRITENO,QA_WRITER,qa_title, qa_about,qa_secret,qa_password,qa_groupno,QA_ORDERNO,QA_SORTNO,USER_NO)
+		values(#{qaNo},#{managerNo},#{qaWriter},#{qaTitle},#{qaAbout},#{qaSecret},#{qaPassword},#{qaGroupno},#{qaOrderno}+1,#{qaSortno}+1,#{userNo})
 	</insert>
 </mapper>
 

@@ -7,14 +7,6 @@
 	padding: 0;
 }
 
-.faqBtWarp{
-   	float: right;
-}
-
-.faqBt, .faqDelBt {
-    margin: 30px 3px;
-   	float: left;
-}
 </style>
 
 <script type="text/javascript">
@@ -73,10 +65,6 @@ $(function(){
 								${faqVo.faqAbout }
 							</div>
 						</div>
-					</div>
-					<div class="order-btn faqBtWarp">
-						<button type="submit" class="site-btn place-btn faqBt">수정</button>
-						<button type="button" class="site-btn place-btn faqDelBt">삭제</button>
 					</div>
 			</form>
 				

@@ -103,19 +103,10 @@ input#ckbox {
 					<input type="text" name="qaGroupno" value="${qauVo.qaGroupno }"/>
 					<input type="text" name="qaOrderno" value="${qauVo.qaOrderno}"/>
 					<input type="text" name="qaSortno" value="${qauVo.qaSortno }"/>
-					<input type="hidden" name="ManagerNo" value="1">
-<%-- 					<input type="hidden" name="ManagerNo" value="${sessionScope.managerNo }"> --%>
 					
-<%-- 					<input type="hidden" name="qaWriter" value="${sessionScope.userId }"> --%>
 					<input type="hidden" name="qaWriter" value="${sessionScope.userId }">
-					<input type="hidden" name="userNo" value="${sessionScope.userNo }">
+					<input type="text" name="userNo" value="${sessionScope.userNo }">
 					<div class="col-lg-12">
-						<!-- 답글 앞에 화살표 -->
-						<c:if test="${qauVo.qaOrderno > 0}">
-							<c:forEach var="k" begin="1" end="${qauVo.qaOrderno }">
-								&nbsp;
-							</c:forEach>
-						</c:if>
 						<label for="qaTitle">제목<span>*</span></label> 
 						<input type="text" id="qaTitle" name="qaTitle" value="re: ${qauVo.qaTitle }">
 					</div>

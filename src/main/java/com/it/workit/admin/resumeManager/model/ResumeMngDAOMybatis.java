@@ -30,4 +30,9 @@ public class ResumeMngDAOMybatis implements ResumeMngDAO{
 		return sqlSession.update(namespace+"resumreAck",resumeNo);
 	}
 
+	@Override
+	public int resumreBack(int resumeNo) {
+		return sqlSession.update(namespace+"resumreBack",resumeNo);
+	}
+
 }

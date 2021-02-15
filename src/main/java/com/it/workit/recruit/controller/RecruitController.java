@@ -242,7 +242,7 @@ public class RecruitController {
 			int userNo=(Integer) session.getAttribute("userNo");
 			vo.setUserNo(userNo);
 			logger.info("개인 마이페이지 - 결제내역 view 보여주기 / userno={}",userNo);
-			logger.info("고고 {}", vo);
+			logger.info("파라미터 vo={}", vo);
 
 			//[1]pagingInfo
 			PaginationInfo pagingInfo=new PaginationInfo();
@@ -297,10 +297,12 @@ public class RecruitController {
 		//1
 		logger.info("지원하기 파라미터 applVo={}",applVo);
 		//2
+		
 		int cnt = appliService.insertApplican(applVo);
 		
-		int recruitannounceNo=applVo.getApplicantlistNo();
+		int recruitannounceNo=applVo.getRecruitannounceNo();
 		logger.info("채용공고 번호 recruitannounceNo={}",recruitannounceNo);
+		
 		
 		String msg="지원실패 했습니다",url="/recruit/recruitdetail.do?recruitannounceNo="+recruitannounceNo;
 		if (cnt>0) {

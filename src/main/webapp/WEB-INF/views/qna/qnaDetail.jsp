@@ -108,6 +108,9 @@ $(function(){
 			<!-- content -->
 			<form class="checkout-form" name="frm1" method="post">
 					<input type="hidden" id="qaNo" name="qaNo" value="${qaVo.qaNo}">
+					<input type="hidden" name="qaOrderno" value="${qaVo.qaOrderno}"/>
+					<input type="hidden" name="qaGroupno" value="${qaVo.qaGroupno}"/>
+					
 					<input type="hidden" name="qaWriter" value="${sessionScope.userId }">
 					
 					<div class="place-order">
@@ -116,6 +119,7 @@ $(function(){
 								<li class="fw-normal">제목 <span>${qaVo.qaTitle }</span></li>
 								<li class="fw-normal">작성일 
 								<span><fmt:formatDate value="${qaVo.qaDate }" pattern="yyyy-MM-dd"/> </span></li>
+								<li class="fw-normal">작성자 <span>${qaVo.qaWriter }</span></li>
 							</ul>
 							<div class="content">
 								${qaVo.qaAbout }
@@ -123,22 +127,24 @@ $(function(){
 						</div>
 					</div>
 					<div class="group-input gi-check col-lg-12 pwWarp" style="clear: both;">
-						<div class="gi-more pwBox">
-							<span id="qaspan">수정/삭제 시 비밀번호를 입력하세요 </span>
-							<input type="text" id="userPassword" 
-								name="userPassword" placeholder="회원비밀번호를 입력하세요">
-						</div>
+						<c:if test="${!empty sessionScope.userId and sessionScope.userNo != 999}">
+							<div class="gi-more pwBox">
+								<span id="qaspan">수정/삭제 시 비밀번호를 입력하세요 </span>
+								<input type="text" id="userPassword" 
+									name="userPassword" placeholder="회원비밀번호를 입력하세요">
+							</div>
+						</c:if>
 						<div class="order-btn faqBtWarp">
-						<c:if test="${!empty sessionScope.userId }">
-							<button type="button" class="site-btn place-btn qaBt">수정</button>
-<!-- 							<button type="button" class="site-btn place-btn qaBt" -->
-<%-- 					onclick="<c:url value='/qna/qnaUpdate.do?qaNo=${qaVo.qaNo}&userPassword=${qaVo.userPassword }'/>">수정</button> --%>
-							<button type="submit" class="site-btn place-btn qaDelBt">삭제</button>
-						</c:if>
-						<c:if test="${empty sessionScope.userId }">
-							<!-- 매니저 답변 달기 버튼 -->
-							<button type="button" class="site-btn place-btn qaRpyBt">답변</button>
-						</c:if>
+							<c:if test="${!empty sessionScope.userId and sessionScope.userNo != 999 }">
+								<button type="button" class="site-btn place-btn qaBt">수정</button>
+	<!-- 							<button type="button" class="site-btn place-btn qaBt" -->
+	<%-- 					onclick="<c:url value='/qna/qnaUpdate.do?qaNo=${qaVo.qaNo}&userPassword=${qaVo.userPassword }'/>">수정</button> --%>
+								<button type="submit" class="site-btn place-btn qaDelBt">삭제</button>
+							</c:if>
+							<c:if test="${sessionScope.userNo eq 999 }">
+								<!-- 매니저 답변 달기 버튼 -->
+								<button type="button" class="site-btn place-btn qaRpyBt">답변</button>
+							</c:if>
 						</div>
 					</div>
 					
