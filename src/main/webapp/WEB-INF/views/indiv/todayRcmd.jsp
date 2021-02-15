@@ -16,6 +16,7 @@
 	#bgColor{
 		background: #8181ff14;
 		height:520px;
+    	margin-top: 80px;
 	}
 	
 	.bannerContainer{

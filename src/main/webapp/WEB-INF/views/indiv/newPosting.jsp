@@ -7,6 +7,7 @@
 })  */
 </script>
 <style>
+	
 	#searchImg{
 		border-radius:10px;
 		width:270px;
@@ -29,9 +30,9 @@
 						<div class="col-lg-3 d-inline-block w-25">
 							<div class="single-latest-blog" id="divBx">
 								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
-									src="<c:url value='/pd_images/'/>"
+									src="<c:url value='/pd_images/${map["CORP_IMGURL"]}'/>"
 									onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-									<div style="padding: 10px 5px 0 5px;">
+									<div class="corpInfoWrap">
 										<div class="tag-list"
 											style="margin-bottom: 0px; overflow: hidden;">
 											<span
@@ -45,10 +46,6 @@
 										<p class="margin_bottom_0"
 											style="font-size: 13px; color: #989898;">
 											${map['AREA_ADD1'] } · ${map['AREA_ADD2'] }
-										</p>
-										<p class="margin_bottom_0"
-											style="font-size: 15px; color: #989898;">
-											${map['RECRUITANNOUNCE_SPAY']}
 										</p>
 									</div>
 								</a>
@@ -65,9 +62,9 @@
 						<div class="col-lg-3 d-inline-block w-25">
 							<div class="single-latest-blog" id="divBx">
 								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
-									src="<c:url value='/pd_images/'/>"
+									src="<c:url value='/pd_images/${map["CORP_IMGURL"]}'/>"
 									onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-									<div style="padding: 10px 5px 0 5px;">
+									<div class="corpInfoWrap">
 										<div class="tag-list"
 											style="margin-bottom: 0px; overflow: hidden;">
 											<span
@@ -81,10 +78,6 @@
 										<p class="margin_bottom_0"
 											style="font-size: 13px; color: #989898;">
 											${map['AREA_ADD1'] } · ${map['AREA_ADD2'] }
-										</p>
-										<p class="margin_bottom_0"
-											style="font-size: 15px; color: #989898;">
-											${map['RECRUITANNOUNCE_SPAY']}원
 										</p>
 									</div>
 								</a>
@@ -101,9 +94,9 @@
 						<div class="col-lg-3 d-inline-block w-25" >
 							<div class="single-latest-blog" id="divBx">
 								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
-									src="<c:url value='/pd_images/'/>"
+									src="<c:url value='/pd_images/${map["CORP_IMGURL"]}'/>"
 									onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-									<div style="padding: 10px 5px 0 5px;">
+									<div class="corpInfoWrap">
 										<div class="tag-list"
 											style="margin-bottom: 0px; overflow: hidden;">
 											<span
@@ -117,10 +110,6 @@
 										<p class="margin_bottom_0"
 											style="font-size: 13px; color: #989898;">
 											${map['AREA_ADD1'] } · ${map['AREA_ADD2'] }
-										</p>
-										<p class="margin_bottom_0"
-											style="font-size: 15px; color: #989898;">
-											${map['RECRUITANNOUNCE_SPAY']}원
 										</p>
 									</div>
 								</a>
@@ -136,10 +125,10 @@
 	
 	
 	<!-- previous/next button --> 
-	<a class="carousel-control-prev" href="#new" data-slide="prev" style="margin-bottom: 160px;margin-left: -50px;"> 
+	<a class="carousel-control-prev" href="#new" data-slide="prev" style="margin-bottom: 120px;margin-left: -50px;"> 
 		<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
 	</a> 
-	<a class="carousel-control-next" href="#new" data-slide="next" style="margin-bottom: 160px;margin-right: -50px;"> 
+	<a class="carousel-control-next" href="#new" data-slide="next" style="margin-bottom: 120px;margin-right: -50px;"> 
 		<span class="carousel-control-next-icon" aria-hidden="true"></span> 
 	</a> 
 </div>

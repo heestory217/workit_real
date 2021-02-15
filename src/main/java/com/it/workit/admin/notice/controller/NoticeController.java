@@ -31,8 +31,6 @@ public class NoticeController {
 		=LoggerFactory.getLogger(NoticeController.class);
 	
 	@Autowired private NoticeService noticeService;
-	@Autowired private FileUploadUtil fileUtil;
-	
 	
 	
 	//공지사항 목록 조회
@@ -176,24 +174,19 @@ public class NoticeController {
 	//선택 삭제
 	@RequestMapping("/multiDel.do")
 	public String delMulti(@ModelAttribute NoticeListVO noticeListVo, Model model) {
-		//여러개의 vo가 list로 묶여서 넘어옴(여러개의 상품을 선택하여 삭제해야하기 때문)
 		logger.info("선택 삭제 처리, 파라미터 ");
 		
-		//파라미터 넘어온 것이 어떻게 처리되는지 살펴보기 위함
 		List<NoticeVO> noticeList=noticeListVo.getNoticeList();
 		
 		int cnt=noticeService.multiDelNotice(noticeList);
 		logger.info("선택 삭제 결과, cnt={}", cnt);
-		//파일 삭제는 delete 성공한 경우에만 처리되도록
 		String msg="공지사항 삭제에 실패하였습니다.\\n다시 시도해주세요.", url="/admin/notice/noticeList.do";
 		if(cnt>0) {
 			msg="선택한 공지가 정상적으로 삭제되었습니다.";
 			for(int i=0;i<noticeList.size();i++) {
 				NoticeVO vo=noticeList.get(i);
 				logger.info("[{}] : noticeNo={}", i, vo.getNoticeNo());
-				//=> 선택되지 않은 것들은 productNo=0으로 찍힘
-				
-			}//for
+			}
 		}
 		
 		model.addAttribute("msg", msg);

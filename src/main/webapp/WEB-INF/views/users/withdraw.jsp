@@ -20,7 +20,7 @@
 		font-size:10px;
 		color:gray;
 		margin-bottom:20px;
-		background-color: #fafaff;
+		background-color: #f4f4ff;
 	}
 	
 	p > span{
@@ -56,7 +56,7 @@
 	    text-align: center;
 	    margin:0 auto;
 	    padding:20px 0;
-	    background-color: #fafaff;
+	    background-color:#f4f4ff;;
 	    border:1px solid #efefef;
 	}
 	
@@ -110,13 +110,17 @@
 	<div class="explain">
 		<p>지금까지 이용해주셔서 감사 드립니다. 탈퇴하기 전 아래 유의사항을 확인해주세요.</p>
 		<ul>
+			<!-- 개인 회원 탈퇴 유의사항 -->
 			<c:if test="${sessionScope.user_corpcheck==1}"> 	
 				<li><p>탈퇴하신 아이디는 <span>복구가 불가능</span>하며, 추후 동일한 아이디로 재가입이 되지 않습니다.<p></li>	
 				<li><p>회원탈퇴 시 등록한 게시물은 삭제되지 않으므로, 삭제를 원하시면 회원탈퇴 전에 삭제해 주시기 바랍니다.</p></li>
 				<li><p>이력서 정보, 구직 활동내역, 유료서비스가 모두 삭제되며, <span>삭제된 데이터는 복구되지 않습니다.</span></p></li>
 			</c:if>	
+			<!-- 기업 회원 탈퇴 유의사항 -->
 			<c:if test="${sessionScope.user_corpcheck==2}">
-				<!-- 기업 회원일 경우 보여질 탈퇴 유의사항 --> 	
+				<li><p>탈퇴하신 아이디는 <span>복구가 불가능</span>하며, 추후 동일한 아이디로 재가입이 되지 않습니다.<p></li>	
+				<li><p>회원탈퇴 시 등록한 게시물은 삭제되지 않으므로, 삭제를 원하시면 회원탈퇴 전에 삭제해 주시기 바랍니다.</p></li>
+				<li><p>기업 정보, 유료서비스가 모두 삭제되며, <span>삭제된 데이터는 복구되지 않습니다.</span></p></li>
 			</c:if>	
 		</ul>
 	</div>
