@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../../inc/top.jsp"%>
 <link rel="stylesheet" type="text/css"
-	href="<c:url value='/resources/css/adminIndivUsers.css'/>" />222
+	href="<c:url value='/resources/css/adminIndivUsers.css'/>" />
 <%@ include file="../../inc/sideMenu.jsp"%>
 
 <script type="text/javascript">
@@ -29,10 +29,12 @@
 		<p class="float_left textMyColor">
 			검색어 : ${param.searchKeyword}, ${pagingInfo.totalRecord }  건 검색되었습니다.</p>
 	</c:if>
+	<c:if test="${empty param.searchKeyword }">
+		<a href='<c:url value="/admin/users/indiv/excelDown.do"/>'><i class="far fa-file-excel fa-sm lightpurple float_left margin_left10"></i></a>
+	</c:if>
 	<form action="<c:url value='/admin/users/indiv/selectIndivUsers.do'/>"
 		name="frmSearch" method="post">
 		<div class="input-group input-search inputSearchbox">
-			
 			<select name="searchCondition" class="margin_right_5">
 	            <option value="user_name" 
 	            	<c:if test="${param.searchCondition == 'user_name'}">
