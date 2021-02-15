@@ -34,6 +34,7 @@
 						<ul class="filter-catagories">
 							<li><a href="<c:url value='/companyMypage/companyMypageEdit.do '/>">기업회원정보수정</a></li>
 							<li><a href="<c:url value='/companyMypage/companyPayment.do '/>">결제내역</a></li>
+							<li><a href="<c:url value='/users/withdraw.do '/>">회원탈퇴</a></li>
 						</ul>
 					</div>
 				</div>

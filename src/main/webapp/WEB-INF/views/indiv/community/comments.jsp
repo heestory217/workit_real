@@ -262,7 +262,7 @@
       </c:if>   
    </div>
    <%
-		pageContext.setAttribute("newLine", "\r\n");
+		pageContext.setAttribute("newLine", "\n");
 	%>
    <c:set var="cmtContent" value="${fn:replace(map['commentrespondAbout'], newLine, '<br>')}"/>
    <div class="cmtCont">

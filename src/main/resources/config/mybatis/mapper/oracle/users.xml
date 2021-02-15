@@ -3,233 +3,238 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="config.mybatis.mapper.oracle.users">
-	<!-- <sql id="searchWhere">
-		<where>
-			<if test="searchKeyword != null and searchKeyword != ''">
-				${searchCondition} like '%' || #{searchKeyword} || '%'
-			</if>
-		</where>	
-	</sql> -->
-	
-	<select id="dupCheck" parameterType="string" resultType="int">
-		select count(*) from users where user_id=#{userId}
-	</select>
+   <!-- <sql id="searchWhere">
+      <where>
+         <if test="searchKeyword != null and searchKeyword != ''">
+            ${searchCondition} like '%' || #{searchKeyword} || '%'
+         </if>
+      </where>   
+   </sql> -->
+   
+   <select id="dupCheck" parameterType="string" resultType="int">
+      select count(*) from users where user_id=#{userId}
+   </select>
 
-	<insert id="insertUsers" parameterType="usersVo">
-		<selectKey keyProperty="userNo" resultType="int" order="BEFORE">
-			select users_seq.nextval from dual
-		</selectKey>
-		insert into users(user_no, user_name, user_id, user_password, user_zipcode,
-			user_address, workkind_no, user_experience, user_hp1, user_hp2, user_hp3,
-			user_email1, user_email2, user_addressdetail)
-		values(#{userNo},#{userName},#{userId},#{userPassword},#{userZipcode},#{userAddress},
-			#{workkindNo},#{userExperience},#{userHp1},#{userHp2},#{userHp3},
-			#{userEmail1},#{userEmail2},#{userAddressdetail})
-	</insert>
+   <insert id="insertUsers" parameterType="usersVo">
+      <selectKey keyProperty="userNo" resultType="int" order="BEFORE">
+         select users_seq.nextval from dual
+      </selectKey>
+      insert into users(user_no, user_name, user_id, user_password, user_zipcode,
+         user_address, workkind_no, user_experience, user_hp1, user_hp2, user_hp3,
+         user_email1, user_email2, user_addressdetail)
+      values(#{userNo},#{userName},#{userId},#{userPassword},#{userZipcode},#{userAddress},
+         #{workkindNo},#{userExperience},#{userHp1},#{userHp2},#{userHp3},
+         #{userEmail1},#{userEmail2},#{userAddressdetail})
+   </insert>
 
-	<select id="loginCheck" parameterType="string" resultType="String">
-		select USER_PASSWORD from users where user_id=#{userId}
-	</select>
+   <select id="loginCheck" parameterType="string" resultType="String">
+      select USER_PASSWORD from users where user_id=#{userId} and USER_ENDDATE is null
+   </select>
 
-	<select id="selectByUserNo" parameterType="int" resultType="usersVo">
-		select * from users where USER_NO=#{userNo}
-	</select>
+   <select id="selectByUserNo" parameterType="int" resultType="usersVo">
+      select * from users where USER_NO=#{userNo}
+   </select>
 
-	<select id="selectByUserId" parameterType="String" resultType="usersVo">
-		select * from users where USER_ID=#{userId}
-	</select>
+   <select id="selectByUserId" parameterType="String" resultType="usersVo">
+      select * from users where USER_ID=#{userId}
+   </select>
+   
+      <select id="userkindcheck" parameterType="String" resultType="int">
+      select user_corpcheck from users where USER_ID=#{userId}
+   </select>
+   
+   <update id="updateUsers" parameterType="usersVo">
+      update users
+      set user_name=#{userName}, user_password=#{userPassword}, 
+          user_experience=#{userExperience}, user_hp1=#{userHp1}, user_hp2=#{userHp2}, 
+          user_hp3=#{userHp3}, user_zipcode=#{userZipcode}, 
+          user_address=#{userAddress}, user_addressdetail=#{userAddressdetail}
+      where user_id=#{userId}
+   </update>
+   
+   <update id="updateCorpUsers" parameterType="usersVo">
+      update users
+      set user_name=#{userName}, user_password=#{userPassword}, 
+          user_hp1=#{userHp1}, user_hp2=#{userHp2}, 
+          user_hp3=#{userHp3}, user_zipcode=#{userZipcode}, 
+          user_address=#{userAddress}, user_addressdetail=#{userAddressdetail}
+      where user_id=#{userId}
+   </update>
+   
+   <update id="updateUserCorpCheck" parameterType="int">
+      update users
+      set user_corpcheck=2
+      where user_no=#{userNo}
+   </update>
+   
+   <select id="findId" parameterType="hashMap" resultType="String">
+      select user_Id from users where user_email1=#{email1} and user_email2=#{email2}
+   </select>
+   
+   <select id="findPwd" parameterType="hashMap" resultType="int">
+      select count(*) from users where user_id=#{userId} and user_email1=#{email1} and user_email2=#{email2}
+   </select>
+   
+   <update id="updatePwd" parameterType="hashMap">
+      update users
+      set user_password=#{tempPwd}
+      where user_Id=#{userId}
+   </update>
+   
+   <select id="selectUser" parameterType="hashMap" resultType="int">
+      select count(*) from users where user_id=#{userId} and USER_PASSWORD=#{userTemp}
+   </select>
+   
+   <update id="updatePwdReal" parameterType="hashMap">
+      update users
+      set user_password=#{userPwd}
+       where user_id=#{userId} and USER_PASSWORD=#{userTemp}
+   </update>
+   
+   <select id="selectIndivUsersAll" parameterType="searchVo" resultType="usersVo">
+      select *
+      from
+      (
+          select A.*, rownum as RNUM
+          from
+          (
+              select * from users
+            where user_corpcheck=1
+            AND user_enddate is null
+            <if test="searchKeyword != null and searchKeyword != ''">
+               AND ${searchCondition} like '%' || #{searchKeyword} || '%'
+            </if>
+            order by user_name
+          )A
+      )
+      <![CDATA[
+      where RNUM > #{firstRecordIndex} 
+      and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+      ]]>
+   </select>
+   
+   <select id="selectWithdrawUsersAll" parameterType="searchVo" resultType="usersVo">
+      select *
+      from
+      (
+          select A.*, rownum as RNUM
+          from
+          (
+              select * from users
+            where user_corpcheck=1
+            AND user_enddate is not null
+            <if test="searchKeyword != null and searchKeyword != ''">
+               AND ${searchCondition} like '%' || #{searchKeyword} || '%'
+            </if>
+            order by user_name
+          )A
+      )
+      <![CDATA[
+      where RNUM > #{firstRecordIndex} 
+      and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+      ]]>
+   </select>
+   
+   <select id="totalUsers" resultType="int" parameterType="searchVo">
+      select count(*) from users
+      where user_corpcheck=1
+      AND user_enddate is null
+      <if test="searchKeyword != null and searchKeyword != ''">
+         AND ${searchCondition} like '%' || #{searchKeyword} || '%'
+      </if>
+      order by user_name
+   </select>
+   
+   <select id="totalWithdrawUsers" resultType="int" parameterType="searchVo">
+      select count(*) from users
+      where user_corpcheck=1
+      AND user_enddate is not null
+      <if test="searchKeyword != null and searchKeyword != ''">
+         AND ${searchCondition} like '%' || #{searchKeyword} || '%'
+      </if>
+      order by user_name
+   </select>
+   
+   <update id="withdrawUsers" parameterType="int">
+      UPDATE users
+      set user_enddate=sysdate
+      where user_no=#{userNo}
+   </update>
+   
+   <select id="selectTotalIndivUsers" resultType="int">
+      select count(user_no)
+      from users
+      where USER_CORPCHECK=1
+      and USER_ENDDATE is null
+   </select>
+   
+   <select id="selectTotalCorpUsers" resultType="int">
+      select count(user_no)
+      from users
+      where USER_CORPCHECK=2
+      and USER_ENDDATE is null
+   </select>
+   
+   <select id="selectTotalIndivWithdrawUsers" resultType="int">
+      select count(user_no)
+      from users
+      where USER_CORPCHECK=1
+      and USER_ENDDATE is not null
+   </select>
+   
+   <select id="selectTotalCorpWithdrawUsers" resultType="int">
+      select count(user_no)
+      from users
+      where USER_CORPCHECK=2
+      and USER_ENDDATE is not null
+   </select>
+   
+   <select id="selectTotalUserByDate" parameterType="dateSearchVo" resultType="int">
+      select count(*) from users
+      where user_regdate >= #{startDay} and
+      <![CDATA[
+      user_regdate< to_date(#{endDay})+1
+      ]]>
+      and user_corpcheck=1
+   </select>
+   
+   <select id="selectTotalCorpByDate" parameterType="dateSearchVo" resultType="int">
+      select count(*) from users
+      where user_regdate >= #{startDay} and
+      <![CDATA[
+      user_regdate< to_date(#{endDay})+1
+      ]]>
+      and user_corpcheck=2
+   </select>
+   
+   <select id="selectTotalWithdrawUsersByDate" parameterType="dateSearchVo" resultType="int">
+      select count(*) from users
+      where user_enddate >= #{startDay} and
+      <![CDATA[
+      user_enddate< to_date(#{endDay})+1
+      ]]>
+      and user_corpcheck=1
+   </select>
+   
+   <select id="selectTotalWithdrawCorpByDate" parameterType="dateSearchVo" resultType="int">
+      select count(*) from users
+      where user_enddate >= #{startDay} and
+      <![CDATA[
+      user_enddate< to_date(#{endDay})+1
+      ]]>
+      and user_corpcheck=2
+   </select>
+   
+   <select id="usersAll" resultType="usersVo">
+      select * from users
+      where user_corpcheck=1
+      AND user_enddate is null
+      order by user_no
+   </select>
 	
-		<select id="userkindcheck" parameterType="String" resultType="int">
-		select user_corpcheck from users where USER_ID=#{userId}
-	</select>
-	
-	<update id="updateUsers" parameterType="usersVo">
-		update users
-		set user_name=#{userName}, user_password=#{userPassword}, 
-		    user_experience=#{userExperience}, user_hp1=#{userHp1}, user_hp2=#{userHp2}, 
-		    user_hp3=#{userHp3}, user_zipcode=#{userZipcode}, 
-		    user_address=#{userAddress}, user_addressdetail=#{userAddressdetail}
-		where user_id=#{userId}
+	<update id="updateEnddate" parameterType="usersVo">
+		UPDATE USERS
+		SET USER_ENDDATE = SYSDATE
+		WHERE USER_ID=#{userId} AND USER_PASSWORD=#{userPassword}
 	</update>
-	
-	<update id="updateCorpUsers" parameterType="usersVo">
-		update users
-		set user_name=#{userName}, user_password=#{userPassword}, 
-		    user_hp1=#{userHp1}, user_hp2=#{userHp2}, 
-		    user_hp3=#{userHp3}, user_zipcode=#{userZipcode}, 
-		    user_address=#{userAddress}, user_addressdetail=#{userAddressdetail}
-		where user_id=#{userId}
-	</update>
-	
-	<update id="updateUserCorpCheck" parameterType="int">
-		update users
-		set user_corpcheck=2
-		where user_no=#{userNo}
-	</update>
-	
-	<select id="findId" parameterType="hashMap" resultType="String">
-		select user_Id from users where user_email1=#{email1} and user_email2=#{email2}
-	</select>
-	
-	<select id="findPwd" parameterType="hashMap" resultType="int">
-		select count(*) from users where user_id=#{userId} and user_email1=#{email1} and user_email2=#{email2}
-	</select>
-	
-	<update id="updatePwd" parameterType="hashMap">
-		update users
-		set user_password=#{tempPwd}
-		where user_Id=#{userId}
-	</update>
-	
-	<select id="selectUser" parameterType="hashMap" resultType="int">
-		select count(*) from users where user_id=#{userId} and USER_PASSWORD=#{userTemp}
-	</select>
-	
-	<update id="updatePwdReal" parameterType="hashMap">
-		update users
-		set user_password=#{userPwd}
-		 where user_id=#{userId} and USER_PASSWORD=#{userTemp}
-	</update>
-	
-	<select id="selectIndivUsersAll" parameterType="searchVo" resultType="usersVo">
-		select *
-		from
-		(
-		    select A.*, rownum as RNUM
-		    from
-		    (
-		        select * from users
-				where user_corpcheck=1
-				AND user_enddate is null
-				<if test="searchKeyword != null and searchKeyword != ''">
-					AND ${searchCondition} like '%' || #{searchKeyword} || '%'
-				</if>
-				order by user_name
-		    )A
-		)
-		<![CDATA[
-		where RNUM > #{firstRecordIndex} 
-		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
-		]]>
-	</select>
-	
-	<select id="selectWithdrawUsersAll" parameterType="searchVo" resultType="usersVo">
-		select *
-		from
-		(
-		    select A.*, rownum as RNUM
-		    from
-		    (
-		        select * from users
-				where user_corpcheck=1
-				AND user_enddate is not null
-				<if test="searchKeyword != null and searchKeyword != ''">
-					AND ${searchCondition} like '%' || #{searchKeyword} || '%'
-				</if>
-				order by user_name
-		    )A
-		)
-		<![CDATA[
-		where RNUM > #{firstRecordIndex} 
-		and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
-		]]>
-	</select>
-	
-	<select id="totalUsers" resultType="int" parameterType="searchVo">
-		select count(*) from users
-		where user_corpcheck=1
-		AND user_enddate is null
-		<if test="searchKeyword != null and searchKeyword != ''">
-			AND ${searchCondition} like '%' || #{searchKeyword} || '%'
-		</if>
-		order by user_name
-	</select>
-	
-	<select id="totalWithdrawUsers" resultType="int" parameterType="searchVo">
-		select count(*) from users
-		where user_corpcheck=1
-		AND user_enddate is not null
-		<if test="searchKeyword != null and searchKeyword != ''">
-			AND ${searchCondition} like '%' || #{searchKeyword} || '%'
-		</if>
-		order by user_name
-	</select>
-	
-	<update id="withdrawUsers" parameterType="int">
-		UPDATE users
-		set user_enddate=sysdate
-		where user_no=#{userNo}
-	</update>
-	
-	<select id="selectTotalIndivUsers" resultType="int">
-		select count(user_no)
-		from users
-		where USER_CORPCHECK=1
-		and USER_ENDDATE is null
-	</select>
-	
-	<select id="selectTotalCorpUsers" resultType="int">
-		select count(user_no)
-		from users
-		where USER_CORPCHECK=2
-		and USER_ENDDATE is null
-	</select>
-	
-	<select id="selectTotalIndivWithdrawUsers" resultType="int">
-		select count(user_no)
-		from users
-		where USER_CORPCHECK=1
-		and USER_ENDDATE is not null
-	</select>
-	
-	<select id="selectTotalCorpWithdrawUsers" resultType="int">
-		select count(user_no)
-		from users
-		where USER_CORPCHECK=2
-		and USER_ENDDATE is not null
-	</select>
-	
-	<select id="selectTotalUserByDate" parameterType="dateSearchVo" resultType="int">
-		select count(*) from users
-		where user_regdate >= #{startDay} and
-		<![CDATA[
-		user_regdate< to_date(#{endDay})+1
-		]]>
-		and user_corpcheck=1
-	</select>
-	
-	<select id="selectTotalCorpByDate" parameterType="dateSearchVo" resultType="int">
-		select count(*) from users
-		where user_regdate >= #{startDay} and
-		<![CDATA[
-		user_regdate< to_date(#{endDay})+1
-		]]>
-		and user_corpcheck=2
-	</select>
-	
-	<select id="selectTotalWithdrawUsersByDate" parameterType="dateSearchVo" resultType="int">
-		select count(*) from users
-		where user_enddate >= #{startDay} and
-		<![CDATA[
-		user_enddate< to_date(#{endDay})+1
-		]]>
-		and user_corpcheck=1
-	</select>
-	
-	<select id="selectTotalWithdrawCorpByDate" parameterType="dateSearchVo" resultType="int">
-		select count(*) from users
-		where user_enddate >= #{startDay} and
-		<![CDATA[
-		user_enddate< to_date(#{endDay})+1
-		]]>
-		and user_corpcheck=2
-	</select>
-	
-	<select id="usersAll" resultType="usersVo">
-		select * from users
-		where user_corpcheck=1
-		AND user_enddate is null
-		order by user_no
-	</select>
-
 </mapper>

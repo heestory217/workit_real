@@ -14,165 +14,170 @@ import com.it.workit.common.SearchVO;
 @Service
 public class UsersServiceImpl implements UsersService{
 
-	@Autowired
-	private UsersDAO usersDao;
+   @Autowired
+   private UsersDAO usersDao;
+
+   @Override
+   public int checkDup(String userid) {
+      int count=usersDao.checkDup(userid);
+
+      int result=0;
+      if(count>0) {
+         result=EXIST_ID;  //해당 아이디 존재
+      }else {
+         result=NON_EXIST_ID; //해당 아이디 존재 X
+      }
+      return result;
+   }
+
+   @Override
+   public int insertUsers(UsersVO vo) {
+      int cnt=usersDao.insertUsers(vo);
+      return cnt;
+   }
+   
+   @Override
+   public int loginCheck(String userid, String password) {
+      int result=0;
+      if(usersDao.loginCheck(userid, password)==null || usersDao.loginCheck(userid, password).isEmpty()) {
+         result=ID_NONE;
+         return result;
+      }
+      
+      String pass=usersDao.loginCheck(userid, password);
+      if(pass.equals(password)) {
+         result=LOGIN_OK;
+      }else if(!(pass==null || pass.isEmpty())){
+         result=PWD_DISAGREE;
+      }
+      return result;
+   }
+   
+   @Override
+   public UsersVO selectByUserNo(int userNo) {
+      return usersDao.selectByUserNo(userNo);
+   }
+
+   @Override
+   public UsersVO selectByUserId(String userId) {
+      return usersDao.selectByUserId(userId);
+   }
+
+   @Override
+   public int updateUsers(UsersVO vo) {
+      return usersDao.updateUsers(vo);
+   }
+
+   @Override
+   public int userkindcheck(String userid) {
+      return usersDao.userkindcheck(userid);
+   }
+
+   @Override
+   public String findId(Map<String, Object> eMailMap) {
+      return usersDao.findId(eMailMap);
+   }
+
+   @Override
+   public int findPwd(Map<String, Object> findPwdMap) {
+      return usersDao.findPwd(findPwdMap); // cnt : 1
+   }
+
+   @Override
+   public int updatePwd(Map<String, Object> tempUser) {
+      return usersDao.updatePwd(tempUser);
+   }
+
+   @Override
+   @Transactional
+   public int updatePwdReal(Map<String, Object> userMap) {
+      int cnt = usersDao.selectUser(userMap);
+      if(cnt>0) {
+         cnt = usersDao.updatePwdReal(userMap);
+      }else {
+         cnt = -1;
+      }
+      return cnt;
+   }
+
+   @Override
+   public List<UsersVO> selectIndivUsersAll(SearchVO searchVo) {
+      return usersDao.selectIndivUsersAll(searchVo);
+   }
+
+   @Override
+   public int totalUsers(SearchVO searchVo) {
+      return usersDao.totalUsers(searchVo);
+   }
+
+   @Override
+   public List<UsersVO> selectWithdrawUsersAll(SearchVO searchVo) {
+      return usersDao.selectWithdrawUsersAll(searchVo);
+   }
+
+   @Override
+   public int totalWithdrawUsers(SearchVO searchVo) {
+      return usersDao.totalWithdrawUsers(searchVo);
+   }
+
+   @Override
+   public int withdrawUsers(int userNo) {
+      return usersDao.withdrawUsers(userNo);
+   }
+
+   @Override
+   public int selectTotalIndivUsers() {
+      return usersDao.selectTotalIndivUsers();
+   }
+
+   @Override
+   public int selectTotalCorpUsers() {
+      return usersDao.selectTotalCorpUsers();
+   }
+
+   @Override
+   public int selectTotalIndivWithdrawUsers() {
+      return usersDao.selectTotalIndivWithdrawUsers();
+   }
+
+   @Override
+   public int selectTotalCorpWithdrawUsers() {
+      return usersDao.selectTotalCorpWithdrawUsers();
+   }
+
+   @Override
+   public int selectTotalUserByDate(DateSearchVO dateSearchVo) {
+      return usersDao.selectTotalUserByDate(dateSearchVo);
+   }
+
+   @Override
+   public int selectTotalCorpByDate(DateSearchVO dateSearchVo) {
+      return usersDao.selectTotalCorpByDate(dateSearchVo);
+   }
+
+   @Override
+   public int selectTotalWithdrawUsersByDate(DateSearchVO dateSearchVo) {
+      return usersDao.selectTotalWithdrawUsersByDate(dateSearchVo);
+   }
+
+   @Override
+   public int selectTotalWithdrawCorpByDate(DateSearchVO dateSearchVo) {
+      return usersDao.selectTotalWithdrawCorpByDate(dateSearchVo);
+   }
+
+   @Override
+   public int updateCorpUsers(UsersVO vo) {
+      return usersDao.updateCorpUsers(vo);
+   }
+
+   @Override
+   public List<UsersVO> usersAll() {
+      return usersDao.usersAll();
+   }
 
 	@Override
-	public int checkDup(String userid) {
-		int count=usersDao.checkDup(userid);
-
-		int result=0;
-		if(count>0) {
-			result=EXIST_ID;  //해당 아이디 존재
-		}else {
-			result=NON_EXIST_ID; //해당 아이디 존재 X
-		}
-		return result;
-	}
-
-	@Override
-	public int insertUsers(UsersVO vo) {
-		int cnt=usersDao.insertUsers(vo);
-		return cnt;
-	}
-	
-	@Override
-	public int loginCheck(String userid, String password) {
-		int result=0;
-		if(usersDao.loginCheck(userid, password)==null || usersDao.loginCheck(userid, password).isEmpty()) {
-			result=ID_NONE;
-			return result;
-		}
-		
-		String pass=usersDao.loginCheck(userid, password);
-		if(pass.equals(password)) {
-			result=LOGIN_OK;
-		}else if(!(pass==null || pass.isEmpty())){
-			result=PWD_DISAGREE;
-		}
-		return result;
-	}
-	
-	@Override
-	public UsersVO selectByUserNo(int userNo) {
-		return usersDao.selectByUserNo(userNo);
-	}
-
-	@Override
-	public UsersVO selectByUserId(String userId) {
-		return usersDao.selectByUserId(userId);
-	}
-
-	@Override
-	public int updateUsers(UsersVO vo) {
-		return usersDao.updateUsers(vo);
-	}
-
-	@Override
-	public int userkindcheck(String userid) {
-		return usersDao.userkindcheck(userid);
-	}
-
-	@Override
-	public String findId(Map<String, Object> eMailMap) {
-		return usersDao.findId(eMailMap);
-	}
-
-	@Override
-	public int findPwd(Map<String, Object> findPwdMap) {
-		return usersDao.findPwd(findPwdMap); // cnt : 1
-	}
-
-	@Override
-	public int updatePwd(Map<String, Object> tempUser) {
-		return usersDao.updatePwd(tempUser);
-	}
-
-	@Override
-	@Transactional
-	public int updatePwdReal(Map<String, Object> userMap) {
-		int cnt = usersDao.selectUser(userMap);
-		if(cnt>0) {
-			cnt = usersDao.updatePwdReal(userMap);
-		}else {
-			cnt = -1;
-		}
-		return cnt;
-	}
-
-	@Override
-	public List<UsersVO> selectIndivUsersAll(SearchVO searchVo) {
-		return usersDao.selectIndivUsersAll(searchVo);
-	}
-
-	@Override
-	public int totalUsers(SearchVO searchVo) {
-		return usersDao.totalUsers(searchVo);
-	}
-
-	@Override
-	public List<UsersVO> selectWithdrawUsersAll(SearchVO searchVo) {
-		return usersDao.selectWithdrawUsersAll(searchVo);
-	}
-
-	@Override
-	public int totalWithdrawUsers(SearchVO searchVo) {
-		return usersDao.totalWithdrawUsers(searchVo);
-	}
-
-	@Override
-	public int withdrawUsers(int userNo) {
-		return usersDao.withdrawUsers(userNo);
-	}
-
-	@Override
-	public int selectTotalIndivUsers() {
-		return usersDao.selectTotalIndivUsers();
-	}
-
-	@Override
-	public int selectTotalCorpUsers() {
-		return usersDao.selectTotalCorpUsers();
-	}
-
-	@Override
-	public int selectTotalIndivWithdrawUsers() {
-		return usersDao.selectTotalIndivWithdrawUsers();
-	}
-
-	@Override
-	public int selectTotalCorpWithdrawUsers() {
-		return usersDao.selectTotalCorpWithdrawUsers();
-	}
-
-	@Override
-	public int selectTotalUserByDate(DateSearchVO dateSearchVo) {
-		return usersDao.selectTotalUserByDate(dateSearchVo);
-	}
-
-	@Override
-	public int selectTotalCorpByDate(DateSearchVO dateSearchVo) {
-		return usersDao.selectTotalCorpByDate(dateSearchVo);
-	}
-
-	@Override
-	public int selectTotalWithdrawUsersByDate(DateSearchVO dateSearchVo) {
-		return usersDao.selectTotalWithdrawUsersByDate(dateSearchVo);
-	}
-
-	@Override
-	public int selectTotalWithdrawCorpByDate(DateSearchVO dateSearchVo) {
-		return usersDao.selectTotalWithdrawCorpByDate(dateSearchVo);
-	}
-
-	@Override
-	public int updateCorpUsers(UsersVO vo) {
-		return usersDao.updateCorpUsers(vo);
-	}
-
-	@Override
-	public List<UsersVO> usersAll() {
-		return usersDao.usersAll();
+	public int updateEnddate(UsersVO vo) {
+		return usersDao.updateEnddate(vo);
 	}
 
 }
