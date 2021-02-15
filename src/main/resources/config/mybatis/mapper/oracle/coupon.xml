@@ -4,7 +4,7 @@
 
 <mapper namespace="com.mybatis.mapper.coupon">
 	<select id="selectCoupon" parameterType="string" resultType="couponVo">
-		select * from coupon where COUPON_NAME=#{couponName}
+		select * from coupon where COUPON_NAME=#{couponName} and COUPON_ENDDATE > SYSDATE
 	</select>
 	
 	<select id="selectCouponByNo" parameterType="int" resultType="couponVo">
