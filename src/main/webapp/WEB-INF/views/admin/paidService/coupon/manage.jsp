@@ -64,7 +64,7 @@
 	    </div>
 	
 		<div class="card" style="margin-top: 30px;">
-		    <h5 class="card-header">Management</h5>
+		    <h5 class="card-header">등록</h5>
 		    <div class="card-body">
 		        <form id="couponUpdateFrm" action="<c:url value='/admin/paidService/coupon/insert.do'/>" method="get">
 		            <div class="form-group row">
@@ -96,7 +96,7 @@
 		            <div class="form-group row text-right">
 		                <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
 		                    <button type="submit" class="btn btn-space btn btn-primary">신규 등록</button>
-		                    <button class="btn btn-space btn btn-dark">취소</button>
+		                    <button type="reset" class="btn btn-space btn btn-dark">취소</button>
 		                </div>
 		            </div>
 		        </form>
