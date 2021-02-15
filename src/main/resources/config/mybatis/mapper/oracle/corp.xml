@@ -163,6 +163,7 @@
 		</if>
 		and language_no=#{langNo}
 	  	and USER_EXPERIENCE=#{year}
+	  	group by resume_no
    </select>
 	
 	<insert id="insertCorpReview" parameterType="corpreviewVo">
