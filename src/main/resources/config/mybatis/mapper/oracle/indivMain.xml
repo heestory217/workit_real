@@ -62,10 +62,37 @@
 		WHERE RECRUITANNOUNCE_enddate>=SYSDATE
 		AND R.WORKKIND_NO IN (SELECT U.WORKKIND_NO FROM USERS U WHERE USER_NO=#{userNo})
 		)
-		WHERE ROWNUM <=12
+		WHERE ROWNUM <=4
 		]]>
 	</select>
-
+	
+	<!-- 광고 등록한 공고 번호 조회(1급) -->
+	<select id="selectFirClassAd" resultType="map">
+		select r.RECRUITANNOUNCE_NO, r.RECRUITANNOUNCE_title,
+			r.RECRUITANNOUNCE_SPAY,c.CORP_NAME, c.CORP_IMGURL, ad.paidservice_name,
+			a.AREA_ADD1, a.AREA_ADD2,r.RECRUITANNOUNCE_ENDDATE
+		from RECRUITANNOUNCE r right join CORP c
+		on r.user_no=c.user_no
+		join advertise ad
+		on ad.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO
+		left join AREALIST a
+		on r.AREALIST_NO = a.AREA_NO
+		where paidservice_name like '%1급%'
+	</select>	
+	
+	<!-- 광고 등록한 공고 번호 조회(2급) -->
+	<select id="selectSecClassAd" resultType="map">
+		select r.RECRUITANNOUNCE_NO, r.RECRUITANNOUNCE_title,
+			r.RECRUITANNOUNCE_SPAY,c.CORP_NAME, c.CORP_IMGURL, ad.paidservice_name,
+			a.AREA_ADD1, a.AREA_ADD2,r.RECRUITANNOUNCE_ENDDATE
+		from RECRUITANNOUNCE r right join CORP c
+		on r.user_no=c.user_no
+		join advertise ad
+		on ad.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO
+		left join AREALIST a
+		on r.AREALIST_NO = a.AREA_NO
+		where paidservice_name like '%2급%'
+	</select>
 </mapper>
 
 

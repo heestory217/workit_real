@@ -31,4 +31,10 @@ public class IndivMainDAOMybatis implements IndivMainDAO{
 		return sqlSession.selectList(namespace+"selectCustomPost", userNo);
 	}
 	
+	//2급 광고 구매 회사 채용 공고
+	@Override
+	public List<Map<String, Object>> selectSecClassAd() {
+		return sqlSession.selectList(namespace+"selectSecClassAd");
+	}
+	
 }

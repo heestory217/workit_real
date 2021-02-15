@@ -20,130 +20,43 @@
 	#divBx{
 		width:290px;
 	}
+	
+	#corpArea{
+		font-size: 14px; 
+		color: #989898;
+	}
 </style>
 
-<div class="container containDiv"><p style="font-size:22px;color:#4C4747;font-weight:600">
-	<span class="userName">${sessionScope.userName}</span>님을 위한 맞춤 채용 공고
-</p>
-<div id="new" class="carousel slide" data-ride="carousel"> 
+<div class="container containDiv">
+	<p class="announceTit">
+		<span class="userName">${sessionScope.userName}</span>님을 위한 맞춤 채용 공고
+	</p>
 	<!-- 슬라이드 시작 -->
 	<c:if test="${!empty customList}">
-		<div class="carousel-inner">
-			<div class="carousel-item active">
-				<div class="row">
-					<c:forEach var="map" items="${customList}" begin="0" end="3">
-						<div class="col-lg-3 d-inline-block w-25">
-							<div class="single-latest-blog" id="divBx">
-								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
-									src="<c:url value='/pd_images/'/>"
-									onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-									<div style="padding: 10px 5px 0 5px;">
-										<div class="tag-list"
-											style="margin-bottom: 0px; overflow: hidden;">
-											<span
-												style="color: #4C4747; font-size: 18px; font-weight: bold;">
-												${map['RECRUITANNOUNCE_TITLE'] }
-											</span><br>
-											<div class="tag-item" style="color: #4C4747; font-size:16px; font-weight:600;">
-												${map['CORP_NAME'] }
-											</div>
-										</div>
-										<p class="margin_bottom_0"
-											style="font-size: 13px; color: #989898;">
-											${map['AREA_ADD1'] } · ${map['AREA_ADD2'] }
-										</p>
-										<p class="margin_bottom_0"
-											style="font-size: 15px; color: #989898;">
-											${map['RECRUITANNOUNCE_SPAY']}
-										</p>
+		<div class="row">
+			<c:forEach var="map" items="${customList}">
+				<div class="col-lg-3 d-inline-block w-25">
+					<div class="single-latest-blog" id="divBx">
+						<a
+							href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${map["RECRUITANNOUNCE_NO"] }'/>">
+							<img id="searchImg"
+							src="<c:url value='/pd_images/${map["CORP_IMGURL"]}'/>"
+							onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
+							<div class="corpInfoWrap">
+								<div class="tag-list"
+									style="margin-bottom: 0px; overflow: hidden;">
+									<span class="field"> ${map['RECRUITANNOUNCE_TITLE'] } </span><br>
+									<div class="tag-item" id="corpName">${map['CORP_NAME'] }
 									</div>
-								</a>
+								</div>
+								<p class="margin_bottom_0" id="corpArea">${map['AREA_ADD1'] }
+									· ${map['AREA_ADD2'] }</p>
 							</div>
-						</div>
-					</c:forEach>
+						</a>
+					</div>
 				</div>
-			</div>
-		
-		
-			<div class="carousel-item">
-				<div class="row">
-					<c:forEach var="map" items="${customList}" begin="4" end="7">
-						<div class="col-lg-3 d-inline-block w-25">
-							<div class="single-latest-blog" id="divBx">
-								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
-									src="<c:url value='/pd_images/'/>"
-									onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-									<div style="padding: 10px 5px 0 5px;">
-										<div class="tag-list"
-											style="margin-bottom: 0px; overflow: hidden;">
-											<span
-												style="color: #4C4747; font-size: 18px; font-weight: bold;">
-												${map['RECRUITANNOUNCE_TITLE'] }
-											</span><br>
-											<div class="tag-item" style="color: #4C4747; font-size:16px; font-weight:600;">
-												${map['CORP_NAME'] }
-											</div>
-										</div>
-										<p class="margin_bottom_0"
-											style="font-size: 13px; color: #989898;">
-											${map['AREA_ADD1'] } · ${map['AREA_ADD2'] }
-										</p>
-										<p class="margin_bottom_0"
-											style="font-size: 15px; color: #989898;">
-											${map['RECRUITANNOUNCE_SPAY']}
-										</p>
-									</div>
-								</a>
-							</div>
-						</div>
-					</c:forEach>
-				</div>
-			</div>
-		
-			<div class="carousel-item">
-				<div class="row">
-					<c:forEach var="map" items="${customList}" begin="8" end="11">
-						<div class="col-lg-3 d-inline-block w-25">
-							<div class="single-latest-blog" id="divBx">
-								<a href="<c:url value='/index.do'/>"> <img id="searchImg"
-									src="<c:url value='/pd_images/'/>"
-									onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
-									<div style="padding: 10px 5px 0 5px;">
-										<div class="tag-list"
-											style="margin-bottom: 0px; overflow: hidden;">
-											<span
-												style="color: #4C4747; font-size: 18px; font-weight: bold;">
-												${map['RECRUITANNOUNCE_TITLE'] }
-											</span><br>
-											<div class="tag-item" style="color: #4C4747; font-size:16px; font-weight:600;">
-												${map['CORP_NAME'] }
-											</div>
-										</div>
-										<p class="margin_bottom_0"
-											style="font-size: 13px; color: #989898;">
-											${map['AREA_ADD1'] } · ${map['AREA_ADD2'] }
-										</p>
-										<p class="margin_bottom_0"
-											style="font-size: 15px; color: #989898;">
-											${map['RECRUITANNOUNCE_SPAY']}
-										</p>
-									</div>
-								</a>
-							</div>
-						</div>
-					</c:forEach>
-				</div>
-			</div>
-	</div>
-</c:if>
+			</c:forEach>
+		</div>
+	</c:if>
 	<!-- 슬라이드 끝 -->
-	
-	<!-- previous/next button --> 
-	<a class="carousel-control-prev" href="#new" data-slide="prev" style="margin-bottom: 125px;margin-left: -50px;"> 
-		<span class="carousel-control-prev-icon" aria-hidden="true"></span> 
-	</a> 
-	<a class="carousel-control-next" href="#new" data-slide="next" style="margin-bottom: 125px;margin-right: -50px;"> 
-		<span class="carousel-control-next-icon" aria-hidden="true"></span> 
-	</a> 
-</div>
 </div>

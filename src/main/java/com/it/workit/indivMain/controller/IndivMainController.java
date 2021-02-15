@@ -71,13 +71,15 @@ public class IndivMainController {
 	
 	
 	
-	//오늘의 추천
+	//2급 광고 구매 회사 채용 공고
 	@RequestMapping("/todayRcmd.do")
-	public void todayRcmd() {
-		logger.info("신규 채용 공고 조회");
-		/*
-		 * return "indiv/todayRcmd";
-		 */
+	public void todayRcmd(Model model) {
+		logger.info("오늘의 추천 화면 조회");
+		
+		List<Map<String, Object>> secAdList = indivmainService.selectSecClassAd();
+		logger.info("오늘의 추천 채용 공고 결과, secAdList.size={}", secAdList.size());
+		
+		model.addAttribute("secAdList", secAdList);
 	}
 	
    //유료서비스 페이지 

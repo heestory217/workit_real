@@ -321,8 +321,8 @@
 				<a href="<c:url value='/users/register.do'/>" 
 				id="reviewLink"> 
 				<b>WORK IT</b> 회원이 아니신가요?<br>
-				지금 가입하시고 보다 다양한 서비스를 이용해보세요!
-				 </a>
+				지금 바로 가입하시고 보다 다양한 서비스를 이용해보세요!
+				</a>
 			<div id="joinBtn" class="mainBtn">회원가입 하러가기</div>
 		</div>
 	</div>
