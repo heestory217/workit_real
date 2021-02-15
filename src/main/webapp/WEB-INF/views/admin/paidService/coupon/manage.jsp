@@ -65,17 +65,16 @@
 	
 		<div style="text-align: right;">
 			<a href="#" class="btn btn-rounded btn-primary">신규 등록</a>
-			<a href="#" class="btn btn-rounded btn-secondary">쿠폰 삭제</a>
 		</div>
 	
 		<div class="card" style="margin-top: 30px;">
 		    <h5 class="card-header">Management</h5>
 		    <div class="card-body">
-		        <form id="validationform" data-parsley-validate="" novalidate="">
+		        <form id="couponUpdateFrm" action="<c:url value='/admin/paidService/coupon/update.do'/>" method="post">
 		            <div class="form-group row">
 		                <label class="col-12 col-sm-3 col-form-label text-sm-right">쿠폰명</label>
 		                <div class="col-12 col-sm-8 col-lg-6">
-		                    <input type="text" required="required" data-parsley-maxlength="26" 
+		                    <input type="text" required="required" maxlength="26"
 		                    	placeholder="쿠폰명은 최대 26자 입력가능합니다" class="form-control" name="couponName" id="couponName">
 		                </div>
 		            </div>
@@ -88,21 +87,15 @@
 		            </div>
 		            <div class="form-group row">
 		                <label class="col-12 col-sm-3 col-form-label text-sm-right">시작일</label>
-                        <div class="col-12 col-sm-8 col-lg-6 input-group date" id="datetimepicker1" data-target-input="nearest">
-				            <input type="text" class="form-control" data-target="#datetimepicker1" name="couponStartdate" id="couponStartdate">
-				            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-				                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
-				            </div>
-    			 		</div>
+		                <div class="col-12 col-sm-8 col-lg-6">
+				            <input type="date" required="required" class="form-control" name="couponStartdate" id="couponStartdate">
+		                </div>
 		            </div>
 		            <div class="form-group row">
-		                <label class="col-12 col-sm-3 col-form-label text-sm-right">시작일</label>
-                        <div class="col-12 col-sm-8 col-lg-6 input-group date" id="datetimepicker2" data-target-input="nearest">
-				            <input type="text" class="form-control" data-target="#datetimepicker2" name="couponEnddate" id="couponEnddate">
-				            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
-				                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
-				            </div>
-    			 		</div>
+		                <label class="col-12 col-sm-3 col-form-label text-sm-right">종료일</label>
+		                <div class="col-12 col-sm-8 col-lg-6">
+				            <input type="date" required="required" class="form-control" name="couponEnddate" id="couponEnddate">
+		                </div>
 		            </div>
 		            <div class="form-group row text-right">
 		                <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
@@ -119,8 +112,8 @@
 <script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
  
 <script type="text/javascript">
-	
 	$(function(){
+		
 		$('tr td a').each(function(index, item){
 			$(this).click(function(){
 				$.ajax({
@@ -134,20 +127,32 @@
 						//성공하면 표에 입력
 						$('#couponName').val(vo.couponName);
 						$('#couponRate').val(vo.couponRate);
-						$('#couponStartdate').val(vo.couponStartdate);
-						$('#couponEnddate').val(vo.couponEnddate);
+						$('#couponStartdate').val(startDate);
+						$('#couponEnddate').val(endDate);
 					},
 					error:function(xhr, status, error){
 						alert('error! : '+error);
 					}
 				});	//ajax
 				event.preventDefault();
-				
 			});	//click
-			
 		});	//each
-		
 	});
+	
+	function getTimestampToDate(timestamp){
+	    var date = new Date(timestamp*1000);
+	    var chgTimestamp = date.getFullYear().toString()
+	        +addZero(date.getMonth()+1)
+	        +addZero(date.getDate().toString())
+	        +addZero(date.getHours().toString())
+	        +addZero(date.getMinutes().toString())
+	        +addZero(date.getSeconds().toString());
+	    return chgTimestamp;
+	}
+	function addZero(data){
+	    return (data<10) ? "0" + data : data;
+	}
+	
 </script>
 
 <script src="<c:url value='/resources/admin/assets/vendor/bootstrap/js/bootstrap.bundle.js'/>"></script>
