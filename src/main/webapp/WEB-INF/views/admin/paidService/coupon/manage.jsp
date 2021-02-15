@@ -14,8 +14,7 @@
              <div class="page-breadcrumb">
                  <nav aria-label="breadcrumb">
                      <ol class="breadcrumb">
-                         <li class="breadcrumb-item">유료 서비스 관리</li>
-                         <li class="breadcrumb-item active" aria-current="page">쿠폰 관리</li>
+                         <li class="breadcrumb-item" style="font-size: initial;">기존 쿠폰을 수정하려면 쿠폰 목록에서 쿠폰명을 클릭하세요.</li>
                      </ol>
                  </nav>
              </div>
@@ -51,8 +50,8 @@
 						<c:if test="${!empty list}">
 							<c:forEach var="vo" items="${list}">
 			                    <tr>
-			                        <th scope="row" id="no">${vo.couponNo}</th>
-			                        <td><a href="#" id="name">${vo.couponName}</a></td>
+			                        <td scope="row" style="font-weight: bold;">${vo.couponNo}</td>
+			                        <td><a href="#">${vo.couponName}</a></td>
 			                        <td align="center">${vo.couponRate} %</td>
 			                        <td align="center"><fmt:formatDate value="${vo.couponStartdate}" type="both" pattern="yyyy-MM-dd hh:mm:ss" /></td>
 			                        <td align="center"><fmt:formatDate value="${vo.couponEnddate}" type="both" pattern="yyyy-MM-dd hh:mm:ss"  /></td>
@@ -65,7 +64,7 @@
 	    </div>
 	
 		<div style="text-align: right;">
-			<a href="#" class="btn btn-rounded btn-primary">쿠폰 등록</a>
+			<a href="#" class="btn btn-rounded btn-primary">신규 등록</a>
 			<a href="#" class="btn btn-rounded btn-secondary">쿠폰 삭제</a>
 		</div>
 	
@@ -107,8 +106,8 @@
 		            </div>
 		            <div class="form-group row text-right">
 		                <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
-		                    <button type="submit" class="btn btn-space btn-primary">적용</button>
-		                    <button class="btn btn-space btn-secondary">취소</button>
+		                    <button type="submit" class="btn btn-space btn btn-brand">수정</button>
+		                    <button class="btn btn-space btn btn-dark">취소</button>
 		                </div>
 		            </div>
 		        </form>
@@ -120,29 +119,34 @@
 <script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
  
 <script type="text/javascript">
+	
 	$(function(){
-		$('a').bind("click", function(){
-			$.ajax({
-				url:"<c:url value='/admin/paidService/coupon/showInfo.do'/>",
-				type:"POST",
-				data:{
-					couponNo : $('#no').html()
-				},
-				dataType:"json",
-				success:function(vo){
-					//성공하면 표에 입력
-					alert(vo.couponNo);
-					$('#couponName').val(vo.couponName);
-					$('#couponRate').val(vo.couponRate);
-					$('#couponStartdate').val(vo.couponStartdate);
-					$('#couponEnddate').val(vo.couponEnddate);
-				},
-				error:function(xhr, status, error){
-					alert('error! : '+error);
-				}
-			});	//ajax
-			event.preventDefault();
-		});	//click
+		$('tr td a').each(function(index, item){
+			$(this).click(function(){
+				$.ajax({
+					url:"<c:url value='/admin/paidService/coupon/showInfo.do'/>",
+					type:"POST",
+					data:{
+						couponNo : $(this).parent().prev().html()
+					},
+					dataType:"json",
+					success:function(vo){
+						//성공하면 표에 입력
+						$('#couponName').val(vo.couponName);
+						$('#couponRate').val(vo.couponRate);
+						$('#couponStartdate').val(vo.couponStartdate);
+						$('#couponEnddate').val(vo.couponEnddate);
+					},
+					error:function(xhr, status, error){
+						alert('error! : '+error);
+					}
+				});	//ajax
+				event.preventDefault();
+				
+			});	//click
+			
+		});	//each
+		
 	});
 </script>
 
