@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.javassist.expr.NewArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,12 +104,15 @@ public class CorpServiceImpl implements CorpService {
 	@Override
 	public List<Integer> selectResumeNoList(List<MatchSearchVO> mList) {
 		List<Integer> resumeNo = new ArrayList<Integer>();
+		List<Integer> sum = new ArrayList<Integer>();
 		if(!mList.isEmpty() || mList.size()>0) {
 			for(int i=0;i<mList.size();i++) {
 				resumeNo = corpDao.selectResumeNoList(mList.get(i));
+				sum.addAll(resumeNo);
 			}
 		}
-		return resumeNo;
+		System.out.println("service Sum : "+sum);
+		return sum;
 	}
 
 	@Override
