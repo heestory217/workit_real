@@ -14,7 +14,7 @@
              <div class="page-breadcrumb">
                  <nav aria-label="breadcrumb">
                      <ol class="breadcrumb">
-                         <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">유료 서비스 관리</a></li>
+                         <li class="breadcrumb-item">유료 서비스 관리</li>
                          <li class="breadcrumb-item active" aria-current="page">쿠폰 관리</li>
                      </ol>
                  </nav>
@@ -119,18 +119,19 @@
 
 <script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
  
- <script type="text/javascript">
+<script type="text/javascript">
 	$(function(){
-		$('#name').click(function(){
+		$('a').bind("click", function(){
 			$.ajax({
 				url:"<c:url value='/admin/paidService/coupon/showInfo.do'/>",
-				type:"GET",
+				type:"POST",
 				data:{
-					couponNo : $('#no').text()
+					couponNo : $('#no').html()
 				},
 				dataType:"json",
 				success:function(vo){
 					//성공하면 표에 입력
+					alert(vo.couponNo);
 					$('#couponName').val(vo.couponName);
 					$('#couponRate').val(vo.couponRate);
 					$('#couponStartdate').val(vo.couponStartdate);
