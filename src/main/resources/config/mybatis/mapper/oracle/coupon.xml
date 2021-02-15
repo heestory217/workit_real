@@ -6,6 +6,30 @@
 	<select id="selectCoupon" parameterType="string" resultType="couponVo">
 		select * from coupon where COUPON_NAME=#{couponName}
 	</select>
+	
+	<select id="selectAll" resultType="couponVo">	
+		select * from coupon order by coupon_no
+	</select>
+	
+	<insert id="insertCoupon" parameterType="couponVo">
+		<selectKey>
+			select coupon_seq.nextval from dual
+		</selectKey>
+		insert into coupon(COUPON_NO, COUPON_NAME, COUPON_RATE, COUPON_STARTDATE, COUPON_ENDDATE)
+		values(#{couponNo}, #{couponName}, #{couponRate}, #{couponStartdate}, #{couponEnddate})
+	</insert>
+	
+	<update id="updateCoupon" parameterType="couponVo">
+		update COUPON
+		set COUPON_NAME=#{couponName}, COUPON_RATE=#{couponRate}, 
+		    COUPON_STARTDATE=#{couponStartdate}, COUPON_ENDDATE=#{couponEnddate}
+		where COUPON_NO=#{couponNo}
+	</update>
+	
+	<delete id="deleteCoupon" parameterType="int">
+		delete from COUPON where COUPON_NO=#{couponNo}
+	</delete>
+	
 </mapper>
 
 
