@@ -47,5 +47,16 @@
 	
 	<!-- <beans:bean id="downloadView"
 		class="com.herb.app.reboard.controller.ReBoardDownloadView" /> -->
+		
+	<beans:bean id="AuthLoginInterceptor" class="com.it.workit.interceptor.AuthLoginInterceptor" />  
+   <interceptors>
+       <interceptor>
+          <mapping path="/indivMypage/**"/>
+          <mapping path="/resumes/**"/>
+          <mapping path="/message/**"/>
+          
+          <beans:ref bean="AuthLoginInterceptor"/>
+        </interceptor>
+   </interceptors>	
 
 </beans:beans>
