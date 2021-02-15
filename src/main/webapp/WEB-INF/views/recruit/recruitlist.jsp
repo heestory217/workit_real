@@ -9,7 +9,10 @@
 		$('form[name=frmPage]').submit();
 	}
 </script>
-
+<form action="<c:url value='/recruit/recruitlist.do'/>" 
+	name="frmPage" method="post">
+	<input type="hidden" name="currentPage">
+</form>
 <!-- Breadcrumb Section Begin -->
 	<div class="breacrumb-section">
 		<div class="container">
