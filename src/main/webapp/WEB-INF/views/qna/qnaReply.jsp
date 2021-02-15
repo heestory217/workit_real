@@ -46,7 +46,7 @@ input#ckbox {
 				write_go();
 				event.preventDefault();
 			}
-			
+
 		});
 	});
 
@@ -68,7 +68,7 @@ input#ckbox {
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<a href="#"><i class="fa fa-home"></i> Home</a> 
+					<a href="#"><i class="fa fa-home"></i> Home</a>
 					<span>고객센터 ></span>
 					<span>Q&A ></span>
 					<span>등록</span>
@@ -103,11 +103,11 @@ input#ckbox {
 					<input type="text" name="qaGroupno" value="${qauVo.qaGroupno }"/>
 					<input type="text" name="qaOrderno" value="${qauVo.qaOrderno}"/>
 					<input type="text" name="qaSortno" value="${qauVo.qaSortno }"/>
-					
+
 					<input type="hidden" name="qaWriter" value="${sessionScope.userId }">
 					<input type="text" name="userNo" value="${sessionScope.userNo }">
 					<div class="col-lg-12">
-						<label for="qaTitle">제목<span>*</span></label> 
+						<label for="qaTitle">제목<span>*</span></label>
 						<input type="text" id="qaTitle" name="qaTitle" value="re: ${qauVo.qaTitle }">
 					</div>
 					<div class="col-lg-12">
@@ -120,7 +120,7 @@ input#ckbox {
 							});
 						</script>
 					</div>
-					
+
 					<div class="group-input gi-check col-lg-12 pwWarp" style="clear: both;">
 						<div class="gi-more pwBox">
 							<input type="text" id="qaSecret" name="qaSecret" value="${qauVo.qaSecret }">
@@ -128,7 +128,7 @@ input#ckbox {
 						</div>
 						<input type="button" value="목록"
 							class="faqBt btn btn-primary site-btn"
-							onclick="location.href='<c:url value="/qna/qnaList.do"/>'" /> 
+							onclick="location.href='<c:url value="/qna/qnaList.do"/>'" />
 						<input type="submit" value="등록" id="qnareply" class="faqBt btn btn-primary site-btn" />
 					</div>
 				</form>
