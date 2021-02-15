@@ -3,7 +3,6 @@ package com.it.workit.admin.indivUsers.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -27,8 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.SearchVO;
-import com.it.workit.common.Utility;
-import com.it.workit.users.model.UsersDAO;
 import com.it.workit.users.model.UsersService;
 import com.it.workit.users.model.UsersVO;
 
@@ -127,7 +124,7 @@ public class AdminIndivUsersController {
 	@RequestMapping("/excelDown.do")
 	public void excelDown(HttpServletResponse response) throws IOException {
 		
-		logger.info("excelDown, test중!");
+		logger.info("회원정보 excel 다운로드");
 		List<UsersVO> list=usersService.usersAll();
 		
 		// 워크북 생성
@@ -188,12 +185,7 @@ public class AdminIndivUsersController {
 	    cell = row.createCell(7);
 	    cell.setCellStyle(headStyle);
 	    cell.setCellValue("상세 주소");
-		/*
-		 * cell = row.createCell(8); cell.setCellStyle(headStyle);
-		 * cell.setCellValue("가입일");
-		 */
-	    
-
+		 
 	    // 데이터 부분 생성
 	    for(UsersVO vo : list) {
 	        row = sheet.createRow(rowNo++);
@@ -228,11 +220,6 @@ public class AdminIndivUsersController {
 	        cell = row.createCell(7);
 	        cell.setCellStyle(bodyStyle);
 	        cell.setCellValue(vo.getUserAddressdetail());
-	        
-			/*
-			 * cell = row.createCell(8); cell.setCellStyle(bodyStyle);
-			 * cell.setCellValue(vo.getUserRegdate());
-			 */
 	    }
 	    
 	    //셀 크기 변경
@@ -244,7 +231,7 @@ public class AdminIndivUsersController {
 
 	    // 컨텐츠 타입과 파일명 지정
 	    response.setContentType("ms-vnd/excel");
-	    response.setHeader("Content-Disposition", "attachment;filename=member.xls");
+	    response.setHeader("Content-Disposition", "attachment;filename=WorkIt_users.xls");
 
 	    // 엑셀 출력
 	    wb.write(response.getOutputStream());
