@@ -26,13 +26,20 @@
 	        <h5 class="card-header">목록</h5>
 	        <div class="card-body">
 	            <table class="table table-hover">
+				    <colgroup>
+						<col style="width:5%;" />
+						<col style="width:30%;" />
+						<col style="width:15%;" />
+						<col style="width:25%;" />
+						<col style="width:25%;" />		
+					</colgroup>
 	                <thead>
 	                    <tr>
 	                        <th scope="col">#</th>
 	                        <th scope="col">쿠폰명</th>
-	                        <th scope="col">할인률</th>
-	                        <th scope="col">시작일</th>
-	                        <th scope="col">종료일</th>
+	                        <th scope="col" style="text-align: center;">할인률</th>
+	                        <th scope="col" style="text-align: center;">시작일</th>
+	                        <th scope="col" style="text-align: center;">종료일</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
@@ -46,9 +53,9 @@
 			                    <tr>
 			                        <th scope="row">${vo.couponNo}</th>
 			                        <td>${vo.couponName}</td>
-			                        <td>${vo.couponRate} %</td>
-			                        <td><fmt:formatDate value="${vo.couponStartdate}" pattern="yyyy-MM-dd" /></td>
-			                        <td><fmt:formatDate value="${vo.couponEnddate}" pattern="yyyy-MM-dd" /></td>
+			                        <td align="center">${vo.couponRate} %</td>
+			                        <td align="center"><fmt:formatDate value="${vo.couponStartdate}" type="both" pattern="yyyy-MM-dd hh:mm:ss" /></td>
+			                        <td align="center"><fmt:formatDate value="${vo.couponEnddate}" type="both" pattern="yyyy-MM-dd hh:mm:ss"  /></td>
 			                    </tr>
 							</c:forEach>
 						</c:if>
