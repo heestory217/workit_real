@@ -36,7 +36,8 @@ public class AdminCouponController {
 		logger.info("start={} end={}", start, end);
 		
 		start += " 00:00:00.0";
-		end += " 00:00:00.0";
+		end += " 23:59:59.0";
+		
 		logger.info("start={} end={}", start, end);
 		
 		java.sql.Timestamp couponStartdate = java.sql.Timestamp.valueOf(start);
@@ -82,7 +83,8 @@ public class AdminCouponController {
 		logger.info("start={} end={}", start, end);
 		
 		start += " 00:00:00.0";
-		end += " 00:00:00.0";
+		end += " 23:59:59.0";
+		
 		logger.info("start={} end={}", start, end);
 		
 		java.sql.Timestamp couponStartdate = java.sql.Timestamp.valueOf(start);

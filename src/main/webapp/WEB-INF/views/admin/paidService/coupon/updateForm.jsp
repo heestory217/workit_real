@@ -24,17 +24,7 @@
     <link rel="stylesheet" href="<c:url value='/resources/admin/assets/vendor/fonts/flag-icon-css/flag-icon.min.css'/>">
     <title>Work IT - 관리자 페이지</title>
     
-<script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
-<script type="text/javascript">
-	$(function(){
-		$('form[name=couponUpdateFrm]').submit(function(){
-			self.close();
-			opener.document.location.reload();
-		});
-	});
-</script>
 </head>
-
 <body>
 
 	<div class="card">
@@ -76,6 +66,6 @@
 	        </form>
 	    </div>
 	</div>
-		
+
 </body>
 </html>
