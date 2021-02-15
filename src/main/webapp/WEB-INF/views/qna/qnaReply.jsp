@@ -103,7 +103,7 @@ input#ckbox {
 					<input type="text" name="qaGroupno" value="${qauVo.qaGroupno }"/>
 					<input type="text" name="qaOrderno" value="${qauVo.qaOrderno}"/>
 					<input type="text" name="qaSortno" value="${qauVo.qaSortno }"/>
-					<input type="hidden" name="ManagerNo" value="1">
+					<input type="text" name="ManagerNo" value="1">
 <%-- 					<input type="hidden" name="ManagerNo" value="${sessionScope.managerNo }"> --%>
 					
 <%-- 					<input type="hidden" name="qaWriter" value="${sessionScope.userId }"> --%>

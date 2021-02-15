@@ -16,6 +16,7 @@
     <link href="<c:url value='/resources/admin/assets/vendor/fonts/circular-std/style.css'/>" rel="stylesheet">
     <link rel="stylesheet" href="<c:url value='/resources/admin/assets/libs/css/style.css'/>">
     <link rel="stylesheet" href="<c:url value='/resources/admin/assets/vendor/fonts/fontawesome/css/fontawesome-all.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/admin/assets/vendor/datepicker/tempusdominus-bootstrap-4.css'/>">
     <link rel="stylesheet" href="<c:url value='/resources/admin/assets/vendor/charts/chartist-bundle/chartist.css'/>">
     <link rel="stylesheet" href="<c:url value='/resources/admin/assets/vendor/charts/morris-bundle/morris.css'/>">
     <link rel="stylesheet" href="<c:url value='/resources/admin/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css'/>">

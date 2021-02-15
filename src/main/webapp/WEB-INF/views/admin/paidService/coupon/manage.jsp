@@ -70,11 +70,59 @@
 			<a href="#" class="btn btn-rounded btn-secondary">쿠폰 삭제</a>
 		</div>
 	
-	</div>	
+		<div class="card" style="margin-top: 30px;">
+		    <h5 class="card-header">Management</h5>
+		    <div class="card-body">
+		        <form id="validationform" data-parsley-validate="" novalidate="">
+		            <div class="form-group row">
+		                <label class="col-12 col-sm-3 col-form-label text-sm-right">쿠폰명</label>
+		                <div class="col-12 col-sm-8 col-lg-6">
+		                    <input type="text" required="required" data-parsley-maxlength="6" placeholder="쿠폰명은 최대 26자 입력가능합니다" class="form-control">
+		                </div>
+		            </div>
+		            <div class="form-group row">
+		                <label class="col-12 col-sm-3 col-form-label text-sm-right">할인율</label>
+		                <div class="col-12 col-sm-8 col-lg-6">
+		                    <input required="required" type="number" min="0" max="100" placeholder="할인율을 입력하세요 (0~100)" class="form-control">
+		                </div>
+		            </div>
+		            <div class="form-group row">
+		                <label class="col-12 col-sm-3 col-form-label text-sm-right">시작일</label>
+                        <div class="col-12 col-sm-8 col-lg-6 input-group date" id="datetimepicker1" data-target-input="nearest">
+				            <input type="text" class="form-control" data-target="#datetimepicker1">
+				            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+				                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+				            </div>
+    			 		</div>
+		            </div>
+		            <div class="form-group row">
+		                <label class="col-12 col-sm-3 col-form-label text-sm-right">시작일</label>
+                        <div class="col-12 col-sm-8 col-lg-6 input-group date" id="datetimepicker2" data-target-input="nearest">
+				            <input type="text" class="form-control" data-target="#datetimepicker2">
+				            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+				                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
+				            </div>
+    			 		</div>
+		            </div>
+		            <div class="form-group row text-right">
+		                <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
+		                    <button type="submit" class="btn btn-space btn-primary">Submit</button>
+		                    <button class="btn btn-space btn-secondary">취소</button>
+		                </div>
+		            </div>
+		        </form>
+		    </div>
+		</div>
+	</div>
 </div>
 
-
-
 <script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
+<script src="<c:url value='/resources/admin/assets/vendor/bootstrap/js/bootstrap.bundle.js'/>"></script>
+<script src="<c:url value='/resources/admin/assets/vendor/slimscroll/jquery.slimscroll.js'/>"></script>
+<script src="<c:url value='/resources/admin/assets/libs/js/main-js.js'/>"></script>
+<script src="<c:url value='/resources/admin/assets/vendor/datepicker/moment.js'/>"></script>
+<script src="<c:url value='/resources/admin/assets/vendor/datepicker/tempusdominus-bootstrap-4.js'/>"></script>
+<script src="<c:url value='/resources/admin/assets/vendor/datepicker/datepicker.js'/>"></script>
+ 
 <script type="text/javascript"> </script>
 <%@ include file="../../inc/bottom.jsp" %>
