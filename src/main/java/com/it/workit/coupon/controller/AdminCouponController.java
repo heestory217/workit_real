@@ -19,9 +19,11 @@ public class AdminCouponController {
 	//@Autowired private CouponService couponService;
 	
 	@ResponseBody
-	@RequestMapping("/couponMng.do")
-	public void couponMng() {
+	@RequestMapping("/manage.do")
+	public String manage() {
 		logger.info("관리자 - 쿠폰 관리 페이지");
+		
+		return "admin/paidService/couponMng";
 	}
 	
 }
