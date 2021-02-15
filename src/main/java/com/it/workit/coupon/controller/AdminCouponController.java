@@ -33,6 +33,35 @@ public class AdminCouponController {
 		return "admin/paidService/coupon/manage";
 	}
 	
+	@RequestMapping("/insert.do")
+	public String insert(@ModelAttribute CouponVO vo, 
+			@RequestParam String start, @RequestParam String end, Model model) {
+		logger.info("쿠폰 등록하기 CouponVO={}", vo);
+		logger.info("start={} end={}", start, end);
+		
+		start += " 00:00:00.0";
+		end += " 00:00:00.0";
+		logger.info("start={} end={}", start, end);
+		
+		java.sql.Timestamp couponStartdate = java.sql.Timestamp.valueOf(start);
+		java.sql.Timestamp couponEnddate = java.sql.Timestamp.valueOf(end);
+		
+		vo.setCouponStartdate(couponStartdate);
+		vo.setCouponEnddate(couponEnddate);
+		
+		int cnt = couponService.insertCoupon(vo);
+		
+		String msg = "쿠폰등록에 실패하였습니다.", url="/admin/paidService/coupon/manage.do";
+		if(cnt>0) {
+			msg="쿠폰을 성공적으로 등록하였습니다";
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+	}
+	
 	@ResponseBody
 	@RequestMapping("/showInfo.do")
 	public CouponVO showInfo(@RequestParam (defaultValue = "0") int couponNo) {

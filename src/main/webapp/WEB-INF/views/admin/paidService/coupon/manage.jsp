@@ -63,14 +63,10 @@
 	        </div>
 	    </div>
 	
-		<div style="text-align: right;">
-			<a href="#" class="btn btn-rounded btn-primary">신규 등록</a>
-		</div>
-	
 		<div class="card" style="margin-top: 30px;">
 		    <h5 class="card-header">Management</h5>
 		    <div class="card-body">
-		        <form id="couponUpdateFrm" action="<c:url value='/admin/paidService/coupon/update.do'/>" method="post">
+		        <form id="couponUpdateFrm" action="<c:url value='/admin/paidService/coupon/insert.do'/>" method="get">
 		            <div class="form-group row">
 		                <label class="col-12 col-sm-3 col-form-label text-sm-right">쿠폰명</label>
 		                <div class="col-12 col-sm-8 col-lg-6">
@@ -88,18 +84,18 @@
 		            <div class="form-group row">
 		                <label class="col-12 col-sm-3 col-form-label text-sm-right">시작일</label>
 		                <div class="col-12 col-sm-8 col-lg-6">
-				            <input type="date" required="required" class="form-control" name="couponStartdate" id="couponStartdate">
+				            <input type="date" required="required" class="form-control" name="start" id="couponStartdate">
 		                </div>
 		            </div>
 		            <div class="form-group row">
 		                <label class="col-12 col-sm-3 col-form-label text-sm-right">종료일</label>
 		                <div class="col-12 col-sm-8 col-lg-6">
-				            <input type="date" required="required" class="form-control" name="couponEnddate" id="couponEnddate">
+				            <input type="date" required="required" class="form-control" name="end" id="couponEnddate">
 		                </div>
 		            </div>
 		            <div class="form-group row text-right">
 		                <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
-		                    <button type="submit" class="btn btn-space btn btn-brand">수정</button>
+		                    <button type="submit" class="btn btn-space btn btn-primary">신규 등록</button>
 		                    <button class="btn btn-space btn btn-dark">취소</button>
 		                </div>
 		            </div>
