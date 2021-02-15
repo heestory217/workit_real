@@ -56,8 +56,8 @@
 			                        <td scope="row" style="font-weight: bold;" id="no">${vo.couponNo}</td>
 			                        <td>${vo.couponName}</td>
 			                        <td align="center">${vo.couponRate} %</td>
-			                        <td align="center"><fmt:formatDate value="${vo.couponStartdate}" type="both" pattern="yyyy-MM-dd hh:mm:ss" /></td>
-			                        <td align="center"><fmt:formatDate value="${vo.couponEnddate}" type="both" pattern="yyyy-MM-dd hh:mm:ss"  /></td>
+			                        <td align="center"><fmt:formatDate value="${vo.couponStartdate}" type="both" /></td>
+			                        <td align="center"><fmt:formatDate value="${vo.couponEnddate}" type="both" /></td>
 			                        <td align="center"><a href="#" onclick="execForm(${vo.couponNo})" class="text-primary">수정</a></td>
 			                    </tr>
 							</c:forEach>
