@@ -51,8 +51,8 @@
 						<c:if test="${!empty list}">
 							<c:forEach var="vo" items="${list}">
 			                    <tr>
-			                        <th scope="row">${vo.couponNo}</th>
-			                        <td>${vo.couponName}</td>
+			                        <th scope="row" id="no">${vo.couponNo}</th>
+			                        <td><a href="#" id="name">${vo.couponName}</a></td>
 			                        <td align="center">${vo.couponRate} %</td>
 			                        <td align="center"><fmt:formatDate value="${vo.couponStartdate}" type="both" pattern="yyyy-MM-dd hh:mm:ss" /></td>
 			                        <td align="center"><fmt:formatDate value="${vo.couponEnddate}" type="both" pattern="yyyy-MM-dd hh:mm:ss"  /></td>
@@ -66,7 +66,6 @@
 	
 		<div style="text-align: right;">
 			<a href="#" class="btn btn-rounded btn-primary">쿠폰 등록</a>
-			<a href="#" class="btn btn-rounded btn-brand">쿠폰 수정</a>
 			<a href="#" class="btn btn-rounded btn-secondary">쿠폰 삭제</a>
 		</div>
 	
@@ -77,19 +76,21 @@
 		            <div class="form-group row">
 		                <label class="col-12 col-sm-3 col-form-label text-sm-right">쿠폰명</label>
 		                <div class="col-12 col-sm-8 col-lg-6">
-		                    <input type="text" required="required" data-parsley-maxlength="6" placeholder="쿠폰명은 최대 26자 입력가능합니다" class="form-control">
+		                    <input type="text" required="required" data-parsley-maxlength="26" 
+		                    	placeholder="쿠폰명은 최대 26자 입력가능합니다" class="form-control" name="couponName" id="couponName">
 		                </div>
 		            </div>
 		            <div class="form-group row">
 		                <label class="col-12 col-sm-3 col-form-label text-sm-right">할인율</label>
 		                <div class="col-12 col-sm-8 col-lg-6">
-		                    <input required="required" type="number" min="0" max="100" placeholder="할인율을 입력하세요 (0~100)" class="form-control">
+		                    <input required="required" type="number" min="0" max="100" 
+		                    	placeholder="할인율을 입력하세요 (0~100)" class="form-control" name="couponRate" id="couponRate">
 		                </div>
 		            </div>
 		            <div class="form-group row">
 		                <label class="col-12 col-sm-3 col-form-label text-sm-right">시작일</label>
                         <div class="col-12 col-sm-8 col-lg-6 input-group date" id="datetimepicker1" data-target-input="nearest">
-				            <input type="text" class="form-control" data-target="#datetimepicker1">
+				            <input type="text" class="form-control" data-target="#datetimepicker1" name="couponStartdate" id="couponStartdate">
 				            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
 				                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
 				            </div>
@@ -98,7 +99,7 @@
 		            <div class="form-group row">
 		                <label class="col-12 col-sm-3 col-form-label text-sm-right">시작일</label>
                         <div class="col-12 col-sm-8 col-lg-6 input-group date" id="datetimepicker2" data-target-input="nearest">
-				            <input type="text" class="form-control" data-target="#datetimepicker2">
+				            <input type="text" class="form-control" data-target="#datetimepicker2" name="couponEnddate" id="couponEnddate">
 				            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
 				                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
 				            </div>
@@ -106,7 +107,7 @@
 		            </div>
 		            <div class="form-group row text-right">
 		                <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
-		                    <button type="submit" class="btn btn-space btn-primary">Submit</button>
+		                    <button type="submit" class="btn btn-space btn-primary">적용</button>
 		                    <button class="btn btn-space btn-secondary">취소</button>
 		                </div>
 		            </div>
@@ -117,6 +118,33 @@
 </div>
 
 <script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
+ 
+ <script type="text/javascript">
+	$(function(){
+		$('#name').click(function(){
+			$.ajax({
+				url:"<c:url value='/admin/paidService/coupon/showInfo.do'/>",
+				type:"GET",
+				data:{
+					couponNo : $('#no').text()
+				},
+				dataType:"json",
+				success:function(vo){
+					//성공하면 표에 입력
+					$('#couponName').val(vo.couponName);
+					$('#couponRate').val(vo.couponRate);
+					$('#couponStartdate').val(vo.couponStartdate);
+					$('#couponEnddate').val(vo.couponEnddate);
+				},
+				error:function(xhr, status, error){
+					alert('error! : '+error);
+				}
+			});	//ajax
+			event.preventDefault();
+		});	//click
+	});
+</script>
+
 <script src="<c:url value='/resources/admin/assets/vendor/bootstrap/js/bootstrap.bundle.js'/>"></script>
 <script src="<c:url value='/resources/admin/assets/vendor/slimscroll/jquery.slimscroll.js'/>"></script>
 <script src="<c:url value='/resources/admin/assets/libs/js/main-js.js'/>"></script>
@@ -124,5 +152,5 @@
 <script src="<c:url value='/resources/admin/assets/vendor/datepicker/tempusdominus-bootstrap-4.js'/>"></script>
 <script src="<c:url value='/resources/admin/assets/vendor/datepicker/datepicker.js'/>"></script>
  
-<script type="text/javascript"> </script>
+
 <%@ include file="../../inc/bottom.jsp" %>
