@@ -81,7 +81,7 @@
    
    <update id="updatePwd" parameterType="hashMap">
       update users
-      set user_password=#{tempPwd}
+      set user_password=#{shaPwd}, salt=#{salt}
       where user_Id=#{userId}
    </update>
    
@@ -91,8 +91,8 @@
    
    <update id="updatePwdReal" parameterType="hashMap">
       update users
-      set user_password=#{userPwd}
-       where user_id=#{userId} and USER_PASSWORD=#{userTemp}
+      set user_password=#{shaPwd}, salt=#{salt}
+      where user_id=#{userId}
    </update>
    
    <select id="selectIndivUsersAll" parameterType="searchVo" resultType="usersVo">

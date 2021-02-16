@@ -106,14 +106,38 @@ public class UsersServiceImpl implements UsersService{
 
    @Override
    public int updatePwd(Map<String, Object> tempUser) {
+	  int tempPwd = (Integer)tempUser.get("tempPwd");
+	  String pwd = Integer.toString(tempPwd);
+	  
+	  String salt = SHA256Util.generateSalt();
+	  tempUser.put("salt", salt);
+
+	  String shaPwd = SHA256Util.getEncrypt(pwd, salt);
+	  tempUser.put("shaPwd", shaPwd);
+	  
       return usersDao.updatePwd(tempUser);
    }
 
    @Override
    @Transactional
    public int updatePwdReal(Map<String, Object> userMap) {
-      int cnt = usersDao.selectUser(userMap);
-      if(cnt>0) {
+      
+      String userId = (String)userMap.get("userId");
+      String tempPwd = (String)userMap.get("userTemp");
+      int cnt = loginCheck(userId, tempPwd);
+      System.out.println("로그인 결과 cnt "+cnt);
+      
+      if(cnt==LOGIN_OK) {
+    	  String salt = SHA256Util.generateSalt();
+    	  userMap.put("salt", salt);
+    	  
+    	  String realPwd = (String)userMap.get("userPwd");
+    	  String shaPwd = SHA256Util.getEncrypt(realPwd, salt);
+    	  
+    	  userMap.put("userId", userId);
+    	  userMap.put("shaPwd", shaPwd);
+    	  userMap.put("salt", salt);
+    	  
          cnt = usersDao.updatePwdReal(userMap);
       }else {
          cnt = -1;
