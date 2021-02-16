@@ -4,7 +4,7 @@
 
 <mapper namespace="com.mybatis.mapper.coupon">
 	<select id="selectCoupon" parameterType="string" resultType="couponVo">
-		select * from coupon where COUPON_NAME=#{couponName}
+		select * from coupon where COUPON_NAME=#{couponName} and COUPON_ENDDATE > SYSDATE
 	</select>
 	
 	<select id="selectCouponByNo" parameterType="int" resultType="couponVo">
@@ -16,7 +16,7 @@
 	</select>
 	
 	<insert id="insertCoupon" parameterType="couponVo">
-		<selectKey>
+		<selectKey keyProperty="couponNo" resultType="int" order="BEFORE">
 			select coupon_seq.nextval from dual
 		</selectKey>
 		insert into coupon(COUPON_NO, COUPON_NAME, COUPON_RATE, COUPON_STARTDATE, COUPON_ENDDATE)

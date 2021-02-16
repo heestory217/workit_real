@@ -14,8 +14,8 @@
              <div class="page-breadcrumb">
                  <nav aria-label="breadcrumb">
                      <ol class="breadcrumb">
-                         <li class="breadcrumb-item">유료 서비스 관리</li>
-                         <li class="breadcrumb-item active" aria-current="page">쿠폰 관리</li>
+                         <li class="breadcrumb-item" style="font-size: initial;">기존 쿠폰을 수정하려면 수정버튼을 클릭하세요.</li>
+                         <li class="breadcrumb-item" style="font-size: initial;">쿠폰 적용을 해제하고 싶을 경우, 수정기능을 이용하여 종료일을 오늘날짜보다 이전날짜로 설정하세요.</li>
                      </ol>
                  </nav>
              </div>
@@ -30,8 +30,9 @@
 						<col style="width:5%;" />
 						<col style="width:30%;" />
 						<col style="width:15%;" />
-						<col style="width:25%;" />
-						<col style="width:25%;" />		
+						<col style="width:20%;" />
+						<col style="width:20%;" />		
+						<col style="width:10%;" />		
 					</colgroup>
 	                <thead>
 	                    <tr>
@@ -40,6 +41,7 @@
 	                        <th scope="col" style="text-align: center;">할인률</th>
 	                        <th scope="col" style="text-align: center;">시작일</th>
 	                        <th scope="col" style="text-align: center;">종료일</th>
+	                        <th scope="col" style="text-align: center;">수정</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
@@ -51,11 +53,12 @@
 						<c:if test="${!empty list}">
 							<c:forEach var="vo" items="${list}">
 			                    <tr>
-			                        <th scope="row" id="no">${vo.couponNo}</th>
-			                        <td><a href="#" id="name">${vo.couponName}</a></td>
+			                        <td scope="row" style="font-weight: bold;" id="no">${vo.couponNo}</td>
+			                        <td>${vo.couponName}</td>
 			                        <td align="center">${vo.couponRate} %</td>
-			                        <td align="center"><fmt:formatDate value="${vo.couponStartdate}" type="both" pattern="yyyy-MM-dd hh:mm:ss" /></td>
-			                        <td align="center"><fmt:formatDate value="${vo.couponEnddate}" type="both" pattern="yyyy-MM-dd hh:mm:ss"  /></td>
+			                        <td align="center"><fmt:formatDate value="${vo.couponStartdate}" type="both" /></td>
+			                        <td align="center"><fmt:formatDate value="${vo.couponEnddate}" type="both" /></td>
+			                        <td align="center"><a href="#" onclick="execForm(${vo.couponNo})" class="text-primary">수정</a></td>
 			                    </tr>
 							</c:forEach>
 						</c:if>
@@ -64,19 +67,14 @@
 	        </div>
 	    </div>
 	
-		<div style="text-align: right;">
-			<a href="#" class="btn btn-rounded btn-primary">쿠폰 등록</a>
-			<a href="#" class="btn btn-rounded btn-secondary">쿠폰 삭제</a>
-		</div>
-	
 		<div class="card" style="margin-top: 30px;">
-		    <h5 class="card-header">Management</h5>
+		    <h5 class="card-header">등록</h5>
 		    <div class="card-body">
-		        <form id="validationform" data-parsley-validate="" novalidate="">
+		        <form id="couponInsertFrm" action="<c:url value='/admin/paidService/coupon/insert.do'/>" method="post">
 		            <div class="form-group row">
 		                <label class="col-12 col-sm-3 col-form-label text-sm-right">쿠폰명</label>
 		                <div class="col-12 col-sm-8 col-lg-6">
-		                    <input type="text" required="required" data-parsley-maxlength="26" 
+		                    <input type="text" required="required" maxlength="26"
 		                    	placeholder="쿠폰명은 최대 26자 입력가능합니다" class="form-control" name="couponName" id="couponName">
 		                </div>
 		            </div>
@@ -89,26 +87,20 @@
 		            </div>
 		            <div class="form-group row">
 		                <label class="col-12 col-sm-3 col-form-label text-sm-right">시작일</label>
-                        <div class="col-12 col-sm-8 col-lg-6 input-group date" id="datetimepicker1" data-target-input="nearest">
-				            <input type="text" class="form-control" data-target="#datetimepicker1" name="couponStartdate" id="couponStartdate">
-				            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-				                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
-				            </div>
-    			 		</div>
+		                <div class="col-12 col-sm-8 col-lg-6">
+				            <input type="date" required="required" class="form-control" name="start" id="couponStartdate">
+		                </div>
 		            </div>
 		            <div class="form-group row">
-		                <label class="col-12 col-sm-3 col-form-label text-sm-right">시작일</label>
-                        <div class="col-12 col-sm-8 col-lg-6 input-group date" id="datetimepicker2" data-target-input="nearest">
-				            <input type="text" class="form-control" data-target="#datetimepicker2" name="couponEnddate" id="couponEnddate">
-				            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
-				                <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
-				            </div>
-    			 		</div>
+		                <label class="col-12 col-sm-3 col-form-label text-sm-right">종료일</label>
+		                <div class="col-12 col-sm-8 col-lg-6">
+				            <input type="date" required="required" class="form-control" name="end" id="couponEnddate">
+		                </div>
 		            </div>
 		            <div class="form-group row text-right">
 		                <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
-		                    <button type="submit" class="btn btn-space btn-primary">적용</button>
-		                    <button class="btn btn-space btn-secondary">취소</button>
+		                    <button type="submit" class="btn btn-space btn btn-primary">신규 등록</button>
+		                    <button type="reset" class="btn btn-space btn btn-dark">취소</button>
 		                </div>
 		            </div>
 		        </form>
@@ -118,32 +110,61 @@
 </div>
 
 <script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
- 
+
 <script type="text/javascript">
+
+function execForm(couponNo) {
+	var _width = '700';
+	var _height = '400';
+
+	var _left = Math.ceil((window.screen.width - _width) / 2);
+	var _top = Math.ceil((window.screen.height - _height) / 2);
+
+	window.open('<c:url value="/admin/paidService/coupon/updateForm.do?couponNo='+couponNo+'"/>', '쿠폰 수정', 
+			'width=' + _width + ', height=' + _height  + ', left=' + _left + ', top=' + _top);
+}
+
+/*
 	$(function(){
-		$('a').bind("click", function(){
-			$.ajax({
-				url:"<c:url value='/admin/paidService/coupon/showInfo.do'/>",
-				type:"POST",
-				data:{
-					couponNo : $('#no').html()
-				},
-				dataType:"json",
-				success:function(vo){
-					//성공하면 표에 입력
-					alert(vo.couponNo);
-					$('#couponName').val(vo.couponName);
-					$('#couponRate').val(vo.couponRate);
-					$('#couponStartdate').val(vo.couponStartdate);
-					$('#couponEnddate').val(vo.couponEnddate);
-				},
-				error:function(xhr, status, error){
-					alert('error! : '+error);
-				}
-			});	//ajax
-			event.preventDefault();
-		});	//click
+		$('tr td a').each(function(index, item){
+			$(this).click(function(){
+				$.ajax({
+					url:"<c:url value='/admin/paidService/coupon/showInfo.do'/>",
+					type:"POST",
+					data:{
+						couponNo : $(this).parent().prev().html()
+					},
+					dataType:"json",
+					success:function(vo){
+						//성공하면 표에 입력
+						$('#couponName').val(vo.couponName);
+						$('#couponRate').val(vo.couponRate);
+						$('#couponStartdate').val(startDate);
+						$('#couponEnddate').val(endDate);
+					},
+					error:function(xhr, status, error){
+						alert('error! : '+error);
+					}
+				});	//ajax
+				event.preventDefault();
+			});	//click
+		});	//each
 	});
+	
+	function getTimestampToDate(timestamp){
+	    var date = new Date(timestamp*1000);
+	    var chgTimestamp = date.getFullYear().toString()
+	        +addZero(date.getMonth()+1)
+	        +addZero(date.getDate().toString())
+	        +addZero(date.getHours().toString())
+	        +addZero(date.getMinutes().toString())
+	        +addZero(date.getSeconds().toString());
+	    return chgTimestamp;
+	}
+	function addZero(data){
+	    return (data<10) ? "0" + data : data;
+	}
+*/
 </script>
 
 <script src="<c:url value='/resources/admin/assets/vendor/bootstrap/js/bootstrap.bundle.js'/>"></script>
