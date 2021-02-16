@@ -12,25 +12,12 @@
 
 <script type="text/javascript">
 	$(function(){
-		$('.cart-table table tbody tr td .ti-close').click(function(){
-			if($('#openFlag').html()=='미열람'){
-				if(!confirm('해당 쪽지 전송을 취소하시겠습니까?\n쪽지 전송을 취소할 경우, 해당 쪽지는 자동삭제됩니다.')){
-					event.preventDefault();
-				}
-			}else if($('#openFlag').html()=='열람'){
-				alert('상대방이 열람한 쪽지는 전송을 취소할 수 없습니다.');
-				event.preventDefault();
-			}
-		});
-		
 		$('#btDel').click(function(){
 			var len=$('.cart-table tbody tr td').find('input[type=checkbox]:checked').length;
-
 			if(len==0){
 			   alert('먼저 삭제할 쪽지를 선택하세요.');
 			   return false;
 			}
-			            
 			$('form[name=frmList]').prop('action', '<c:url value="/message/deleteMultiMsg.do"/>');
 			$('form[name=frmList]').submit();
 			
@@ -109,13 +96,6 @@
 						<c:if test="${map['GETMESSAGE_READFLAG']==1}">
 							<td id="openFlag">열람</td>
 						</c:if>
-<%-- 						
-						<td>
-							<a href="<c:url value='/message/deleteMsg.do?messageNo=${map["MESSAGE_NO"]}'/>">
-								<i class="ti-close" style="cursor: pointer;"></i>
-							</a>
-						</td>
-						 --%>
 					</tr>
 					<c:set var="k" value="${k+1}"/>
 				</c:forEach>
