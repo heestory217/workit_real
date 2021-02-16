@@ -26,11 +26,6 @@ public class ProhibitJoinDAOMybatis implements ProhibitJoinDAO{
 	public int selectIfProhibited(int userIndivNo) {
 		return sqlSession.selectOne(namespace+"selectIfProhibited", userIndivNo);
 	}
-	
-	@Override
-	public int selectProhibitCount(CorpApplicantPagingVO vo) {
-		return sqlSession.selectOne(namespace+"selectProhibitCount", vo);
-	}
 
 	@Override
 	public List<Map<String, Object>> selectProhibitedList(ProhibitJoinPagingVO vo) {

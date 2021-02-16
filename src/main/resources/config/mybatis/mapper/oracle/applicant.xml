@@ -187,19 +187,6 @@
 	   	</if>
 	</select>
 	
-	<!-- 입사제한자 수음 -->
-	<select id="selectProhibitCount" parameterType="CorpApplicantPagingVO" resultType="int">
-		select count(*) 
-		from APPLICANTLIST a join RECRUITANNOUNCE r
-		on a.RECRUITANNOUNCE_NO = r.RECRUITANNOUNCE_NO 
-		where r.RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from APPLICANTLIST
-		    where RECRUITANNOUNCE_NO in (select RECRUITANNOUNCE_NO from RECRUITANNOUNCE where user_no=#{userNo}))
-		and a.USER_NO in (select USER_INDIV_NO from PROHIBITJOIN)
-   	    <if test="recruitannounceNo!=0">
-	   		and r.RECRUITANNOUNCE_NO=#{recruitannounceNo}
-	   	</if>
-	</select>
-	
 	<!-- 기업회원이 지원자 이력서 읽음 -->	
 	<update id="updateReadCount" parameterType="int">
 		update APPLICANTLIST

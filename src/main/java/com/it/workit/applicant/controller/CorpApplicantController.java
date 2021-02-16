@@ -63,7 +63,8 @@ public class CorpApplicantController {
 		int pass = appService.selectPassCount(searchVo);
 		int fail = appService.selectFailCount(searchVo);
 		int open = appService.selectReadCount(searchVo);
-		int prohibited = prohibitService.selectProhibitCount(searchVo);
+		int prohibited = prohibitService.selectProhibitTotal(userNo);
+		logger.info("prohibited={}", prohibited);
 		
 		model.addAttribute("applist", applist);	//5개씩 출력됨
 		model.addAttribute("pagingInfo", pagingInfo);

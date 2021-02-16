@@ -9,7 +9,6 @@ public interface ProhibitJoinDAO {
 	int insertProhibit (ProhibitJoinVO vo);
 	int selectIfProhibited(int userIndivNo);
 	
-	int selectProhibitCount(CorpApplicantPagingVO vo);
 	public List<Map<String, Object>> selectProhibitedList(ProhibitJoinPagingVO vo);
 	int deleteFromProhibit(int prohibitjoinNo);
 	int selectProhibitTotal(int userCorpNo);
