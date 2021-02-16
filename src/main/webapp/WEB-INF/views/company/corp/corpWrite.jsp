@@ -23,6 +23,70 @@
 					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
 					monthNames : [ '1월', '2월', '3월', '4월', '5월', '6월', '7월',	'8월', '9월', '10월', '11월', '12월' ]
 				});
+
+		$('form[name=corpfrm]').submit(function() {
+				var contents = CKEDITOR.instances.corpIntro.getData();
+			
+				if($.trim($('#corpAvrpay').val())==''){
+					$('#corpAvrpay').val(0);
+				}
+				if($.trim($('#corpPnumber').val())=='0'){
+					$('#corpPnumber').val(0);
+				}
+				if(!$("#corpName").val()){
+					alert('법인명을 입력하세요.');
+					$("#corpName").focus();
+					event.preventDefault();
+				}else if(!$("#fileimg").val()){
+					alert('로고 파일을 등록하세요');
+					$("#fileimg").focus();
+					event.preventDefault();
+				}else if(!$("#corpHeadname").val()){
+					alert('대표자 성명을 입력하세요');
+					$("#corpHeadname").focus();
+					event.preventDefault();
+				}else if(!$("#corpCorpaddnumber").val()){
+					alert('사업자 등록번호를 입력하세요');
+					$("#corpCorpaddnumber").focus();
+					event.preventDefault();
+				}else if(!$("#corpAddress1").val()){
+					alert('기업 주소를 입력하세요');
+					$("#corpAddress1").focus();
+					event.preventDefault();
+				}else if(!$("#corpIndustry").val()){
+					alert('기업의 주요 사업분야를 입력하세요');
+					$("#corpIndustry").focus();
+					event.preventDefault();
+				}else if(!$("#corpTel").val()){
+					alert('기업 전화번호를 입력하세요.');
+					$("#corpTel").focus();
+					event.preventDefault();
+				}else if(!$("#corpStartdate").val()){
+					alert('기업 설립일자를 입력하세요');
+					$("#corpStartdate").focus();
+					event.preventDefault();
+				}else if(contents=="" || contents==null){
+					alert('기업 소개를 입력하세요.');
+					$("#corpIntro").focus();
+					event.preventDefault();
+				}else if(!$("#addimg1").val()){
+					alert('기업 메인 이미지를 입력하세요.');
+					$("#addimg2").focus();
+					event.preventDefault();
+				}else if(!$("#addimg2").val()){
+					alert('기업 서브 이미지를 입력하세요.');
+					$("#addimg3").focus();
+					event.preventDefault();
+				}else if(!$("#addimg3").val()){
+					alert('기업 서브 이미지를 입력하세요.');
+					$("#addimg3").focus();
+					event.preventDefault();
+				}else if(!$("#addimg4").val()){
+					alert('기업 서브 이미지를 입력하세요.');
+					$("#addimg4").focus();
+					event.preventDefault();
+				}
+			});*/
 		});
 </script>
 <style type="text/css">
