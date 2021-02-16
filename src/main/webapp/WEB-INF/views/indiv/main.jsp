@@ -103,17 +103,6 @@
 	}	
 	
 	
-	.firstImg, .secondImg, .thirdImg{
-	  max-height: 300px;
-	  overflow: hidden;
-	}
-	
-	
-	.firstImg img,.secondImg img,.thirdImg img{
-	  max-height:initial;
-	  margin-top:-15%;
-	}
-	
 	.containDiv{
 		margin-top:80px;
 	}
@@ -186,7 +175,7 @@
 	    height: 200px;
 	    position: absolute;
 	    left: 700px;
-	    top: -44px;
+	    top: -25px;
 	}
 	
 	#exploreBtn{
@@ -229,88 +218,20 @@
 	    height:300px;
 	}
 	
-	
-	#banner{
-		margin-bottom:130px;
-	}
-	
 	#joinBx{
 		position: relative;
-	    margin-top: 100px;
+	    margin-top: 150px;
 	    margin-bottom: 100px;
 	    cursor: pointer;
 	}
 	
+	.mainDiv{
+		width:100%;
+	}
 </style>
-
-<!-- 슬라이드 배너 (광고 1급 서비스) -->
-<div id="banner" class="carousel slide" data-ride="carousel">
-	<div class="carousel-inner">
-		<!-- 슬라이드 쇼 -->
-		<div class="carousel-item active firstImg">
-			<img class="d-block w-100"
-				src="<c:url value='/resources/img/indivMainImg/woman-3190829_1920.jpg'/>"
-				alt="First slide">
-			<div class="carousel-caption d-none d-md-block">
-				<div class="moveDetailBx" style="margin-right:150px;float:right;object-fit:cover;">
-				<div class="corpName">
-					<h5>[오늘의 집]</h5>
-					<h6>JAVA 프로그래머 채용</h6>
-				</div>
-				<hr style="margin:0px">
-				<div class="goBtn">바로가기 <i class="fas fa-angle-right"></i></div>
-				</div>
-			</div>
-		</div>
-		<div class="carousel-item secondImg">
-			<img class="d-block w-100"
-				src="<c:url value='/resources/img/indivMainImg/business-2717063_1920.jpg'/>"
-				alt="Second slide">
-			<div class="carousel-caption d-none d-md-block">
-				<div class="moveDetailBx" style="margin-left:50px;float:left">
-				<div class="corpName">
-					<h5>[오늘의 집]</h5>
-					<h6>JAVA 프로그래머 채용</h6>
-				</div>
-				<hr style="margin:0px">
-				<div class="goBtn">바로가기 <i class="fas fa-angle-right"></i></div>
-				</div>
-			</div>
-		</div>
-		<div class="carousel-item thirdImg">
-			<img class="d-block w-100"
-				src="<c:url value='/resources/img/indivMainImg/buildings-984195_1920.jpg'/>"
-				alt="Third slide">
-			<div class="carousel-caption d-none d-md-block">
-				<div class="moveDetailBx" style="margin-left:50px;float:left">
-				<div class="corpName">
-					<h5>[오늘의 집]</h5>
-					<h6>JAVA 프로그래머 채용</h6>
-				</div>
-				<hr style="margin:0px">
-				<div class="goBtn">바로가기 <i class="fas fa-angle-right"></i></div>
-				</div>
-			</div>
-		</div>
-		<!-- 슬라이드 쇼 끝 -->
-		
-		<!-- previous/next button -->
-		<a class="carousel-control-prev" href="#banner" data-slide="prev"> <span
-			class="carousel-control-prev-icon" aria-hidden="true"></span> <!-- <span>Previous</span> -->
-		</a> <a class="carousel-control-next" href="#banner" data-slide="next">
-			<span class="carousel-control-next-icon" aria-hidden="true"></span> <!-- <span>Next</span> -->
-		</a>
-		
-		<!-- indicator -->
-		<ul class="carousel-indicators">
-			<li data-target="#demo" data-slide-to="0" class="active"></li>
-			<li data-target="#demo" data-slide-to="1"></li>
-			<li data-target="#demo" data-slide-to="2"></li>
-		</ul>
-	</div>
-</div>	
-<!-- 배너 끝 -->
-	
+	<!-- 슬라이드 배너 (광고 1급 서비스) -->
+		<c:import url="/indiv/bannerAd.do"/>
+	<!-- 배너 끝 -->
 
 	<!-- 회원이 아닌 경우, 회원가입 링크 -->
 	<c:if test="${empty sessionScope.userNo}">
@@ -373,14 +294,16 @@
 	
 	<!-- 직군별 탐색 바로가기 -->
 	<div class="container" id="exploreBx" >
-		<img id="exploreImg"
-			alt="" src="<c:url value='/resources/img/indivMainImg/undraw_searching_p5ux.svg'/>">
-		<div id="exploreRecruit">
-			<a>아직 잘 모르시겠나요? 전체 공고를 살펴 보는 건 어때요?</a><br>
-			<div id="exploreBtn">채용공고 탐색 하러가기</div>
+		<div class="row">
+			<img id="exploreImg"
+				alt="" src="<c:url value='/resources/img/indivMainImg/undraw_searching_p5ux.svg'/>">
+			<div id="exploreRecruit">
+				<a>아직 잘 모르시겠나요? 전체 공고를 살펴 보는 건 어때요?</a><br>
+				<div id="exploreBtn">채용공고 탐색 하러가기</div>
+			</div>
 		</div>
-	</div>
-	
+	</div>	
+<script type="text/javascript" src="/resources/js/jquery-3.5.1.min.js"></script>
 <script>
 	$(function(){
 		$('#exploreBx').click(function(){
@@ -394,6 +317,7 @@
 		$('#joinBtn').click(function(){
 			location.href="<c:url value='/users/register.do'/>";
 		});
+		
 	});
 
 </script>	

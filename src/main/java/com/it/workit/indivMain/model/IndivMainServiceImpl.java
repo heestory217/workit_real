@@ -34,5 +34,11 @@ public class IndivMainServiceImpl implements IndivMainService{
 		return indivMainDao.selectSecClassAd();
 	}
 	
+	//1급 광고 구매 회사 채용 공고
+	@Override
+	public List<Map<String, Object>> selectFirClassAd() {
+		return indivMainDao.selectFirClassAd();
+	}
+	
 	
 }

@@ -68,8 +68,8 @@
 	
 	<!-- 광고 등록한 공고 번호 조회(1급) -->
 	<select id="selectFirClassAd" resultType="map">
-		select r.RECRUITANNOUNCE_NO, r.RECRUITANNOUNCE_title,
-			r.RECRUITANNOUNCE_SPAY,c.CORP_NAME, c.CORP_IMGURL, ad.paidservice_name,
+		select r.RECRUITANNOUNCE_NO, r.RECRUITANNOUNCE_title, c.CORP_NO,
+			r.RECRUITANNOUNCE_SPAY, c.CORP_NO, c.CORP_NAME, c.CORP_IMGURL, ad.paidservice_name,
 			a.AREA_ADD1, a.AREA_ADD2,r.RECRUITANNOUNCE_ENDDATE
 		from RECRUITANNOUNCE r right join CORP c
 		on r.user_no=c.user_no
@@ -93,6 +93,7 @@
 		on r.AREALIST_NO = a.AREA_NO
 		where paidservice_name like '%2급%'
 	</select>
+	
 </mapper>
 
 
