@@ -57,4 +57,7 @@ public interface ResumesService {
 
 	//이력서 승인대기로 업데이트
 	public int resumeOpen(int resumeNo);
+	
+	//이력서 파일 업로드
+	public int insertRsfile(ResumesVO resumeVo);
 }

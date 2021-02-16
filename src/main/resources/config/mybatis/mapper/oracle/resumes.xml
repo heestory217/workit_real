@@ -35,6 +35,15 @@
 		values (#{resumeNo},#{userNo},#{resumeTitle},#{resumeFinaleducation},#{resumeSelfintro})
 	</insert>
 	
+	<!-- 이력서 파일 올리기 -->
+	<insert id="insertRsfile" parameterType="resumesVO">
+		<selectKey keyProperty="resumeNo" resultType="int" order="BEFORE">
+			select RESUMES_SEQ.nextval from dual
+		</selectKey>
+		insert into resumes (RESUME_NO,USER_NO,RESUME_TITLE,RESUME_FILENAME,RESUME_FILESIZE,RESUME_FILEORIGINALNAME)
+		values(#{resumeNo},#{userNo},#{resumeTitle},#{resumeFilename},#{resumeFilesize},#{resumeFileoriginalname})
+	</insert>
+	
 	<!-- 수상 -->
 	<insert id="insertAward" parameterType="awardVo">
 		<selectKey keyProperty="awardNo" resultType="int" order="BEFORE">

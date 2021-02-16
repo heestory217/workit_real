@@ -116,6 +116,7 @@ public class QnaController {
 		//2
 		QnaUsersVO qauVo =qaService.qaSelectByNo(qaNo);
 		
+		
 		String msg="비밀번호가 틀렸습니다", url="/qna/passwordCheck.do?qaNo="+qaNo;
 		if (qauVo.getQaPassword().equals(qaPassword)) {
 			qaService.qaViewCount(qaNo);

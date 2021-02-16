@@ -29,8 +29,12 @@
 			});//ajax
 		});//change
 		
+		//$('#areaAdd2 option:selected').on('click',function(){
+			//$('#areaAdd2 option:gt(0)').prop('disabled',true);
+		//	alert("문장이 클릭되었습니다.");
+		//}); 
 		
-		$('#ExploreBtn').click(function(){
+		$('#exploreBtn').click(function(){
 			if($('#areaAdd1 option:selected').val()=="X"){
 				alert('지역을 선택하세요.');
 				$('#areaAdd1').focus();
@@ -39,19 +43,23 @@
 				alert('상세 지역을 선택하세요.');
 				$('#areaAdd2').focus();
 				event.preventDefault();
-			}else if($('#languageNo option:selected').val()=="X"){
-				alert('사용 언어를 선택하세요.');
+			}else if ($('#areaAdd2 option:selected').length>4) {
+				alert('지역은 3개 이하만 선택해주세요.');
 				$('#areaAdd2').focus();
+				event.preventDefault();
+			}else if($('#userLanguage option:selected').val()=="X"){
+				alert('사용 언어를 선택하세요.');
+				$('#userLanguage').focus();
+				event.preventDefault();
+			}else if ($('#userLanguage option:selected').length>6) {
+				alert('언어는 5개 이하만 선택해주세요.');
+				$('#userLanguage').focus();
 				event.preventDefault();
 			}
 		});
 		
-		$("#userLanguage").on("click", function(){
-			console.log("여기입니다");
-		});
-		
 		$('#exploreBtn').click(function(){
-			var len = $('#languageNo').val();
+			var len = $('#userLanguage').val();
 			
 		    for (var i=0; i<len.length; i++) {
 		        if(len[i].selected){
@@ -154,7 +162,7 @@ p#info {
 		</select>
 		</div>
 		
-		<input type="text" name="resumeNo" value="${param.resumeNo }">
+		<input type="hidden" name="resumeNo" value="${param.resumeNo }">
 		<p id="info"><i class="fa fa-hand-paper-o" aria-hidden="true"></i>
 		이력서를 공개하시기 위해 근무 가능 지역과 사용할 수 있는 개발언어를 선택하셔야합니다(다중 선택 가능)</p>
 		<div id="btWarp">

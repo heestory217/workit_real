@@ -185,15 +185,27 @@ select.qaSelete {
 											
 			                            	<!-- 잠금버튼  -->
 			                            	<c:if test="${qaVo.qaSecret =='Y' }">
-												<span><i class="fa fa-lock" aria-hidden="true">&nbsp;</i></span>		                            	
-					                            <a class="pwck" href="<c:url value='/qna/passwordCheck.do?qaNo=${qaVo.qaNo }'/>">
-					                            	<c:if test="${fn:length(qaVo.qaTitle) > 13}">
-					                               		${fn:substring(qaVo.qaTitle, 0, 13) } ...
-					                            	</c:if>
-					                            	<c:if test="${fn:length(qaVo.qaTitle) <= 13}">
-					                            		${qaVo.qaTitle}
-					                            	</c:if>
-					                            </a>
+												<span><i class="fa fa-lock" aria-hidden="true">&nbsp;</i></span>
+												<c:if test="${sessionScope.userNo eq 999 }">
+													<a class="pwck" href="<c:url value='/qna/qnaCount.do?qaNo=${qaVo.qaNo }'/>">
+						                            	<c:if test="${fn:length(qaVo.qaTitle) > 13}">
+						                               		${fn:substring(qaVo.qaTitle, 0, 13) } ...
+						                            	</c:if>
+						                            	<c:if test="${fn:length(qaVo.qaTitle) <= 13}">
+						                            		${qaVo.qaTitle}
+						                            	</c:if>
+						                            </a>
+												</c:if>	
+												<c:if test="${!empty sessionScope.userId and sessionScope.userNo != 999}">
+						                            <a class="pwck" href="<c:url value='/qna/passwordCheck.do?qaNo=${qaVo.qaNo }'/>">
+						                            	<c:if test="${fn:length(qaVo.qaTitle) > 13}">
+						                               		${fn:substring(qaVo.qaTitle, 0, 13) } ...
+						                            	</c:if>
+						                            	<c:if test="${fn:length(qaVo.qaTitle) <= 13}">
+						                            		${qaVo.qaTitle}
+						                            	</c:if>
+						                            </a>
+												</c:if>	                          	
 			                            	</c:if>
 			                            	<c:if test="${qaVo.qaSecret !='Y' }">
 					                            <a href="<c:url value='/qna/qnaCount.do?qaNo=${qaVo.qaNo }'/>">
