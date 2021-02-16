@@ -206,4 +206,9 @@ public class ResumesServiceImpl implements ResumesService{
 		return resumesDao.upadteImsi(resumeNo);
 	}
 
+	@Override
+	public int insertRsfile(ResumesVO resumeVo) {
+		return resumesDao.insertRsfile(resumeVo);
+	}
+
 }

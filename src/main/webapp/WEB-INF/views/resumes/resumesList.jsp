@@ -4,7 +4,8 @@
 
 <style type="text/css">
 button.newresumeBt,
-.uploderesumeBt {
+.uploderesumeBt,
+#frmFileUp {
     border: none;
     width: 100%;
     height: 100%;
@@ -75,8 +76,16 @@ $(function(){
 		} 
 	});
 	
+	//버튼에 인풋파일 연결
+	$('.uploderesumeBt').click(function (e) {
+		e.preventDefault();
+		$('#upfile').click();
+	});
+	
 });
-
+	function changeValue(obj){
+		document.frmFileUp.submit();
+	}
 </script>
 
 <!-- Product Shop Section Begin -->
@@ -108,12 +117,20 @@ $(function(){
 						<!--이력서 첨부 버튼 -->
 						<div class="col-lg-3 col-sm-6">
 							<div class="product-item">
+					<form name="frmFileUp" method="post" enctype="multipart/form-data" 
+							action="<c:url value='/resumes/rsfileUpload.do'/>" id="frmFileUp">
 								<div class="pi-pic">
-									<button class="uploderesumeBt">
-										<i class="fa fa-upload" aria-hidden="true"></i>
-										<h5 id="fileupSpan">파일 업로드</h5>
-									</button>
+<!-- 										<input type="text" id="resumeTitle" name=""> -->
+										<input type="hidden" id="userNo" name="userNo" 
+											value="${sessionScope.userNo }">
+										<input type="file" id="upfile" onchange="changeValue(this)"
+											name="resumeFilename" style="display: none">
+										<button type="button" class="uploderesumeBt">
+											<i class="fa fa-upload" aria-hidden="true"></i>
+											<h5 id="fileupSpan">파일 업로드</h5>
+										</button>
 								</div>
+					</form>
 							</div>
 						</div>
 

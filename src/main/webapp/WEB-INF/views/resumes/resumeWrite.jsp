@@ -27,8 +27,8 @@ carrerInput1 +='<button class="btnRemove" value="Remove"><i class="fa fa-times" 
 			});//carrerBt
 			
 			$('#new-carrerDiv').on('click','.btnRemove', function(){
-				$(this).parent().remove();
-				//counCrr--;
+				$(this).parent('div').remove();
+				counCrr--;
 		    });
 			
 			//수상
@@ -47,7 +47,7 @@ awardInput += '<button class="btnRemove" value="Remove"><i class="fa fa-times" a
 	   		
 	   		$('#new-awardDiv').on('click','.btnRemove', function(){
 				$(this).parent().remove();
-				//countAw--;
+				countAw--;
 		    });
 	   		
 	   		//자격증
@@ -65,7 +65,7 @@ licenInput+='<button class="btnRemove" value="Remove"><i class="fa fa-times" ari
 	   		
 	   		$('#new-licencseDiv').on('click','.btnRemove', function(){
 				$(this).parent().remove();
-				//countLi--;
+				countLi--;
 		    });
 	   		
 	   		//외국어
@@ -84,7 +84,7 @@ foreignInput+='<button class="btnRemove" value="Remove"><i class="fa fa-times" a
 	   		
 	   		$('#new-foreignDiv').on('click','.btnRemove', function(){
 				$(this).parent().remove();
-				//count--;
+				count--;
 		    });
 		});
 </script>

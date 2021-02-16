@@ -1,11 +1,14 @@
 package com.it.workit.resumes.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.it.workit.common.FileUploadUtil;
 import com.it.workit.corp.model.AreaListView;
 import com.it.workit.corp.model.CorpService;
 import com.it.workit.corp.model.LanguageListView;
@@ -51,6 +55,7 @@ public class ResumesController {
 	@Autowired private CorpSearchService cosService;
 	@Autowired private CorpService corpService;
 	@Autowired private IndivSearchService indivSearchServie;
+	@Autowired private FileUploadUtil fileUtil;
 
 	@RequestMapping(value = "/resumesList.do", method = RequestMethod.GET)
 	public String resumeList(HttpSession session, Model model) {
@@ -58,15 +63,6 @@ public class ResumesController {
 
 		String userId = (String) session.getAttribute("userId");
 		logger.info("userId={}",userId);
-
-		if (userId==null||userId.isEmpty()) {
-			String mag = "로그인 후 사용가능합니다";
-			String url = "/index.do";
-
-			model.addAttribute("msg",mag);
-			model.addAttribute("url",url);
-			return "common/message";
-		}
 
 		UsersVO userVo = userService.selectByUserId(userId);
 		int userNo=userVo.getUserNo();
@@ -235,15 +231,14 @@ public class ResumesController {
 	}
 
 
-	//수정
+	//수정 화면
 	@RequestMapping(value = "/resumeUpdate.do", method = RequestMethod.GET)
 	public void updateResume_get(@RequestParam(defaultValue = "0") int resumeNo,
 			HttpSession session, Model model) {
 		logger.info("디테일페이지 보여주기");
 
-
 		Map<String, Object> map=rsService.selectByRsUser(resumeNo);
-		List<AwardVO> aList=rsService.selectAwdByNo(resumeNo);
+		List<AwardVO> aList=rsService.selectAwdByNo(resumeNo);		
 		List<CarrerVO> cList = rsService.selectCarByNo(resumeNo);
 		List<ForeignlanguageskillVO> fList=rsService.selectFlsByNo(resumeNo);
 		List<LicencseVO> lcList=rsService.selectLicenByNo(resumeNo);
@@ -314,58 +309,66 @@ public class ResumesController {
 		//logger.info("awardNo={}",awardNo);
 
 		//수상
-		for (int i = 0; i < awlist.size(); i++) {
-			int awardNo = awlist.get(i).getAwardNo();
-
-			AwardVO aVo = awlist.get(i);
-			logger.info("aVo={}",aVo);
-
-			if (awardNo==0) {
-				rsService.insertAward(aVo);
-			} else {
-				rsService.updateAwd(aVo);
+		if (awlist != null) {
+			for (int i = 0; i < awlist.size(); i++) {
+				int awardNo = awlist.get(i).getAwardNo();
+				
+				AwardVO aVo = awlist.get(i);
+				logger.info("aVo={}",aVo);
+				
+				if (awardNo==0) {
+					rsService.insertAward(aVo);
+				} else {
+					rsService.updateAwd(aVo);
+				}
 			}
 		}
 
 		//경력
-		for (int i = 0; i < carrlist.size(); i++) {
-			int carrerNo = carrlist.get(i).getCarrerNo();
-
-			CarrerVO cVo = carrlist.get(i);
-			logger.info("cVo={}",cVo);
-
-			if (carrerNo==0) {
-				rsService.insertCarrer(cVo);
-			} else {
-				rsService.updateCarrer(cVo);
+		if (carrlist != null) {
+			for (int i = 0; i < carrlist.size(); i++) {
+				int carrerNo = carrlist.get(i).getCarrerNo();
+				
+				CarrerVO cVo = carrlist.get(i);
+				logger.info("cVo={}",cVo);
+				
+				if (carrerNo==0) {
+					rsService.insertCarrer(cVo);
+				} else {
+					rsService.updateCarrer(cVo);
+				}
 			}
 		}
 
 		//자격증
-		for (int i = 0; i < licelist.size(); i++) {
-			int licencseNo = licelist.get(i).getLicencseNo();
-
-			LicencseVO lVo = licelist.get(i);
-			logger.info("lVo={}",lVo);
-
-			if (licencseNo==0) {
-				rsService.insertLicen(lVo);
-			} else {
-				rsService.updateLicen(lVo);
+		if (licelist != null) {
+			for (int i = 0; i < licelist.size(); i++) {
+				int licencseNo = licelist.get(i).getLicencseNo();
+				
+				LicencseVO lVo = licelist.get(i);
+				logger.info("lVo={}",lVo);
+				
+				if (licencseNo==0) {
+					rsService.insertLicen(lVo);
+				} else {
+					rsService.updateLicen(lVo);
+				}
 			}
 		}
 
 		//외국어
-		for (int i = 0; i < flslist.size(); i++) {
-			int foreignlanguageskillNo = flslist.get(i).getForeignlanguageskillNo();
-
-			ForeignlanguageskillVO fVo = flslist.get(i);
-			logger.info("fVo={}",fVo);
-
-			if (foreignlanguageskillNo==0) {
-				rsService.insertForeignskill(fVo);
-			} else {
-				rsService.updateFskill(fVo);
+		if (flslist != null) {
+			for (int i = 0; i < flslist.size(); i++) {
+				int foreignlanguageskillNo = flslist.get(i).getForeignlanguageskillNo();
+				
+				ForeignlanguageskillVO fVo = flslist.get(i);
+				logger.info("fVo={}",fVo);
+				
+				if (foreignlanguageskillNo==0) {
+					rsService.insertForeignskill(fVo);
+				} else {
+					rsService.updateFskill(fVo);
+				}
 			}
 		}
 		
@@ -522,6 +525,54 @@ public class ResumesController {
 		model.addAttribute("userVo",userVo);
 		model.addAttribute("rlist",rlist);
 		
+	}
+	
+	//이력서 파일 업로드
+	@RequestMapping(value="/rsfileUpload.do",method = RequestMethod.POST)
+	public String rsfileUpload(@ModelAttribute ResumesVO rVo,
+			HttpSession session,
+			HttpServletRequest request) {
+		logger.info("파일업로드");
+		
+//		String userId = (String) session.getAttribute("userId");
+//		logger.info("userId={}",userId);
+//		UsersVO userVo = userService.selectByUserId(userId);
+//		int userNo=userVo.getUserNo();
+//		logger.info("userNo={}",userNo);
+		
+		//파일업로드 처리
+		String resumeFileoriginalname="", resumeFilename="";
+		long resumeFilesize=0;
+		try {
+			List<Map<String, Object>> fileList 
+				= fileUtil.fileUplaod(request, FileUploadUtil.PDS_TYPE);
+			Map<String, Object> firstMap = fileList.get(0);
+			resumeFilename = (String)firstMap.get("fileName");
+			logger.info("로고 logoURL={}",resumeFilename);
+			logger.info("로고 fileList.size()={}",fileList.size());
+			
+			for (Map<String,Object> fileMap:fileList) {
+				resumeFileoriginalname=(String)fileMap.get("originalFileName");
+				resumeFilename=(String)fileMap.get("fileName");
+				resumeFilesize=(Long)fileMap.get("fileSize");
+				
+			}
+		} catch (IllegalStateException e) {
+			logger.info("파일 업로드 실패");
+			e.printStackTrace();
+		} catch (IOException e) {
+			logger.info("파일 업로드 실패");
+			e.printStackTrace();
+		}
+		//rVo.setUserNo(userNo);
+		rVo.setResumeTitle(resumeFilename);
+		rVo.setResumeFilename(resumeFilename);
+		rVo.setResumeFilesize(resumeFilesize);
+		rVo.setResumeFileoriginalname(resumeFileoriginalname);
+		int cnt = rsService.insertRsfile(rVo);
+		logger.info("파일업로드 결과 cnt={}", cnt);
+		
+		return "redirect:/resumes/resumesList.do";
 	}
 	
 

@@ -155,6 +155,11 @@ public class ResumesDAOMybatis implements ResumesDAO{
 	public int upadteImsi(int resumeNo) {
 		return sqlSession.update(namespace+"upadteImsi",resumeNo);
 	}
+	//이력서 파일
+	@Override
+	public int insertRsfile(ResumesVO resumeVo) {
+		return sqlSession.insert(namespace+"insertRsfile",resumeVo);
+	}
 	
 	
 	
