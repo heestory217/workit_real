@@ -529,7 +529,7 @@ public class ResumesController {
 	
 	//이력서 파일 업로드
 	@RequestMapping(value="/rsfileUpload.do",method = RequestMethod.POST)
-	public String rsfileUpload(@ModelAttribute ResumesVO rVo,
+	public String rsfileUpload(@RequestParam int userNo,
 			HttpSession session,
 			HttpServletRequest request) {
 		logger.info("파일업로드");
@@ -546,16 +546,11 @@ public class ResumesController {
 		try {
 			List<Map<String, Object>> fileList 
 				= fileUtil.fileUplaod(request, FileUploadUtil.PDS_TYPE);
-			Map<String, Object> firstMap = fileList.get(0);
-			resumeFilename = (String)firstMap.get("fileName");
-			logger.info("로고 logoURL={}",resumeFilename);
-			logger.info("로고 fileList.size()={}",fileList.size());
-			
+						
 			for (Map<String,Object> fileMap:fileList) {
 				resumeFileoriginalname=(String)fileMap.get("originalFileName");
 				resumeFilename=(String)fileMap.get("fileName");
 				resumeFilesize=(Long)fileMap.get("fileSize");
-				
 			}
 		} catch (IllegalStateException e) {
 			logger.info("파일 업로드 실패");
@@ -564,7 +559,8 @@ public class ResumesController {
 			logger.info("파일 업로드 실패");
 			e.printStackTrace();
 		}
-		//rVo.setUserNo(userNo);
+		ResumesVO rVo = new ResumesVO();
+		rVo.setUserNo(userNo);
 		rVo.setResumeTitle(resumeFilename);
 		rVo.setResumeFilename(resumeFilename);
 		rVo.setResumeFilesize(resumeFilesize);
