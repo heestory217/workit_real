@@ -13,4 +13,6 @@ public interface salesMngDAO {
 	List<Map<String, Object>> selectDelSales(salesDateVO vo);
 	List<Map<String, Object>> selectResumeSales(salesDateVO vo);
 
+	List<Map<String, Object>> selectServicePie();
+
 }

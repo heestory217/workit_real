@@ -12,5 +12,7 @@ public interface salesMngService {
 	List<Map<String, Object>> selectAdSales(String year);
 	List<Map<String, Object>> selectDelSales(String year);
 	List<Map<String, Object>> selectResumeSales(String year);
+	//서비스 파이
+	List<Map<String, Object>> selectServicePie();
 
 }

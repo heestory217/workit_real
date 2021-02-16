@@ -115,6 +115,12 @@
 		  GROUP BY TO_CHAR(b.dt, 'YYYY-MM')
 		  ORDER BY TO_CHAR(b.dt, 'YYYY-MM')
 	</select>
+	
+	<select id="selectServicePie" resultType="map">
+		SELECT PAIDSERVICE_NAME, CNT,
+        ROUND(RATIO_TO_REPORT(CNT) OVER(),2)*100 per
+		FROM salesCount
+	</select>
 </mapper>
 
 
