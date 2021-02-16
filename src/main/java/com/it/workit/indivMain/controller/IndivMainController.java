@@ -69,21 +69,32 @@ public class IndivMainController {
 		return "indiv/customPosting";
 	}
 	
-	
-	
-	//오늘의 추천
-	@RequestMapping("/todayRcmd.do")
-	public void todayRcmd() {
-		logger.info("신규 채용 공고 조회");
-		/*
-		 * return "indiv/todayRcmd";
-		 */
+	//1급 광고 구매 회사 채용 공고
+	@RequestMapping("/bannerAd.do")
+	public void bannerAd(Model model) {
+		logger.info("메인 배너 조회");
+		List<Map<String, Object>> firAdList = indivmainService.selectFirClassAd();
+		logger.info("오늘의 추천 채용 공고 결과, firAdList.size={}", firAdList.size());
+		model.addAttribute("firAdList", firAdList);
 	}
 	
-   //유료서비스 페이지 
-   @RequestMapping("/serviceIntro.do")
-   public void serviceIntro() {
-      logger.info("서비스 설명 페이지 보여주기");
-   }
-
+	
+	
+	//2급 광고 구매 회사 채용 공고
+	@RequestMapping("/todayRcmd.do")
+	public void todayRcmd(Model model) {
+		logger.info("오늘의 추천 화면 조회");
+		
+		List<Map<String, Object>> secAdList = indivmainService.selectSecClassAd();
+		logger.info("오늘의 추천 채용 공고 결과, secAdList.size={}", secAdList.size());
+		
+		model.addAttribute("secAdList", secAdList);
+	}
+	
+    //유료서비스 페이지 
+    @RequestMapping("/serviceIntro.do")
+    public void serviceIntro() {
+       logger.info("서비스 설명 페이지 보여주기");
+    }
+	
 }

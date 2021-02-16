@@ -21,7 +21,6 @@ import com.it.workit.admin.notice.model.NoticeListVO;
 import com.it.workit.admin.notice.model.NoticeSearchVO;
 import com.it.workit.admin.notice.model.NoticeService;
 import com.it.workit.admin.notice.model.NoticeVO;
-import com.it.workit.common.FileUploadUtil;
 import com.it.workit.common.PaginationInfo;
 
 @Controller
