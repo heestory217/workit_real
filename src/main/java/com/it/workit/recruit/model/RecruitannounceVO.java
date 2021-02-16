@@ -25,9 +25,17 @@ public class RecruitannounceVO {
 	private int recruitannounceEndcheck;//RECRUITANNOUNCE_ENDCHECK	NUMBER	NOT NULL
 	private String recruitannounceLink;//RECRUITANNOUNCE_LINK	VARCHAR2(200)	NULL
 	
+	//관리자
+	private String usersNames;//사용자이름
+	private String corpsNames;//사용자이름
 	
 	
-	
+	public String getCorpsNames() {
+		return corpsNames;
+	}
+	public void setCorpsNames(String corpsNames) {
+		this.corpsNames = corpsNames;
+	}
 	public Date getRecruitannounceEnddate() {
 		return recruitannounceEnddate;
 	}
@@ -156,6 +164,14 @@ public class RecruitannounceVO {
 	public void setRecruitannounceLink(String recruitannounceLink) {
 		this.recruitannounceLink = recruitannounceLink;
 	}
+	public String getUsersNames() {
+		return usersNames;
+	}
+	public void setUsersNames(String usersNames) {
+		this.usersNames = usersNames;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "RecruitannounceVO [recruitannounceNo=" + recruitannounceNo + ", userNo=" + userNo + ", workkindNo="
@@ -169,9 +185,7 @@ public class RecruitannounceVO {
 				+ ", recruitannounceUpcheckcarrer=" + recruitannounceUpcheckcarrer + ", recruitannounceHirestep="
 				+ recruitannounceHirestep + ", recruitannounceElse=" + recruitannounceElse + ", recruitannounceUpcheck="
 				+ recruitannounceUpcheck + ", recruitannounceEndcheck=" + recruitannounceEndcheck
-				+ ", recruitannounceLink=" + recruitannounceLink + "]";
+				+ ", recruitannounceLink=" + recruitannounceLink + ", usersNames=" + usersNames + ", corpsNames="
+				+ corpsNames + "]";
 	}
-	
-	
-	
 }

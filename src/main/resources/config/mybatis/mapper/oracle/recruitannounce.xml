@@ -117,7 +117,7 @@
 		    select A.*, rownum as RNUM
 		    from
 		    (
-		        select * from recruitannounce
+		        select a.*, (select USER_NAME from users x where x.USER_NO in a.USER_NO) as users_names,  (select CORP_NAME from CORP b where b.USER_NO=a.USER_NO) as corpsnames from recruitannounce a
 		        <if test="searchKeyword !=null and searchKeyword != ''">
 				recruit like '%' || #{searchKeyword} || '%'
 			</if>
@@ -152,5 +152,5 @@
 		set RECRUITANNOUNCE_UPCHECK=3
 		where RECRUITANNOUNCE_NO=#{recruitannounceNo}
 	</update>
-	
+
 </mapper>

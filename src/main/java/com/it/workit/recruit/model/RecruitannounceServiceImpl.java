@@ -114,5 +114,24 @@ public class RecruitannounceServiceImpl implements RecruitannounceService {
 	public int recruitannouncedeny(int recruitannounceNo) {
 		return RecruitannounceDao.recruitannouncedeny(recruitannounceNo);
 	}
-	
+	/*
+	@Override
+	public List<AdminadvertisingVO> selectadvertisingfstclass() {
+		return RecruitannounceDao.selectadvertisingfstclass();
+	}
+
+	@Override
+	public List<AdminadvertisingVO> selectadvertisingsecclass() {
+		return RecruitannounceDao.selectadvertisingsecclass();
+	}
+	@Override
+	public int selectadvertisingcountfst() {
+		return RecruitannounceDao.selectadvertisingcountfst();
+	}
+
+	@Override
+	public int selectadvertisingcountsec() {
+		return RecruitannounceDao.selectadvertisingcountsec();
+	}
+	*/
 }
