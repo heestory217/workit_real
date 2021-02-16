@@ -96,5 +96,10 @@ public class IndivMainController {
     public void serviceIntro() {
        logger.info("서비스 설명 페이지 보여주기");
     }
+    
+    @RequestMapping("/contact.do")
+    public void contact() {
+    	logger.info("Contact 페이지 보여주기");
+    }
 	
 }

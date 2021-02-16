@@ -72,6 +72,7 @@
                         <li><a href="<c:url value='/indivMypage/indivMypageSituation.do?type=3'/>">마이페이지</a></li>
                         <li><a href="<c:url value='/indiv/community/qstnList.do'/>">커뮤니티</a></li>
                         <li><a href="<c:url value='/indiv/serviceIntro.do'/>">서비스 안내</a></li>
+                        <li><a href="<c:url value='/indiv/contact.do'/>">Contact</a></li>
                     </ul>
                 </nav>
                 <div id="mobile-menu-wrap"></div>
