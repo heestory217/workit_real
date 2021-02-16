@@ -1,5 +1,7 @@
 package com.it.workit.interceptor;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,7 +17,12 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
         Object obj = session.getAttribute("userId");
           
         if ( obj == null ){
-            response.sendRedirect("/workit/users/login.do");
+        	response.setContentType("text/html;charset=utf-8");
+        	PrintWriter out = response.getWriter();
+        	out.print("<script>");
+			out.print("alert('로그인 후 이용가능한 서비스입니다.');");
+			out.print("location.href='"+request.getContextPath()+"/users/login.do';");
+			out.print("</script>");
             return false;
         }
         return true;
@@ -24,7 +31,6 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception {
-        // TODO Auto-generated method stub
         super.postHandle(request, response, handler, modelAndView);
     }
 }
