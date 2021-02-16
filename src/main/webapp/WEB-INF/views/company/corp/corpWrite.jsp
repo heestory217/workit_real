@@ -86,7 +86,7 @@
 					$("#addimg4").focus();
 					event.preventDefault();
 				}
-			});*/
+			});
 		});
 </script>
 <style type="text/css">
