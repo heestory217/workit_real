@@ -58,7 +58,11 @@
    
    <update id="updateCorpUsers" parameterType="usersVo">
       update users
-      set user_name=#{userName}, user_password=#{userPassword}, 
+      set user_name=#{userName},
+        	<if test="userPassword != null and userPassword !=''">
+    			user_password=#{userPassword},
+    			salt=#{salt},
+    		</if> 
           user_hp1=#{userHp1}, user_hp2=#{userHp2}, 
           user_hp3=#{userHp3}, user_zipcode=#{userZipcode}, 
           user_address=#{userAddress}, user_addressdetail=#{userAddressdetail}
@@ -236,10 +240,10 @@
       order by user_no
    </select>
 	
-	<update id="updateEnddate" parameterType="usersVo">
+	<update id="updateEnddate" parameterType="String">
 		UPDATE USERS
 		SET USER_ENDDATE = SYSDATE
-		WHERE USER_ID=#{userId} AND USER_PASSWORD=#{userPassword}
+		WHERE USER_ID=#{userId}
 	</update>
 	
 	

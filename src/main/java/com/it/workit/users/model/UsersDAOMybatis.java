@@ -169,8 +169,8 @@ public class UsersDAOMybatis implements UsersDAO {
    }
 
 	@Override
-	public int updateEnddate(UsersVO vo) {
-		return sqlSession.update(namespace+"updateEnddate",vo);
+	public int updateEnddate(String userId) {
+		return sqlSession.update(namespace+"updateEnddate",userId);
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public interface UsersDAO {
 	public int selectTotalWithdrawCorpByDate(DateSearchVO dateSearchVo);
 	public List<UsersVO> usersAll();
 	
-	public int updateEnddate(UsersVO vo);
+	public int updateEnddate(String userId);
 	
 	//비밀번호 암호화
 	public String selectSaltById(String userid);

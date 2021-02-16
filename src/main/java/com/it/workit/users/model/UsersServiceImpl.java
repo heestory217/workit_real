@@ -212,6 +212,17 @@ public class UsersServiceImpl implements UsersService{
 
    @Override
    public int updateCorpUsers(UsersVO vo) {
+   System.out.println("usersVO ="+vo);
+		if(vo.getUserPassword()!=null && !vo.getUserPassword().isEmpty()) { //비번 변경이 있다면
+			String salt = SHA256Util.generateSalt();
+			vo.setSalt(salt);
+			
+			String pwd = vo.getUserPassword();
+			pwd = SHA256Util.getEncrypt(pwd, salt);
+			vo.setUserPassword(pwd);
+		}else { //비번 변경이 없다면
+			vo.setUserPassword(null);
+		}
       return usersDao.updateCorpUsers(vo);
    }
 
@@ -221,8 +232,8 @@ public class UsersServiceImpl implements UsersService{
    }
 
 	@Override
-	public int updateEnddate(UsersVO vo) {
-		return usersDao.updateEnddate(vo);
+	public int updateEnddate(String userId) {
+		return usersDao.updateEnddate(userId);
 	}
 
 
