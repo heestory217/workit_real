@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -60,9 +62,16 @@
 				    <h5>${crVo.recruitannounceTitle }</h5>
 			 </a>
 				<p>
-				   연봉 : ${crVo.recruitannounceSpay }만원 &nbsp;&nbsp;&nbsp;
+				   연봉 :
+				    <fmt:formatNumber value="${crVo.recruitannounceSpay }" pattern="###,###,###"/>원 &nbsp;&nbsp;&nbsp;
 				   언어 : ${crVo.recruitannounceSkill } &nbsp;&nbsp;&nbsp;
-				   지원자격 : ${crVo.recruitannounceWantedcarrer }년 이상
+				   지원자격 : 
+				   <c:if test="${crVo.recruitannounceWantedcarrer eq 0 }">
+				   		신입
+				   </c:if>
+				   <c:if test="${crVo.recruitannounceWantedcarrer != 0 }">
+					   ${crVo.recruitannounceWantedcarrer }년 이상
+				   </c:if>
 				</p>
 			 </div>
 			</div>
