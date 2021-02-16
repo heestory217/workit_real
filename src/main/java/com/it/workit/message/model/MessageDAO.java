@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.it.workit.getmessage.model.GetMessageVO;
+import com.it.workit.position.model.PositionsuggestVO;
 
 public interface MessageDAO {
 	//메세지 보내기
 	int insertMessage(MessageVO vo);
+	MessageVO selectMsgJustNow(int userNo);
 	
 	//받은 메세지 뷰 조회
 	List<Map<String, Object>> selectGetMessage(int userNo);

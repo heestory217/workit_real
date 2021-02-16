@@ -20,6 +20,11 @@ public class MessageDAOMybatis implements MessageDAO{
 	}
 
 	@Override
+	public MessageVO selectMsgJustNow(int userNo) {
+		return sqlSession.selectOne(namespace+"selectMsgJustNow", userNo);
+	}
+	
+	@Override
 	public List<Map<String, Object>> selectSentMessage(int userNo) {
 		return sqlSession.selectList(namespace+"selectSentMessage", userNo);
 	}

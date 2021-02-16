@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface MessageService {
-	int insertMessage(MessageVO vo);
+	int insertMessage(MessageVO vo, int userNo);
+	
 	//내가 보낸 쪽지
 	List<Map<String, Object>> selectSentMessage(int userNo);
 	
