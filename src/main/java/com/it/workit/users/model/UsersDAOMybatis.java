@@ -173,5 +173,10 @@ public class UsersDAOMybatis implements UsersDAO {
 		return sqlSession.update(namespace+"updateEnddate",vo);
 	}
 
+	@Override
+	public String selectSaltById(String userid) {
+		return sqlSession.selectOne(namespace+"selectSaltById",userid);
+	}
+
 
 }

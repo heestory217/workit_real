@@ -80,7 +80,7 @@ public class UsersController {
 
 		vo.setUserEmail1(email1);
 		vo.setUserEmail2(email2);
-
+		
 		int cnt=usersService.insertUsers(vo);
 
 		logger.info("회원가입 결과, cnt={}", cnt);

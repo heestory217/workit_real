@@ -40,4 +40,7 @@ public interface UsersDAO {
 	public List<UsersVO> usersAll();
 	
 	public int updateEnddate(UsersVO vo);
+	
+	//비밀번호 암호화
+	public String selectSaltById(String userid);
 }

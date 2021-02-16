@@ -1,6 +1,5 @@
 package com.it.workit.users.model;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.it.workit.common.DateSearchVO;
+import com.it.workit.common.SHA256Util;
 import com.it.workit.common.SearchVO;
 
 @Service
@@ -32,6 +32,13 @@ public class UsersServiceImpl implements UsersService{
 
    @Override
    public int insertUsers(UsersVO vo) {
+	  String salt = SHA256Util.generateSalt();
+	  vo.setSalt(salt);
+	  
+	  String pwd = vo.getUserPassword();
+	  pwd = SHA256Util.getEncrypt(pwd, salt);
+	  vo.setUserPassword(pwd);
+	  
       int cnt=usersDao.insertUsers(vo);
       return cnt;
    }
@@ -43,6 +50,9 @@ public class UsersServiceImpl implements UsersService{
          result=ID_NONE;
          return result;
       }
+      
+      String salt = usersDao.selectSaltById(userid);
+      password = SHA256Util.getEncrypt(password, salt);
       
       String pass=usersDao.loginCheck(userid, password);
       if(pass.equals(password)) {
@@ -65,6 +75,17 @@ public class UsersServiceImpl implements UsersService{
 
    @Override
    public int updateUsers(UsersVO vo) {
+	System.out.println("usersVO ="+vo);
+	if(vo.getUserPassword()!=null && !vo.getUserPassword().isEmpty()) { //비번 변경이 있다면
+		String salt = SHA256Util.generateSalt();
+		vo.setSalt(salt);
+		
+		String pwd = vo.getUserPassword();
+		pwd = SHA256Util.getEncrypt(pwd, salt);
+		vo.setUserPassword(pwd);
+	}else { //비번 변경이 없다면
+		vo.setUserPassword(null);
+	}
       return usersDao.updateUsers(vo);
    }
 
@@ -179,5 +200,6 @@ public class UsersServiceImpl implements UsersService{
 	public int updateEnddate(UsersVO vo) {
 		return usersDao.updateEnddate(vo);
 	}
+
 
 }
