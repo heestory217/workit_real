@@ -205,7 +205,7 @@ public class MessageController {
 				url="/message/messageBoxSend.do";
 			}else if(getMessageNo!=0) {
 				//받은 쪽지 삭제
-				cnt = messageService.updategetMsgDelflag(getMessageNo);
+				cnt = getMessageService.updategetMsgDelflag(getMessageNo);
 
 				Map<String, Object>  map = messageService.selectByMessageNo(getMessageNo);
 				int important = Integer.parseInt(String.valueOf(map.get("GETMESSAGE_IMPFLAG")));
@@ -309,6 +309,37 @@ public class MessageController {
 
 		return "common/message";
 		
+	}
+	
+	//받은쪽지함, 내가보낸쪽지함, 쪽지보관함 다중 삭제처리
+	@RequestMapping("/deleteMultigetMsg.do")
+	public String deleteMultigetMsg(@ModelAttribute GetMessageListVO getMsgListVo,
+			@RequestParam (required = false) String type, Model model) {
+		logger.info("선택한 쪽지 삭제(플래그 갱신) 처리, 파라미터 GetMessageListVO={}", getMsgListVo);
+		
+		List<GetMessageVO> getMsgList = getMsgListVo.getGetMsgItems();
+		int cnt = getMessageService.updategetMsgDelflag(getMsgList);
+		logger.info("선택한 쪽지 삭제 결과, cnt={}", cnt);
+		
+		String msg="선택한 쪽지 삭제 실패!", url="/message/messageBox.do";
+		if(type!=null && !type.isEmpty() && type.equals("toMe")) {
+			url="/message/messageBox.do?type=toMe";
+		}else if(type!=null && !type.isEmpty() && type.equals("important")){
+			url="/message/messageBox.do?type=important";
+		}
+		
+		if(cnt>0) {
+			msg="선택한 쪽지를 삭제하였습니다.";
+			for(int i=0;i<getMsgList.size();i++) {
+				GetMessageVO getMsgVo = getMsgList.get(i);
+				logger.info("[{}] : messageNo={}", i, getMsgVo.getMessageNo());
+			}//for
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
 	}
 	
 	@RequestMapping("/impMultiGetMsg.do")

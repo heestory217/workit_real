@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.it.workit.getmessage.model.GetMessageVO;
+
 @Service
 public class MessageServiceImpl implements MessageService{
 	
@@ -38,12 +40,13 @@ public class MessageServiceImpl implements MessageService{
 		return messageDao.selectByMessageNo(messageNo);
 	}
 	
+	//보낸 메세지 삭제 (플래그 업데이트) - 개별
 	@Override
 	public int updateMsgDelflag(int messageNo) {
 		return messageDao.updateMsgDelflag(messageNo);
 	}
 	
-	//보낸 메세지 삭제 (플래그 업데이트)
+	//보낸 메세지 삭제 (플래그 업데이트) - 다중
 	@Override
 	@Transactional
 	public int updateMsgDelflagMulti(List<MessageVO> msgList) {
@@ -61,12 +64,6 @@ public class MessageServiceImpl implements MessageService{
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 		}
 		return cnt;
-	}
-
-	//받은 메세지 삭제 (플래그 업데이트)
-	@Override
-	public int updategetMsgDelflag(int messageNo) {
-		return messageDao.updategetMsgDelflag(messageNo);
 	}
 
 }

@@ -13,13 +13,23 @@
 	$(function(){
 		$('#btImp').click(function(){
 			var len=$('.cart-table tbody tr td').find('input[type=checkbox]:checked').length;
-			            //여러개 이므로 배열 length사용 가능
 			if(len==0){
 			   alert('먼저 보관할 쪽지를 선택하세요.');
 			   return false;
 			}
-			
 			$('form[name=frmGetList]').prop('action', '<c:url value="/message/impMultiGetMsg.do"/>');
+			$('form[name=frmGetList]').submit();
+		});
+		
+		$('#btDel').click(function(){
+			var len=$('.cart-table tbody tr td').find('input[type=checkbox]:checked').length;
+			if(len==0){
+			   alert('먼저 삭제할 쪽지를 선택하세요.');
+			   return false;
+			}
+			
+			var type = $('#type').html();
+			$('form[name=frmGetList]').prop('action', '<c:url value="/message/deleteMultigetMsg.do?type="'+type+'/>');
 			$('form[name=frmGetList]').submit();
 			
 		});
@@ -32,6 +42,7 @@
 		<h2>받은쪽지함</h2>
 	</c:if>
 	<c:if test="${!empty param.type }">
+		<p id="type" style="display: none;">${param.type }</p>
 		<c:if test="${param.type == 'toMe'}">
 			<h2>나에게 쓴 쪽지함</h2>
 		</c:if>
@@ -83,7 +94,6 @@
 							<!-- 받은 쪽지함 --> 
 							<c:if test="${empty param.type}">
 								<a href="<c:url value="/message/countUpdate.do?getMessageNo=${map['MESSAGE_NO']}"/>">
-									<!-- 제목이 긴 경우 일부만 보여주기 -->							
 									<c:if test="${fn:length(map['MESSAGE_TITLE'])>=20}">
 										${fn:substring(map['MESSAGE_TITLE'], 0,20) } ...
 									</c:if>

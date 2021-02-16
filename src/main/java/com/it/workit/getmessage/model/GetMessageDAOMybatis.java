@@ -33,4 +33,10 @@ public class GetMessageDAOMybatis implements GetMessageDAO{
 	public List<Map<String, Object>> selectImpMessage(int userNo) {
 		return sqlSession.selectList(namespace+"selectImpMessage", userNo);
 	}
+	
+	//받은 메세지 삭제 (플래그 업데이트)
+	@Override
+	public int updategetMsgDelflag(int getMessageNo) {
+		return sqlSession.update(namespace+"updategetMsgDelflag", getMessageNo);
+	}
 }

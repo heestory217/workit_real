@@ -44,11 +44,5 @@ public class MessageDAOMybatis implements MessageDAO{
 	public int updateMsgDelflag(int messageNo) {
 		return sqlSession.update(namespace+"updateMsgDelflag", messageNo);
 	}
-	
-	//받은 메세지 삭제 (플래그 업데이트)
-	@Override
-	public int updategetMsgDelflag(int messageNo) {
-		return sqlSession.update(namespace+"updategetMsgDelflag", messageNo);
-	}
 
 }

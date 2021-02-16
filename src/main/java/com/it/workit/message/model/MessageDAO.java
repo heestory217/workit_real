@@ -24,6 +24,4 @@ public interface MessageDAO {
 	//삭제플래그 업데이트 => 보낸 메세지 삭제 (개별)
 	int updateMsgDelflag(int messageNo);
 	
-	//삭제플래그 업데이트 => 받은 메세지 삭제
-	int updategetMsgDelflag(int messageNo);
 }
