@@ -40,7 +40,12 @@
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
-
+#highcharts-oq4pc9f-22 {
+	width:100%;
+}
+.highcharts-root{
+	width:100%;
+}
 
 input[type="number"] {
 	min-width: 50px;
@@ -52,13 +57,14 @@ input[type="number"] {
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
-<figure class="highcharts-figure">
-    <div id="pieContainer"></div>
-    <p class="highcharts-description">
-        ${pieList }
-    </p>
-</figure>
+<div class="col-xl-12 col-lg-12 col-md-8 col-sm-12 col-12">
+	<div class="card" id="piechart">
+		<h5 class="card-header">서비스별 판매 추이</h5>
+		<figure class="highcharts-figure" style="margin: 50px auto;">
+		    <div id="pieContainer"></div>
+		</figure>
+	</div>
+</div>
 
 <script type="text/javascript">
 Highcharts.chart('pieContainer', {
@@ -90,37 +96,44 @@ Highcharts.chart('pieContainer', {
         }
     },
     series: [{
-        name: 'Brands',
+        name: '서비스',
         colorByPoint: true,
         data: [{
-            name: 'Chrome',
-            y: 61.41,
-            sliced: true,
-            selected: true
+            name: '광고1급 15일',
+            y: ${pieList[2].PER}
         }, {
-            name: 'Internet Explorer',
-            y: 11.84
+            name: '광고1급 15일',
+            y: ${pieList[0].PER}
         }, {
-            name: 'Firefox',
-            y: 10.85
+            name: '광고1급 30일',
+            y: ${pieList[1].PER}
         }, {
-            name: 'Edge',
-            y: 4.67
+            name: '광고2급 7일',
+            y: ${pieList[5].PER}
         }, {
-            name: 'Safari',
-            y: 4.18
+            name: '광고2급 15일',
+            y: ${pieList[3].PER}
         }, {
-            name: 'Sogou Explorer',
-            y: 1.64
+            name: '광고2급 30일',
+            y: ${pieList[4].PER}
         }, {
-            name: 'Opera',
-            y: 1.6
+            name: '기업후기삭제',
+            y: ${pieList[6].PER}
         }, {
-            name: 'QQ',
-            y: 1.2
-        }, {
-            name: 'Other',
-            y: 2.61
+            name: '기업후기 열람 7일',
+            y: ${pieList[9].PER}
+        }, { 
+            name: '기업후기 열람 30일',
+            y:  ${pieList[7].PER}
+        },{
+            name: '기업후기 열람 90일',
+            y:  ${pieList[10].PER}
+        },{
+            name: '기업후기 열람 365일',
+            y:  ${pieList[8].PER}
+        },{
+            name: '이력서 열람',
+            y:  ${pieList[11].PER}
         }]
     }]
 });
