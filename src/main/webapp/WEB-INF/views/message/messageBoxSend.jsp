@@ -17,7 +17,10 @@
 			if(len==0){
 			   alert('먼저 삭제할 쪽지를 선택하세요.');
 			   return false;
+			}else if(!confirm('해당 쪽지를 삭제하시겠습니까?')){
+				event.preventDefault();
 			}
+			
 			$('form[name=frmList]').prop('action', '<c:url value="/message/deleteMultiMsg.do"/>');
 			$('form[name=frmList]').submit();
 			
