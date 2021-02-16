@@ -18,22 +18,14 @@ div#banner{
     position:relative;
 }
 
-.firstImg img, .secondImg img{
+.firstImg img, .secondImg img, 
+.thirdImg img{
 	overflow: hidden;
 	margin-top:0px;
 	position:relative;
 	height:100%;
 }
 
-
-.thirdImg img{
-	width:100%;
-	height:100%;
-	object-fit:cover;
-    overflow: hidden;
-    margin-top: -7%;
-    position:relative;
-}
 
 .detailBx{
     position: absolute;
@@ -139,12 +131,6 @@ div#banner{
 			<span class="carousel-control-next-icon" aria-hidden="true"></span> <!-- <span>Next</span> -->
 		</a>
 		
-		<!-- indicator -->
-		<ul class="carousel-indicators">
-			<li data-target="#demo" data-slide-to="0" class="active"></li>
-			<li data-target="#demo" data-slide-to="1"></li>
-			<li data-target="#demo" data-slide-to="2"></li>
-		</ul>
 </div>
 
 
