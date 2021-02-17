@@ -76,13 +76,13 @@
 	                    <div class="card-body">
 	                        <form id="msgSendFrm" method="POST">
 	                            <div class="form-group">
-	                                <label for="corpName" class="col-form-label">받는 기업</label>
-	                                <input id="corpName" type="text" class="form-control" value="${corpName}" readonly>
-	                                <input id="userNo" type="hidden" class="form-control" value="${userNo}" name="getMessageNo">
-	                                <label for="msgTitle" class="col-form-label">제목</label>
-	                                <input id="msgTitle" type="text" class="form-control" name="messageTitle" maxlength="30" style="margin-bottom: 10px;" value="${corpName}의 기업 등록이 반려 되었습니다." readonly >
-                                    <label for="exampleFormControlTextarea1">반려 사유</label>
-                                    <textarea class="form-control" id="contents" rows="5" maxlength="1000" name="messageContent"></textarea>
+			                        <label for="corpName" class="col-form-label">받는 사람</label>
+			                        <input id="corpName" type="text" class="form-control" value="${userName}" readonly>
+			                        <input id="userNo" type="hidden" class="form-control" value="${userNo}" name="getUserNo">
+			                        <label for="msgTitle" class="col-form-label">제목</label>
+			                        <input id="msgTitle" type="text" class="form-control" name="messageTitle" maxlength="30" style="margin-bottom: 10px;" value="${userName}님의 이력서 등록이 반려 되었습니다." readonly >
+		                            <label for="exampleFormControlTextarea1">반려 사유</label>
+		                            <textarea class="form-control" id="contents" rows="5" maxlength="1000" name="messageContent"></textarea>
                                 </div>
 	                                <a href="#" class="btn btn-outline-primary" onclick="cancle()">취소</a>
 	                                <a href="#" class="btn btn-primary" onclick="send()">전송</a>

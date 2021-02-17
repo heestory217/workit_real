@@ -97,9 +97,15 @@ foreignInput+='<button class="btnRemove" value="Remove"><i class="fa fa-times" a
 				} 
 				
 			});
+	   		
 		});
 	
 		//^[0-9.]*$/g
+		function validata_career(career){
+	   		var pattern = new RegExp(/^[0-9.]*$/g);
+	   		return pattern.test(tel);
+	   	}
+		
 		
 		
 </script>

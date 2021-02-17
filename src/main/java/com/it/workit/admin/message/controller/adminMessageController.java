@@ -33,6 +33,13 @@ public class adminMessageController {
 		model.addAttribute("userNo", userNo);
 	}
 	
+	@RequestMapping("/message/messageToUser.do")
+	public void sendMsgUser(@RequestParam String userName, @RequestParam int userNo, Model model) {
+		logger.info("userName={}, userNo={}", userName, userNo);
+		model.addAttribute("userName", userName);
+		model.addAttribute("userNo", userNo);
+	}
+	
 	@ResponseBody
 	@RequestMapping("/message/sendMessageAjax.do")
 	public int sendMsg(@ModelAttribute MessageVO vo, @RequestParam int getUserNo) {

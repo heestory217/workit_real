@@ -77,6 +77,9 @@ textarea#resumeSelfintro {
     background: #fff;
     margin: 50px 0;
 }
+a.site-btn.baBt {
+    padding: 16px 45px 14px;
+}
 </style>
 
 <script src="<c:url value="/resources/js/jquery-3.5.1.min.js"/>" type="text/javascript"></script>
@@ -91,14 +94,6 @@ textarea#resumeSelfintro {
 			}
 		});	
 		
-		//반려
-		$('#rsbackBt').click(function(){
-			var op = confirm('선택하신 이력서를 반려하시겠습니까?');
-			
-			if (op) {
-	location.href="<c:url value='/admin/users/resume/resumreBack.do?resumeNo='/>"+$(this).attr('value');
-			}
-		});	
 	});
 </script>
 
@@ -193,16 +188,33 @@ textarea#resumeSelfintro {
 						</c:if>
                     </div>
                 </div>
-                
+                <c:set var="userName" value="${map['USER_NAME']}"/>
+                <c:set var="userNo" value="${map['USER_NO']}"/>
                 <div class="btWarp">
                 	<button type="button" class="site-btn" id="opBt" value="${map['RESUME_NO'] }">승인</button>
-                	<button type="button" class="site-btn" id="rsbackBt" value="${map['RESUME_NO'] }">반려</button>
-                	<button type="button" class="site-btn" 
+<a class="site-btn baBt" href="<c:url value='/admin/users/resume/resumreBack.do?resumeNo=${map["RESUME_NO"] }'/>"
+                		onclick='sendMessage("${userName}","${userNo}")'>반려</a>
+<%--                 		onclick='sendMessage("${map['USER_NAME']}","${map['USER_NO']}")'>반려</a> --%>
+                	<button type="button" class="site-btn" id="rsbackBt" 
                 		onclick="location.href='<c:url value="/admin/users/resume/resumeManager.do"/>'">목록</button>
                 </div>
             </div>
         </div>
 </div>
+
+
+<script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
+<script type="text/javascript">
+	
+	function sendMessage(userNmae,userNo){
+		
+		open(
+				"/workit/admin/message/messageToUser.do?userName="
+						+userNmae+"&userNo="+userNo,"chk",
+				"width=650,height=550,left=0,top=0,location=yes");
+		}
+
+</script>
 
 
 <%@ include file="../../inc/bottom.jsp"%>
