@@ -42,8 +42,7 @@
 								<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${map["RECRUITANNOUNCE_NO"] }'/>"> 
 								<img id="searchImg" src="<c:url value='/pd_images/${map["CORP_IMGURL"]}'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
 									<div class="corpInfoWrap">
-										<div class="tag-list"
-											style="margin-bottom: 0px; overflow: hidden;">
+										<div class="tag-list" id="compTitle">
 											<span class="field">
 												${map['RECRUITANNOUNCE_TITLE'] }
 											</span><br>
@@ -51,7 +50,7 @@
 												${map['CORP_NAME'] }
 											</div>
 										</div>
-										<p class="margin_bottom_0" id="corpArea">
+										<p class="margin_bottom_0" id="compArea">
 											${map['AREA_ADD1'] } · ${map['AREA_ADD2'] }
 										</p>
 									</div>
@@ -71,8 +70,7 @@
 							<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${map["RECRUITANNOUNCE_NO"] }'/>"> 
 								<img id="searchImg" src="<c:url value='/pd_images/${map["CORP_IMGURL"]}'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
 									<div class="corpInfoWrap">
-										<div class="tag-list"
-											style="margin-bottom: 0px; overflow: hidden;">
+										<div class="tag-list" id="compTitle">
 											<span class="field">
 												${map['RECRUITANNOUNCE_TITLE'] }
 											</span><br>
@@ -80,7 +78,7 @@
 												${map['CORP_NAME'] }
 											</div>
 										</div>
-										<p class="margin_bottom_0" id="corpArea">
+										<p class="margin_bottom_0" id="compArea">
 											${map['AREA_ADD1'] } · ${map['AREA_ADD2'] }
 										</p>
 									</div>
@@ -100,8 +98,7 @@
 								<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${map["RECRUITANNOUNCE_NO"] }'/>"> 
 								<img id="searchImg" src="<c:url value='/pd_images/${map["CORP_IMGURL"]}'/>" onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
 									<div class="corpInfoWrap">
-										<div class="tag-list"
-											style="margin-bottom: 0px; overflow: hidden;">
+										<div class="tag-list" id="compTitle">
 											<span class="field">
 												${map['RECRUITANNOUNCE_TITLE'] }
 											</span><br>
@@ -109,7 +106,7 @@
 												${map['CORP_NAME'] }
 											</div>
 										</div>
-										<p class="margin_bottom_0" id="corpArea">
+										<p class="margin_bottom_0" id="compArea">
 											${map['AREA_ADD1'] } · ${map['AREA_ADD2'] }
 										</p>
 									</div>
