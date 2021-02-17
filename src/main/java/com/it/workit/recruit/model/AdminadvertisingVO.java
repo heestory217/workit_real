@@ -9,7 +9,16 @@ public class AdminadvertisingVO {
 	private int recruitannounceNo;
 	private Date paidserviceStartdate;
 	private Date paidserviceEnddate;
-	private int adprove;
+	private int adapprove;
+	
+	private int paidserviceNo;
+	
+	public int getPaidserviceNo() {
+		return paidserviceNo;
+	}
+	public void setPaidserviceNo(int paidserviceNo) {
+		this.paidserviceNo = paidserviceNo;
+	}
 	public int getOrderNo() {
 		return orderNo;
 	}
@@ -46,17 +55,17 @@ public class AdminadvertisingVO {
 	public void setPaidserviceEnddate(Date paidserviceEnddate) {
 		this.paidserviceEnddate = paidserviceEnddate;
 	}
-	public int getAdprove() {
-		return adprove;
+	public int getAdapprove() {
+		return adapprove;
 	}
-	public void setAdprove(int adprove) {
-		this.adprove = adprove;
+	public void setAdapprove(int adapprove) {
+		this.adapprove = adapprove;
 	}
-	
 	@Override
 	public String toString() {
 		return "AdminadvertisingVO [orderNo=" + orderNo + ", payNames=" + payNames + ", recruitNames=" + recruitNames
 				+ ", recruitannounceNo=" + recruitannounceNo + ", paidserviceStartdate=" + paidserviceStartdate
-				+ ", paidserviceEnddate=" + paidserviceEnddate + ", adprove=" + adprove + "]";
+				+ ", paidserviceEnddate=" + paidserviceEnddate + ", adapprove=" + adapprove  + ", paidserviceNo=" + paidserviceNo + "]";
 	}
+	
 }

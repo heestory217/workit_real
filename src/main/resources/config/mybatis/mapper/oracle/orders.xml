@@ -223,5 +223,34 @@
 		select nvl2(sum(order_pay),sum(order_pay),0)
       	from orders
 	</select>
+	
+	<select id="fullorderlist" parameterType="searchVo" resultType="OrdersCorpPayVO">
+				select * from 
+				(
+					 select A.*, rownum as RNUM from
+					 (
+							select a.ORDER_NO, a.USER_NO, (select t.USER_NAME from users t where t.USER_NO in a.USER_NO) as recruitname, a.ORDER_PAY, (select b.PAIDSERVICE_NAME from PAIDSERVICE b
+							where b.PAIDSERVICE_NO in (select c.PAIDSERVICE_NO from ORDERDETAILAD c where c.ORDER_NO in a.ORDER_NO)
+							or b.PAIDSERVICE_NO in (select d.PAIDSERVICE_NO from ORDERDETAILRESUME d where d.ORDER_NO in a.ORDER_NO)
+							or b.PAIDSERVICE_NO in (select e.PAIDSERVICE_NO from ORDERDETAILDELRV e where e.ORDER_NO in a.ORDER_NO)
+							or b.PAIDSERVICE_NO in (select f.PAIDSERVICE_NO from ORDERDETAILSEERV f where f.ORDER_NO in a.ORDER_NO)) as pay_name , a.ORDER_PAYKIND, a.ORDER_DISCOUNT, a.ORDER_DATE from ORDERS a
+						<if test="searchKeyword !=null and searchKeyword != ''">
+							recruit like '%' || #{searchKeyword} || '%'
+						</if>
+							order by a.ORDER_DATE desc
+					 )A
+				)
+		<![CDATA[
+			where RNUM >= #{firstRecordIndex}
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="fullorderlistcount" parameterType="searchVo" resultType="int">
+				select count(*) from orders
+				<if test="searchKeyword !=null and searchKeyword != ''">
+				recruit like '%' || #{searchKeyword} || '%'
+				</if>
+	</select>
 
 </mapper>

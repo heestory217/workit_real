@@ -152,5 +152,61 @@
 		set RECRUITANNOUNCE_UPCHECK=3
 		where RECRUITANNOUNCE_NO=#{recruitannounceNo}
 	</update>
-
+	
+	<select id="selectadvertisingfstclass" resultType="AdminadvertisingVO">
+		select z.ORDER_NO, (select a.PAIDSERVICE_NAME from PAIDSERVICE a where a.PAIDSERVICE_NO in z.PAIDSERVICE_NO) as paynames, 
+		(select RECRUITANNOUNCE_TITLE from recruitannounce b where b.RECRUITANNOUNCE_NO in z.RECRUITANNOUNCE_NO) as recruitnames, z.PAIDSERVICE_NO,
+		z.RECRUITANNOUNCE_NO, z.PAIDSERVICE_STARTDATE, z.PAIDSERVICE_ENDDATE, z.AD_APPROVE from ORDERDETAILAD z
+		<![CDATA[
+			where z.AD_APPROVE=2 and z.PAIDSERVICE_NO>=7 and z.PAIDSERVICE_NO<=9 and z.PAIDSERVICE_ENDDATE>sysdate
+		]]>
+	</select>
+	
+	<select id="selectadvertisingsecclass" resultType="AdminadvertisingVO">
+		select z.ORDER_NO, (select a.PAIDSERVICE_NAME from PAIDSERVICE a where a.PAIDSERVICE_NO in z.PAIDSERVICE_NO) as paynames, 
+		(select RECRUITANNOUNCE_TITLE from recruitannounce b where b.RECRUITANNOUNCE_NO in z.RECRUITANNOUNCE_NO) as recruitnames, z.PAIDSERVICE_NO,
+		z.RECRUITANNOUNCE_NO, z.PAIDSERVICE_STARTDATE, z.PAIDSERVICE_ENDDATE, z.AD_APPROVE from ORDERDETAILAD z
+		<![CDATA[
+			where z.AD_APPROVE=2 and z.PAIDSERVICE_NO>=10 and z.PAIDSERVICE_NO<=12 and PAIDSERVICE_ENDDATE>sysdate
+		]]>
+	</select>
+	
+	<select id="selectadvertisingcountfst" resultType="int">
+		select count(*) from ORDERDETAILAD
+		<![CDATA[
+			where AD_APPROVE=2 and PAIDSERVICE_NO>=7 and PAIDSERVICE_NO<=9 and PAIDSERVICE_ENDDATE>sysdate
+		]]>
+	</select>
+	
+	<select id="selectadvertisingcountsec" resultType="int">
+		select count(*) from ORDERDETAILAD
+		<![CDATA[
+			where AD_APPROVE=2 and PAIDSERVICE_NO>=10 and PAIDSERVICE_NO<=12 and PAIDSERVICE_ENDDATE>sysdate
+		]]>
+	</select>
+	
+	<select id="selectadvertisinglist" parameterType="SearchVO" resultType="AdminadvertisingVO">
+		        select * from
+		(
+		    select A.*, rownum as RNUM
+		    from
+		    (
+		        select z.ORDER_NO, (select a.PAIDSERVICE_NAME from PAIDSERVICE a where a.PAIDSERVICE_NO in z.PAIDSERVICE_NO) as paynames, 
+		(select RECRUITANNOUNCE_TITLE from recruitannounce b where b.RECRUITANNOUNCE_NO in z.RECRUITANNOUNCE_NO) as recruitnames, z.PAIDSERVICE_NO,
+		z.RECRUITANNOUNCE_NO, z.PAIDSERVICE_STARTDATE, z.PAIDSERVICE_ENDDATE, z.AD_APPROVE from ORDERDETAILAD z
+				where z.AD_APPROVE=1
+		        order by (select v.ORDER_DATE from orders v where v.ORDER_NO=z.ORDER_NO) desc
+		    )A
+		)
+		<![CDATA[
+			where RNUM >= #{firstRecordIndex}
+			and RNUM <= #{firstRecordIndex} + #{recordCountPerPage}
+		]]>
+	</select>
+	
+	<select id="selectadvertisinglistcount" parameterType="SearchVO" resultType="int">
+		select count(*) from ORDERDETAILAD
+		where AD_APPROVE=1
+	</select>
+	
 </mapper>

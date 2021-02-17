@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.it.workit.common.SearchVO;
 import com.it.workit.companyMypage.model.CompanypagingVO;
 import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
@@ -49,5 +50,7 @@ public interface OrdersDAO {
 
 	//은별, 관리자이용-총결제금액
 	public int totalPay();
-
+	
+	public List<OrdersCorpPayVO> fullorderlist(SearchVO searchVo);
+	public int fullorderlistcount(SearchVO searchVo);
 }

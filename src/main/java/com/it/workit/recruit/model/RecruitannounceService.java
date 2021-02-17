@@ -32,11 +32,14 @@ public interface RecruitannounceService {
 	public int recruitannouncerollback(int recruitannounceNo);
 	public int recruitannounceallowed(int recruitannounceNo);
 	public int recruitannouncedeny(int recruitannounceNo);
-	/*
+
 	//구매 광고
 	public List<AdminadvertisingVO> selectadvertisingfstclass();
 	public List<AdminadvertisingVO> selectadvertisingsecclass();
 
 	public int selectadvertisingcountfst();
-	public int selectadvertisingcountsec();*/
+	public int selectadvertisingcountsec();
+	
+	public List<AdminadvertisingVO> selectadvertisinglist(SearchVO searchVo);
+	public int selectadvertisinglistcount(SearchVO searchVo);
 }
