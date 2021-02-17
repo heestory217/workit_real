@@ -25,12 +25,43 @@
     <title>Work IT - 관리자 페이지</title>
     
 </head>
+
+<script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
+<script type="text/javascript">
+	function cancle(){
+		window.close();
+	}
+	
+	function send(){
+		var params = $("#couponUpdateFrm").serialize();
+		$.ajax(
+		{
+			url :"<c:url value='/admin/paidService/coupon/update.do'/>",
+			type:"POST",
+			data : params,
+			async: false,
+			success : function(res)
+					{
+						if(res==1){
+							alert("쿠폰 정보가 수정되었습니다.");
+							opener.location.reload();
+							window.close();
+						}else{
+							alert("쿠폰 정보 수정에 실패했습니다.");
+							window.close();
+						}
+					}
+		});
+		event.preventDefault();
+	}
+</script>
+
 <body>
 
 	<div class="card">
 	    <h5 class="card-header">수정</h5>
 	    <div class="card-body">
-	        <form id="couponUpdateFrm" action="<c:url value='/admin/paidService/coupon/update.do'/>" method="post">
+	        <form id="couponUpdateFrm" method="post">
 	            <div class="form-group row">
 	                <label class="col-12 col-sm-3 col-form-label text-sm-right">쿠폰명</label>
 	                <div class="col-12 col-sm-8 col-lg-6">
@@ -60,7 +91,8 @@
 	            </div>
 	            <div class="form-group row text-right">
 	                <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
-	                    <button type="submit" class="btn btn-space btn btn-primary">쿠폰 수정</button>
+	                    <button type="reset" class="btn btn-space btn btn-outline-primary" onclick="cancle()">취소</button>
+	                    <button type="submit" class="btn btn-space btn btn-primary" onclick="send()">쿠폰 수정</button>
 	                </div>
 	            </div>
 	        </form>

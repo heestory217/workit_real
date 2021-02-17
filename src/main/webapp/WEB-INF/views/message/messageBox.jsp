@@ -13,15 +13,25 @@
 	$(function(){
 		$('#btImp').click(function(){
 			var len=$('.cart-table tbody tr td').find('input[type=checkbox]:checked').length;
-			            //여러개 이므로 배열 length사용 가능
 			if(len==0){
 			   alert('먼저 보관할 쪽지를 선택하세요.');
 			   return false;
 			}
-			
 			$('form[name=frmGetList]').prop('action', '<c:url value="/message/impMultiGetMsg.do"/>');
 			$('form[name=frmGetList]').submit();
-			
+		});
+		
+		$('#btDel').click(function(){
+			var len=$('.cart-table tbody tr td').find('input[type=checkbox]:checked').length;
+			if(len==0){
+			   alert('먼저 삭제할 쪽지를 선택하세요.');
+			   return false;
+			}else if(!confirm('해당 쪽지를 삭제하시겠습니까?')){
+				event.preventDefault();
+			}
+
+			$('form[name=frmGetList]').prop('action', '<c:url value="/message/deleteMultigetMsg.do"/>');
+			$('form[name=frmGetList]').submit();
 		});
 	});
 </script>
@@ -44,7 +54,8 @@
 
 <!-- 받은쪽지함 부분 시작-->
 <form name="frmGetList" method="post" action="<c:url value='/message/messageBox.do'/>">
-	
+<input type="hidden" name="type" value="${param.type }">
+
 <div class="cart-table">
 	<table>
 		<colgroup>
@@ -82,8 +93,7 @@
 						<td style="text-align: left;">
 							<!-- 받은 쪽지함 --> 
 							<c:if test="${empty param.type}">
-								<a href="<c:url value="/message/countUpdate.do?getMessageNo=${map['MESSAGE_NO']}"/>">
-									<!-- 제목이 긴 경우 일부만 보여주기 -->							
+								<a href="<c:url value='/message/countUpdate.do?getMessageNo=${map["MESSAGE_NO"]}'/>">
 									<c:if test="${fn:length(map['MESSAGE_TITLE'])>=20}">
 										${fn:substring(map['MESSAGE_TITLE'], 0,20) } ...
 									</c:if>
@@ -95,7 +105,7 @@
 							<c:if test="${!empty param.type}">
 								<!-- 보관함에 저장된 경우 -->
 								<c:if test="${param.type == 'important'}">
-									<a href="<c:url value="/message/countUpdate.do?getMessageNo=${map['MESSAGE_NO']}"/>">
+									<a href="<c:url value='/message/countUpdate.do?getMessageNo=${map["MESSAGE_NO"]}'/>">
 										<!-- 제목이 긴 경우 일부만 보여주기 -->							
 										<c:if test="${fn:length(map['MESSAGE_TITLE'])>=30}">
 											${fn:substring(map['MESSAGE_TITLE'], 0,30) } ...
@@ -107,7 +117,7 @@
 								</c:if>
 								<!-- 나에게 보낸 편지함 -->
 								<c:if test="${param.type == 'toMe'}">
-									<a href="<c:url value="/message/messageDetail.do?type=toMe&getMessageNo=${map['MESSAGE_NO']}"/>">
+									<a href="<c:url value='/message/messageDetail.do?type=toMe&getMessageNo=${map["MESSAGE_NO"]}'/>">
 										<!-- 제목이 긴 경우 일부만 보여주기 -->							
 										<c:if test="${fn:length(map['MESSAGE_TITLE'])>=30}">
 											${fn:substring(map['MESSAGE_TITLE'], 0,30) } ...

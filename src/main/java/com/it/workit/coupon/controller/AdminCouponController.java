@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.coupon.model.CouponService;
 import com.it.workit.coupon.model.CouponVO;
@@ -58,7 +59,7 @@ public class AdminCouponController {
 		
 		return "common/message";
 	}
-
+	
 	@RequestMapping("/updateForm.do")
 	public void updateForm(@RequestParam (defaultValue = "0") int couponNo, Model model) {
 		logger.info("쿠폰 수정하기");
@@ -77,8 +78,9 @@ public class AdminCouponController {
 		model.addAttribute("couponEnddate", couponEnddate);
 	}
 	
+	@ResponseBody
 	@RequestMapping("/update.do")
-	public String update(@ModelAttribute CouponVO vo, @RequestParam String start, @RequestParam String end, Model model) {
+	public int update(@ModelAttribute CouponVO vo, @RequestParam String start, @RequestParam String end) {
 		logger.info("쿠폰 수정처리 CouponVO={}", vo);
 		logger.info("start={} end={}", start, end);
 		
@@ -94,25 +96,7 @@ public class AdminCouponController {
 		vo.setCouponEnddate(couponEnddate);
 		
 		int cnt = couponService.updateCoupon(vo);
-		
-		String msg = "쿠폰수정에 실패하였습니다.", url="/admin/paidService/coupon/updateForm.do?couponNo="+vo.getCouponNo();
-		if(cnt>0) {
-			msg="쿠폰을 성공적으로 수정하였습니다";
-		}
-		
-		model.addAttribute("msg", msg);
-		model.addAttribute("url", url);
-		
-		return "common/message";
+		return cnt;
 	}
-	
-	/*
-	@ResponseBody
-	@RequestMapping("/showInfo.do")
-	public CouponVO showInfo(@RequestParam (defaultValue = "0") int couponNo) {
-		CouponVO vo= couponService.selectCouponByNo(couponNo);
-		return vo;
-	}
-	*/
 	
 }

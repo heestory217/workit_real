@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface MessageService {
-	int insertMessage(MessageVO vo);
+	int insertMessage(MessageVO vo, int userNo);
+	
 	//내가 보낸 쪽지
 	List<Map<String, Object>> selectSentMessage(int userNo);
 	
@@ -20,8 +21,5 @@ public interface MessageService {
 	//삭제플래그 업데이트 => 보낸 메세지 삭제 (개별/다중)
 	int updateMsgDelflag(int messageNo);
 	int updateMsgDelflagMulti(List<MessageVO> msgList);
-	
-	//삭제플래그 업데이트 => 받은 메세지 삭제
-	int updategetMsgDelflag(int messageNo);
 
 }

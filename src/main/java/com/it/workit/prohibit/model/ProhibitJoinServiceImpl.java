@@ -21,11 +21,6 @@ public class ProhibitJoinServiceImpl implements ProhibitJoinService {
 	public int selectIfProhibited(int userIndivNo) {
 		return prohibitDao.selectIfProhibited(userIndivNo);
 	}
-	
-	@Override
-	public int selectProhibitCount(CorpApplicantPagingVO vo) {
-		return prohibitDao.selectProhibitCount(vo);
-	}
 
 	@Override
 	public List<Map<String, Object>> selectProhibitedList(ProhibitJoinPagingVO vo) {

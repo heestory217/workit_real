@@ -17,6 +17,8 @@
 			if(len==0){
 			   alert('먼저 삭제할 제안을 선택하세요.');
 			   return false;
+			}else if(!confirm('해당 제안을 삭제하시겠습니까?')){
+				event.preventDefault();
 			}
 			
 			if($('#type').html()==''){

@@ -19,6 +19,19 @@
 		values(#{getMessageNo}, #{userNo}, #{messageNo})
 	</insert>
 	
+	<!-- 회원이 방금 보낸 제안 조회 -->
+	<select id="selectMsgJustNow" parameterType="int" resultType="messageVo">
+		select A.*
+		from
+		(
+		    select * from message 
+		    where USER_NO=#{userNo}
+		    ORDER BY MESSAGE_REGDATE desc
+		)A
+		where rownum=1
+	</select>
+	
+	
 	<select id="selectSentMessage" parameterType="int" resultType="map">
 		select A.*
 		from

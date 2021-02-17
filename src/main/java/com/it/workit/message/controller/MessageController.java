@@ -93,45 +93,40 @@ public class MessageController {
 		logger.info("쪽지 쓰기 처리, 파라미터 userId={}", userId);
 		logger.info("쪽지 답장쓰기 처리, 파라미터 getMessageNo={}", getMessageNo);
 		
-		String sentUserID="";
+		String sentUserID=""; int userNo=0;
 		if(getMessageNo!=0) {
 			Map<String, Object> map = messageService.selectByMessageNo(getMessageNo);
 			int sentUserNo = Integer.parseInt(String.valueOf(map.get("USER_NO")));
 			UsersVO uVo = userService.selectByUserNo(sentUserNo);
 			sentUserID = uVo.getUserId();
-			logger.info("보낸회원 sentUserID={}", sentUserID);
+			userNo = uVo.getUserNo();
+			logger.info("보낸회원 sentUserID={} userNo={}", sentUserID, userNo);
 		}
 
-		String myId = (String) session.getAttribute("userId");
-		logger.info("세션 로그인 아이디 조회, myId={}", myId);
-
-		int cnt = messageService.insertMessage(vo);
+		if(userId==null || userId.isEmpty()) {
+			if(sentUserID==null || sentUserID.isEmpty()) {
+				userNo = (Integer) session.getAttribute("userNo");
+			}
+		}else {
+			//일반 쪽지쓰기
+			UsersVO uVo = new UsersVO();
+			uVo = userService.selectByUserId(userId);
+			userNo = uVo.getUserNo();
+		}
+		
+		int cnt = messageService.insertMessage(vo, userNo);
+		
 		String msg="쪽지 전송 실패", url="/message/messageWrite.do";
 		if(cnt>0) {
 			if(userId==null || userId.isEmpty()) {
 				if(sentUserID!=null && !sentUserID.isEmpty()) {
-					userId=sentUserID;
-					msg = userId+"님에게 답장을 성공적으로 보냈습니다.";
-				}else {
-					userId=myId;	//유저아이디가 없는 경우 => 나에게 보내는 쪽지
+					msg = sentUserID+"님에게 답장을 성공적으로 보냈습니다.";
+				}else{
 					msg = "쪽지를 성공적으로 보냈습니다.\\n\\n나에게 쓴 쪽지는 [나에게 쓴 쪽지함]에서 확인할 수 있습니다.";
 				}
 			}else {
 				msg = userId+"님에게 쪽지를 성공적으로 보냈습니다.";
 			}
-
-			//쪽지 쓰면 getmessage에도 insert되어야 함
-			//1. userid로 userno 조회
-			UsersVO userVo = userService.selectByUserId(userId);
-
-			//2. getMessageVo 세팅
-			GetMessageVO gVo =  new GetMessageVO();
-			gVo.setUserNo(userVo.getUserNo());
-			gVo.setMessageNo(vo.getMessageNo());
-
-			//3. getMessage insert
-			int count = getMessageService.insertGetMessage(gVo);
-			logger.info("getMessage insert 결과 count={}", count);
 		}
 
 		model.addAttribute("msg", msg);
@@ -205,7 +200,7 @@ public class MessageController {
 				url="/message/messageBoxSend.do";
 			}else if(getMessageNo!=0) {
 				//받은 쪽지 삭제
-				cnt = messageService.updategetMsgDelflag(getMessageNo);
+				cnt = getMessageService.updategetMsgDelflag(getMessageNo);
 
 				Map<String, Object>  map = messageService.selectByMessageNo(getMessageNo);
 				int important = Integer.parseInt(String.valueOf(map.get("GETMESSAGE_IMPFLAG")));
@@ -309,6 +304,37 @@ public class MessageController {
 
 		return "common/message";
 		
+	}
+	
+	//받은쪽지함, 내가보낸쪽지함, 쪽지보관함 다중 삭제처리
+	@RequestMapping("/deleteMultigetMsg.do")
+	public String deleteMultigetMsg(@ModelAttribute GetMessageListVO getMsgListVo,
+			@RequestParam (required = false) String type, Model model) {
+		logger.info("선택한 쪽지 삭제(플래그 갱신) 처리, 파라미터 GetMessageListVO={}", getMsgListVo);
+		
+		List<GetMessageVO> getMsgList = getMsgListVo.getGetMsgItems();
+		int cnt = getMessageService.updategetMsgDelflag(getMsgList);
+		logger.info("선택한 쪽지 삭제 결과, cnt={}", cnt);
+		
+		String msg="선택한 쪽지 삭제 실패!", url="/message/messageBox.do";
+		if(type!=null && !type.isEmpty() && type.equals("toMe")) {
+			url="/message/messageBox.do?type=toMe";
+		}else if(type!=null && !type.isEmpty() && type.equals("important")){
+			url="/message/messageBox.do?type=important";
+		}
+		
+		if(cnt>0) {
+			msg="선택한 쪽지를 삭제하였습니다.";
+			for(int i=0;i<getMsgList.size();i++) {
+				GetMessageVO getMsgVo = getMsgList.get(i);
+				logger.info("[{}] : messageNo={}", i, getMsgVo.getMessageNo());
+			}//for
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
 	}
 	
 	@RequestMapping("/impMultiGetMsg.do")

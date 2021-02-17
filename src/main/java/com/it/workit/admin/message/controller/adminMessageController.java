@@ -14,6 +14,8 @@ import com.it.workit.getmessage.model.GetMessageService;
 import com.it.workit.getmessage.model.GetMessageVO;
 import com.it.workit.message.model.MessageService;
 import com.it.workit.message.model.MessageVO;
+import com.it.workit.users.model.UsersService;
+import com.it.workit.users.model.UsersVO;
 
 @Controller
 @RequestMapping("/admin")
@@ -22,6 +24,7 @@ public class adminMessageController {
 	
 	@Autowired private MessageService messageService;
 	@Autowired private GetMessageService getMessageService;
+	@Autowired private UsersService userService;
 	
 	@RequestMapping("/message/sendMessage.do")
 	public void sendMsgView(@RequestParam String corpName, @RequestParam int userNo, Model model) {
@@ -32,19 +35,11 @@ public class adminMessageController {
 	
 	@ResponseBody
 	@RequestMapping("/message/sendMessageAjax.do")
-	public int sendMsg(@ModelAttribute MessageVO vo, @RequestParam int getMessageNo) {
+	public int sendMsg(@ModelAttribute MessageVO vo, @RequestParam int getUserNo) {
 		vo.setUserNo(999);
-		int cnt = messageService.insertMessage(vo);
-		logger.info("MessageVO={}, getMessageNo={}", vo, getMessageNo);
 		
-		if(cnt>0) {
-			GetMessageVO gVo =  new GetMessageVO();
-			
-			gVo.setUserNo(getMessageNo);
-			gVo.setMessageNo(vo.getMessageNo());
-			logger.info("GetMessageVO={}", gVo);
-			cnt = getMessageService.insertGetMessage(gVo);
-		}
+		int cnt = messageService.insertMessage(vo, getUserNo);
+		logger.info("MessageVO={}, getUserNo={}", vo, getUserNo);
 		
 		return cnt;
 	}
