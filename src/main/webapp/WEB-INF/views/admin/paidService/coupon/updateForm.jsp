@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!doctype html>
-<html>
+<html style="overflow:hidden" >
  
 <head>
     <!-- Required meta tags -->

@@ -112,10 +112,9 @@
 <script src="<c:url value='/resources/admin/assets/vendor/jquery/jquery-3.3.1.min.js'/>"></script>
 
 <script type="text/javascript">
-
 function execForm(couponNo) {
 	var _width = '700';
-	var _height = '400';
+	var _height = '360';
 
 	var _left = Math.ceil((window.screen.width - _width) / 2);
 	var _top = Math.ceil((window.screen.height - _height) / 2);
@@ -123,48 +122,6 @@ function execForm(couponNo) {
 	window.open('<c:url value="/admin/paidService/coupon/updateForm.do?couponNo='+couponNo+'"/>', '쿠폰 수정', 
 			'width=' + _width + ', height=' + _height  + ', left=' + _left + ', top=' + _top);
 }
-
-/*
-	$(function(){
-		$('tr td a').each(function(index, item){
-			$(this).click(function(){
-				$.ajax({
-					url:"<c:url value='/admin/paidService/coupon/showInfo.do'/>",
-					type:"POST",
-					data:{
-						couponNo : $(this).parent().prev().html()
-					},
-					dataType:"json",
-					success:function(vo){
-						//성공하면 표에 입력
-						$('#couponName').val(vo.couponName);
-						$('#couponRate').val(vo.couponRate);
-						$('#couponStartdate').val(startDate);
-						$('#couponEnddate').val(endDate);
-					},
-					error:function(xhr, status, error){
-						alert('error! : '+error);
-					}
-				});	//ajax
-				event.preventDefault();
-			});	//click
-		});	//each
-	});
-	
-	function getTimestampToDate(timestamp){
-	    var date = new Date(timestamp*1000);
-	    var chgTimestamp = date.getFullYear().toString()
-	        +addZero(date.getMonth()+1)
-	        +addZero(date.getDate().toString())
-	        +addZero(date.getHours().toString())
-	        +addZero(date.getMinutes().toString())
-	        +addZero(date.getSeconds().toString());
-	    return chgTimestamp;
-	}
-	function addZero(data){
-	    return (data<10) ? "0" + data : data;
-	}
-*/
 </script>
 
 <script src="<c:url value='/resources/admin/assets/vendor/bootstrap/js/bootstrap.bundle.js'/>"></script>
