@@ -6,7 +6,7 @@
 
 <style type="text/css">
 
-.filter-catagories > li:nth-child(1) > a{
+.filter-catagories > li:nth-child(3) > a{
 	font-weight:bold;
 	color:#4c50bb;
 	font-size:20px;
