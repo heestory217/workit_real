@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.commentRespond.model.CommentRespondService;
 import com.it.workit.commentRespond.model.CommentRespondVO;
-import com.it.workit.comments.model.CommentsService;
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
 import com.it.workit.getmessage.model.GetMessageVO;
@@ -40,7 +39,6 @@ public class CommunityController {
 	
 	@Autowired QuestionService qstnService;
 	@Autowired CommentRespondService comntService;
-	@Autowired CommentsService replyService;
 
 	//커뮤니티 메뉴
 	@RequestMapping("/cmtyNavbar.do")
@@ -660,6 +658,7 @@ public class CommunityController {
 		String referer=request.getHeader("referer");
 		return "redirect:"+referer;
 	}
+	
 	//답변 조회
 	@ResponseBody
 	@RequestMapping(value="/editComment.do",produces = "application/text; charset=UTF-8")

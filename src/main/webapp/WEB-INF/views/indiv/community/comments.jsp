@@ -215,8 +215,10 @@
    <input type="hidden" name="userNo" id="userNo" value="${map['USER_NO']}">
    <input type="hidden" name="commentrespondNo" id="cmtNo" value="${map['COMMENTRESPOND_NO']}">
    <div class="nickDiv">
+   	  <c:set var="commentWriter" value="${map['USER_ID']}"/>
       <span>@ ${map['USER_ID'] }</span>
-      <c:if test="${userId eq map['USER_ID'] }">
+      
+      <c:if test="${sessionScope.userId == commentWriter }">
       <!-- if 조건으로 로그인한 회원의 번호와 질문글의 회원번호가 같은 경우에만 보이도록 설정 -->
          <div class="cmtEditBox">
          <a>
