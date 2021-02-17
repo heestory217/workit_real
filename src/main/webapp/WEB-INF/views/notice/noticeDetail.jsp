@@ -77,12 +77,12 @@
 
 .next:hover{
 	color:#4C50BB;
-	background: #f7f7f7;
+	background: #f4f4ff;
 }
 
 .prev:hover{
 	color:#4C50BB;
-	background: #f7f7f7;
+	background: #f4f4ff;
 }
 
 .content{

@@ -107,6 +107,52 @@
 		SELECT COMMENTRESPOND_LIKENUM FROM COMMENTRESPOND 
 		WHERE COMMENTRESPOND_NO=#{commentrespondNo}
 	</select>
+	
+	<!-- 답변 글 조회 -->
+	<resultMap type="map" id="selectCommentText">
+		<result property="commentAbout" column="COMMENTRESPOND_ABOUT" jdbcType="CLOB" javaType="java.lang.String" />
+	</resultMap>
+	<select id="selectCommentAbout" parameterType="int" resultType="map"
+		resultMap="selectCommentText">
+		SELECT * FROM COMMENTRESPOND WHERE COMMENTRESPOND_NO=#{commentrespondNo}
+	</select>
+	
+	<!-- 답변 글 수정 -->
+	<update id="updateComment" parameterType="commentRespondVo">
+		UPDATE COMMENTRESPOND
+		SET COMMENTRESPOND_ABOUT=#{commentrespondAbout}
+		WHERE COMMENTRESPOND_NO=#{commentrespondNo}
+	</update>
+	
+	<!-- 답변 채택 메세지(보내는사람) -->
+	<insert id="sendAdoptMsg" parameterType="messageVo">
+	<selectKey keyProperty="messageNo" resultType="int" order="BEFORE">
+		select MESSAGE_SEQ.NEXTVAL from dual
+	</selectKey>
+		INSERT INTO MESSAGE(MESSAGE_NO, MESSAGE_TITLE, MESSAGE_CONTENT, USER_NO)
+		VALUES(#{messageNo}, '커뮤니티 답변 채택', #{messageContent},#{userNo})
+	</insert>
+	
+	<!-- 답변 글쓴 회원 조회 -->
+	<select id="selectAnswerer" resultType="int" parameterType="int">
+		SELECT USER_NO FROM COMMENTRESPOND WHERE COMMENTRESPOND_NO=#{commentrespondNo}
+	</select>
+	
+	<!-- 답변 채택 메세지(받는사람) -->
+	<insert id="getAdoptMsg" parameterType="getMessageVo">
+	<selectKey keyProperty="getMessageNo" resultType="int" order="BEFORE">
+		SELECT GETMESSAGE_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
+		INSERT INTO GETMESSAGE(GETMESSAGE_NO,USER_NO,MESSAGE_NO)
+		VALUES(#{getMessageNo}, #{userNo}, #{messageNo})
+	</insert>
+	
+	<!-- 답변 채택 -->
+	<update id="updateCommentLike" parameterType="int">
+		UPDATE COMMENTRESPOND 
+		SET COMMENTRESPOND_LIKENUM = 1
+		WHERE COMMENTRESPOND_NO=#{commentrespondNo}
+	</update>
 </mapper>
 
 

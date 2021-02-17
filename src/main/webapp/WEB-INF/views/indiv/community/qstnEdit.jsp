@@ -273,7 +273,10 @@
 		$('.selectBox').find('option').eq(0).attr('selected',true);
 		
 		$('form[name=qstnEditFrm]').submit(function(){
-			if($('.questionTitle').val().length<10){
+			if($('[name=workkindName]').val()=='직무 선택'){
+				alert('질문과 관련된 직무를 선택해 주세요.');
+				event.preventDefault();
+			}else if($('.questionTitle').val().length<10){
 				alert('질문 제목을 최소 10자 이상 작성해 주세요.');
 				event.preventDefault();
 			}else if($('.questionAbout').val().length<20){

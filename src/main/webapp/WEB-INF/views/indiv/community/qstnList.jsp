@@ -122,9 +122,9 @@
 		cursor:pointer;
 	}
 	
-	.allQstn{
+	a.allQstn{
 		font-weight: bold;
-		color:#4c50bb;
+		color:#4c50bb !important;
 	}
 	
 	/* 페이징처리 */
@@ -204,7 +204,8 @@
 			<!-- 질문 반복 시작 -->
 				<c:if test="${!empty qstnList }">
 				<article id="questBox">
-				<c:forEach var="map" items="${qstnList }">
+				
+				<c:forEach var="map" items="${qstnList }" varStatus="status">
 				<div class="questBoxWrap">
 				<div class="oneQuestBox">
 					<div>							
@@ -232,29 +233,37 @@
 									<span class="reply">답변<span class="replyNum"> ${map['COMMENT_COUNT']}</span>&nbsp;&nbsp;|&nbsp;</span>
 									<span class="readCnt">조회 ${map['QUESTION_VIEW'] }&nbsp;&nbsp;|&nbsp;</span>
 									<span class="regTime">
-										<fmt:formatDate value="${map['QUESTION_DATE']}"
-											pattern="yyyy-MM-dd"/>
+									
+									
+									<!-- 작성일 계산 -->
+									<c:set var="today" value="<%=new java.util.Date()%>"/>
+								 	<fmt:formatDate var="today" value="${today }" pattern="yyyy-MM-dd HH:mm:ss" />
+								    <c:set var="regdate" value="${map['QUESTION_DATE'] }"/>
+								    <fmt:parseDate value="${today }" var="today" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:parseNumber value="${today.time}" integerOnly="true" var="today"/>
+									<fmt:parseDate value="${regdate }" var="regdate" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:parseNumber value="${regdate.time}" integerOnly="true" var="regdate"/>
+									<c:set var="regtime" value="${(today-regdate)/1000 }"/>
+									<c:set var="time" value="0"/>
+									
+									<c:if test="${regtime<60}">
+										방금전 작성
+									</c:if>
+									<c:if test="${regtime>=60}">
+										<fmt:parseNumber value="${regtime/60}" integerOnly="true" var="min"/>
+									</c:if>
+									<c:if test="${min<60}">
+										${min}분 전 작성
+									</c:if>
+									<c:if test="${min>=60 && min<1440}">
+										
+										<fmt:parseNumber value="${min/60}" integerOnly="true" var="hour"/>
+										${hour}시간 전 작성
+									</c:if>
+									<c:if test="${min>=1440}">
+										<fmt:formatDate value="${map['QUESTION_DATE']}" pattern="yyyy-MM-dd"/>
+									</c:if>
 									</span>
-									<%-- 전체 질문 목록에 북마크 표시 보류 
-										<c:if test="${!empty userNo && !empty bookmarkList }">
-											<c:forEach var="bookmarkVo" items="${bookmarkList }">
-												<c:set var="qstnNo" value="${bookmarkVo.questionNo}"/>
-											<c:if test="${map['QUESTION_NO'] in qstnNo }">
-													<input type="text" value="${qstnNo }">
-													<input type="text" value="${map['QUESTION_NO'] }">
-													<a class="bookmark"
-													href='<c:url value="/indiv/community/delBookMark.do?qstnNo=${map['QUESTION_NO']}"/>'>
-													<i class="fa fa-bookmark" aria-hidden="true"></i></a>
-											</c:if>	
-											<c:if test="${map['QUESTION_NO'] != qstnNo}">
-												<input type="text" value="${qstnNo }">
-												<input type="text" value="${map['QUESTION_NO'] }">
-												<a class="bookmark"
-												href='<c:url value="/indiv/community/delBookMark.do?qstnNo=${map['QUESTION_NO']}"/>'>
-												<i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
-											</c:if>	
-											</c:forEach>
-									</c:if> --%>
 								</dd>
 							</dl>
 						</a>

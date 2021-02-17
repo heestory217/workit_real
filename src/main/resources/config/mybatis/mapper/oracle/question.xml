@@ -41,6 +41,12 @@
 		WHERE QUESTION_NO=#{questionNo}
 	</select>
 	
+	<!-- 질문자 아이디 조회 -->
+	<select id="selectUserId" parameterType="int" resultType="String">
+		SELECT USER_ID FROM USERS
+		WHERE USER_NO=#{userNo}
+	</select>
+	
 	<!-- 질문 수정 -->
 	<update id="updateQstn" parameterType="questionVo">
 		update QUESTION

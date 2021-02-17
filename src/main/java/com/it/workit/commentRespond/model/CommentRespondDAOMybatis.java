@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.it.workit.getmessage.model.GetMessageVO;
+import com.it.workit.message.model.MessageVO;
 import com.it.workit.question.model.QstnPagingVO;
 
 @Repository
@@ -59,6 +61,42 @@ public class CommentRespondDAOMybatis implements CommentRespondDAO{
 	@Override
 	public int selectLikeNum(int cmtNo) {
 		return sqlSession.selectOne(namespace+"selectLikeNum", cmtNo);
+	}
+	
+	//답변 글 조회
+	@Override
+	public Map<String, Object> selectCommentAbout(int commentNo) {
+		return sqlSession.selectOne(namespace+"selectCommentAbout", commentNo);
+	}
+	
+	//답변 글 수정
+	@Override
+	public int updateComment(CommentRespondVO vo) {
+		return sqlSession.update(namespace+"updateComment",vo);
+	}
+
+	//답변 채택 메세지 보내기
+	@Override
+	public int sendAdoptMsg(MessageVO vo) {
+		return sqlSession.insert(namespace+"sendAdoptMsg", vo);
+	}
+
+	//답변 글쓴이 조회
+	@Override
+	public int selectAnswerer(int commentsNo) {
+		return sqlSession.selectOne(namespace+"selectAnswerer", commentsNo);
+	}
+	
+	//답변 채택 메세지 받기
+	@Override
+	public int getAdoptMsg(GetMessageVO vo) {
+		return sqlSession.insert(namespace+"getAdoptMsg", vo);
+	}
+	
+	//답변 채택
+	@Override
+	public int updateCommentLike(int commentsNo) {
+		return sqlSession.update(namespace+"updateCommentLike", commentsNo);
 	}
 	
 	

@@ -106,21 +106,22 @@ a {
 
 .cellBx {
 	margin-bottom: 0px;
-	color: gray;
+    color: gray;
+    padding-top: 7px;
 }
 .cellBx div{
 	display:inline-block;
 }
 
 .cellBx span {
-	font-size:14px;
+	font-size:13px;
 	float: left;
 }
 
 .cellBx .bookmark {
 	float: right;
 	font-size: 27px;
-	padding-bottom: 20px;
+	padding-bottom: 10px;
 	margin-right: 5px;
 	display:block;
 	cursor:pointer;
@@ -218,6 +219,19 @@ textarea::placeholder {
     width: max-content;
 }
 
+.writer{
+    font-size: 19px !important;
+    font-weight: 600 !important;
+    display: inline-block;
+    float: left;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+.bottomDiv{
+	overflow: hidden;
+}
+
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -239,6 +253,15 @@ textarea::placeholder {
 			$('.editBtn').toggle();
 		});
 		
+		//답변 등록하지 않고 등록버튼 누르는 경우 
+	   $('form[name=comntFrm]').submit(function(){
+		   if($('.cmtWriteArea').val().length<1){
+			   alert('먼저 답변을 입력해주세요.');
+			   event.preventDefault();
+		   }
+	   });
+		   
+	  
 		$('#delBtn').click(function(){
 			if(!confirm('삭제된 질문은 복구가 불가능합니다.\n글을 삭제하시겠습니까?')){
 				event.preventDefault();
@@ -314,64 +337,226 @@ textarea::placeholder {
 						<div class="cont">
 							<p>${questionAbout }</p>
 						</div>
-						<div class="cellBx">
-							<div 
-							<c:if test="${sessionScope.userNo==qstnMap['USER_NO'] }">
-								style="margin-bottom:15px;"
-							</c:if>>
-								<span class="cell">조회 ${qstnMap['QUESTION_VIEW'] }&nbsp;&nbsp;|</span>
-								<span class="cell">&nbsp;&nbsp;
-									<fmt:formatDate value="${qstnMap['QUESTION_DATE'] }"
-										pattern="yyyy-MM-dd"/>	
-								</span>
+						<div class="bottomDiv">
+							<span class="writer">@ ${userId }</span>
+							<div class="cellBx">
+								<div 
+								<c:if test="${sessionScope.userNo==qstnMap['USER_NO'] }">
+									style="margin-bottom:10px;"
+								</c:if>>
+									<span class="cell">조회 ${qstnMap['QUESTION_VIEW'] }&nbsp;&nbsp;|</span>
+									<span class="cell">&nbsp;&nbsp;${time }</span>
+								</div>
+								<c:if test="${sessionScope.userNo!=qstnMap['USER_NO'] }">
+									<c:if test="${bmStatus==0 }">
+										<a class="bookmark">
+										<i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
+									</c:if>
+									<c:if test="${bmStatus>0 }">
+										<a class="bmChecked"
+										href='<c:url value="/indiv/community/delBookMark.do?qstnNo=${qstnMap['QUESTION_NO']}"/>'>
+										<i class="fa fa-bookmark" aria-hidden="true"></i></a>
+									</c:if>
+								</c:if>
 							</div>
-							<c:if test="${sessionScope.userNo!=qstnMap['USER_NO'] }">
-								<c:if test="${bmStatus==0 }">
-									<a class="bookmark">
-									<i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
-								</c:if>
-								<c:if test="${bmStatus>0 }">
-									<a class="bmChecked"
-									href='<c:url value="/indiv/community/delBookMark.do?qstnNo=${qstnMap['QUESTION_NO']}"/>'>
-									<i class="fa fa-bookmark" aria-hidden="true"></i></a>
-								</c:if>
-							</c:if>
 						</div>
+						<c:if test="${sessionScope.userNo !=qstnMap['USER_NO'] }">
+							<!-- 답변 등록 -->
+							<div class="cmtBox">
+								<div class="writeBoxWrap cmtWrite">
+									<input type="hidden" name="userNo" value="${sessionScope.userNo }">
+									<form name="comntFrm" method="post" 
+									action="<c:url value='/indiv/community/cmtWrite.do?qstnNo=${param.qstnNo }'/>">
+										<div class="cmtWriteBox">
+											<textarea	name="commentrespondAbout" 
+											class="cmtWriteArea" placeholder="솔직하고 따뜻한 답변을 남겨주세요."></textarea>
+										</div>
+										<div class="regiBtnWrap">
+											<span class="letterNum"><b id="cnt">0</b> / 1,000</span>
+											<button type="submit" id="regiBtn">등록</button>
+										</div>
+										<div style="clear: both;"></div>
+									</form>
+								</div>
+							</div>
 						
-						<!-- 답변 등록 -->
-						<div class="cmtBox">
-							<div class="writeBoxWrap cmtWrite">
-								<input type="hidden" name="userNo" value="${sessionScope.userNo }">
-								<form name="comntFrm" method="post" 
-								action="<c:url value='/indiv/community/cmtWrite.do?qstnNo=${param.qstnNo }'/>">
-									<div class="cmtWriteBox">
-										<textarea	name="commentrespondAbout" 
-										class="cmtWriteArea" placeholder="솔직하고 따뜻한 답변을 남겨주세요."></textarea>
-									</div>
-									<div class="regiBtnWrap">
-										<span class="letterNum"><b id="cnt">0</b> / 1,000</span>
-										<button type="submit" id="regiBtn">등록</button>
-									</div>
-									<div style="clear: both;"></div>
-								</form>
-							</div>
-						</div>
-						<!-- <div class="explain">
-							<ul class="txInfoWrap">
-							</ul>
-						</div> -->
+						</c:if>
 					</div>
 				</article>
 				
 				<!-- 답변 include -->
 				<c:import url="/indiv/community/comments.do"/>
+				<!-- 메시지박스 -->
+				<div class="msgBox">
+   					<span id="closeIcon">&times;</span>
+					<div class="msgBxWrap">
+						<h4 id="msgBxTit">답변 채택하기</h4>
+						<div class="msg">
+							<span>답변이 마음에 드셨나요?<br>
+							답변을 주신 분께 감사 인사를 남겨주세요.<span> (최대 300자)</span>
+							</span>
+						</div>
+						<form name="modalFrm" method="post"
+							action="<c:url value='/indiv/community/adoptComment.do'/>">
+							<input type="hidden" value="" name="commentrespondNo" id="comntNo">
+							<input type="hidden" value="${qstnMap['QUESTION_NO'] }" name="questionNo" id="qstnNo">
+							<textarea id="msgTextarea" name="messageContent"></textarea>
+							<div style="overflow: hidden">
+								<span class="letterCnt"><b id="count">0</b> / 300</span></div>
+							<div class="msgBtnBx">
+							<input type="submit" id="adopt" value="채택하기">
+							<input type="button" id="close" value="닫기">
+							</div>
+						
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
 	<div style="clear: both;"></div>
 </div>
+<script>
+$(function(){
+	$('.msgBox').hide();
+	$('#closeIcon').click(function(){
+		$('.msgBox').hide();
+	});
+	
+	$('form[name=modalFrm]').submit(function(){
+		if($('#msgTextarea').val().length>300){
+			alert('답변 채택 메세지는 300자 이내로 입력 가능합니다.');
+			event.preventDefault();
+		}
+	});
+	
+	$('#msgTextarea').keyup(function (e){
+	    var content = $(this).val();
+	    $('#count').html(content.length);
 
+	    if (content.length > 1000){
+	        alert("최대 300자까지 입력 가능합니다.");
+	        $(this).val(content.substring(0, 300));
+	        $('#count').html("300");
+	    }
+	});
+	
+	$('#close').click(function(){
+		if((confirm('답변을 채택하지 않고 나가시겠습니까?'))){
+			$('.msgBox').hide();
+		}
+	});
+});
 
+function sendMsgFunc(commentsNo){
+	$('.msgBox').show();
+	$('form[name=modalFrm]').find('#comntNo').val(commentsNo);
+}
+</script>
+<style>
+	.msgBox{
+		border: 1.8px solid #4C4747;
+	    border-radius: 10px;
+	    width: 500px;
+	    height:370px;
+	    position: absolute;
+	    top: 33%;
+	    left: 33%;
+	    background: #f8faff;
+	    overflow: hidden;
+	}
+	
+	#closeIcon{
+		float: right;
+	    font-size: 25px;
+	    padding: 10px 25px;
+	    cursor:pointer;
+	}
+	
+	#msgBxTit{
+		color:#4c50bb;
+	}
+	
+	
+	.msgBxWrap{
+	    padding: 30px;
+	    width: 100%;
+	    height: 100%;
+	}
+	
+	.divCmty{
+		position:relative;
+	}
+	
+	#msgTextarea{
+	    border-radius: 7px;
+	    overflow: auto;
+	    resize: none;
+	    width: 100%;
+	    height: 100px;
+	    background-color: #ffffff;
+	    border: 1px solid gray;
+	}
+	/* 스크롤바 굵기 */
+	#msgTextarea::-webkit-scrollbar {
+	  width:8px;
+	}
+	
+	#msgTextarea::-webkit-scrollbar-thumb {
+	  border-radius: 5px;
+	  background-color: silver;
+	}
+	
+	.msgBtnBx{
+		width:100%;
+		height:50px;
+		resize: none;
+		outline:none;
+		
+	}
+	
+	.msgBtnBx > input{
+		border-radius: 7px;
+		width: 49%;
+    	height: 100%;
+    	background: white;
+    	border: 1px solid gray;
+	}
+	
+	.msgBtnBx > input:hover{
+		background:#4c50bb;
+		color:white;
+	}
+	
+	#close{
+		width:50% !important;
+	}
+	
+	.msg{
+		padding:22px 0;
+	}
+	
+	.msg > span{
+		font-size:15px;
+	}
+	
+	.msg>span>span{
+		font-size: 14px;
+	}
+	
+	.letterCnt > b{
+		color:#4c50bb;
+	}
+
+	.letterCnt {
+	    font-size: 13px;
+	    margin-right: 8px;
+	    margin-bottom: 10px;
+	    display: inline-block;
+	    float: right;
+	}
+	
+</style>
 
 
 <%@ include file="../../inc/bottom.jsp"%>

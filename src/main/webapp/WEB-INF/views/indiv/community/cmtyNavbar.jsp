@@ -5,7 +5,7 @@
 	#leftNav{
 		border:1px solid silver;
 		width:213px;
-		height: 514px;
+		height: auto;
 	}
 	
 	.questionBtn{
@@ -35,7 +35,7 @@
 	.myInfoSec{
 		border: 1px solid #f3f3f3;
 	    height: 150px;
-	    margin: 10px;
+        margin: 10px 10px -5px;
 	    background-color: #f3f3f3;
 	}
 	
@@ -60,12 +60,16 @@
 	    margin: 5px 5px 5px 5px;
 	}
 	
-	li a{
+	li.sideNav a{
 		vertical-align:center;
 		text-decoration: none;
 		color:black;
 		margin: 0 10px;
 	} 
+	
+	li.sideNav:last-child{
+		padding-bottom:15px;
+	}
 	
 	#searchBoxNav hr{
 		margin-top:0px;
@@ -124,6 +128,11 @@
 			$('.toggleBx').toggle();
 		});
 	});
+	
+	var hash = 'd6fe8c82fb0abac17a702fd2a94eff37';
+	  var data = new Identicon (hash) .toString ();
+	  document.write ( '<img src = "data : image / png; base64,'+ 데이터 + '">');
+	
 </script>
 <!-- 커뮤니티 게시판, 사이드 메뉴 바 -->
 <aside style="float:left">
@@ -167,26 +176,24 @@
 				</c:if>	
 			</div>
 				<ul class="nav flex-column">
-					<li class="sideNav" id="searchBoxNav">
-						<input type="text" name="searchQuest" id="searchQuest" 
-							placeholder="질문을 검색하세요" >
-						<hr>
-					</li>
 					<li class="sideNav">
+					<hr>
 					<c:if test="${empty sessionScope.userNo }">
 						<a class="nav-link userQstn" href
 				="<c:url value='/users/login.do'/>">
-						나의 질문</a><hr>
+						나의 질문</a>
 					</c:if>
 					<c:if test="${!empty sessionScope.userNo }">
 						<a class="nav-link userQstn" href
 				="<c:url value='/indiv/community/myQstn.do?userNo=${sessionScope.userNo }'/>">
-						나의 질문</a><hr></c:if></li>
-					<li class="sideNav"><a class="nav-link allQstn" href
-				="<c:url value='/indiv/community/qstnList.do'/>">
-						전체 질문</a><hr></li>
+						나의 질문</a></c:if></li>
 					<li class="sideNav">
-					
+					<hr>
+					<a class="nav-link allQstn" href
+				="<c:url value='/indiv/community/qstnList.do'/>">
+						전체 질문</a></li>
+					<li class="sideNav">
+					<hr>
 					<c:if test="${empty sessionScope.userNo }">
 					<div><a class="nav-link answerBoard" href
 				="<c:url value='/users/login.do'/>">

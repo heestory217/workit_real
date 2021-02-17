@@ -248,6 +248,7 @@
 		margin-bottom:100px;
 		cursor: pointer;
 	}
+	
 </style>
 	<!-- 슬라이드 배너 (광고 1급 서비스) -->
 		<c:import url="/indiv/bannerAd.do"/>
@@ -327,7 +328,6 @@
 	</div>
 
 	
-	   
 	
 <script type="text/javascript" src="/resources/js/jquery-3.5.1.min.js"></script>
 <script>

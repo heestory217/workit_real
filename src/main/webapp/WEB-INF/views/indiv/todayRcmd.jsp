@@ -40,7 +40,7 @@
 		<div class="carousel-item active">
 			<div class="row">
 				<c:forEach var="map" items="${secAdList }" begin="0" end="1">
-					<div class="col-lg-6 padding_5 d-inline-block w-25">
+					<div class="col-lg-6 col-md-12 padding_5 d-inline-block w-25">
 						<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${map["RECRUITANNOUNCE_NO"] }'/>"> 
 						<img id="rcmdImg" src="<c:url value='/pd_images/${map["CORP_IMGURL"] }'/>"
 							onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
@@ -72,7 +72,7 @@
 			<div class="carousel-item">
 				<div class="row">
 					<c:forEach var="map" items="${secAdList }" begin="2" end="3">
-					<div class="col-lg-6 padding_5 d-inline-block w-25">
+					<div class="col-lg-6 col-md-12 padding_5 d-inline-block w-25">
 						<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${map["RECRUITANNOUNCE_NO"] }'/>"> 
 						<img id="rcmdImg" src="<c:url value='/pd_images/${map["CORP_IMGURL"] }'/>"
 							onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
@@ -104,7 +104,7 @@
 			<div class="carousel-item">
 				<div class="row">
 					<c:forEach var="map" items="${secAdList }" begin="4" end="5">
-					<div class="col-lg-6 padding_5 d-inline-block w-25">
+					<div class="col-lg-6 col-md-12 padding_5 d-inline-block w-25">
 						<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${map["RECRUITANNOUNCE_NO"] }'/>"> 
 						<img id="rcmdImg" src="<c:url value='/pd_images/${map["CORP_IMGURL"] }'/>"
 							onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
