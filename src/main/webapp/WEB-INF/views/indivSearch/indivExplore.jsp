@@ -54,10 +54,9 @@
 <!-- Latest Blog Section Begin -->
 <section class="latest-blog spad margin_left_right_150">
 
-	<form method="post" action="<c:url value='/indivSearch/indivExplore.do'/>" class="center">
-	<label for="areaAdd1">지역 *</label>
-		&nbsp;&nbsp;&nbsp;&nbsp;
-	<select name="areaAdd1" id="areaAdd1" class="col-lg-4 searchSelectbox">
+	<form method="post" action="<c:url value='/indivSearch/indivExplore.do'/>" class="container" style="text-align: center;">
+	<label for="areaAdd1" style="margin-right: 30px;">지역 *</label>
+	<select name="areaAdd1" id="areaAdd1" class="col-lg-5 searchSelectbox">
 		<option disabled selected value="X">지역을 선택하세요</option>
 		<c:if test="${!empty Alist }">
 			<c:forEach var="Avo" items="${Alist }">
@@ -70,8 +69,7 @@
 		</c:if>
 	</select>
 	<!-- <label for="areaAdd2">지역2</label> -->
-		&nbsp;&nbsp;&nbsp;&nbsp;
-	<select name="areaAdd2" id="areaAdd2" class="col-lg-4 searchSelectbox">
+	<select name="areaAdd2" id="areaAdd2" class="col-lg-5 searchSelectbox" style="margin-left: 40px;">
 		<option disabled selected value="X">지역을 선택하세요</option>
 		<c:if test="${!empty area2list }">
 			<c:forEach var="A2vo" items="${area2list }">
@@ -84,9 +82,8 @@
 		</c:if>
 	</select><br><br>
 	
-	<label for="languageNo">언어 *</label>
-		&nbsp;&nbsp;&nbsp;&nbsp;
-	<select name="languageNo" id="languageNo" class="col-lg-3 searchSelectbox">
+	<label for="languageNo" style="margin-right: 30px;">언어 *</label>
+	<select name="languageNo" id="languageNo" class="col-lg-4 searchSelectbox">
 		<option disabled selected value="X">사용언어를 선택하세요</option>
 		<c:if test="${!empty Llist }">
 			<c:forEach var="Lvo" items="${Llist }">
@@ -97,10 +94,9 @@
 				>${Lvo.languageName }</option>
 			</c:forEach>
 		</c:if>
-	</select>&nbsp;&nbsp;&nbsp;&nbsp;
-	<label for="indivCareer">경력 *</label>
-		&nbsp;&nbsp;&nbsp;&nbsp;
-	<select name="indivCareer" id="indivCareer" class="col-lg-3 searchSelectbox">
+	</select>
+	<label for="indivCareer" style="margin-right: 30px; margin-left: 55px;">경력 *</label>
+	<select name="indivCareer" id="indivCareer" class="col-lg-4 searchSelectbox">
 		<option disabled selected value="X">경력을 선택하세요</option>
 		<option value="0"
 			<c:if test="${Cselected =='0'}">
