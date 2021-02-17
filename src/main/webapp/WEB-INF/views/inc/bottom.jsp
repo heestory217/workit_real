@@ -11,7 +11,7 @@
                             <a href="#"><img src="<c:url value="/resources/img/footer_workit_logo.PNG"/>" alt=""></a>
                         </div>
                         <ul>
-                            <li>Address: 124, Teheran-ro, Gangnam-gu, Seoul, Republic of Korea</li>
+                            <li>Address: 124, Teheran-ro, Gangnam-gu, Seoul, Korea</li>
                             <li>Phone: +82 02.6255.8002</li>
                             <li>Email: workit2022@gmail.com</li>
                         </ul>
