@@ -60,10 +60,7 @@
                                 <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/chart-c3.html">서비스 조회</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="pages/chart-charts.html">서비스 통계</a>
+                                            <a class="nav-link" href="<c:url value='/admin/paidService/orderslist/ordersList.do'/>">서비스 내역 조회</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="<c:url value='/admin/paidService/coupon/manage.do'/>">쿠폰 관리</a>
@@ -76,10 +73,7 @@
                                 <div id="submenu-4" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/form-validation.html">광고 서비스 조회</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="pages/form-validation.html">광고 등록/수정 심사</a>
+                                            <a class="nav-link" href="<c:url value='/admin/advertising/advertisingOnline.do'/>">광고 서비스 조회</a>
                                         </li>
                                     </ul>
                                 </div>

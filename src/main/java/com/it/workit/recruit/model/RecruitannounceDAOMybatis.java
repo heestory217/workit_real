@@ -121,7 +121,7 @@ public class RecruitannounceDAOMybatis implements RecruitannounceDAO {
 	public int recruitannouncedeny(int recruitannounceNo) {
 		return sqlSession.insert(namespace+"recruitannouncedeny", recruitannounceNo);
 	}
-	/*
+	
 	@Override
 	public List<AdminadvertisingVO> selectadvertisingfstclass() {
 		return sqlSession.selectList(namespace+"selectadvertisingfstclass");
@@ -136,10 +136,20 @@ public class RecruitannounceDAOMybatis implements RecruitannounceDAO {
 	public int selectadvertisingcountfst() {
 		return sqlSession.selectOne(namespace+"selectadvertisingcountfst");
 	}
-
+	
 	@Override
 	public int selectadvertisingcountsec() {
 		return sqlSession.selectOne(namespace+"selectadvertisingcountsec");
-	}*/
+	}
+
+	@Override
+	public List<AdminadvertisingVO> selectadvertisinglist(SearchVO searchVo) {
+		return sqlSession.selectList(namespace+"selectadvertisinglist", searchVo);
+	}
+
+	@Override
+	public int selectadvertisinglistcount(SearchVO searchVo) {
+		return sqlSession.selectOne(namespace+"selectadvertisinglistcount", searchVo);
+	}
 
 }

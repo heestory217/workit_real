@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.it.workit.common.SearchVO;
 import com.it.workit.companyMypage.model.CompanypagingVO;
 import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
@@ -185,5 +186,17 @@ public class OrdersServiceImpl implements OrdersService{
 		return ordersDao.totalPay();
 	}
 
+	@Override
+	public List<OrdersCorpPayVO> fullorderlist(SearchVO searchVo) {
+		return ordersDao.fullorderlist(searchVo);
+	}
+
+	@Override
+	public int fullorderlistcount(SearchVO searchVo) {
+		return ordersDao.fullorderlistcount(searchVo);
+	}
+
+	
+	
 
 }

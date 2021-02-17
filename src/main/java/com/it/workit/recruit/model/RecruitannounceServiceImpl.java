@@ -114,7 +114,7 @@ public class RecruitannounceServiceImpl implements RecruitannounceService {
 	public int recruitannouncedeny(int recruitannounceNo) {
 		return RecruitannounceDao.recruitannouncedeny(recruitannounceNo);
 	}
-	/*
+
 	@Override
 	public List<AdminadvertisingVO> selectadvertisingfstclass() {
 		return RecruitannounceDao.selectadvertisingfstclass();
@@ -133,5 +133,14 @@ public class RecruitannounceServiceImpl implements RecruitannounceService {
 	public int selectadvertisingcountsec() {
 		return RecruitannounceDao.selectadvertisingcountsec();
 	}
-	*/
+
+	@Override
+	public List<AdminadvertisingVO> selectadvertisinglist(SearchVO searchVo) {
+		return RecruitannounceDao.selectadvertisinglist(searchVo);
+	}
+
+	@Override
+	public int selectadvertisinglistcount(SearchVO searchVo) {
+		return RecruitannounceDao.selectadvertisinglistcount(searchVo);
+	}
 }

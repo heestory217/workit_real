@@ -25,11 +25,10 @@
 
 <div class="col-lg-12">
 	<br><br><br><div class="section-block">
-		<h3 class="section-title center">채용공고 조회</h3>
+		<h3 class="section-title center">유료서비스 조회</h3>
 	</div><br>
-	
-	<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" style="float: right;">
-		<form action="<c:url value='/admin/users/corp/recruitList.do'/>" 
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" style="float: right;">
+		<form action="<c:url value='/admin/paidService/orderslist/ordersList.do'/>" 
 		name="frmPage" method="post">
 		<input type="hidden" name="currentPage">
 		</form>
@@ -42,9 +41,9 @@
 				<table class="table table-bordered first">
 				<colgroup>
 					<col width="5%">
-					<col width="25%">
-					<col width="10%">
-					<col width="10%">
+					<col width="15%">
+					<col width="15%">
+					<col width="15%">
 					<col width="15%">
 					<col width="15%">
 					<col width="10%">
@@ -52,14 +51,14 @@
 				</colgroup>
 					<thead>
 						<tr class="center">
-							<th>공고번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>업체명</th>
-							<th>등록일</th>
-							<th>마감일</th>
-							<th>승인 여부</th>
-							<th>승인</th>
+							<th>주문번호</th>
+							<th>구매자</th>
+							<th>구매상품</th>
+							<th>결제도구</th>
+							<th>쿠폰</th>
+							<th>할인금액</th>
+							<th>결제금액</th>
+							<th>결제일</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -75,45 +74,14 @@
 	            	<c:if test="${!empty list }">
 	            		<c:forEach var="vo" items="${list }">
 	            			<tr class="center">
-					            <td>${vo.userNo }</td>
-								<td>
-									<c:if test="${fn:length(vo.recruitannounceTitle)>=25}">
-										${fn:substring(vo.recruitannounceTitle, 0,25) } ...
-									</c:if>
-									<c:if test="${fn:length(vo.recruitannounceTitle)<25}">						
-										${vo.recruitannounceTitle }
-									</c:if>
-								</td>
-								<td>${vo.usersNames }</td>
-								<td>${vo.corpsNames }</td>
-								<td><fmt:formatDate value="${vo.recruitannounceStartdate }" pattern="yyyy-MM-dd"/></td>
-								<td><fmt:formatDate value="${vo.recruitannounceEnddate }" pattern="yyyy-MM-dd"/></td>
-								<td>
-									<c:if test="${vo.recruitannounceUpcheck==1 }">
-										[대기중]
-									</c:if>
-									<c:if test="${vo.recruitannounceUpcheck==2 }">
-										[통과]
-									</c:if>
-									<c:if test="${vo.recruitannounceUpcheck==3 }">
-										[반려]
-									</c:if>
-									<c:if test="${vo.recruitannounceUpcheck==4 }">
-										[수정 대기중]
-									</c:if>
-									</td>
-								<td>
-									<c:if test="${vo.recruitannounceUpcheck==1 ||  vo.recruitannounceUpcheck==4}">
-									<a href="<c:url value='/admin/users/corp/recruitcheck.do?recruitannounceNo=${vo.recruitannounceNo }&check=2'/>" class="btn btn-outline-secondary"> 승인 </a>&nbsp;&nbsp;&nbsp;
-	                           		<a href="<c:url value='/admin/users/corp/recruitcheck.do?recruitannounceNo=${vo.recruitannounceNo }&check=3'/>" class="btn btn-outline-primary"> 반려 </a>
-									</c:if>
-									<c:if test="${vo.recruitannounceUpcheck==2 }">
-										<a href="<c:url value='/admin/users/corp/recruitcheck.do?recruitannounceNo=${vo.recruitannounceNo }&check=1'/>" class="btn btn-outline-primary"> 승인취소 </a>
-									</c:if>
-									<c:if test="${vo.recruitannounceUpcheck==3 }">
-										<a href="<c:url value='/admin/users/corp/recruitcheck.do?recruitannounceNo=${vo.recruitannounceNo }&check=1'/>" class="btn btn-outline-secondary"> 반려취소 </a>
-									</c:if>
-								</td>
+					            <td>${vo.orderNo }</td>
+					            <td>${vo.recruitname }</td>
+					            <td>${vo.payName }</td>
+					            <td>${vo.orderPaykind }</td>
+					            <td></td>
+					            <td>${vo.orderDiscount }</td>
+					            <td>${vo.orderPay }</td>
+					            <td><fmt:formatDate value="${vo.orderDate }" pattern="yyyy-MM-dd"/></td>
 			            </tr>
 	            		</c:forEach>
 	            	</c:if>
@@ -165,5 +133,7 @@
 			</ul>
 		</nav> 
 	</div>
+	
+	
                  
 <%@ include file="../../inc/bottom.jsp" %>

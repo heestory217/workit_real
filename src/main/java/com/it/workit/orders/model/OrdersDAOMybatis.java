@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.it.workit.common.SearchVO;
 import com.it.workit.companyMypage.model.CompanypagingVO;
 import com.it.workit.hrm.model.HrmResumePageVO;
 import com.it.workit.indivMypage.model.IndivpagingVO;
@@ -138,6 +139,16 @@ public class OrdersDAOMybatis implements OrdersDAO{
   @Override
 	public int totalPay() {
 			return sqlSession.selectOne(namespace+"totalPay");
+	}
+
+	@Override
+	public List<OrdersCorpPayVO> fullorderlist(SearchVO searchVo) {
+		return sqlSession.selectList(namespace+"fullorderlist",searchVo);
+	}
+	
+	@Override
+	public int fullorderlistcount(SearchVO searchVo) {
+		return sqlSession.selectOne(namespace+"fullorderlistcount",searchVo);
 	}
 
 }
