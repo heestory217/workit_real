@@ -35,7 +35,7 @@
 	<c:if test="${!empty customList}">
 		<div class="row">
 			<c:forEach var="map" items="${customList}">
-				<div class="col-lg-3 d-inline-block w-25">
+				<div class="col-lg-3 col-md-6 d-inline-block w-25">
 					<div class="single-latest-blog" id="divBx">
 						<a
 							href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${map["RECRUITANNOUNCE_NO"] }'/>">

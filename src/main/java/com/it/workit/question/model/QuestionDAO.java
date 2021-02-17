@@ -31,4 +31,5 @@ public interface QuestionDAO {
 	int updateTempQstn(QuestionVO vo);	//질문 수정(임시저장)
 	int updateComntCnt(int qstnNo);	//답변이 등록되면 답변 개수가 증가됨
 	int delComntCnt(int qstnNo);	//답변이 삭제되면 답변 개수가 감소됨
+	String selectUserId(int userNo);
 }

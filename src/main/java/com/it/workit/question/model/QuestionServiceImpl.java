@@ -163,5 +163,10 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionDao.selectBookmark(userNo);
 	}
 
+	@Override
+	public String selectUserId(int userNo) {
+		return questionDao.selectUserId(userNo);
+	}
+
 	
 }

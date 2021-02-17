@@ -53,8 +53,37 @@
 												${map['COMMENT_COUNT']}</span>&nbsp;&nbsp;|&nbsp;
 										</span> <span class="readCnt">조회
 											${map['QUESTION_VIEW']}&nbsp;&nbsp;|&nbsp;</span> <span
-											class="regTime"> <fmt:formatDate
-												value="${map['QUESTION_DATE']}" pattern="yyyy-MM-dd" />
+											class="regTime"> 
+											
+											<!-- 작성일 계산 -->
+									<c:set var="today" value="<%=new java.util.Date()%>"/>
+								 	<fmt:formatDate var="today" value="${today }" pattern="yyyy-MM-dd HH:mm:ss" />
+								    <c:set var="regdate" value="${map['QUESTION_DATE'] }"/>
+								    <fmt:parseDate value="${today }" var="today" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:parseNumber value="${today.time}" integerOnly="true" var="today"/>
+									<fmt:parseDate value="${regdate }" var="regdate" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:parseNumber value="${regdate.time}" integerOnly="true" var="regdate"/>
+									<c:set var="regtime" value="${(today-regdate)/1000 }"/>
+									<c:set var="time" value="0"/>
+									
+									<c:if test="${regtime<60}">
+										방금전 작성
+									</c:if>
+									<c:if test="${regtime>=60}">
+										<fmt:parseNumber value="${regtime/60}" integerOnly="true" var="min"/>
+									</c:if>
+									<c:if test="${min<60}">
+										${min}분 전 작성
+									</c:if>
+									<c:if test="${min>=60 && min<1440}">
+										
+										<fmt:parseNumber value="${min/60}" integerOnly="true" var="hour"/>
+										${hour}시간 전 작성
+									</c:if>
+									<c:if test="${min>=1440}">
+										<fmt:formatDate value="${map['QUESTION_DATE']}" pattern="yyyy-MM-dd"/>
+									</c:if>
+											
 										</span>
 									</dd>
 								</dl>

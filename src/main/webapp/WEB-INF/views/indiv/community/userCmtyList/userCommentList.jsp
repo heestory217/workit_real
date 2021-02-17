@@ -37,13 +37,25 @@
 
 .questionTitle{
 	font-size: 15px;
-    color: #5f5f5f
+    color: #5f5f5f;
+    margin-bottom:20px;
 }
 
 .cmntAbout{
 	font-size:16px;
     color: black;
     font-weight: lighter;
+}
+
+#adoptIcon{
+    padding: 3px 0px;
+    color: #ff4c08;
+    float: right;
+}
+
+.selectedComment{
+	margin-top:0px !important;
+	overflow: hidden;
 }
 </style>
 
@@ -97,6 +109,13 @@
 										<span>질문 제목 : ${map['QUESTION_TITLE']}</span>
 									</dd>
 
+									<!-- 채택된 답변인 경우 -->
+									<c:if test="${map['COMMENTRESPOND_LIKENUM']==1}">						
+										<dd class="selectedComment">
+									   		<span id="adoptIcon"><i class="far fa-check-circle"></i>&nbsp;채택된 답변</span>
+										</dd>
+									</c:if>
+								
 								</dl>
 							</a>
 						</div>

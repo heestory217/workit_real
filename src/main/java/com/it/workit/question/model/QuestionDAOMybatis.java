@@ -167,4 +167,10 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	}
 	
 	
+	@Override
+	public String selectUserId(int userNo) {
+		return sqlSession.selectOne(namespace+"selectUserId", userNo);
+	}
+	
+	
 }

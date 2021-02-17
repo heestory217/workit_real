@@ -1,5 +1,9 @@
 package com.it.workit.community.controller;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +27,8 @@ import com.it.workit.comments.model.CommentsService;
 import com.it.workit.comments.model.CommentsVO;
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
+import com.it.workit.getmessage.model.GetMessageVO;
+import com.it.workit.message.model.MessageVO;
 import com.it.workit.question.model.BookmarkVO;
 import com.it.workit.question.model.QstnPagingVO;
 import com.it.workit.question.model.QuestionService;
@@ -224,9 +230,9 @@ public class CommunityController {
 			bookmarkList = qstnService.selectBookmark(userNo);
 			logger.info("북마크 한 글 조회 결과, bookmarkList.size={}", bookmarkList.size());
 		}
-		model.addAttribute("bookmarkList", bookmarkList);
 		
-
+		
+		model.addAttribute("bookmarkList", bookmarkList);
 
 		model.addAttribute("qstnList", qstnList);
 		model.addAttribute("pagingInfo", pagingInfo);
@@ -291,10 +297,14 @@ public class CommunityController {
 			return "common/message";
 		}
 		
+		
 		/*
 		 * QuestionVO qstnVo = qstnService.selectQstn(qstnNo);
 		 */		
 		Map<String, Object> qstnMap = qstnService.selectQstn(qstnNo);
+		int writerNo=Integer.parseInt(String.valueOf(qstnMap.get("USER_NO")));
+		String userId=qstnService.selectUserId(writerNo);
+		
 		logger.info("질문 조회 결과, qstnMap={}",qstnMap);
 		if(session.getAttribute("userNo")!=null) {
 			int userNo=(Integer) session.getAttribute("userNo");
@@ -306,7 +316,35 @@ public class CommunityController {
 			model.addAttribute("bmStatus", bmStatus);
 		}
 		
+		
+		Timestamp regdate = (Timestamp) qstnMap.get("QUESTION_DATE");
+		long regTime=regdate.getTime();
+		long curTime=System.currentTimeMillis();
+		long diffTime = (curTime-regTime)/1000;
+		
+		int sec = 60;
+		int min = 60;
+		int hour = 24;
+
+		logger.info("diffTime={}", diffTime);
+		String time="";
+		if(diffTime<sec) {
+			time = "방금 전 작성";
+			logger.info("time={}", time);
+		}else if((diffTime/=sec)<min) {
+			time = diffTime+"분 전 작성";
+			logger.info("time={}", time);
+			
+		}else if((diffTime/=min)<hour) {
+			time = diffTime+"시간 전 작성";
+		}else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			time = sdf.format(regdate);
+		}
+		
+		model.addAttribute("time", time);
 		model.addAttribute("qstnMap", qstnMap);
+		model.addAttribute("userId", userId);
 		
 		return "indiv/community/qstnDetail";
 	}
@@ -717,6 +755,73 @@ public class CommunityController {
 		
 	}
 	
+	//답변 조회
+	@ResponseBody
+	@RequestMapping(value="/editComment.do",produces = "application/text; charset=UTF-8")
+	public String commentEdit(@RequestParam(defaultValue = "0") int commentNo) {
+		logger.info("답변 수정 조회, 파라미터 commentNo={}", commentNo);
+		Map<String, Object> commentVo=comntService.selectCommentAbout(commentNo);
+		logger.info("답변 수정 조회 결과 , commentVo={}",commentVo);
+		String commentAbout=(String) commentVo.get("commentAbout");
+		logger.info("commentAbout={}", commentAbout);
+		
+		return commentAbout;
+	}
 	
+	//답변 수정
+	@ResponseBody
+	@RequestMapping(value="/updateComment.do", produces = "application/json; charset=UTF-8")
+	public int updateComment(@RequestParam(defaultValue = "0") int commentNo,
+			@RequestParam String commentAbout) {
+		logger.info("답변 글 수정 처리, 파라미터 commentNo={}, commentAbout={}", commentNo, commentAbout);
+		CommentRespondVO vo = new CommentRespondVO();
+		vo.setCommentrespondAbout(commentAbout);
+		vo.setCommentrespondNo(commentNo);
+		int cnt = comntService.updateComment(vo);
+		logger.info("답변 글 수정 결과 , cnt={}", cnt);
+		
+		return cnt;
+	}
 	
+	//답변 채택
+	@RequestMapping("/adoptComment.do")
+	public String adoptComment(@RequestParam(defaultValue = "0") int qstnNo,
+			@RequestParam(defaultValue = "0") int commentrespondNo, 
+			@RequestParam String messageContent, HttpServletRequest request,
+			HttpSession session, Model model) {
+		int userNo = (Integer) session.getAttribute("userNo");
+		MessageVO messageVo = new MessageVO();
+		messageVo.setUserNo(userNo);
+		messageVo.setMessageContent(messageContent);
+		logger.info("답변 채택, 파라미터 commentrespondNo={}, messageContent={}", commentrespondNo, messageContent);
+		String referer=request.getHeader("referer");
+		//쪽지 보내기
+		int cnt = comntService.sendAdoptMsg(messageVo);
+		logger.info("답변 메시지 전달 결과(send), cnt={}",cnt);
+		String msg="답변 채택 메세지가 전달되지 못했습니다.\\n다시 시도해주세요.", 
+				url=referer;
+		if(cnt>0) {
+			
+			int answerer = comntService.selectAnswerer(commentrespondNo);
+			GetMessageVO getMessageVo = new GetMessageVO();
+			getMessageVo.setMessageNo(messageVo.getMessageNo());
+			getMessageVo.setUserNo(answerer);
+			
+			int getMessageCnt = comntService.getAdoptMsg(getMessageVo);
+			int adoptRes = comntService.updateCommentLike(commentrespondNo);
+			logger.info("답변 채택 & 메시지 전달 결과(get), getMessageCnt={}, adoptRes={}", getMessageCnt,adoptRes);
+			if(getMessageCnt>0) {
+				msg="답변 채택 메세지가 전달되었습니다.\\n전달한 메세지는 [보낸 쪽지함]에서 확인 가능합니다.";
+			}
+		}
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "common/message";
+		//쪽지 보내기 성공 => 쪽지 보낸 시퀀스로 쪽지 받기 
+		//답변 채택하기
+		
+		
+	}
 }

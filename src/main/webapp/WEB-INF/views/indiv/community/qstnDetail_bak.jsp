@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../../inc/top.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
 <style type="text/css">
 .divCmty {
 	width: 1140px;
@@ -63,13 +61,44 @@ a {
 	color: #4c50bb;
 }
 
+.fa-ellipsis-h{
+	font-size:22px;
+	color:silver;
+	position: relative;
+}
+
+.editBox{
+	float:right;
+	margin:-6px 5px 0 0;
+}
+
+.editBtn{
+	border:1px solid gray;
+	position: absolute;
+	width: 70px;
+    height: 80px;
+    background: white;
+    padding:8px;
+}
+
+.editBtn>hr{
+	margin:8px 0;
+}
+.editBtn>a{
+	padding:9px;
+}
+
+.tit{
+	overflow: hidden;
+}
+
 .tit>p {
 	font-size: 25px;
 	color: black;
 	margin-top: 20px;
 }
 
-.cont>p {
+.cont p {
 	margin: 30px 0px;
 	font-size: 18px;
 	color: black;
@@ -77,22 +106,40 @@ a {
 
 .cellBx {
 	margin-bottom: 0px;
+	color: gray;
+}
+.cellBx div{
+	display:inline-block;
 }
 
-.cellBx>span {
+.cellBx span {
 	font-size:14px;
 	float: left;
 }
 
-.cellBx>.bookmark {
+.cellBx .bookmark {
 	float: right;
-	font-size: 30px;
+	font-size: 27px;
 	padding-bottom: 20px;
 	margin-right: 5px;
+	display:block;
+	cursor:pointer;
 }
 
-.cellBx {
-	color: gray;
+
+.cellBx .bmChecked {
+	float: right;
+	font-size: 27px;
+	padding-bottom: 20px;
+	margin-right: 5px;
+	display:block;
+	cursor:pointer;
+	color:#4c50bb;
+}
+
+.cellBx  a{
+	color:gray;
+	font-size:14px;	
 }
 
 .cmtBox {
@@ -159,9 +206,18 @@ textarea::placeholder {
 
 .fa-quora{
 	font-size: 30px;
-  		margin-right: 10px;
-	color:#4c50bb;	
-	}
+  	margin-right: 10px;
+	color:#4c50bb;
+		
+}
+
+.workkind{
+	margin: 0 0 18px 0;
+    font-size: 13px;
+    background-color: #c0c0c059;
+    width: max-content;
+}
+
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -177,78 +233,145 @@ textarea::placeholder {
 		    }
 		});
 		
+		/* 수정&삭제 아이콘 클릭시 수정, 삭제 버튼 보이도록 클릭 이벤트 */
+		$('.editBtn').hide();
+		$('.fa-ellipsis-h').click(function(){
+			$('.editBtn').toggle();
+		});
+		
+		$('#delBtn').click(function(){
+			if(!confirm('삭제된 질문은 복구가 불가능합니다.\n글을 삭제하시겠습니까?')){
+				event.preventDefault();
+			}
+		});
+		
+		$('.cmtWrite').click(function(){
+			if($('input[name=userNo]').val()==""){
+				alert('답변을 등록하려면 로그인이 필요합니다.\n로그인 페이지로 이동합니다.');
+				event.preventDefault();
+				location.href="<c:url value='/users/login.do'/>"
+			}
+		});
+		
+		
+		$('.bookmark').click(function(){
+			alert('내 프로필 > 북마크에 추가되었습니다.'); 
+			location.href='<c:url value="/indiv/community/insertBookMark.do?qstnNo=${qstnMap['QUESTION_NO']}"/>';
+		});
 	});
-
+	
+	
 </script>
 
-<title>커뮤니티게시판</title>
-</head>
-<body>
-	<div class="divCmty">
-		<!-- asdie : 사이드 메뉴바 -->
-		<%@ include file="cmtyNavbar.jsp"%>
-		
 
-		<section>
-			<div id="container">
-				<div class="qstnDetailBox">
+<div class="divCmty">
+	<!-- asdie : 사이드 메뉴바 -->
+	<c:import url="/indiv/community/cmtyNavbar.do">
+		<c:param name="userNo" value="${userNo}"></c:param>
+		<c:param name="userId" value="${userId}"></c:param>
+	</c:import>
+	
+
+	<section>
+		<div id="container">
+			<div class="qstnDetailBox">
 				
-					<!-- 질문 -->
-					<article>
-						<div class="BoxWrap">
-							<div class="tit">
-								<p>
-									<i class="fa fa-quora"></i>신입 개발자 연봉 어느정도가 적당할까요?
-								</p>
-							</div>
-							<div class="cont">
-								<p>
-									
-									3년제 나왔고 리서치회사에 합격했는데 연봉을 어느정도 불러야하나요? 신입이고 php html css jquery 가능하고 회사는 업계에서 나름 괜찮은거같애요<br/>
-								</p>
-							</div>
-							<div class="cellBx">
-								<span class="cell">조회 13&nbsp;&nbsp;|</span><span class="cell">&nbsp;&nbsp;23분
-									전 작성</span>
-								<div class="bookmark">
-									<i class="fa fa-bookmark-o" aria-hidden="true"></i>
+				<!-- 질문 -->
+				<article>
+					<div class="BoxWrap">
+						<div class="tit">
+							<c:if test="${userNo eq qstnMap['USER_NO'] }">
+							<!-- if 조건으로 로그인한 회원의 번호와 질문글의 회원번호가 같은 경우에만 보이도록 설정 -->
+								<div class="editBox">
+								<a>
+									<i class="fa fa-ellipsis-h"></i>
+								</a>
+								<!-- 수정, 삭제  -->
+									<div class="editBtn">
+									<a href
+					="<c:url value='/indiv/community/qstnEdit.do?qstnNo=${qstnMap["QUESTION_NO"]}'/>">수정</a>
+									<hr>
+									<a id="delBtn" href
+					="<c:url value='/indiv/community/qstnDelete.do?qstnNo=${qstnMap["QUESTION_NO"] }'/>">삭제</a>
+									</div>	
 								</div>
-							</div>
-							<div class="cmtBox">
-								<div class="writeBoxWrap cmtWrite">
-									<form action="/User/Qstn/AnswerWriteIns" method="post"
-										oncopy="return false" oncut="return false"
-										onpaste="return false">
-										<div class="cmtWriteBox">
-											<textarea class="cmtWriteArea" placeholder="솔직하고 따뜻한 답변을 남겨주세요."></textarea>
-										</div>
-										<div class="regiBtnWrap">
-											<span class="letterNum"><b id="cnt">0</b> / 1,000</span>
-											<button type="button" id="regiBtn">등록</button>
-										</div>
-										<div style="clear: both;"></div>
-									</form>
-								</div>
-							</div>
-							<!-- <div class="explain">
-								<ul class="txInfoWrap">
-								</ul>
-							</div> -->
+							<!-- editBox 끝 -->
+							</c:if>									
+							<!-- 직무 -->
+							<span class="workkind">#${qstnMap['WORKKIND_NAME']}</span>
+							<!-- 질문 제목 -->
+							<p>
+								<i class="fa fa-quora"></i>${qstnMap['QUESTION_TITLE']}
+							</p>
 						</div>
-					</article>
-					
-					<!-- 답변 include -->
-					<article>
-						<%@ include file="comments.jsp" %>
-					</article>
-				</div>
+						
+						<!-- 질문 내용 -->
+						<%
+							pageContext.setAttribute("newLine", "\n");
+						%>
+						<c:set var="questionAbout" 
+							value="${fn:replace(qstnMap['questionAbout'], newLine, '<br>') }" />
+						<div class="cont">
+							<p>${questionAbout }</p>
+						</div>
+						<div class="cellBx">
+							<div 
+							<c:if test="${sessionScope.userNo==qstnMap['USER_NO'] }">
+								style="margin-bottom:15px;"
+							</c:if>>
+								<span class="cell">조회 ${qstnMap['QUESTION_VIEW'] }&nbsp;&nbsp;|</span>
+								<span class="cell">&nbsp;&nbsp;
+									<fmt:formatDate value="${qstnMap['QUESTION_DATE'] }"
+										pattern="yyyy-MM-dd"/>	
+								</span>
+							</div>
+							<c:if test="${sessionScope.userNo!=qstnMap['USER_NO'] }">
+								<c:if test="${bmStatus==0 }">
+									<a class="bookmark">
+									<i class="fa fa-bookmark-o" aria-hidden="true"></i></a>
+								</c:if>
+								<c:if test="${bmStatus>0 }">
+									<a class="bmChecked"
+									href='<c:url value="/indiv/community/delBookMark.do?qstnNo=${qstnMap['QUESTION_NO']}"/>'>
+									<i class="fa fa-bookmark" aria-hidden="true"></i></a>
+								</c:if>
+							</c:if>
+						</div>
+						
+						<!-- 답변 등록 -->
+						<div class="cmtBox">
+							<div class="writeBoxWrap cmtWrite">
+								<input type="hidden" name="userNo" value="${sessionScope.userNo }">
+								<form name="comntFrm" method="post" 
+								action="<c:url value='/indiv/community/cmtWrite.do?qstnNo=${param.qstnNo }'/>">
+									<div class="cmtWriteBox">
+										<textarea	name="commentrespondAbout" 
+										class="cmtWriteArea" placeholder="솔직하고 따뜻한 답변을 남겨주세요."></textarea>
+									</div>
+									<div class="regiBtnWrap">
+										<span class="letterNum"><b id="cnt">0</b> / 1,000</span>
+										<button type="submit" id="regiBtn">등록</button>
+									</div>
+									<div style="clear: both;"></div>
+								</form>
+							</div>
+						</div>
+						<!-- <div class="explain">
+							<ul class="txInfoWrap">
+							</ul>
+						</div> -->
+					</div>
+				</article>
+				
+				<!-- 답변 include -->
+				<c:import url="/indiv/community/comments.do"/>
 			</div>
-		</section>
-		<div style="clear: both;"></div>
-	</div>
+		</div>
+	</section>
+	<div style="clear: both;"></div>
+</div>
 
-</body>
-</html>
+
 
 
 <%@ include file="../../inc/bottom.jsp"%>

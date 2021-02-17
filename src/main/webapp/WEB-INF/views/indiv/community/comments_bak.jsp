@@ -38,23 +38,37 @@
 
 .regdateDiv{
    color:gray;
-   font-size:13px;
-   padding: 8px 16px 24px;
-   float:left;
+   font-size:14px;
+   padding: 14px 16px;
 }
 
-#adoptBtn{
-    width: auto;
-    padding: 5px 10px;
-    float: right;
-    text-align: center;
-    margin: 0px 16px 20px;
-    cursor: pointer;
-    background: #4c50bb;
-    border-radius:7px;
-    color: white;
-    border: none;
-    outline: none;
+.replyBtnDiv{
+   border: 1px solid silver;
+    width: 90px;
+    padding:4px;
+   float: left;
+   text-align: center;
+   margin: 10px 16px 20px;
+   cursor: pointer;
+}
+
+.recommendCntDiv a,
+.recommendCntDiv a:hover{
+    color:gray;
+}
+
+.replyCnt, .recmdCnt{
+   font-weight:bold;
+   color:black;
+}
+
+.recommendCntDiv{
+   margin:10px 0;
+   border: 1px solid silver;
+    width:90px;
+    padding:4px;
+   float: left;
+   text-align: center;
 }
 
 .cmtCnt{
@@ -67,26 +81,67 @@
     font-size:21px;
 }
 
-
-#updateBtn{
-	border: 0;
-	color: white;
-	background-color: #4c50bb;
-	width: 100px;
-	height: 42px;
+.replyBoxWrap{
+   border-top:1px solid silver;
+   padding:0 30px;
+   height:auto;
+   background-color: #F6F6F6;
 }
 
-#closeUpdateBtn{
-	border: 0;
-	color: #4C4747;
-	background-color: white;
-	border:1px solid gray;
-	margin-left:3px;
-	width: 100px;
-	height: 42px;
+.replyOne{
+   border-bottom:1px solid silver;
+   padding: 22px 0 10px;
 }
 
+.replyWrite:placeholder{
+   color:silver;
+}
 
+.replyWrite{
+   float: left;
+    width: 80%;
+    resize: none;
+    height: 60px;
+   border:1px solid silver;
+    border-right: 0;
+    padding:15px;
+}
+
+#replyBtn, #replyEditBtn{
+   float:left;
+   width:100px;
+   height:60px;
+   background-color:#4c50bb;
+   color:white;
+   border:1px solid silver;
+}
+
+.replyFold{
+   clear:both;
+   border-top:1px solid silver;
+   text-align:center;
+}
+
+.replyWrap {
+    height: 100px;
+}
+
+.replyWriteArea{
+   padding:20px;
+   width:710px;
+}
+
+.fa-angle-up, 
+.replyFold a, 
+.replyFold a:hover, 
+.replyFold a:focus{
+   font-size:14px;
+   color:gray;
+}
+
+.replyBoxWrap{
+   display:none;
+}
 
 /* 페이징처리 */
 .product__pagination a,
@@ -162,36 +217,9 @@
     color: gray;
 }
 
-
-/* 스크롤바 굵기 */
-.cmtEditArea::-webkit-scrollbar {
-  width:8px;
+.replyOne{
+   overflow: hidden;
 }
-
-.cmtEditArea::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-  background-color: silver;
-}
-
-.divWrap{
-	overflow: hidden;
-}
-
-.selectedComment{
-	float: right;
-    border: 1px solid #ff4c08;
-    border-radius: 7px;
-    background: white;
-    width: auto;
-    padding: 3px 8px;
-    color: #ff4c08;
-    margin: 0px 16px 20px;
-}
-
-.fotterWrap{
-	margin-top:45px;
-}
-
 </style>  
 
 
@@ -209,7 +237,7 @@
 <!-- 답변 반복 시작 -->
 <c:forEach var="map" items="${cmtList}">
 <c:set var="commentNo" value="${map['COMMENTRESPOND_NO']}"/>
-<div class="cmtOne" ><!-- //////////////// -->
+<div class="cmtOne" id="${map['COMMENTRESPOND_NO']}">
    <input type="hidden" name="userNo" id="userNo" value="${map['USER_NO']}">
    <input type="hidden" name="commentrespondNo" id="cmtNo" value="${map['COMMENTRESPOND_NO']}">
    <div class="nickDiv">
@@ -222,7 +250,8 @@
          </a>
          <!-- 수정, 삭제  -->
             <div class="cmtEditBtn">
-            <a onClick="editFunc(${commentNo})">수정</a>
+            <a href="#"
+				onClick="editFunc(${commentNo})">수정</a>
             <hr>
             <a id="cmtDelBtn" href
 ="<c:url value='/indiv/community/cmtDelete.do?qstnNo=${map["QUESTION_NO"] }&cmtNo=${map["COMMENTRESPOND_NO"]}'/>"
@@ -233,36 +262,34 @@
       <!-- cmtEditBox 끝 -->
       </c:if>   
    </div>
-   <div id="${map['COMMENTRESPOND_NO']}" class="divWrap">
    <%
 		pageContext.setAttribute("newLine", "\n");
 	%>
    <c:set var="cmtContent" value="${fn:replace(map['commentrespondAbout'], newLine, '<br>')}"/>
-   <div class="cmtCont" id="content${map['COMMENTRESPOND_NO']}">
+   <div class="cmtCont">
       <p>${cmtContent}</p>
    </div>
-   <div class="fotterWrap">
-	   <div class="regdateDiv">
-	      <span><fmt:formatDate value="${map['COMMENTRESPOND_DATE']}" pattern="yyyy-MM-dd"/> 작성</span>
-	   </div>
-	   <c:if test="${map['COMMENTRESPOND_LIKENUM']==0 && qstnMap['USER_NO']==userNo}"><!-- //////////// -->
-		   <input type="button" value="답변 채택하기" id="adoptBtn"
-		   	onClick="sendMsgFunc(${map['COMMENTRESPOND_NO']})"/>
-		   <c:set value="${map['COMMENTRESPOND_NO']}" var="commentNo"/>
-	   </c:if>
-	   <c:if test="${map['COMMENTRESPOND_LIKENUM']==1}">
-	   		<div class="selectedComment">
-		   		<span id="adoptIcon"><i class="far fa-check-circle"></i>채택된 답변</span>
-	   		</div>
-	   </c:if>
-	</div>
+   <div class="regdateDiv">
+      <span><fmt:formatDate value="${map['COMMENTRESPOND_DATE']}" pattern="yyyy-MM-dd"/> 작성</span>
    </div>
-  </div> 
-   
+   <div class="replyBtnDiv">
+      <span>댓글 <b class="replyCnt">${totalReply }</b></span>
+   </div>
+   <c:set value="${map['COMMENTRESPOND_NO']}" var="commentNo"/>
+   <div class="recommendCntDiv">
+      <a href
+ ="<c:url value='/indiv/community/commentLike.do?cmtNo=${map["COMMENTRESPOND_NO"] }'/>" 
+     class="likeNum"><i class="fa fa-thumbs-o-up"></i>
+      <b class="recmdCnt">${map['COMMENTRESPOND_LIKENUM'] }</b></a>
+   </div>
+</div><!-- cmtBoxWrap -->
+
+<!-- 댓글 -->
+<%@include file="reply.jsp" %>
 </c:forEach>
 <!-- 답변 반복 끝  -->
 <c:set var="n" value="${n+1 }"/>
-  
+
 
 <!-- 페이징 처리 -->
 <div class="paging col-lg-12">
@@ -301,13 +328,17 @@
 
 
 
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script> 
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"
 ></script>
 <script type="text/javascript">
-
-
 $(function(){
-	
    /* 수정&삭제 아이콘 클릭시 수정, 삭제 버튼 보이도록 클릭 이벤트 */
    $('.cmtEditBtn').hide();
    $('.fa-ellipsis-h').each(function(index, item){
@@ -316,85 +347,57 @@ $(function(){
       });
    });
    
+   $('.replyBtnDiv').each(function(index,item){
+      $(this).click(function(){
+         $(this).parent('.cmtOne').next('.replyBoxWrap').toggle();
+         //댓글 버튼 클릭 => 답변에 해당하는 댓글 조회
+      });
+      
+   });
    
-   $('.cmtEditArea').keyup(function (e){
-	    var content = $(this).val();
-	    $('#cnt').html(content.length);
+   
+   $('.replyFold').each(function(index,item){
+      $(this).click(function(){
+         $(this).parent('.replyBoxWrap').hide();
+      });
+   });
+   
+   $('.replyWrap').click(function(){
+      if($('input[name=userNo]').val()==""){
+         alert('댓글을 등록하려면 로그인이 필요합니다.\n로그인 페이지로 이동합니다.');
+         event.preventDefault();
+         location.href="<c:url value='/users/login.do'/>"
+      }
+   });
+   
 
-	    if (content.length > 1000){
-	        alert("최대 1000자까지 입력 가능합니다.");
-	        $(this).val(content.substring(0, 1000));
-	        $('#cnt').html("1000");
-	    }
-	});
+   
+   /* $('.likeNum').click(function(){
+	   $.ajax({
+			url:'<c:url value="/indiv/community/likeComment.do"/>',
+			type:'get',
+			data:'cmtNo='+$('#cmtNo').val(),
+			dataType:'json',
+			success:function(res){
+				alert('res');
+					var likeRes="";
+					likeRes+='<a href="#" style="color:#4c50bb;" class="likeNum"><i class="fa fa-thumbs-o-up"></i>';
+					likeRes+='<b class="recmdCnt">'+res+'</b></a>';
+					$('.recommendCntDiv').html(likeRes);
+			},error:function(xhr, status, error){
+				alert('error:'+error);
+			}
+		});	 
+   }); */
+   
+   
+   
    
 });//
 
-
 function editFunc(commentNo){
-	$.ajax({
-		url:"<c:url value='/indiv/community/editComment.do'/>",
-		type:'get',
-		data:'commentNo='+commentNo,
-		dataType:'text',
-		contentType: "application/text; charset=utf-8",
-		success:function(res){
-			var editBox="";
-			editBox+='<div class="editWrap" style="margin-top:15px">';
-			editBox+='<div class="cmtBox">';
-			editBox+='<div class="writeBoxWrap cmtWrite">';
-			editBox+='<form name="editFrm" method="post">';
-			editBox+='<div class="cmtWriteBox">';
-			editBox+='<textarea onKeyup="countFunc('+res+')" name="commentrespondAbout"'; 
-			editBox+=' class="cmtEditArea">'+res+'</textarea></div>';
-			editBox+='<div class="regiBtnWrap">';
-			editBox+='<span class="letterNum"><b id="numCnt" style="color:#4c50bb">'+res.length+'</b> / 1,000</span>';
-			editBox+='<button type="button" id="updateBtn" onclick="updateComment('+commentNo+')">수정</button>';
-			editBox+='<button type="button" id="closeUpdateBtn"'; 
-			editBox+=' onclick="cancelUpdate()">';
-			editBox+='닫기</button></div>';
-			editBox+='<div style="clear: both;"></div></form></div></div></div>';
-			$('#'+commentNo).html(editBox);
-			$('.cmtEditBtn').hide();
-			
-		},error:function(xhr, status, error){
-			alert('답변 수정 창 조회 오류');
-		}
-		
-	});
-	
+	$('#'+commentNo).html(commentNo);
 }
-
-function cancelUpdate(){
-	if(!confirm("답변을 수정하지 않고 나가시겠습니까?")){
-		return false;
-	}
-	window.location.reload();
-}
-
-function updateComment(commentNo){
-	var content=$('.cmtEditArea').val();
-	$.ajax({
-		url:"<c:url value='/indiv/community/updateComment.do'/>",
-		type:'get',
-		data: {'commentAbout' : content, 'commentNo' : commentNo},
-		dataType:'json',
-		async:false,
-		contentType: "application/json; charset=utf-8",
-		success:function(res){
-			alert('답변이 정상적으로 수정되었습니다.');
-			if(res==1){
-				window.location.reload();
-			}
-			$('#content'+commentNo).html(content);
-		},error:function(xhr, status, error){
-			alert('답변 수정에 실패하였습니다.다시 시도해주세요');
-		}
-		
-	});
-	
-}//
-
 
 function pageFunc(curPage){
    $('input[name=currentPage]').val(curPage);

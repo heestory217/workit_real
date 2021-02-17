@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.it.workit.admin.notice.model.ClassificationsVO;
 import com.it.workit.admin.notice.model.NoticeSearchVO;
 import com.it.workit.admin.notice.model.NoticeService;
+import com.it.workit.admin.notice.model.NoticeVO;
 import com.it.workit.common.PaginationInfo;
 
 @Controller
@@ -99,7 +100,10 @@ public class UsersNoticeController {
 	@RequestMapping("/noticeViewCnt.do")
 	public String viewCount(@RequestParam(defaultValue = "0") int rnum) {
 		logger.info("공지사항 조회수 업데이트, 파라미터 rnum={}", rnum);
-		int cnt=noticeService.viewUpdate(rnum);
+		Map<String, Object> map = noticeService.selectNoticeOne(rnum);
+		
+		int noticeNo = Integer.parseInt(String.valueOf(map.get("NOTICE_NO")));
+		int cnt=noticeService.viewUpdate(noticeNo);
 		logger.info("조회수 업데이트 결과, cnt={}", cnt);
 		
 		return "redirect:/notice/noticeDetail.do?rnum="+rnum;

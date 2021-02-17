@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.it.workit.getmessage.model.GetMessageVO;
+import com.it.workit.message.model.MessageVO;
 import com.it.workit.question.model.QstnPagingVO;
 
 @Service
@@ -41,7 +43,7 @@ public class CommentRespondServiceImpl implements CommentRespondService{
 	public List<Map<String, Object>> userCmntSelect(QstnPagingVO vo) {
 		return comntRespondDao.userCmntSelect(vo);
 	}
-
+	
 	@Override
 	public int getTotalUserCmt(QstnPagingVO vo) {
 		return comntRespondDao.getTotalUserCmt(vo);
@@ -58,5 +60,41 @@ public class CommentRespondServiceImpl implements CommentRespondService{
 	@Override
 	public int selectLikeNum(int cmtNo) {
 		return comntRespondDao.selectLikeNum(cmtNo);
+	}
+	
+	//답변 조회
+	@Override
+	public Map<String, Object> selectCommentAbout(int commentNo) {
+		return comntRespondDao.selectCommentAbout(commentNo);
+	}
+	
+	//답변 글 수정
+	@Override
+	public int updateComment(CommentRespondVO vo) {
+		return comntRespondDao.updateComment(vo);
+	}
+	
+	//답변 채택 메세지 보내기
+	@Override
+	public int sendAdoptMsg(MessageVO vo) {
+		return comntRespondDao.sendAdoptMsg(vo);
+	}
+	
+	//답변 글쓴이 조회
+	@Override
+	public int selectAnswerer(int commentsNo) {
+		return comntRespondDao.selectAnswerer(commentsNo);
+	}
+	
+	//답변 채택 메세지 받기
+	@Override
+	public int getAdoptMsg(GetMessageVO vo) {
+		return comntRespondDao.getAdoptMsg(vo);
+	}
+	
+	//답변 채택
+	@Override
+	public int updateCommentLike(int commentsNo) {
+		return comntRespondDao.updateCommentLike(commentsNo);
 	}
 }

@@ -284,16 +284,6 @@ function pageFunc(curPage){
 <section>
 	<div id="container">
 		<div id="content" class="AllQuestList">
-			<article id="profile">
-				<div class="imgBox" style="background: #BDBDBD; overflow: hidden;">
-					<a href="#"><img class="profilePic"
-						src="<c:url value='/resources/img/banner-1.jpg'/>"></a>
-				</div>
-				<div class="profileId">
-					<span>${userId }</span>
-				</div>
-				<div></div>
-			</article>
 
 			<!-- 탭 메뉴 -->
 			<article id="tabMenu">
