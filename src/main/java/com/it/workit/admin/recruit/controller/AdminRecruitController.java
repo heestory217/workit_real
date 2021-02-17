@@ -50,7 +50,6 @@ public class AdminRecruitController {
 		List<RecruitannounceVO> list=recruitannounceService.recruitannounceall(searchVo);
 		
 		logger.info("list.size={}",list.size());
-		logger.info("list={}",list.get(2));
 		model.addAttribute("list", list);
 		
 		return "/admin/users/corp/recruitList";

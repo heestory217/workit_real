@@ -152,4 +152,24 @@ public class RecruitannounceDAOMybatis implements RecruitannounceDAO {
 		return sqlSession.selectOne(namespace+"selectadvertisinglistcount", searchVo);
 	}
 
+	@Override
+	public int advertisingallowedseven(int recruitannounceNo) {
+		return sqlSession.update(namespace+"advertisingallowedseven", recruitannounceNo);
+	}
+
+	@Override
+	public int advertisingallowedfift(int recruitannounceNo) {
+		return sqlSession.update(namespace+"advertisingallowedfift", recruitannounceNo);
+	}
+
+	@Override
+	public int advertisingallowedmonth(int recruitannounceNo) {
+		return sqlSession.update(namespace+"advertisingallowedmonth", recruitannounceNo);
+	}
+
+	@Override
+	public int advertisingdeny(int recruitannounceNo) {
+		return sqlSession.update(namespace+"advertisingdeny", recruitannounceNo);
+	}
+
 }

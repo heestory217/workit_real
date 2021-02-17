@@ -224,6 +224,13 @@
       	from orders
 	</select>
 	
+	<sql id="ordersearch">
+		<where>
+			<if test="searchKeyword !=null and searchKeyword != ''">
+				where (select t.USER_NAME from users t where t.USER_NO in a.USER_NO) like '%' || #{searchKeyword} || '%'
+			</if>
+		</where>
+	</sql>
 	<select id="fullorderlist" parameterType="searchVo" resultType="OrdersCorpPayVO">
 				select * from 
 				(
@@ -233,10 +240,11 @@
 							where b.PAIDSERVICE_NO in (select c.PAIDSERVICE_NO from ORDERDETAILAD c where c.ORDER_NO in a.ORDER_NO)
 							or b.PAIDSERVICE_NO in (select d.PAIDSERVICE_NO from ORDERDETAILRESUME d where d.ORDER_NO in a.ORDER_NO)
 							or b.PAIDSERVICE_NO in (select e.PAIDSERVICE_NO from ORDERDETAILDELRV e where e.ORDER_NO in a.ORDER_NO)
-							or b.PAIDSERVICE_NO in (select f.PAIDSERVICE_NO from ORDERDETAILSEERV f where f.ORDER_NO in a.ORDER_NO)) as pay_name , a.ORDER_PAYKIND, a.ORDER_DISCOUNT, a.ORDER_DATE from ORDERS a
+							or b.PAIDSERVICE_NO in (select f.PAIDSERVICE_NO from ORDERDETAILSEERV f where f.ORDER_NO in a.ORDER_NO)) as pay_name ,
+							(select COUPON_NAME from coupon q where q.COUPON_NO=a.COUPON_NO) as oneline, a.ORDER_PAYKIND, a.ORDER_DISCOUNT, a.ORDER_DATE from ORDERS a
 						<if test="searchKeyword !=null and searchKeyword != ''">
-							recruit like '%' || #{searchKeyword} || '%'
-						</if>
+				where (select t.USER_NAME from users t where t.USER_NO in a.USER_NO) like '%' || #{searchKeyword} || '%'
+			</if>
 							order by a.ORDER_DATE desc
 					 )A
 				)
@@ -247,10 +255,7 @@
 	</select>
 	
 	<select id="fullorderlistcount" parameterType="searchVo" resultType="int">
-				select count(*) from orders
-				<if test="searchKeyword !=null and searchKeyword != ''">
-				recruit like '%' || #{searchKeyword} || '%'
-				</if>
+				select count(*) from orders a
 	</select>
 
 </mapper>

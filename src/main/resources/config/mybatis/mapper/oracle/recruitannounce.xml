@@ -106,11 +106,16 @@
 	
 	
 	<select id="recruitannouncecount" parameterType="SearchVO" resultType="int">
-		select count(*) from recruitannounce <if test="searchKeyword !=null and searchKeyword != ''">
-				recruit like '%' || #{searchKeyword} || '%'
-			</if>
+		select count(*) from recruitannounce
+		<include refid="recruitsearch"></include>
 	</select>
-	
+	<sql id="recruitsearch">
+		<where>
+			<if test="searchKeyword !=null and searchKeyword != ''">
+				RECRUITANNOUNCE_TITLE like '%' || #{searchKeyword} || '%'
+			</if>
+		</where>
+	</sql>
 	<select id="recruitannounceall" parameterType="SearchVO" resultType="RecruitannounceVO">
 		        select * from
 		(
@@ -118,9 +123,7 @@
 		    from
 		    (
 		        select a.*, (select USER_NAME from users x where x.USER_NO in a.USER_NO) as users_names,  (select CORP_NAME from CORP b where b.USER_NO=a.USER_NO) as corpsnames from recruitannounce a
-		        <if test="searchKeyword !=null and searchKeyword != ''">
-				recruit like '%' || #{searchKeyword} || '%'
-			</if>
+		        <include refid="recruitsearch"></include>
 		        order by RECRUITANNOUNCE_NO desc
 		    )A
 		)
@@ -184,7 +187,13 @@
 			where AD_APPROVE=2 and PAIDSERVICE_NO>=10 and PAIDSERVICE_NO<=12 and PAIDSERVICE_ENDDATE>sysdate
 		]]>
 	</select>
-	
+	<sql id="adversearch">
+		<where>
+			<if test="searchKeyword !=null and searchKeyword != ''">
+				RECRUITANNOUNCE_TITLE like '%' || #{searchKeyword} || '%'
+			</if>
+		</where>
+	</sql>
 	<select id="selectadvertisinglist" parameterType="SearchVO" resultType="AdminadvertisingVO">
 		        select * from
 		(
@@ -195,6 +204,9 @@
 		(select RECRUITANNOUNCE_TITLE from recruitannounce b where b.RECRUITANNOUNCE_NO in z.RECRUITANNOUNCE_NO) as recruitnames, z.PAIDSERVICE_NO,
 		z.RECRUITANNOUNCE_NO, z.PAIDSERVICE_STARTDATE, z.PAIDSERVICE_ENDDATE, z.AD_APPROVE from ORDERDETAILAD z
 				where z.AD_APPROVE=1
+				<if test="searchKeyword != null and searchKeyword != ''">
+				and (select a.PAIDSERVICE_NAME from PAIDSERVICE a where a.PAIDSERVICE_NO in z.PAIDSERVICE_NO) like '%' || #{searchKeyword} || '%'
+           		</if>
 		        order by (select v.ORDER_DATE from orders v where v.ORDER_NO=z.ORDER_NO) desc
 		    )A
 		)
@@ -205,8 +217,35 @@
 	</select>
 	
 	<select id="selectadvertisinglistcount" parameterType="SearchVO" resultType="int">
-		select count(*) from ORDERDETAILAD
-		where AD_APPROVE=1
+		select count(*) from ORDERDETAILAD z
+		where z.AD_APPROVE=1
+		<if test="searchKeyword != null and searchKeyword != ''">
+				and (select a.PAIDSERVICE_NAME from PAIDSERVICE a where a.PAIDSERVICE_NO in z.PAIDSERVICE_NO) like '%' || #{searchKeyword} || '%'
+         </if>
 	</select>
+	
+	<update id="advertisingallowedseven" parameterType="int">
+		update ORDERDETAILAD
+		set AD_APPROVE=2, PAIDSERVICE_STARTDATE=sysdate, PAIDSERVICE_ENDDATE=sysdate+7
+		where RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	</update>
+	
+	<update id="advertisingallowedfift" parameterType="int">
+		update ORDERDETAILAD
+		set AD_APPROVE=2, PAIDSERVICE_STARTDATE=sysdate, PAIDSERVICE_ENDDATE=sysdate+15
+		where RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	</update>
+	
+	<update id="advertisingallowedmonth" parameterType="int">
+		update ORDERDETAILAD
+		set AD_APPROVE=2, PAIDSERVICE_STARTDATE=sysdate, PAIDSERVICE_ENDDATE=sysdate+30
+		where RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	</update>
+	
+	<update id="advertisingdeny" parameterType="int">
+		update ORDERDETAILAD
+		set AD_APPROVE=3
+		where RECRUITANNOUNCE_NO=#{recruitannounceNo}
+	</update>
 	
 </mapper>

@@ -42,4 +42,10 @@ public interface RecruitannounceDAO {
 	
 	public List<AdminadvertisingVO> selectadvertisinglist(SearchVO searchVo);
 	public int selectadvertisinglistcount(SearchVO searchVo);
+	
+	public int advertisingallowedseven(int recruitannounceNo);
+	public int advertisingallowedfift(int recruitannounceNo);
+	public int advertisingallowedmonth(int recruitannounceNo);
+	public int advertisingdeny(int recruitannounceNo);
+	
 }
