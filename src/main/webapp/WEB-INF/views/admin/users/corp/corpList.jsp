@@ -250,17 +250,10 @@
 		var _left = Math.ceil((window.screen.width - _width) / 2);
 		var _top = Math.ceil((window.screen.height - _height) / 2);
 		
-		open(
-				"/workit/admin/message/sendMessage.do?corpName="
+		open(   "/workit/admin/message/sendMessage.do?corpName="
 						+corpName+"&userNo="+userNo, "chk",
 				"width=" + _width + ", height=" + _height  + ", left=" + _left + ", top=" + _top + ",location=yes");
-		}
-	
-
-
-	window.open('<c:url value="/admin/paidService/coupon/updateForm.do?couponNo='+couponNo+'"/>', '쿠폰 수정', 
-			);
-	
+	}
 
 </script>
 <%@ include file="../../inc/bottom.jsp" %>
