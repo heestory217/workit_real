@@ -37,8 +37,8 @@
 			<div class="table-responsive">
 				<table class="table table-bordered first">
 				<colgroup>
-					<col width="5%">
-					<col width="20%">
+					<col width="10%">
+					<col width="15%">
 					<col width="20%">
 					<col width="10%">
 					<col width="15%">
@@ -104,11 +104,22 @@
 		<h3 class="section-title center">광고 신청 조회</h3>
 	</div>
     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" style="float: right;">
-		<form action="<c:url value='/admin/advertising/advertisingOnline.do'/>" 
+	<form action="<c:url value='/admin/advertising/advertisingOnline.do'/>"
 		name="frmPage" method="post">
 		<input type="hidden" name="currentPage">
-		</form>
-    </div>
+		<input type="hidden" name="searchKeyword"
+			value="${param.searchKeyword }">
+	</form>
+	<form action="<c:url value='/admin/advertising/advertisingOnline.do'/>"
+		name="frmSearch" method="post">
+		<div class="input-group input-search inputSearchbox"> 
+    		<input class="form-control" type="text" placeholder="등급을 입력하세요"
+    			value="${param.searchKeyword}" name="searchKeyword">
+    			<span class="input-group-btn">
+    		<button class="btn myColor textWhite" type="submit"><i class="fas fa-search"></i></button></span>
+    	</div>
+    </form>
+	</div>
 	<br>
 	<br>
 	<br>
@@ -159,7 +170,10 @@
 					            <td>${vo.payNames }</td>
 					            <td>${vo.recruitNames }</td>
 					            <td>${vo.recruitannounceNo }</td>
-								<td></td>
+								<td>
+										<a href="<c:url value='/admin/advertising/advertisingcheck.do?recruitannounceNo=${vo.recruitannounceNo }&check=2&paidserviceNo=${vo.paidserviceNo }'/>" class="btn btn-outline-secondary"> 광고승인 </a>&nbsp;&nbsp;&nbsp;
+	                           			<a href="<c:url value='/admin/advertising/advertisingcheck.do?recruitannounceNo=${vo.recruitannounceNo }&check=3&paidserviceNo=${vo.paidserviceNo }'/>" class="btn btn-outline-primary"> 광고반려 </a>
+								</td>
 			            	</tr>
 	            		</c:forEach>
 	            	</c:if>

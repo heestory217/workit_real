@@ -143,4 +143,24 @@ public class RecruitannounceServiceImpl implements RecruitannounceService {
 	public int selectadvertisinglistcount(SearchVO searchVo) {
 		return RecruitannounceDao.selectadvertisinglistcount(searchVo);
 	}
+	
+	@Override
+	public int advertisingallowedseven(int recruitannounceNo) {
+		return RecruitannounceDao.advertisingallowedseven(recruitannounceNo);
+	}
+
+	@Override
+	public int advertisingallowedfift(int recruitannounceNo) {
+		return RecruitannounceDao.advertisingallowedfift(recruitannounceNo);
+	}
+
+	@Override
+	public int advertisingallowedmonth(int recruitannounceNo) {
+		return RecruitannounceDao.advertisingallowedmonth(recruitannounceNo);
+	}
+
+	@Override
+	public int advertisingdeny(int recruitannounceNo) {
+		return RecruitannounceDao.advertisingdeny(recruitannounceNo);
+	}
 }

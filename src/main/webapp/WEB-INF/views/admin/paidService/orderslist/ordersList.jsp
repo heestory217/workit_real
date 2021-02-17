@@ -26,13 +26,25 @@
 <div class="col-lg-12">
 	<br><br><br><div class="section-block">
 		<h3 class="section-title center">유료서비스 조회</h3>
-	</div><br>
-    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" style="float: right;">
-		<form action="<c:url value='/admin/paidService/orderslist/ordersList.do'/>" 
+	</div>
+	<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" style="float: right;">
+	<form action="<c:url value='/admin/paidService/orderslist/ordersList.do'/>"
 		name="frmPage" method="post">
 		<input type="hidden" name="currentPage">
-		</form>
-    </div>
+		<input type="hidden" name="searchKeyword"
+			value="${param.searchKeyword }">
+	</form>
+	<form action="<c:url value='/admin/paidService/orderslist/ordersList.do'/>"
+		name="frmSearch" method="post">
+		<div class="input-group input-search inputSearchbox"> 
+    		<input class="form-control" type="text" placeholder="구매자 명을 입력해 주세요"
+    			value="${param.searchKeyword}" name="searchKeyword">
+    			<span class="input-group-btn">
+    		<button class="btn myColor textWhite" type="submit"><i class="fas fa-search"></i></button></span>
+    	</div>
+    </form>
+	</div>
+	<br>
     
 	<br><br>
 	<div class="card">
@@ -40,8 +52,8 @@
 			<div class="table-responsive">
 				<table class="table table-bordered first">
 				<colgroup>
-					<col width="5%">
-					<col width="15%">
+					<col width="10%">
+					<col width="10%">
 					<col width="15%">
 					<col width="15%">
 					<col width="15%">
@@ -51,7 +63,7 @@
 				</colgroup>
 					<thead>
 						<tr class="center">
-							<th>주문번호</th>
+							<th>주문번호[링크]</th>
 							<th>구매자</th>
 							<th>구매상품</th>
 							<th>결제도구</th>
@@ -74,11 +86,11 @@
 	            	<c:if test="${!empty list }">
 	            		<c:forEach var="vo" items="${list }">
 	            			<tr class="center">
-					            <td>${vo.orderNo }</td>
+					            <td><a href="<c:url value='/shop/paymentComplete.do?orderNo=${vo.orderNo }'/>">${vo.orderNo }</a></td>
 					            <td>${vo.recruitname }</td>
 					            <td>${vo.payName }</td>
 					            <td>${vo.orderPaykind }</td>
-					            <td></td>
+					            <td>${vo.oneline }</td>
 					            <td>${vo.orderDiscount }</td>
 					            <td>${vo.orderPay }</td>
 					            <td><fmt:formatDate value="${vo.orderDate }" pattern="yyyy-MM-dd"/></td>

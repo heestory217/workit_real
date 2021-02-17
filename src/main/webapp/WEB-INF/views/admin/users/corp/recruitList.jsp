@@ -26,14 +26,25 @@
 <div class="col-lg-12">
 	<br><br><br><div class="section-block">
 		<h3 class="section-title center">채용공고 조회</h3>
-	</div><br>
-	
+	</div>
 	<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4" style="float: right;">
-		<form action="<c:url value='/admin/users/corp/recruitList.do'/>" 
+	<form action="<c:url value='/admin/users/corp/recruitList.do'/>"
 		name="frmPage" method="post">
 		<input type="hidden" name="currentPage">
-		</form>
-    </div>
+		<input type="hidden" name="searchKeyword"
+			value="${param.searchKeyword }">
+	</form>
+	<form action="<c:url value='/admin/users/corp/recruitList.do'/>"
+		name="frmSearch" method="post">
+		<div class="input-group input-search inputSearchbox"> 
+    		<input class="form-control" type="text" placeholder="공고명을 입력해주세요."
+    			value="${param.searchKeyword}" name="searchKeyword">
+    			<span class="input-group-btn">
+    		<button class="btn myColor textWhite" type="submit"><i class="fas fa-search"></i></button></span>
+    	</div>
+    </form>
+	</div>
+	<br>
     
 	<br><br>
 	<div class="card">
@@ -75,7 +86,7 @@
 	            	<c:if test="${!empty list }">
 	            		<c:forEach var="vo" items="${list }">
 	            			<tr class="center">
-					            <td>${vo.userNo }</td>
+					            <td><a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${vo.recruitannounceNo }'/>">${vo.recruitannounceNo }</a></td>
 								<td>
 									<c:if test="${fn:length(vo.recruitannounceTitle)>=25}">
 										${fn:substring(vo.recruitannounceTitle, 0,25) } ...
