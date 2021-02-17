@@ -161,23 +161,45 @@ public class ResumesServiceImpl implements ResumesService{
 		return resumesDao.updateFskill(fskillVo);
 	}
 
+//	@Override
+//	@Transactional
+//	public int selectDel(ResumeEtcVO resumeEtcVo) {
+//		int cnt=0;
+//
+//		if (cnt == resumeEtcVo.getAwardVo().getAwardNo()) {
+//			resumesDao.selDelAwd(resumeEtcVo.getAwardVo().getAwardNo());
+//		} else if (cnt == resumeEtcVo.getCarrVo().getCarrerNo()) {
+//			resumesDao.selDelCarrer(resumeEtcVo.getCarrVo().getCarrerNo());
+//		} else if (cnt == resumeEtcVo.getLicenVo().getLicencseNo()) {
+//			resumesDao.selDelLicen(resumeEtcVo.getLicenVo().getLicencseNo());
+//		} else if (cnt == resumeEtcVo.getFskillVo().getForeignlanguageskillNo()) {
+//			resumesDao.selDelFskill(resumeEtcVo.getFskillVo().getForeignlanguageskillNo());
+//		}
+//
+//		return cnt;
+//	}
+	
+	//선택 삭제
 	@Override
-	@Transactional
-	public int selectDel(ResumeEtcVO resumeEtcVo) {
-		int cnt=0;
-
-		if (cnt == resumeEtcVo.getAwardVo().getAwardNo()) {
-			resumesDao.selDelAwd(resumeEtcVo.getAwardVo().getAwardNo());
-		} else if (cnt == resumeEtcVo.getCarrVo().getCarrerNo()) {
-			resumesDao.selDelCarrer(resumeEtcVo.getCarrVo().getCarrerNo());
-		} else if (cnt == resumeEtcVo.getLicenVo().getLicencseNo()) {
-			resumesDao.selDelLicen(resumeEtcVo.getLicenVo().getLicencseNo());
-		} else if (cnt == resumeEtcVo.getFskillVo().getForeignlanguageskillNo()) {
-			resumesDao.selDelFskill(resumeEtcVo.getFskillVo().getForeignlanguageskillNo());
-		}
-
-		return cnt;
+	public int selDelAwd(int awardNo) {
+		return resumesDao.selDelAwd(awardNo);
 	}
+
+	@Override
+	public int selDelCarrer(int carrerNo) {
+		return resumesDao.selDelCarrer(carrerNo);
+	}
+
+	@Override
+	public int selDelLicen(int licencseNo) {
+		return resumesDao.selDelLicen(licencseNo);
+	}
+
+	@Override
+	public int selDelFskill(int foreignlanguageskillNo) {
+		return resumesDao.selDelFskill(foreignlanguageskillNo);
+	}
+
 
 
 	@Override
@@ -211,4 +233,17 @@ public class ResumesServiceImpl implements ResumesService{
 		return resumesDao.insertRsfile(resumeVo);
 	}
 
+	@Override
+	public String getFileInfo(String resumeFileoriginalname, long resumeFilesize) {
+		//로직 짜기
+		String result="";
+		double dFileSize = Math.round((resumeFilesize/1000.0)*10)/10.0;
+		if (resumeFileoriginalname != null && !resumeFileoriginalname.isEmpty()) {
+			result += resumeFileoriginalname + "("+dFileSize+"KB)";
+		}
+	
+		return result;
+	}
+
+	
 }

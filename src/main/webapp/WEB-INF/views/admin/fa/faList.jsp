@@ -61,7 +61,7 @@
 		background-color: white;
 	}
 	
-	[name=noticeAbout]{
+	[name=faqAbout]{
 	    width: 100%;
 	    resize: none;
 	    outline: none;
@@ -70,11 +70,11 @@
 	    padding:10px;
 	}
 
-	[name=noticeAbout]::-webkit-scrollbar {
+	[name=faqAbout]::-webkit-scrollbar {
 	  width:8px;
 	}
 	
-	[name=noticeAbout]::-webkit-scrollbar-thumb {
+	[name=faqAbout]::-webkit-scrollbar-thumb {
 	  border-radius: 5px;
 	  background-color: silver;
 	}
@@ -217,7 +217,7 @@ function showCont(faqNo){
 	            	<c:set var="n" value="0"/>
 	            	<c:forEach var="vo" items="${faqList }">
 	            		<tr class="center">
-	            			<td><input type="checkbox" name="faqList[${n}].faqNo" 
+	            			<td><input type="checkbox" name="flist[${n}].faqNo" 
 								value="${vo.faqNo}" id="chkbox">
 							</td>
 	            			<td class="font ${vo.faqNo}" style="text-align:left">
@@ -232,7 +232,7 @@ function showCont(faqNo){
 	            		</tr>
 	            		<tr class="active" id="${vo.faqNo }">
 	            			<td colspan="6">
-	            				<textarea name="noticeAbout" readonly="readonly">${vo.faqAbout}</textarea>
+	            				<textarea name="faqAbout" readonly="readonly">${vo.faqAbout}</textarea>
 	            			</td>
 	            		</tr>
 	            		<c:set var="n" value="${n+1}"/>	

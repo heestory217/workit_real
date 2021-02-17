@@ -5,7 +5,13 @@
 	href="<c:url value='/resources/css/adminIndivUsers.css'/>" />
 <%@ include file="../../inc/sideMenu.jsp"%>
 
+
+<script type="text/javascript" src="<c:url value='/resources/js/jquery-3.5.1.min.js'/>"></script>
 <script type="text/javascript">
+function pageFunc(curPage){
+	$('input[name=currentPage]').val(curPage);
+	$('form[name=frmPage]').submit();
+}
 
 </script>
 
@@ -14,7 +20,7 @@
 		<h3 class="section-title center">이력서 승인</h3>
 	</div><br>
 
-	<form action="<c:url value='/admin/users/indiv/resume/resumeManager.do'/>"
+	<form action="<c:url value='/admin/users/resume/resumeManager.do'/>"
 		name="frmPage" method="post">
 		<input type="hidden" name="currentPage">
 		<input type="hidden" name="searchCondition" 
@@ -95,10 +101,19 @@
 	            				${map['RESUME_NO'] }
 	            			</th>
 	            			<th>
-	            				<a href='<c:url value="/admin/users/resume/resumeCheck.do?resumeNo=${map['RESUME_NO'] }"/>' 
-	            					id="reCheckBt" onclick="if(!confirm('선택한 이력서를 확인 하시겠습니까?')){return false;}">
-	            					${map['RESUME_TITLE'] }
-	            				</a>
+	            				<c:if test="${!empty map['RESUME_FILENAME']}">
+	<a href='<c:url value="/admin/users/resume/download.do?resumeNo=${param.resumeNo }&resumeFilename=${map['RESUME_FILENAME'] }"/>' 
+		            					onclick="if(!confirm('선택한 이력서를 다운받겠습니까?')){return false;}">
+		                        	 	${fn:substringBefore(map['RESUME_TITLE'], '_') }&nbsp;
+		            					<i class="fas fa-file-alt" aria-hidden="true"></i>
+		                        	</a>
+		                        </c:if>
+		                        <c:if test="${empty map['RESUME_FILENAME']}">
+	<a href='<c:url value="/admin/users/resume/resumeCheck.do?resumeNo=${map['RESUME_NO'] }"/>' 
+		            					id="reCheckBt" onclick="if(!confirm('선택한 이력서를 확인 하시겠습니까?')){return false;}">
+		            					${map['RESUME_TITLE'] }
+		            				</a>
+		                        </c:if>
 	            			</th>
 	            			<th class="center">
 	            				${map['USER_NAME'] }

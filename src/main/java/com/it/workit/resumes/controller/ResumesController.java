@@ -1,5 +1,6 @@
 package com.it.workit.resumes.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +8,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.MidiDevice.Info;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.it.workit.common.FileUploadUtil;
 import com.it.workit.corp.model.AreaListView;
@@ -33,6 +37,7 @@ import com.it.workit.resumes.model.CarrerVO;
 import com.it.workit.resumes.model.CorpuselanguageVO;
 import com.it.workit.resumes.model.ForeignlanguageskillVO;
 import com.it.workit.resumes.model.LicencseVO;
+import com.it.workit.resumes.model.ResumeEtcVO;
 import com.it.workit.resumes.model.ResumeListVO;
 import com.it.workit.resumes.model.ResumeOpen2VO;
 import com.it.workit.resumes.model.ResumesAllVO;
@@ -199,13 +204,19 @@ public class ResumesController {
 		List<CarrerVO> cList = rsService.selectCarByNo(resumeNo);
 		List<ForeignlanguageskillVO> fList=rsService.selectFlsByNo(resumeNo);
 		List<LicencseVO> lcList=rsService.selectLicenByNo(resumeNo);
-
+		
+		ResumesAllVO vo =rsService.searchResumeByNo(resumeNo);
+		logger.info("vo={}",vo);
+		
+		String fileInfo = rsService.getFileInfo(vo.getResumesVo().getResumeFileoriginalname(), vo.getResumesVo().getResumeFilesize());
+		logger.info("fileInfo={}",fileInfo);
+		
 		model.addAttribute("map",map);
 		model.addAttribute("aList",aList);
 		model.addAttribute("cList",cList);
 		model.addAttribute("fList",fList);
 		model.addAttribute("lcList",lcList);
-
+		model.addAttribute("fileInfo",fileInfo);
 	}
 
 	//삭제
@@ -249,6 +260,30 @@ public class ResumesController {
 		model.addAttribute("fList",fList);
 		model.addAttribute("lcList",lcList);
 	}
+	
+	//수정화면에서 선택 지우기
+	@RequestMapping("/seleDel.do")
+	public String seleDel(@RequestParam(defaultValue = "0")int resumeNo,@RequestParam(defaultValue = "0")int carrerNo,
+			@RequestParam(defaultValue = "0")int awardNo, @RequestParam(defaultValue = "0")int licencseNo,
+			@RequestParam(defaultValue = "0")int foreignlanguageskillNo) {
+		logger.info("선택 삭제 파라미터 carrerNo={},awardNo={}",carrerNo,awardNo);
+		logger.info("선택 삭제 파라미터 licencseNo={}, foreignlanguageskillNo={}",licencseNo,foreignlanguageskillNo);
+		
+		//2
+		if (carrerNo>0) {
+			rsService.selDelCarrer(carrerNo);
+		} else if(awardNo>0){
+			rsService.selDelAwd(awardNo);
+		} else if (licencseNo>0) {
+			rsService.selDelLicen(licencseNo);
+		} else if (foreignlanguageskillNo>0) {
+			rsService.selDelFskill(foreignlanguageskillNo);
+		}
+		
+		//4
+		return "redirect:/resumes/resumeUpdate.do?resumeNo="+resumeNo;
+	}
+	
 
 	@RequestMapping(value = "/resumeUpdate.do", method = RequestMethod.POST)
 	public String updateResume_post(@ModelAttribute ResumesVO resumeVo,
@@ -534,12 +569,6 @@ public class ResumesController {
 			HttpServletRequest request) {
 		logger.info("파일업로드");
 		
-//		String userId = (String) session.getAttribute("userId");
-//		logger.info("userId={}",userId);
-//		UsersVO userVo = userService.selectByUserId(userId);
-//		int userNo=userVo.getUserNo();
-//		logger.info("userNo={}",userNo);
-		
 		//파일업로드 처리
 		String resumeFileoriginalname="", resumeFilename="";
 		long resumeFilesize=0;
@@ -571,6 +600,27 @@ public class ResumesController {
 		return "redirect:/resumes/resumesList.do";
 	}
 	
+	//파일 다운로드
+	@RequestMapping("/download.do")
+	public ModelAndView download(@RequestParam(defaultValue = "0") int resumeNo,
+			@RequestParam String resumeFilename,
+			HttpServletRequest request) {
+		//1
+		logger.info("다운로드 처리 파라미터 resumeNo={}, resumeFilename={}",resumeNo,resumeFilename);
+		//2
+		//3
+		Map<String, Object> map = new HashedMap<String, Object>();
+		String upPath = fileUtil.getUploadPath(FileUploadUtil.PDS_TYPE, request);
+		File file = new File(upPath,resumeFilename); 
+		
+		map.put("file", file); 
+		
+		ModelAndView mav = new ModelAndView("resumeDownloadView", map);
+		
+		//4
+		return mav;
+	}
+	
 
 	//[수하]이력서 열람시 미구매자 팝업창 :머지할때 겹치면 제일 하단에 놔주세요//
 	@RequestMapping("/resumePurchase.do")
@@ -592,5 +642,5 @@ public class ResumesController {
 		model.addAttribute("resumeVo", vo);
 		model.addAttribute("userNo", userNo);
 	}
-
+	
 }//컨트롤러

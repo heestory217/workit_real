@@ -14,8 +14,8 @@
 			//커리어
 			$('#carrerBt').click(function() {
 				var carrerInput1 =""; 
-carrerInput1 +='<div id="addcarrer"><input type="text" id="carrerStartdate" name="CarrerVOList['+counCrr+'].carrerStartdate" placeholder="YYYY.MM"> ~';
-carrerInput1 +='<input type="text" id="carrerEnddate" name="CarrerVOList['+counCrr+'].carrerEnddate" placeholder="YYYY.MM">';
+carrerInput1 +='<div id="addcarrer"><input type="text" id="carrerStartdate" name="CarrerVOList['+counCrr+'].carrerStartdate" placeholder="YYYYMM" maxlength="7"> -';
+carrerInput1 +='<input type="text" id="carrerEnddate" name="CarrerVOList['+counCrr+'].carrerEnddate" placeholder="YYYYMM" maxlength="7">';
 carrerInput1 +='<input type="text" id="carrerCorp" name="CarrerVOList['+counCrr+'].carrerCorp" placeholder="회사명">';
 carrerInput1 +='<input type="text" id="carrerWork" name="CarrerVOList['+counCrr+'].carrerWork" placeholder="부서명/직책">';
 // carrerInput1 +='<input type="hidden" name="CarrerVOList['+counCrr+'].carrerNo">';
@@ -86,7 +86,22 @@ foreignInput+='<button class="btnRemove" value="Remove"><i class="fa fa-times" a
 				$(this).parent().remove();
 				count--;
 		    });
+	   		
+	   		
+	   		//유효성
+	   		$('#write_bt').click(function() {
+				if ($('#resumeTitle').val().length < 1) {
+					alert('제목을 입력하세요');
+					$('#resumeTitle').focus();
+					event.preventDefault();
+				} 
+				
+			});
 		});
+	
+		//^[0-9.]*$/g
+		
+		
 </script>
 <style type="text/css">
 h2 {
@@ -216,7 +231,7 @@ p#info {
                     	<div class="labelWarp">
                  		<label id="resume-colName" for="resumeFinaleducation">학력</label>
                  		</div>
-                        <input type="text" id="resumeFinaleducation" name="resumeFinaleducation"
+                        <input type="text" id="resumeFinaleducation" name="resumeFinaleducation" 
                         	placeholder="학교/학과">
                     </div>
                     <div class="col-lg-12 colWarp">
@@ -249,7 +264,7 @@ p#info {
                         </button><br><br>
                         <div id="new-foreignDiv"></div>
                     </div>
-					<button class="site-btn register-btn " type="submit">작성 완료</button>
+					<button class="site-btn register-btn" id="write_bt" type="submit">작성 완료</button>
                 </div>
             </div>
         </div>

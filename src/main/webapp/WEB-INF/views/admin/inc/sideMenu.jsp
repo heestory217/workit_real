@@ -33,10 +33,7 @@
                                                         <a class="nav-link" href="<c:url value='/admin/users/indiv/selectWithdrawUsers.do '/>">탈퇴 회원 조회</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link" href="ecommerce-product.html">이력서 조회</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="ecommerce-product.html">이력서 공개 신청 심사</a>
+                                                        <a class="nav-link" href="<c:url value='/admin/users/resume/resumeManager.do '/>">이력서 공개 신청 심사</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -105,10 +102,10 @@
                                 <div id="submenu-6" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/general-table.html">FAQ 조회</a>
+                                            <a class="nav-link" href="<c:url value='/admin/fa/faList.do'/>">FAQ 조회</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="pages/data-tables.html">Q&A 조회</a>
+                                            <a class="nav-link" href="<c:url value='/qna/qnaList.do'/>">Q&A 조회</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="<c:url value='/admin/notice/noticeList.do?type=0'/>">공지사항 조회</a>
