@@ -21,6 +21,7 @@ import com.it.workit.common.Utility;
 import com.it.workit.qna.model.QnaService;
 import com.it.workit.qna.model.QnaUsersVO;
 import com.it.workit.qna.model.QnaVO;
+import com.it.workit.users.model.UsersService;
 
 
 @Controller
@@ -30,6 +31,8 @@ public class QnaController {
 	
 	@Autowired
 	private QnaService qaService;
+	
+	@Autowired private UsersService userService;
 	
 	@RequestMapping("/qnaList.do")
 	public String qnaList(@ModelAttribute SearchVO searchVo, Model model) {
@@ -170,24 +173,26 @@ public class QnaController {
 	}
 	
 	@RequestMapping( value = "/qnaDelete.do", method = RequestMethod.POST)
-	public String qnaDelete(@RequestParam(defaultValue = "0") int qaNo,
-			@RequestParam String userPassword,
+	public String qnaDelete(@RequestParam(defaultValue = "0") int qaNo,	@RequestParam String userPassword, HttpSession session,
 			Model model ) {
 		//1
 		logger.info("삭제 파라미터  qaNo={}, userPasswoed={}",qaNo,userPassword);
+		
 		//2
 		QnaUsersVO qauVo = qaService.qaSelectByNo(qaNo);
 		logger.info("qauVo={}",qauVo);
 		
 		String msg="비밀번호가 틀렸습니다", url="/qna/qnaDetail.do?qaNo="+qaNo;
 	
-		if (qauVo.getUserPassword().equals(userPassword)) {
+		String userId = (String)session.getAttribute("userId");
+		int result = userService.loginCheck(userId, userPassword);
+		
+		if (result==UsersService.LOGIN_OK) {
 			int cnt = qaService.qaDelete(qaNo);
 			logger.info("삭제 완 cnt={}",cnt);
-			
 			msg="삭제 성공 하였습니다";
 			url="/qna/qnaList.do";
-		} 
+		}
 		
 		//3
 		model.addAttribute("msg",msg);
@@ -199,20 +204,18 @@ public class QnaController {
 	
 	
 	@RequestMapping(value="/qnaUpdate.do", method = RequestMethod.GET)
-	public String qnaUpdate(@RequestParam(defaultValue = "0")int qaNo,
-			@RequestParam String userPassword,
+	public String qnaUpdate(@RequestParam(defaultValue = "0")int qaNo, @RequestParam String userPassword,
 			HttpSession session, Model model) {
 		logger.info("수정화면 파라미터 qaNo={},userPassword={}",qaNo,userPassword);
+		String userId = (String)session.getAttribute("userId");
 		
 		//2
-		String dbPwd = qaService.chkPassword(qaNo);
-		logger.info("디비 사용자 비번 dbPwd={}",dbPwd);
+		int result = userService.loginCheck(userId, userPassword);
 		
 		QnaUsersVO qauVo = null;
-		if (dbPwd.equals(userPassword)) {
+		if (result==UsersService.LOGIN_OK) {
 			qauVo = qaService.qaSelectByNo(qaNo);
 			logger.info("처리결과 qauVo={}",qauVo);
-			
 		} else {
 			model.addAttribute("msg", "비밀번호가 틀렸습니다.");
 			model.addAttribute("url", "/qna/qnaDetail.do?qaNo="+qaNo);
