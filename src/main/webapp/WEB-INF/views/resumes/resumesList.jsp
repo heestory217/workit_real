@@ -75,6 +75,13 @@ $(function(){
 		} 
 	});
 	
+	//pdf다운로드
+	//$('#savePdf').click(function() { // pdf저장 button id
+	
+	
+	//});
+	
+	
 	//버튼에 인풋파일 연결
 	$('.uploderesumeBt').click(function (e) {
 		e.preventDefault();
@@ -85,6 +92,7 @@ $(function(){
 	function changeValue(obj){
 		document.frmFileUp.submit();
 	}
+	
 </script>
 
 <!-- Product Shop Section Begin -->
@@ -97,8 +105,7 @@ $(function(){
 						<p>최근 문서</p>
 					</div>
 				</div>
-
-
+				
 				<div class="product-list contentWarp">
 					<div class="row">
 						<!-- 새이력서 작성 버튼-->
@@ -183,14 +190,15 @@ $(function(){
 													<i class="fa fa-external-link" aria-hidden="true"></i>
 												</a></li>
 												<li class="w-icon active">
-												<!-- 파일네임 있을때 -->
+												
+											<!-- 파일네임 있을때 -->
 											<c:if test="${!empty resumeVo.resumeFilename }">
 <a href="<c:url value='/resumes/download.do?resumeNo=${resumeVo.resumeNo }&resumeFilename=${resumeVo.resumeFilename }'/>" title="다운로드">
 													<i class="fa fa-arrow-down" aria-hidden="true"></i>
 												</a>
 											</c:if>
 											<c:if test="${empty resumeVo.resumeFilename }">
-												<a href="#" title="다운로드">
+												<a href="#" onclick="savePdf()" title="다운로드">
 													<i class="fa fa-arrow-down" aria-hidden="true"></i>
 												</a>
 											</c:if>
@@ -203,9 +211,6 @@ $(function(){
 						</c:if>
 					</div>
 				</div>
-<!-- 				<div class="loading-more"> -->
-<!-- 					<i class="icon_loading"></i> <a href="#"> Loading More </a> -->
-<!-- 				</div> -->
 			</div>
 		</div>
 	</div>

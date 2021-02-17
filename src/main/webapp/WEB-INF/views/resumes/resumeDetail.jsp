@@ -5,6 +5,10 @@
 <script src="<c:url value='/resources/js/ckeditor/ckeditor.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
 
+<!-- 이력서 pdf -->
+<script type="text/javascript" src="<c:url value='/resources/js/jspdf.min.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resources/js/html2canvas.js'/>"></script>
+
 <style type="text/css">
 h2 {
     margin-top: 60px;
@@ -81,7 +85,18 @@ div.btWarp > div > a:nth-child(1) {
 .btWarp .filter-widget a {
 	padding: 10px 30px 10px;
 }
-
+div#pdfBtWarp {
+    text-align: right;
+    padding: 50px 0 0 0;
+}
+div#pdfDiv {
+    margin-bottom: 50px;
+}
+button#savePdf {
+    color: #333333;
+    background: #fff;
+    border-color: #fff;
+}
 </style>
 
 <script type="text/javascript">
@@ -109,6 +124,38 @@ div.btWarp > div > a:nth-child(1) {
 		});
 		
 		
+		//pdf 저장
+		$('#savePdf').click(function() { // pdf저장 button id
+			
+		    html2canvas($('#pdfDiv')[0]).then(function(canvas) { //저장 영역 div id
+			
+		    // 캔버스를 이미지로 변환
+		    var imgData = canvas.toDataURL('image/png');
+			     
+		    var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
+		    var pageHeight = imgWidth * 1.414;  // 출력 페이지 세로 길이 계산 A4 기준
+		    var imgHeight = canvas.height * imgWidth / canvas.width;
+		    var heightLeft = imgHeight;
+		    var margin = 10; // 출력 페이지 여백설정
+		    var doc = new jsPDF('p', 'mm');
+		    var position = 0;
+		       
+		    // 첫 페이지 출력
+		    doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+		    heightLeft -= pageHeight;
+		         
+		    // 한 페이지 이상일 경우 루프 돌면서 출력
+		    while (heightLeft >= 20) {
+		        position = heightLeft - imgHeight;
+		        doc.addPage();
+		        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+		        heightLeft -= pageHeight;
+		    }
+		 
+		    // 파일 저장
+		    doc.save('file-name.pdf');
+			});
+		});
 		
 	});
 </script>
@@ -116,8 +163,15 @@ div.btWarp > div > a:nth-child(1) {
 <div class="container">
     <form class="checkout-form" method="POST" name="resumefrm"
     		action="<c:url value='/resumes/resumeWrite.do'/>">
+<div id="pdfDiv">
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
+            
+            <div id="pdfBtWarp">
+			<button type="button" class="btn btn-primary" id="savePdf" title="PDF다운">
+				<i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></button>
+			</div>
+            
    				<div class="section-title">
 					<h2>${map['USER_NAME']}님 이력서</h2>
 				</div>
@@ -228,6 +282,9 @@ div.btWarp > div > a:nth-child(1) {
 						</c:if>
                     </div>
                     </c:if>
+                    
+</div>                    
+                    <!-- 버튼 -->
                     <c:if test="${map['USER_CORPCHECK']=='1' and empty param.type}">
 	                    <div class="btWarp">
 	                    	<div class="bt-float">
@@ -254,6 +311,7 @@ div.btWarp > div > a:nth-child(1) {
 							</div>
 						</div>
 					</c:if>
+					
 					<!-- 구매한 이력서 일 때 -->
                     <c:if test="${param.type=='Bought'}">
 	                    <div class="btWarp">

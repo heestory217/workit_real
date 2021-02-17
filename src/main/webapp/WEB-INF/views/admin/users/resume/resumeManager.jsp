@@ -59,8 +59,7 @@ function pageFunc(curPage){
 		<table class="table table-hover">
 		<colgroup>
 			<col width="10%">
-			<col width="10%">
-			<col width="40%">
+			<col width="50%">
 			<col width="15%">
 			<col width="15%">
 			<col width="10%">
@@ -68,7 +67,6 @@ function pageFunc(curPage){
 			<thead>
 				<tr class="center">
 					<th scope="col">승인 여부</th>
-					<th scope="col">이력서 번호</th>
 					<th scope="col">이력서 제목</th>
 					<th scope="col">회원 이름</th>
 					<th scope="col">회원 아이디</th>
@@ -97,7 +95,7 @@ function pageFunc(curPage){
 	            					반려
 	            				</c:if>
 	            			</th>
-	            			<th class="center">
+	            			<th class="center" style="display: none">
 	            				${map['RESUME_NO'] }
 	            			</th>
 	            			<th>
