@@ -1,7 +1,9 @@
 package com.it.workit.qna.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -170,20 +172,26 @@ public class QnaController {
 	}
 	
 	@RequestMapping( value = "/qnaDelete.do", method = RequestMethod.POST)
-	public String qnaDelete(@RequestParam(defaultValue = "0") int qaNo,
+	public String qnaDelete(@ModelAttribute QnaVO qVo,
 			@RequestParam String userPassword,
 			Model model ) {
 		//1
-		logger.info("삭제 파라미터  qaNo={}, userPasswoed={}",qaNo,userPassword);
+		logger.info("삭제 파라미터  qVo={}, userPasswoed={}",qVo,userPassword);
 		//2
-		QnaUsersVO qauVo = qaService.qaSelectByNo(qaNo);
+		
+		QnaUsersVO qauVo = qaService.qaSelectByNo(qVo.getQaNo());
 		logger.info("qauVo={}",qauVo);
 		
-		String msg="비밀번호가 틀렸습니다", url="/qna/qnaDetail.do?qaNo="+qaNo;
+		String msg="비밀번호가 틀렸습니다", url="/qna/qnaDetail.do?qaNo="+qVo.getQaNo();
 	
 		if (qauVo.getUserPassword().equals(userPassword)) {
-			int cnt = qaService.qaDelete(qaNo);
-			logger.info("삭제 완 cnt={}",cnt);
+			Map<String, String> map = new HashMap<String, String>(); //맵에다 넣기
+			map.put("QA_NO", qVo.getQaNo()+"");
+			map.put("QA_GROUPNO", Integer.toString(qVo.getQaGroupno())); //스트링으로 변환
+			map.put("QA_ORDERNO", String.valueOf(qVo.getQaOrderno())); //스트링으로 변환
+			
+			int cnt = qaService.qaDelete(map);
+			logger.info("삭제 완료 cnt={}",cnt);
 			
 			msg="삭제 성공 하였습니다";
 			url="/qna/qnaList.do";

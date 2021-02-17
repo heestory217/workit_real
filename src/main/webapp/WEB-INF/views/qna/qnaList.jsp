@@ -166,14 +166,14 @@ select.qaSelete {
 	                                <tr>
 			                            <td class="cart-pic first-row">${qaVo.qaNo}</td>
 			                            
-									<!-- 삭제 글인 경우 처리 -->
-									<c:if test="${qaVo.qaDeletecheck!='N' }">
-										<span style="color:gray">삭제된 글입니다.</span>
-									</c:if>
-									
-									<!-- 삭제글 아닐떄 -->
-									<c:if test="${qaVo.qaDeletecheck=='N' }">
+										<!-- 제목 -->
 			                            <td class="cart-title first-row">
+										<!-- 삭제 글인 경우 처리 -->
+										<c:if test="${qaVo.qaDeletecheck!='N' }">
+											<span style="color:gray">삭제된 글입니다.</span>
+										</c:if>
+										<!-- 삭제글 아닐떄 -->
+										<c:if test="${qaVo.qaDeletecheck=='N' }">
 			                            	<!-- 답변글인 경우 re 이미지 보여주기 -->
 			                            	<c:if test="${qaVo.qaOrderno > 0 }">
 												<c:forEach var="k" begin="1" end="${qaVo.qaOrderno }">
@@ -196,7 +196,7 @@ select.qaSelete {
 						                            	</c:if>
 						                            </a>
 												</c:if>	
-												<c:if test="${!empty sessionScope.userId and sessionScope.userNo != 999}">
+												<c:if test="${sessionScope.userNo != 999}">
 						                            <a class="pwck" href="<c:url value='/qna/passwordCheck.do?qaNo=${qaVo.qaNo }'/>">
 						                            	<c:if test="${fn:length(qaVo.qaTitle) > 13}">
 						                               		${fn:substring(qaVo.qaTitle, 0, 13) } ...
@@ -217,8 +217,8 @@ select.qaSelete {
 					                            	</c:if>
 					                            </a>
 			                            	</c:if>
+			                        	</c:if>
 			                            </td>
-			                        </c:if>
 			                            <td class="first-row">${qaVo.qaWriter}</td>
 			                            <td class="first-row">
 				                            <fmt:formatDate value="${qaVo.qaDate}" pattern="yyyy-MM-dd" />
@@ -231,11 +231,13 @@ select.qaSelete {
                         </table>
 					</div>
 					<!--버튼 -->
-					<div class="qaWbt">
-						<input type="button" value="문의하기"
-							class="faqBt btn btn-primary site-btn"
-							onclick="location.href='<c:url value="/qna/qnaWrite.do"/>'" />
-					</div>
+					<c:if test="${!empty sessionScope.userId && sessionScope.userNo != 999 }">
+						<div class="qaWbt">
+							<input type="button" value="문의하기"
+								class="faqBt btn btn-primary site-btn"
+								onclick="location.href='<c:url value="/qna/qnaWrite.do"/>'" />
+						</div>
+					</c:if>
                     
                     <div class="product__pagination blog__pagination">
 						<!-- 이전 블럭 -->

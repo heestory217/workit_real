@@ -4,11 +4,7 @@
 <%@ include file="../inc/top.jsp"%>
 <script src="<c:url value='/resources/js/ckeditor/ckeditor.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/resources/js/jquery-ui.min.js'/>"></script>
-<script type="text/javascript">
-	$(function() {
-		
-		});
-</script>
+
 <style type="text/css">
 h2 {
     margin-top: 60px;
@@ -87,6 +83,36 @@ div.btWarp > div > a:nth-child(1) {
 }
 
 </style>
+
+<script type="text/javascript">
+	$(function() {
+		
+		$('.delBt').click(function(){
+			var del = confirm('삭제하시겠습니까?');
+			
+			
+			if (del) {
+				location.href='<c:url value="/resumes/deleteResumes.do?resumeNo=${map['RESUME_NO']}"/>';
+			} else{
+				 alert('삭제가 취소되었습니다.');
+				 return;
+			}
+		});
+		
+		$('.updateBt').click(function(){
+			var up = confirm('수정하시겠습니까?');
+			
+			
+			if (up) {
+				location.href='<c:url value="/resumes/resumeUpdate.do?resumeNo=${map['RESUME_NO']}"/>';
+			} 
+		});
+		
+		
+		
+	});
+</script>
+
 <div class="container">
     <form class="checkout-form" method="POST" name="resumefrm"
     		action="<c:url value='/resumes/resumeWrite.do'/>">
@@ -101,7 +127,12 @@ div.btWarp > div > a:nth-child(1) {
              	    	<div class="labelWarp">
                         <label id="resume-colName" for="resumeTitle">이력서 제목<span>*</span></label>
                         </div>
-                        <p>${map['RESUME_TITLE']}</p>
+                        <c:if test="${!empty map['RESUME_FILENAME']}">
+                        	<p> ${fn:substringBefore(map['RESUME_TITLE'], '_') }</p>
+                        </c:if>
+                        <c:if test="${empty map['RESUME_FILENAME']}">
+                        	<p>${map['RESUME_TITLE']}</p>
+                        </c:if>
                     </div>
                     <div class="col-lg-12 colWarp">
                     	<div class="labelWarp">
@@ -111,6 +142,23 @@ div.btWarp > div > a:nth-child(1) {
 						<p>${map['USER_EMAIL1']}@${map['USER_EMAIL2'] }</p>
 						<p>${map['USER_HP1']}-${map['USER_HP2']}-${map['USER_HP3'] }</p>
                     </div>
+                    
+                    <!-- 파일 다운 -->
+                    <c:if test="${!empty map['RESUME_FILENAME']}">
+                    <div class="col-lg-12 colWarp">
+                    	<div class="labelWarp">
+							<label id="resume-colName">파일 다운</label>
+						</div>
+						<div>
+<a href="<c:url value='/resumes/download.do?resumeNo=${param.resumeNo }&resumeFilename=${map["RESUME_FILENAME"] }'/>">
+								${fileInfo}
+							</a>
+						</div>
+                    </div>
+                    </c:if>
+                    
+                    <!-- 파일 없을떄 -->
+                    <c:if test="${empty map['RESUME_FILENAME']}">
                     <div class="col-lg-12 colWarp">
                     	<div class="labelWarp">
                     	<label id="resume-colName" for="resumeSelfintro">자기 소개</label>
@@ -125,7 +173,7 @@ div.btWarp > div > a:nth-child(1) {
 						<c:if test="${!empty cList}">
 							<c:forEach var="cVo" items="${cList}">
 								<div id="new-carrerDiv">
-									<div>${cVo.carrerStartdate }-${cVo.carrerEnddate }</div>
+									<div> ${cVo.carrerStartdate }-${cVo.carrerEnddate }</div>
 									<div>${cVo.carrerCorp }</div> 
 									<div>${cVo.carrerWork }</div>
 								</div>
@@ -179,18 +227,22 @@ div.btWarp > div > a:nth-child(1) {
 		                 </c:forEach>
 						</c:if>
                     </div>
+                    </c:if>
                     <c:if test="${map['USER_CORPCHECK']=='1' and empty param.type}">
 	                    <div class="btWarp">
 	                    	<div class="bt-float">
 								<button class="site-btn listBt" type="button"
 		onclick="location.href='<c:url value="/resumes/resumesList.do"/>'">목록</button>
-								<button class="site-btn updateBt" type="button"
-		onclick="location.href='<c:url value="/resumes/resumeUpdate.do?resumeNo=${map['RESUME_NO']}"/>'">수정</button>
-								<button class="site-btn delBt" type="button" 
-		onclick="location.href='<c:url value="/resumes/deleteResumes.do?resumeNo=${map['RESUME_NO']}"/>'">삭제</button>
+								<!-- 이력서 file 없을떄 -->
+								<c:if test="${empty map['RESUME_FILENAME']}">
+								<button class="site-btn updateBt" type="button">수정</button>
+								</c:if>
+								<button class="site-btn delBt" type="button">삭제</button>
 							</div>
 						</div>
 					</c:if>
+					
+					
 					<!-- 채용공고에 지원한 이력서 일 때 -->
                     <c:if test="${param.type=='Applied' and !empty param.applicantlistNo}">
 	                    <div class="btWarp">

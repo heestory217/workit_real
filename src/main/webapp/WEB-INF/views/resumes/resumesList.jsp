@@ -60,7 +60,6 @@ $(function(){
 		var del = confirm('삭제하시겠습니까?');
 		
 		if (del) {
-			alert('삭제되었습니다');
 			location.href="<c:url value='/resumes/deleteResumes.do?resumeNo='/>"+$(this).attr('value');
 		} else{
 			 alert('삭제가 취소되었습니다.');
@@ -143,9 +142,15 @@ $(function(){
 										<div class="pi-pic">
 											<div class="preview">
 												<h3 class="resumeName">
-													<a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${resumeVo.resumeNo}'/>"> 
-													 ${resumeVo.resumeTitle}
-													</a>
+												<a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${resumeVo.resumeNo}'/>"> 
+													<c:if test="${!empty resumeVo.resumeFilename }">
+														 <i class="fa fa-file-o fa-xs" aria-hidden="true"></i>&nbsp;
+														 ${fn:substringBefore(resumeVo.resumeTitle, '_') }
+													</c:if>
+													<c:if test="${empty resumeVo.resumeFilename}">
+														 ${resumeVo.resumeTitle}
+													</c:if>
+												</a>
 												</h3>
 												<p class="resumeDate">
 													<i class="fa fa-calendar" aria-hidden="true"></i>
@@ -177,9 +182,19 @@ $(function(){
 									title="공개여부" onclick="return confirm('선택한 이력서를 기업에게 공개하시겠습니까?');">
 													<i class="fa fa-external-link" aria-hidden="true"></i>
 												</a></li>
-												<li class="w-icon active"><a href="#" title="다운로드">
+												<li class="w-icon active">
+												<!-- 파일네임 있을때 -->
+											<c:if test="${!empty resumeVo.resumeFilename }">
+<a href="<c:url value='/resumes/download.do?resumeNo=${resumeVo.resumeNo }&resumeFilename=${resumeVo.resumeFilename }'/>" title="다운로드">
 													<i class="fa fa-arrow-down" aria-hidden="true"></i>
-												</a></li>
+												</a>
+											</c:if>
+											<c:if test="${empty resumeVo.resumeFilename }">
+												<a href="#" title="다운로드">
+													<i class="fa fa-arrow-down" aria-hidden="true"></i>
+												</a>
+											</c:if>
+												</li>
 											</ul>
 										</div>
 									</div>

@@ -1,8 +1,12 @@
 package com.it.workit.admin.resumeManager.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.collections4.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.it.workit.admin.resumeManager.model.ResumeMngService;
+import com.it.workit.common.FileUploadUtil;
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.SearchVO;
 import com.it.workit.common.Utility;
@@ -30,6 +36,7 @@ public class resumeManagerController {
 
 	@Autowired private ResumesService rsService;
 	@Autowired private ResumeMngService rsMngService;
+	@Autowired private FileUploadUtil fileUtil;
 
 	@RequestMapping("/resumeManager.do")
 	public void resumeManager(@ModelAttribute SearchVO searchVo ,Model model) {
@@ -37,25 +44,26 @@ public class resumeManagerController {
 
 		//2
 		//[페이징 처리] 
-		PaginationInfo paging = new PaginationInfo();
-		paging.setBlockSize(Utility.BLOCK_SIZE);
-		paging.setRecordCountPerPage(10);
-		paging.setCurrentPage(searchVo.getCurrentPage());
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(10);
+		pagingInfo.setCurrentPage(searchVo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(10);
 
 		//[2] SearchVo 셋팅
+		searchVo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
 		searchVo.setRecordCountPerPage(10);
-		searchVo.setFirstRecordIndex(paging.getFirstRecordIndex());
-
+		
+		int totalRecord = rsMngService.rsOpenTotal(searchVo);
+		logger.info("총 글 개수 tatal={}",totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
 		List<Map<String, Object>> rsList = rsMngService.resumeByOpenNo(searchVo);
 		logger.info("글목록 조회 결과 rsList.size={}",rsList.size());
 
-		int totalRecord = rsMngService.rsOpenTotal(searchVo);
-		logger.info("총 글 개수 tatal={}",totalRecord);
-		paging.setTotalRecord(totalRecord);
 
 		//3
 		model.addAttribute("rsList",rsList);
-		model.addAttribute("pagingInfo",paging);
+		model.addAttribute("pagingInfo",pagingInfo);
 
 	}
 
@@ -121,6 +129,27 @@ public class resumeManagerController {
 		
 		//4
 		return "common/message";
+	}
+
+	//파일 다운로드
+	@RequestMapping("/download.do")
+	public ModelAndView download(@RequestParam(defaultValue = "0") int resumeNo,
+			@RequestParam String resumeFilename,
+			HttpServletRequest request) {
+		//1
+		logger.info("다운로드 처리 파라미터 resumeNo={}, resumeFilename={}",resumeNo,resumeFilename);
+		//2
+		//3
+		Map<String, Object> map = new HashedMap<String, Object>();
+		String upPath = fileUtil.getUploadPath(FileUploadUtil.PDS_TYPE, request);
+		File file = new File(upPath,resumeFilename); 
+
+		map.put("file", file); 
+
+		ModelAndView mav = new ModelAndView("resumeDownloadView", map);
+
+		//4
+		return mav;
 	}
 }
 

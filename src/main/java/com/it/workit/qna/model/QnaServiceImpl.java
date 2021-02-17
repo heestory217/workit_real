@@ -1,6 +1,7 @@
 package com.it.workit.qna.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,8 @@ public class QnaServiceImpl implements QnaService{
 	}
 
 	@Override
-	public int qaDelete(int qaNo) {
-		return qaDao.qaDelete(qaNo);
+	public int qaDelete(Map<String, String> map) {
+		return qaDao.qaDelete(map);
 	}
 
 	@Override

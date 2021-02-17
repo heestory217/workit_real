@@ -44,7 +44,10 @@ public interface ResumesService {
 	public int upadteImsi(int resumeNo);
 
 	//선택 삭제
-	public int selectDel(ResumeEtcVO resumeEtcVo);
+	public int selDelAwd(int awardNo);
+	public int selDelCarrer(int carrerNo);
+	public int selDelLicen(int licencseNo);
+	public int selDelFskill(int foreignlanguageskillNo);
 
 	//언어 인서트
 	public int insertUserlang(CorpuselanguageVO userlangVo);
@@ -57,7 +60,15 @@ public interface ResumesService {
 
 	//이력서 승인대기로 업데이트
 	public int resumeOpen(int resumeNo);
-	
+
 	//이력서 파일 업로드
 	public int insertRsfile(ResumesVO resumeVo);
+
+	//이력서 파일 다운로드
+	public String getFileInfo(String resumeFileoriginalname, long resumeFilesize);
 }
+
+
+
+
+

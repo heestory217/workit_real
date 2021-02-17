@@ -1,6 +1,7 @@
 package com.it.workit.qna.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,8 @@ public class QnaDAOMybatis implements QnaDAO{
 	}
 
 	@Override
-	public int qaDelete(int qaNo) {
-		return sqlSession.delete(namespace+"qaDelete",qaNo);
+	public int qaDelete(Map<String, String> map) {
+		return sqlSession.delete(namespace+"qaDelete",map);
 	}
 
 	@Override

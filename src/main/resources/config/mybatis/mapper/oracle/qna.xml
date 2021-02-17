@@ -52,10 +52,10 @@
 		select * from qaUserPassword where qa_no=#{qaNo}
 	</select>
 	
-	<delete id="qaDelete" parameterType="int">
-		delete from qaUserPassword 
-		where qa_no=#{qaNo}
-	</delete>
+<!-- 	<delete id="qaDelete" parameterType="int"> -->
+<!-- 		delete from qaUserPassword  -->
+<!-- 		where qa_no=#{qaNo} -->
+<!-- 	</delete> -->
 	
 	<update id="qaUpdate" parameterType="qnaUsersVO">
 		update qa 
@@ -82,6 +82,17 @@
 		insert into qa (qa_no,QA_WRITENO,QA_WRITER,qa_title, qa_about,qa_secret,qa_password,qa_groupno,QA_ORDERNO,QA_SORTNO,USER_NO)
 		values(#{qaNo},#{managerNo},#{qaWriter},#{qaTitle},#{qaAbout},#{qaSecret},#{qaPassword},#{qaGroupno},#{qaOrderno}+1,#{qaSortno}+1,#{userNo})
 	</insert>
+	
+	<!-- 프로시저 사용 삭제 -->
+	<parameterMap type="map" id="qaDeleteParam">
+		<parameter property="QA_NO" javaType="string" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="QA_GROUPNO" javaType="string" jdbcType="VARCHAR" mode="IN"/>		
+		<parameter property="QA_ORDERNO" javaType="string" jdbcType="VARCHAR" mode="IN"/>
+	</parameterMap>
+	<delete id="qaDelete" parameterMap="qaDeleteParam">
+			call delqa(?,?,?)
+	</delete>
+	
 </mapper>
 
 

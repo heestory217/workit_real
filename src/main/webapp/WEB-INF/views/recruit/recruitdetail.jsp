@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <head>
 <script src="<c:url value="/resources/js/jquery-3.3.1.min.js"/>"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
 <style>
 a#corpinfo {
@@ -34,6 +35,7 @@ a#corpinfo {
 }
 
 </style>
+
 <script type="text/javascript">
 	$(function(){
 		$('#editclick').click(function(){
@@ -53,8 +55,8 @@ a#corpinfo {
 		    	event.preventDefault();
 		    }
 		});
+		
 	});
-	
 	
 </script>
     <!-- Blog Details Section Begin -->
@@ -74,7 +76,9 @@ a#corpinfo {
 		                        	<a href="<c:url value='/recruitBookmark/insertBookmark.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo}'/>"><i class="fa fa-bookmark-o" aria-hidden="true" style="margin-right: 20px;"></i></a>
 	                        	</c:if>
 	                        	<!-- 공유하기 -->
-	                        	<i class="fa fa-share-alt" aria-hidden="true"></i>
+	                        	<a id="create-kakao-link-btn" href="javascript:;">
+		                        	<i class="fa fa-share-alt" aria-hidden="true"></i>
+	                        	</a>
                         	</div>
                             <h2>
                             	<c:if test="${d<0}">
@@ -262,4 +266,33 @@ a#corpinfo {
         </div>
     </section>
     <!-- Blog Details Section End -->
+    
+<script type='text/javascript'>
+//카카오 링크
+Kakao.init('5cde2f1c538a837643a20415d5cb8b1c');
+
+Kakao.Link.createDefaultButton({
+   container: '#create-kakao-link-btn',
+   objectType: 'feed',
+   content: {
+     title: '${CorpVO.corpName}',
+     description: '${RecruitannounceVO.recruitannounceTitle}',
+     imageUrl:
+       '<img src="<c:url value='/pd_images/${CorpVO.corpImgurl }'/>">',
+     link: {
+       mobileWebUrl: 'http://localhost:9090/workit/recruit/recruitdetail.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo}',
+       webUrl: 'http://localhost:9090/workit/recruit/recruitdetail.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo}'
+     }
+   },
+   buttons: [{
+       title: '웹으로 보기',
+       link: {
+     	 mobileWebUrl: 'http://localhost:9090/workit/recruit/recruitdetail.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo}',
+         webUrl: 'http://localhost:9090/workit/recruit/recruitdetail.do?recruitannounceNo=${RecruitannounceVO.recruitannounceNo}'
+        }
+      }
+    ]
+  });
+</script>
+    
 <%@ include file="../inc/bottom.jsp" %>

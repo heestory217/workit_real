@@ -14,8 +14,8 @@
 			//커리어
 			$('#carrerBt').click(function() {
 				var carrerInput1 =""; 
-carrerInput1 +='<div id="addcarrer"><input type="text" id="carrerStartdate" name="CarrerVOList['+counCrr+'].carrerStartdate" placeholder="YYYY.MM"> -';
-carrerInput1 +='<input type="text" id="carrerEnddate" name="CarrerVOList['+counCrr+'].carrerEnddate" placeholder="YYYY.MM">';
+carrerInput1 +='<div id="addcarrer"><input type="text" id="carrerStartdate" name="CarrerVOList['+counCrr+'].carrerStartdate" placeholder="YYYY.MM" maxlength="7"> -';
+carrerInput1 +='<input type="text" id="carrerEnddate" name="CarrerVOList['+counCrr+'].carrerEnddate" placeholder="YYYY.MM" maxlength="7">';
 carrerInput1 +='<input type="text" id="carrerCorp" name="CarrerVOList['+counCrr+'].carrerCorp" placeholder="회사명">';
 carrerInput1 +='<input type="text" id="carrerWork" name="CarrerVOList['+counCrr+'].carrerWork" placeholder="부서명/직책">';
 // carrerInput1 +='<input type="hidden" name="CarrerVOList['+counCrr+'].carrerNo">';
@@ -86,10 +86,15 @@ foreignInput+='<button class="btnRemove" value="Remove"><i class="fa fa-times" a
 		    });
 	   		
 	   		
-	   		//개별삭제
-	   		$('.btnDel').click(function(){
-	   			
-	   		});
+	   		//유효성
+	   		$('#write_bt').click(function() {
+				if ($('#resumeTitle').val().length < 1) {
+					alert('제목을 입력하세요');
+					$('#resumeTitle').focus();
+					event.preventDefault();
+				} 
+				
+			});
 		});
 </script>
 <style type="text/css">
@@ -218,10 +223,11 @@ div#new-awardDiv {
 										name="CarrerVOList[${car }].carrerCorp" placeholder="회사명">	
 									<input type="text" id="carrerWork" value="${cVo.carrerWork}"
 										name="CarrerVOList[${car }].carrerWork" placeholder="부서명/직책">
-									<button class="btnRemove" value="Remove"><i class="fa fa-times" 
-										aria-hidden="true"></i></button><br>
 									<input type="hidden" id="carrerNo" value="${cVo.carrerNo}"
 										name="CarrerVOList[${car }].carrerNo">
+									<button type="button" class="btnDel" 
+onclick="location.href='<c:url value="/resumes/seleDel.do?carrerNo=${cVo.carrerNo }&resumeNo=${cVo.resumeNo }"/>'">
+									<i class="fa fa-times" aria-hidden="true"></i></button><br>
 									</div>
 								<c:set var="car" value="${car+1 }"/>
 								</c:forEach>
@@ -254,8 +260,9 @@ div#new-awardDiv {
 								    		name="AwardVOList[${aw }].awardDate" placeholder="세부사항">
 								    	<input type="hidden" id="awardNo" value="${aVo.awardNo }"
 								    		name="AwardVOList[${aw }].awardNo">
-								    	<button class="btnDel" value="btnDel"><i class="fa fa-times" 
-								    		aria-hidden="true"></i></button><br>
+								    	<button type="button" class="btnDel"
+onclick="location.href='<c:url value="/resumes/seleDel.do?awardNo=${aVo.awardNo }&resumeNo=${aVo.resumeNo }"/>'">
+								    	<i class="fa fa-times" aria-hidden="true"></i></button><br>
 								    </div>
 								<c:set var="aw" value="${aw+1}"/>
 								</c:forEach>
@@ -281,8 +288,9 @@ div#new-awardDiv {
 				                        		name="LicenVOList[${lcen}].licencseIssueplace" placeholder="발행처">
 				                        	<input type="hidden" id="licencseNo" value="${lVo.licencseNo }" 
 				                        		name="LicenVOList[${lcen}].licencseNo">
-				                        	<button class="btnDel" value="btnDel"><i class="fa fa-times" 
-				                        		aria-hidden="true"></i></button>
+				                        	<button type="button" class="btnDel" 
+onclick="location.href='<c:url value="/resumes/seleDel.do?licencseNo=${lVo.licencseNo }&resumeNo=${lVo.resumeNo }"/>'">
+				                        	<i class="fa fa-times" aria-hidden="true"></i></button>
 				                        </div>
 				                <c:set var="lcen" value="${lcen+1}"/>
 				                </c:forEach>
@@ -308,8 +316,10 @@ div#new-awardDiv {
 			                        		name="ForeignskillVO[${fls }].foreignlanguageskillExpert" placeholder="수준">
 			                        	<input type="hidden" id="foreignlanguageskillNo" value="${fVo.foreignlanguageskillNo }"
 			                        		name="ForeignskillVO[${fls }].foreignlanguageskillNo">
-			                        	<button class="btnDel" value="btnDel"><i class="fa fa-times" 
-			                        		aria-hidden="true"></i></button>
+			                        	<button type="button" class="btnDel" id="fDelbt" 
+onclick="location.href='<c:url value="/resumes/seleDel.do?foreignlanguageskillNo=${fVo.foreignlanguageskillNo }&resumeNo=${fVo.resumeNo }"/>'">
+			                        		<i class="fa fa-times" aria-hidden="true"></i>
+			                        	</button>
 			                        </div>
 			                    <c:set var="fls" value="${fls+1}"/>
 				                </c:forEach>

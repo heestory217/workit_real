@@ -173,7 +173,7 @@
 	</delete>
 	<delete id="selDelFskill" parameterType="int">
 		delete from FOREIGNLANGUAGESKILL 
-		where RECRUITANNOUNCEBOOKMARK_NO=#{foreignlanguageskillNo}
+		where FOREIGNLANGUAGESKILL_NO=#{foreignlanguageskillNo}
 	</delete>
 	
 	<!-- 승인대기 -->

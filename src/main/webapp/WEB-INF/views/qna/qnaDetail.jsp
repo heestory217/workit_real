@@ -127,7 +127,7 @@ $(function(){
 						</div>
 					</div>
 					<div class="group-input gi-check col-lg-12 pwWarp" style="clear: both;">
-						<c:if test="${!empty sessionScope.userId and sessionScope.userNo != 999}">
+						<c:if test="${!empty sessionScope.userId && sessionScope.userNo != 999}">
 							<div class="gi-more pwBox">
 								<span id="qaspan">수정/삭제 시 비밀번호를 입력하세요 </span>
 								<input type="text" id="userPassword" 
@@ -135,10 +135,8 @@ $(function(){
 							</div>
 						</c:if>
 						<div class="order-btn faqBtWarp">
-							<c:if test="${!empty sessionScope.userId and sessionScope.userNo != 999 }">
+							<c:if test="${!empty sessionScope.userId && sessionScope.userNo != 999 }">
 								<button type="button" class="site-btn place-btn qaBt">수정</button>
-	<!-- 							<button type="button" class="site-btn place-btn qaBt" -->
-	<%-- 					onclick="<c:url value='/qna/qnaUpdate.do?qaNo=${qaVo.qaNo}&userPassword=${qaVo.userPassword }'/>">수정</button> --%>
 								<button type="submit" class="site-btn place-btn qaDelBt">삭제</button>
 							</c:if>
 							<c:if test="${sessionScope.userNo eq 999 }">
