@@ -171,6 +171,26 @@ public class QuestionDAOMybatis implements QuestionDAO{
 	public String selectUserId(int userNo) {
 		return sqlSession.selectOne(namespace+"selectUserId", userNo);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectPopular(QstnPagingVO vo) {
+		return sqlSession.selectList(namespace+"selectPopular",vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectByField(QstnPagingVO vo) {
+		return sqlSession.selectList(namespace+"selectByField", vo);
+	}
+
+	@Override
+	public int totalRecordByField(int workkindNo) {
+		return sqlSession.selectOne(namespace+"totalRecordByField", workkindNo);
+	}
+
+	@Override
+	public String selectWorkkindName(int workkindNo) {
+		return sqlSession.selectOne(namespace+"selectWorkkindName",workkindNo);
+	}
 	
 	
 }

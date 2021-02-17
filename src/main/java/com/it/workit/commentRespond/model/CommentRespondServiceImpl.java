@@ -97,4 +97,9 @@ public class CommentRespondServiceImpl implements CommentRespondService{
 	public int updateCommentLike(int commentsNo) {
 		return comntRespondDao.updateCommentLike(commentsNo);
 	}
+
+	@Override
+	public int getTotalAdoptComnt(int userNo) {
+		return comntRespondDao.getTotalAdoptComnt(userNo);
+	}
 }

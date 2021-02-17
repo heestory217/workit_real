@@ -321,7 +321,10 @@ textarea::placeholder {
 							<!-- editBox 끝 -->
 							</c:if>									
 							<!-- 직무 -->
-							<span class="workkind">#${qstnMap['WORKKIND_NAME']}</span>
+							<span class="workkind">
+							<a href="<c:url value='/indiv/community/listByField.do?workkindNo=${qstnMap["WORKKIND_NO"] }'/>">
+							#${qstnMap['WORKKIND_NAME']}
+							</a></span>
 							<!-- 질문 제목 -->
 							<p>
 								<i class="fa fa-quora"></i>${qstnMap['QUESTION_TITLE']}
@@ -391,6 +394,7 @@ textarea::placeholder {
    					<span id="closeIcon">&times;</span>
 					<div class="msgBxWrap">
 						<h4 id="msgBxTit">답변 채택하기</h4>
+						<hr>
 						<div class="msg">
 							<span>답변이 마음에 드셨나요?<br>
 							답변을 주신 분께 감사 인사를 남겨주세요.<span> (최대 300자)</span>
@@ -424,7 +428,11 @@ $(function(){
 	});
 	
 	$('form[name=modalFrm]').submit(function(){
-		if($('#msgTextarea').val().length>300){
+		var len = $('#msgTextarea').val().length;
+		if(len<1){
+			alert('답변 채택 메세지를 입력해주세요');
+			event.preventDefault();
+		}else if(len>300){
 			alert('답변 채택 메세지는 300자 이내로 입력 가능합니다.');
 			event.preventDefault();
 		}
@@ -455,14 +463,14 @@ function sendMsgFunc(commentsNo){
 </script>
 <style>
 	.msgBox{
-		border: 1.8px solid #4C4747;
+	    border: 1.8px solid #b8baff;
 	    border-radius: 10px;
 	    width: 500px;
-	    height:370px;
+	    height: 385px;
 	    position: absolute;
 	    top: 33%;
 	    left: 33%;
-	    background: #f8faff;
+	    background: #f7f7f7;
 	    overflow: hidden;
 	}
 	
@@ -471,12 +479,17 @@ function sendMsgFunc(commentsNo){
 	    font-size: 25px;
 	    padding: 10px 25px;
 	    cursor:pointer;
+	    color:#8e8e8e;
 	}
 	
 	#msgBxTit{
 		color:#4c50bb;
 	}
 	
+	.msgBxWrap>hr{
+	    background-color: #dadaff;
+    	margin-bottom: 0px;
+	}
 	
 	.msgBxWrap{
 	    padding: 30px;
@@ -495,7 +508,7 @@ function sendMsgFunc(commentsNo){
 	    width: 100%;
 	    height: 100px;
 	    background-color: #ffffff;
-	    border: 1px solid gray;
+	    border: 1px solid #dadaff;
 	}
 	/* 스크롤바 굵기 */
 	#msgTextarea::-webkit-scrollbar {
@@ -504,7 +517,7 @@ function sendMsgFunc(commentsNo){
 	
 	#msgTextarea::-webkit-scrollbar-thumb {
 	  border-radius: 5px;
-	  background-color: silver;
+	  background-color: #dadaff;
 	}
 	
 	.msgBtnBx{
@@ -520,7 +533,7 @@ function sendMsgFunc(commentsNo){
 		width: 49%;
     	height: 100%;
     	background: white;
-    	border: 1px solid gray;
+    	border: 1px solid #dadaff;
 	}
 	
 	.msgBtnBx > input:hover{

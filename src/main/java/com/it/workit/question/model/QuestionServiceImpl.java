@@ -168,5 +168,25 @@ public class QuestionServiceImpl implements QuestionService{
 		return questionDao.selectUserId(userNo);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectPopular(QstnPagingVO vo) {
+		return questionDao.selectPopular(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectByField(QstnPagingVO vo) {
+		return questionDao.selectByField(vo);
+	}
+
+	@Override
+	public int totalRecordByField(int workkindNo) {
+		return questionDao.totalRecordByField(workkindNo);
+	}
+
+	@Override
+	public String selectWorkkindName(int workkindNo) {
+		return questionDao.selectWorkkindName(workkindNo);
+	}
+
 	
 }

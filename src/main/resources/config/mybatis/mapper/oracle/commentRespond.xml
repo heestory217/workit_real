@@ -153,6 +153,12 @@
 		SET COMMENTRESPOND_LIKENUM = 1
 		WHERE COMMENTRESPOND_NO=#{commentrespondNo}
 	</update>
+	
+	<!-- 채택된 답변수 -->
+	<select id="getTotalAdoptComnt" resultType="int" parameterType="int">
+		SELECT COUNT(COMMENTRESPOND_LIKENUM) FROM COMMENTRESPOND
+		WHERE USER_NO=#{userNo} AND COMMENTRESPOND_LIKENUM=1
+	</select>
 </mapper>
 
 

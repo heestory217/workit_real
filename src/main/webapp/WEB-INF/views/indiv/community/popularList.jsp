@@ -4,14 +4,40 @@
 
 <link rel="stylesheet" type="text/css" href="<c:url value='/resources/css/communityList.css'/>">
 
-<style>
-
-a.allQstn{
-	font-weight: bold;
-	color:#4c50bb !important;
-}
+<style type="text/css">
+	
+	.header{
+		width:100%;
+		height:130px;
+		margin-bottom:35px;
+		border:1px solid silver;
+		background: linear-gradient(45deg, #a565f9, #9773fb, #8c78dc, #9765f9);
+	    padding: 35px;
+	}
+	
+	.fa-crown{
+	    color: #ffda24;
+	    float: left;
+	    font-size: 50px;
+	    margin: 10px;
+	}
+	
+	.headerTit{
+		float:left;
+	    padding-top: 5px;
+	}
+	
+	.headerTit>h3, .headerTit>span{
+		color:white;
+	}
+	
+	.date{
+		color: #ffffff94;
+	    float: right;
+	    padding: 45px 20px;
+	    font-size: 13px;
+	}
 </style>
-
 <script type="text/javascript">
 	function pageFunc(curPage){
 		$('input[name=currentPage]').val(curPage);
@@ -31,11 +57,23 @@ a.allQstn{
 	<div id="container">
 		<!--전체 질문 목록-->
 		<div id="content" class="AllQuestList">
-			<div class="top-title-wrap">
-				<p class="title">전체질문</p>
+			<div class="header">
+				<div>
+					<i class="fas fa-crown"></i>
+					<div class="headerTit">
+						<h3>인기 질문</h3>
+						<span>지금 가장 관심 받는 커리어 질문은?</span>
+					</div>
+					<div class="date">
+						<jsp:useBean id="now" class="java.util.Date" />
+						<fmt:formatDate value="${now}" pattern="yyyy.MM.dd" var="today" />
+						<c:out value="${today}"/>기준</p>
+					</div>
+				</div>
+				
 			</div>
 			
-			<form action="<c:url value='/indiv/community/qstnList.do'/>" 
+			<form action="<c:url value='/indiv/community/popularList.do'/>" 
 					name="frmPage" method="post">
 				<input type="hidden" name="currentPage">
 			</form>

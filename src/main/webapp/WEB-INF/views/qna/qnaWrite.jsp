@@ -4,11 +4,6 @@
 <script src="<c:url value='/resources/js/ckeditor/ckeditor.js'/>"></script>
 <style>
 
-.filter-catagories > li:nth-child(1) > a{
-	font-weight:bold;
-	color:#4c50bb;
-	font-size:20px;
-}
 
 .fqst {
 	padding: 0;

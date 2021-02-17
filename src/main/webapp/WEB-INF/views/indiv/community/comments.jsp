@@ -55,6 +55,7 @@
     color: white;
     border: none;
     outline: none;
+    font-size: 14px;
 }
 
 .cmtCnt{
@@ -186,6 +187,7 @@
     padding: 3px 8px;
     color: #ff4c08;
     margin: 0px 16px 20px;
+    font-size: 14px;
 }
 
 .fotterWrap{

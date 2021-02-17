@@ -34,5 +34,9 @@ public interface QuestionService {
 	int updateComntCnt(int qstnNo);	//답변이 등록되면 답변 개수가 증가됨
 	int delComntCnt(int qstnNo);	//답변이 삭제되면 답변 개수가 감소됨
 	String selectUserId(int userNo);
+	List<Map<String, Object>> selectPopular(QstnPagingVO vo);	//인기 질문 목록
+	String selectWorkkindName(int workkindNo);
+	List<Map<String, Object>> selectByField(QstnPagingVO vo);	//직무별 질문 전체 목록
+	int totalRecordByField(int workkindNo);
 	
 }

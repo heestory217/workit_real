@@ -19,6 +19,7 @@
 		font-size: 22px;
 	}
 	
+	
 	#content{
 		width:800px;
 	}
@@ -232,16 +233,14 @@
 	    color:#adadad;
 	}
 	
-	
 </style>
+
 <script type="text/javascript">
-
-	function pageFunc(curPage){
-		$('input[name=currentPage]').val(curPage);
-		$('form[name=frmPage]').submit();
-	}
+function pageFunc(curPage){
+	$('input[name=currentPage]').val(curPage);
+	$('form[name=frmPage]').submit();
+}
 </script>
-
 
 
 <div class="divCmty">
@@ -274,7 +273,7 @@
 							<fmt:formatDate value="${now}" pattern="yyyy.MM.dd" var="today" />
 							<c:out value="${today}"/>기준</p>
 				        <div id="moreQuestBtn" style="height:10%">
-				        <a href="<c:url value='/indiv/community/answerList.do?type=2'/>">
+				        <a href="<c:url value='/indiv/community/popularList.do'/>">
 				    	    인기질문 더보기</a></div>
 				      </div>
 				    </div>
@@ -350,12 +349,13 @@
 				<c:if test="${!empty qstnListByWorkkind }">
 				<article id="questBox">
 					<c:forEach var="map" items="${qstnListByWorkkind }">
+				<a href
+		="<c:url value='/indiv/community/cntUpdate.do?qstnNo=${map["QUESTION_NO"] }'/>"
+							class="contentArea">
 				<div class="questBoxWrap">
 				<div class="oneQuestBox">
 					<div>							
-						<a href
-		="<c:url value='/indiv/community/cntUpdate.do?qstnNo=${map["QUESTION_NO"] }'/>"
-							class="contentArea">
+						
 							<dl>
 								<!-- 직무 -->
 								<dd class="workkind">#${map["WORKKIND_NAME"] }</dd>
@@ -409,11 +409,11 @@
 									</span>
 								</dd>
 							</dl>
-						</a>
-					</div>					
+						</div>					
+						</div>
+					</a>
 				</div>
-				</div>
-					</c:forEach>
+				</c:forEach>
 				<!-- 질문 반복 끝 -->
 				<!-- 페이징 처리 -->
 				<div class="paging col-lg-12">
