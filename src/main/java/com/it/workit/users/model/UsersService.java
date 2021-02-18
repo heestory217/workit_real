@@ -59,5 +59,5 @@ public interface UsersService {
 	public int selectTotalWithdrawUsersByDate(DateSearchVO dateSearchVo);
 	public int selectTotalWithdrawCorpByDate(DateSearchVO dateSearchVo);
 	
-	public int updateEnddate(UsersVO vo);
+	public int updateEnddate(String userID);
 }

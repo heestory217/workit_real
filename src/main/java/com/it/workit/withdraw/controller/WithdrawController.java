@@ -33,18 +33,15 @@ public class WithdrawController {
 			HttpSession session, HttpServletResponse response, 
 			Model model) {
 		String userId=(String) session.getAttribute("userId");
-		
 		logger.info("회원 탈퇴 처리, 파라미터 userPassword={}", userPassword);
 		
 		//비밀번호 체크
-		UsersVO vo = userService.selectByUserId(userId);
-		vo.setUserId(userId);
-		logger.info("비밀번호 체크 결과, pwd={}", vo.getUserPassword());
+		int loginResult = userService.loginCheck(userId, userPassword);
 		
 		//비밀번호 체크
 		String msg="", url="";
-		if(vo.getUserPassword().equals(userPassword)) {
-			int cnt = userService.updateEnddate(vo);
+		if(loginResult==userService.LOGIN_OK) {
+			int cnt = userService.updateEnddate(userId);
 			if(cnt>0) {
 				msg="회원탈퇴가 정상적으로 이루어졌습니다.\\n그동안 WORK IT을 이용해주셔서 감사합니다.";
 				url="/index.do";

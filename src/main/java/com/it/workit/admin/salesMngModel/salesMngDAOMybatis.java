@@ -36,5 +36,10 @@ public class salesMngDAOMybatis implements salesMngDAO {
 	public List<Map<String, Object>> selectResumeSales(salesDateVO vo) {
 		return sqlSession.selectList(namespace+"selectResumeSales", vo);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectServicePie() {
+		return sqlSession.selectList(namespace+"selectServicePie");
+	}
 	
 }

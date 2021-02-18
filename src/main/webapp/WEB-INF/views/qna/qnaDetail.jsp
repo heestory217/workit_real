@@ -130,8 +130,7 @@ $(function(){
 						<c:if test="${!empty sessionScope.userId && sessionScope.userNo != 999}">
 							<div class="gi-more pwBox">
 								<span id="qaspan">수정/삭제 시 비밀번호를 입력하세요 </span>
-								<input type="text" id="userPassword" 
-									name="userPassword" placeholder="회원비밀번호를 입력하세요">
+								<input type="text" id="userPassword" name="userPassword" placeholder="회원비밀번호를 입력하세요">
 							</div>
 						</c:if>
 						<div class="order-btn faqBtWarp">
@@ -145,11 +144,8 @@ $(function(){
 							</c:if>
 						</div>
 					</div>
-					
 			</form>
-				
 			</div>
-			
 		</div>
 	</div>
 </div>

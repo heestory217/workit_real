@@ -80,7 +80,7 @@ public class UsersController {
 
 		vo.setUserEmail1(email1);
 		vo.setUserEmail2(email2);
-
+		
 		int cnt=usersService.insertUsers(vo);
 
 		logger.info("회원가입 결과, cnt={}", cnt);
@@ -279,7 +279,7 @@ public class UsersController {
 
 	@RequestMapping("/findIdPw.do")
 	public void findIdPw() {
-		logger.info("아이디비번찾기");
+		logger.info("아이디, 비밀번호 찾기 페이지");
 	}
 
 	@RequestMapping(value="/tempPwdUpdate.do", method = RequestMethod.GET)
@@ -294,12 +294,13 @@ public class UsersController {
 		String userPwd = request.getParameter("userPwd");
 
 		logger.info("userId={}, userTemp={}", userId, userTemp);
-		logger.info("userPwd={}", userPwd);
+		logger.info("userResetPwd={}", userPwd);
 
 		Map<String, Object> userMap = new HashMap<String, Object>();
 		userMap.put("userId", userId);
 		userMap.put("userTemp", userTemp);
 		userMap.put("userPwd", userPwd);
+		
 		String msg = "", url="";
 		int result = usersService.updatePwdReal(userMap);
 		if(result==1) {

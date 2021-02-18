@@ -46,8 +46,8 @@ public class CompanyMypageController {
 		
 		String userid=(String) session.getAttribute("userId");
 		UsersVO vo=userService.selectByUserId(userid);
-		
-		if(vo.getUserPassword().equals(pwd)) {
+		int cnt = userService.loginCheck(userid, pwd);
+		if(cnt==1) {
 			
 			model.addAttribute("vo", vo);
 			

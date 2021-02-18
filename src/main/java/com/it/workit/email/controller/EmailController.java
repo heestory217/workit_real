@@ -113,12 +113,15 @@ public class EmailController {
 			Random random=new Random(System.currentTimeMillis());
 			int result=10000+random.nextInt(10000);
 			int tempPwd=result;
-			logger.info("비밀번호 재설정1 tempPwd={}",tempPwd);
+			logger.info("비밀번호 표면 난수 tempPwd={}",tempPwd);
+			
 			Map<String, Object> tempUser = new HashMap<String, Object>();
 			tempUser.put("userId",userId);
 			tempUser.put("tempPwd",tempPwd);
+			
 			int updateCnt = userService.updatePwd(tempUser);
 			logger.info("비밀번호 재설정 updateCnt={}",updateCnt);
+			
 			if(updateCnt==1) {
 				String subject="[ WorkIT ] 비밀번호 재설정";
 				String content="<h1>[WorkIT]</h1><h3> 회원님의 임시비밀번호는 [ "+tempPwd+" ] 입니다.</h3>";

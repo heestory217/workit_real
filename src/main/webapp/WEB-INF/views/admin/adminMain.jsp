@@ -87,6 +87,11 @@
 		<c:import url="/admin/main/sales/totalSales.do"/>
 	</div>
 	
+	<!-- 서비스별 판매 추이 -->
+	<div class="row" style="border-bottom: 1px solid #ddd; margin-bottom: 30px;">
+		<c:import url="/admin/main/sales/servicePie.do"/>
+	</div>
+	
 	<!-- 서비스별 월간 총 수익 -->
 	<div>
 		<c:import url="/admin/main/sales/serviceSales.do"/>

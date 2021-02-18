@@ -21,10 +21,10 @@
       </selectKey>
       insert into users(user_no, user_name, user_id, user_password, user_zipcode,
          user_address, workkind_no, user_experience, user_hp1, user_hp2, user_hp3,
-         user_email1, user_email2, user_addressdetail)
+         user_email1, user_email2, user_addressdetail, salt)
       values(#{userNo},#{userName},#{userId},#{userPassword},#{userZipcode},#{userAddress},
          #{workkindNo},#{userExperience},#{userHp1},#{userHp2},#{userHp3},
-         #{userEmail1},#{userEmail2},#{userAddressdetail})
+         #{userEmail1},#{userEmail2},#{userAddressdetail},#{salt})
    </insert>
 
    <select id="loginCheck" parameterType="string" resultType="String">
@@ -45,7 +45,11 @@
    
    <update id="updateUsers" parameterType="usersVo">
       update users
-      set user_name=#{userName}, user_password=#{userPassword}, 
+      set user_name=#{userName},
+    		<if test="userPassword != null and userPassword !=''">
+    			user_password=#{userPassword},
+    			salt=#{salt},
+    		</if> 
           user_experience=#{userExperience}, user_hp1=#{userHp1}, user_hp2=#{userHp2}, 
           user_hp3=#{userHp3}, user_zipcode=#{userZipcode}, 
           user_address=#{userAddress}, user_addressdetail=#{userAddressdetail}
@@ -54,7 +58,11 @@
    
    <update id="updateCorpUsers" parameterType="usersVo">
       update users
-      set user_name=#{userName}, user_password=#{userPassword}, 
+      set user_name=#{userName},
+        	<if test="userPassword != null and userPassword !=''">
+    			user_password=#{userPassword},
+    			salt=#{salt},
+    		</if> 
           user_hp1=#{userHp1}, user_hp2=#{userHp2}, 
           user_hp3=#{userHp3}, user_zipcode=#{userZipcode}, 
           user_address=#{userAddress}, user_addressdetail=#{userAddressdetail}
@@ -77,7 +85,7 @@
    
    <update id="updatePwd" parameterType="hashMap">
       update users
-      set user_password=#{tempPwd}
+      set user_password=#{shaPwd}, salt=#{salt}
       where user_Id=#{userId}
    </update>
    
@@ -87,8 +95,8 @@
    
    <update id="updatePwdReal" parameterType="hashMap">
       update users
-      set user_password=#{userPwd}
-       where user_id=#{userId} and USER_PASSWORD=#{userTemp}
+      set user_password=#{shaPwd}, salt=#{salt}
+      where user_id=#{userId}
    </update>
    
    <select id="selectIndivUsersAll" parameterType="searchVo" resultType="usersVo">
@@ -232,9 +240,14 @@
       order by user_no
    </select>
 	
-	<update id="updateEnddate" parameterType="usersVo">
+	<update id="updateEnddate" parameterType="String">
 		UPDATE USERS
 		SET USER_ENDDATE = SYSDATE
-		WHERE USER_ID=#{userId} AND USER_PASSWORD=#{userPassword}
+		WHERE USER_ID=#{userId}
 	</update>
+	
+	
+	<select id="selectSaltById" parameterType="string" resultType="string">
+		select salt from users where user_id=#{userId}
+	</select>
 </mapper>

@@ -60,4 +60,10 @@ public class SalesMngController {
 		model.addAttribute("year",year);
 		model.addAttribute("totalList",totalList);
 	}
+	
+	@RequestMapping("/servicePie.do")
+	public void servicePie(Model model) {
+		List<Map<String, Object>> pieList = salesService.selectServicePie();
+		model.addAttribute("pieList",pieList);
+	}
 }

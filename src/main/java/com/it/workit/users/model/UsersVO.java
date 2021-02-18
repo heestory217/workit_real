@@ -21,7 +21,16 @@ public class UsersVO {
 	private String userEmail1;
 	private String userEmail2;
 	private String userAddressdetail;
+	private String salt;
 	
+	
+	
+	public String getSalt() {
+		return salt;
+	}
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 	public int getUserNo() {
 		return userNo;
 	}
@@ -124,7 +133,6 @@ public class UsersVO {
 	public void setUserAddressdetail(String userAddressdetail) {
 		this.userAddressdetail = userAddressdetail;
 	}
-	
 	@Override
 	public String toString() {
 		return "UsersVO [userNo=" + userNo + ", userName=" + userName + ", userId=" + userId + ", userPassword="
@@ -132,8 +140,7 @@ public class UsersVO {
 				+ workkindNo + ", userExperience=" + userExperience + ", userRegdate=" + userRegdate + ", userEnddate="
 				+ userEnddate + ", userCorpcheck=" + userCorpcheck + ", userHp1=" + userHp1 + ", userHp2=" + userHp2
 				+ ", userHp3=" + userHp3 + ", userEmail1=" + userEmail1 + ", userEmail2=" + userEmail2
-				+ ", userAddressdetail=" + userAddressdetail + "]";
+				+ ", userAddressdetail=" + userAddressdetail + ", salt=" + salt + "]";
 	}
-	
 	
 }

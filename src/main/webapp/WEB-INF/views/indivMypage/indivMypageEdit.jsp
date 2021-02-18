@@ -69,11 +69,11 @@
                             </div>
                             <div class="group-input">
                                 <label for="pwd">비밀번호 *</label>
-                                <input type="password" id="pwd" class="col-lg-12" name="userPassword" value="${vo.userPassword }">
+                                <input type="password" id="pwd" class="col-lg-12" name="userPassword" placeholder="비밀번호 변경이 필요하실 경우 입력해주세요.">
                             </div>
                             <div class="group-input">
                                 <label for="con-pwd">비밀번호 확인 *</label>
-                                <input type="password" id="con-pwd" class="col-lg-12" value="${vo.userPassword }">
+                                <input type="password" id="con-pwd" class="col-lg-12" placeholder="비밀번호 변경이 필요하실 경우 입력해주세요.">
                             </div>
                             <div class="group-input">
                                 <label for="email1">이메일 *</label>

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.it.workit.applicant.model.ApplicantService;
 import com.it.workit.applicant.model.ApplicantlistVO;
 import com.it.workit.common.PaginationInfo;
+import com.it.workit.common.SHA256Util;
 import com.it.workit.common.Utility;
 import com.it.workit.getposition.model.GetPositionService;
 import com.it.workit.indivMypage.model.IndivpagingVO;
@@ -71,8 +72,8 @@ public class IndivMypageController {
 		vo.setUserHp2(hp2);
 		vo.setUserHp3(hp3);
 		
-		
 		String msg="회원정보 수정에 실패했습니다.", url="/indivMypage/indivMypageEdit.do";
+		logger.info("회원정보 수정 vo = {}",vo);
 		int cnt=userService.updateUsers(vo);
 		if(cnt>0) {
 			msg="회원정보 수정 성공했습니다.";
@@ -99,23 +100,21 @@ public class IndivMypageController {
 		
 		//세션 userid 가져오기
 		String userid=(String) session.getAttribute("userId");
+		int loginChk = userService.loginCheck(userid, pwd);
 		
-		UsersVO vo=userService.selectByUserId(userid);
-		logger.info("개인 마이페이지 - 비밀번호 체크 / DB pwd 조회 결과 pwd={}", vo.getUserPassword());
-		
-		if(vo.getUserPassword().equals(pwd)) {
+		String url="", msg="";
+		if(loginChk==1) { //로그인 성공
+			UsersVO vo=userService.selectByUserId(userid);
 			
 			model.addAttribute("vo", vo);
-			
 			return "indivMypage/indivMypageEdit";
-		}else {
-			String msg="비밀번호가 틀립니다. 다시 시도해주세요.", url="/indivMypage/indivCheckPwd.do";
-			
+		}else if(loginChk==2) {//비밀번호 오류
+			msg="비밀번호가 틀립니다. 다시 시도해주세요.";
+			url="/indivMypage/indivCheckPwd.do";
 			model.addAttribute("msg",msg);
 			model.addAttribute("url",url);
-			
-			return "common/message";
 		}
+		return "common/message";
 	}
 	
 	@RequestMapping("/indivMypageSituation.do")

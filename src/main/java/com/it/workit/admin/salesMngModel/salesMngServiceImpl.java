@@ -54,5 +54,10 @@ public class salesMngServiceImpl implements salesMngService {
 		
 		return salesDao.selectResumeSales(vo);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectServicePie() {
+		return salesDao.selectServicePie();
+	}
 	
 }
