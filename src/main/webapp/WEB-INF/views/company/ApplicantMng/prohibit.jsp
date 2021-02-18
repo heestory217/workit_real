@@ -95,14 +95,12 @@ select {
 					<div class="cart-table">
 						<table>
 							<colgroup>
-								<col width="33%">
-								<col width="34%">
-								<col width="33%">
+								<col width="50%">
+								<col width="50%">
 							</colgroup>
 							<thead>
                                <tr>
                                    <th>지원자명</th>
-                                   <th>이력서</th>
                                    <th>제한여부</th>
                                </tr>
                            </thead>
@@ -119,9 +117,6 @@ select {
 										<tr>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">${map['USER_NAME']}</p>
-											</td>
-											<td class="cart-title padding-bottom0"><br>
-												<p class="center">${map['RESUME_TITLE']}</p>
 											</td>
 											<td class="cart-title padding-bottom0"><br>
 												<p class="center">
