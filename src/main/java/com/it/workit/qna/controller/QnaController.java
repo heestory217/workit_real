@@ -178,7 +178,7 @@ public class QnaController {
 	public String qnaDelete(@ModelAttribute QnaVO qVo,	@RequestParam String userPassword, HttpSession session,
 			Model model ) {
 		//1
-		logger.info("삭제 파라미터  qaNo={}, userPasswoed={}",qaNo,userPassword);
+		logger.info("삭제 파라미터  qVo={}, userPasswoed={}",qVo,userPassword);
 
 		//2
 
@@ -191,18 +191,18 @@ public class QnaController {
 		int result = userService.loginCheck(userId, userPassword);
 
 		if (result==UsersService.LOGIN_OK) {
-					Map<String, String> map = new HashMap<String, String>(); //맵에다 넣기
-					map.put("QA_NO", qVo.getQaNo()+"");
-					map.put("QA_GROUPNO", Integer.toString(qVo.getQaGroupno())); //스트링으로 변환
-					map.put("QA_ORDERNO", String.valueOf(qVo.getQaOrderno())); //스트링으로 변환
+			Map<String, String> map = new HashMap<String, String>(); //맵에다 넣기
+			map.put("QA_NO", qVo.getQaNo()+"");
+			map.put("QA_GROUPNO", Integer.toString(qVo.getQaGroupno())); //스트링으로 변환
+			map.put("QA_ORDERNO", String.valueOf(qVo.getQaOrderno())); //스트링으로 변환
 
-					int cnt = qaService.qaDelete(map);
-					logger.info("삭제 완 cnt={}",cnt);
-		}
-
-		if(cnt>0){
-			msg="삭제 성공 하였습니다";
-			url="/qna/qnaList.do";
+			int cnt = qaService.qaDelete(map);
+			logger.info("삭제 완 cnt={}",cnt);
+			
+			if(cnt>0){
+				msg="삭제 성공 하였습니다";
+				url="/qna/qnaList.do";
+			}
 		}
 
 		//3

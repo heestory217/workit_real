@@ -210,6 +210,7 @@ public class OrdersController {
 				cnt = ordersService.insertOrderWithCoupon(vo, adVo);
 			}else if(paidServiceNo>=2 && paidServiceNo<=5) {	//후기열람권 구매
 				cnt = ordersService.insertOrderWithCoupon(vo, seeVo);
+				session.setAttribute("user_seervcheck",1);
 			}else {	//이력서 구매
 				cnt = ordersService.insertOrderWithCoupon(vo);
 			}
@@ -221,6 +222,7 @@ public class OrdersController {
 				cnt = ordersService.insertOrder(vo, adVo);
 			}else if(paidServiceNo>=2 && paidServiceNo<=5) {	
 				cnt = ordersService.insertOrder(vo, seeVo);	//후기열람권 구매
+				session.setAttribute("user_seervcheck",1);
 			} else {	//이력서 구매
 				cnt = ordersService.insertOrder(vo);
 			}
