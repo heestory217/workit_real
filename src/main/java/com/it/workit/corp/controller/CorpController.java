@@ -48,7 +48,7 @@ public class CorpController {
 	}
 	
 	@RequestMapping(value="/corpWrite.do", method=RequestMethod.POST)
-	public String corpRegisterPost(@ModelAttribute CorpVO vo, HttpServletRequest request, Model model) {
+	public String corpRegisterPost(@ModelAttribute CorpVO vo, HttpServletRequest request,HttpSession session, Model model) {
 		logger.info("CorpVO={}",vo);
 		
 		String logoURL="";
@@ -94,6 +94,7 @@ public class CorpController {
 			msg="기업 등록 성공, 기업 승인까지 최대 3일이 소요 됩니다.";
 		}
 		
+		session.setAttribute("user_corpcheck", 2);
 		model.addAttribute("msg",msg);
 		model.addAttribute("url",url);
 		return "common/message";
