@@ -124,13 +124,13 @@
 				dataType:'json',
 				success:function(res){
 					if(res==1){
-						alert('공지사항이 정상적으로 등록되었습니다.');
+						alert('정상적으로 등록되었습니다.');
 						opener.document.location.reload();
 						self.close();
 					}
 					
 				},error:function(xhr, status, error){
-					alert('공지사항 등록에 실패하였습니다.\n다시 등록하세요.');
+					alert('등록에 실패하였습니다.\n다시 등록하세요.');
 				}
 			});
 			event.preventDefault();
@@ -141,7 +141,7 @@
 		});
 	});
 </script>
-<title>공지사항 등록</title>
+<title>FAQ 등록</title>
 </head>
 <body>
 
@@ -149,7 +149,7 @@
 <!-- Register Section Begin -->
 <div class="spad">
 <div class="container">
-<h3 class="section-title float_left">공지사항 등록</h3>
+<h3 class="section-title float_left">FAQ 등록</h3>
 </div><br>
 	<form name="writeFrm" id="writeFrm" method="post">
 		<table>

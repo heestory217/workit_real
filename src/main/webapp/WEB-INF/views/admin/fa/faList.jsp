@@ -105,7 +105,7 @@ $(function(){
 		 var len	
 		 	=$('table tbody tr td').find('input[type=checkbox]:checked').length;
 		 if(len==0){
-			 alert('[선택삭제]를 클릭하기 전에\n삭제할 공지를 먼저 선택하세요.');
+			 alert('[선택삭제]를 클릭하기 전에\n삭제할 글을 먼저 선택하세요.');
 			 return false;
 		 }
 		
@@ -117,7 +117,7 @@ $(function(){
 	//공지 등록창
 	$('#writeBtn').click(function(){
 		open(contextPath+"/admin/fa/faWrite.do?manager=${sessionScope.managerNo}","write",
-				"width=650, height=520, left=500, top=140, location=no, resizable=no");
+				"width=700, height=520, left=500, top=140, location=no, resizable=no");
 	});
 	
 	var no="${vo.faqNo }"; 
@@ -128,7 +128,7 @@ $(function(){
 	
 });
 
-//공지사항 수정창
+//수정창
 function editFunc(faqNo){
 	open("/workit/admin/fa/faDetail.do?faqNo="+faqNo,"edit",
 		"width=630, height=520, left=500, top=140, location=no, resizable=no");
