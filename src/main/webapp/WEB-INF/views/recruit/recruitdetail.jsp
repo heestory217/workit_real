@@ -111,8 +111,9 @@ a#corpinfo {
                             <div class="pb-text">
                                    <h5><a href="<c:url value='/company/corp/corpDetail.do?corpNo=${CorpVO.corpNo}'/>" id="corpinfo">${CorpVO.corpName}</a> | ${CorpVO.corpIndustry }</h5>
                                 <p style="margin-top: 20px;">
+                                ${CorpVO.corpName}
 			                        <c:if test="${CorpVO.corpAvrpay!=0}">
-			                        	1인당 평균연봉은<fmt:formatNumber value="${CorpVO.corpAvrpay}" pattern="#,###,###"/> 만원,
+			                        	은(는) 1인당 평균연봉은<fmt:formatNumber value="${CorpVO.corpAvrpay}" pattern="#,###,###"/> 만원,
 			                        </c:if>
 			                        <c:if test="${CorpVO.corpPnumber!=0}">
 			                        	기업 근로자 수는 총  ${CorpVO.corpPnumber}명

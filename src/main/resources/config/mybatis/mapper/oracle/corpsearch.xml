@@ -11,7 +11,7 @@
 				or user_name like '%' || #{searchKeyword} || '%')
 			</if>
 			<if test="lang !=null and lang !=''">
-				or language_no=#{lang}
+				and language_no=#{lang}
 			</if>
 			<if test="career !=null and career !=''">
 				and USER_EXPERIENCE=#{career}
