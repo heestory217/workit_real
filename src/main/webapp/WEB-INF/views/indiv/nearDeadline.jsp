@@ -26,14 +26,13 @@
 	}
 </style>
 
+
 <div class="container containDiv">
 <p class="announceTit">채용 마감 임박</p>
 <div id="demo" class="carousel slide" data-ride="carousel"> 
 	<div class="carousel-inner">
 
 	<!-- 현재 날짜 계산 -->	
-	
-	
 	
 	<!-- 슬라이드 쇼 -->
 	<c:if test="${!empty list}">
