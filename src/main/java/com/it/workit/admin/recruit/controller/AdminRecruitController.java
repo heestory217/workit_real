@@ -65,10 +65,10 @@ public class AdminRecruitController {
 			msg="채용공고를 대기중으로 변환했습니다";
 		}else if(check==2) {
 			int cnt = recruitannounceService.recruitannounceallowed(recruitannounceNo);
-			msg="채용공고를 반려했습니다";
+			msg="채용공고를 승인했습니다";
 		}else if(check==3) {
 			int cnt = recruitannounceService.recruitannouncedeny(recruitannounceNo);
-			msg="채용공고를 통과했습니다";
+			msg="채용공고를 반려했습니다";
 		}
 		
 		model.addAttribute("url",url);
