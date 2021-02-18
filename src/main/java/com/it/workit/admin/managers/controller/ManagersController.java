@@ -17,7 +17,7 @@ import com.it.workit.admin.managers.model.ManagersService;
 import com.it.workit.admin.managers.model.ManagersVO;
 
 @Controller
-@RequestMapping("/admin/managers")
+@RequestMapping("/managers")
 public class ManagersController {
 	private static final Logger logger = LoggerFactory.getLogger( ManagersController.class);
 	
@@ -26,7 +26,7 @@ public class ManagersController {
 	@RequestMapping("/login.do")
 	public String login() {
 		logger.info("로그인화면");//로그인화면 출력
-		return "admin/managers/login";
+		return "managers/login";
 	}
 	
 	
@@ -80,6 +80,6 @@ public class ManagersController {
 		session.removeAttribute("managerNo");
 		session.removeAttribute("managerName");
 
-		return "redirect:/admin/managers/login.do";
+		return "redirect:/managers/login.do";
 	}
 }

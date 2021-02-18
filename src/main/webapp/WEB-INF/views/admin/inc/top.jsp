@@ -54,7 +54,7 @@
 					                	<h5 class="mb-0 text-white nav-user-name">John Abraham </h5>
 					                </c:if>
                                 </div>
-                                <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                                <a class="dropdown-item" href="<c:url value='/managers/login.do'/>"><i class="fas fa-power-off mr-2"></i>Logout</a>
                             </div>
                         </li>
                     </ul>

@@ -73,7 +73,7 @@
 			if(htp1 && htp2){
 				$.ajax({
 		            type : "get",
-		            url:"<c:url value='/admin/managers/loginajax.do'/>",
+		            url:"<c:url value='/managers/loginajax.do'/>",
 		            data: {userId:userId, password:password, savepass:savepass},
 		            success: function(core) {
 		            	var data=core[0]*1;
