@@ -92,7 +92,7 @@ public class AdvertisingController {
 				}
 			}else if(check==3) {
 				int cnt = recruitannounceService.advertisingdeny(recruitannounceNo);
-				msg="광고가 반려했습니다";
+				msg="광고를 반려했습니다";
 			}
 		}
 		
