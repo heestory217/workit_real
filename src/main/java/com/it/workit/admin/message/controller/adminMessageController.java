@@ -50,4 +50,15 @@ public class adminMessageController {
 		
 		return cnt;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/message/sendMessageAjaxCorp.do")
+	public int sendMsgCorp(@ModelAttribute MessageVO vo) {
+		vo.setUserNo(999);
+		int getUserNo = vo.getUserNo();
+		int cnt = messageService.insertMessage(vo, getUserNo);
+		logger.info("MessageVO={}, getUserNo={}", vo, getUserNo);
+		
+		return cnt;
+	}
 }
