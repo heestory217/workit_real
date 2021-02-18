@@ -62,7 +62,12 @@ $(function(){
 								<span><fmt:formatDate value="${faqVo.faqDate }" pattern="yyyy-MM-dd"/> </span></li>
 							</ul>
 							<div class="content">
-								${faqVo.faqAbout }
+							<%      
+			                  pageContext.setAttribute("newLine", "\n");
+			               %>
+			               <c:set var="con" 
+			                  value="${fn:replace(faqVo.faqAbout, newLine, '<br>')}"/>
+								${con }
 							</div>
 						</div>
 					</div>
