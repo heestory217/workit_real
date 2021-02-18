@@ -68,7 +68,7 @@
 									</colgroup>
 			                        <thead>
 			                            <tr>
-				                   			<c:if test="${!empty list and empty ReviewMap and empty AdMap}">
+				                   			<c:if test="${!empty list and empty ReviewMap and empty AdMap and empty SeeMap}">
 				                                <th scope="col">이름</th>
 				                                <th scope="col" class="p-name">이력서 제목</th>
 				                                <th scope="col">직무</th>
