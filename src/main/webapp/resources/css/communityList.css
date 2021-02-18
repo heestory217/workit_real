@@ -12,6 +12,10 @@ section{
 	margin-top:40px;
 }
 
+.fa-ellipsis-h{
+	cursor: pointer;		
+}
+
 .title{
 	font-size: 22px;
 }

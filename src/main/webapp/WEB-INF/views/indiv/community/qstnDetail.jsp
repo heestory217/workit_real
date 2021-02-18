@@ -65,6 +65,7 @@ a {
 	font-size:22px;
 	color:silver;
 	position: relative;
+	cursor: pointer;
 }
 
 .editBox{

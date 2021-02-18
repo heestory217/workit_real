@@ -31,7 +31,7 @@
 
 }
 .nickDiv{
-   padding: 10px 16px;
+   padding: 10px 16px 18px;
     font-size:18px;
     font-weight: bold;
 }
@@ -81,7 +81,7 @@
 	border: 0;
 	color: #4C4747;
 	background-color: white;
-	border:1px solid gray;
+	border:1px solid silver;
 	margin-left:3px;
 	width: 100px;
 	height: 42px;
@@ -136,6 +136,7 @@
    font-size:22px;
    color:silver;
    position: relative;
+   cursor: pointer;
 }
 
 .cmtEditBox{
@@ -194,6 +195,13 @@
 	margin-top:45px;
 }
 
+#editB{
+	cursor: pointer;
+}
+
+#editB:hover{
+	color:#4C50BB;
+}
 </style>  
 
 
@@ -226,7 +234,7 @@
          </a>
          <!-- 수정, 삭제  -->
             <div class="cmtEditBtn">
-            <a onClick="editFunc(${commentNo})">수정</a>
+            <a id="editB" onClick="editFunc(${commentNo})">수정</a>
             <hr>
             <a id="cmtDelBtn" href
 ="<c:url value='/indiv/community/cmtDelete.do?qstnNo=${map["QUESTION_NO"] }&cmtNo=${map["COMMENTRESPOND_NO"]}'/>"
