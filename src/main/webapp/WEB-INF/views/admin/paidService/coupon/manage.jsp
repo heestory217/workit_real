@@ -114,7 +114,7 @@
 <script type="text/javascript">
 function execForm(couponNo) {
 	var _width = '700';
-	var _height = '360';
+	var _height = '380';
 
 	var _left = Math.ceil((window.screen.width - _width) / 2);
 	var _top = Math.ceil((window.screen.height - _height) / 2);
