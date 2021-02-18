@@ -21,6 +21,7 @@ import com.it.workit.coupon.model.CouponService;
 import com.it.workit.coupon.model.CouponVO;
 import com.it.workit.orders.model.OrderDetailAdVO;
 import com.it.workit.orders.model.OrderDetailDelRvVO;
+import com.it.workit.orders.model.OrderDetailResumeVO;
 import com.it.workit.orders.model.OrderDetailSeeVO;
 import com.it.workit.orders.model.OrdersService;
 import com.it.workit.orders.model.OrdersVO;
@@ -126,6 +127,7 @@ public class OrdersController {
 		String userEmail = email1+"@"+email2;
 
 		model.addAttribute("paidServVo", paidServVo);
+		model.addAttribute("resumeNo", resumeNo);
 		model.addAttribute("resumeTitle", resumeTitle);
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("reviewVo", reviewVo);
@@ -144,6 +146,7 @@ public class OrdersController {
 	@RequestMapping("/order.do")
 	public int order(@ModelAttribute OrdersVO vo, 
 			@RequestParam (required = false) String couponName,
+			@RequestParam (defaultValue = "0") int resumeNo,
 			@RequestParam (defaultValue = "0") int paidServiceNo,
 			@RequestParam (defaultValue = "0") int corpreviewNo,
 			@RequestParam (defaultValue = "0") int recruitannounceNo, 
@@ -154,6 +157,13 @@ public class OrdersController {
 		
 		vo.setUserNo(userNo);
 		logger.info("OrdersVO vo={}", vo);
+		
+		//이력서 단품
+		OrderDetailResumeVO resumeVo = new OrderDetailResumeVO();
+		if(resumeNo!=0) {
+			resumeVo.setResumeNo(resumeNo);
+			resumeVo.setPaidServiceNo(paidServiceNo);
+		}
 		
 		//기업후기
 		OrderDetailDelRvVO rvVo = new OrderDetailDelRvVO();
@@ -211,7 +221,9 @@ public class OrdersController {
 			}else if(paidServiceNo>=2 && paidServiceNo<=5) {	//후기열람권 구매
 				cnt = ordersService.insertOrderWithCoupon(vo, seeVo);
 				session.setAttribute("user_seervcheck",1);
-			}else {	//이력서 구매
+			}else if(resumeNo!=0){	//이력서 단품
+				cnt = ordersService.insertOrderWithCoupon(vo, resumeVo);
+			}else {	//전체 장바구니
 				cnt = ordersService.insertOrderWithCoupon(vo);
 			}
 		}else {	
@@ -223,7 +235,9 @@ public class OrdersController {
 			}else if(paidServiceNo>=2 && paidServiceNo<=5) {	
 				cnt = ordersService.insertOrder(vo, seeVo);	//후기열람권 구매
 				session.setAttribute("user_seervcheck",1);
-			} else {	//이력서 구매
+			}else if(resumeNo!=0){	//이력서 단품
+				cnt = ordersService.insertOrder(vo, resumeVo);
+			}else {	//이력서 구매
 				cnt = ordersService.insertOrder(vo);
 			}
 		}

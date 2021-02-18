@@ -116,6 +116,7 @@ IMP.init("imp52828174");
 							paidServiceNo : $('#paidServiceNo').html(),
 							corpreviewNo : $('#corpreviewNo').html(),
 							recruitannounceNo : $('#recruitannounceNo').html(),
+							resumeNo : $('#resumeNo').html()
 						},
 						dataType:"json",
 						success:function(res){
@@ -161,6 +162,7 @@ IMP.init("imp52828174");
 	<p id="paidServiceNo">${paidServVo.paidServiceNo}</p>
 	<p id="corpreviewNo">${param.corpreviewNo}</p>
 	<p id="recruitannounceNo">${param.recruitannounceNo}</p>
+	<p id="resumeNo">${param.resumeNo}</p>
 </div>
 
 <!-- 주문 페이지 상단 -->

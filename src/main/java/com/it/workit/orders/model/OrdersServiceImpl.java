@@ -49,6 +49,25 @@ public class OrdersServiceImpl implements OrdersService{
 		cnt = cartDao.clearCart(vo.getUserNo());
 		return cnt;
 	}
+	
+	//이력서 단품 장바구니 안비움
+	@Override
+	@Transactional
+	public int insertOrderWithCoupon(OrdersVO vo, OrderDetailResumeVO resumeVo) {
+		int cnt = ordersDao.insertOrderWithCoupon(vo);
+		resumeVo.setOrderNo(vo.getOrderNo());
+		cnt = ordersDao.insertOrderDetailOneResume(resumeVo);
+		return cnt;
+	}
+	
+	@Override
+	@Transactional
+	public int insertOrder(OrdersVO vo, OrderDetailResumeVO resumeVo) {
+		int cnt = ordersDao.insertOrder(vo);
+		resumeVo.setOrderNo(vo.getOrderNo());
+		cnt = ordersDao.insertOrderDetailOneResume(resumeVo);
+		return cnt;
+	}
 
 	//기업후기 삭제 쿠폰
 	@Override

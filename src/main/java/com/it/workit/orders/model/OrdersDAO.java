@@ -21,6 +21,7 @@ public interface OrdersDAO {
 
 	//주문상세 INSERT
 	int insertOrderDetailResume(OrdersVO vo);
+	int insertOrderDetailOneResume(OrderDetailResumeVO vo);
 	int insertOrderDetailDelReview(OrderDetailDelRvVO vo);
 	int insertOrderDetailAD(OrderDetailAdVO vo);
 	int insertOrderDetailSeeRV(OrderDetailSeeVO vo);
