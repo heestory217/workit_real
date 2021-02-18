@@ -115,7 +115,7 @@
 									</td>
 								<td>
 									<c:if test="${vo.recruitannounceUpcheck==1 ||  vo.recruitannounceUpcheck==4}">
-									<a href="<c:url value='/admin/users/corp/recruitcheck.do?recruitannounceNo=${vo.recruitannounceNo }&check=2'/>" class="btn btn-outline-secondary"> 승인 </a>&nbsp;&nbsp;&nbsp;
+									<a href="<c:url value='/admin/users/corp/recruitcheck.do?recruitannounceNo=${vo.recruitannounceNo }&check=2'/>" class="btn btn-outline-secondary"> 승인 </a>
 	                           		<a href="<c:url value='/admin/users/corp/recruitcheck.do?recruitannounceNo=${vo.recruitannounceNo }&check=3'/>" class="btn btn-outline-primary"> 반려 </a>
 									</c:if>
 									<c:if test="${vo.recruitannounceUpcheck==2 }">

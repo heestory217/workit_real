@@ -124,14 +124,6 @@
                     <button type="button" class="btn btn-primary btn-lg btn-block" id='login' name='login'>로그인</button>
                 </form>
             </div>
-            <div class="card-footer bg-white p-0  ">
-                <div class="card-footer-item card-footer-item-bordered">
-                    <a href="#" class="footer-link">새로운 계정생성</a>
-                </div>
-                <div class="card-footer-item card-footer-item-bordered">
-                    <a href="#" class="footer-link">비밀번호 찾기</a>
-                </div>
-            </div>
         </div>
     </div>
   
