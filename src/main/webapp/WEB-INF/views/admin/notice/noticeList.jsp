@@ -216,7 +216,7 @@ function showCont(noticeNo){
 					<th scope="col"><input type="checkbox" name="chkAll"></th>
 					<th scope="col" id="category">
 					<select name="classificationNo" class="margin_right_5" id="cate">
-							<option value="0">분류</option>
+							<option value="0">전체</option>
 							<option value="1"
 								<c:if test="${param.type=='1'}">
 									selected="selected"

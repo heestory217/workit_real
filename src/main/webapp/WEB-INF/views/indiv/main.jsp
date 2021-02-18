@@ -281,7 +281,7 @@
 				<a href="<c:url value='/indiv/serviceIntro.do'/>" 
 				id="reviewLink" style="position:absolute"> 리뷰 열람권을 구매하고 기업의 리뷰, 연봉, 면접후기를 확인해보세요! 
 				 </a>
-			<div class="mainBtn" class="reviewBtn">리뷰 보러가기</div>
+			<div class="mainBtn" id="reviewBtn">리뷰 보러가기</div>
 		</div>
 		</div>
 	</div>
@@ -296,7 +296,7 @@
 					<a 
 					href="<c:url value='/resumes/resumesList.do'/>" 
 					id="resumLink" style="position:absolute"> 이력서를 추가하고 인사담당자에게 직접 면접 제안 받으세요 </a>
-				<div id="resumeBtn" class="">이력서 강화하기</div>
+				<div id="resumeBtn">이력서 강화하기</div>
 			</div>
 			</div>
 		</div>
@@ -334,6 +334,10 @@
 	$(function(){
 		$('#exploreBx').click(function(){
 			location.href="<c:url value='/indivSearch/indivExplore.do'/>";
+		});
+
+		$('#resumeBtn').click(function(){
+			location.href="<c:url value='/resumes/resumesList.do'/>";
 		});
 		
 		$('#reviewBtn').click(function(){
