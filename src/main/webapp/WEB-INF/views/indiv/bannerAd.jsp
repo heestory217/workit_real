@@ -45,7 +45,7 @@ div#banner{
 			<div class="carousel-item active firstImg">
 				<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${map["RECRUITANNOUNCE_NO"] }'/>">
 				<img class="d-block w-100"
-					src="<c:url value='/resources/img/indivMainImg/todayHouse_banner.jpg'/>"
+					src="<c:url value='/resources/img/indivMainImg/kakao_banner.jpg'/>"
 					alt="First slide">
 					<div class="carousel-caption d-none d-md-block detailBx" id="firstBx">
 						<div class="moveDetailBx" >
@@ -73,7 +73,7 @@ div#banner{
 				<div class="carousel-item secondImg">
 					<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${map["RECRUITANNOUNCE_NO"] }'/>">
 					<img class="d-block w-100"
-						src="<c:url value='/resources/img/indivMainImg/naver_banner.jpg'/>"
+						src="<c:url value='/resources/img/indivMainImg/todayHouse_banner.jpg'/>"
 						alt="Second slide">
 					<div class="carousel-caption d-none d-md-block detailBx" id="secondBx">
 						<div class="moveDetailBx">
@@ -99,7 +99,7 @@ div#banner{
 				<div class="carousel-item thirdImg">
 					<a href="<c:url value='/recruit/recruitdetail.do?recruitannounceNo=${map["RECRUITANNOUNCE_NO"] }'/>">
 					<img class="d-block w-100"
-						src="<c:url value='/resources/img/indivMainImg/kakao_banner.jpg'/>"
+						src="<c:url value='/resources/img/indivMainImg/naver_banner.jpg'/>"
 						alt="Third slide">
 					<div class="carousel-caption d-none d-md-block detailBx" id="thirdBx">
 						<div class="moveDetailBx">
@@ -107,7 +107,7 @@ div#banner{
 							<h5>${map['CORP_NAME'] }</h5><br>
 							<h6 style="font-size:14px">
 								<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])>=25}">
-										${fn:substring(map['RECRUITANNOUNCE_TITLE'],0,25) } ...
+										${fn:substring(map['RECRUITANNOUNCE_TITLE'],0,25) }
 								</c:if>
 								<c:if test="${fn:length(map['RECRUITANNOUNCE_TITLE'])<25}">						
 									${map['RECRUITANNOUNCE_TITLE'] }
