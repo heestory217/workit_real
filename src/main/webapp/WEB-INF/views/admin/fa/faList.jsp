@@ -115,9 +115,15 @@ $(function(){
 	
 	var contextPath="/workit";
 	//공지 등록창
+	var _width = '700';
+	var _height = '520';
+	
+	var _left = Math.ceil((window.screen.width - _width) / 2);
+	var _top = Math.ceil((window.screen.height - _height) / 2);
+
 	$('#writeBtn').click(function(){
 		open(contextPath+"/admin/fa/faWrite.do?manager=${sessionScope.managerNo}","write",
-				"width=700, height=520, left=500, top=140, location=no, resizable=no");
+		"width=" + _width + ", height=" + _height  + ", left=" + _left + ", top=" + _top + " +, location=no, resizable=no");
 	});
 	
 	var no="${vo.faqNo }"; 
@@ -125,13 +131,18 @@ $(function(){
 		$(this).addClass('.titColor');
 	});
 	
-	
 });
 
 //수정창
 function editFunc(faqNo){
+	var _width = '700';
+	var _height = '520';
+	
+	var _left = Math.ceil((window.screen.width - _width) / 2);
+	var _top = Math.ceil((window.screen.height - _height) / 2);
+	
 	open("/workit/admin/fa/faDetail.do?faqNo="+faqNo,"edit",
-		"width=630, height=520, left=500, top=140, location=no, resizable=no");
+		"width=" + _width + ", height=" + _height  + ", left=" + _left + ", top=" + _top + " +, location=no, resizable=no");
 }
 
 function showCont(faqNo){
