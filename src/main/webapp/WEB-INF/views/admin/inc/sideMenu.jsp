@@ -99,7 +99,7 @@
                                             <a class="nav-link" href="<c:url value='/admin/fa/faList.do'/>">FAQ 조회</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="<c:url value='/qna/qnaList.do'/>">Q&A 조회</a>
+                                            <a class="nav-link" href="<c:url value='/users/login.do'/>" onclick="return confirm('관리자 아이디로 로그인 후에 QA 답변등록 가능합니다');">Q&A 조회</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="<c:url value='/admin/notice/noticeList.do?type=0'/>">공지사항 조회</a>
