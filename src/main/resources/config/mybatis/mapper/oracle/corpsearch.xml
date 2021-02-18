@@ -7,7 +7,7 @@
 		<where>
 			RESUME_RESUMEOPENCHECK=2
 			<if test="searchKeyword !=null and searchKeyword != ''">
-				(language_name like '%' || #{searchKeyword} || '%'
+				and (language_name like '%' || #{searchKeyword} || '%'
 				or workkind_name like '%' || #{searchKeyword} || '%'
 				or user_name like '%' || #{searchKeyword} || '%')
 			</if>
