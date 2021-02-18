@@ -105,7 +105,7 @@
                     <!-- 검색창 / 장바구니 / 메뉴바 -->
                     <!-- 개인/기업따라 다르게 include : subTop -->
                     <!-- 개인 or 로그인 전 -->
-                    <c:if test="${empty sessionScope.userId || sessionScope.user_corpcheck==1}">
+                    <c:if test="${empty sessionScope.userId || sessionScope.user_corpcheck==1 || sessionScope.user_corpcheck==3}">
                     	<c:import url="/indiv/subTop.do"/>
                     </c:if>
                     <!-- 기업 -->

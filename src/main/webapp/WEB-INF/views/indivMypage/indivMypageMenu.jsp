@@ -38,7 +38,9 @@
 							<li><a href="<c:url value='/indivMypage/indivPayment.do '/>">결제내역</a></li>
 							<li><a href="<c:url value='/indivMypage/indivPosition.do '/>">포지션제안</a></li>
 							<li><a href="<c:url value='/indivMypage/indivMypageEdit.do '/>">회원정보수정</a></li>
-							<li><a href="<c:url value='/users/withdraw.do '/>">회원탈퇴</a></li>
+							<c:if test="${sessionScope.user_corpcheck!=3}">
+								<li><a href="<c:url value='/users/withdraw.do '/>">회원탈퇴</a></li>
+                    		</c:if>
 						</ul>
 					</div>
 				</div>

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="inc/top.jsp" %>
 <!-- 개인 메인 c:import -->
-<c:if test="${empty sessionScope.userId || sessionScope.user_corpcheck==1}">
+<c:if test="${empty sessionScope.userId || sessionScope.user_corpcheck==1 || sessionScope.user_corpcheck==3}">
 	<%@include file="indiv/main.jsp" %>
 </c:if>
 
