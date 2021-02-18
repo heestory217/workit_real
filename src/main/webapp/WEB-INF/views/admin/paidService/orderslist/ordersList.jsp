@@ -37,7 +37,7 @@
 	<form action="<c:url value='/admin/paidService/orderslist/ordersList.do'/>"
 		name="frmSearch" method="post">
 		<div class="input-group input-search inputSearchbox"> 
-    		<input class="form-control" type="text" placeholder="구매자 명을 입력해 주세요"
+    		<input class="form-control" type="text" placeholder="구매자명을 입력해 주세요"
     			value="${param.searchKeyword}" name="searchKeyword">
     			<span class="input-group-btn">
     		<button class="btn myColor textWhite" type="submit"><i class="fas fa-search"></i></button></span>
@@ -91,8 +91,8 @@
 					            <td>${vo.payName }</td>
 					            <td>${vo.orderPaykind }</td>
 					            <td>${vo.oneline }</td>
-					            <td>${vo.orderDiscount }</td>
-					            <td>${vo.orderPay }</td>
+					            <td><fmt:formatNumber value="${vo.orderDiscount }" pattern="###,###"/></td>
+					            <td><fmt:formatNumber value="${vo.orderPay }" pattern="###,###"/></td>
 					            <td><fmt:formatDate value="${vo.orderDate }" pattern="yyyy-MM-dd"/></td>
 			            </tr>
 	            		</c:forEach>

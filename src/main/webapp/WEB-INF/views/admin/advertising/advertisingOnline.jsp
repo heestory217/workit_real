@@ -57,7 +57,7 @@
 						</tr>
 					</thead>
 					<tbody>
-					<c:if test="${!empty fstlist && empty seclist }">
+					<c:if test="${empty fstlist && empty seclist }">
 			            <tr class="center">
 					            <td colspan="7">
 					            <br><br>
@@ -147,7 +147,7 @@
 					<tbody>
 					<c:if test="${fst+sec==9 }">
 			            <tr class="center">
-					            <td colspan="6">
+					            <td colspan="5">
 					            <br><br>
 					            	<p>현재 모든 광고가 사용중에 있습니다</p>
 					            <br>
@@ -156,14 +156,23 @@
 	            	</c:if>
 	            	<c:if test="${fst+sec==9 && empty list }">
 			            <tr class="center">
-					            <td colspan="6">
+					            <td colspan="5">
 					            <br><br>
 					            	<p>현재 광고신청중인 공고가 없습니다</p>
 					            <br>
 					            </td>
 			            </tr>
 	            	</c:if>
-	            	<c:if test="${!empty list }">
+	            	<c:if test="${fst+sec!=9 && empty list }">
+			            <tr class="center">
+					            <td colspan="5">
+					            <br><br>
+					            	<p>맞는 광고가 없습니다.</p>
+					            <br>
+					            </td>
+			            </tr>
+	            	</c:if>
+	            	<c:if test="${fst+sec!=9 && !empty list }">
 	            		<c:forEach var="vo" items="${list }">
 	            			<tr class="center">
 					            <td>${vo.orderNo }</td>
