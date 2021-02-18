@@ -47,7 +47,6 @@ public class OrderslistController {
 		List<OrdersCorpPayVO> list=ordersService.fullorderlist(searchVo);
 				
 		logger.info("list.size={}",list.size());
-		logger.info("list={}",list.get(2));
 		model.addAttribute("list", list);
 
 		return "/admin/paidService/orderslist/ordersList";
