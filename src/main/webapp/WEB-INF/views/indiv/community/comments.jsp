@@ -360,7 +360,6 @@ function editFunc(commentNo){
 			editBox+='<textarea onKeyup="countFunc('+res+')" name="commentrespondAbout"'; 
 			editBox+=' class="cmtEditArea">'+res+'</textarea></div>';
 			editBox+='<div class="regiBtnWrap">';
-			editBox+='<span class="letterNum"><b id="numCnt" style="color:#4c50bb">'+res.length+'</b> / 1,000</span>';
 			editBox+='<button type="button" id="updateBtn" onclick="updateComment('+commentNo+')">수정</button>';
 			editBox+='<button type="button" id="closeUpdateBtn"'; 
 			editBox+=' onclick="cancelUpdate()">';
