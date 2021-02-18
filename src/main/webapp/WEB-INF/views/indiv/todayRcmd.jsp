@@ -11,13 +11,14 @@
 <style>
 	#rcmdImg{
 		border-radius:27px;
-		height:300px;
-		width:100%;
+		height:320px;
+		width:61%;
+		margin-bottom:10px;
 	}
 	
 	#bgColor{
 		background: #8181ff14;
-		height:560px;
+		height:596px;
     	margin-top: 80px;
 	}
 	
@@ -46,7 +47,12 @@
 	#compTitle{
 		margin-bottom: 0px; 
 		overflow: hidden;
-		
+	}
+	.announceTit{
+		margin-bottom : 25px;
+	}
+	.col-lg-6.col-md-12.padding_5.d-inline-block.w-25{
+		text-align : center;
 	}
 </style>
 <div id="bgColor">

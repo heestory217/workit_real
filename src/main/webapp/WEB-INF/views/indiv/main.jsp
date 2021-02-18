@@ -164,7 +164,7 @@
 	
 	
 	.corpInfoWrap{
-	    padding: 10px 30px 0 10px;
+	    padding: 10px 30px 0 0;
 	}
 	
 	.carousel{

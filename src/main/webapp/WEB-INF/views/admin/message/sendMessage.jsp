@@ -35,7 +35,7 @@
 			var params = $("#msgSendFrm").serialize();
 			$.ajax(
 			{
-				url :"<c:url value='/admin/message/sendMessageAjax.do'/>",
+				url :"<c:url value='/admin/message/sendMessageAjaxCorp.do'/>",
 				type:"POST",
 				data : params,
 				async: false,
