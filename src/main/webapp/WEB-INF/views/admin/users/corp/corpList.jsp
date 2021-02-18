@@ -245,7 +245,7 @@
 	
 	function sendMessage(corpName,userNo){
 		var _width = '650';
-		var _height = '550';
+		var _height = '650';
 
 		var _left = Math.ceil((window.screen.width - _width) / 2);
 		var _top = Math.ceil((window.screen.height - _height) / 2);

@@ -7,8 +7,8 @@
 	
 	#searchImg{
 		border-radius:10px;
-		width:270px;
-		height:180px;
+		width:200px;
+		height:190px;
 	}
 	
 	#divBx{
@@ -25,6 +25,9 @@
 		font-size:22px;
 		color:#4C4747;
 		font-weight:600;
+	}
+	.corpInfoWrap{
+		padding-left:0px;
 	}
 </style>
 
