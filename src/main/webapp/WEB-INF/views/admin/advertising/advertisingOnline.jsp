@@ -30,7 +30,7 @@
 	</div><br>
 <div class="col-lg-12">
 <h3 class="section-title">현재 사용중인 1등급 공고 ${fst }/3</h3>
-<h3 class="section-title">현재 사용중인 1등급 공고 ${sec }/6</h3>
+<h3 class="section-title">현재 사용중인 2등급 공고 ${sec }/6</h3>
 <br>
 	<div class="card">
 		<div class="card-body">
