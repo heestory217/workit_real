@@ -17,55 +17,63 @@
 				and USER_EXPERIENCE=#{career}
 			</if>
 			<if test="area2 !=null and area2 !=''">
-				and area_no=#{area2}
-					<if test='area2==1'>
-						or area_no between 1 and 26
-					</if>
-					<if test='area2==27'>
-						or area_no between 27 and 43
-					</if>
-					<if test='area2==44'>
-						or area_no between 44 and 52
-					</if>
-					<if test='area2==53'>
-						or area_no between 53 and 63
-					</if>
-					<if test='area2==64'>
-						or area_no between 64 and 69
-					</if>
-					<if test='area2==70'>
-						or area_no between 70 and 75
-					</if>
-					<if test='area2==76'>
-						or area_no between 76 and 81
-					</if>
-					<if test='area2==83'>
-						or area_no between 83 and 114
-					</if>
-					<if test='area2==115'>
-						or area_no between 115 and 134
-					</if>
-					<if test='area2==134'>
-						or area_no between 134 and 146
-					</if>
-					<if test='area2==147'>
-						or area_no between 147 and 162
-					</if>
-					<if test='area2==163'>
-						or area_no between 163 and 177
-					</if>
-					<if test='area2==178'>
-						or area_no between 178 and 200
-					</if>
-					<if test='area2==201'>
-						or area_no between 201 and 224
-					</if>
-					<if test='area2==225'>
-						or area_no between 225 and 243
-					</if>
-					<if test='area2=244'>
-						or area_no between 244 and 246
-					</if>
+				<choose>
+					<when test="area2 neq 1 and area2 neq 27 and area2 neq 44 and area2 neq 53 and area2 neq 64 and area2 neq 70 and area2 neq 76 and area2 neq 83 and area2 neq 115
+						and area2 neq 134 and area2 neq 147 and area2 neq 163 and area2 neq 178 and area2 neq 201 and area2 neq 225 and area2 neq 244 and area2 eq 82">
+						and area_no=#{area2}
+					</when>
+					<when test="area2 eq 1">
+						and area_no between 1 and 26
+					</when>
+					<when test="area2 eq 27">
+						and area_no between 27 and 43
+					</when>
+					<when test="area2 eq 44">
+						and area_no between 44 and 52
+					</when>
+					<when test="area2 eq 53">
+						and area_no between 53 and 63
+					</when>
+					<when test="area2 eq 64">
+						and area_no between 64 and 69
+					</when>
+					<when test="area2 eq 70">
+						and area_no between 70 and 75
+					</when>
+					<when test="area2 eq 76">
+						and area_no between 76 and 81
+					</when>
+					<when test="area2 eq 83">
+						and area_no between 83 and 114
+					</when>
+					<when test="area2 eq 115">
+						and area_no between 115 and 133
+					</when>
+					<when test="area2 eq 134">
+						and area_no between 134 and 146
+					</when>
+					<when test="area2 eq 147">
+						 and area_no between 147 and 162
+					</when>
+					<when test="area2 eq 163">
+						 and area_no between 163 and 177
+					</when>
+					<when test="area2 eq 163">
+						 and area_no between 163 and 177
+					</when>
+					<when test="area2 eq 177">
+						 and area_no between 178 and 200
+					</when>
+					<when test="area2 eq 201">
+						 and area_no between 201 and 224
+					</when>
+					<when test="area2 eq 225">
+						 and area_no between 225 and 243
+					</when>
+					<when test="area2 eq 244">
+						 and area_no between 244 and 246
+					</when>
+				</choose>
 			</if>
 		</where>
 	</sql>
