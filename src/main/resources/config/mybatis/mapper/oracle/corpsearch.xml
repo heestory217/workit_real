@@ -19,7 +19,7 @@
 			<if test="area2 !=null and area2 !=''">
 				<choose>
 					<when test="area2 neq 1 and area2 neq 27 and area2 neq 44 and area2 neq 53 and area2 neq 64 and area2 neq 70 and area2 neq 76 and area2 neq 83 and area2 neq 115
-						and area2 neq 134 and area2 neq 147 and area2 neq 163 and area2 neq 178 and area2 neq 201 and area2 neq 225 and area2 neq 244 and area2 eq 82">
+						and area2 neq 134 and area2 neq 147 and area2 neq 163 and area2 neq 178 and area2 neq 201 and area2 neq 225 and area2 neq 244">
 						and area_no=#{area2}
 					</when>
 					<when test="area2 eq 1">
