@@ -378,11 +378,10 @@ public class CorpController {
 		
 		int cnt=corpService.insertCorpReview(vo);
 		
-		//임시 리턴 index
 		String msg="리뷰 등록 실패하였습니다. 다시 시도하세요.", url="/index.do";
 		if(cnt>0) {
-			msg="리뷰 등록 요청 성공하였습니다. 관리자 승인 후 게시됩니다.";
-			url="/index.do";
+			msg="리뷰가 등록되었습니다.";
+			url="/company/corp/corpDetail.do?corpNo="+corpno;
 		}
 
 		model.addAttribute("msg", msg);
