@@ -163,6 +163,7 @@
 		</if>
 		and language_no=#{langNo}
 	  	and USER_EXPERIENCE=#{year}
+	  	and RESUME_RESUMEOPENCHECK=2
 	  	group by resume_no
    </select>
 	

@@ -5,6 +5,7 @@
 <mapper namespace="com.mybatis.mapper.corpsearch">
 	<sql id="searchWhere">
 		<where>
+			RESUME_RESUMEOPENCHECK=2
 			<if test="searchKeyword !=null and searchKeyword != ''">
 				(language_name like '%' || #{searchKeyword} || '%'
 				or workkind_name like '%' || #{searchKeyword} || '%'
