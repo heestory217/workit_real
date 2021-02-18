@@ -31,6 +31,12 @@
 		where user_no=#{userNo}
 	</update>
 
+	<!-- 주문상세[1-2] 이력서 단품-->
+	<insert id="insertOrderDetailOneResume" parameterType="orderDetailResumeVO">
+		insert into ORDERDETAILRESUME(ORDER_NO, PAIDSERVICE_NO, RESUME_NO)
+		values(#{orderNo},#{paidServiceNo}, #{resumeNo})
+	</insert>
+	
 	<!-- 주문상세[2] 기업후기-->
 	<insert id="insertOrderDetailDelReview" parameterType="orderDetailDelRvVO">
 		insert into ORDERDETAILDELRV(ORDER_NO, PAIDSERVICE_NO, CORPREVIEW_NO)

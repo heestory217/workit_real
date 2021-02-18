@@ -14,9 +14,13 @@ public interface OrdersService {
 	public List<OrdersVO> selectIndivPaymentByUserno(IndivpagingVO vo);
 	public int ordersGetTotalRecord(IndivpagingVO vo);
 
-	//주문 - 이력서
+	//주문 - 이력서 (장바구니)
 	int insertOrderWithCoupon(OrdersVO vo);
 	int insertOrder(OrdersVO vo);
+	
+	//주문 - 이력서 (단품)
+	int insertOrderWithCoupon(OrdersVO vo, OrderDetailResumeVO resumeVo);
+	int insertOrder(OrdersVO vo, OrderDetailResumeVO resumeVo);
 
 	//주문  - 기업후기삭제
 	int insertOrderWithCoupon(OrdersVO vo, OrderDetailDelRvVO rvVo);
