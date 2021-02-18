@@ -4,12 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
-
-.filter-catagories > li:nth-child(1) > a{
-	font-weight:bold;
-	color:#4c50bb;
-	font-size:19px;
-}
 .tableBx {
 	width: 100%;
 	height: auto;

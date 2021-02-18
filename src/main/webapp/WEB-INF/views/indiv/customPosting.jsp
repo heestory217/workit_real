@@ -43,8 +43,7 @@
 							src="<c:url value='/pd_images/${map["CORP_IMGURL"]}'/>"
 							onerror="this.src='<c:url value='/altImg/altlogo.jpg'/>'">
 							<div class="corpInfoWrap">
-								<div class="tag-list"
-									style="margin-bottom: 0px; overflow: hidden;">
+								<div class="tag-list" id="compTitle">
 									<span class="field"> ${map['RECRUITANNOUNCE_TITLE'] } </span><br>
 									<div class="tag-item" id="corpName">${map['CORP_NAME'] }
 									</div>

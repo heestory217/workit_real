@@ -170,7 +170,7 @@
 					<div id="userInfo">
 						<i class="fa fa-user-circle userProfImg"></i><br>
 						<span class="nickname">${sessionScope.userId }</span><br>
-						<span class="qstnReplyCnt">질문 <b>${totalRecord }</b> 답변 <b>${totalCmt}</b> </span>
+						<span class="qstnReplyCnt">질문 <b>${totalRecord }</b> · 답변 <b>${totalCmt}</b>(채택<b>${totalAdoptCmt}</b>) </span>
 					</div>
 				</a>
 				</c:if>	

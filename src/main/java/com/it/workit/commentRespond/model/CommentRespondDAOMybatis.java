@@ -98,6 +98,11 @@ public class CommentRespondDAOMybatis implements CommentRespondDAO{
 	public int updateCommentLike(int commentsNo) {
 		return sqlSession.update(namespace+"updateCommentLike", commentsNo);
 	}
+
+	@Override
+	public int getTotalAdoptComnt(int userNo) {
+		return sqlSession.selectOne(namespace+"getTotalAdoptComnt", userNo);
+	}
 	
 	
 }

@@ -29,7 +29,7 @@ div#banner{
 
 .detailBx{
     position: absolute;
-    top: 180px;
+    top: 160px;
 }
 
 

@@ -2,8 +2,6 @@ package com.it.workit.community.controller;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.it.workit.commentRespond.model.CommentRespondService;
 import com.it.workit.commentRespond.model.CommentRespondVO;
-import com.it.workit.comments.model.CommentsService;
-import com.it.workit.comments.model.CommentsVO;
 import com.it.workit.common.PaginationInfo;
 import com.it.workit.common.Utility;
 import com.it.workit.getmessage.model.GetMessageVO;
@@ -43,7 +39,6 @@ public class CommunityController {
 	
 	@Autowired QuestionService qstnService;
 	@Autowired CommentRespondService comntService;
-	@Autowired CommentsService replyService;
 
 	//커뮤니티 메뉴
 	@RequestMapping("/cmtyNavbar.do")
@@ -62,11 +57,11 @@ public class CommunityController {
 		int totalCmt=comntService.getTotalUserCmt(vo);
 		logger.info("총 답변 개수, totalCmt={}", totalCmt);
 		model.addAttribute("totalCmt", totalCmt);
-		/*
-		 * //회원 직무 조회 WorkkindVO workVo = qstnService.selectUserWorkkind(userNo); int
-		 * userWorkkindNo=workVo.getWorkkindNo(); logger.info("회원 직무 userWorkkindNo={}",
-		 * userWorkkindNo); model.addAttribute("userWorkkindNo", userWorkkindNo);
-		 */
+		
+		//채택 답변수
+		int totalAdoptCmt=comntService.getTotalAdoptComnt(userNo);
+		model.addAttribute("totalAdoptCmt", totalAdoptCmt);
+		
 		return "indiv/community/cmtyNavbar";
 	}
 	
@@ -80,7 +75,7 @@ public class CommunityController {
 		logger.info("회원 활동 내역 조회, userNo={}", userNo);
 		
 		vo.setUserNo(userNo);
-		int qstnCnt=0, cmntCnt=0, tempCnt=0, bookMarkCnt=0;
+		int qstnCnt=0, cmntCnt=0, tempCnt=0, bookMarkCnt=0, AdoptCnt;
 		if(type==1) {
 			vo.setQuestionImmsave(2);
 			qstnCnt=qstnService.getTotalRecord(vo);
@@ -90,6 +85,11 @@ public class CommunityController {
 			cmntCnt=comntService.getTotalUserCmt(vo);
 			logger.info("회원 활동 내역 - 총 답변 개수, cmntCnt={}", cmntCnt);
 			model.addAttribute("cmntCnt", cmntCnt);
+			
+			//채택 답변수
+			AdoptCnt=comntService.getTotalAdoptComnt(userNo);
+			model.addAttribute("AdoptCnt", AdoptCnt);
+			
 		}else if(type==3) {
 			vo.setQuestionImmsave(1);
 			tempCnt=qstnService.getTotalRecord(vo);
@@ -224,15 +224,6 @@ public class CommunityController {
 		List<Map<String, Object>> qstnList=qstnService.selectAllQuestion(vo);
 		logger.info("질문 전체 조회 결과, qstnList.size={}", qstnList.size());
 		
-		List<BookmarkVO> bookmarkList =null;
-		if(session.getAttribute("userNo")!=null) {
-			int userNo=(Integer) session.getAttribute("userNo");
-			bookmarkList = qstnService.selectBookmark(userNo);
-			logger.info("북마크 한 글 조회 결과, bookmarkList.size={}", bookmarkList.size());
-		}
-		
-		
-		model.addAttribute("bookmarkList", bookmarkList);
 
 		model.addAttribute("qstnList", qstnList);
 		model.addAttribute("pagingInfo", pagingInfo);
@@ -668,93 +659,6 @@ public class CommunityController {
 		return "redirect:"+referer;
 	}
 	
-	/*
-	 * //답변 좋아요
-	 * 
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping("/likeComment.do") public int
-	 * likeComment(@RequestParam(defaultValue = "0") int cmtNo) {
-	 * logger.info("답변 좋아요, 파라미터 cmtNo={}", cmtNo);
-	 * 
-	 * int cnt = comntService.updateLike(cmtNo); logger.info("답변 좋아요 결과, cnt={}",
-	 * cnt);
-	 * 
-	 * int likeNum=0; if(cnt>0) { likeNum = comntService.selectLikeNum(cmtNo);
-	 * logger.info("답변 좋아요 개수, likeNum={}", likeNum); } return likeNum;
-	 * 
-	 * 
-	 * }
-	 */
-	//답변 좋아요
-	@RequestMapping("/commentLike.do")
-	public String commentLike(@RequestParam(defaultValue = "0") int cmtNo,
-			HttpServletRequest request) {
-		logger.info("답변 좋아요, 파라미터 cmtNo={}", cmtNo);
-		
-		int cnt = comntService.updateLike(cmtNo);
-		logger.info("답변 좋아요 결과, cnt={}", cnt);
-		
-		String referer=request.getHeader("referer");
-		return "redirect:"+referer;
-	}
-	
-	
-	
-	
-	//댓글 조회
-	@ResponseBody
-	@RequestMapping("/replyList.do")
-	public List<Map<String, Object>> selectReply(@RequestParam(defaultValue = "0") int cmtNo,
-						Model model) {
-		logger.info("댓글 조회, 파라미터 cmntNo={}", cmtNo);
-		List<Map<String, Object>> replyList=replyService.selectComment(cmtNo);
-		logger.info("댓글 조회 결과, replyList.size={}", replyList.size());
-		
-		return replyList;
-	}
-	
-	//댓글 등록 
-	@ResponseBody
-	@RequestMapping(value="/replyWrite.do",produces="text/plain;charset=UTF-8")
-	public int replyWrite(@ModelAttribute CommentsVO vo,HttpSession session) {
-		int userNo=(Integer) session.getAttribute("userNo");
-		vo.setUserNo(userNo);
-		logger.info("댓글 등록, 파라미터 vo={}", vo);
-		
-		int cnt=replyService.insertReply(vo);
-		logger.info("댓글 등록 결과, cnt={}", cnt);
-		return cnt;
-	}
-	
-	
-	//댓글 수정
-	@ResponseBody
-	@RequestMapping("/replyEdit.do")
-    public int replyEdit(@ModelAttribute CommentsVO vo,HttpSession session) {
-		int userNo=(Integer) session.getAttribute("userNo");
-		vo.setUserNo(userNo);
-		logger.info("댓글 수정, 파라미터 vo={}", vo);
-		
-		int cnt=replyService.updateReply(vo);
-		logger.info("댓글 수정 결과, cnt={}, vo={}", cnt, vo);
-		
-		return cnt;
-    }
-	
-	//댓글 삭제
-	@ResponseBody
-	@RequestMapping("/replyDelete.do")
-	public int replyDel(@RequestParam int replyNo) {
-		logger.info("댓글 삭제, 파라미터 replyNo={}", replyNo);
-		
-		int cnt=replyService.deleteReply(replyNo);
-		logger.info("댓글 삭제 결과, cnt={}", cnt);
-		
-		return cnt;
-		
-	}
-	
 	//답변 조회
 	@ResponseBody
 	@RequestMapping(value="/editComment.do",produces = "application/text; charset=UTF-8")
@@ -819,9 +723,70 @@ public class CommunityController {
 		model.addAttribute("url", url);
 		
 		return "common/message";
-		//쪽지 보내기 성공 => 쪽지 보낸 시퀀스로 쪽지 받기 
-		//답변 채택하기
-		
-		
 	}
+	
+	//인기있는 질문 전체 목록
+	@RequestMapping("/popularList.do")
+	public String popularList(@ModelAttribute QstnPagingVO vo, Model model) {
+		logger.info("인기 있는 질문 전체 조회, 파라미터 vo={}", vo);
+		
+		//[1]pagingInfo
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(vo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		//[2]searchVo
+		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		int totalRecord=qstnService.getTotalRecord(vo);
+		logger.info("총 레코드 수, totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		List<Map<String, Object>> qstnList=qstnService.selectPopular(vo);
+		logger.info("인기 질문 전체 조회 결과, qstnList.size={}", qstnList.size());
+		
+
+		model.addAttribute("qstnList", qstnList);
+		model.addAttribute("pagingInfo", pagingInfo);
+		
+		return "indiv/community/popularList";
+	}
+	
+	//직무별 질문 전체 목록
+	@RequestMapping("/listByField.do")
+	public String selectByField(@ModelAttribute QstnPagingVO vo,
+			@RequestParam int workkindNo, Model model) {
+		logger.info("직무별 질문 조회, 파라미터 vo={}", vo);
+		
+		//[1]pagingInfo
+		PaginationInfo pagingInfo=new PaginationInfo();
+		pagingInfo.setBlockSize(Utility.BLOCK_SIZE);
+		pagingInfo.setCurrentPage(vo.getCurrentPage());
+		pagingInfo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		
+		//[2]searchVo
+		vo.setFirstRecordIndex(pagingInfo.getFirstRecordIndex());
+		vo.setRecordCountPerPage(Utility.RECORD_COUNT);
+		vo.setWorkkindNo(workkindNo);
+		
+		int totalRecord=qstnService.totalRecordByField(workkindNo);
+		logger.info("총 레코드 수, totalRecord={}", totalRecord);
+		pagingInfo.setTotalRecord(totalRecord);
+		
+		List<Map<String, Object>> qstnList=qstnService.selectByField(vo);
+		logger.info("직무별 질문 조회 결과, qstnList.size={}", qstnList.size());
+		
+		String workkindName=qstnService.selectWorkkindName(workkindNo);
+		
+		model.addAttribute("qstnList", qstnList);
+		model.addAttribute("pagingInfo", pagingInfo);
+		model.addAttribute("workkindName", workkindName);
+		model.addAttribute("totalRecord", totalRecord);
+		
+		return "indiv/community/listByField";
+	}
+		
+	
 }

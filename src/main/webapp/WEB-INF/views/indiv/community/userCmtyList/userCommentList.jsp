@@ -51,16 +51,20 @@
     padding: 3px 0px;
     color: #ff4c08;
     float: right;
+    font-size: 15px;
 }
 
 .selectedComment{
 	margin-top:0px !important;
 	overflow: hidden;
 }
+#adoptCmntCnt{
+	color:#ff3c3c;
+}
 </style>
 
 <p style="font-size: 18px;">
-	답변 <b id="myContCnt">${cmntCnt}</b>건
+	답변 <b id="myContCnt">${cmntCnt}</b>건 (채택<b id="adoptCmntCnt"> ${AdoptCnt}</b>건)
 </p>
 
 <!--답변 목록 : 아직 등록한 답변이 없는 경우-->

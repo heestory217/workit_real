@@ -10,7 +10,9 @@
     margin: 0px 30px 0 30px;
 }
 </style>
+<script>
 
+</script>
 
 <p style="font-size: 18px;">
 	북마크 <b id="myContCnt">${bookMarkCnt}</b>건
@@ -41,7 +43,8 @@
 								<dl>
 								
 									<!-- 직무 -->
-									<dd class="workkind">#${map["WORKKIND_NAME"] }</dd>
+									<dd class="workkind">
+									#${map["WORKKIND_NAME"] }</dd>
 									<!-- 제목 -->
 									<dt class="qtTitle">
 										<i class="fa fa-quora"></i><span>${map['QUESTION_TITLE']}</span>

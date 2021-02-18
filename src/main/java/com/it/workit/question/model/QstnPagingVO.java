@@ -7,7 +7,17 @@ public class QstnPagingVO extends SearchVO{
 	private int questionNo;
 	private int questionImmsave;
 	private int commentCnt;
+	private int workkindNo;
+	
+	
 
+	public int getWorkkindNo() {
+		return workkindNo;
+	}
+
+	public void setWorkkindNo(int workkindNo) {
+		this.workkindNo = workkindNo;
+	}
 
 	public int getCommentCnt() {
 		return commentCnt;
@@ -44,7 +54,7 @@ public class QstnPagingVO extends SearchVO{
 	@Override
 	public String toString() {
 		return "QstnPagingVO [userNo=" + userNo + ", questionNo=" + questionNo + ", questionImmsave=" + questionImmsave
-				+ "]";
+				+ ", commentCnt=" + commentCnt + ", workkindNo=" + workkindNo + "]";
 	}
 	
 	

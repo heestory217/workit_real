@@ -31,7 +31,7 @@
 
 }
 .nickDiv{
-   padding: 10px 16px;
+   padding: 10px 16px 18px;
     font-size:18px;
     font-weight: bold;
 }
@@ -55,6 +55,7 @@
     color: white;
     border: none;
     outline: none;
+    font-size: 14px;
 }
 
 .cmtCnt{
@@ -80,7 +81,7 @@
 	border: 0;
 	color: #4C4747;
 	background-color: white;
-	border:1px solid gray;
+	border:1px solid silver;
 	margin-left:3px;
 	width: 100px;
 	height: 42px;
@@ -135,6 +136,7 @@
    font-size:22px;
    color:silver;
    position: relative;
+   cursor: pointer;
 }
 
 .cmtEditBox{
@@ -186,12 +188,20 @@
     padding: 3px 8px;
     color: #ff4c08;
     margin: 0px 16px 20px;
+    font-size: 14px;
 }
 
 .fotterWrap{
 	margin-top:45px;
 }
 
+#editB{
+	cursor: pointer;
+}
+
+#editB:hover{
+	color:#4C50BB;
+}
 </style>  
 
 
@@ -213,8 +223,10 @@
    <input type="hidden" name="userNo" id="userNo" value="${map['USER_NO']}">
    <input type="hidden" name="commentrespondNo" id="cmtNo" value="${map['COMMENTRESPOND_NO']}">
    <div class="nickDiv">
+   	  <c:set var="commentWriter" value="${map['USER_ID']}"/>
       <span>@ ${map['USER_ID'] }</span>
-      <c:if test="${userId eq map['USER_ID'] }">
+      
+      <c:if test="${sessionScope.userId == commentWriter }">
       <!-- if 조건으로 로그인한 회원의 번호와 질문글의 회원번호가 같은 경우에만 보이도록 설정 -->
          <div class="cmtEditBox">
          <a>
@@ -222,7 +234,7 @@
          </a>
          <!-- 수정, 삭제  -->
             <div class="cmtEditBtn">
-            <a onClick="editFunc(${commentNo})">수정</a>
+            <a id="editB" onClick="editFunc(${commentNo})">수정</a>
             <hr>
             <a id="cmtDelBtn" href
 ="<c:url value='/indiv/community/cmtDelete.do?qstnNo=${map["QUESTION_NO"] }&cmtNo=${map["COMMENTRESPOND_NO"]}'/>"

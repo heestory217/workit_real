@@ -40,12 +40,6 @@
 	margin: 30px 0 25px 0;
 }
 
-.filter-catagories > li:nth-child(2) > a{
-	font-weight:bold;
-	color:#4c50bb;
-	font-size:19px;
-}
-
 .prev, .next{
     border: 1px solid #ecefff;
     width: 50%;

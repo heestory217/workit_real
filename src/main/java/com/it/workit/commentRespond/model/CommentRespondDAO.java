@@ -23,4 +23,5 @@ public interface CommentRespondDAO {
 	int selectAnswerer(int commentsNo);//답변 글쓴 회원 조회
 	int getAdoptMsg(GetMessageVO vo);	//답변 채택 메세지 받기
 	int updateCommentLike(int commentsNo);	//답변 채택
+	int getTotalAdoptComnt(int userNo);	
 }
