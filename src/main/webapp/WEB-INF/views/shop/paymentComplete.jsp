@@ -77,7 +77,7 @@
 			                                </c:if>
 				                   			<c:if test="${!empty ReviewMap}">
 				                                <th scope="col">서비스명</th>
-				                                <th scope="col">이력서 한줄평</th>
+				                                <th scope="col">후기 한줄평</th>
 				                                <th scope="col">가격</th>
 				                   			</c:if>
 				                   			<c:if test="${!empty AdMap}">
