@@ -58,5 +58,14 @@
           <beans:ref bean="AuthLoginInterceptor"/>
         </interceptor>
    </interceptors>	
+   
+   <beans:bean id="ManagerLoginInterceptor" class="com.it.workit.interceptor.ManagerLoginInterceptor" />  
+   <interceptors>
+       <interceptor>
+          <mapping path="/admin/**"/>
+          
+          <beans:ref bean="ManagerLoginInterceptor"/>
+        </interceptor>
+   </interceptors>
 
 </beans:beans>
