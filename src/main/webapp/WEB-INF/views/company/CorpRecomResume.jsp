@@ -44,10 +44,10 @@
                                     		</a>
                                    		</li>
                                    		
-                                   		<c:if test="${resume.buyChk eq 1 }">
+                                   		<c:if test="${matchVo.buyChk eq 1 }">
                                             	<li class="quick-view"><a href="<c:url value='/resumes/resumeDetail.do?resumeNo=${matchVo.resumesVo.resumeNo  }&type=Bought'/>">+ View</a></li>
                                        </c:if>
-                                       <c:if test="${resume.buyChk != 1 }">
+                                       <c:if test="${matchVo.buyChk != 1 }">
                                        		<li class="quick-view">
                                        			<a href="#" onclick="resumePurchase('${matchVo.resumesVo.resumeNo  }')">+ View</a>
                                  			</li>
