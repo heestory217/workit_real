@@ -236,8 +236,7 @@
 		    from
 		    (
 				select p.*, 
-				    (select USER_NAME from users where USER_NO=USER_INDIV_NO) AS USER_NAME,
-				    (select RESUME_TITLE from resumes where USER_NO=USER_INDIV_NO) AS RESUME_TITLE
+				    (select USER_NAME from users where USER_NO=USER_INDIV_NO) AS USER_NAME
 				from PROHIBITJOIN p
 				where USER_CORP_NO=#{userCorpNo}
 		    )A
