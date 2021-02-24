@@ -144,6 +144,11 @@ public class CorpApplicantController {
 	public String prohibit(@ModelAttribute ProhibitJoinPagingVO searchVo, HttpSession session, 
 			@RequestParam (defaultValue = "0") int userNo, Model model){
 		logger.info("입사지원제한자 페이지 보여주기");
+		if(session.getAttribute("userNo")==null) {
+			model.addAttribute("msg", "기업회원으로 로그인 후 이용가능합니다.");
+			model.addAttribute("url", "/users/login.do");
+			return "common/message";
+		}
 		int userCorpNo = (Integer) session.getAttribute("userNo");
 		searchVo.setUserCorpNo(userCorpNo);
 		
